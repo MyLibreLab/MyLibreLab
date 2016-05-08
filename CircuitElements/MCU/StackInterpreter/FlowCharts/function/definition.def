@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Function
+CAPTION_EN  = Function
+CAPTION_ES  = Function
+classcircuit= Function
+Icon        = bin/icon.gif

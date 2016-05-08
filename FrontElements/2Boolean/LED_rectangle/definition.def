@@ -1,0 +1,12 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+CAPTION         = Rectangle LED
+CAPTION_EN      = Rectangle LED
+CAPTION_ES      = Rectangle LED
+VM              = LED_rectangle.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = TRUE
+ICON            = icon.png
+ELEMENTIMAGE    = 
+SHOWINNERBORDER = TRUE

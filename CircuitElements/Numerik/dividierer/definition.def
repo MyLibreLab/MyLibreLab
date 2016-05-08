@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Dividierer
+CAPTION_EN = Divide
+CAPTION_ES = Dividir
+Jar= bin/Dividierer.jar
+ClassCircuit =Dividierer
+Icon= bin/Dividierer.gif

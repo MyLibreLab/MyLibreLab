@@ -1,0 +1,9 @@
+ISDIRECTORY     = FALSE
+CAPTION         = 
+CAPTION_EN      = 
+CAPTION_ES      = Display Decimal 3D
+VM              = Display3.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = TRUE
+ICON            = icon.gif

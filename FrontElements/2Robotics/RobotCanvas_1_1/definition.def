@@ -1,0 +1,8 @@
+ISDIRECTORY  = FALSE
+CAPTION	     = Robot Canvas (Robi 2D) V. 1.1
+CAPTION_EN   = Robot Canvas (Robi 2D) V. 1.1
+CAPTION_ES   = Robot Canvas (Robi 2D) V. 1.1
+ClassCircuit = RobotCanvas
+ClassFront   = Panel
+icon         = bin/icon.png
+ClassPath    = bin/RobotSimulatorI.jar

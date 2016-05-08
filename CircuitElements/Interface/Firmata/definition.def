@@ -1,0 +1,14 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+CAPTION         = Arduino Firmata IO Interface v1.0
+CAPTION_EN      = Arduino Firmata IO Interface v1.0
+CAPTION_ES      = Arduino Firmata IO Interface v1.0
+VM              = 
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = Firmata
+CLASSFRONT      = 
+ICON            = bin/icon.png
+ClassPath       = bin/RXTXcomm.jar
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

@@ -1,0 +1,16 @@
+InputPins  1
+OutputPins 2
+PIN_TYPE   0 INTEGER
+PIN_TYPE   1 INTEGER
+PIN_TYPE   2 INTEGER
+PIN_DESC   0 outA
+PIN_DESC   1 outB
+PIN_DESC   2 in
+
+PROCEDURE
+{
+  POP R0
+  PUSH R0
+  PUSH R0
+}
+

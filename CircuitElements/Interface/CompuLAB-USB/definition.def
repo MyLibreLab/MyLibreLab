@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = CompuLAB USB
+CAPTION_EN   = CompuLAB USB
+CAPTION_ES   = CompuLAB USB
+ClassCircuit = CompuLABUSB
+ICON         = bin/icon.gif

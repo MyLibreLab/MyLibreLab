@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Next
+CAPTION_EN   = Next
+CAPTION_ES   = Next
+ClassCircuit = XNext
+Icon         = bin/icon.gif

@@ -1,0 +1,6 @@
+ISDIRECTORY     = true
+CAPTION         = Eigene Elemente
+CAPTION_EN      = User defined Elements
+CAPTION_ES      = definido por el usario
+ICON            = icon.png
+VM_DIR_EDITABLE = TRUE

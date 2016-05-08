@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Helligkeit
+CAPTION_EN   = Brightnes
+CAPTION_ES   = Brillo
+ClassCircuit =  Aufhellen
+Icon= bin/Aufhellen.gif

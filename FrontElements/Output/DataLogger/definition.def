@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Data Logger
+CAPTION_EN= Data Logger
+CAPTION_ES= Registrador Datos
+ClassCircuit = DataLogger
+ClassFront=Panel
+Icon= bin/DataLogger.gif

@@ -1,0 +1,5 @@
+ISDIRECTORY = true
+CAPTION     = Numerik
+CAPTION_EN  = Numeric
+CAPTION_ES  = Numeric
+icon        = icon32.png

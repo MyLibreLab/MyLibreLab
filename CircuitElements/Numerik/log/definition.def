@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= log
+CAPTION_EN = log
+CAPTION_ES = log
+Jar= bin/Log.jar
+ClassCircuit =Log
+Icon= bin/Log.gif

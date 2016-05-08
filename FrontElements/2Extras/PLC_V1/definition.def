@@ -1,0 +1,13 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+CAPTION         = 
+CAPTION_EN      = 
+CAPTION_ES      = PLC V:1
+VM              = PLC_V1.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = TRUE
+ICON            = icon.png
+ELEMENTIMAGE    = 
+SHOWINNERBORDER = TRUE
+RESIZESYNCHRON  = TRUE

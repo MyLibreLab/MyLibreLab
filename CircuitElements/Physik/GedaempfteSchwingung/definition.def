@@ -1,0 +1,14 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+CAPTION         = GedaempfteSchwingungAAA
+CAPTION_EN      = GedaempfteSchwingungAAA
+CAPTION_ES      = Movimiento Amortiguado
+VM              = GedaempfteSchwingung.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon.png
+CLASSPATH       = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

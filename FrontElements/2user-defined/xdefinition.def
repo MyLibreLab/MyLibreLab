@@ -1,0 +1,6 @@
+ISDIRECTORY     = TRUE
+CAPTION         = Eigene Elemente2
+CAPTION_EN      = User defined Elements
+CAPTION_ES      = definido por el usario
+REDIRECT        = C:\Dokumente und Einstellungen\Rook\MyOpenLab\UserElements\FrontElements
+ICON            = library.png

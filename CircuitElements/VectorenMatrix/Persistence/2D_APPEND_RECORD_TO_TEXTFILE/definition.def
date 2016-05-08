@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Append 2D String To Textfile
+CAPTION_EN  = Append 2D String To Textfile
+CAPTION_ES  = Añade 2D String a FicheroTexto
+classCircuit= Append2DStringToFile
+icon        = bin/icon.gif

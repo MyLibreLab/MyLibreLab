@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Sub-VM Element for Logic-Panel
+CAPTION_EN   = Sub-VM Element for Logic-Panel
+CAPTION_ES   = Elemento Sub-VM Panel Circuito
+ClassCircuit = SubVM
+Icon         = bin/icon.png

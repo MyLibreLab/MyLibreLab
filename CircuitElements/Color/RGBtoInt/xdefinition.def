@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION= RGBtoInt
+CAPTION_EN=RGBtoInt
+CAPTION_ES=RGB a Integer
+ClassCircuit = RGBtoInt
+Icon= bin/icon.gif

@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = DFlipFlop
+CAPTION_EN   = DFlipFlop
+CAPTION_ES   = Biestable D
+ClassCircuit = DFlipFlop
+Icon         = bin/icon.gif

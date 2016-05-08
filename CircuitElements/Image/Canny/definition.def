@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= CannyDetector
+CAPTION_EN = CannyDetector
+CAPTION_ES = CannyDetector
+Jar= bin/CannyDetector.jar
+ClassCircuit =CannyDetector
+Icon= bin/CannyDetector.gif

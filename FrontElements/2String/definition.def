@@ -1,0 +1,5 @@
+ISDIRECTORY = true
+CAPTION     = String
+CAPTION_EN  = String
+CAPTION_ES  = String
+icon        = icon32.png

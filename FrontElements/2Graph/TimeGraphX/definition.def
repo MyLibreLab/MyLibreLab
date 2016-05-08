@@ -1,0 +1,7 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Time Graph X
+CAPTION_EN   = Time Graph X
+CAPTION_ES   = Time Graph X
+ClassCircuit = Oscilloscope
+ClassFront   = OscPanel
+Icon         = bin/Oscilloscope.GIF

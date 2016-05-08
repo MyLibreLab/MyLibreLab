@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Return
+CAPTION_EN   = Return
+CAPTION_ES   = Return
+ClassCircuit = Return
+Icon         = bin/icon.gif

@@ -1,0 +1,5 @@
+ISDIRECTORY = TRUE
+CAPTION= Abfragen
+CAPTION_EN=Queries
+CAPTION_ES=Comparaciones
+Icon= icon32.png

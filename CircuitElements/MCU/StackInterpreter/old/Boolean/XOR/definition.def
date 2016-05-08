@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+LOADER      = /CircuitElements/MCU/StackInterpreter/Loader
+CAPTION     = XOR
+CAPTION_EN  = XOR
+CAPTION_ES  = XOR
+classcircuit= Loader
+Icon        = icon.gif

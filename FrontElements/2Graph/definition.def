@@ -1,0 +1,5 @@
+ISDIRECTORY  = true
+CAPTION      = Graphen
+CAPTION_EN   = Graphs
+CAPTION_ES   = Graphs
+ICON         = icon.png

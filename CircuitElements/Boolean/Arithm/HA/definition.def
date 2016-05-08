@@ -1,0 +1,13 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+CAPTION         = Halb Addierer
+CAPTION_EN      = Half Addierer
+CAPTION_ES      = Semi Sumador
+VM              = HA.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon.gif
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

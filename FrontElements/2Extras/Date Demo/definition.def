@@ -1,0 +1,10 @@
+ISDIRECTORY     = FALSE
+CAPTION         = Date Demo
+CAPTION_EN      = Date Demo
+CAPTION_ES      = Date Demo
+VM              = Date Demo.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = TRUE
+ICON            = icon.png
+RESIZESYNCHRON  = TRUE

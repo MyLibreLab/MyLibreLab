@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Input-pin
+CAPTION_EN   = Input-pin
+CAPTION_ES   = Entrega Dato
+ClassCircuit = GetterDouble
+Icon         = bin/icon.gif

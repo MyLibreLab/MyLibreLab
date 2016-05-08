@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Beep
+CAPTION_EN   = Beep
+CAPTION_ES   = Beep
+ClassCircuit = Beep
+Icon         = bin/icon.gif

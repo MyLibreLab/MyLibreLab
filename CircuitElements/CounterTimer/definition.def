@@ -1,0 +1,5 @@
+ISDIRECTORY = TRUE
+CAPTION     = Zähler und Timer
+CAPTION_EN  = Contadores/ de tiempo 
+CAPTION_ES  = Utilidades
+Icon        = icon32.png

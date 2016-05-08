@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION= Weichzeichnen
+CAPTION_EN = Smooth
+CAPTION_ES = Alisar
+ClassCircuit =Weichzeichnen
+Icon= bin/Weichzeichnen.gif

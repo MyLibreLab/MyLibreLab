@@ -1,0 +1,5 @@
+ISDIRECTORY = TRUE
+CAPTION     = Arithm. Logische Schaltungen
+CAPTION_EN  = Arithm. Logic 
+CAPTION_ES  = Aritmético-Lógica 
+Icon        = icon32.png

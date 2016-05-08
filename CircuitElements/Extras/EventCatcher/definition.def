@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Mouse Event Catcher
+CAPTION_EN   = Mouse Event Catcher
+CAPTION_ES   = Control con Ratón
+classCircuit = EventCatcher
+Icon         = bin/icon.gif

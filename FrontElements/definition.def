@@ -1,0 +1,5 @@
+ISDIRECTORY = true
+CAPTION   = FrontElements
+CAPTION_EN= FrontElements
+CAPTION_ES= FrontElements
+ICONFILENAME = icon32.png

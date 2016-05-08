@@ -1,0 +1,5 @@
+ISDIRECTORY = true
+CAPTION     = Gruppenelement
+CAPTION_EN  = Group-Element
+CAPTION_ES  = Grupo de Elemntos
+Icon= icon32.png

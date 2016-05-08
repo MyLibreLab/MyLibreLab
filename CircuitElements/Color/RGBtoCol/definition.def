@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= RGBtoCol
+CAPTION_EN=RGBtoCol
+CAPTION_ES=RGB a Color
+Jar= bin/RGBtoCol.jar
+ClassCircuit = RGBtoCol
+Icon= bin/RGBtoCol.gif

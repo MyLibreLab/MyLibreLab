@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+LOADER      = /CircuitElements/MCU/StackInterpreter/Loader
+CAPTION     = RS-Flip Flop
+CAPTION_EN  = RS-Flip Flop
+CAPTION_ES  = RS-Flip Flop
+classcircuit= Loader
+Icon        = icon.gif

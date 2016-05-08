@@ -1,0 +1,5 @@
+ISDIRECTORY = true
+CAPTION= Eingabe
+CAPTION_EN= Input
+CAPTION_ES= Entrada
+icon= icon32.png

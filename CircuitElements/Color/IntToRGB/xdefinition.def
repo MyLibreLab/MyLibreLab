@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = IntToRGB
+CAPTION_EN  = IntToRGB
+CAPTION_ES  = IntToRGB
+ClassCircuit = IntToRGB
+Icon= bin/icon.gif

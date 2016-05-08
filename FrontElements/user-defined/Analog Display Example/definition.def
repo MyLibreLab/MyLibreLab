@@ -1,0 +1,9 @@
+ISDIRECTORY     = FALSE
+CAPTION         = Analog Display Example
+CAPTION_EN      = Analog Display Example
+CAPTION_ES      = Analog Display Example
+VM              = Analog Display Example.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT   = TRUE
+ICON            = icon.png

@@ -1,0 +1,8 @@
+ISDIRECTORY = FALSE
+CAPTION= ComboBox (INT)
+CAPTION_EN= ComboBox (INT)
+CAPTION_ES= Entrada (numérica)
+Jar = INTCombo
+ClassCircuit = INTCombo
+ClassFront = Panel
+Icon = bin/INTCombo.gif

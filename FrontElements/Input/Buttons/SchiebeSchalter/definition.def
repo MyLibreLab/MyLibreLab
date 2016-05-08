@@ -1,0 +1,8 @@
+ISDIRECTORY = FALSE
+CAPTION= Schiebe-Schalter
+CAPTION_EN= on/off switch
+CAPTION_ES= Interruptor on/off
+Jar= bin/SchiebeSchalter.jar
+ClassCircuit = SchiebeSchalter
+ClassFront = SchalterPanel
+Icon= bin/SchiebeSchalter.gif

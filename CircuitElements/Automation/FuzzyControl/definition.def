@@ -1,0 +1,7 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Fuzzy Control
+CAPTION_EN   = Fuzzy Control
+CAPTION_ES   = Control Fuzzy
+ClassCircuit = Fuzzy
+icon         = bin/icon.png
+ClassPath    = bin/jFuzzyLogic_1_2_1.jar

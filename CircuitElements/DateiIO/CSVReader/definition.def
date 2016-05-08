@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = CSV Einlesen
+CAPTION_EN   = CSV Reader
+CAPTION_ES   = Leer Fichero CSV
+classCircuit = CSVReader
+icon         = bin/icon.gif

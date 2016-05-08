@@ -1,0 +1,11 @@
+ISDIRECTORY     = FALSE
+CAPTION         = 
+CAPTION_EN      = 
+CAPTION_ES      = Interruptor de pared
+VM              = Interruptor2.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = TRUE
+ICON            = icon.gif
+ELEMENTIMAGE    = 
+SHOWINNERBORDER = TRUE

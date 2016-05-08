@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Set
+CAPTION_EN   = Set
+CAPTION_ES   = Set
+ClassCircuit = Set
+Icon         = bin/icon.gif

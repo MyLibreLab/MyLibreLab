@@ -1,0 +1,11 @@
+ISDIRECTORY     = FALSE
+CAPTION         = Getakteter JK Flip-Flop
+CAPTION_EN      = Clocked JK Flip-Flop
+CAPTION_ES      = Biestable JK con Reloj
+VM              = Clocked_JK_FF.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon.png
+ELEMENTIMAGE    = image.png
+SHOWINNERBORDER = FALSE

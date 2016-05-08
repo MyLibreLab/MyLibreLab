@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Mathm. Funkltionsgenerator
+CAPTION_EN = Math Graph Generator
+CAPTION_ES = Genera Gráfico
+Jar= bin/MathGraphGenerator.jar
+ClassCircuit =MathGraphGenerator
+Icon= bin/MathGraphGenerator.gif

@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Setter
+CAPTION_EN   = Setter
+CAPTION_ES   = Recoge dato
+ClassCircuit = SetterDouble
+Icon         = bin/icon.gif

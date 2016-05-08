@@ -1,0 +1,8 @@
+ISDIRECTORY = FALSE
+CAPTION= Scrollierbares Bild anzeigen
+CAPTION_EN= Show Scrollable Image
+CAPTION_ES= Show Scrollable Image
+Jar = bin/ShowImage.jar
+ClassCircuit = ShowImage
+ClassFront = Panel
+icon= bin/ShowImage.gif

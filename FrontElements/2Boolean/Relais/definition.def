@@ -1,0 +1,10 @@
+ISDIRECTORY     = FALSE
+CAPTION         = Relais
+CAPTION_EN      = Relais
+CAPTION_ES      = Relais
+VM              = Relais.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = TRUE
+ICON            = icon.png
+RESIZESYNCHRON  = TRUE

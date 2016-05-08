@@ -1,0 +1,13 @@
+InputPins  1
+OutputPins 1
+PIN_TYPE   0 BOOLEAN
+PIN_TYPE   1 BOOLEAN
+
+PIN_DESC   0 out
+PIN_DESC   1 in
+
+PROCEDURE
+{
+  S_NOT
+}
+

@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Print
+CAPTION_EN   = Print
+CAPTION_ES   = Print
+ClassCircuit = Output
+Icon         = bin/icon.gif

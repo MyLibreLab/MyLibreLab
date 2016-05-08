@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Dreieck
+CAPTION_EN  = Triangle
+CAPTION_ES  = Triángulo
+Classcircuit= Triangle
+Icon        = bin/Triangle.gif

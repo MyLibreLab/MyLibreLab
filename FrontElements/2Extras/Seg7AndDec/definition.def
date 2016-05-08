@@ -1,0 +1,8 @@
+ISDIRECTORY = FALSE
+CAPTION= Siebensegment Anzeige + Decoder
+CAPTION_EN= 7-Segment-Display + Decoder
+CAPTION_ES= Display 7 segmentos + Decodificador
+Jar= bin/Seg7AndDec.jar
+ClassCircuit=Seg7AndDec
+ClassFront=Panel
+Icon= bin/Seg7AndDec.gif

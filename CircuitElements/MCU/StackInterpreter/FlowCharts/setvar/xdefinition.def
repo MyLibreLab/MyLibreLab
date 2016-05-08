@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Set Variable
+CAPTION_EN  = Set Variable
+CAPTION_ES  = Set Variable
+classcircuit= Element
+Icon        = bin/icon.gif

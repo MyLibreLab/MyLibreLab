@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= DBL->Str
+CAPTION_EN= DBL->Str
+CAPTION_ES= Convierte DBL->Str
+Jar= bin/DBL2STR.jar
+ClassCircuit =DBL2STR
+Icon= bin/DBL2STR.gif

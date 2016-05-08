@@ -1,0 +1,126 @@
+LEFTPINS  3
+RIGHTPINS 2
+
+PIN_TYPE   0 BOOLEAN OUTPUT
+PIN_TYPE   1 BOOLEAN OUTPUT
+PIN_TYPE   2 BOOLEAN INPUT
+PIN_TYPE   3 BOOLEAN INPUT
+PIN_TYPE   4 BOOLEAN INPUT
+
+PINS_VISIBLE_TOP    FALSE
+PINS_VISIBLE_BOTTOM FALSE
+
+WIDTH 45
+HEIGHT 40
+
+PIN_DESC   0 Q1
+PIN_DESC   1 Q2
+PIN_DESC   2 EN
+PIN_DESC   3 C
+PIN_DESC   4 Reset
+
+GLOBALS
+{
+  DIM %procedure%_FLIP,BYTE
+}
+
+INIT
+{
+  //   MOV %procedure%_FLIP,0
+  PUSHB 0
+  POPB  %procedure%_FLIP
+
+  //   MOV %pin0%, 0
+  PUSHB 0
+  POPB  %pin0%
+
+  //  MOV %pin1%, 1
+  PUSHB 1
+  POPB  %pin1%
+
+  %notify0%
+  %notify1%
+}
+-
+PROCEDURE
+{
+  PUSHB %pin2%
+  PUSHB 0
+  IF_A=B
+  JMP_IF_FALSE %procedure%_EXIT
+
+  // RESET PRESSED?
+  PUSHB %pin4%
+  PUSHB 1
+  IF_A=B
+  JMP_IF_FALSE %procedure%_OK
+
+  PUSHB 0
+  POPB %procedure%_FLIP
+
+  //   MOV %pin0%, 0
+  PUSHB 0
+  POPB  R0
+  // Params : <OLD-VALUE>, <NEW_VALUE>, <NEXTELEMENT-LABEL>
+  NOTIFY_ON_CHANGED %pin0%, R0, %nextElement0%
+
+  //  MOV %pin1%, 1
+  PUSHB 1
+  POPB R0
+  // Params : <OLD-VALUE>, <NEW_VALUE>, <NEXTELEMENT-LABEL>
+  NOTIFY_ON_CHANGED %pin1%, R0, %nextElement1%
+
+  %notify0%
+  %notify1%
+  CALL %procedure%_EXIT
+  
+
+%procedure%_OK:
+
+  PUSHB %pin3%
+  PUSHB 1
+  IF_A=B
+  JMP_IF_FALSE %procedure%_EXIT
+
+  PUSHB %procedure%_FLIP
+  NOT
+  POPB %procedure%_FLIP
+
+  PUSHB %procedure%_FLIP
+  PUSHB 0  // BIT 0
+  REG_GET_BIT 
+  POPB %procedure%_FLIP
+       
+  PUSHB %procedure%_FLIP
+  PUSHB 1
+  IF_A=B
+  JMP_IF_FALSE %procedure%_NEXT
+
+
+  PUSHB 1
+  POPB R0
+  // Params : <OLD-VALUE>, <NEW_VALUE>, <NEXTELEMENT-LABEL>
+  NOTIFY_ON_CHANGED %pin0%, R0, %nextElement0%
+
+  //  MOV %pin1%, 1
+  PUSHB 0
+  POPB R0
+  // Params : <OLD-VALUE>, <NEW_VALUE>, <NEXTELEMENT-LABEL>
+  NOTIFY_ON_CHANGED %pin1%, R0, %nextElement1%
+
+
+
+  goto %procedure%_EXIT
+
+%procedure%_NEXT:
+  PUSHB 0
+  POPB %pin0%
+  PUSHB 1
+  POPB %pin1%
+
+  %notify0%
+  %notify1%
+
+%procedure%_EXIT:
+}
+

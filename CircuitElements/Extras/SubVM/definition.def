@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Sub-VM Element
+CAPTION_EN   = Sub-VM Element
+CAPTION_ES   = Elemento Sub-VM
+ClassCircuit = SubVM
+Icon         = bin/icon.png

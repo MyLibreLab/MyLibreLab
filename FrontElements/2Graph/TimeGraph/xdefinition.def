@@ -1,0 +1,13 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+CAPTION         = Data Logger
+CAPTION_EN      = Data Logger
+CAPTION_ES      = Registrador Datos
+VM              = TimeGraph.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = TRUE
+ICON            = oscilloscope.gif
+ELEMENTIMAGE    = icon.gif
+SHOWINNERBORDER = TRUE
+RESIZESYNCHRON  = FALSE

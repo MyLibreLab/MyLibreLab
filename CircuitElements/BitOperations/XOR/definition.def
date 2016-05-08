@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION=     XOR Bit-Operation
+CAPTION_EN = XOR Bit-Operation
+CAPTION_ES = XOR Operación Bit
+ClassCircuit= XOR
+icon= bin/icon.gif

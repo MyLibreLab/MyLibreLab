@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = 2D Info
+CAPTION_EN  = 2D Info
+CAPTION_ES  = 2D Info
+ClassCircuit= Info2D
+Icon        = bin/icon.gif

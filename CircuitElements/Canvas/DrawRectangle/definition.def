@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Rechteck zeichnen
+CAPTION_EN   = DrawRectangle
+CAPTION_ES   = Dibuja Rectángulo
+ClassCircuit = DrawRectangle
+Icon         = bin/icon.gif

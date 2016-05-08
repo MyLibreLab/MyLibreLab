@@ -1,0 +1,12 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+CAPTION         = Druckschalter
+CAPTION_EN      = Press switch
+CAPTION_ES      = Press switch
+VM              = Button_Press_Switch.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = TRUE
+ICON            = icon.gif
+ELEMENTIMAGE    = icon.gif
+SHOWINNERBORDER = TRUE

@@ -1,0 +1,5 @@
+ISDIRECTORY  = true
+CAPTION      = alte Graphen
+CAPTION_EN   = old Graphs
+CAPTION_ES   = old Graphs
+ICON         = icon.png

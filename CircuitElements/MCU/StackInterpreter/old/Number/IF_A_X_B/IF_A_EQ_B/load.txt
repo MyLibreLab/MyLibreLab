@@ -1,0 +1,40 @@
+LEFTPINS  2
+RIGHTPINS 1
+
+PIN_TYPE   0 BOOLEAN OUTPUT
+PIN_TYPE   1 BOOLEAN INPUT
+PIN_TYPE   2 BOOLEAN INPUT
+
+PINS_VISIBLE_TOP    FALSE
+PINS_VISIBLE_BOTTOM FALSE
+
+PIN_DESC   0 out
+PIN_DESC   1 inA
+PIN_DESC   2 inB
+
+
+WIDTH 40
+HEIGHT 30
+
+
+INIT
+{
+  CALL %procedure%
+}
+
+PROCEDURE
+{
+  CMP %pin1%, %pin2%
+  JMP_IF_A=B %procedure%_OK
+  PUSH 0
+  POP %pin0%
+  %notify0%
+  GOTO %procedure%_EXIT
+%procedure%_OK:
+
+  PUSH 1
+  POP %pin0%
+  %notify0%
+%procedure%_EXIT:
+}
+

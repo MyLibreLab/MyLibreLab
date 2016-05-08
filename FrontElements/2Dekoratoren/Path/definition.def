@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Path
+CAPTION_EN  = Path
+CAPTION_ES  = Path
+ClassFront  = Path
+Icon        = bin/draw-path.png

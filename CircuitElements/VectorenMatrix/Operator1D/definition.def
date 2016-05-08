@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Operator-1D
+CAPTION_EN  = Operator-1D
+CAPTION_ES  = Operador-1D
+ClassCircuit= Operator1D
+Icon        = bin/Operator1D.gif

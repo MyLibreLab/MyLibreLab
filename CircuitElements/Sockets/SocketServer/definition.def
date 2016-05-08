@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= SocketServer
+CAPTION_EN = SocketServer
+CAPTION_ES = Conexion Servidor
+Jar= bin/SocketServer.jar
+ClassCircuit =SocketServer
+Icon= bin/SocketServer.gif

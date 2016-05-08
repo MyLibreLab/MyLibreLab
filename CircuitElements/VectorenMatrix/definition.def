@@ -1,0 +1,5 @@
+ISDIRECTORY = TRUE
+CAPTION     = Vectoren und Matrizen
+CAPTION_EN  = Vectors and Matrix
+CAPTION_ES  = Vectors and Matrix
+Icon        = icon32.png

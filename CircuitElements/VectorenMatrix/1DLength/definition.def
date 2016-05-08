@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = 1D-Length
+CAPTION_EN   = 1D-Length
+CAPTION_ES   = 1D-Longitud
+ClassCircuit = Length1D
+Icon         = bin/Length.gif

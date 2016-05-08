@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Rechner ext.
+CAPTION_EN   = Calculator ext.
+CAPTION_ES   = Calculadora ext.
+ClassCircuit = MathCalc
+Icon         = bin/icon.png

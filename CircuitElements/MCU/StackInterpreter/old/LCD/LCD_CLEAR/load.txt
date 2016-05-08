@@ -1,0 +1,17 @@
+InputPins  1
+OutputPins 1
+
+PIN_TYPE   0 INTEGER
+PIN_TYPE   1 INTEGER
+
+PIN_DESC   0 Out
+PIN_DESC   1 In
+
+
+PROCEDURE
+{
+  LCD_CLR
+  MOV %pin0%, %pin1%
+  %notify0%
+}
+

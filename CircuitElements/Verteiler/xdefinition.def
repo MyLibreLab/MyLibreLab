@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Verteiler
+CAPTION_EN= Splitter
+CAPTION_ES= Nudo de Union
+Jar= bin/Verteiler.jar
+ClassCircuit = Verteiler
+Icon = bin/Verteiler.gif

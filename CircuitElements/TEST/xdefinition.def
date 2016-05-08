@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = TEST ELEMENT
+CAPTION_EN   = TEST ELEMENT
+CAPTION_ES   = TEST ELEMENT
+classCircuit =TEST
+Icon         = bin/test.gif

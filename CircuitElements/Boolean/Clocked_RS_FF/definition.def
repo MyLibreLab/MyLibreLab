@@ -1,0 +1,11 @@
+ISDIRECTORY     = FALSE
+CAPTION         = Taktgesteuertes RS Flip-Flop
+CAPTION_EN      = Clocked RS flipflop 
+CAPTION_ES      = Biestable RS con Reloj 
+VM              = SCR_FLIPFLOP.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = xicon.png
+ELEMENTIMAGE    = image.png
+SHOWINNERBORDER  = FALSE

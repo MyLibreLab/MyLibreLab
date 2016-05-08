@@ -1,0 +1,8 @@
+ISDIRECTORY = FALSE
+CAPTION= Bild anzeigen
+CAPTION_EN= Show Image
+CAPTION_ES= Mostrar Imagen
+Jar = bin/ShowImage.jar
+ClassCircuit = ShowImage
+ClassFront = Panel
+icon= bin/ShowImage.gif

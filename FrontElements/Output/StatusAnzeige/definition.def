@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Statusanzeige
+CAPTION_EN= Status Display
+CAPTION_ES= Status Display
+ClassCircuit = StatusDisplay
+ClassFront = Panel
+Icon= bin/icon.gif

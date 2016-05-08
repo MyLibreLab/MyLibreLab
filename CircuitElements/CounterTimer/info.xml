@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <caption>Zähler und Timer</caption>
+  <caption_en>Counter and Timer</caption_en>
+  <caption_es>Contadores/ de tiempo</caption_es>
+  <categorie>Education</categorie>
+  <author>Carmelo Salafia</author>
+  <email>cswi@gmx.de</email>
+  <web>http://myopenlab.de</web>
+  <version>1.0.0.0</version>
+  <date>07.04.2016</date>
+  <dest_path>/CircuitElements/CounterTimer</dest_path>
+  <type>CircuitElements</type>
+  <content>
+  </content>
+</root>

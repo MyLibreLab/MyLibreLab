@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = ADC Input
+CAPTION_EN  = ADC Input
+CAPTION_ES  = ADC Input
+classCircuit= ADC
+Icon        = bin/icon.gif

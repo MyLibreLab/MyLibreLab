@@ -1,0 +1,9 @@
+ISDIRECTORY     = FALSE
+CAPTION         = 
+CAPTION_EN      = 
+CAPTION_ES      = Movimiento Caida
+VM              = Mov_caida.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon.gif
