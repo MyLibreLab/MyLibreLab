@@ -1,0 +1,7 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Javascript
+CAPTION_EN   = Javascript
+CAPTION_ES   = Javascript
+classCircuit = Javascript
+resizable=true
+Icon         = bin/icon.png

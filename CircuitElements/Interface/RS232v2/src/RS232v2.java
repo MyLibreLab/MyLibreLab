@@ -159,6 +159,7 @@ public class RS232v2 extends JVSMain implements MyOpenLabDriverOwnerIF {
 
         driver = element.jOpenDriver("MyOpenLab.RS232", args);
 
+        comport.clear();
         comport.addItem("");
 
         if (driver != null) {
