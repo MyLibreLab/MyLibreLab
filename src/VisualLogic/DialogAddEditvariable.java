@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package VisualLogic;
 
 import MyParser.OpenVariable;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -35,6 +36,7 @@ public class DialogAddEditvariable extends javax.swing.JDialog
         
         java.awt.event.ActionListener actionListener = new java.awt.event.ActionListener() 
         {
+          @Override
           public void actionPerformed(java.awt.event.ActionEvent actionEvent) 
           {                
             dispose();            
@@ -72,7 +74,7 @@ public class DialogAddEditvariable extends javax.swing.JDialog
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Double", "String", "Boolean" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Double", "String", "Boolean", "Integer", "1D_Double", "1D_String", "1D_Boolean", "1D_Integer", "2D_Double", "2D_String", "2D_Boolean", "2D_Integer", " " }));
 
         jLabel1.setText(bundle.getString("DATATYPE")); // NOI18N
 
@@ -132,7 +134,7 @@ public class DialogAddEditvariable extends javax.swing.JDialog
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
         
-        if (evt.getKeyCode()==evt.VK_ENTER)
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER)
         {
             abschliessen();
         }

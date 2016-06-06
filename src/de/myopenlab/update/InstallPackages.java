@@ -32,7 +32,7 @@ public class InstallPackages implements Runnable {
                         String type = row.getType();
 
                         
-                        String domain=settings.repository_domain;
+                        String domain=settings.getRepository_domain();
                         
                         String source = domain+"/repository/get_package.php?type="+row.getType()+"&package_name="+row.getName();
                         source=source.replaceAll(" ", "%20");

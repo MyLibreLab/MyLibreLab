@@ -18,10 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic;
 
-import java.awt.Cursor;
 import java.io.File;
-import java.util.ArrayList;
-import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 
 /**
@@ -305,7 +302,8 @@ public class DialogDistributionAssistent extends javax.swing.JDialog
 
     private void make()
     {
-        jTextField3.setText(jTextField1.getText()+"\\"+jTextField4.getText());
+
+        jTextField3.setText(jTextField1.getText()+File.separator+jTextField4.getText());
     }
     
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed

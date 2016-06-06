@@ -85,4 +85,6 @@ public interface VSBasisIF
     
     public abstract Stack getStack();    
     
+    public String getJavascriptEditor();
+    
 }

@@ -159,7 +159,7 @@ public class VSDataType
         list[19]="C_CANVAS";
         list[20]="C_FONT";
         list[21]="C_FLOWINFO";
-        
+                
         return list;        
     }
     
@@ -295,6 +295,7 @@ public class VSDataType
           case ExternalIF.C_ARRAY1D_DOUBLE   : color=orange;               break;
           case ExternalIF.C_ARRAY1D_STRING   : color=strColor;             break;          
           case ExternalIF.C_ARRAY1D_BYTE     : color=new Color(150,120,10);break;
+          
           case ExternalIF.C_ARRAY2D_BYTE     : color=new Color(150,120,10);break;                    
           case ExternalIF.C_ARRAY2D_BOOLEAN  : color=Color.GREEN;          break;
           case ExternalIF.C_ARRAY2D_INTEGER  : color=Color.BLUE;           break;

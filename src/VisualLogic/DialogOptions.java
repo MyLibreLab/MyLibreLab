@@ -43,13 +43,13 @@ public class DialogOptions extends javax.swing.JDialog
         
         this.settings=settings;
         
-        txtUserdefPath.setText(settings.userdefinedElementsPath);
+        txtUserdefPath.setText(settings.getUserdefinedElementsPath());
         
-        int rx1=settings.circuitRasterX;
-        int ry1=settings.circuitRasterY;
+        int rx1=settings.getCircuitRasterX();
+        int ry1=settings.getCircuitRasterY();
         
-        int rx2=settings.frontRasterX;
-        int ry2=settings.frontRasterY;
+        int rx2=settings.getFrontRasterX();
+        int ry2=settings.getFrontRasterY();
 
         
         SpinnerNumberModel modelA2 = new SpinnerNumberModel( rx1, 1.0, 100.0, 1 );
@@ -109,10 +109,12 @@ public class DialogOptions extends javax.swing.JDialog
         jButton4 = new javax.swing.JButton();
         txtHTMLEditor = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         txtGraphicEditor = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        txtJavascriptEditor = new javax.swing.JTextField();
+        jButton7 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtUserdefPath = new javax.swing.JTextField();
@@ -121,11 +123,6 @@ public class DialogOptions extends javax.swing.JDialog
         jPanel7 = new javax.swing.JPanel();
         jCheckBox5 = new javax.swing.JCheckBox();
         jCheckBox6 = new javax.swing.JCheckBox();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        txtProxyHost = new javax.swing.JTextField();
-        txtProxyPort = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -133,6 +130,10 @@ public class DialogOptions extends javax.swing.JDialog
         txtRepositoryURL = new javax.swing.JTextField();
         txtRepositoryLoginUser = new javax.swing.JTextField();
         txtRepositoryLoginPassword = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtProxyHost = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        txtProxyPort = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -280,32 +281,6 @@ public class DialogOptions extends javax.swing.JDialog
 
         jLabel2.setText(bundle.getString("HTML_Editor")); // NOI18N
 
-        org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jLabel2)
-                .add(5, 5, 5)
-                .add(txtHTMLEditor, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jButton4)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel2Layout.createSequentialGroup()
-                .add(40, 40, 40)
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jButton4)
-                    .add(txtHTMLEditor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel2))
-                .addContainerGap(111, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab(bundle.getString("Editoren"), jPanel2); // NOI18N
-
         jLabel6.setText(bundle.getString("imageEditor")); // NOI18N
 
         txtGraphicEditor.setText(bundle.getString("DialogOptions.txtGraphicEditor.text")); // NOI18N
@@ -317,31 +292,65 @@ public class DialogOptions extends javax.swing.JDialog
             }
         });
 
-        org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel4Layout.createSequentialGroup()
+        jLabel13.setText(bundle.getString("javascript_editor")); // NOI18N
+
+        txtJavascriptEditor.setText(bundle.getString("DialogOptions.txtJavascriptEditor.text")); // NOI18N
+
+        jButton7.setText(bundle.getString("DialogOptions.jButton7.text")); // NOI18N
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabel6)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(txtGraphicEditor, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jButton6)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabel2)
+                    .add(jLabel6)
+                    .add(jLabel13))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 16, Short.MAX_VALUE)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(txtJavascriptEditor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 347, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jButton7))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(txtHTMLEditor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jButton4))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .add(txtGraphicEditor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 347, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jButton6)))
                 .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel4Layout.createSequentialGroup()
-                .add(48, 48, 48)
-                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel6)
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel2Layout.createSequentialGroup()
+                .add(16, 16, 16)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel2)
+                    .add(txtHTMLEditor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jButton4))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jButton6)
-                    .add(txtGraphicEditor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(103, Short.MAX_VALUE))
+                    .add(txtGraphicEditor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel6))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(txtJavascriptEditor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel13)
+                    .add(jButton7))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab(bundle.getString("imageEditor"), jPanel4); // NOI18N
+        jTabbedPane1.addTab(bundle.getString("Editoren"), jPanel2); // NOI18N
 
         jLabel1.setText(bundle.getString("DialogOptions.jLabel1.text")); // NOI18N
 
@@ -423,45 +432,6 @@ public class DialogOptions extends javax.swing.JDialog
 
         jTabbedPane1.addTab(bundle.getString("DialogOptions.jPanel7.TabConstraints.tabTitle"), jPanel7); // NOI18N
 
-        jLabel3.setText(bundle.getString("DialogOptions.jLabel3.text")); // NOI18N
-
-        jLabel9.setText(bundle.getString("DialogOptions.jLabel9.text")); // NOI18N
-
-        txtProxyHost.setText(bundle.getString("DialogOptions.txtProxyHost.text")); // NOI18N
-
-        txtProxyPort.setText(bundle.getString("DialogOptions.txtProxyPort.text")); // NOI18N
-
-        org.jdesktop.layout.GroupLayout jPanel8Layout = new org.jdesktop.layout.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jLabel3)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(txtProxyHost, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 128, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jLabel9)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(txtProxyPort, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(298, Short.MAX_VALUE))
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(jLabel9)
-                        .add(txtProxyPort, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(jLabel3)
-                        .add(txtProxyHost, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(140, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab(bundle.getString("DialogOptions.jPanel8.TabConstraints.tabTitle"), jPanel8); // NOI18N
-
         jLabel10.setText(bundle.getString("DialogOptions.jLabel10.text")); // NOI18N
 
         jLabel11.setText(bundle.getString("DialogOptions.jLabel11.text")); // NOI18N
@@ -474,31 +444,56 @@ public class DialogOptions extends javax.swing.JDialog
 
         txtRepositoryLoginPassword.setText(bundle.getString("DialogOptions.txtRepositoryLoginPassword.text")); // NOI18N
 
+        jLabel3.setText(bundle.getString("DialogOptions.jLabel3.text")); // NOI18N
+
+        txtProxyHost.setText(bundle.getString("DialogOptions.txtProxyHost.text")); // NOI18N
+
+        jLabel9.setText(bundle.getString("DialogOptions.jLabel9.text")); // NOI18N
+
+        txtProxyPort.setText(bundle.getString("DialogOptions.txtProxyPort.text")); // NOI18N
+
         org.jdesktop.layout.GroupLayout jPanel9Layout = new org.jdesktop.layout.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(jPanel9Layout.createSequentialGroup()
-                        .add(jLabel12)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(txtRepositoryLoginPassword))
-                    .add(jPanel9Layout.createSequentialGroup()
-                        .add(jLabel11)
-                        .add(34, 34, 34)
-                        .add(txtRepositoryLoginUser))
-                    .add(jPanel9Layout.createSequentialGroup()
-                        .add(jLabel10)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(txtRepositoryURL, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 198, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(270, Short.MAX_VALUE))
+                .add(jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                        .add(jPanel9Layout.createSequentialGroup()
+                            .add(jLabel12)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                            .add(txtRepositoryLoginPassword, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE))
+                        .add(jPanel9Layout.createSequentialGroup()
+                            .add(jLabel11)
+                            .add(34, 34, 34)
+                            .add(txtRepositoryLoginUser))
+                        .add(jPanel9Layout.createSequentialGroup()
+                            .add(jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(jLabel10)
+                                .add(jLabel9))
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                            .add(jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(txtRepositoryURL)
+                                .add(jPanel9Layout.createSequentialGroup()
+                                    .add(txtProxyPort, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(0, 0, Short.MAX_VALUE))
+                                .add(txtProxyHost))))
+                    .add(jLabel3))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel9Layout.createSequentialGroup()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
+                .add(jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel3)
+                    .add(txtProxyHost, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel9)
+                    .add(txtProxyPort, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel10)
                     .add(txtRepositoryURL, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -510,7 +505,7 @@ public class DialogOptions extends javax.swing.JDialog
                 .add(jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel12)
                     .add(txtRepositoryLoginPassword, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(bundle.getString("DialogOptions.jPanel9.TabConstraints.tabTitle"), jPanel9); // NOI18N
@@ -619,41 +614,42 @@ public class DialogOptions extends javax.swing.JDialog
         Double frontDY=(Double)jSpinner2.getValue();
         //owner.getFrontBasis().setRaster(x.intValue(),y.intValue());
         
-        settings.proxy_host=txtProxyHost.getText();
-        settings.proxy_port=txtProxyPort.getText();
+        settings.setProxy_host(txtProxyHost.getText());
+        settings.setProxy_port(txtProxyPort.getText());
         
-        settings.circuitRasterOn=jCheckBox3.isSelected();
-        settings.circuittAlignToGrid=jCheckBox4.isSelected();
-        settings.circuitRasterX=(int)circuitDX.doubleValue();
-        settings.circuitRasterY=(int)circuitDY.doubleValue();
+        settings.setCircuitRasterOn(jCheckBox3.isSelected());
+        settings.setCircuittAlignToGrid(jCheckBox4.isSelected());
+        settings.setCircuitRasterX((int)circuitDX.doubleValue());
+        settings.setCircuitRasterY((int)circuitDY.doubleValue());
                 
-        settings.frontRasterOn=jCheckBox1.isSelected();
-        settings.frontAlignToGrid=jCheckBox2.isSelected();
-        settings.frontRasterX=(int)frontDX.doubleValue();
-        settings.frontRasterY=(int)frontDY.doubleValue();
+        settings.setFrontRasterOn(jCheckBox1.isSelected());
+        settings.setFrontAlignToGrid(jCheckBox2.isSelected());
+        settings.setFrontRasterX((int)frontDX.doubleValue());
+        settings.setFrontRasterY((int)frontDY.doubleValue());
         
-        settings.circuitCrossVisible=jCheckBox5.isSelected();
+        settings.setCircuitCrossVisible(jCheckBox5.isSelected());
         
         //settings.javaEditor=txtJavaEditor.getText();
-        settings.HTMLEditor=txtHTMLEditor.getText();
+        settings.setHTMLEditor(txtHTMLEditor.getText());
         //settings.jdkBin=txtJDKBIN.getText();
-        settings.graphicEditor=txtGraphicEditor.getText();
+        settings.setGraphicEditor(txtGraphicEditor.getText());
                 
-        settings.elementIDVisible=jCheckBox6.isSelected();
+        settings.setElementIDVisible(jCheckBox6.isSelected());
         
         String userPath=txtUserdefPath.getText();
-        if (!settings.userdefinedElementsPath.equalsIgnoreCase(userPath))
+        if (!settings.getUserdefinedElementsPath().equalsIgnoreCase(userPath))
         {
             frameMain.createUserElementSubDirs(txtUserdefPath.getText());
           //settings.userdefinedElementsPath=txtUserdefPath.getText();    
         }
             
-        settings.repository_domain=txtRepositoryURL.getText();
-        settings.repository_login_username=txtRepositoryLoginUser.getText();
-        settings.repository_login_password=txtRepositoryLoginPassword.getText();
+        settings.setRepository_domain(txtRepositoryURL.getText());
+        settings.setRepository_login_username(txtRepositoryLoginUser.getText());
+        settings.setRepository_login_password(txtRepositoryLoginPassword.getText());
         
+        settings.setJavascript_editor(txtJavascriptEditor.getText());
         
-        Tools.userElementPath=settings.userdefinedElementsPath;
+        Tools.userElementPath=settings.getUserdefinedElementsPath();
         
         result=true;
         dispose();
@@ -668,6 +664,14 @@ public class DialogOptions extends javax.swing.JDialog
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
       frameMain.copyUserdefElements();
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        String str=chooseFile(txtJavascriptEditor.getText(),false);
+        if (str!=null)
+        {
+            txtJavascriptEditor.setText(str);
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
     
     
     public void execute(Settings settings)
@@ -675,27 +679,28 @@ public class DialogOptions extends javax.swing.JDialog
         this.settings=settings;
         
         
-        txtRepositoryURL.setText(settings.repository_domain);
-        txtRepositoryLoginUser.setText(settings.repository_login_username);
-        txtRepositoryLoginPassword.setText(settings.repository_login_password);
+        txtRepositoryURL.setText(settings.getRepository_domain());
+        txtRepositoryLoginUser.setText(settings.getRepository_login_username());
+        txtRepositoryLoginPassword.setText(settings.getRepository_login_password());
 
         
-        txtHTMLEditor.setText(settings.HTMLEditor);
-        txtGraphicEditor.setText(settings.graphicEditor);
+        txtHTMLEditor.setText(settings.getHTMLEditor());
+        txtGraphicEditor.setText(settings.getGraphicEditor());
         
-        jCheckBox1.setSelected(settings.frontRasterOn);
-        jCheckBox2.setSelected(settings.frontAlignToGrid);
+        jCheckBox1.setSelected(settings.isFrontRasterOn());
+        jCheckBox2.setSelected(settings.isFrontAlignToGrid());
 
-        jCheckBox3.setSelected(settings.circuitRasterOn);
-        jCheckBox4.setSelected(settings.circuittAlignToGrid);
+        jCheckBox3.setSelected(settings.isCircuitRasterOn());
+        jCheckBox4.setSelected(settings.isCircuittAlignToGrid());
         
-        jCheckBox5.setSelected(settings.circuitCrossVisible);        
-        jCheckBox6.setSelected(settings.elementIDVisible);
+        jCheckBox5.setSelected(settings.isCircuitCrossVisible());        
+        jCheckBox6.setSelected(settings.isElementIDVisible());
         
         
-        txtProxyHost.setText(settings.proxy_host);
-        txtProxyPort.setText(settings.proxy_port);
+        txtProxyHost.setText(settings.getProxy_host());
+        txtProxyPort.setText(settings.getProxy_port());
         
+        txtJavascriptEditor.setText(settings.getJavascript_editor());
         
         setVisible(true);        
     }
@@ -710,6 +715,7 @@ public class DialogOptions extends javax.swing.JDialog
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
@@ -720,6 +726,7 @@ public class DialogOptions extends javax.swing.JDialog
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -731,11 +738,9 @@ public class DialogOptions extends javax.swing.JDialog
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JSpinner jSpinner2;
@@ -744,6 +749,7 @@ public class DialogOptions extends javax.swing.JDialog
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField txtGraphicEditor;
     private javax.swing.JTextField txtHTMLEditor;
+    private javax.swing.JTextField txtJavascriptEditor;
     private javax.swing.JTextField txtProxyHost;
     private javax.swing.JTextField txtProxyPort;
     private javax.swing.JTextField txtRepositoryLoginPassword;

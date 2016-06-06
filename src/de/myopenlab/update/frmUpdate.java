@@ -82,8 +82,8 @@ public class frmUpdate extends javax.swing.JFrame {
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-        String username = settings.repository_login_username;
-        String password = settings.repository_login_password;
+        String username = settings.getRepository_login_username();
+        String password = settings.getRepository_login_password();
 
         String userpass = username + ":" + password;
         String basicAuth = "Basic " + javax.xml.bind.DatatypeConverter.printBase64Binary(userpass.getBytes());
@@ -118,7 +118,7 @@ public class frmUpdate extends javax.swing.JFrame {
         String JSON_DATA = "";
         try {
 
-            String domain = settings.repository_domain;
+            String domain = settings.getRepository_domain();
             
             if (domain.trim().equalsIgnoreCase("http://myopenlab.de")){
                 domain="https://myopenlab.de";
@@ -277,13 +277,13 @@ public class frmUpdate extends javax.swing.JFrame {
 
                 if (files.indexOf(row.getEntry_name()) == -1 && row.getType().equalsIgnoreCase(type)) {
 
-                    String url = settings.repository_domain + "/repository/new/" + row.getType() + "/" + row.getEntry_name() + "/definition.def";
+                    String url = settings.getRepository_domain() + "/repository/new/" + row.getType() + "/" + row.getEntry_name() + "/definition.def";
 
                     url = url.replaceAll(" ", "%20");
                     String definition_def = getStringFromUrl(url);
                     DFProperties definition = Tools.getProertiesFromDefinitionString(definition_def);
 
-                    URL icon_url = new URL(settings.repository_domain + "/repository/new/" + row.getType() + "/" + row.getEntry_name() + "/" + definition.iconFilename);
+                    URL icon_url = new URL(settings.getRepository_domain() + "/repository/new/" + row.getType() + "/" + row.getEntry_name() + "/" + definition.iconFilename);
                     ImageIcon icon = new ImageIcon(icon_url);
 
                     MyTableRow newRow = new MyTableRow(false, icon, row.getEntry_name(), row.getCategorie(), row.getDate(), row.getAuthor(), row.getType());
@@ -343,8 +343,8 @@ public class frmUpdate extends javax.swing.JFrame {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
 
-                String username = settings.repository_login_username;
-                String password = settings.repository_login_password;
+                String username = settings.getRepository_login_username();
+                String password = settings.getRepository_login_password();
 
                 return new PasswordAuthentication(username, password.toCharArray());
             }
@@ -625,20 +625,20 @@ public class frmUpdate extends javax.swing.JFrame {
 
         initComponents();
 
-        if (settings.proxy_host.trim().length() > 0) {
-            System.setProperty("http.proxyHost", settings.proxy_host.trim());
-            System.out.println("http.proxyHost=" + settings.proxy_host.trim());
+        if (settings.getProxy_host().trim().length() > 0) {
+            System.setProperty("http.proxyHost", settings.getProxy_host().trim());
+            System.out.println("http.proxyHost=" + settings.getProxy_host().trim());
         } else {
             System.setProperty("http.proxyHost", "");
         }
-        if (settings.proxy_port.trim().length() > 0) {
-            System.setProperty("http.proxyPort", settings.proxy_port.trim());
-            System.out.println("http.proxyPort=" + settings.proxy_port.trim());
+        if (settings.getProxy_port().trim().length() > 0) {
+            System.setProperty("http.proxyPort", settings.getProxy_port().trim());
+            System.out.println("http.proxyPort=" + settings.getProxy_port().trim());
         } else {
             System.setProperty("http.proxyPort", "");
         }
 
-        if (settings.repository_domain.trim().length() > 0 && settings.repository_login_username.trim().length() > 0 && settings.repository_login_password.trim().length() > 0) {
+        if (settings.getRepository_domain().trim().length() > 0 && settings.getRepository_login_username().trim().length() > 0 && settings.getRepository_login_password().trim().length() > 0) {
             jMenuItemUploadPackage.setEnabled(true);
         } else {
             jMenuItemUploadPackage.setEnabled(false);
@@ -1287,7 +1287,7 @@ public class frmUpdate extends javax.swing.JFrame {
 
                 zipFiles.zipDirectory(dir, zipDirName);
 
-                String url = settings.repository_domain + "/upload/upload.php";
+                String url = settings.getRepository_domain() + "/upload/upload.php";
                 String charset = "UTF-8";
                 File binaryFile = temp;
 

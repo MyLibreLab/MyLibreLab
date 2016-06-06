@@ -69,6 +69,7 @@ public class JPin extends VisualObject implements MouseListener, MouseMotionList
     {
         pointPin=true;
     }
+    
     public String getDescription() {return description;}
     
     /** Creates a new instance of JMainElement */

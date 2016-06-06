@@ -49,8 +49,8 @@ public class Tools2 {
         URL url = new URL(urlzip);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-        String username = settings.repository_login_username;
-        String password = settings.repository_login_password;
+        String username = settings.getRepository_login_username();
+        String password = settings.getRepository_login_password();
 
         String userpass = username + ":" + password;
         String basicAuth = "Basic " + javax.xml.bind.DatatypeConverter.printBase64Binary(userpass.getBytes());

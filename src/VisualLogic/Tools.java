@@ -41,7 +41,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-/**
+/** 
  *
  * @author Homer
  */
@@ -239,7 +239,7 @@ public class Tools
     public static void openPaint(File file)
     {
         String cmd = "";
-        cmd = "cmd /c start " + Tools.settings.graphicEditor + " \"" + file.getAbsolutePath() + "\"";
+        cmd = "cmd /c start " + Tools.settings.getGraphicEditor() + " \"" + file.getAbsolutePath() + "\"";
 
         try
         {

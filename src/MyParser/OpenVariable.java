@@ -37,6 +37,7 @@ public class OpenVariable {
         if (datatype==0) dt="Double";
         if (datatype==1) dt="String";
         if (datatype==2) dt="Boolean";
+        if (datatype==3) dt="Integer";
         
         return name+" ("+dt+")";
     }

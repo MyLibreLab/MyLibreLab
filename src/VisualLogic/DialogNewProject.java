@@ -38,7 +38,7 @@ public class DialogNewProject extends javax.swing.JDialog
         this.parent=parent;
         initComponents();
         
-        String path=new File(parent.settings.oldProjectPath).getAbsolutePath();
+        String path=new File(parent.settings.getOldProjectPath()).getAbsolutePath();
         jTextField2.setText(path);
         
         make();
@@ -334,7 +334,7 @@ public class DialogNewProject extends javax.swing.JDialog
                 }
             }
             
-            parent.settings.oldProjectPath=jTextField2.getText();
+            parent.settings.setOldProjectPath(jTextField2.getText());
             dispose();
         }
         else

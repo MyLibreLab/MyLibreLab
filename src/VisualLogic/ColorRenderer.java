@@ -19,8 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic;
 
-import javax.swing.ListCellRenderer;
-import javax.swing.JLabel;
 import javax.swing.DefaultListCellRenderer;
 import java.awt.Color;
 import javax.swing.JList;

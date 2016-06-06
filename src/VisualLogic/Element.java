@@ -3255,7 +3255,7 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
                 }
 
                 g.setStroke(standardStroke);
-                if (Tools.settings.elementIDVisible) {
+                if (Tools.settings.isElementIDVisible()) {
                     g.setColor(Color.RED);
                     g.setFont(new Font("Arial", Font.BOLD, 10));
                     g.drawString("" + getID(), getWidth() / 2 - 10, getHeight() / 2 + 5);

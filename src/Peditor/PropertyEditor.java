@@ -1138,6 +1138,7 @@ public class PropertyEditor extends javax.swing.JPanel {
                 item = (PropertyEditorItem) liste.get(i);
 
                 item.label.setSize(new Dimension(leftPanel.getWidth() + 2, itemHeight));
+                item.label.setFont(Font.getFont("Tahoma"));
                 item.component.setSize(new Dimension(rightPanel.getWidth() + 1, itemHeight));
 
                 item.label.setLocation(-1, y);

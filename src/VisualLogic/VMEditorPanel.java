@@ -141,13 +141,13 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
     }
     
     
-    public void openElementDocFile(Element element)
+    public void openElementDocFile(FrameMain owner, Element element)
     {
         PanelDokumentation panel = new PanelDokumentation();
         
         try
         {
-            panel.openElementDocFile(element);
+            panel.openElementDocFile(owner, element);
         }
         catch(Exception ex)
         {
@@ -259,7 +259,7 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
             //setIconImage(basis.getFrameMain().iconImage);
             //iconImage= Toolkit.getDefaultToolkit().getImage();
             //setIconImage(iconImage);
-            basis.vsIcon.loadImage(getClass().getResource("/Bilder/16x16/icon.png"));
+            basis.vsIcon.loadImage(getClass().getResource("/Bilder/icon_16.png"));
         }
         catch(Exception ex)
         {

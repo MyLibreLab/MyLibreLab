@@ -675,18 +675,14 @@ public class Basis extends Object implements ElementIF, VSBasisIF
             {
                 node= (OpenVariable)variablenListe.get(i);
                 
-                if (node.datatype==0)
-                {
-                    node.value= new Double(0);
+                
+                switch(node.datatype){
+                    case 0: node.value= new Double(0);break;
+                    case 1: node.value= new String("");break;
+                    case 2: node.value= new Boolean(false);break;
+                    case 3: node.value= new Integer(0);break;                    
                 }
-                if (node.datatype==1)
-                {
-                    node.value= new String("");
-                }
-                if (node.datatype==2)
-                {
-                    node.value= new Boolean(false);
-                }
+                
             }
         }
         
@@ -937,14 +933,14 @@ public class Basis extends Object implements ElementIF, VSBasisIF
             frontBasis.setPreferredSize(new Dimension(500,500));
             
             
-            getCircuitBasis().setAlignToGrid(frameCircuit.settings.circuittAlignToGrid);
-            getCircuitBasis().setRasterOn(frameCircuit.settings.circuitRasterOn);
-            getCircuitBasis().setRaster(frameCircuit.settings.circuitRasterX,frameCircuit.settings.circuitRasterY) ;
+            getCircuitBasis().setAlignToGrid(frameCircuit.settings.isCircuittAlignToGrid());
+            getCircuitBasis().setRasterOn(frameCircuit.settings.isCircuitRasterOn());
+            getCircuitBasis().setRaster(frameCircuit.settings.getCircuitRasterX(), frameCircuit.settings.getCircuitRasterY()) ;
             getFrontBasis().setBackground(Color.WHITE);
             
-            getFrontBasis().setAlignToGrid(frameCircuit.settings.frontAlignToGrid);
-            getFrontBasis().setRasterOn(frameCircuit.settings.frontRasterOn);
-            getFrontBasis().setRaster(frameCircuit.settings.frontRasterX,frameCircuit.settings.frontRasterY) ;
+            getFrontBasis().setAlignToGrid(frameCircuit.settings.isFrontAlignToGrid());
+            getFrontBasis().setRasterOn(frameCircuit.settings.isFrontRasterOn());
+            getFrontBasis().setRaster(frameCircuit.settings.getFrontRasterX(), frameCircuit.settings.getFrontRasterY()) ;
             
             getFrontBasis().setBackground(Color.LIGHT_GRAY);
             
@@ -2710,6 +2706,10 @@ public class Basis extends Object implements ElementIF, VSBasisIF
         
         public void returnFromMethod(Object result)
         {
+        }
+        
+        public String getJavascriptEditor() {
+            return getFrameMain().settings.getJavascript_editor();
         }
 
     public

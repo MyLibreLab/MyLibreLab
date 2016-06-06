@@ -60,7 +60,6 @@ public class ElementPalette extends javax.swing.JPanel {
     private String elementPath;
     public FrameMain frameCircuit = null;
     private ElementPaletteIF elementPalette;
-    private String initVerzeichnis;
     public String activeElement;
     public String aktuellesVerzeichniss;
     public VMObject vmObject = null;
@@ -108,7 +107,7 @@ public class ElementPalette extends javax.swing.JPanel {
                 }
             } else if (basis.elementPaletteFrontElementsOldPath.length() > 0) {
                 aktuellesVerzeichniss = basis.elementPaletteFrontElementsOldPath;
-            } 
+            }
         }
 
         loadFolder(aktuellesVerzeichniss);
@@ -230,22 +229,33 @@ public class ElementPalette extends javax.swing.JPanel {
 
         int w = 38 + d;
         int h = 38;
-        int x = 0;
-        int y = 0;
+        int x = 2;
+        int y = 2;
         for (int i = 0; i < jPanelButtons.getComponentCount(); i++) {
             c = jPanelButtons.getComponent(i);
 
             //((JButton)c).setBorderPainted(false);
-            if (x + w > jPanelButtons.getWidth()) {
+            /*if (x + w > jPanelButtons.getWidth()) {
                 x = 0;
                 y += h;
-            }
+            }*/
             c.setLocation(x, y);
             c.setSize(w, h);
             x += w;
         }
 
-        jPanelButtons.setPreferredSize(new Dimension(w, y + h));
+        /*if (x + w > jPanelButtons.getWidth()) {
+            
+            if (getParent()!=null){
+            getParent().getParent().setPreferredSize(new Dimension(x, h+40));
+            }
+           
+        }else {
+            if (getParent()!=null){
+            getParent().getParent().setPreferredSize(new Dimension(x, 20));
+            }
+        }*/
+        jPanelButtons.setPreferredSize(new Dimension(x, h));
     }
 
     private void addButton(JButton button) {
@@ -308,8 +318,6 @@ public class ElementPalette extends javax.swing.JPanel {
 
             aktuellesVerzeichniss = path;
 
-            
-            
             String[] slipttedPath = path.split("/");
 
             String xxx = "";
@@ -550,16 +558,13 @@ public class ElementPalette extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanelButtons = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jButton1 = new javax.swing.JButton();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("VisualLogic/ElementPalette"); // NOI18N
         jmiEditVMDefinition.setText(bundle.getString("Menu_Edit")); // NOI18N
@@ -643,10 +648,8 @@ public class ElementPalette extends javax.swing.JPanel {
         });
         jPopupMenu3.add(jmiDeleteDir);
 
-        setLayout(new java.awt.BorderLayout());
-
-        jPanel1.setPreferredSize(new java.awt.Dimension(200, 215));
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        jPanel1.setOpaque(false);
+        jPanel1.setPreferredSize(new java.awt.Dimension(200, 115));
 
         jPanel2.setPreferredSize(new java.awt.Dimension(100, 25));
 
@@ -654,57 +657,26 @@ public class ElementPalette extends javax.swing.JPanel {
         jLabel1.setText("jLabel1");
         jLabel1.setPreferredSize(new java.awt.Dimension(34, 22));
 
-        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/16x16/Text.png"))); // NOI18N
-        jToggleButton1.setToolTipText(bundle.getString("Show_Item_Names")); // NOI18N
-        jToggleButton1.setPreferredSize(new java.awt.Dimension(25, 23));
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
-            }
-        });
-        jToggleButton1.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jToggleButton1StateChanged(evt);
-            }
-        });
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/view-refresh.png"))); // NOI18N
-        jButton1.setToolTipText("Reload");
-        jButton1.setPreferredSize(new java.awt.Dimension(25, 23));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel2Layout.createSequentialGroup()
-                .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(2, 2, 2)
-                .add(jToggleButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 846, Short.MAX_VALUE))
+            .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jToggleButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .add(33, 33, 33))
+            .add(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, java.awt.BorderLayout.NORTH);
-
         jScrollPane1.setBorder(null);
+        jScrollPane1.setFocusable(false);
 
+        jPanelButtons.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelButtons.setAutoscrolls(true);
         jPanelButtons.setMinimumSize(new java.awt.Dimension(9, 39));
-        jPanelButtons.setPreferredSize(new java.awt.Dimension(200, 100));
+        jPanelButtons.setPreferredSize(new java.awt.Dimension(200, 30));
         jPanelButtons.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanelButtonsMousePressed(evt);
@@ -746,73 +718,68 @@ public class ElementPalette extends javax.swing.JPanel {
         jPanelButtons.add(jButton10);
         jButton10.setBounds(112, 2, 51, 23);
 
-        jButton11.setText("XXX");
-        jButton11.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButton11MousePressed(evt);
-            }
-        });
-        jPanelButtons.add(jButton11);
-        jButton11.setBounds(2, 27, 51, 23);
-
-        jButton12.setText("XXX");
-        jButton12.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButton12MousePressed(evt);
-            }
-        });
-        jPanelButtons.add(jButton12);
-        jButton12.setBounds(57, 27, 51, 23);
-
-        jButton13.setText("XXX");
-        jButton13.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButton13MousePressed(evt);
-            }
-        });
-        jPanelButtons.add(jButton13);
-        jButton13.setBounds(112, 27, 51, 23);
-
         jScrollPane1.setViewportView(jPanelButtons);
 
-        jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/16x16/Text.png"))); // NOI18N
+        jToggleButton1.setToolTipText(bundle.getString("Show_Item_Names")); // NOI18N
+        jToggleButton1.setPreferredSize(new java.awt.Dimension(25, 23));
+        jToggleButton1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jToggleButton1StateChanged(evt);
+            }
+        });
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
-        add(jPanel1, java.awt.BorderLayout.CENTER);
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/view-refresh.png"))); // NOI18N
+        jButton1.setToolTipText("Reload");
+        jButton1.setPreferredSize(new java.awt.Dimension(25, 23));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 802, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                .add(jToggleButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jToggleButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 802, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 109, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(0, 63, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jPanelButtonsComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanelButtonsComponentResized
-        reorderButtons();
-    }//GEN-LAST:event_jPanelButtonsComponentResized
-
-    private void jButton13MousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jButton13MousePressed
-    {//GEN-HEADEREND:event_jButton13MousePressed
-// TODO add your handling code here:
-    }//GEN-LAST:event_jButton13MousePressed
-
-    private void jButton12MousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jButton12MousePressed
-    {//GEN-HEADEREND:event_jButton12MousePressed
-// TODO add your handling code here:
-    }//GEN-LAST:event_jButton12MousePressed
-
-    private void jButton11MousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jButton11MousePressed
-    {//GEN-HEADEREND:event_jButton11MousePressed
-// TODO add your handling code here:
-    }//GEN-LAST:event_jButton11MousePressed
-
-    private void jButton10MousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jButton10MousePressed
-    {//GEN-HEADEREND:event_jButton10MousePressed
-// TODO add your handling code here:
-    }//GEN-LAST:event_jButton10MousePressed
-
-    private void jButton8MousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jButton8MousePressed
-    {//GEN-HEADEREND:event_jButton8MousePressed
-// TODO add your handling code here:
-    }//GEN-LAST:event_jButton8MousePressed
-
-    private void jButton7MousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jButton7MousePressed
-    {//GEN-HEADEREND:event_jButton7MousePressed
-// TODO add your handling code here:
-    }//GEN-LAST:event_jButton7MousePressed
 
     private void jmiEditVMActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmiEditVMActionPerformed
     {//GEN-HEADEREND:event_jmiEditVMActionPerformed
@@ -984,22 +951,6 @@ public class ElementPalette extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jmiDeleteActionPerformed
 
-    private void jPanelButtonsMousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jPanelButtonsMousePressed
-    {//GEN-HEADEREND:event_jPanelButtonsMousePressed
-
-        if (!aktuellesVerzeichniss.equalsIgnoreCase(rootPath)) {
-
-            if (evt.getButton() == 3) {
-                if (modus == MODE_COPY) {
-                    jmiPaste.setEnabled(true);
-                } else {
-                    jmiPaste.setEnabled(false);
-                }
-                jPopupMenu2.show(jPanelButtons, evt.getX(), evt.getY());
-            }
-        }
-    }//GEN-LAST:event_jPanelButtonsMousePressed
-
     private void jmiPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPasteActionPerformed
 
         if (modus == MODE_COPY) {
@@ -1119,12 +1070,40 @@ public class ElementPalette extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jmiAddVMActionPerformed
 
+    private void jPanelButtonsComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanelButtonsComponentResized
+        reorderButtons();
+    }//GEN-LAST:event_jPanelButtonsComponentResized
+
+    private void jPanelButtonsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelButtonsMousePressed
+
+        if (!aktuellesVerzeichniss.equalsIgnoreCase(rootPath)) {
+
+            if (evt.getButton() == 3) {
+                if (modus == MODE_COPY) {
+                    jmiPaste.setEnabled(true);
+                } else {
+                    jmiPaste.setEnabled(false);
+                }
+                jPopupMenu2.show(jPanelButtons, evt.getX(), evt.getY());
+            }
+        }
+    }//GEN-LAST:event_jPanelButtonsMousePressed
+
+    private void jButton10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton10MousePressed
+
+    private void jButton8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8MousePressed
+
+    private void jButton7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7MousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;

@@ -99,10 +99,10 @@ public class FrameDoc extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void openDoc(Element element) {
+    public void openDoc(FrameMain owner, Element element) {
         
         try {
-            panel.openElementDocFile(element);
+            panel.openElementDocFile(owner, element);
         } catch (Exception ex) {
 
         }
