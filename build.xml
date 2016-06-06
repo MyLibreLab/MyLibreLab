@@ -16,7 +16,10 @@
       <antcall target="build_distribution_win32">
           <param name="version" value="${version}"/>
       </antcall>
-      <antcall target="build_distribution_win64">
+      <antcall target="build_distribution_win64_java64">
+          <param name="version" value="${version}"/>
+      </antcall>
+      <antcall target="build_distribution_win64_java32">
           <param name="version" value="${version}"/>
       </antcall>
       <antcall target="build_distribution_linux">
@@ -51,11 +54,37 @@
         </delete>
     </target>
     
-            
-     <target name="build_distribution_win64"> 
+    
+    <target name="build_distribution_win64_java32"> 
          
         <property name="temp_dir" value="temp_distribution_win64" />
-        <property name="zip_file" value="distribution_win64" />
+        <property name="zip_file" value="distribution_win64_java32" />
+         
+        <mkdir dir="${temp_dir}"/>
+          
+         <copy todir="${temp_dir}" >
+            <fileset dir="distribution"/>
+        </copy>
+                      
+        <copy todir="${temp_dir}/lib">
+            <fileset dir="dist/lib"/>
+        </copy>
+        
+        <delete file="${temp_dir}/start_linux"/>
+        <delete file="${temp_dir}/myopenlab.jar"/>
+        <copy file="dist/myopenlab.jar" tofile="${temp_dir}/myopenlab.jar" overwrite="true"/>        
+        <copy file="${temp_dir}/rxtx/win32/rxtxSerial.dll" tofile="${temp_dir}/rxtxSerial.dll"/>        
+        <zip destfile="${zip_file}_${myopenlab_version}.zip" basedir="${temp_dir}" />        
+        
+        <delete includeEmptyDirs="true">
+            <fileset dir="${temp_dir}" />
+        </delete>
+    </target>
+            
+     <target name="build_distribution_win64_java64"> 
+         
+        <property name="temp_dir" value="temp_distribution_win64" />
+        <property name="zip_file" value="distribution_win64_java64" />
          
         <mkdir dir="${temp_dir}"/>
           
@@ -79,23 +108,22 @@
         </delete>
     </target>
     
+    
         
      <target name="build_distribution_linux"> 
         
-        <property name="temp_dir" value="temp_distribution_linux64" />
-        <property name="zip_file" value="distribution_linux64" />
+        <property name="temp_dir" value="temp_distribution_linux" />
+        <property name="zip_file" value="distribution_linux" />
          
         <mkdir dir="${temp_dir}"/>
           
         <copy todir="${temp_dir}" >
             <fileset dir="distribution"/>
         </copy>
-          
-        
+                  
         <copy todir="${temp_dir}/lib">
             <fileset dir="dist/lib"/>
-        </copy>
-        
+        </copy>        
         
         <delete file="${temp_dir}/start.bat"/>
         <delete file="${temp_dir}/start with JDK.bat"/>
