@@ -147,7 +147,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
                     for (int i = 0; i < getBasis().getElementCount(); i++) {
                         Element element = getBasis().getElement(i);
                         if (element.isSelected()) {
-                            String htmlEditor = getBasis().owner.getFrameMain().settings.HTMLEditor;
+                            String htmlEditor = getBasis().owner.getFrameMain().settings.getHTMLEditor();
 
                             if (htmlEditor == null || htmlEditor.equalsIgnoreCase("") || new File(htmlEditor).exists() == false) {
                                 Tools.showMessage(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("HTML-Editor_not_found!"));
@@ -755,6 +755,11 @@ public class StatusIdle extends Object implements StatusBasisIF {
                 }
 
             } else {
+                
+                if (getBasis().owner.frameCircuit != null) {
+                getBasis().owner.frameCircuit.activate_DocFrame(null);
+            }
+                
                 vmObject.owner.disableAllElements();
                 Draht draht;
 

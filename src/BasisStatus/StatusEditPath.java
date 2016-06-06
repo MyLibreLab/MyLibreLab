@@ -20,11 +20,6 @@ package BasisStatus;
 import VisualLogic.*;
 import java.awt.event.*;
 import java.awt.*;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
 
 
 

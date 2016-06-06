@@ -30,6 +30,7 @@ public class frmElementInfo extends javax.swing.JDialog {
         initComponents();
         java.awt.event.ActionListener actionListener = new java.awt.event.ActionListener() 
         {
+          @Override
           public void actionPerformed(java.awt.event.ActionEvent actionEvent) 
           {                
                 dispose();            

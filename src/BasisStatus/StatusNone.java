@@ -22,9 +22,6 @@ import VisualLogic.*;
 import VisualLogic.Element;
 import java.awt.event.*;
 import java.awt.*;
-import javax.swing.*;
-import java.io.*;
-import java.util.Properties;
 
 public class StatusNone extends Object implements StatusBasisIF
 {

@@ -108,7 +108,7 @@ public class StatusLineVertikal extends Object implements StatusBasisIF
 
         if (vmobject!=null && Tools.settings!=null)
         {
-          if (Tools.settings.circuitCrossVisible)
+          if (Tools.settings.isCircuitCrossVisible())
           {
               Point p =vmobject.getMousePosition();
               if (p!=null)

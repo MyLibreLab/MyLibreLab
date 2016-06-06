@@ -16,7 +16,6 @@ package BasisStatus;
 
 import java.awt.event.*;
 import VisualLogic.*;
-import java.awt.event.*;
 import java.awt.*;
 
 public class StatusAddElement extends Object implements StatusBasisIF {

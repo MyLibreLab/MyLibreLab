@@ -21,7 +21,6 @@ package BasisStatus;
 import VisualLogic.*;
 import java.awt.event.*;
 import java.awt.*;
-import java.awt.geom.GeneralPath;
 
 public class StatusEditPath_ADD_CurveTo extends Object implements StatusBasisIF
 {

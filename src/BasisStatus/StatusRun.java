@@ -21,8 +21,6 @@ import VisualLogic.*;
 import VisualLogic.Element;
 import java.awt.event.*;
 import java.awt.*;
-import java.util.*;
-import javax.swing.event.MouseInputAdapter;
 
 
 public class StatusRun extends Object implements StatusBasisIF
