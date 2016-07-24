@@ -6,3 +6,5 @@ Jar= bin/SchiebeSchalter.jar
 ClassCircuit = SchiebeSchalter
 ClassFront = SchalterPanel
 Icon= bin/icon.gif
+Autor= Carmelo Salafia 
+Copyright=2016

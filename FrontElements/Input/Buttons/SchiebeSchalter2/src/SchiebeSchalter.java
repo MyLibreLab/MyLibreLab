@@ -53,8 +53,9 @@ public class SchiebeSchalter extends JVSMain
 
     setPin(0,ExternalIF.C_BOOLEAN,element.PIN_OUTPUT);
     
-    image=element.jLoadImage(element.jGetSourcePath()+"SchiebeSchalter.GIF");
+    image=element.jLoadImage(element.jGetSourcePath()+"SchiebeSchalter.gif");
     setName("Schiebeschalter");
+    
   }
   
 
