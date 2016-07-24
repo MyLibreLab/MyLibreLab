@@ -57,7 +57,7 @@
           </Border>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="12" style="0"/>
+          <Font name="Serif" size="36" style="3"/>
         </Property>
       </Properties>
       <SubComponents>

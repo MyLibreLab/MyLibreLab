@@ -1413,6 +1413,11 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         lan.execute(settings.language);
 
         settings.language = lan.result;      */
+        //jMenuBar2.setFont(new Font("Tahoma", Font.PLAIN, 21));
+        Font f = new Font("Tahoma", Font.PLAIN, 13);
+        UIManager.put("Menu.font", f);
+        UIManager.put("MenuItem.font", f);
+
         initComponents();
 
         panelDoc = new PanelDokumentation();
@@ -1948,7 +1953,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     public static void main(String args[]) {
 
         setUIFont(new javax.swing.plaf.FontUIResource("Tahoma", Font.PLAIN, 11));
-
+        
         SplashScreen splash = SplashScreen.getSplashScreen();
         if (splash != null) {
             Graphics2D g = (Graphics2D) splash.createGraphics();
@@ -2702,7 +2707,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         getContentPane().add(jSplitPane3, java.awt.BorderLayout.CENTER);
 
         jMenuBar2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jMenuBar2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jMenuBar2.setFont(new java.awt.Font("Serif", 3, 36)); // NOI18N
 
         jmnuDatei.setMnemonic('D');
         jmnuDatei.setText(bundle.getString("Datei")); // NOI18N

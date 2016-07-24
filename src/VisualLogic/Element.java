@@ -642,6 +642,13 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
     public void removeReference() {
         classRef = null;
     }
+    
+    private String korrigiereFileSeparator(String path) {
+        path = path.replace("\\", File.separator);
+        path = path.replace("/", File.separator);
+        
+        return path;
+    }
 
     /**
      * Creates a new instance of Element
@@ -654,6 +661,10 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
         // mainPath=replaceMe(mainPath);
         // definitionPath=replaceMe(definitionPath);
         String pathX = elementPath + mainPath;
+
+        pathX = korrigiereFileSeparator(pathX);
+        
+
         String result = jIfPathNotFoundThenSearch(pathX);
         if (result.length() > 0) {
             String f1 = new File(elementPath).getAbsolutePath();
@@ -695,6 +706,7 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
         Loader loader = new Loader();
 
         String path = mainPath + "/" + binPath;
+        path = korrigiereFileSeparator(path);
 
         if (className.trim().equalsIgnoreCase("")) {
             File file = new File(elementPath + path);
@@ -723,8 +735,8 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
         } else {
             this.definitionPath = definitionPath;
         }
-
-        File fileX = new File(elementPath + this.definitionPath);
+        
+        File fileX = new File(korrigiereFileSeparator(elementPath + this.definitionPath));
         definition_def = Tools.getProertiesFromDefinitionFile(fileX);
 
         String myClassPath = "";
@@ -735,6 +747,9 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
         } else {
             myClassPath = mainPath;
         }
+
+        myClassPath=korrigiereFileSeparator(myClassPath);
+        
 
         if (className.equalsIgnoreCase("DUMMY")) {
             classRef = null; // also Dummy!
@@ -3221,7 +3236,6 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
         //g.drawString(lblName.getText(),mitteX-lblName.getWidth()/2,maxHeight-10);
         //g.setColor(Color.LIGHT_GRAY);
         //g.drawRect(0, 0, maxWidth - 1, maxHeight - 1);
-
         return image;
     }
 
