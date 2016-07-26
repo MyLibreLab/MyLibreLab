@@ -1,1 +1,2 @@
-del /s  *._Thumbs.db 
+del /s  *._Thumbs.db
+test 
