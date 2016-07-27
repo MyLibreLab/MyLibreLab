@@ -834,6 +834,8 @@ public class Firmata extends JVSMain implements MyOpenLabDriverOwnerIF {
         args.add(false);
 
         driver = element.jOpenDriver("MyOpenLab.RS232", args);
+        
+        System.out.println("driver="+driver.toString());
 
         comport.clear();
         comport.addItem("");

@@ -18,6 +18,7 @@
 //* along with this library; if not, write to the Free Software Foundation,   *
 //* Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA                  *
 //*****************************************************************************
+
 import VisualLogic.*;
 import VisualLogic.variables.*;
 import tools.*;
@@ -38,6 +39,7 @@ public class Driver {
     public static SerialPort serss;
     public DataOutputStream dos;
     public int timeOut = 50;
+    public boolean error;
 
     public MyOpenLabDriverOwnerIF owner;
 
@@ -51,50 +53,60 @@ public class Driver {
 
     public String[] listSerialPorts() {
 
-        Enumeration ports = CommPortIdentifier.getPortIdentifiers();
-        ArrayList portList = new ArrayList();
-        String portArray[] = null;
-        while (ports.hasMoreElements()) {
-            CommPortIdentifier port = (CommPortIdentifier) ports.nextElement();
-            if (port.getPortType() == CommPortIdentifier.PORT_SERIAL) {
-                portList.add(port.getName());
+        if (error) {
+            return new String[]{"NULL"};
+        } else {
+
+            try {
+
+                Enumeration ports = CommPortIdentifier.getPortIdentifiers();
+                ArrayList portList = new ArrayList();
+                String portArray[] = null;
+                while (ports.hasMoreElements()) {
+                    CommPortIdentifier port = (CommPortIdentifier) ports.nextElement();
+                    if (port.getPortType() == CommPortIdentifier.PORT_SERIAL) {
+                        portList.add(port.getName());
+                    }
+                }
+                portArray = (String[]) portList.toArray(new String[0]);
+                return portArray;
+            } catch (Exception ex) {
+                System.out.println("RS232 Driver listSerialPorts error:" + ex);
             }
         }
-        portArray = (String[]) portList.toArray(new String[0]);
-        return portArray;
+        return new String[]{"NULL"};
     }
 
     public Driver(String port, int baud, int bits, int stopBits, int parity) {
 
         this.port = port;
 
+        error = true;
+
+        System.out.println("DRIVER INIT");
+
         if (port.trim().equalsIgnoreCase("NULL")) {
 
             System.out.println("NULL OK");
+
         } else {
-
-            System.out.println("PORT :" + port);
-
             try {
+                System.out.println("PORT :" + port);
+
                 portID = CommPortIdentifier.getPortIdentifier(port);
                 serss = (SerialPort) portID.open("MYOPENLAB", 2000);
-            } catch (Exception exc) {
-                System.out.println("Fehler :" + exc);
-            }
 
-            try {
                 serss.setSerialPortParams(baud, bits, stopBits, parity);
-                //serss.setRTS(true);
-                //serss.setDTR(true);
-
-            } catch (Exception e) {
-            }
-
-            try {
                 dos = new DataOutputStream(serss.getOutputStream());
-            } catch (Exception e2) {
+
+                error = false;
+            } catch (Exception ex) {
+                System.out.println("Fehler in RS232 Driver : " + ex);
             }
         }
+
+        System.out.println("DRIVER INIT END");
+
     }
 
     public void start() {
@@ -103,18 +115,16 @@ public class Driver {
             out = serss.getOutputStream();
 
             if (useOwnInHandler) {
-				System.out.println("useOwnInHandler");
+                System.out.println("useOwnInHandler");
                 serialThread = new SerialReader();
                 serialThread.in = ins;
                 serialThread.start();
             } else {
-				System.out.println("not useOwnInHandler");
+                System.out.println("not useOwnInHandler");
                 serss.addEventListener(new commListener());
                 serss.notifyOnDataAvailable(true);
             }
 
-			
-			
         } catch (Exception e) {
             System.out.println("Fehler: " + e);
         }
@@ -170,8 +180,6 @@ public class Driver {
 
         }
     }
-
-    
 
     public void registerOwner(MyOpenLabDriverOwnerIF owner) {
         this.owner = owner;
@@ -236,9 +244,8 @@ public class Driver {
 
     class MyThread extends Thread {
 
-	
         public void run() {
-		System.out.println("RXTX: STARTT");
+            System.out.println("RXTX: STARTT");
             while (true) {
                 long time2 = System.currentTimeMillis();
 
@@ -312,8 +319,6 @@ public class Driver {
 
     class commListener implements SerialPortEventListener {
 
-		
-	
         int dato = 0;
 
         @Override
