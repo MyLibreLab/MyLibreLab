@@ -2,5 +2,5 @@ ISDIRECTORY     = TRUE
 CAPTION         = Eigene Elemente
 CAPTION_EN      = User defined Elements
 CAPTION_ES      = definido por el usario
-REDIRECT        = C:\Users\Danilo\MyOpenLab\UserElements\CircuitElements
+REDIRECT        = /Users/carmelosalafia\MyOpenLab\UserElements/CircuitElements
 ICON            = library.png
