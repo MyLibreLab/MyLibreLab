@@ -1,0 +1,16 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+LOADER          = 
+CAPTION         = READ_RPI_SYS_JV
+CAPTION_EN      = READ_RPI_SYS_JV
+CAPTION_ES      = Leer Datos del Sistema RPI JV
+VM              = 
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = Read_RPI_Temp_JV
+CLASSFRONT      = 
+ICON            = bin/icon.gif
+CLASSPATH       = 
+CLASSPATH2      = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE
