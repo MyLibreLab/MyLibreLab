@@ -1,0 +1,8 @@
+ISDIRECTORY = FALSE
+CAPTION= Ausgabe_Text_JV
+CAPTION_EN= Pane_Text_Output_JV
+CAPTION_ES= Panel_Indicador_Texto_JV
+Jar = bin/Text_Indicator_JV.jar
+ClassCircuit = Text_Indicator_JV
+ClassFront = Pane_Text_Indicator_JV
+Icon= bin/Text_Indicator_JV.gif
