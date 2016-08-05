@@ -118,7 +118,7 @@ public class cmdWrite_JV extends JVSMain
 
   public void process()
   {
-    if (input0.getValue())
+    if (input0.getValue() && input0!=null )
     { 
       
       try {
@@ -126,6 +126,9 @@ public class cmdWrite_JV extends JVSMain
           //element.jConsolePrintln();
                     //String cmd = "manual.bat"; //Comando 
                     //Runtime.getRuntime().exec("msg * \"El comano es: \"" +in.getValue());
+                    if(input1.getValue().length()<=0){
+                       input1.setValue("java -version");
+                    }
                     Process p = Runtime.getRuntime().exec(input1.getValue()); 
                     
                     BufferedReader stdInput = new BufferedReader(new InputStreamReader(

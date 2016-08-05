@@ -7,9 +7,23 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="Text_Indicator_JV" default="default" basedir=".">
-    <description>Builds, tests, and runs the project Text_Indicator_JV.</description>
+<project name="firmata" default="default" basedir=".">
+    <description>Builds, tests, and runs the project firmata.</description>
+    
+    <property name="dist.dir" value="bin"/>
+    
     <import file="nbproject/build-impl.xml"/>
+    
+           
+    <target name="-post-compile">        
+        <copy file="src/icon.png" tofile="bin/icon.png"/>
+        <copy file="RXTXcomm.jar" tofile="bin/RXTXcomm.jar"/>
+        <copydir src="build/classes/" dest="bin"  />
+        
+        <copydir src="src/doc" dest="bin"  />
+    </target>
+      
+    
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -58,7 +72,7 @@
 
     An example of overriding the target for project execution could look like this:
 
-        <target name="run" depends="Text_Indicator_JV-impl.jar">
+        <target name="run" depends="firmata-impl.jar">
             <exec dir="bin" executable="launcher.exe">
                 <arg file="${dist.jar}"/>
             </exec>
