@@ -1355,10 +1355,12 @@ public class frmUpdate extends javax.swing.JFrame {
 
         tmp.mkdirs();
 
-        URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
+        //URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
+        
+         String icon32=new File(FrameMain.elementPath + "/std_lib_icon_32.png").getAbsolutePath();
 
         try {
-            Tools.copyFileUsingStream(new File(icon_url.getFile()), new File(tmp + "/icon32.png"));
+            Tools.copyFileUsingStream(new File(icon32), new File(tmp + "/icon32.png"));
         } catch (IOException ex) {
             Logger.getLogger(Dialog_create_new_group.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1384,10 +1386,11 @@ public class frmUpdate extends javax.swing.JFrame {
 
         tmp.mkdirs();
 
-        URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
+        //URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
+         String icon32=new File(FrameMain.elementPath + "/std_lib_icon_32.png").getAbsolutePath();
 
         try {
-            Tools.copyFileUsingStream(new File(icon_url.getFile()), new File(tmp + "/icon32.png"));
+            Tools.copyFileUsingStream(new File(icon32), new File(tmp + "/icon32.png"));
         } catch (IOException ex) {
             Logger.getLogger(Dialog_create_new_group.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1427,10 +1430,12 @@ public class frmUpdate extends javax.swing.JFrame {
             try {
                 tmp.mkdirs();
 
-                URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
+               // URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
+                
+                 String icon32=new File(FrameMain.elementPath + "/std_lib_icon_32.png").getAbsolutePath();
 
                 try {
-                    Tools.copyFileUsingStream(new File(icon_url.getFile()), new File(tmp + "/icon32.png"));
+                    Tools.copyFileUsingStream(new File(icon32), new File(tmp + "/icon32.png"));
                 } catch (IOException ex) {
                     Logger.getLogger(Dialog_create_new_group.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -1489,10 +1494,13 @@ public class frmUpdate extends javax.swing.JFrame {
         if (!tmp.exists()) {
             tmp.mkdirs();
 
-            URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
+            String icon32=new File(FrameMain.elementPath + "/std_lib_icon_32.png").getAbsolutePath();
+            //URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
 
             try {
-                Tools.copyFileUsingStream(new File(icon_url.getFile()), new File(tmp + "/icon32.png"));
+                Tools.showMessage(icon32);
+                Tools.showMessage(tmp + "/icon32.png");
+                Tools.copyFileUsingStream(new File(icon32), new File(tmp + "/icon32.png"));
             } catch (IOException ex) {
                 Logger.getLogger(Dialog_create_new_group.class.getName()).log(Level.SEVERE, null, ex);
             }

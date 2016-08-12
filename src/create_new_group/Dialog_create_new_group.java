@@ -2,6 +2,7 @@ package create_new_group;
 
 import VisualLogic.DFProperties;
 import VisualLogic.DialogSaveAsModul;
+import VisualLogic.FrameMain;
 import VisualLogic.Tools;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -73,9 +74,10 @@ public class Dialog_create_new_group extends javax.swing.JDialog {
 
         image32 = new ImageComponent();
 
-        URL url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
+        //URL url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
+         String icon32=new File(FrameMain.elementPath + "/std_lib_icon_32.png").getAbsolutePath();
 
-        image32.setFilename(url.getFile());
+        image32.setFilename(icon32);
         image32.setLocation(0, 0);
         image32.setPreferredSize(new Dimension(40, 40));
 
