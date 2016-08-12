@@ -23,8 +23,6 @@ import VisualLogic.*;
 import VisualLogic.variables.*;
 import tools.*;
 import java.awt.*;
-import java.awt.event.*;
-import javax.swing.Timer;
 import java.awt.geom.Rectangle2D;
 
 
@@ -42,6 +40,7 @@ public class SetterEval extends MainFlow
 
 
 
+  @Override
   public void onDispose()
   {
     if (image!=null)
@@ -57,6 +56,7 @@ public class SetterEval extends MainFlow
     return variable.getValue();
   }
 
+  @Override
   public void paint(java.awt.Graphics g)
   {
   if (element!=null)
@@ -89,6 +89,7 @@ public class SetterEval extends MainFlow
      super.paint(g);
   }
 
+  @Override
   public void init()
   {
     standardWidth=130;
@@ -113,23 +114,27 @@ public class SetterEval extends MainFlow
 
   }
   
+  @Override
   public void xOnInit()
   {
     super.xOnInit();
   }
   
+  @Override
   public void start()
   {
     basis=element.jGetBasis();
   }
 
 
+  @Override
   public void initInputPins()
   {
     in=(VSFlowInfo)element.getPinInputReference(0);
     if (in==null) in= new VSFlowInfo();
   }
 
+  @Override
   public void initOutputPins()
   {
     element.setPinOutputReference(1,out);
@@ -139,6 +144,7 @@ public class SetterEval extends MainFlow
 
   
 
+  @Override
   public void process()
   {
     if (basis!=null)
