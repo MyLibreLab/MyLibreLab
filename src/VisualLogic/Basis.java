@@ -24,6 +24,7 @@ import MyParser.Parser;
 import Peditor.PropertyEditor;
 import SimpleFileSystem.FileSystemInput;
 import SimpleFileSystem.FileSystemOutput;
+import VisualLogic.variables.VS1DDouble;
 import VisualLogic.variables.VSBoolean;
 import VisualLogic.variables.VSDouble;
 import VisualLogic.variables.VSFlowInfo;
@@ -38,6 +39,14 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.security.MessageDigest;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.script.Bindings;
+import javax.script.ScriptContext;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+import javax.script.SimpleBindings;
 
 
 class VariableNotifyRecord
@@ -506,7 +515,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF
     
     public boolean vsCompareExpression(VSFlowInfo flowInfo,String expr)
     {
-        String[] str =mySplitt(expr.trim());
+        /*String[] str =mySplitt(expr.trim());
         
         //System.out.println("expr="+expr);
         
@@ -515,11 +524,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF
             str[0]=str[0].trim();
             str[1]=str[1].trim();
             str[2]=str[2].trim();
-            
-            /*System.out.println("str 0="+str[0]);
-            System.out.println("str 1="+str[1]);
-            System.out.println("str 2="+str[2]);*/
-            
+          
             Object a=vsEvaluate(flowInfo,str[0]);
             Object b=vsEvaluate(flowInfo,str[2]);
             
@@ -527,6 +532,36 @@ public class Basis extends Object implements ElementIF, VSBasisIF
             {
                 return vsCompareValues(a, b, str[1]);
             }
+        }
+        
+        return false;*/
+        
+        try {
+            System.out.println("compareExpression("+expr+");");
+            
+            
+            ScriptEngineManager engineManager = new ScriptEngineManager();
+            ScriptEngine engine = engineManager.getEngineByName("javascript");
+            Bindings bindings;
+            bindings = new SimpleBindings();
+            
+             // set global variable
+            //engine.put("x","hello");
+            
+             OpenVariable node;
+            for (int i=0;i<variablenListe.size();i++)
+            {
+                node= (OpenVariable)variablenListe.get(i);
+
+                bindings.put(node.name, node.value);
+
+            }
+           
+            Object o1=engine.eval(expr,bindings);
+           
+            return (boolean)o1;
+        } catch (ScriptException ex) {
+            Logger.getLogger(Basis.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return false;
@@ -680,7 +715,8 @@ public class Basis extends Object implements ElementIF, VSBasisIF
                     case 0: node.value= new Double(0);break;
                     case 1: node.value= new String("");break;
                     case 2: node.value= new Boolean(false);break;
-                    case 3: node.value= new Integer(0);break;                    
+                    case 3: node.value= new Integer(0);break;      
+                    case 4: node.value= new VS1DDouble(100);break; 
                 }
                 
             }
@@ -2457,7 +2493,33 @@ public class Basis extends Object implements ElementIF, VSBasisIF
         
         public Object vsEvaluate(VSFlowInfo flowInfo,String expression)
         {
-            parser.setGlobalVariables(this.variablenListe);
+        try {
+            System.out.println("eval("+expression+");");
+            
+            
+            ScriptEngineManager engineManager = new ScriptEngineManager();
+            ScriptEngine engine = engineManager.getEngineByName("javascript");
+           
+            Bindings bindings = engine.getBindings(ScriptContext.ENGINE_SCOPE);
+            
+             // set global variable
+            //engine.put("x","hello");
+            
+             OpenVariable node;
+            for (int i=0;i<variablenListe.size();i++)
+            {
+                node= (OpenVariable)variablenListe.get(i);
+
+                bindings.put(node.name, node.value);
+
+            }
+           
+           // VS1DDouble xxx = new VS1DDouble(100);
+            // bindings.put("xxx", xxx);
+            
+           
+            
+            //parser.setGlobalVariables(this.variablenListe);
             if (flowInfo!=null) parser.setLocalVariables(flowInfo.variablenListe);
             
             parser.flowInfo=flowInfo;
@@ -2466,16 +2528,34 @@ public class Basis extends Object implements ElementIF, VSBasisIF
             
             /*if (expression.equalsIgnoreCase("i=i+1"))
             {
-                System.out.println("");
+            System.out.println("");
             }*/
-            Object o=parser.parseString(expression);
+            /*Object o=parser.parseString(expression);
             
             String err=parser.getErrorMessage().trim();
             if (err.length()>0)
             {
                 Tools.jException(this,err);
+            }*/
+            Object o1=engine.eval(expression,bindings);
+            
+            
+             
+            for (int i=0;i<variablenListe.size();i++)
+            {
+                node= (OpenVariable)variablenListe.get(i);
+
+                //System.out.println(node.name+ node.value);
+                node.value = bindings.get(node.name);
+
             }
-            return o;
+           
+            return o1;
+            //return o;
+        } catch (ScriptException ex) {
+            Logger.getLogger(Basis.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
         }
         
         public void vsReturnSubProcedure(VSFlowInfo flowInfo)
