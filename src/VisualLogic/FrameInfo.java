@@ -365,7 +365,7 @@ public class FrameInfo extends javax.swing.JDialog {
         jScrollPane4.setName("jScrollPane4"); // NOI18N
 
         jTextPane2.setEditable(false);
-        jTextPane2.setText(bundle.getString("contributor")); // NOI18N
+        jTextPane2.setText("Spanisch Übersetzung, Elemente und Element Docs: Prof. José Manuel Ruiz Gutiérrez\neMail : j.m.r.gutierrez@gmail.com\nTomelloso (Ciudad Real) ESPAÑA.\n\nElement Velleman(R)* PCS10 Datalogger(USB) \nGespendet von Alex, CTU - Concepte Technik Umwelt AG, www.ctu.ch \n\n\nRaspberry PI and general Elements Development, documentation and examples:\nIng. Robinson Javier Velásquez.\nEmail: javiervelasquez125@gmail.com\nBogotá D,C; - Colombia.\nYouTUBE Channel:\nhttps://www.youtube.com/channel/UCet6UPnaHKGjtbytJHIf2jQ\n");
         jTextPane2.setName("jTextPane2"); // NOI18N
         jScrollPane4.setViewportView(jTextPane2);
 

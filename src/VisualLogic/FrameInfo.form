@@ -249,9 +249,7 @@
                 <Component class="javax.swing.JTextPane" name="jTextPane2">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
-                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                      <ResourceString bundle="VisualLogic/FrameInfo.properties" key="contributor" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                    </Property>
+                    <Property name="text" type="java.lang.String" value="Spanisch &#xdc;bersetzung, Elemente und Element Docs: Prof. Jos&#xe9; Manuel Ruiz Guti&#xe9;rrez&#xa;eMail : j.m.r.gutierrez@gmail.com&#xa;Tomelloso (Ciudad Real) ESPA&#xd1;A.&#xa;&#xa;Element Velleman(R)* PCS10 Datalogger(USB) &#xa;Gespendet von Alex, CTU - Concepte Technik Umwelt AG, www.ctu.ch &#xa;&#xa;&#xa;Raspberry PI and general Elements Development, documentation and examples:&#xa;Ing. Robinson Javier Vel&#xe1;squez.&#xa;Email: javiervelasquez125@gmail.com&#xa;Bogot&#xe1; D,C; - Colombia.&#xa;YouTUBE Channel:&#xa;https://www.youtube.com/channel/UCet6UPnaHKGjtbytJHIf2jQ&#xa;"/>
                     <Property name="name" type="java.lang.String" value="jTextPane2" noResource="true"/>
                   </Properties>
                 </Component>
