@@ -128,6 +128,9 @@ public class Write_DO_RPI_JV extends JVSMain
     wPi_Pin_Number_in= (VSInteger)element.getPinInputReference(6);
     State_DO_in= (VSBoolean)element.getPinInputReference(7);
     Debug_Window_En_in= (VSBoolean)element.getPinInputReference(8);
+    if (Debug_Window_En_in==null){
+       Debug_Window_En_in=new VSBoolean(false);
+    }
     Error_in= (VSBoolean)element.getPinInputReference(9);
   }
 
@@ -150,6 +153,9 @@ public class Write_DO_RPI_JV extends JVSMain
 
   public void process()
   { 
+    if (Debug_Window_En_in==null){
+       Debug_Window_En_in=new VSBoolean(false);
+    }
     if(Error_in.getValue()==true && Enable_VM_in.getValue()==true){ //if There are error do not execute code and out the error to handle in the Error Handler VM.
        Error_out.setValue(true);
        
@@ -226,6 +232,9 @@ public class Write_DO_RPI_JV extends JVSMain
 
                     Error_out.setValue(false);
                     first_time=false;
+                    s=" ";
+                    sysOut_Err=" ";
+                    sysOut_N_Err=" ";
                                         
             } catch (IOException ioe) {
                     System.out.println (ioe);
@@ -245,7 +254,7 @@ public class Write_DO_RPI_JV extends JVSMain
    
    element.notifyPin(4);
    Enable_VM_out.setValue(Enable_VM_in.getValue());
-   Enable_VM_in.setValue(false);
+   //Enable_VM_in.setValue(false);
    element.notifyPin(0);
    wPi_Pin_Number_out.setValue(wPi_Pin_Number_in.getValue());
    element.notifyPin(1);

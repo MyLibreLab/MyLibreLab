@@ -23,13 +23,13 @@ public class cmdWrite_JV extends JVSMain
   // Properties
   // Inputs
     
-  VSBoolean input0 = new VSBoolean(false);
-  VSString input1 = new VSString();
-  VSBoolean input2 = new VSBoolean(false);
+  VSBoolean enable = new VSBoolean(false);
+  VSString CommandIn = new VSString();
+  VSBoolean Debug_En = new VSBoolean(false);
   // Outputs
 
-  VSString output0 = new VSString();
-  VSBoolean output1 = new VSBoolean(false);
+  VSString Response_Out = new VSString();
+  VSBoolean Error_out = new VSBoolean(false);
 
   public void onDispose()
   {
@@ -73,7 +73,7 @@ public class cmdWrite_JV extends JVSMain
     initPins(0,2,0,3);
     element.jSetInnerBorderVisibility(false);
 
-     image=element.jLoadImage(element.jGetSourcePath()+"icon.gif");
+    image=element.jLoadImage(element.jGetSourcePath()+"icon.gif");
 
     setPin(0, ExternalIF.C_STRING, ExternalIF.PIN_OUTPUT);
     setPin(1, ExternalIF.C_BOOLEAN, ExternalIF.PIN_OUTPUT);
@@ -96,16 +96,19 @@ public class cmdWrite_JV extends JVSMain
 
   public void initInputPins()
   {
-    input0= (VSBoolean)element.getPinInputReference(2);
-    input1= (VSString)element.getPinInputReference(3);
-    input2= (VSBoolean)element.getPinInputReference(4);
+    enable= (VSBoolean)element.getPinInputReference(2);
+    CommandIn= (VSString)element.getPinInputReference(3);
+    Debug_En= (VSBoolean)element.getPinInputReference(4);
+    if(Debug_En==null){
+       Debug_En=new VSBoolean(false);
+    }
     
   }
 
   public void initOutputPins()
   {
-    element.setPinOutputReference(0, output0);
-    element.setPinOutputReference(1, output1);
+    element.setPinOutputReference(0, Response_Out);
+    element.setPinOutputReference(1, Error_out);
   }
 
   public void start()
@@ -118,7 +121,11 @@ public class cmdWrite_JV extends JVSMain
 
   public void process()
   {
-    if (input0.getValue() && input0!=null )
+    if(Debug_En==null){
+       Debug_En=new VSBoolean(false);
+    }
+    
+    if (enable.getValue() && enable!=null )
     { 
       
       try {
@@ -126,10 +133,11 @@ public class cmdWrite_JV extends JVSMain
           //element.jConsolePrintln();
                     //String cmd = "manual.bat"; //Comando 
                     //Runtime.getRuntime().exec("msg * \"El comano es: \"" +in.getValue());
-                    if(input1.getValue().length()<=0){
-                       input1.setValue("java -version");
+                    
+                    if(CommandIn.getValue().length()<=0){
+                       CommandIn.setValue("java -version");
                     }
-                    Process p = Runtime.getRuntime().exec(input1.getValue()); 
+                    Process p = Runtime.getRuntime().exec(CommandIn.getValue()); 
                     
                     BufferedReader stdInput = new BufferedReader(new InputStreamReader(
                                         p.getInputStream()));
@@ -142,14 +150,14 @@ public class cmdWrite_JV extends JVSMain
                             sysOut_N_Err+=s;
                             sysOut_N_Err+="\n";
                             // Leemos la salida del comando
-                            if (input2.getValue() && firstTime==true) {
+                            if (Debug_En.getValue() && firstTime==true) {
                                 firstTime=false;
                                 element.jConsolePrintln("Standard output from system:\n");
                             }
-                            if (input2.getValue()){
+                            if (Debug_En.getValue()){
                                 element.jConsolePrintln(s);
                             }
-                        output0.setValue(sysOut_N_Err);  
+                        Response_Out.setValue(sysOut_N_Err);
                         }
 
                         
@@ -157,31 +165,35 @@ public class cmdWrite_JV extends JVSMain
                             sysOut_Err+=s;
                             sysOut_Err+="\n";
                             // Leemos los errores si los hubiera
-                            if (input2.getValue() && firstTime==true){
+                            if (Debug_En.getValue() && firstTime==true){
                                 firstTime=false;
                                 element.jConsolePrintln("Error Output from system:\n");
                             }
-                            if (input2.getValue()){
+                            if (Debug_En.getValue()){
                                 element.jConsolePrintln(s);
                             }
                              
-                        output0.setValue(sysOut_Err);        
+                        Response_Out.setValue(sysOut_Err);
+                        
                         }
 
-                    output1.setValue(false);
+                    Error_out.setValue(false);
+                    s=" ";
+                    sysOut_Err=" ";
+                    sysOut_N_Err=" ";
                     
             } catch (IOException ioe) {
                     System.out.println (ioe);
-                    if (input2.getValue()) {
-                        element.jConsolePrintln("Error ejecutando comando "+input1.getValue());
+                    if (Debug_En.getValue()) {
+                        element.jConsolePrintln("Error ejecutando comando "+CommandIn.getValue());
                     }
-                    output1.setValue(true);
-                    output0.setValue("Command Error!!");
+                    Error_out.setValue(true);
+                    Response_Out.setValue("Command Error!!");
             }  
-
+       
        element.notifyPin(0);
        element.notifyPin(1);
-       input2.setValue(false);
+       //Debug_En.setValue(false);
     }
   }
 

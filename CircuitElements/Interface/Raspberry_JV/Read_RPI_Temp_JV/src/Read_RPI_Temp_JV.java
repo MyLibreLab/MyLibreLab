@@ -7,7 +7,7 @@
 
 import VisualLogic.*;
 import java.awt.*;
-import java.awt.event.*;
+//import java.awt.event.*;
 import tools.*;
 import VisualLogic.variables.*;
 import java.io.*;
@@ -125,6 +125,9 @@ public class Read_RPI_Temp_JV extends JVSMain
     Enable_VM_in= (VSBoolean)element.getPinInputReference(5);
 
     Debug_Window_En_in= (VSBoolean)element.getPinInputReference(8);
+    if (Debug_Window_En_in==null){
+       Debug_Window_En_in=new VSBoolean(false);
+    }
     Error_in= (VSBoolean)element.getPinInputReference(9);
   }
 
@@ -147,6 +150,9 @@ public class Read_RPI_Temp_JV extends JVSMain
 
   public void process()
   { 
+    if (Debug_Window_En_in==null){
+       Debug_Window_En_in=new VSBoolean(false);
+    }  
     if(Error_in.getValue()==true && Enable_VM_in.getValue()==true){ //if There are error do not execute code and out the error to handle in the Error Handler VM.
        Error_out.setValue(true);
        
@@ -228,6 +234,9 @@ public class Read_RPI_Temp_JV extends JVSMain
 
                     
                     first_time=false;
+                    s=" ";
+                    sysOut_Err=" ";
+                    sysOut_N_Err=" ";
                                         
             } catch (IOException ioe) {
                     System.out.println (ioe);
@@ -247,7 +256,7 @@ public class Read_RPI_Temp_JV extends JVSMain
    
    element.notifyPin(4);
    Enable_VM_out.setValue(Enable_VM_in.getValue());
-   Enable_VM_in.setValue(false);
+   //Enable_VM_in.setValue(false);
    element.notifyPin(0);
 
    Debug_Window_En_out.setValue(Debug_Window_En_in.getValue());

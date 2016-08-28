@@ -72,7 +72,7 @@ public class Set_DI_RPI_JV extends JVSMain
 
   public void init()
   {
-    element.jSetName("Set_DIO_Pin_RPI_JV");
+    element.jSetName("Set_DI_Pin_RPI_JV");
     initPinVisibility(false,false,false,false);
     setSize(50,50);
     element.jSetLeftPins(5);
@@ -121,6 +121,9 @@ public class Set_DI_RPI_JV extends JVSMain
     wPi_Pin_Number_in= (VSInteger)element.getPinInputReference(6);
     Pull_Resistor= (VSBoolean)element.getPinInputReference(7);
     Debug_Window_En_in= (VSBoolean)element.getPinInputReference(8);
+    if (Debug_Window_En_in==null){
+       Debug_Window_En_in=new VSBoolean(false);
+    }
     Error_in= (VSBoolean)element.getPinInputReference(9);
   }
 
@@ -143,6 +146,9 @@ public class Set_DI_RPI_JV extends JVSMain
 
   public void process()
   { 
+    if (Debug_Window_En_in==null){
+       Debug_Window_En_in=new VSBoolean(false);
+       }  
     if(Error_in.getValue() && Enable_VM_in.getValue()){ //if There are error do not execute code and out the error to handle in the Error Handler VM.
        Error_out.setValue(true);
        element.notifyPin(4);
@@ -150,6 +156,7 @@ public class Set_DI_RPI_JV extends JVSMain
        if (Debug_Window_En_in.getValue()) {
           element.jConsolePrintln(Element_Tag+Error_Tag+"|Element_Not_Executed_Because_Error_in=TRUE|");
         }
+       
     }   
       
     if (Enable_VM_in.getValue() && firstTime==true && Error_in.getValue()==false) // Only executes one time if no error.
@@ -210,6 +217,9 @@ public class Set_DI_RPI_JV extends JVSMain
                         }
 
                     Error_out.setValue(false);
+                    s=" ";
+                    sysOut_Err=" ";
+                    sysOut_N_Err=" ";
                     firstTime=false; // If no error do not execute this command more times.
                     
             } catch (IOException ioe) {
@@ -230,7 +240,7 @@ public class Set_DI_RPI_JV extends JVSMain
    element.notifyPin(2);
    element.notifyPin(4);
    Enable_VM_out.setValue(Enable_VM_in.getValue());
-   Enable_VM_in.setValue(false);
+   //Enable_VM_in.setValue(false);
    element.notifyPin(0);
    wPi_Pin_Number_out.setValue(wPi_Pin_Number_in.getValue());
    element.notifyPin(1);
