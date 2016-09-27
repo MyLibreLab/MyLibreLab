@@ -1,0 +1,16 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+LOADER          = 
+CAPTION         = JSlide_Control_JV
+CAPTION_EN      = JSlide_Control_JV
+CAPTION_ES      = Control_Deslizador_JV
+VM              = 
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = Text_Control_JV
+CLASSFRONT      = Pane_Text_Control_JV
+ICON            = bin/H_Slider_JV.gif
+CLASSPATH       = 
+CLASSPATH2      = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE
