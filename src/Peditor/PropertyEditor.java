@@ -40,8 +40,6 @@ import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 interface PEIF {
 
@@ -56,10 +54,10 @@ class VSNope extends VSObject {
 
 class ComboBoxEditor extends JComboBox implements PEIF, ActionListener {
 
-    private VSComboBox referenz;
-    private Element element;
+    private VSComboBox referenz;    
     private PropertyEditorItem item;
 
+    @Override
     public Object getReference() {
         return referenz;
     }
@@ -87,12 +85,14 @@ class ComboBoxEditor extends JComboBox implements PEIF, ActionListener {
         addActionListener(this);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         JComboBox cb = (JComboBox) e.getSource();
         referenz.selectedIndex = cb.getSelectedIndex();
         jChanged();
     }
 
+    @Override
     public void changed() {
     }
 
@@ -100,10 +100,12 @@ class ComboBoxEditor extends JComboBox implements PEIF, ActionListener {
 
 class NopeEditor extends JPanel implements PEIF {
 
+    @Override
     public void changed() {
 
     }
 
+    @Override
     public Object getReference() {
         return null;
     }
@@ -114,6 +116,7 @@ class BooleanEditor extends JCheckBox implements PEIF {
     private VSBoolean referenz;
     private PropertyEditorItem item;
 
+    @Override
     public Object getReference() {
         return referenz;
     }
@@ -125,6 +128,7 @@ class BooleanEditor extends JCheckBox implements PEIF {
 
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.BLACK);
@@ -140,6 +144,7 @@ class BooleanEditor extends JCheckBox implements PEIF {
         setSelected(referenz.getValue());
 
         addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jChanged();
             }
@@ -147,6 +152,7 @@ class BooleanEditor extends JCheckBox implements PEIF {
 
     }
 
+    @Override
     public void changed() {
         referenz.setValue(this.isSelected());
     }
@@ -159,6 +165,7 @@ class AdvancedColorEditor extends JPanel implements PEIF {
     private JFrame frame;
     private JButton button = new JButton("...");
 
+    @Override
     public Object getReference() {
         return referenz;
     }
@@ -195,6 +202,7 @@ class AdvancedColorEditor extends JPanel implements PEIF {
         this.setLayout(new BorderLayout());
         this.add(button, BorderLayout.CENTER);
         button.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 CustomColorPicker frm = new CustomColorPicker(null, true);
 
@@ -219,6 +227,7 @@ class AdvancedColorEditor extends JPanel implements PEIF {
 
     }
 
+    @Override
     public void changed() {
         //referenz.setValue(button.getBackground());  
     }
@@ -232,6 +241,7 @@ class ColorEditor extends JPanel implements PEIF {
     private JFrame frame;
     private JButton button = new JButton("...");
 
+    @Override
     public Object getReference() {
         return referenz;
     }
@@ -269,6 +279,7 @@ class ColorEditor extends JPanel implements PEIF {
         this.setLayout(new BorderLayout());
         this.add(button, BorderLayout.CENTER);
         button.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 Color bgColor = JColorChooser.showDialog(getFrame(), java.util.ResourceBundle.getBundle("Peditor/PropertyEditor").getString("Choose Background Color"), getColor());
                 if (bgColor != null) {
@@ -280,6 +291,7 @@ class ColorEditor extends JPanel implements PEIF {
 
     }
 
+    @Override
     public void changed() {
         referenz.setValue(button.getBackground());
     }
@@ -291,11 +303,10 @@ class ReadonlySelector extends JButton implements PEIF {
     private VSObject referenz;
     private PropertyEditorItem item;
 
+    @Override
     public Object getReference() {
         return referenz;
     }
-
-    ;
     
     
     private void callElementPropertyMethode() {
@@ -315,6 +326,7 @@ class ReadonlySelector extends JButton implements PEIF {
 
         //System.out.println("ref="+referenz.class.ge());
         this.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 callElementPropertyMethode();
                 jChanged();
@@ -323,6 +335,7 @@ class ReadonlySelector extends JButton implements PEIF {
 
     }
 
+    @Override
     public void changed() {
     }
 }
@@ -335,11 +348,10 @@ class OpenPropertyDialogEditor extends JPanel implements PEIF {
     private JLabel label = new JLabel("XXXXX");
     private PropertyEditorItem item;
 
+    @Override
     public Object getReference() {
         return referenz;
     }
-
-    ;
     
     
     private void callElementPropertyMethode() {
@@ -370,6 +382,7 @@ class OpenPropertyDialogEditor extends JPanel implements PEIF {
         label.setText(referenz.getText());
 
         button.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 callElementPropertyMethode();
                 jChanged();
@@ -378,6 +391,7 @@ class OpenPropertyDialogEditor extends JPanel implements PEIF {
 
     }
 
+    @Override
     public void changed() {
     }
 }
@@ -392,6 +406,7 @@ class FileEditor extends JPanel implements PEIF {
     private JLabel label = new JLabel("   ");
     private JButton button = new JButton("...");
 
+    @Override
     public Object getReference() {
         return referenz;
     }
@@ -444,6 +459,7 @@ class FileEditor extends JPanel implements PEIF {
         add(button, java.awt.BorderLayout.EAST);
 
         button.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JFileChooser chooser = new JFileChooser();
 
@@ -478,6 +494,7 @@ class FileEditor extends JPanel implements PEIF {
 
     }
 
+    @Override
     public void changed() {
         referenz.setValue(path);
     }
@@ -492,6 +509,7 @@ class FontEditor extends JPanel implements PEIF {
     private JFrame frame = null;
     private JButton button = new JButton("...");
 
+    @Override
     public Object getReference() {
         return referenz;
     }
@@ -538,6 +556,7 @@ class FontEditor extends JPanel implements PEIF {
         label.setText(referenz.getValue().getName());
 
         button.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DialogFontChooser chooser = new DialogFontChooser(getFrame(), true);
 
@@ -549,7 +568,7 @@ class FontEditor extends JPanel implements PEIF {
                 chooser.setLocation(mitteX - getWidth() / 2 - 200, mitteY - getHeight() / 2 - 200);
 
                 chooser.setVisible(true);
-                if (chooser.result) {
+                if (DialogFontChooser.result) {
                     mySetFont(chooser.getNewFont());
                     jChanged();
                 }
@@ -558,6 +577,7 @@ class FontEditor extends JPanel implements PEIF {
 
     }
 
+    @Override
     public void changed() {
         referenz.setValue(myGetFont());
     }
@@ -571,11 +591,11 @@ class DoubleEditor extends JTextField implements PEIF {
     private double max;
     private PropertyEditorItem item;
 
+    @Override
     public Object getReference() {
         return referenz;
     }
-
-    ;
+    
     
     public void jchanged() {
         item.processChanged();
@@ -599,6 +619,7 @@ class DoubleEditor extends JTextField implements PEIF {
 
     }
 
+    @Override
     public void changed() {
         try {
             String txt = getText();
@@ -626,11 +647,11 @@ class IntegerEditor extends JTextField implements PEIF {
     private int max;
     public PropertyEditorItem item;
 
+    @Override
     public Object getReference() {
         return referenz;
     }
-
-    ;
+    
     
     public void pChanged() {
         item.processChanged();
@@ -645,6 +666,7 @@ class IntegerEditor extends JTextField implements PEIF {
         setText("" + referenz.getValue());
 
         this.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 if (evt.getKeyCode() == 10) {
                     pChanged();
@@ -654,6 +676,7 @@ class IntegerEditor extends JTextField implements PEIF {
 
     }
 
+    @Override
     public void changed() {
         try {
 
@@ -680,11 +703,11 @@ class ByteEditor extends JTextField implements PEIF {
     private int max;
     public PropertyEditorItem item;
 
+    @Override
     public Object getReference() {
         return referenz;
     }
-
-    ;
+    
     
     public void pChanged() {
         item.processChanged();
@@ -699,6 +722,7 @@ class ByteEditor extends JTextField implements PEIF {
         setText("" + VSByte.toSigned(referenz.getValue()));
 
         this.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 if (evt.getKeyCode() == 10) {
                     pChanged();
@@ -708,9 +732,10 @@ class ByteEditor extends JTextField implements PEIF {
 
     }
 
+    @Override
     public void changed() {
         try {
-            short val = (short) (Integer.valueOf(getText()).intValue());
+            short val = (short) (Integer.parseInt(getText()));
             referenz.setValue(VSByte.toUnsigned(val));
 
             if (VSByte.toSigned(referenz.getValue()) < min) {
@@ -737,6 +762,7 @@ class ImageEditor extends JPanel implements PEIF {
     private JLabel label = new JLabel("   ");
     private JButton button = new JButton("...");
 
+    @Override
     public Object getReference() {
         return referenz;
     }
@@ -781,6 +807,7 @@ class ImageEditor extends JPanel implements PEIF {
         add(button, java.awt.BorderLayout.EAST);
 
         button.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JFileChooser chooser = new JFileChooser();
 
@@ -813,6 +840,7 @@ class ImageEditor extends JPanel implements PEIF {
 
     }
 
+    @Override
     public void changed() {
         referenz.loadImage(path);
     }
@@ -826,14 +854,14 @@ class PropertiesEditor extends JButton implements PEIF, ActionListener {
     private JFrame frame;
     private VMObject vmobject;
 
+    @Override
     public Object getReference() {
         return referenz;
     }
-
-    ;
+    
     
     public void pChanged() {
-        item.processChanged();
+        item.processChanged(); 
     }
 
     public PropertiesEditor(PropertyEditorItem item, JFrame frame, VMObject vmobject, VSProperties referenz) {
@@ -846,6 +874,7 @@ class PropertiesEditor extends JButton implements PEIF, ActionListener {
         addActionListener(this);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         DialogPropertiesChoice frm = new DialogPropertiesChoice(frame, true, vmobject);
 
@@ -864,6 +893,7 @@ class PropertiesEditor extends JButton implements PEIF, ActionListener {
         }
     }
 
+    @Override
     public void changed() {
         //referenz.setValue(getText());
     }
@@ -874,6 +904,7 @@ class StringEditor extends JTextField implements PEIF {
     private VSString referenz;
     private PropertyEditorItem item;
 
+    @Override
     public Object getReference() {
         return referenz;
     }
@@ -891,6 +922,7 @@ class StringEditor extends JTextField implements PEIF {
         setText(referenz.getValue());
 
         this.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 if (evt.getKeyCode() == 10) {
                     pChanged();
@@ -900,6 +932,7 @@ class StringEditor extends JTextField implements PEIF {
 
     }
 
+    @Override
     public void changed() {
         referenz.setValue(getText());
     }

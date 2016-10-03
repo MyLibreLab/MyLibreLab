@@ -71,10 +71,9 @@ import javax.tools.ToolProvider;
 import projectfolder.MyNode;
 import projectfolder.ProjectPalette;
 import ParserCode.*;
-import com.apple.eawt.Application;
+//import com.apple.eawt.Application;
 import de.myopenlab.update.frmUpdate;
 import java.beans.XMLDecoder;
-import java.beans.XMLEncoder;
 import javax.swing.JEditorPane;
 import javax.swing.JMenu;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -1343,8 +1342,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             setIconImages(images);
             
             // for mac os!
-            Application application = Application.getApplication();
-            application.setDockIconImage(iconImage64);
+            //Application application = Application.getApplication();
+            //application.setDockIconImage(iconImage64);
 
         } catch (Exception ex) {
             Tools.showMessage("Fehler : " + ex.toString());

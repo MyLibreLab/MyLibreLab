@@ -678,7 +678,7 @@ public class frmUpdate extends javax.swing.JFrame {
         jTable1.setRowHeight(40);
         jTable2.setRowHeight(40);
 
-        initTable1();
+        //initTable1();
         initTable2();
 
         ImageIcon icon = new ImageIcon(getClass().getResource("/Bilder/16x16/storage.png"));
@@ -972,7 +972,7 @@ public class frmUpdate extends javax.swing.JFrame {
                             .addComponent(jScrollPane1)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 261, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 279, Short.MAX_VALUE)
                                 .addComponent(jButton10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton6)
@@ -1498,8 +1498,8 @@ public class frmUpdate extends javax.swing.JFrame {
             //URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
 
             try {
-                Tools.showMessage(icon32);
-                Tools.showMessage(tmp + "/icon32.png");
+                //Tools.showMessage(icon32);
+                // Tools.showMessage(tmp + "/icon32.png");
                 Tools.copyFileUsingStream(new File(icon32), new File(tmp + "/icon32.png"));
             } catch (IOException ex) {
                 Logger.getLogger(Dialog_create_new_group.class.getName()).log(Level.SEVERE, null, ex);

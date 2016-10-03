@@ -62,7 +62,7 @@ public class PropertyEditorItem
       return element;    
     }
     
-    public void processChanged()
+    public void processChanged() 
     {
         ((PEIF)component).changed();                
         if (element!=null) 

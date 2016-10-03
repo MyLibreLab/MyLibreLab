@@ -45,7 +45,7 @@ public class DeletePackages implements Runnable {
             
             Thread.sleep(1000);
             owner.log("finished");
-            owner.initTable1();
+            //owner.initTable1();
             owner.initTable2();
             owner.owner.reinitPackage();
         } catch (InterruptedException ex) {
