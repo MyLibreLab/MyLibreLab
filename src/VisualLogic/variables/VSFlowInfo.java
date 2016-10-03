@@ -21,6 +21,7 @@ import MyParser.OpenVariable;
 import VisualLogic.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import javax.script.Bindings;
 
 public class VSFlowInfo extends VSObject
 {
@@ -29,6 +30,8 @@ public class VSFlowInfo extends VSObject
     public Hashtable tags = new Hashtable();       // Für irgendwelche Parameter die durch die ganze Linie laufen
     public Object returnValue=null;
     public ExternalIF source=null;
+    
+    public Bindings bindings; // Das einzige wirklich wichtige! NEU! 17.08.2016
     
           
     public VSFlowInfo()
@@ -52,6 +55,7 @@ public class VSFlowInfo extends VSObject
           this.variablenListe=temp.variablenListe;
           this.tags=temp.tags;          
           this.returnValue=temp.returnValue;
+          this.bindings=temp.bindings;
                     
           this.source = temp.source;          
           setChanged(temp.isChanged());
@@ -164,17 +168,17 @@ public class VSFlowInfo extends VSObject
     
     public OpenVariable getVariable(String varname)
     {
-        System.out.println("XXXXXXX Suche nach:"+varname);
+        //System.out.println("XXXXXXX Suche nach:"+varname);
         varname=varname.trim();
         OpenVariable node;
         for (Object variablenListe1 : variablenListe) {
             node = (OpenVariable) variablenListe1;
             
-            System.out.println("XXXXXXX var item:"+node.name);
+            //System.out.println("XXXXXXX var item:"+node.name);
             
             if (varname.equals(node.name.trim()))
             {
-                System.out.println("XXXXXXX:"+node.name);
+                //System.out.println("XXXXXXX:"+node.name);
                 return node;
             }
         }

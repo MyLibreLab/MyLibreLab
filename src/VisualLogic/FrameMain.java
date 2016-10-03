@@ -71,6 +71,7 @@ import javax.tools.ToolProvider;
 import projectfolder.MyNode;
 import projectfolder.ProjectPalette;
 import ParserCode.*;
+import com.apple.eawt.Application;
 import de.myopenlab.update.frmUpdate;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
@@ -785,10 +786,11 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             //oos.close();
 
             String fileName_xml = getUserURL().getFile() + System.getProperty("file.separator") + "config.xml";
-            File fxml = new File(fileName_xml);
-            XMLEncoder e = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(fxml.getAbsolutePath())));
-            e.writeObject(settings);
-            e.close();
+           
+            
+            XMLSerializer.write(settings, fileName_xml);
+            
+            
 
         } catch (Exception e) {
 
@@ -866,6 +868,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         tabCloseButton.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() instanceof MyButtonX) {
                     MyButtonX button = (MyButtonX) e.getSource();
@@ -1014,30 +1017,13 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         setLocation(settings.getCircuitWindowLocation());
         setSize(settings.getCircuitWindowDimension());
 
-        setExtendedState(settings.getStatus());
+       // setExtendedState(settings.getStatus());
 
         String ver = Version.strApplicationVersion + " " + Version.strStatus;
 
         setTitle(Version.strApplicationTitle + " Version-" + ver.trim());
 
-        //ImageIcon icon = new ImageIcon(getClass().getResource("/Bilder/logo.png"));
-        try {
-
-            //iconImage = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Bilder/16x16/icon.png"));
-            //setIconImage(iconImage);            ?
-            iconImage = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Bilder/icon_16.png"));
-            Image iconImage32 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Bilder/icon_32.png"));
-            Image iconImage64 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Bilder/icon_64.png"));
-
-            ArrayList<Image> images = new ArrayList<>();
-            images.add(iconImage);
-            images.add(iconImage32);
-            images.add(iconImage64);
-            setIconImages(images);
-
-        } catch (Exception ex) {
-            Tools.showMessage("Fehler : " + ex.toString());
-        }
+       
 
         // Loesche alle tmp Dateien implements User Verzeichniss
         File verzeichniss = new File(getUserURL().getFile() + "/");
@@ -1340,6 +1326,29 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     }
 
     public FrameMain(String args[]) {
+        
+         //ImageIcon icon = new ImageIcon(getClass().getResource("/Bilder/logo.png"));
+        try {
+
+            //iconImage = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Bilder/16x16/icon.png"));
+            //setIconImage(iconImage);            ?
+            iconImage = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Bilder/icon_16.png"));
+            Image iconImage32 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Bilder/icon_32.png"));
+            Image iconImage64 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Bilder/icon_64.png"));
+
+            ArrayList<Image> images = new ArrayList<>();
+            images.add(iconImage);
+            images.add(iconImage32);
+            images.add(iconImage64);
+            setIconImages(images);
+            
+            // for mac os!
+            Application application = Application.getApplication();
+            application.setDockIconImage(iconImage64);
+
+        } catch (Exception ex) {
+            Tools.showMessage("Fehler : " + ex.toString());
+        }
 
         //JDialog.setDefaultLookAndFeelDecorated(true);
         driverPath = elementPath + "/Drivers";
@@ -1448,6 +1457,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         setLocation(settings.getCircuitWindowLocation());
         setSize(settings.getCircuitWindowDimension());
+       
 
         if (settings.getRightSplitterPos() < 10) {
             settings.setRightSplitterPos(10);

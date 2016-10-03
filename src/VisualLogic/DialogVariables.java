@@ -217,8 +217,10 @@ public class DialogVariables extends javax.swing.JDialog
             {
                 node.name=DialogAddEditvariable.varName;
                 node.datatype=DialogAddEditvariable.datatype;
+                node.size1=DialogAddEditvariable.arr_size1;
+                node.size2=DialogAddEditvariable.arr_size2;
                 listAll();
-                
+               
             }
             
         }
@@ -234,7 +236,9 @@ public class DialogVariables extends javax.swing.JDialog
             {
                 OpenVariable newNode=new OpenVariable();
                 newNode.name=DialogAddEditvariable.varName;
-                newNode.datatype=DialogAddEditvariable.datatype;   
+                newNode.datatype=DialogAddEditvariable.datatype;  
+                newNode.size1=DialogAddEditvariable.arr_size1;
+                newNode.size2=DialogAddEditvariable.arr_size2;
                 liste.add(newNode);
                 listAll();                
             }

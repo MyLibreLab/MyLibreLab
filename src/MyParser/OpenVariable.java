@@ -14,42 +14,151 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 package MyParser;
 
+import VisualLogic.variables.VS1DBoolean;
+import VisualLogic.variables.VS1DDouble;
+import VisualLogic.variables.VS1DInteger;
+import VisualLogic.variables.VS1DString;
+import VisualLogic.variables.VS2DBoolean;
+import VisualLogic.variables.VS2DDouble;
+import VisualLogic.variables.VS2DInteger;
+import VisualLogic.variables.VS2DString;
+
 public class OpenVariable {
-   
-    
+
     public String name;
     public int datatype;
+
+    public int size1;
+    public int size2;
+
     public Object value;
     public boolean global;
-    
-    public static final int C_DOUBLE =0;
-    public static final int C_STRING =1;
-    public static final int C_BOOLEAN =2;
-    
-    @Override
-    public String toString()
-    {
+
+    public static final int C_DOUBLE = 0;
+    public static final int C_STRING = 1;
+    public static final int C_BOOLEAN = 2;
+    public static final int C_INTEGER = 3;
+    public static final int C_DOUBLE_1D = 4;
+    public static final int C_STRING_1D = 5;
+    public static final int C_BOOLEAN_1D = 6;
+    public static final int C_INTEGER_1D = 7;
+    public static final int C_DOUBLE_2D = 8;
+    public static final int C_STRING_2D = 9;
+    public static final int C_BOOLEAN_2D = 10;
+    public static final int C_INTEGER_2D = 11;
+
+    public String dtToString(int datatype) {
         String dt = "";
-        
-        if (datatype==0) dt="Double";
-        if (datatype==1) dt="String";
-        if (datatype==2) dt="Boolean";
-        if (datatype==3) dt="Integer";
-        
-        return name+" ("+dt+")";
+
+        switch (datatype) {
+            case C_DOUBLE:
+                dt = "Double";
+                break;
+            case C_STRING:
+                dt = "String";
+                break;
+            case C_BOOLEAN:
+                dt = "Boolean";
+                break;
+            case C_INTEGER:
+                dt = "Integer";
+                break;
+            case C_DOUBLE_1D:
+                dt = "1D_Double";
+                break;
+            case C_STRING_1D:
+                dt = "1D_String";
+                break;
+            case C_BOOLEAN_1D:
+                dt = "1D_Boolean";
+                break;
+            case C_INTEGER_1D:
+                dt = "1D_Integer";
+                break;
+            case C_DOUBLE_2D:
+                dt = "2D_Double";
+                break;
+            case C_STRING_2D:
+                dt = "2D_String";
+                break;
+            case C_BOOLEAN_2D:
+                dt = "2D_Boolean";
+                break;
+            case C_INTEGER_2D:
+                dt = "2D_Integer";
+                break;
+
+        }
+
+        return dt;
     }
-    public OpenVariable()
-    {
+
+    @Override
+    public String toString() {
+        String dt = dtToString(datatype);
+
+        if (dt.indexOf("1D_") > -1) {
+            return name + " (" + dt + "[" + size1 + "])";
+        } else if (dt.indexOf("2D_") > -1) {
+            return name + " (" + dt + "[" + size1 + "][" + size2 + "])";
+        } else {
+            return name + " (" + dt + ")";
+        }
+    }
+
+    public void createVariableByDt() {
         
+        switch (datatype) {
+            case C_DOUBLE:
+                
+                value = new Double(0);
+                break;
+            case C_STRING:
+                value = "";
+                break;
+            case C_BOOLEAN:
+                 value = false;
+                break;
+            case C_INTEGER:
+                value = 0;
+                break;
+            case C_DOUBLE_1D:
+               value = new VS1DDouble(size1);
+                break;
+            case C_STRING_1D:
+                value = new VS1DString(size1);
+                break;
+            case C_BOOLEAN_1D:
+                value = new VS1DBoolean(size1);
+                break;
+            case C_INTEGER_1D:
+               value = new VS1DInteger(size1);
+                break;
+            case C_DOUBLE_2D:
+               value = new VS2DDouble(size1,size2);
+                break;
+            case C_STRING_2D:
+              value = new VS2DString(size1,size2);
+                break;
+            case C_BOOLEAN_2D:
+               value = new VS2DBoolean(size1,size2);
+                break;
+            case C_INTEGER_2D:
+                value = new VS2DInteger(size1,size2);
+                break;
+
+        }
     }
-    
-    public OpenVariable(String name, Object value)
-    {
-        this.name=name;
-        this.value=value;
+
+    public OpenVariable() {
+
     }
-}    
-    
+
+    public OpenVariable(String name, Object value) {
+        this.name = name;
+        this.value = value;
+    }
+}

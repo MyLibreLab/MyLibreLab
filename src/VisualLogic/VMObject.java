@@ -3836,7 +3836,7 @@ public class VMObject extends JPanel implements MouseListener, MouseMotionListen
     }
 
     public void properyItemFocusGained() {
-        System.out.println("XXXXXXXXXX");
+        //System.out.println("XXXXXXXXXX");
     }
 
     public void init(String[] args) {

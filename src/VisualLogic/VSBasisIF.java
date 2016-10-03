@@ -22,6 +22,7 @@ import VisualLogic.variables.VSObject;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Stack;
+import javax.script.ScriptEngine;
 
 public interface VSBasisIF 
 {
@@ -36,6 +37,7 @@ public interface VSBasisIF
     public abstract void vsShow();
     public abstract void vsClose();
     public abstract void vsProcess();
+    public abstract ScriptEngine vsGetEngine();
     public abstract ExternalIF vsgetOwnerElement();
     public abstract void vsMousePressed(MouseEvent e) ;
     public abstract void vsMouseReleased(MouseEvent e);

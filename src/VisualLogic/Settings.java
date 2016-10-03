@@ -14,12 +14,10 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+ */
 package VisualLogic;
 
 import java.awt.Dimension;
-import java.io.Serializable;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -28,78 +26,76 @@ import java.util.ArrayList;
  *
  * @author Homer
  */
-public class Settings implements Serializable
-{
+public class Settings {
+
     private boolean showDocWindow = true;
-    private String currentDirectory=".";
-    private String lookAndFeel=UIManager.getCrossPlatformLookAndFeelClassName();
-    private  Point docLocation = new Point(500,100);
-    private  Dimension docDimension = new Dimension(300,250);
-    private  int basisWindow_LeftWidth=120;
-    private  int rightSplitterPos=150;
-    private  int oldRightSplitterPos=150;
-    private  String documentation_language="";
-    private  String elementPalettePath="";
-    private  String userdefinedElementsPath="";    
-       
-    private  String language="en_US";
-    private  Point docWindowLocation = new Point(100,100);
-    private  Dimension docWindowDimension = new Dimension(100,100);
-    private  boolean isDocWindowsVisible=true;
-    private  ArrayList<String> projects = new ArrayList<>(); // Obsolete!
-   
-    
-    private  boolean frontAlignToGrid=true;
-    private  boolean frontRasterOn=true;
-    private  int frontRasterX=10;
-    private  int frontRasterY=10;
-    
-    private  boolean circuittAlignToGrid=true;
-    private  boolean circuitRasterOn=true;
-    private  int circuitRasterX=10;
-    private  int circuitRasterY=10;
-    
-    private  boolean circuitCrossVisible=true;
-    private  boolean elementIDVisible=false;
-    
-    
+    private String currentDirectory = ".";
+    private String lookAndFeel = UIManager.getCrossPlatformLookAndFeelClassName();
+    private Point docLocation = new Point(500, 100);
+    private Dimension docDimension = new Dimension(300, 250);
+    private int basisWindow_LeftWidth = 120;
+    private int rightSplitterPos = 150;
+    private int oldRightSplitterPos = 150;
+    private String documentation_language = "";
+    private String elementPalettePath = "";
+    private String userdefinedElementsPath = "";
+
+    private String language = "en_US";
+    private Point docWindowLocation = new Point(100, 100);
+    private Dimension docWindowDimension = new Dimension(100, 100);
+    private boolean isDocWindowsVisible = true;
+    private ArrayList<String> projects = new ArrayList<>(); // Obsolete!
+
+    private boolean frontAlignToGrid = true;
+    private boolean frontRasterOn = true;
+    private int frontRasterX = 10;
+    private int frontRasterY = 10;
+
+    private boolean circuittAlignToGrid = true;
+    private boolean circuitRasterOn = true;
+    private int circuitRasterX = 10;
+    private int circuitRasterY = 10;
+
+    private boolean circuitCrossVisible = true;
+    private boolean elementIDVisible = false;
+
     //private  String panelDirectory="/FrontElements";
     //private  String circuitDirectory="/CircuitElements";
-    
-    private  int status=0;
-    private Point circuitWindowLocation = new Point(0,0);
-    private Dimension circuitWindowDimension = new Dimension(640,480);
+    private int status = 0;
+    private Point circuitWindowLocation = new Point(0, 0);
+    private Dimension circuitWindowDimension = new Dimension(640, 480);
 
-    private  String javaEditor;
-    private  String HTMLEditor;
-    private  String jdkBin="C:\\Programme\\Java\\jdk1.5.0_09\\bin";
-    private  String graphicEditor="mspaint.exe";
-    
-    private  int elementSplitterHozPosition=400;
-    private  int elementSplitterPosition=200;
-            
-    private  String oldProjectPath="";
-    
-    private  String version=""; // Important to compare this Version with old Version!
-    
+    private String javaEditor;
+    private String HTMLEditor;
+    private String jdkBin = "C:\\Programme\\Java\\jdk1.5.0_09\\bin";
+    private String graphicEditor = "mspaint.exe";
+
+    private int elementSplitterHozPosition = 400;
+    private int elementSplitterPosition = 200;
+
+    private String oldProjectPath = "";
+
+    private String version = ""; // Important to compare this Version with old Version!
+
     private Point mainFrameLocation = new Point();
-    
-    private Dimension mainFrameSize = new Dimension(0,0);
-    
-    private  Point elementPaletteLocation = new Point(100, 100);
-    private  Dimension elementPaletteSize = new Dimension(250, 300);
-    
-    private  String proxy_host="";
-    private  String proxy_port="";
-    
-    
-    private  String repository_domain="https://myopenlab.de";
-    private  String repository_login_username="";
-    private  String repository_login_password="";
-    
-    private String javascript_editor="";
-    
-    /** Creates a new instance of Settings */
+
+    private Dimension mainFrameSize = new Dimension(0, 0);
+
+    private Point elementPaletteLocation = new Point(100, 100);
+    private Dimension elementPaletteSize = new Dimension(250, 300);
+
+    private String proxy_host = "";
+    private String proxy_port = "";
+
+    private String repository_domain = "https://myopenlab.de";
+    private String repository_login_username = "";
+    private String repository_login_password = "";
+
+    private String javascript_editor = "";
+
+    /**
+     * Creates a new instance of Settings
+     */
     public Settings() {
     }
 
@@ -760,5 +756,5 @@ public class Settings implements Serializable
     public void setOldRightSplitterPos(int oldRightSplitterPos) {
         this.oldRightSplitterPos = oldRightSplitterPos;
     }
-    
+
 }
