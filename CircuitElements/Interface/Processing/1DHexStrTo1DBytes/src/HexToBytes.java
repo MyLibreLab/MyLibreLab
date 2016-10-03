@@ -116,7 +116,7 @@ public class HexToBytes extends JVSMain
      {
          String strX=values.getValue(i);
          dest[i]=toUnsigned( (short)Integer.parseInt (strX, 16) );
-         System.out.println("XXXXXXX="+dest[i]);
+         System.out.println(dest[i]);
      }
 
     outBytes.setValues(dest);

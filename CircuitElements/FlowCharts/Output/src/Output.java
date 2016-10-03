@@ -22,10 +22,7 @@
 import VisualLogic.*;
 import VisualLogic.variables.*;
 import java.awt.*;
-import java.awt.event.*;
 import tools.*;
-import javax.swing.*;
-import java.util.*;
 import java.awt.geom.Rectangle2D;
 
 
@@ -37,6 +34,7 @@ public class Output extends MainFlow
   private VSFlowInfo out = new VSFlowInfo();
 
 
+  @Override
   public void paint(java.awt.Graphics g)
   {
      if (element!=null)
@@ -69,6 +67,7 @@ public class Output extends MainFlow
   }
 
 
+  @Override
   public void init()
   {
     standardWidth=130;
@@ -84,8 +83,8 @@ public class Output extends MainFlow
 
     image=element.jLoadImage(element.jGetSourcePath()+"icon.gif");
     
-    setPin(0,element.C_FLOWINFO,element.PIN_INPUT);
-    setPin(1,element.C_FLOWINFO,element.PIN_OUTPUT);
+    setPin(0,ExternalIF.C_FLOWINFO,ExternalIF.PIN_INPUT);
+    setPin(1,ExternalIF.C_FLOWINFO,ExternalIF.PIN_OUTPUT);
     
     element.jSetResizable(false);
     element.jSetCaptionVisible(false);
@@ -94,11 +93,13 @@ public class Output extends MainFlow
     setName("#FLOWCHART_Output#");
   }
 
+  @Override
   public void xOnInit()
   {
     super.xOnInit();
   }
 
+  @Override
   public void initInputPins()
   {
     in=(VSFlowInfo)element.getPinInputReference(0);
@@ -106,34 +107,39 @@ public class Output extends MainFlow
   }
 
 
+  @Override
   public void start()
   {
     basis=element.jGetBasis();
   }
 
+  @Override
   public void initOutputPins()
   {
     element.setPinOutputReference(1,out);
   }
 
+  @Override
   public void process()
   {
-    Object o= basis.vsEvaluate(in,variable.getValue());
-    element.jPrintln(o.toString());
+    basis.vsEvaluate(in,"basis.baseprintln("+variable.getValue()+")");
+    //Object o= basis.vsGetVar(toInclude)
+    //element.jPrintln(o.toString());
     out.copyValueFrom(in);
     element.notifyPin(1);
   }
   
+  @Override
   public void loadFromStream(java.io.FileInputStream fis)
   {
     variable.loadFromStream(fis);
   }
 
 
+  @Override
   public void saveToStream(java.io.FileOutputStream fos)
   {
     variable.saveToStream(fos);
   }
   
 }
-

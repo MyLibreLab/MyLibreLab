@@ -22,10 +22,6 @@
 import VisualLogic.*;
 import VisualLogic.variables.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.text.*;
-import javax.swing.*;
-import java.util.*;
 import tools.*;
 import java.awt.geom.Rectangle2D;
 
@@ -39,6 +35,7 @@ public class Decision extends MainFlow
   private String[] strElements=null;
 
 
+  @Override
   public void paint(java.awt.Graphics g)
   {
      if (element!=null)
@@ -88,6 +85,7 @@ public class Decision extends MainFlow
 
   }
 
+  @Override
   public void init()
   {
     standardWidth=130;
@@ -102,9 +100,9 @@ public class Decision extends MainFlow
 
     image=element.jLoadImage(element.jGetSourcePath()+"icon.gif");
     
-    setPin(0,element.C_FLOWINFO,element.PIN_INPUT);
-    setPin(1,element.C_FLOWINFO,element.PIN_OUTPUT);
-    setPin(2,element.C_FLOWINFO,element.PIN_OUTPUT);
+    setPin(0,ExternalIF.C_FLOWINFO,ExternalIF.PIN_INPUT);
+    setPin(1,ExternalIF.C_FLOWINFO,ExternalIF.PIN_OUTPUT);
+    setPin(2,ExternalIF.C_FLOWINFO,ExternalIF.PIN_OUTPUT);
     
     element.jSetResizable(false);
     element.jSetCaptionVisible(false);
@@ -116,6 +114,7 @@ public class Decision extends MainFlow
   }
   
 
+  @Override
   public void xOnInit()
   {
     super.xOnInit();
@@ -123,6 +122,7 @@ public class Decision extends MainFlow
   
 
 
+  @Override
   public void initInputPins()
   {
     in=(VSFlowInfo)element.getPinInputReference(0);
@@ -130,18 +130,21 @@ public class Decision extends MainFlow
   }
 
 
+  @Override
   public void initOutputPins()
   {
     element.setPinOutputReference(1,outN);
     element.setPinOutputReference(2,outY);
   }
 
+  @Override
   public void start()
   {
   }
   
 
 
+  @Override
   public void process()
   {
     if (basis!=null)

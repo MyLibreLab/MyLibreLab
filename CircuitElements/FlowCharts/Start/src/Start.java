@@ -22,226 +22,206 @@
 import VisualLogic.*;
 import VisualLogic.variables.*;
 import java.awt.*;
-import java.awt.event.*;
 import tools.*;
-import javax.swing.*;
-import java.util.*;
 import java.awt.geom.Rectangle2D;
 import MyParser.*;
 
+public class Start extends MainFlow {
 
-public class Start extends MainFlow
-{
-  private Image image;
-  private VSBasisIF basis;
-  private VSBoolean in ;
-  private VSFlowInfo out = new VSFlowInfo();
+    private Image image;
+    private VSBasisIF basis;
+    private VSBoolean in;
+    private VSFlowInfo out = new VSFlowInfo();
 
-  private String methodName="";
-  private String varDef;
-  private String[] defs;
+    private String methodName = "";
+    private String varDef;
+    private String[] defs;
 
-  public void paint(java.awt.Graphics g)
-  {
-     if (element!=null)
-     {
-        Rectangle bounds=element.jGetBounds();
-        Graphics2D g2 = (Graphics2D) g;
+    @Override
+    public void paint(java.awt.Graphics g) {
+        if (element != null) {
+            Rectangle bounds = element.jGetBounds();
+            Graphics2D ggg;
+            ggg = (Graphics2D) g;
 
-        g2.setFont(font);
+            ggg.setFont(font);
 
-        int mitteX=bounds.x+(bounds.width)/2;
-        int mitteY=bounds.y+(bounds.height)/2;
+            int mitteX = bounds.x + (bounds.width) / 2;
+            int mitteY = bounds.y + (bounds.height) / 2;
 
-        int distanceY=10;
-        
-        g2.setColor(new Color(150,255,150));
-        g2.fillRoundRect(bounds.x,mitteY-distanceY,bounds.width,2*distanceY,20,20);
-        g2.setColor(Color.BLACK);
-        g2.drawRoundRect(bounds.x,mitteY-distanceY,bounds.width,2*distanceY,20,20);
+            int distanceY = 10;
 
-        String caption=variable.getValue();
+            ggg.setColor(new Color(150, 255, 150));
+            ggg.fillRoundRect(bounds.x, mitteY - distanceY, bounds.width, 2 * distanceY, 20, 20);
+            ggg.setColor(Color.BLACK);
+            ggg.drawRoundRect(bounds.x, mitteY - distanceY, bounds.width, 2 * distanceY, 20, 20);
 
-        FontMetrics fm = g2.getFontMetrics();
-        Rectangle2D r = fm.getStringBounds(caption,g2);
+            String caption = variable.getValue();
 
-        g2.setColor(Color.BLACK);
-        g.drawString(caption,mitteX-(int)(r.getWidth()/2),(int)(mitteY+fm.getHeight()/2)-3);
+            FontMetrics fm = ggg.getFontMetrics();
+            Rectangle2D r = fm.getStringBounds(caption, ggg);
 
-     }
-     super.paint(g);
-  }
-  
-  
-  private void evalMethodExpression(String expression)
-  {
-    //String expression = "Test ( double a, string salafia, boolean c   )   ";
-
-    if (expression.length()==0) return;
-    
-    int idx1=0;
-    int idx2=0;
-
-    idx1=expression.indexOf("(");
-    if (idx1>-1)
-    {
-      methodName=expression.substring(0,idx1);
-      System.out.println("MethodName="+methodName);
-
-      idx2=expression.indexOf(")");
-      if (idx2>-1)
-      {
-        varDef=expression.substring(idx1+1,idx2);
-        varDef=varDef.trim();
-        System.out.println("Definitionen : "+varDef);
-
-        defs=varDef.split(",");
-
-      } else element.jShowMessage("ERROR : coud not find \")\"  example: main(String args)");
-    } else element.jShowMessage("ERROR : coud not find \"(\" example: main(String args)");
-
-  }
-
-
-  public void init()
-  {
-    standardWidth=130;
-    width=standardWidth;
-    height=40;
-    toInclude="----";
-    
-    initPins(1,0,1,0);
-    setSize(width,height);
-    initPinVisibility(true,true,true,true);
-    
-    element.jSetInnerBorderVisibility(false);
-
-    image=element.jLoadImage(element.jGetSourcePath()+"icon.gif");
-    
-    setPin(0,element.C_BOOLEAN,element.PIN_INPUT);
-    setPin(1,element.C_FLOWINFO,element.PIN_OUTPUT);
-
-    element.jSetResizable(false);
-    element.jSetCaptionVisible(false);
-    element.jSetCaption("START");
-    
-    setName("#FLOWCHART_START#");
-    variable.setValue("");
-  }
-
-  public void xOnInit()
-  {
-    super.xOnInit();
-  }
-  
-  public void checkPinDataType()
-  {
-     evalMethodExpression(variable.getValue());
-  }
-
-  public void start()
-  {
-    out.returnValue=null;
-    out.source=null;
-
-    out.variablenListe.clear();
-    out.parameterDefinitions.clear();
-    
-
-    element.jSetTag(0,methodName);
-    element.jSetTag(1,out);
-    
-    
-    if (defs!=null)
-    {
-      String val;
-      
-      for (int i=0;i<defs.length;i++)
-      {
-        val=defs[i].trim();
-
-        if (val.length()>0)
-        {
-          String[] defs2=val.split(" ");
-
-          if (defs2.length==2)
-          {
-              String dataType=defs2[0];
-              String varName=defs2[1];
-
-              System.out.println("DT : "+dataType);
-              System.out.println("VN : "+varName);
-
-              int dt=out.getDataType(dataType);
-              if (dt>-1)
-              {
-                out.addParamter(varName,dt);
-                System.out.println("------------*** "+i+"   ->"+varName+" - "+dataType);
-              } else element.jShowMessage("ERROR : coud not find datatype : "+dataType);
-
-
-          }else element.jShowMessage("ERROR : in expression!");
+            ggg.setColor(Color.BLACK);
+            g.drawString(caption, mitteX - (int) (r.getWidth() / 2), (int) (mitteY + fm.getHeight() / 2) - 3);
 
         }
-      }
+        super.paint(g);
     }
-  }
 
+    private void evalMethodExpression(String expression) {
+        //String expression = "Test ( double a, string salafia, boolean c   )   ";
 
-  public void initInputPins()
-  {
-    in=(VSBoolean)element.getPinInputReference(0);
-  }
+        if (expression.length() == 0) {
+            return;
+        }
 
-  public void initOutputPins()
-  {
-    element.setPinOutputReference(1,out);
-  }
+        int idx1 = expression.indexOf("(");
+        if (idx1 > -1) {
+            methodName = expression.substring(0, idx1);
+            System.out.println("MethodName=" + methodName);
 
-  public void process()
-  {
-    if (in instanceof VSBoolean && in.getValue())
-    {
+            int idx2 = expression.indexOf(")");
+            if (idx2 > -1) {
+                varDef = expression.substring(idx1 + 1, idx2);
+                varDef = varDef.trim();
+               // System.out.println("Definitionen : " + varDef);
 
-       System.out.println(in.getValue());
-      // Lokale Variablen generieren, wenn mit dem Boolean Eingan gestartet wird.
+                defs = varDef.split(",");
 
+            } else {
+                element.jShowMessage("ERROR : coud not find \")\"  example: main(String args)");
+            }
+        } else {
+            element.jShowMessage("ERROR : coud not find \"(\" example: main(String args)");
+        }
 
-        for (int j=0;j<out.parameterDefinitions.size();j++)
-        {
-            OpenVariable var= (OpenVariable)out.parameterDefinitions.get(j);
-            if (var!=null)
-            {
-              out.addVariable(var.name,var.datatype);
+    }
+
+    @Override
+    public void init() {
+        standardWidth = 130;
+        width = standardWidth;
+        height = 40;
+        toInclude = "----";
+
+        initPins(1, 0, 1, 0);
+        setSize(width, height);
+        initPinVisibility(true, true, true, true);
+
+        element.jSetInnerBorderVisibility(false);
+
+        image = element.jLoadImage(element.jGetSourcePath() + "icon.gif");
+
+        setPin(0, ExternalIF.C_BOOLEAN, ExternalIF.PIN_INPUT);
+        setPin(1, ExternalIF.C_FLOWINFO, ExternalIF.PIN_OUTPUT);
+
+        element.jSetResizable(false);
+        element.jSetCaptionVisible(false);
+        element.jSetCaption("START");
+
+        setName("#FLOWCHART_START#");
+        variable.setValue("");
+    }
+
+    @Override
+    public void xOnInit() {
+        super.xOnInit();
+    }
+
+    @Override
+    public void checkPinDataType() {
+        evalMethodExpression(variable.getValue());
+    }
+
+    @Override
+    public void start() {
+        out.returnValue = null;
+        out.source = null;
+
+        out.variablenListe.clear();
+        out.parameterDefinitions.clear();
+        
+     
+        element.jSetTag(0, methodName);
+        element.jSetTag(1, out);
+
+        if (defs != null) {
+            String val;
+
+            for (int i = 0; i < defs.length; i++) {
+                val = defs[i].trim();
+
+                if (val.length() > 0) {
+                    String[] defs2 = val.split(" ");
+
+                    if (defs2.length == 2) {
+                        String dataType = defs2[0];
+                        String varName = defs2[1];
+
+                        System.out.println("DT : " + dataType);
+                        System.out.println("VN : " + varName);
+
+                        int dt = out.getDataType(dataType);
+                        if (dt > -1) {
+                            out.addParamter(varName, dt);
+                            System.out.println("------------*** " + i + "   ->" + varName + " - " + dataType);
+                        } else {
+                            element.jShowMessage("ERROR : coud not find datatype : " + dataType);
+                        }
+
+                    } else {
+                        element.jShowMessage("ERROR : in expression!");
+                    }
+
+                }
+            }
+        }
+    }
+
+    @Override
+    public void initInputPins() {
+        in = (VSBoolean) element.getPinInputReference(0);
+    }
+
+    @Override
+    public void initOutputPins() {
+        element.setPinOutputReference(1, out);
+    }
+
+    @Override
+    public void process() {
+        if (in instanceof VSBoolean && in.getValue()) {
+
+            //System.out.println(in.getValue());
+            // Lokale Variablen generieren, wenn mit dem Boolean Eingan gestartet wird.
+
+            for (int j = 0; j < out.parameterDefinitions.size(); j++) {
+                OpenVariable var = (OpenVariable) out.parameterDefinitions.get(j);
+                if (var != null) {
+                    out.addVariable(var.name, var.datatype);
+                }
+
             }
 
+            element.notifyPin(1);
         }
-
-
-      element.notifyPin(1);
     }
-  }
-  
-  public void processMethod(VSFlowInfo flowInfo)
-  {
-    //this.out=flowInfo;
-    //System.out.println("----------------------->>>>>>>>>>>>>><"+flowInfo.);
-    //element.setPinOutputReference(1,flowInfo);
-    element.notifyPin(1);
-  }
 
-  
-  public void loadFromStream(java.io.FileInputStream fis)
-  {
-     variable.loadFromStream(fis);
-     evalMethodExpression(variable.getValue());
-  }
+    @Override
+    public void processMethod(VSFlowInfo flowInfo) {
+       
+        element.notifyPin(1);
+    }
 
+    @Override
+    public void loadFromStream(java.io.FileInputStream fis) {
+        variable.loadFromStream(fis);
+        evalMethodExpression(variable.getValue());
+    }
 
-  public void saveToStream(java.io.FileOutputStream fos)
-  {
-    variable.saveToStream(fos);
-  }
+    @Override
+    public void saveToStream(java.io.FileOutputStream fos) {
+        variable.saveToStream(fos);
+    }
 
 }
-
