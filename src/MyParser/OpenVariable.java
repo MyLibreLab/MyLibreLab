@@ -25,6 +25,9 @@ import VisualLogic.variables.VS2DBoolean;
 import VisualLogic.variables.VS2DDouble;
 import VisualLogic.variables.VS2DInteger;
 import VisualLogic.variables.VS2DString;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSDouble;
+import VisualLogic.variables.VSInteger;
 
 public class OpenVariable {
 
@@ -120,10 +123,10 @@ public class OpenVariable {
                 value = "";
                 break;
             case C_BOOLEAN:
-                 value = false;
+                 value = new Boolean(false);
                 break;
             case C_INTEGER:
-                value = 0;
+                value = new Integer(0);
                 break;
             case C_DOUBLE_1D:
                value = new VS1DDouble(size1);
