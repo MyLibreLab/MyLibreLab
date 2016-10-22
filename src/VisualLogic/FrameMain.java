@@ -1228,10 +1228,10 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     private void initDocs() {
 
         jmnuDocs.removeAll();
-        new File(elementPath + "/Documentation").mkdir();
+        new File(elementPath + "/Documentations").mkdir();
 
         // List all Documents in their DIrectories
-        File directory = new File(elementPath + "/Documentation");
+        File directory = new File(elementPath + "/Documentations");
 
         ArrayList<String> files = new ArrayList<>();
         // get all the files from a directory
@@ -1252,13 +1252,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                     for (String file2 : files2) {
                         MyMenuItem item = new MyMenuItem();
 
-                        if (file2.endsWith(".xml")
-                                || file2.endsWith(".def")
-                                || file2.equalsIgnoreCase("description_de.html")
-                                || file2.equalsIgnoreCase("description_en.html")
-                                || file2.equalsIgnoreCase("description_es.html")) {
-
-                        } else {
+                        if (file2.endsWith(".pdf")) {
                             item.setText(file2);
 
                             menu.add(item);

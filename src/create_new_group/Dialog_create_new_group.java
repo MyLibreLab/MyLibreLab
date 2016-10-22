@@ -330,18 +330,17 @@ public class Dialog_create_new_group extends javax.swing.JDialog {
 
         jTextField1.setEditable(false);
         jTextField1.setText("jTextField1");
-        jTextField1.setOpaque(false);
 
-        jLabel13.setText("Path");
+        jLabel13.setText(bundle.getString("path")); // NOI18N
 
-        jButton4.setText("Edit Icon");
+        jButton4.setText(bundle.getString("Edit_Icon")); // NOI18N
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Reload");
+        jButton5.setText(bundle.getString("Reload")); // NOI18N
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -375,10 +374,10 @@ public class Dialog_create_new_group extends javax.swing.JDialog {
                 .addGap(14, 14, 14)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(194, Short.MAX_VALUE))
+                .addComponent(jButton4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -394,11 +393,11 @@ public class Dialog_create_new_group extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel11.setText("Type");
+        jLabel11.setText(bundle.getString("type")); // NOI18N
 
         jLabel15.setText("jLabel15");
 
-        jLabel16.setText("Kurzbeschreibung Englisch");
+        jLabel16.setText(bundle.getString("Kurzbeschreibung_Englisch")); // NOI18N
 
         txtShortDescriptionES.setColumns(20);
         txtShortDescriptionES.setRows(5);
@@ -408,7 +407,7 @@ public class Dialog_create_new_group extends javax.swing.JDialog {
         txtShortDescriptionEN.setRows(5);
         jScrollPane3.setViewportView(txtShortDescriptionEN);
 
-        jLabel17.setText("Kurzbeschreibung Spanisch");
+        jLabel17.setText(bundle.getString("Kurzbeschreibung_Spanisch")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -710,7 +709,8 @@ public class Dialog_create_new_group extends javax.swing.JDialog {
         definition_def += "VM_DIR_EDITABLE = TRUE";
 
         //xml += "\n" + definition_def;
-        String newPath = path + "/" + uuid;
+        //String newPath = path + "/" + uuid;
+        String newPath = path;
 
         Boolean success = false;
         if (mode.equalsIgnoreCase("add")) {

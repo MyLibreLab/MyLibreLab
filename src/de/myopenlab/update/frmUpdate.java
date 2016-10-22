@@ -1368,7 +1368,7 @@ public class frmUpdate extends javax.swing.JFrame {
         String xml = createEmptyInfoXML(tmp.getName());
         Tools.saveText(new File(tmp.getAbsolutePath() + "/info.xml"), xml);
 
-        Dialog_create_new_group frm = new Dialog_create_new_group(this, true, "edit", tmp.getParent());
+        Dialog_create_new_group frm = new Dialog_create_new_group(this, true, "edit", tmp.getAbsolutePath());
         frm.load(tmp.getAbsolutePath());
         frm.setVisible(true);
 
@@ -1399,7 +1399,7 @@ public class frmUpdate extends javax.swing.JFrame {
 
         Tools.saveText(new File(tmp.getAbsolutePath() + "/info.xml"), xml);
 
-        Dialog_create_new_group frm = new Dialog_create_new_group(this, true, "edit", tmp.getParent());
+        Dialog_create_new_group frm = new Dialog_create_new_group(this, true, "edit", tmp.getAbsolutePath());
         frm.load(tmp.getAbsolutePath());
         frm.setVisible(true);
 
@@ -1512,7 +1512,7 @@ public class frmUpdate extends javax.swing.JFrame {
             Tools.saveText(new File(tmp.getAbsolutePath() + "/project.myopenlab"), "");
 
             //Tools.copy(new File(FrameMain.elementPath + "/empty.vlogic"), new File(tmp.getAbsolutePath() + "/main.vlogic"));
-            Dialog_create_new_group frm = new Dialog_create_new_group(this, true, "edit", tmp.getParent());
+            Dialog_create_new_group frm = new Dialog_create_new_group(this, true, "edit", tmp.getAbsolutePath());
             frm.load(tmp.getAbsolutePath());
             frm.setVisible(true);
 

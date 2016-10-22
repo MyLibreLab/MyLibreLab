@@ -27,6 +27,7 @@ import VisualLogic.variables.VSBoolean;
 import VisualLogic.variables.VSDouble;
 import VisualLogic.variables.VSFlowInfo;
 import VisualLogic.variables.VSImage;
+import VisualLogic.variables.VSInteger;
 import VisualLogic.variables.VSObject;
 import VisualLogic.variables.VSString;
 import java.security.NoSuchAlgorithmException;
@@ -332,6 +333,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     // liefert True wenn alles ok
     // und False wenn die Typen nicht kompatibel
     // oder Variable nicht gefunden.
+    @Override
     public boolean vsCopyVSObjectToVariable(Object vsobject, String varname) {
         boolean result = false;
 
@@ -369,22 +371,31 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         boolean res = false;
 
         if (node != null) {
+            
+            if (vsobject instanceof VSInteger && node.value instanceof Integer) {
+                Integer v1 = (Integer) node.value;
+                VSInteger v2 = (VSInteger) vsobject;
+                v2.setValue(v1);
+                res = true;
+            }             
             if (vsobject instanceof VSDouble && node.value instanceof Double) {
                 Double v1 = (Double) node.value;
                 VSDouble v2 = (VSDouble) vsobject;
                 v2.setValue(v1);
                 res = true;
-            } else if (vsobject instanceof VSString && node.value instanceof String) {
+            } 
+            if (vsobject instanceof VSString && node.value instanceof String) {
                 String v1 = (String) node.value;
                 VSString v2 = (VSString) vsobject;
                 v2.setValue(v1);
                 res = true;
-            } else if (vsobject instanceof VSBoolean && node.value instanceof Boolean) {
+            } if (vsobject instanceof VSBoolean && node.value instanceof Boolean) {
                 Boolean v1 = (Boolean) node.value;
                 VSBoolean v2 = (VSBoolean) vsobject;
                 v2.setValue(v1);
                 res = true;
-            }else if (vsobject instanceof VS1DDouble && node.value instanceof VS1DDouble) {
+            }
+            if (vsobject instanceof VS1DDouble && node.value instanceof VS1DDouble) {
                 VS1DDouble v1 = (VS1DDouble) node.value;
                 VS1DDouble v2 = (VS1DDouble) vsobject;
                 v2.setValue(v1.getValue());
@@ -490,7 +501,8 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
             //System.out.println("compareExpression(" + expr + ");");
 
             bindVars();
-
+            
+            
             Object o1 = engine.eval(expr, bindings);
 
             return (boolean) o1;
@@ -2200,7 +2212,16 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
             for (int i = 0; i < vars.size(); i++) {
                 node = (OpenVariable) vars.get(i);
-                node.value = b.get(node.name);
+                
+                if (b.get(node.name) instanceof Double && node.value instanceof Integer){
+                    node.value = ((Double)b.get(node.name)).intValue();
+                }else
+                if (b.get(node.name) instanceof Integer && node.value instanceof Double){
+                    node.value = ((Integer)b.get(node.name)).doubleValue();
+                }else {
+                    node.value = b.get(node.name);
+                }
+                
 
                 notifyAllElements(node.name);
             }
