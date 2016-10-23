@@ -21,14 +21,8 @@
 
 import VisualLogic.*;
 import VisualLogic.variables.*;
-import tools.*;
-
-import java.awt.*;
 import java.util.*;
-import java.awt.event.*;
 import java.io.*;
-import javax.swing.*;
-import java.nio.*;
 import gnu.io.*;
 
 public class Driver {
@@ -53,28 +47,23 @@ public class Driver {
 
     public String[] listSerialPorts() {
 
-        if (error) {
-            return new String[]{"NULL"};
-        } else {
+        Enumeration ports = CommPortIdentifier.getPortIdentifiers();
+        ArrayList portList = new ArrayList();
+        String portArray[] = null;
+        try {
 
-            try {
-
-                Enumeration ports = CommPortIdentifier.getPortIdentifiers();
-                ArrayList portList = new ArrayList();
-                String portArray[] = null;
-                while (ports.hasMoreElements()) {
-                    CommPortIdentifier port = (CommPortIdentifier) ports.nextElement();
-                    if (port.getPortType() == CommPortIdentifier.PORT_SERIAL) {
-                        portList.add(port.getName());
-                    }
+            while (ports.hasMoreElements()) {
+                CommPortIdentifier port = (CommPortIdentifier) ports.nextElement();
+                if (port.getPortType() == CommPortIdentifier.PORT_SERIAL) {
+                    portList.add(port.getName());
                 }
-                portArray = (String[]) portList.toArray(new String[0]);
-                return portArray;
-            } catch (Exception ex) {
-                System.out.println("RS232 Driver listSerialPorts error:" + ex);
             }
+            portArray = (String[]) portList.toArray(new String[0]);
+
+        } catch (Exception ex) {
+            System.out.println("RS232 Driver listSerialPorts error:" + ex);
         }
-        return new String[]{"NULL"};
+        return portArray;
     }
 
     public Driver(String port, int baud, int bits, int stopBits, int parity) {
