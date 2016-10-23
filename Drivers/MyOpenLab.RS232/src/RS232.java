@@ -20,12 +20,7 @@
 //*****************************************************************************
 import VisualLogic.*;
 import VisualLogic.variables.*;
-import tools.*;
-
-import java.awt.*;
 import java.util.*;
-import java.awt.event.*;
-import java.io.*;
 import javax.swing.*;
 
 import gnu.io.*;
@@ -162,6 +157,8 @@ public class RS232 implements MyOpenLabDriverIF {
             int bits = (Integer) args.get(2);
             int stopBits = (Integer) args.get(3);
             int parity = (Integer) args.get(4);
+            
+            
 
             boolean useOwnInHandler = false;
             if (args.size() == 6) {
