@@ -78,7 +78,7 @@ public class Start extends MainFlow {
         int idx1 = expression.indexOf("(");
         if (idx1 > -1) {
             methodName = expression.substring(0, idx1);
-            System.out.println("MethodName=" + methodName);
+            //System.out.println("MethodName=" + methodName);
 
             int idx2 = expression.indexOf(")");
             if (idx2 > -1) {

@@ -86,14 +86,14 @@ public class Start extends MCUMainFlow
     if (idx1>-1)
     {
       methodName=expression.substring(0,idx1);
-      System.out.println("MethodName="+methodName);
+      //System.out.println("MethodName="+methodName);
 
       idx2=expression.indexOf(")");
       if (idx2>-1)
       {
         varDef=expression.substring(idx1+1,idx2);
         varDef=varDef.trim();
-        System.out.println("Definitionen : "+varDef);
+       // System.out.println("Definitionen : "+varDef);
 
         defs=varDef.split(",");
 

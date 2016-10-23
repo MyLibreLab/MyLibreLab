@@ -72,8 +72,7 @@ public class LEDPanel extends JVSMain implements PanelIF
 
     element.jSetResizeSynchron(true);
     element.jSetResizable(true);
-    svgManager.loadFromFile(element.jGetSourcePath()+"led.svg");
-    System.out.println("LED->>>"+element.jGetSourcePath());
+    svgManager.loadFromFile(element.jGetSourcePath()+"led.svg");    
     setName("led");
   }
   

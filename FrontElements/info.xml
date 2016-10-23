@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <caption>qwertz</caption>
+  <caption_en>qwertz</caption_en>
+  <caption_es>qwertz</caption_es>
+  <categorie>Education</categorie>
+  <author>qwertz</author>
+  <email>qwertz</email>
+  <web>qwertz</web>
+  <version>1.0.0.0</version>
+  <date>16.10.2016</date>
+  <dest_path>/FrontElements/fe-f3b1e944-8643-450d-bced-9e26a03d7bb4</dest_path>
+  <type>FrontElements</type>
+  <content>
+  </content>
+</root>

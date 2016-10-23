@@ -103,6 +103,29 @@ public class ProcessSetter extends MainFlow {
         if (inStart == null) {
             inStart = new VSFlowInfo();
         }
+        
+        if (input != null) {
+
+                if (input instanceof VSBoolean) {
+                    value = new VSBoolean(false);
+                } else {
+                    if (input instanceof VSString) {
+                        value = new VSString();
+                    } else {
+                        if (input instanceof VSDouble) {
+                            value = new VSDouble();
+                        }
+                    }
+                }
+                if (value == null) {
+                    element.jShowMessage("Types unkompatible or variable unknown in expression : " + variable.getValue());
+                } else {
+                    value.copyValueFrom(input);
+                }
+
+            } else {
+                element.jShowMessage("Problems with Input : " + variable.getValue());
+            }
 
     }
 
