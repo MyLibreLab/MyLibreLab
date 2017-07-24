@@ -351,6 +351,10 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                 VSBoolean v = (VSBoolean) vsobject;
                 node.value = new Boolean(v.getValue());
                 result = true;
+            } else if (vsobject instanceof VSInteger && node.value instanceof Integer) {
+                VSInteger v = (VSInteger) vsobject;
+                node.value = new Integer(v.getValue());
+                result = true;
             }
         }
 
