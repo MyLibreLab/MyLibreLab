@@ -2,14 +2,148 @@
 <!-- You may freely edit this file. See commented blocks below for -->
 <!-- some examples of how to customize the build. -->
 <!-- (If you delete it and reopen the project it will be recreated.) -->
-<!-- By default, only the Clean and Build commands use this build script. -->
-<!-- Commands such as Run, Debug, and Test only use this build script if -->
-<!-- the Compile on Save feature is turned off for the project. -->
-<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
-<!-- in the project's Project Properties dialog box.-->
-<project name="myopenlab_source" default="default" basedir=".">
-    <description>Builds, tests, and runs the project myopenlab_source.</description>
+<project name="Visual_Logic" default="default" basedir=".">
+    <description>Builds, tests, and runs the project Visual Logic.</description>
     <import file="nbproject/build-impl.xml"/>
+    <import file="nbproject/profiler-build-impl.xml"/>
+    <import file="nbproject/profiler-build-impl.xml"/>
+
+    
+    <target name="build_all_distributions">
+        
+      <input message="Version?" addproperty="myopenlab_version" />
+          
+      <antcall target="build_distribution_win32">
+          <param name="version" value="${version}"/>
+      </antcall>
+      <antcall target="build_distribution_win64_java64">
+          <param name="version" value="${version}"/>
+      </antcall>
+      <antcall target="build_distribution_win64_java32">
+          <param name="version" value="${version}"/>
+      </antcall>
+      <antcall target="build_distribution_linux">
+          <param name="version" value="${version}"/>
+      </antcall>
+    </target>
+    
+    
+     <target name="build_distribution_win32"> 
+        
+        <property name="temp_dir" value="temp_distribution_win32" />
+        <property name="zip_file" value="distribution_win32" />
+         
+        <mkdir dir="${temp_dir}"/>
+          
+         <copy todir="${temp_dir}" >
+            <fileset dir="distribution"/>
+        </copy>
+                  
+        <copy todir="${temp_dir}/lib">
+            <fileset dir="dist/lib"/>
+        </copy>
+        
+        <delete file="${temp_dir}/start_linux"/>
+        <delete file="${temp_dir}/myopenlab.jar"/>
+        <copy file="dist/myopenlab.jar" tofile="${temp_dir}/myopenlab.jar" overwrite="true"/>        
+        <copy file="${temp_dir}/rxtx/win32/rxtxSerial.dll" tofile="${temp_dir}/rxtxSerial.dll"/>        
+        <zip destfile="${zip_file}_${myopenlab_version}.zip" basedir="${temp_dir}" />
+        
+        <delete includeEmptyDirs="true">
+            <fileset dir="${temp_dir}" />
+        </delete>
+    </target>
+    
+    
+    <target name="build_distribution_win64_java32"> 
+         
+        <property name="temp_dir" value="temp_distribution_win64" />
+        <property name="zip_file" value="distribution_win64_java32" />
+         
+        <mkdir dir="${temp_dir}"/>
+          
+         <copy todir="${temp_dir}" >
+            <fileset dir="distribution"/>
+        </copy>
+                      
+        <copy todir="${temp_dir}/lib">
+            <fileset dir="dist/lib"/>
+        </copy>
+        
+        <delete file="${temp_dir}/start_linux"/>
+        <delete file="${temp_dir}/myopenlab.jar"/>
+        <copy file="dist/myopenlab.jar" tofile="${temp_dir}/myopenlab.jar" overwrite="true"/>        
+        <copy file="${temp_dir}/rxtx/win32/rxtxSerial.dll" tofile="${temp_dir}/rxtxSerial.dll"/>        
+        <zip destfile="${zip_file}_${myopenlab_version}.zip" basedir="${temp_dir}" />        
+        
+        <delete includeEmptyDirs="true">
+            <fileset dir="${temp_dir}" />
+        </delete>
+    </target>
+            
+     <target name="build_distribution_win64_java64"> 
+         
+        <property name="temp_dir" value="temp_distribution_win64" />
+        <property name="zip_file" value="distribution_win64_java64" />
+         
+        <mkdir dir="${temp_dir}"/>
+          
+         <copy todir="${temp_dir}" >
+            <fileset dir="distribution"/>
+        </copy>
+                      
+        <copy todir="${temp_dir}/lib">
+            <fileset dir="dist/lib"/>
+        </copy>
+        
+        <delete file="${temp_dir}/start_linux"/>
+        <delete file="${temp_dir}/myopenlab.jar"/>
+        <copy file="dist/myopenlab.jar" tofile="${temp_dir}/myopenlab.jar" overwrite="true"/>        
+        <copy file="${temp_dir}/rxtx/win64/rxtxSerial.dll" tofile="${temp_dir}/rxtxSerial.dll"/>        
+        <zip destfile="${zip_file}_${myopenlab_version}.zip" basedir="${temp_dir}" />
+        
+        
+        <delete includeEmptyDirs="true">
+            <fileset dir="${temp_dir}" />
+        </delete>
+    </target>
+    
+    
+        
+     <target name="build_distribution_linux"> 
+        
+        <property name="temp_dir" value="temp_distribution_linux" />
+        <property name="zip_file" value="distribution_linux" />
+         
+        <mkdir dir="${temp_dir}"/>
+          
+        <copy todir="${temp_dir}" >
+            <fileset dir="distribution"/>
+        </copy>
+                  
+        <copy todir="${temp_dir}/lib">
+            <fileset dir="dist/lib"/>
+        </copy>        
+        
+        <delete file="${temp_dir}/start.bat"/>
+        <delete file="${temp_dir}/start with JDK.bat"/>
+        <delete file="${temp_dir}/myopenlab.jar"/>
+        
+        <copy file="dist/myopenlab.jar" tofile="${temp_dir}/myopenlab.jar" overwrite="true"/>        
+        <!--copy file="${temp_dir}/rxtx/linux64/RXTXcomm.jar" tofile="${temp_dir}/Elements/Drivers/MyOpenLab.RS232/bin/RXTXcomm.jar"/-->        
+        <copy file="${temp_dir}/rxtx/linux64/librxtxSerial.so" tofile="${temp_dir}/librxtxSerial.so"/>        
+        <copy file="${temp_dir}/rxtx/linux64/librxtxSerial64.so" tofile="${temp_dir}/librxtxSerial64.so"/>        
+        
+        <zip destfile="${zip_file}_${myopenlab_version}.zip" basedir="${temp_dir}" />
+        
+        <delete includeEmptyDirs="true">
+            <fileset dir="${temp_dir}" />
+        </delete>       
+	
+        
+    </target>
+    
+    
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -51,14 +185,15 @@
       -init-macrodef-junit:     defines macro for junit execution
       -init-macrodef-debug:     defines macro for class debugging
       -init-macrodef-java:      defines macro for class execution
-      -do-jar:                  JAR building
+      -do-jar-with-manifest:    JAR building (if you are using a manifest)
+      -do-jar-without-manifest: JAR building (if you are not using a manifest)
       run:                      execution of project 
       -javadoc-build:           Javadoc generation
       test-report:              JUnit report generation
 
     An example of overriding the target for project execution could look like this:
 
-        <target name="run" depends="myopenlab_source-impl.jar">
+        <target name="run" depends="Visual_Logic-impl.jar">
             <exec dir="bin" executable="launcher.exe">
                 <arg file="${dist.jar}"/>
             </exec>
@@ -71,3 +206,5 @@
 
     -->
 </project>
+
+
