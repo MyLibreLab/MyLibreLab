@@ -1,6 +1,6 @@
 ISDIRECTORY  = FALSE
-CAPTION      = Setter
-CAPTION_EN   = Setter
-CAPTION_ES   = Recoge dato
+CAPTION      = SetterJV
+CAPTION_EN   = SetterJV
+CAPTION_ES   = Guarda dato JV
 ClassCircuit = SetterDouble
 Icon         = bin/icon.gif

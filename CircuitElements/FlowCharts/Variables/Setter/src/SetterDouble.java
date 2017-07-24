@@ -20,6 +20,7 @@
 //*****************************************************************************
 
 
+import MyParser.OpenVariable;
 import VisualLogic.*;
 import VisualLogic.variables.*;
 import java.awt.*;
@@ -106,9 +107,9 @@ public class SetterDouble extends MainFlow
 
     element.jSetResizable(false);
     element.jSetCaptionVisible(false);
-    element.jSetCaption("Setter Double");
+    element.jSetCaption("Setter");
     
-    setName("#FLOWCHART_Setter Double#");
+    setName("#FLOWCHART_Setter #");
   }
   public void xOnInit()
   {
@@ -127,6 +128,7 @@ public class SetterDouble extends MainFlow
     if (element==null) return;
 
     basis=element.jGetBasis();
+    //element.jShowMessage("Type:"+ basis.vsGetVariableDT(variable.getValue()));
     if (basis!=null && variable.getValue().trim().length()>0)
     {
       int varDT=basis.vsGetVariableDT(variable.getValue());
@@ -150,10 +152,16 @@ public class SetterDouble extends MainFlow
           dt=element.C_BOOLEAN;
           in=new VSBoolean(false);
         }
+        if (varDT==3)
+        {
+          dt=element.C_INTEGER;
+          in=new VSInteger(0);
+        }
 
         element.jSetPinDataType(0,dt);
 
       }
+      
 
      element.jRepaint();
      }
@@ -162,7 +170,7 @@ public class SetterDouble extends MainFlow
 
   public void process()
   {
-    if (in instanceof VSDouble && basis!=null)
+    if (basis!=null)
     {
         if (basis.vsCopyVSObjectToVariable(in, variable.getValue())==false)
         {

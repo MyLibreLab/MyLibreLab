@@ -197,7 +197,7 @@ public class GetterDouble extends MainFlow {
     @Override
     public void process() {
 
-        //System.out.println("Getter!!!!!!"+basis);
+        //element.jShowMessage("Getter!!!!!!"+basis);
         if (basis != null) {
 
             if (basis.vsCopyVariableToVSObject(variable.getValue(), out) == true) {
