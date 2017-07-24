@@ -1,5 +1,6 @@
 ISDIRECTORY     = FALSE
 REDIRECT        = 
+LOADER          = 
 CAPTION         = Robot R1
 CAPTION_EN      = Robot R1
 CAPTION_ES      = Robot R1

@@ -5,4 +5,4 @@ CAPTION_ES= Display Analógico
 Jar          = bin/AnalogAnzeige.jar
 ClassCircuit = AnalogAnzeige
 ClassFront   = AnalogAnzeigePanel
-Icon         = bin/icon.png
+Icon         = bin/icon.gif

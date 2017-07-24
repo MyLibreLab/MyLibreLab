@@ -1,0 +1,772 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title></title>
+</head>
+
+<body>
+
+<p>ROBOT CANVAS (Robi 2D)</p>
+
+<p>Relación de variables</p>
+
+<table border="1" cellpadding="0" cellspacing="0"
+class="MsoNormalTable"
+style="border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-alt:solid windowtext .5pt;mso-yfti-tbllook:480;mso-padding-alt:
+ 0cm 5.4pt 0cm 5.4pt;mso-border-insideh:.5pt solid windowtext;mso-border-insidev:
+ .5pt solid windowtext">
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><b>Nombre
+        </b></td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><b>Var.</b></td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><b>(E/S)</b></td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><b>Descripción</b></td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">GoForward</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">bol</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">E</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Mueve
+        el robot hacia delante</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">GoBack</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">bol</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">E</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Mueve
+        el robot hacia atrás</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">Stop</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">bol</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">E</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Detiene
+        el robot</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">SetAngle</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">dbl</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">E</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Asigna
+        valor de ángulo girado</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">Rotate
+        Left</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">bol</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">E</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Girar
+        a la izquierda</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">Rotate
+        Right</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">bol</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">E</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Girar
+        a la derecha</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">Rotate
+        Step (default 10º)</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">dbl</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">E</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Valor
+        de paso de ángulo girado</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">X-In</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">dbl</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">E</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Valor
+        de posición coordenada X</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">Y-In</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">dbl</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">E</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Valor
+        de posición coordenada Y</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">Goto
+        (X-In y-In)</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">bol</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">E</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Orden
+        para posicionar el robot en la coordenada X,Y presente en
+        las entradas X-In, Y-In</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">inSetPosition(X-In,Y-In)</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">bol</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">E</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Orden
+        para posicionar el robot en la posición de inicio</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">Picker
+        Open/Close</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">bol</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">E</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Orden
+        para abrir y cerrar la pinza</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">Images</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">grp</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">E</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Entrada
+        por la que se añaden las imágenes agrupadas en el área
+        canvas del robot</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">Pickables
+        Objects Coordinates</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">grp</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">E</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Coordenadas
+        agrupadas de los objetos que el robot puede identificar y
+        coger</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">Record
+        way </td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">bol</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">E</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Orden
+        que habilita la grabación de las posiciones que adquiere
+        el robot en su movimiento</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">Speed
+        (ms) Default=50ms</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">int</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">E</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Velocidad
+        con la que se mueve el robot</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">Clear
+        Table Data</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">bol</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">E</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Borra
+        los datos de posicionase almacenados en la tabla.</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">Sensor
+        1 Distance</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">int</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">S</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Valor
+        que indica la distancia del robot a un obstáculo medida
+        desde el sensor 1</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">Sensor
+        2 Distance</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">int</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">S</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Valor
+        que indica la distancia del robot a un obstáculo medida
+        desde el sensor2</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">Sensor
+        3 Distance</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">int</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">S</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Valor
+        que indica la distancia del robot a un obstáculo medida
+        desde el sensor 3</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">X-Out</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">int</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">S</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Indica
+        el valor de la coordenada X en donde se encuentra el
+        robot</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">Y-Out</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">int</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">S</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Indica
+        el valor de la coordenada&nbsp; Y en donde se encuentra
+        el robot</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">Angle</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">dbl</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">S</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Indica
+        el valor del ángulo de giro del robot .</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">Is
+        Moving [Event] </td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">bol</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">E</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Indica
+        si el robot esta parado o en movimiento</td>
+    </tr>
+    <tr>
+        <td valign="top" width="249"
+        style="width:149.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt">2D
+        Matriz Out</td>
+        <td valign="top" width="80"
+        style="width:48.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">2D.dbl</p>
+        </td>
+        <td valign="top" width="50"
+        style="width:30.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center">S</p>
+        </td>
+        <td valign="top" width="348"
+        style="width:208.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt">Tabla
+        en la que se recogen las posiciones del robot</td>
+    </tr>
+</table>
+
+<p>El robot se mueve dentro de un área que es modificable en
+tamaño y también en el aspecto del grid y del fondo.</p>
+
+<p>&nbsp;</p>
+
+<p></span></p>
+</body>
+</html>

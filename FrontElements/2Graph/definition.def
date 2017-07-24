@@ -1,5 +1,6 @@
-ISDIRECTORY  = true
-CAPTION      = Graphen
-CAPTION_EN   = Graphs
-CAPTION_ES   = Graphs
-ICON         = icon.png
+ISDIRECTORY = TRUE
+CAPTION   =Graphen
+CAPTION_EN=Graphs
+CAPTION_ES=Graficos
+ICON=icon32.png
+VM_DIR_EDITABLE = TRUE

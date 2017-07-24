@@ -1,6 +1,6 @@
-ISDIRECTORY     = TRUE
-CAPTION         = Eigene Elemente
-CAPTION_EN      = User defined Elements
-CAPTION_ES      = definido por el usario
-REDIRECT        = /Users/carmelosalafia\MyOpenLab\UserElements/CircuitElements
-ICON            = library.png
+ISDIRECTORY = TRUE
+CAPTION   =Eigene Elemente
+CAPTION_EN=User defined Elements
+CAPTION_ES=Definidos por Usario
+ICON=icon32.png
+VM_DIR_EDITABLE = TRUE

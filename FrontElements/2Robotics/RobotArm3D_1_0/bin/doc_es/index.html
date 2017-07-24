@@ -1,0 +1,277 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title></title>
+</head>
+
+<body>
+
+<p class="MsoNormal"><span lang="ES-TRAD">El Robot Arm 3D es un componente para la
+simulación de un brazo robot en tres dimensiones que permite
+comprender la cinemática de un robot de una manera sencilla.<o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="ES-TRAD"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"><span lang="ES-TRAD">Vemos en la figura 32 la ventana de
+componente en la que se muestran las señales de entradas del
+robot. También se pueden apreciar los grados de libertad o ejes
+de movimiento del brazo que son tres (Z1,Z2,Z3) más la Muñeca
+(Hand) y la Base (Basis)<o:p></o:p></span></p>
+
+<p><img src="clip_image002.jpg" width="523" height="250"
+v:shapes="_x0000_i1025"></span></p>
+
+<p class="MsoNormal"><span lang="ES-TRAD">En la muñeca el Robot tiene una pinza
+mediante la cual es capaz de recoger un objeto (esfera), para lo
+cual se utiliza la señal de entrada &#147;Hand Open Close&#148;
+(abrir y cerrar pinza)<o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="ES-TRAD"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"><span lang="ES-TRAD">En la tabla que se muestra a continuación
+quedan descritas las señales de gobierno del Robot Arm 3D<o:p></o:p></span></p>
+
+<p class="MsoNormal"><span lang="ES-TRAD"><o:p>&nbsp;</o:p></span></p>
+
+<table border="1" cellpadding="0" cellspacing="0"
+class="MsoNormalTable"
+style="margin-left:59.4pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid windowtext .5pt;mso-yfti-tbllook:480;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt;mso-border-insideh:.5pt solid windowtext;
+ mso-border-insidev:.5pt solid windowtext">
+    <tr>
+        <td valign="top" width="159"
+        style="width:95.4pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><b><span lang="ES-TRAD">Nombre
+<o:p></o:p></span>        </b></td>
+        <td valign="top" width="70"
+        style="width:42.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><b><span lang="ES-TRAD">Var.<o:p></o:p></span></b></td>
+        <td valign="top" width="70"
+        style="width:42.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><b><span lang="ES-TRAD">(E/S)<o:p></o:p></span></b></td>
+        <td valign="top" width="190"
+        style="width:114.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><b><span lang="ES-TRAD">Descripción<o:p></o:p></span></b></td>
+    </tr>
+    <tr>
+        <td valign="top" width="159"
+        style="width:95.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt"><span lang="ES-TRAD" style="font-size:10.0pt">Basis<o:p></o:p></span></td>
+        <td valign="top" width="70"
+        style="width:42.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center"><span lang="ES-TRAD" style="font-size:10.0pt">dbl<o:p></o:p></span></p>
+        </td>
+        <td valign="top" width="70"
+        style="width:42.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center"><span lang="ES-TRAD" style="font-size:10.0pt">E<o:p></o:p></span></p>
+        </td>
+        <td valign="top" width="190"
+        style="width:114.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><span lang="ES-TRAD" style="font-size:10.0pt">Mueve
+        la base del robot<o:p></o:p></span></td>
+    </tr>
+    <tr>
+        <td valign="top" width="159"
+        style="width:95.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt"><span lang="ES-TRAD" style="font-size:10.0pt">Z1<o:p></o:p></span></td>
+        <td valign="top" width="70"
+        style="width:42.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center"><span lang="ES-TRAD" style="font-size:10.0pt">dbl<o:p></o:p></span></p>
+        </td>
+        <td valign="top" width="70"
+        style="width:42.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center"><span lang="ES-TRAD" style="font-size:10.0pt">E<o:p></o:p></span></p>
+        </td>
+        <td valign="top" width="190"
+        style="width:114.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><span lang="ES-TRAD" style="font-size:10.0pt">Mueve
+        eje Z1<o:p></o:p></span></td>
+    </tr>
+    <tr>
+        <td valign="top" width="159"
+        style="width:95.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt"><span lang="ES-TRAD" style="font-size:10.0pt">Z2<o:p></o:p></span></td>
+        <td valign="top" width="70"
+        style="width:42.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center"><span lang="ES-TRAD" style="font-size:10.0pt">dbl<o:p></o:p></span></p>
+        </td>
+        <td valign="top" width="70"
+        style="width:42.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center"><span lang="ES-TRAD" style="font-size:10.0pt">E<o:p></o:p></span></p>
+        </td>
+        <td valign="top" width="190"
+        style="width:114.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><span lang="ES-TRAD" style="font-size:10.0pt">Mueve
+        eje Z2<o:p></o:p></span></td>
+    </tr>
+    <tr>
+        <td valign="top" width="159"
+        style="width:95.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt"><span lang="ES-TRAD" style="font-size:10.0pt">Z3<o:p></o:p></span></td>
+        <td valign="top" width="70"
+        style="width:42.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center"><span lang="ES-TRAD" style="font-size:10.0pt">dbl<o:p></o:p></span></p>
+        </td>
+        <td valign="top" width="70"
+        style="width:42.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center"><span lang="ES-TRAD" style="font-size:10.0pt">E<o:p></o:p></span></p>
+        </td>
+        <td valign="top" width="190"
+        style="width:114.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><span lang="ES-TRAD" style="font-size:10.0pt">Mueve
+        eje Z3<o:p></o:p></span></td>
+    </tr>
+    <tr>
+        <td valign="top" width="159"
+        style="width:95.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt"><span lang="ES-TRAD" style="font-size:10.0pt">Hand<o:p></o:p></span></td>
+        <td valign="top" width="70"
+        style="width:42.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center"><span lang="ES-TRAD" style="font-size:10.0pt">dbl<o:p></o:p></span></p>
+        </td>
+        <td valign="top" width="70"
+        style="width:42.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center"><span lang="ES-TRAD" style="font-size:10.0pt">E<o:p></o:p></span></p>
+        </td>
+        <td valign="top" width="190"
+        style="width:114.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><span lang="ES-TRAD" style="font-size:10.0pt">Girar<span style="mso-spacerun:yes">&nbsp;
+</span>        muñeca<o:p></o:p></span></td>
+    </tr>
+    <tr>
+        <td valign="top" width="159"
+        style="width:95.4pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt"><span lang="ES-TRAD" style="font-size:10.0pt">Hand
+        Open Close<o:p></o:p></span></td>
+        <td valign="top" width="70"
+        style="width:42.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center"><span lang="ES-TRAD" style="font-size:10.0pt">bol<o:p></o:p></span></p>
+        </td>
+        <td valign="top" width="70"
+        style="width:42.0pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><p
+        align="center" class="MsoNormal"
+        style="text-align:center"><span lang="ES-TRAD" style="font-size:10.0pt">E<o:p></o:p></span></p>
+        </td>
+        <td valign="top" width="190"
+        style="width:114.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt"><span lang="ES-TRAD" style="font-size:10.0pt">Abre
+        y cierra pinza<o:p></o:p></span></td>
+    </tr>
+</table>
+
+<p align="center" class="MsoNormal" style="text-align:center"><span lang="ES-TRAD"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoNormal"><span lang="ES-TRAD">Los movimientos del robot en cada uno de sus
+ejes quedan mostrados en la siguiente figura, en donde <o:p></o:p></span></p>
+
+<p class="MsoNormal">&nbsp;</p>
+<span lang="ES-TRAD" style="font-size:12.0pt;font-family:
+&quot;Times New Roman&quot;,&quot;serif&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-ansi-language:
+ES-TRAD;mso-fareast-language:ES;mso-bidi-language:AR-SA"><!--[if gte vml 1]><v:shapetype
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:424.8pt;
+ height:424.2pt'>
+ <v:imagedata src="file:///C:\Users\JOSEMA~1\AppData\Local\Temp\msohtmlclip1\01\clip_image001.jpg"
+  o:title="Dibujo0"/>
+</v:shape><![endif]-->
+<p><img src="index.1.jpg" width="694" height="1037"></p>
+
+<p>&nbsp;</p>
+
+<p></span></p>
+
+<p class="MsoNormal">&nbsp;</p>
+
+<p>&nbsp;</p>
+</body>
+</html>

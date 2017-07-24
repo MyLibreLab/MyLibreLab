@@ -1,5 +1,6 @@
-ISDIRECTORY = true
-CAPTION     = Gruppenelement
-CAPTION_EN  = Group-Element
-CAPTION_ES  = Grupo de Elemntos
-Icon= icon32.png
+ISDIRECTORY = TRUE
+CAPTION   =Gruppenelement
+CAPTION_EN=Group-Element
+CAPTION_ES=Grupo de Elementos
+ICON=icon32.png
+VM_DIR_EDITABLE = TRUE
