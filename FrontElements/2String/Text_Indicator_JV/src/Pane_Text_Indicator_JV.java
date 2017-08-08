@@ -71,6 +71,7 @@ public class Pane_Text_Indicator_JV extends JVSMain implements PanelIF
     
     text.setText("Multiline Text Indicator Element \n\nWith Horizontal and vertical Auto Scroll when needed J.V.");
     
+    
     setName("Pane_Text_Indicator_JV");
     element.jSetCaptionVisible(true);
   }
@@ -105,9 +106,25 @@ public class Pane_Text_Indicator_JV extends JVSMain implements PanelIF
            strText.setValue(text.getText());
       }
     else{
-     text.setText("Multiline Text Indicator Element \n\nWith Horizontal and vertical Auto Scroll when needed J.V.");   
+     text.setText("Multiline Text Indicator J.V.");   
     }
     panel.add(paneScrollPane, java.awt.BorderLayout.CENTER);
+    
+    //Code added to avoid JText Focus Lost Error
+    text.setEditable(false);
+    //text.setEnabled(false);
+    text.setDisabledTextColor(fontColor.getValue());
+    FocusListener FocusAr[]=text.getFocusListeners();
+    if (FocusAr==null){
+        
+    }else{
+        for(int i=0;i<FocusAr.length;i++){
+            text.removeFocusListener(FocusAr[i]);
+        }
+            
+    }
+    
+    
 
      
     Set_Text_Style(1);
