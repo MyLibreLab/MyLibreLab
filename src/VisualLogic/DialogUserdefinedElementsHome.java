@@ -33,7 +33,9 @@ public class DialogUserdefinedElementsHome extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         
-        jTextField1.setText(System.getProperty("user.home")+"\\MyOpenLab\\UserElements");
+        //jTextField1.setText(System.getProperty("user.home")+"\\MyOpenLab\\UserElements");
+        jTextField1.setText(System.getProperty("user.home")+File.separator+"MyOpenLab"+File.separator+"UserElements");
+        
     }
     
     /** This method is called from within the constructor to

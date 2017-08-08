@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package VisualLogic;
 
 import java.io.File;
+import java.nio.file.FileSystem;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileView;
 
@@ -235,7 +236,8 @@ public class DialogNewProject extends javax.swing.JDialog
     
     private void make()
     {
-        jTextField3.setText(jTextField2.getText()+"\\"+jTextField1.getText()); //NOI18N
+        //jTextField3.setText(jTextField2.getText()+"\\"+jTextField1.getText()); //NOI18N
+        jTextField3.setText(jTextField2.getText()+File.separator+jTextField1.getText()); //NOI18N
     }
     
     

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=MyOpenLab
+GenericName=Graphical Java(R) Programming
+Path=YourDistributionPatch
+Exec=sh start_linux
+Icon=YourDistributionPatch/IconoLauncher.png
+Terminal=false
+Categories=Development;Engineering;Electronics;
+MimeType=text/x-myopenlab
+Keywords=embedded electronics;electronics;avr;microcontroller;
+Name[es_CO]=MyOpenLab.desktop
+GenericName[es_CO]=Programación Gráfica con Java(R)
