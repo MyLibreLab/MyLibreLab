@@ -2,7 +2,7 @@
 //* Element of MyOpenLab Library                                              *
 //*                                                                           *
 //* Copyright (C) 2004  Carmelo Salafia (cswi@gmx.de)                         *
-//*                                                                           *
+//* Copyright (C) 2017  Javier Velásquez (javiervelasquez125@gmail.com)                                                                          *
 //* This library is free software; you can redistribute it and/or modify      *
 //* it under the terms of the GNU Lesser General Public License as published  *
 //* by the Free Software Foundation; either version 2.1 of the License,       *
@@ -91,10 +91,10 @@ public class OscPanel extends VSMainWithPropertyManager implements PanelIF
   public void init()
   {
     initPins(0,0,0,0);
-    setSize(250,250);
+    setSize(450,250);
     element.jSetInnerBorderVisibility(false);
     element.jSetResizable(true);
-    setName("2.0 Oscilloscope Version 1.0");
+    setName("Oscilloscope Version 1.1 JV");
 
     addProp("BackgroundTransparent","DE","Background Transparent",0,0);
     addProp("GridBackgroundColor","DE","Grid Background Color",0,0);
@@ -117,7 +117,7 @@ public class OscPanel extends VSMainWithPropertyManager implements PanelIF
     addProp("YAxisText","DE","Y-Axis Text",0,0);
     addProp("YAxisTextFont","DE","Y-Axis Text Font",0,0);
     addProp("YAxisTextFontColor","DE","Y-Axis Text Color",0,0);
-    addProp("PointType","DE","Point type",0,2);
+    addProp("PointType","DE","Point type",0,20);
     addProp("LineColor","DE","Line color",0,0);
 
     graph.graph.generateGraphs(1);

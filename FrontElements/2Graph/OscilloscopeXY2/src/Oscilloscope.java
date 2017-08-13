@@ -74,7 +74,7 @@ public class Oscilloscope extends JVSMain
     element.jSetCaptionVisible(true);
     element.jSetCaption("osc");
 
-    setName("Oscilloscope-X/Y_Version 1.0");
+    setName("Oscilloscope-X/Y_Version 1.1 JV");
   }
 
 

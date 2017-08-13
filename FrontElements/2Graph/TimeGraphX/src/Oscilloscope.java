@@ -2,7 +2,7 @@
 //* Element of MyOpenLab Library                                              *
 //*                                                                           *
 //* Copyright (C) 2004  Carmelo Salafia (cswi@gmx.de)                         *
-//*                                                                           *
+//* Copyright (C) 2017  Javier Velásquez (javiervelasquez125@gmail.com)                                                                          *
 //* This library is free software; you can redistribute it and/or modify      *
 //* it under the terms of the GNU Lesser General Public License as published  *
 //* by the Free Software Foundation; either version 2.1 of the License,       *
@@ -40,11 +40,12 @@ public class Oscilloscope extends JVSMain
   public VSBoolean inC=null;
   public VSBoolean inD=null;
   
-  public VSColor   color=new VSColor(Color.WHITE);
-  public VSInteger pointType=new VSInteger(1);
+  //public VSColor   color=new VSColor(Color.WHITE);
+  public VSColor   color=new VSColor(new Color(255, 153, 0));
+  public VSInteger pointType=new VSInteger(4);
   
-  public VSInteger delay = new VSInteger(10);
-  public VSInteger bufferLen = new VSInteger(500);
+  public VSInteger delay = new VSInteger(10); // 100 Samples each Second
+  public VSInteger bufferLen = new VSInteger(600); // 600 Samples Buffer (Last 1 minute)
 
   long time1=0;
   long time2=0;
@@ -62,7 +63,7 @@ public class Oscilloscope extends JVSMain
     element.jAddPEItem("Delay",delay, 0,5000000);
     element.jAddPEItem("Buffer",bufferLen, 0,50000000);
     element.jAddPEItem("Line Color",color, 0,50000000);
-    element.jAddPEItem("Pointtype",pointType, 0,5);
+    element.jAddPEItem("Pointtype (0-13)",pointType, 0,20);
     localize();
   }
 
@@ -77,14 +78,14 @@ public class Oscilloscope extends JVSMain
     element.jSetPEItemLocale(d+0,language,"Delay");
     element.jSetPEItemLocale(d+1,language,"Buffer");
     element.jSetPEItemLocale(d+2,language,"Line Color");
-    element.jSetPEItemLocale(d+3,language,"Pointtype");
+    element.jSetPEItemLocale(d+3,language,"Pointtype (0-13)");
 
     language="es_ES";
 
     element.jSetPEItemLocale(d+0,language,"Delay");
     element.jSetPEItemLocale(d+1,language,"Buffer");
     element.jSetPEItemLocale(d+2,language,"Line Color");
-    element.jSetPEItemLocale(d+3,language,"Pointtype");
+    element.jSetPEItemLocale(d+3,language,"Pointtype (0-13)");
   }
 
   public Oscilloscope()
@@ -118,9 +119,9 @@ public class Oscilloscope extends JVSMain
     
 
     element.jSetCaptionVisible(true);
-    element.jSetCaption("Time Graph X");
+    element.jSetCaption("Time Graph X JV");
 
-    setName("Time Graph X");
+    setName("Time Graph X JV");
   }
 
 
@@ -182,9 +183,12 @@ public class Oscilloscope extends JVSMain
 
     // Setze Line Color in FrontPanel!
     if (panelElement!=null) panelElement.jProcessPanel(-3,0,color);
-
+    
     // Setze Pointtype in FrontPanel!
     if (panelElement!=null) panelElement.jProcessPanel(-4,0,pointType);
+    
+    // Setze Interval in FrontPanel!
+    if (panelElement!=null) panelElement.jProcessPanel(-5,0,bufferLen);
 
     // Reset im FrontPanel
     reset();

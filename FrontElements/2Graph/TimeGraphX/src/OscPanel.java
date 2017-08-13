@@ -2,7 +2,7 @@
 //* Element of MyOpenLab Library                                              *
 //*                                                                           *
 //* Copyright (C) 2004  Carmelo Salafia (cswi@gmx.de)                         *
-//*                                                                           *
+//* Copyright (C) 2017  Javier Velásquez (javiervelasquez125@gmail.com)                                                                          *
 //* This library is free software; you can redistribute it and/or modify      *
 //* it under the terms of the GNU Lesser General Public License as published  *
 //* by the Free Software Foundation; either version 2.1 of the License,       *
@@ -32,10 +32,11 @@ import java.util.*;
 import MyGraph.*;
 
 public class OscPanel extends VSMainWithPropertyManager implements PanelIF
-{
+{ 
+  int bufferLen=600;
   private JPanel panel;
-  private MyGraph graph= new MyGraph();
-
+  public MyGraph graph= new MyGraph();
+  
   private int oldXValues=0;
   private int oldYValues=0;
   private boolean changed=false;
@@ -44,7 +45,7 @@ public class OscPanel extends VSMainWithPropertyManager implements PanelIF
   
   private boolean started=false;
   
-  int bufferLen=100;
+  
   private double[] xValues = new double[bufferLen];
   private double[] yValues = new double[bufferLen];
   
@@ -81,7 +82,8 @@ public class OscPanel extends VSMainWithPropertyManager implements PanelIF
       graph.graph.graphRenderer[0].xValues=xValues;
       graph.graph.graphRenderer[0].yValues=yValues;
     }
-
+    //graph.graph.graphRenderer[0].
+   
     counter++;
 
   }
@@ -121,8 +123,13 @@ public class OscPanel extends VSMainWithPropertyManager implements PanelIF
        if (len!=bufferLen)
        {
          bufferLen=len;
+         //graph.graph.graphRenderer[0].setAutoScaleInterval(((VSInteger)obj).getValue());
+         //graph.graph.graphRenderer[0].
          xValues = new double[bufferLen];
          yValues = new double[bufferLen];
+         graph.setMinX(0.0);
+         double bufferLenTemp=(double)bufferLen;
+         graph.setMaxX(bufferLenTemp);
        }
      }else
      if (pinIndex==-3) // setze Linecolor
@@ -132,7 +139,13 @@ public class OscPanel extends VSMainWithPropertyManager implements PanelIF
      if (pinIndex==-4) // setze Pointtype
      {
        graph.graph.graphRenderer[0].pointType=((VSInteger)obj).getValue();
+       
      }else
+     if (pinIndex==-5) // setze Interval
+     {
+         //graph.graph.graphRenderer..bufferLen=((VSInteger)obj).getValue();
+     }
+     else
      {
        VSDouble y = (VSDouble)obj;
        processGraph(y.getValue());
@@ -186,16 +199,17 @@ public class OscPanel extends VSMainWithPropertyManager implements PanelIF
   public void init()
   {
     initPins(0,0,0,0);
-    setSize(250,250);
+    setSize(450,250);
     element.jSetInnerBorderVisibility(false);
     element.jSetResizable(true);
-    setName("Oscilloscope-X/Y_Version 2.0");
+    setName("Oscilloscope-X/Y_Version 3.0 JV");
 
     //graph.graph.generateGraphs(2);
     
 
     graph.setMinX(0.0);
-    graph.setMaxX(500.0);
+    double bufferLenTemp=(double)bufferLen;
+    graph.setMaxX(bufferLenTemp);
     
     
     addProp("BackgroundTransparent","DE","Background Transparent",0,0);
@@ -227,7 +241,7 @@ public class OscPanel extends VSMainWithPropertyManager implements PanelIF
     addProp("CoordinatesVisible","DE","Auto Show Coordinates",0,0);
     //addProp("PointType","DE","Point Type",0,2);
     //addProp("LineColor","DE","Line Color",0,0);
-
+    //addProp("AutoZoomX","DE","X-Axis Autozoom",0,0);
 
     applyComponent(graph);
     
@@ -273,6 +287,7 @@ public class OscPanel extends VSMainWithPropertyManager implements PanelIF
   
   public void propertyChanged(Object o)
   {
+    
     setproperties();
   }
 
