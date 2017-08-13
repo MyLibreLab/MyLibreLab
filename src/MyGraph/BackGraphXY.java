@@ -1,7 +1,7 @@
 /*
 MyOpenLab by Carmelo Salafia www.myopenlab.de
 Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
+Copyright (C) 2017  Javier Velásquez (javiervelasquez125@gmail.com)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -40,11 +40,23 @@ public class BackGraphXY extends GraphBackground
     public double stepYY;
         
     public boolean autoScaleX=false;
+    public boolean FirstTimeScaleX=true;
     public boolean autoScaleY=false;
     public double positionX=0.0;
     private DecimalFormat format = new DecimalFormat("#0.0");
-    public Color nullLineColor=new Color(150,255,150);
+    public Color nullLineColor=new Color(0,0,254);
     public boolean nullLineVisible=true;
+    
+    public Integer AustoscaleInterval= new Integer(600);
+    
+    
+    public void setAutoScaleInterval(Integer Interval){
+     this.AustoscaleInterval=Interval;
+    }
+    public Integer getAutosCaleInterval(){
+      return this.AustoscaleInterval;  
+    }
+    
     
     public BackGraphXY(MyGraphX owner)
     {
@@ -84,7 +96,7 @@ public class BackGraphXY extends GraphBackground
        int y=evt.getY();
        double x_=((double)x/stepXX)+minX;              
        double y_=minY+((getHeight()-y)/stepYY);       
-         
+       jLabel1.setForeground(nullLineColor);
        jLabel1.setText("(x,y="+format.format(x_)+" , "+format.format(y_)+")");
        FontMetrics fm= jLabel1.getFontMetrics(jLabel1.getFont());
        
@@ -96,6 +108,7 @@ public class BackGraphXY extends GraphBackground
     public void init()
     {
         if (autoScaleX) scaleX();
+        
         if (autoScaleY) scaleY();
         
         stepXX=(getWidth()/Math.abs(maxX-minX));
@@ -106,8 +119,8 @@ public class BackGraphXY extends GraphBackground
     {        
         if (owner.graphRenderer!=null)
         {
-            double minX=9999999999999999999.0;
-            double maxX=-9999999999999999999.0;            
+            double minX=99999999.0;
+            double maxX=-9999999.0;            
             for (int j=0;j<owner.graphRenderer.length;j++)
             {
                 double[] xValues = owner.graphRenderer[j].xValues;                
@@ -123,8 +136,18 @@ public class BackGraphXY extends GraphBackground
                     }
                 }
             }
-            this.minX=minX;
+            
+            if (FirstTimeScaleX) {
+                minX=0;
+                maxX=600;
+                FirstTimeScaleX=false;
+            }
+            maxX=minX+this.AustoscaleInterval;
             this.maxX=maxX;
+            this.minX=minX;
+            //this.maxX=minX+(Math.abs(maxY-minY);
+            
+            
             owner.xaxis.setMin(minX);
             owner.xaxis.setMax(maxX);            
         }
@@ -137,8 +160,8 @@ public class BackGraphXY extends GraphBackground
         
         if (owner.graphRenderer!=null)
         {
-            double minY=9999999999999999999.0;
-            double maxY=-9999999999999999999.0;
+            double minY=999.0;
+            double maxY=-999.0;
             
             for (int j=0;j<owner.graphRenderer.length;j++)
             {                

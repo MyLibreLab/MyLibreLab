@@ -1,7 +1,7 @@
 /*
 MyOpenLab by Carmelo Salafia www.myopenlab.de
 Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
+Copyright (C) 2017  Javier Velásquez (javiervelasquez125@gmail.com)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -51,7 +51,16 @@ public class MyGraphX extends javax.swing.JPanel
     public boolean yAxisVisible=true;
     
     public boolean xyAxisVisible=true;
+    public int bufferLen= new Integer(600);
     
+    
+    public void setbufferLen(Integer Interval){
+     this.bufferLen=Interval;
+     back.setAutoScaleInterval(this.bufferLen);
+    }
+    public Integer getbufferLen(){
+      return this.bufferLen;  
+    }
     public void setXYAxisVisible(boolean value)
     {
         xyAxisVisible=value;        
@@ -207,21 +216,21 @@ public class MyGraphX extends javax.swing.JPanel
         setBackground(Color.WHITE);
                 
         xaxis.setTextOrientation(xaxis.BOTTOM);
-        xaxis.setFormatString("#0");
+        xaxis.setFormatString("#0.0");
         xaxis.setStartPoint(50,410);
         xaxis.setWidth(400);
         xaxis.setStepInProzent(10.0);
-        xaxis.setMin(-500);
-        xaxis.setMax(-100);
+        xaxis.setMin(-100);
+        xaxis.setMax(100);
         xaxis.init();
                 
         yaxis.setTextOrientation(yaxis.LEFT);
-        yaxis.setFormatString("#00000");
+        yaxis.setFormatString("#000.0");
         yaxis.setStartPoint(50,10);
         yaxis.setHeight(400);
         yaxis.setStepInProzent(10.0);
-        yaxis.setMin(-130);
-        yaxis.setMax(130);
+        yaxis.setMin(-100);
+        yaxis.setMax(100);
         yaxis.init();
                 
         add(back);

@@ -1,7 +1,7 @@
 /*
 MyOpenLab by Carmelo Salafia www.myopenlab.de
 Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
+Copyright (C) 2017  Javier Velásquez (javiervelasquez125@gmail.com)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -23,6 +23,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
 
@@ -44,11 +45,36 @@ public class GraphRenderer extends JPanel
     
     public static final int P_POINT=0;
     public static final int P_LINE=1;
-    public static final int P_POINTBIG=2;
-    public int pointType = P_POINT;
+    public static final int P_LINE_MED=2;
+    public static final int P_LINE_BIG=3;
+    public static final int P_LINE_VBIG=4;
+    public static final int P_POINT_VOID=5;
+    public static final int P_POINT_MED=6;
+    public static final int P_POINT_BIG=7;
+    public static final int P_POINT_HIST=8;
+    public static final int P_POINT_HIST_MED=9;
+    public static final int P_POINT_HIST_BIG=10;
+    public static final int P_POINT_HIST_INV=11;
+    public static final int P_POINT_HIST_MED_INV=12;
+    public static final int P_POINT_HIST_BIG_INV=13;
+    
+    public int bufferLen= 600;
+    public int pointType = P_LINE_VBIG; //Default PointType for X/Y Graphs
+    
+    //private Color lineColor= Color.WHITE;
+    private Color lineColor= new Color(255,153,0); //Default Line Color for X/Y Graphs
+    private boolean FirstPoint=true;
     
     
-    private Color lineColor= Color.WHITE;
+    
+    public void setbufferLen(int Interval){
+     this.bufferLen=Interval;
+     
+    }
+    public int getbufferLen(){
+      return this.bufferLen;  
+    }
+    
     
     public Color getLineColor()
     {
@@ -85,15 +111,24 @@ public class GraphRenderer extends JPanel
             yValues[i]=y+yy;
             x+=0.1;
         }
-        lineColor=Color.RED;
-        pointType=1;
+        //lineColor=Color.RED;
+        lineColor=new Color(255,153,0);
+        
+        pointType=P_LINE_VBIG;
     }
     
+    public int getBufferLen()
+    {
+        if (xValues==null) return 0;
+        int BufferLen=xValues.length;
+        return BufferLen;
+    }
     public void init()
     {
         
         
         //genTestValues();
+        FirstPoint=true;
         
         //if (autoScaleX) scaleX();
         //if (autoScaleY) scaleY();
@@ -118,48 +153,60 @@ public class GraphRenderer extends JPanel
         oldX=x;
         oldY=y;
         int cx,cy;
+        int refx,refy;
+        int refMaxX,refMaxY;
+        int refMinX,refMinY;
         int oldCX=0;
         int oldCY=0;
         Point p=new Point();
+        Point refPoint=new Point(0,0);
+        Point MaxRefPoint=new Point(0,0);
+        Point MinRefPoint=new Point(0,0);
         
         boolean firstTime=true;
         g.setColor(lineColor);
         
         
         if (xValues!=null && yValues!=null && xValues.length==yValues.length)
-        {
+        {   
             for (int i=0;i<xValues.length;i++)
             {
                 x=xValues[i]+back.positionX;
                 y=yValues[i];
                 
-                if (x!=oldX || y!=oldY)
-                {
+                if (x!=oldX || y!=oldY ||FirstPoint==true)
+                {   FirstPoint=false;
                     back.convertPoint(x,y,p);
                     cx=p.x;
                     cy=p.y;
                     
+                    back.convertPoint(0,0,refPoint);
+                    refx=refPoint.x;
+                    refy=refPoint.y;
+                    back.convertPoint(back.maxX,back.maxY,MaxRefPoint);
+                    refMaxX=MaxRefPoint.x;
+                    refMaxY=MaxRefPoint.y;
+                    
+                    back.convertPoint(back.minX,back.minY,MinRefPoint);
+                    refMinX=MinRefPoint.x;
+                    refMinY=MinRefPoint.y;
                     
                     if (cx>back.getWidth() && back.owner.autoscroll==true)
                     {
                         back.positionX--;
                         back.owner.init();
                     }
+                    float RelPx=(refMaxX/xValues.length); //Pixel Relation MaxPixels/Buffer
+                    //System.out.println("PointType="+pointType+"X="+cx+"_Y"+cy+"_RefX"+refx+"_RefY"+refy+"_Rel="+RelPx);
+                    if (pointType>=14) pointType=P_LINE_VBIG;
+                    //if ((xValues.length/refMaxX)<0.0 && pointType==P_POINT_HIST_BIG) pointType=P_POINT_HIST;
                     
-                    
-                    if (pointType==P_POINT)
+                    if (pointType==P_POINT) //Point Type = 0
                     {
-                        g.drawRect(cx,cy,0,0);
+                        g.fillRect(cx-3,cy-3,6,6);
                     }
-                    else
-                        if (pointType==P_POINTBIG)
-                        {
-                        int d=2;
-                        g.drawOval(cx-d,cy-d,d*2,d*2);
-                        }
-                        else
-                            if (pointType==P_LINE)
-                            {
+                    if (pointType==P_LINE || pointType==P_LINE_MED || pointType==P_LINE_BIG ||pointType==P_LINE_VBIG) ////Point Type = 1
+                    {
                         if (firstTime)
                         {
                             firstTime=false;
@@ -170,12 +217,99 @@ public class GraphRenderer extends JPanel
                         {
                             if (oldCX!=cx || oldCY!=cy)
                             {
+
                                 g.drawLine(oldCX,oldCY,cx,cy);
+                                if (pointType==P_LINE_MED){
+                                    g.drawLine(oldCX,oldCY+1,cx,cy+1);
+                                }
+                                if (pointType==P_LINE_BIG){
+                                    g.drawLine(oldCX,oldCY+1,cx,cy+1);
+                                    g.drawLine(oldCX,oldCY-1,cx,cy-1);
+                                }
+                                if (pointType==P_LINE_VBIG){
+                                    g.drawLine(oldCX,oldCY+1,cx,cy+2);
+                                    g.drawLine(oldCX,oldCY+1,cx,cy+1);
+                                    g.drawLine(oldCX,oldCY-1,cx,cy-1);
+                                    g.drawLine(oldCX,oldCY-1,cx,cy-2);
+                                }
+
                                 oldCX=cx;
                                 oldCY=cy;
                             }
                         }
+                    }
+                    if (pointType==P_POINT_VOID)
+                    {
+                    int d=2;
+                    g.drawOval(cx-d,cy-d,d*2,d*2);
+                    }
+                    
+                    if (pointType==P_POINT_MED || pointType==P_POINT_BIG)
+                    {
+                    int d=0;
+                    if(pointType==P_POINT_MED) d=2;
+                    if(pointType==P_POINT_BIG) d=4;
+                    g.fillOval(cx-d,cy-d,d*2,d*2);
+                    }
+                    if(pointType==P_POINT_HIST || pointType==P_POINT_HIST_MED || pointType==P_POINT_HIST_BIG)
+                    {
+
+                        if (firstTime)
+                        {
+                        firstTime=false;
+                        oldCX=cx;
+                        oldCY=cy;
+                        }
+
+                            int HistWidth=0;
+                            int HistHeigh=0;
+                            if (pointType==P_POINT_HIST) HistWidth=2;
+                            if (pointType==P_POINT_HIST_MED) HistWidth=4;
+                            if (pointType==P_POINT_HIST_BIG) HistWidth=((cx-oldCX)-1);
+                            HistHeigh=Math.abs((refy-oldCY)-1);
+                            
+                            if (oldCX!=cx || oldCY!=cy)
+                            { 
+                                if(cy<refy) g.fillRect((oldCX-(HistWidth/2)),(refy-HistHeigh),HistWidth,HistHeigh);
+                                if(cy==refy)g.fillRect((oldCX-(HistWidth/2)),(refy-2),HistWidth,4);
+                                if(cy>refy) g.fillRect((oldCX-(HistWidth/2)),(refy),HistWidth,HistHeigh);
+                                oldCX=cx;
+                                oldCY=cy;
                             }
+                        
+
+                    }
+                    if(pointType==P_POINT_HIST_INV || pointType==P_POINT_HIST_MED_INV || pointType==P_POINT_HIST_BIG_INV)
+                    {
+
+                        if (firstTime)
+                        {
+                        firstTime=false;
+                        oldCX=cx;
+                        oldCY=cy;
+                        }
+                        
+                            int HistWidth=0;
+                            int HistHeigh=0;
+                            if (pointType==P_POINT_HIST_INV) HistWidth=2;
+                            if (pointType==P_POINT_HIST_MED_INV) HistWidth=4;
+                            if (pointType==P_POINT_HIST_BIG_INV) HistWidth=((cx-oldCX)-1);
+                            HistHeigh=Math.abs(refy-oldCY);
+                            int HistHeighP=Math.abs((refy-oldCY)-(HistHeigh+1));
+                            int HistHeighN=Math.abs((refMinY-refy)-(HistHeigh+1));
+                            //System.out.println("MinRefY="+refMinY+"_RefMaxY"+refMinY);
+                            if (oldCX!=cx || oldCY!=cy)
+                            { 
+                                if(cy<refy) g.fillRect((oldCX-(HistWidth/2)),2,HistWidth,HistHeigh);
+                                if(cy==refy)g.fillRect((oldCX-(HistWidth/2)),(refy-2),HistWidth,4);
+                                if(cy>refy)  g.fillRect((oldCX-(HistWidth/2)),(refy+HistHeigh),HistWidth,HistHeighN);
+                                oldCX=cx;
+                                oldCY=cy;
+                            }
+                        
+
+                    }
+     
                     oldY=y;
                     oldX=x;
                 }

@@ -1,7 +1,7 @@
 /*
 MyOpenLab by Carmelo Salafia www.myopenlab.de
 Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
+Copyright (C) 2017  Javier Velásquez (javiervelasquez125@gmail.com)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -36,6 +36,16 @@ public class GraphBackground extends javax.swing.JPanel
     public double maxY=100;
     
     private boolean backgroundTransparent=false;
+    
+    public int bufferLen= 600;
+    
+    
+    public void setAutoScaleInterval(Integer Interval){
+     this.bufferLen=Interval;
+    }
+    public Integer getAutosCaleInterval(){
+      return this.bufferLen;  
+    }
 
     
     public boolean getBackgroundTransparent()
@@ -52,7 +62,8 @@ public class GraphBackground extends javax.swing.JPanel
     public GraphBackground()
     {
         initComponents();
-        setBackground(new Color(0,80,0));
+        //setBackground(new Color(0,80,0));
+        setBackground(Color.WHITE); //White Color
     }
     
     public void setStepXInProzent(double stepXInProzent)
@@ -105,8 +116,10 @@ public class GraphBackground extends javax.swing.JPanel
     public javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 
-    public Color colorGrid= new Color(0,120,0);
-    public Color colorSubGrid= new Color(0,90,0);
+    //public Color colorGrid= new Color(0,120,0);
+    public Color colorGrid= new Color(200,200,200);
+    //public Color colorSubGrid= new Color(0,90,0);
+    public Color colorSubGrid= new Color(240,240,240);
     
     protected void paintComponent(Graphics g)
     {

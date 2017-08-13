@@ -1,7 +1,7 @@
 /*
 MyOpenLab by Carmelo Salafia www.myopenlab.de
 Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
+Copyright (C) 2017  Javier Velásquez (javiervelasquez125@gmail.com)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -34,6 +34,7 @@ public class MyGraph extends javax.swing.JPanel
     public MyGraphX graph = new MyGraphX();
     public Turn90Label labelLeft =new Turn90Label( "Y-Axis" );
     
+    
     /**
      * Creates new form MyGraph
      */
@@ -42,7 +43,9 @@ public class MyGraph extends javax.swing.JPanel
         initComponents();        
         add( labelLeft ,BorderLayout.WEST);                
         add(graph,BorderLayout.CENTER);
+        
     }
+   
     
     /** This method is called from within the constructor to
      * initialize the form.
@@ -114,7 +117,9 @@ public class MyGraph extends javax.swing.JPanel
     public void setAutoScroll(Boolean value)                { graph.autoscroll=value.booleanValue(); }    
     public void setCoordinatesVisible(Boolean value)        { graph.back.jLabel1.setVisible(value.booleanValue()); }        
     public void setPointType(Integer value)                 { if (graph.graphRenderer.length>0) graph.graphRenderer[0].pointType=value.intValue(); } // Dummy!
+    public void setbufferLen(Integer value)         { if (graph.graphRenderer.length>0) graph.graphRenderer[0].bufferLen=value.intValue(); } // Dummy!
     public void setLineColor(Color color)                   { if (graph.graphRenderer.length>0) graph.graphRenderer[0].setLineColor(color);}  // Dummy!
+    
     
     // ----------- GETTER ---------
     public Boolean getBackgroundTransparent( )  {return new Boolean(graph.back.getBackgroundTransparent());}
@@ -147,14 +152,21 @@ public class MyGraph extends javax.swing.JPanel
     public Integer getPointType( )              
     {
         if (graph.graphRenderer.length>0) return new Integer(graph.graphRenderer[0].pointType); 
-        else return new Integer(0); 
+        else return new Integer(GraphRenderer.P_LINE_VBIG); 
+    
+    }
+    public Integer getbufferLen( )              
+    {
+        if (graph.graphRenderer.length>0) return new Integer(graph.graphRenderer[0].bufferLen); 
+        else return new Integer(600); 
     
     }
     public Color getLineColor( )                
     {
         if (graph.graphRenderer.length>0) return graph.graphRenderer[0].getLineColor(); 
         else 
-        return Color.BLACK;}    
+        //return Color.BLACK;}    
+        return new Color(255,153,0);}    
     
     
     private void formComponentResized(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_formComponentResized

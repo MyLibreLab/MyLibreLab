@@ -1,5 +1,10 @@
 MyOpenLab
 
+For Linux and MAC please use "./start_linux" script from terminal (You must Add Execution privileges)
+For Linux Ubuntu you can use .desktop too if you edit it and update the distribution patch.
+
+For Windows Please use "start.bat" or "MyOpenLab vx.x.x.exe"
+
 Anforderungen:
 Sie benötigen mindestens das JRE 7 oder das JDK 7
 oder höher. Die neueste Version kann von Sun Microsystems

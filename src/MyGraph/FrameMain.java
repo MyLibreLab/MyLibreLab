@@ -29,8 +29,8 @@ import java.awt.BorderLayout;
 public class FrameMain extends javax.swing.JFrame
 {
     
-    
-    
+    public MyGraph graph;
+    public int AustoscaleInterval= new Integer(600);
     /**
      * Creates new form FrameMain
      */
@@ -38,10 +38,23 @@ public class FrameMain extends javax.swing.JFrame
     {
         initComponents();
         
-        MyGraph graph;
-        graph=new MyGraph();         
+        
+        graph=new MyGraph();
+        
+        
         getContentPane().add(graph,BorderLayout.CENTER);
 
+    }
+    
+    
+    
+    public void setAutoScaleInterval(Integer Interval){
+     this.AustoscaleInterval=Interval;
+     graph.setbufferLen(this.AustoscaleInterval);
+     
+    }
+    public int getAutosCaleInterval(){
+      return this.AustoscaleInterval;  
     }
     
     /** This method is called from within the constructor to
