@@ -42,7 +42,7 @@ public class YAxis
     private String points[] = null;
     private int heights[] = null;
     private FontMetrics fm=null;
-    public Font stdFont = new Font("Arial",0,10);
+    public Font stdFont = new Font("Arial Bold",Font.BOLD,11);
     private int yDistance=5;
     public double min=0;
     public double max=10000;

@@ -128,7 +128,7 @@ public class GraphRenderer extends JPanel
         
         
         //genTestValues();
-        FirstPoint=true;
+       
         
         //if (autoScaleX) scaleX();
         //if (autoScaleY) scaleY();
@@ -144,6 +144,7 @@ public class GraphRenderer extends JPanel
         super.paintComponent(g);
         
         double x,y,oldX,oldY;
+        double x1=0.0;
         
         Graphics2D g2 = (Graphics2D)g;
         
@@ -153,43 +154,57 @@ public class GraphRenderer extends JPanel
         oldX=x;
         oldY=y;
         int cx,cy;
-        int refx,refy;
+        int refx,refy, refX1;
         int refMaxX,refMaxY;
         int refMinX,refMinY;
         int oldCX=0;
         int oldCY=0;
+        int StepProm=0;
         Point p=new Point();
         Point refPoint=new Point(0,0);
         Point MaxRefPoint=new Point(0,0);
         Point MinRefPoint=new Point(0,0);
         
         boolean firstTime=true;
+        FirstPoint=true;
         g.setColor(lineColor);
         
         
         if (xValues!=null && yValues!=null && xValues.length==yValues.length)
         {   
             for (int i=0;i<xValues.length;i++)
-            {
+            {   
+                back.convertPoint(0,0,refPoint);
+                refx=refPoint.x;
+                refy=refPoint.y;
+                back.convertPoint(back.maxX,back.maxY,MaxRefPoint);
+                refMaxX=MaxRefPoint.x;
+                refMaxY=MaxRefPoint.y;
+
+                back.convertPoint(back.minX,back.minY,MinRefPoint);
+                refMinX=MinRefPoint.x;
+                refMinY=MinRefPoint.y;
                 x=xValues[i]+back.positionX;
                 y=yValues[i];
+                if(i==0 && xValues.length>1){
+                firstTime=true;
+                FirstPoint=true;
+                x1=xValues[1];
+                back.convertPoint(x1,0,refPoint);
+                refX1=refPoint.x;
+                StepProm=(int) back.stepXX;
+                } 
+                
                 
                 if (x!=oldX || y!=oldY ||FirstPoint==true)
                 {   FirstPoint=false;
                     back.convertPoint(x,y,p);
                     cx=p.x;
                     cy=p.y;
+                    if(y==0){
+                    cy=refy;    
+                    }
                     
-                    back.convertPoint(0,0,refPoint);
-                    refx=refPoint.x;
-                    refy=refPoint.y;
-                    back.convertPoint(back.maxX,back.maxY,MaxRefPoint);
-                    refMaxX=MaxRefPoint.x;
-                    refMaxY=MaxRefPoint.y;
-                    
-                    back.convertPoint(back.minX,back.minY,MinRefPoint);
-                    refMinX=MinRefPoint.x;
-                    refMinY=MinRefPoint.y;
                     
                     if (cx>back.getWidth() && back.owner.autoscroll==true)
                     {
@@ -198,117 +213,150 @@ public class GraphRenderer extends JPanel
                     }
                     float RelPx=(refMaxX/xValues.length); //Pixel Relation MaxPixels/Buffer
                     //System.out.println("PointType="+pointType+"X="+cx+"_Y"+cy+"_RefX"+refx+"_RefY"+refy+"_Rel="+RelPx);
-                    if (pointType>=14) pointType=P_LINE_VBIG;
+                    if (pointType>=14){
+                        pointType=P_LINE_VBIG;
+                    }
                     //if ((xValues.length/refMaxX)<0.0 && pointType==P_POINT_HIST_BIG) pointType=P_POINT_HIST;
                     
                     if (pointType==P_POINT) //Point Type = 0
                     {
                         g.fillRect(cx-3,cy-3,6,6);
-                    }
-                    if (pointType==P_LINE || pointType==P_LINE_MED || pointType==P_LINE_BIG ||pointType==P_LINE_VBIG) ////Point Type = 1
-                    {
-                        if (firstTime)
-                        {
-                            firstTime=false;
-                            oldCX=cx;
-                            oldCY=cy;
-                        }
-                        else
-                        {
-                            if (oldCX!=cx || oldCY!=cy)
+                    }else
+                       {
+                            if (pointType==P_LINE || pointType==P_LINE_MED || pointType==P_LINE_BIG ||pointType==P_LINE_VBIG) ////Point Type = 1
                             {
-
-                                g.drawLine(oldCX,oldCY,cx,cy);
-                                if (pointType==P_LINE_MED){
-                                    g.drawLine(oldCX,oldCY+1,cx,cy+1);
+                                if (firstTime)
+                                {
+                                    firstTime=false;
+                                    oldCX=cx;
+                                    oldCY=cy;
                                 }
-                                if (pointType==P_LINE_BIG){
-                                    g.drawLine(oldCX,oldCY+1,cx,cy+1);
-                                    g.drawLine(oldCX,oldCY-1,cx,cy-1);
+                                else
+                                {
+                                    if (oldCX!=cx || oldCY!=cy)
+                                    {
+
+                                        g.drawLine(oldCX,oldCY,cx,cy);
+                                        if (pointType==P_LINE_MED){
+                                            g.drawLine(oldCX,oldCY+1,cx,cy+1);
+                                        }
+                                        if (pointType==P_LINE_BIG){
+                                            g.drawLine(oldCX,oldCY+1,cx,cy+1);
+                                            g.drawLine(oldCX,oldCY-1,cx,cy-1);
+                                        }
+                                        if (pointType==P_LINE_VBIG){
+                                            g.drawLine(oldCX,oldCY+1,cx,cy+2);
+                                            g.drawLine(oldCX,oldCY+1,cx,cy+1);
+                                            g.drawLine(oldCX,oldCY-1,cx,cy-1);
+                                            g.drawLine(oldCX,oldCY-1,cx,cy-2);
+                                        }
+
+                                        oldCX=cx;
+                                        oldCY=cy;
+                                    }
                                 }
-                                if (pointType==P_LINE_VBIG){
-                                    g.drawLine(oldCX,oldCY+1,cx,cy+2);
-                                    g.drawLine(oldCX,oldCY+1,cx,cy+1);
-                                    g.drawLine(oldCX,oldCY-1,cx,cy-1);
-                                    g.drawLine(oldCX,oldCY-1,cx,cy-2);
+                            }else
+                               {
+                                    if (pointType==P_POINT_VOID)
+                                    {
+                                    int d=2;
+                                    g.drawOval(cx-d,cy-d,d*2,d*2);
+                                    }else
+                                       {
+                                            if (pointType==P_POINT_MED || pointType==P_POINT_BIG)
+                                            {
+                                                int d=0;
+                                                if(pointType==P_POINT_MED){
+                                                    d=2;
+                                                }
+                                                if(pointType==P_POINT_BIG){
+                                                    d=4;
+                                                }
+                                                g.fillOval(cx-d,cy-d,d*2,d*2);
+                                            }else{
+                                                    if(pointType==P_POINT_HIST || pointType==P_POINT_HIST_MED || pointType==P_POINT_HIST_BIG)
+                                                    {
+                                                        if (firstTime)
+                                                        {
+                                                        firstTime=false;
+                                                        oldCX=(cx-(StepProm/2));
+                                                        //cx+=(StepProm/2);
+                                                        oldCY=refy;
+                                                        } 
+                                                        int HistWidth=0;
+                                                        int HistHeigh=0;
+                                                        if (pointType==P_POINT_HIST) HistWidth=2;
+                                                        if (pointType==P_POINT_HIST_MED) HistWidth=4;
+                                                        //if (pointType==P_POINT_HIST_BIG) HistWidth=((cx-oldCX)-2);
+                                                        if (pointType==P_POINT_HIST_BIG){
+                                                            HistWidth=((StepProm)-2);
+                                                            if (HistWidth<10){
+                                                                pointType=P_POINT_HIST;
+                                                                HistWidth=2;
+                                                            }
+                                                        }
+                                                        HistHeigh=Math.abs(refy-cy);
+                                                        if(HistHeigh==0)HistHeigh=2;
+                                                        //if (oldCX!=cx || oldCY!=cy || FirstPoint)
+                                                        //{ 
+                                                            if(cy<refy) g.fillRect((cx-(HistWidth/2)),(refy-HistHeigh),HistWidth,HistHeigh);
+                                                            if(cy==refy)g.fillRect((cx-(HistWidth/2)),refy,HistWidth,2);
+                                                            if(cy>refy) g.fillRect((cx-(HistWidth/2)),(refy),HistWidth,HistHeigh);
+
+                                                            System.out.println("Iteration"+i+"_Point"+pointType+"_Cx"+cx+"_OldCx="+oldCX+"refX"+refx+"_Cy"+cy+"_OldCy"+oldCY+"refy"+refy+"_Altura"+HistHeigh);
+
+                                                            oldCX=cx;
+                                                            oldCY=cy;
+                                                            //}
+                                                    }else {
+                                                                if(pointType==P_POINT_HIST_INV || pointType==P_POINT_HIST_MED_INV || pointType==P_POINT_HIST_BIG_INV)
+                                                                {
+                                                                    if (firstTime)
+                                                                        {
+                                                                        firstTime=false;
+                                                                        oldCX=(cx-(StepProm/2));
+                                                                        //cx+=(StepProm/2);
+                                                                        oldCY=refy;
+                                                                        } 
+                                                                        int HistWidth=0;
+                                                                        
+                                                                        if (pointType==P_POINT_HIST_INV) HistWidth=2;
+                                                                        if (pointType==P_POINT_HIST_MED_INV) HistWidth=4;
+                                                                        //if (pointType==P_POINT_HIST_BIG) HistWidth=((cx-oldCX)-2);
+                                                                        if (pointType==P_POINT_HIST_BIG_INV) {
+                                                                            HistWidth=((StepProm)-2);
+                                                                            if (HistWidth<10){
+                                                                                pointType=P_POINT_HIST_INV;
+                                                                                HistWidth=2;
+                                                                            }
+                                                                        }
+                                                                        
+                                                                        //HistHeigh=Math.abs(refy-cy);
+                                                                        int HistHeighP=Math.abs(cy-1);
+                                                                        int HistHeighN=Math.abs(refMinY-cy);
+                                                                        //if(HistHeighP==0)HistHeighP=2;
+                                                                        //if(HistHeighN==0)HistHeighN=2;
+                                                                        //if (oldCX!=cx || oldCY!=cy || FirstPoint)
+                                                                        //{ 
+                                                                            if(cy<refy) g.fillRect((cx-(HistWidth/2)),1,HistWidth,HistHeighP);
+                                                                            if(cy==refy)g.fillRect((cx-(HistWidth/2)),refy,HistWidth,2);
+                                                                            if(cy>refy) g.fillRect((cx-(HistWidth/2)),cy,HistWidth,HistHeighN);
+
+                                                                            System.out.println("Iteration"+i+"_Point"+pointType+"_Cx"+cx+"_OldCx="+oldCX+"refX"+refx+"_Cy"+cy+"_OldCy"+oldCY+"refy"+refy+"_AlturaP"+HistHeighP+"_AlturaN"+HistHeighN);
+
+                                                                            oldCX=cx;
+                                                                            oldCY=cy;
+
+                                                                   
+
+
+                                                                }
+                                                            }
+                                                }
+                                        }
                                 }
-
-                                oldCX=cx;
-                                oldCY=cy;
-                            }
-                        }
-                    }
-                    if (pointType==P_POINT_VOID)
-                    {
-                    int d=2;
-                    g.drawOval(cx-d,cy-d,d*2,d*2);
-                    }
-                    
-                    if (pointType==P_POINT_MED || pointType==P_POINT_BIG)
-                    {
-                    int d=0;
-                    if(pointType==P_POINT_MED) d=2;
-                    if(pointType==P_POINT_BIG) d=4;
-                    g.fillOval(cx-d,cy-d,d*2,d*2);
-                    }
-                    if(pointType==P_POINT_HIST || pointType==P_POINT_HIST_MED || pointType==P_POINT_HIST_BIG)
-                    {
-
-                        if (firstTime)
-                        {
-                        firstTime=false;
-                        oldCX=cx;
-                        oldCY=cy;
-                        }
-
-                            int HistWidth=0;
-                            int HistHeigh=0;
-                            if (pointType==P_POINT_HIST) HistWidth=2;
-                            if (pointType==P_POINT_HIST_MED) HistWidth=4;
-                            if (pointType==P_POINT_HIST_BIG) HistWidth=((cx-oldCX)-1);
-                            HistHeigh=Math.abs((refy-oldCY)-1);
-                            
-                            if (oldCX!=cx || oldCY!=cy)
-                            { 
-                                if(cy<refy) g.fillRect((oldCX-(HistWidth/2)),(refy-HistHeigh),HistWidth,HistHeigh);
-                                if(cy==refy)g.fillRect((oldCX-(HistWidth/2)),(refy-2),HistWidth,4);
-                                if(cy>refy) g.fillRect((oldCX-(HistWidth/2)),(refy),HistWidth,HistHeigh);
-                                oldCX=cx;
-                                oldCY=cy;
-                            }
-                        
-
-                    }
-                    if(pointType==P_POINT_HIST_INV || pointType==P_POINT_HIST_MED_INV || pointType==P_POINT_HIST_BIG_INV)
-                    {
-
-                        if (firstTime)
-                        {
-                        firstTime=false;
-                        oldCX=cx;
-                        oldCY=cy;
-                        }
-                        
-                            int HistWidth=0;
-                            int HistHeigh=0;
-                            if (pointType==P_POINT_HIST_INV) HistWidth=2;
-                            if (pointType==P_POINT_HIST_MED_INV) HistWidth=4;
-                            if (pointType==P_POINT_HIST_BIG_INV) HistWidth=((cx-oldCX)-1);
-                            HistHeigh=Math.abs(refy-oldCY);
-                            int HistHeighP=Math.abs((refy-oldCY)-(HistHeigh+1));
-                            int HistHeighN=Math.abs((refMinY-refy)-(HistHeigh+1));
-                            //System.out.println("MinRefY="+refMinY+"_RefMaxY"+refMinY);
-                            if (oldCX!=cx || oldCY!=cy)
-                            { 
-                                if(cy<refy) g.fillRect((oldCX-(HistWidth/2)),2,HistWidth,HistHeigh);
-                                if(cy==refy)g.fillRect((oldCX-(HistWidth/2)),(refy-2),HistWidth,4);
-                                if(cy>refy)  g.fillRect((oldCX-(HistWidth/2)),(refy+HistHeigh),HistWidth,HistHeighN);
-                                oldCX=cx;
-                                oldCY=cy;
-                            }
-                        
-
-                    }
+                       }
+                          
      
                     oldY=y;
                     oldX=x;
