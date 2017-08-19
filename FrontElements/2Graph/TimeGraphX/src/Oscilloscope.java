@@ -42,7 +42,9 @@ public class Oscilloscope extends JVSMain
   
   //public VSColor   color=new VSColor(Color.WHITE);
   public VSColor   color=new VSColor(new Color(255, 153, 0));
-  public VSInteger pointType=new VSInteger(4);
+  
+  public VSComboBox pointTypeList=new VSComboBox();
+  public VSInteger pointType = new VSInteger(4); 
   
   public VSInteger delay = new VSInteger(10); // 100 Samples each Second
   public VSInteger bufferLen = new VSInteger(600); // 600 Samples Buffer (Last 1 minute)
@@ -63,7 +65,27 @@ public class Oscilloscope extends JVSMain
     element.jAddPEItem("Delay",delay, 0,5000000);
     element.jAddPEItem("Buffer",bufferLen, 0,50000000);
     element.jAddPEItem("Line Color",color, 0,50000000);
-    element.jAddPEItem("Pointtype (0-13)",pointType, 0,20);
+    
+    pointTypeList.addItem("RECT_T1");
+    pointTypeList.addItem("LINE_T1");
+    pointTypeList.addItem("LINE_T2");
+    pointTypeList.addItem("LINE_T3");
+    pointTypeList.addItem("LINE_T4");
+    pointTypeList.addItem("OVAL_T0");
+    pointTypeList.addItem("OVAL_T1");
+    pointTypeList.addItem("OVAL_T2");
+    pointTypeList.addItem("BARS_T1");
+    pointTypeList.addItem("BARS_T2");
+    pointTypeList.addItem("BARS_T3");
+    pointTypeList.addItem("IBAR_T1");
+    pointTypeList.addItem("IBAR_T2");
+    pointTypeList.addItem("IBAR_T3");
+    
+    pointTypeList.setPinIndex(4);
+    pointTypeList.setPin(pointType.getValue());
+    
+    
+    element.jAddPEItem("Pointtype",pointTypeList, 0,20);
     localize();
   }
 
@@ -78,14 +100,14 @@ public class Oscilloscope extends JVSMain
     element.jSetPEItemLocale(d+0,language,"Delay");
     element.jSetPEItemLocale(d+1,language,"Buffer");
     element.jSetPEItemLocale(d+2,language,"Line Color");
-    element.jSetPEItemLocale(d+3,language,"Pointtype (0-13)");
+    element.jSetPEItemLocale(d+3,language,"Pointtype");
 
     language="es_ES";
 
     element.jSetPEItemLocale(d+0,language,"Delay");
     element.jSetPEItemLocale(d+1,language,"Buffer");
     element.jSetPEItemLocale(d+2,language,"Line Color");
-    element.jSetPEItemLocale(d+3,language,"Pointtype (0-13)");
+    element.jSetPEItemLocale(d+3,language,"Pointtype");
   }
 
   public Oscilloscope()
@@ -132,7 +154,6 @@ public class Oscilloscope extends JVSMain
     inC=(VSBoolean)element.getPinInputReference(2);
     inD=(VSBoolean)element.getPinInputReference(3);
 
-    
     if (inA==null) inA=new VSDouble(0);
     if (inB==null) inB=new VSBoolean(false);
     if (inC==null) inC=new VSBoolean(false);
@@ -185,7 +206,12 @@ public class Oscilloscope extends JVSMain
     if (panelElement!=null) panelElement.jProcessPanel(-3,0,color);
     
     // Setze Pointtype in FrontPanel!
-    if (panelElement!=null) panelElement.jProcessPanel(-4,0,pointType);
+    
+    if (panelElement!=null){
+        pointType=new VSInteger(pointTypeList.selectedIndex);
+        panelElement.jProcessPanel(-4,0,pointType);
+        //System.out.println("PinIndex="+pointTypeList.selectedIndex);
+    }
     
     // Setze Interval in FrontPanel!
     if (panelElement!=null) panelElement.jProcessPanel(-5,0,bufferLen);
@@ -210,6 +236,7 @@ public class Oscilloscope extends JVSMain
     
     color.loadFromStream(fis);
     pointType.loadFromStream(fis);
+    pointTypeList.loadFromStream(fis);
 
   }
 
@@ -220,6 +247,7 @@ public class Oscilloscope extends JVSMain
     
     color.saveToStream(fos);
     pointType.saveToStream(fos);
+    pointTypeList.saveToStream(fos);
 
   }
     
