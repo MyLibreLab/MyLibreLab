@@ -106,7 +106,8 @@ public class SelectionPane extends JPanel implements MouseListener, MouseMotionL
 //--------------------------------------------------------------
     
     @Override
-    public boolean isFocusTraversable()
+    //public boolean isFocusTraversable()
+    public boolean isFocusable()
     {
         return true;
     }

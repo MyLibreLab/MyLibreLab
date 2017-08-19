@@ -303,7 +303,7 @@ public class GraphRenderer extends JPanel
                                                             if(cy==refy)g.fillRect((cx-(HistWidth/2)),refy,HistWidth,2);
                                                             if(cy>refy) g.fillRect((cx-(HistWidth/2)),(refy),HistWidth,HistHeigh);
 
-                                                            System.out.println("Iteration"+i+"_Point"+pointType+"_Cx"+cx+"_OldCx="+oldCX+"refX"+refx+"_Cy"+cy+"_OldCy"+oldCY+"refy"+refy+"_Altura"+HistHeigh);
+                                                            //System.out.println("Iteration"+i+"_Point"+pointType+"_Cx"+cx+"_OldCx="+oldCX+"refX"+refx+"_Cy"+cy+"_OldCy"+oldCY+"refy"+refy+"_Altura"+HistHeigh);
 
                                                             oldCX=cx;
                                                             oldCY=cy;
@@ -342,7 +342,7 @@ public class GraphRenderer extends JPanel
                                                                             if(cy==refy)g.fillRect((cx-(HistWidth/2)),refy,HistWidth,2);
                                                                             if(cy>refy) g.fillRect((cx-(HistWidth/2)),cy,HistWidth,HistHeighN);
 
-                                                                            System.out.println("Iteration"+i+"_Point"+pointType+"_Cx"+cx+"_OldCx="+oldCX+"refX"+refx+"_Cy"+cy+"_OldCy"+oldCY+"refy"+refy+"_AlturaP"+HistHeighP+"_AlturaN"+HistHeighN);
+                                                                            //System.out.println("Iteration"+i+"_Point"+pointType+"_Cx"+cx+"_OldCx="+oldCX+"refX"+refx+"_Cy"+cy+"_OldCy"+oldCY+"refy"+refy+"_AlturaP"+HistHeighP+"_AlturaN"+HistHeighN);
 
                                                                             oldCX=cx;
                                                                             oldCY=cy;

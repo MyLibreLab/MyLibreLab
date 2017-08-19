@@ -32,11 +32,11 @@ public class VSDataType
 {    
     
     private static float dash1[] = {2.0f,1.0f};    
-    private static BasicStroke dashed1D = new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 2.0f, dash1, 1.0f);            
+    private static BasicStroke dashed1D = new BasicStroke(2.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 2.0f, dash1, 1.0f);            
     private static float dash2[] = {2.0f,1.0f};
-    private static BasicStroke dashed2D = new BasicStroke(2.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1.0f, dash2, 1.0f);        
-    private static BasicStroke dashedGrp = new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 2.0f, dash2, 1.0f);        
-    private static Stroke standard = new BasicStroke( 1 );        
+    private static BasicStroke dashed2D = new BasicStroke(3.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1.0f, dash2, 1.0f);        
+    private static BasicStroke dashedGrp = new BasicStroke(2.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 2.0f, dash2, 1.0f);        
+    private static Stroke standard = new BasicStroke( 2 );        
     private static Stroke lineStyle=standard;
         
     public static VSObject createPinDataType(int dataType)

@@ -156,7 +156,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         frmVmName.setVisible(true);
 
         if (DialogVMName.result) {
-            String filename = node.projectPath + node.relativePath + "/" + DialogVMName.newName + ".vlogic"; //NOI18N 
+            //String filename = node.projectPath + node.relativePath + "/" + DialogVMName.newName + ".vlogic"; //NOI18N 
+            String filename = node.projectPath + node.relativePath + File.separator + DialogVMName.newName + ".vlogic"; //NOI18N 
 
             if (!new File(filename).exists()) {
                 Basis basis = new Basis(this, FrameMain.elementPath);
@@ -180,7 +181,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             File file = new File(node.projectPath + node.relativePath);
             String projectName = file.getPath();
 
-            new File(projectName + "/" + value).mkdir(); //NOI18N
+            //new File(projectName + "/" + value).mkdir(); //NOI18N
+            new File(projectName + File.separator + value).mkdir(); //NOI18N
             reloadProjectPanel();
 
         }
@@ -206,38 +208,51 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     }
 
     public void dirRename(MyNode node) {
+        
         if (node != null) {
             File file = new File(node.projectPath + node.relativePath);
+            
+            boolean res = setQuestionDialogYES_NO_CANCEL(this, "All VMs will be closed to rename this project, Do you want to continue?");
+            if(res)
+            {
+                closeAllVms();
 
-            DialogRename frm = new DialogRename(this, true);
-            frm.init(file.getName());
-            frm.setVisible(true);
+                DialogRename frm = new DialogRename(this, true);
+                frm.init(file.getName());
+                frm.setVisible(true);
 
-            if (frm.result && frm.newName.length() > 0) {
-                String std = file.getParent() + "/" + frm.newName;
+                if (frm.result && frm.newName.length() > 0) {
+                    //String std = file.getParent() + "/" + frm.newName;
+                    String std = file.getParent() + File.separator + frm.newName;
 
-                String newFilename = std;
+                    String newFilename = std;
 
-                String oldFilename = file.getAbsolutePath();
+                    String oldFilename = file.getAbsolutePath();
 
-                file.renameTo(new File(std));
 
-                if (node.getLevel() == 1) {
-                    int pos = Collections.binarySearch(projects, oldFilename);
-                    if (pos > -1) {
-                        projects.remove(pos);
-                        newFilename = new File(std).getAbsolutePath();
-                        projects.add(newFilename);
+                    file.renameTo(new File(std));
+
+                    if (node.getLevel() == 1) {
+                        int pos = Collections.binarySearch(projects, oldFilename);
+                        if (pos > -1) {
+                            projects.remove(pos);
+                            newFilename = new File(std).getAbsolutePath();
+                            projects.add(newFilename);
+                        }
+
                     }
 
-                }
 
-                reloadProjectPanel();
-                /*node.setUserObject(new File(newFilename));
-            projectPalette1.jTree1.updateUI();
-            projectPalette1.reloadFolder(node);*/
-                //reloadProjectPanelFolder(node);
+                    reloadProjectPanel();
+                    /*node.setUserObject(new File(newFilename));
+                projectPalette1.jTree1.updateUI();
+                projectPalette1.reloadFolder(node);*/
+                    //reloadProjectPanelFolder(node);
+                    
+                }
             }
+            
+            
 
         }
     }
@@ -538,22 +553,25 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             if (frm.result && frm.vmName.length() > 0) {
 
                 // 1. Verzeichniss mit Value unter dem Project erzeugen
-                String dir = node.projectPath + "/" + frm.vmName;
+                //String dir = node.projectPath + "/" + frm.vmName;
+                String dir = node.projectPath + File.separator + frm.vmName;
                 if (!new File(dir).exists()) {
                     new File(dir).mkdir();
 
                     try {
-                        Tools.copy(new File(elementPath + "/nope.html"), new File(dir + "/doc.html"));
-                        Tools.copy(new File(elementPath + "/nope.html"), new File(dir + "/doc_en.html"));
-                        Tools.copy(new File(elementPath + "/nope.html"), new File(dir + "/doc_es.html"));
+                        Tools.copy(new File(elementPath + File.separator+"nope.html"), new File(dir + File.separator+"doc.html"));
+                        Tools.copy(new File(elementPath + File.separator+"nope.html"), new File(dir + File.separator+"doc_en.html"));
+                        Tools.copy(new File(elementPath + File.separator+"nope.html"), new File(dir + File.separator+"doc_es.html"));
 
-                        Tools.copy(new File(elementPath + "/element.gif"), new File(dir + "/" + frm.vmName + ".gif"));
+                        //Tools.copy(new File(elementPath + "/element.gif"), new File(dir + "/" + frm.vmName + ".gif"));
+                        Tools.copy(new File(elementPath + File.separator+"element.gif"), new File(dir + File.separator + frm.vmName + ".gif"));
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-                    File file = new File(dir + "/subvm.vlogic");
+                    File file = new File(dir + File.separator+"subvm.vlogic");
 
-                    generateSubVM(node.projectPath, frm.pinsLeft, frm.pinsRight, dir + "/" + frm.vmName + ".vlogic");
+                    //generateSubVM(node.projectPath, frm.pinsLeft, frm.pinsRight, dir + "/" + frm.vmName + ".vlogic");
+                    generateSubVM(node.projectPath, frm.pinsLeft, frm.pinsRight, dir + File.separator + frm.vmName + ".vlogic");
 
                     //Basis basis=new Basis(this,this.elementPath);
                     //basis.saveToFile(filename,false);
@@ -651,7 +669,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             frm.setVisible(true);
 
             if (frm.result && frm.newName.length() > 0) {
-                String std = file.getParent() + "/" + frm.newName + "." + ext;
+                //String std = file.getParent() + "/" + frm.newName + "." + ext;
+                String std = file.getParent() + File.separator + frm.newName + "." + ext;
 
                 if (!new File(std).exists()) {
                     try {
@@ -747,7 +766,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     public void closeApplication() {
         saveConfiFile();
 
-        String fileName = getUserURL().getFile() + "/projects.file";
+        //String fileName = getUserURL().getFile() + "/projects.file";
+        String fileName = getUserURL().getFile() + File.separator+"projects.file";
         Tools.saveProjectsFile(new File(fileName), projects);
 
         if (closeAllVms() == true) {
@@ -1024,8 +1044,9 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
        
 
-        // Loesche alle tmp Dateien implements User Verzeichniss
-        File verzeichniss = new File(getUserURL().getFile() + "/");
+        // Loesche alle tmp Dateien implements User Verzeichniss //Borrar los archivos temporales
+        //File verzeichniss = new File(getUserURL().getFile() + "/");
+        File verzeichniss = new File(getUserURL().getFile() + File.separator);
 
         if (verzeichniss.exists()) {
             File[] files = verzeichniss.listFiles();
@@ -2023,7 +2044,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     }
 
     public void openFileAsFront(String projectPath, String vmName) {
-        globalPath = projectPath + "/" + vmName;
+        //globalPath = projectPath + "/" + vmName;
+        globalPath = projectPath + File.separator + vmName;
         globalProjectPath = projectPath;
         SwingWorker<Object, Object> worker = new SwingWorker<Object, Object>() {
 
@@ -2612,6 +2634,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         jSplitPane3.setLeftComponent(jPanelLeft);
 
+        jPanel4.setBackground(new java.awt.Color(153, 153, 153));
         jPanel4.setLayout(new java.awt.BorderLayout());
 
         jPanelElementPalette.setAutoscrolls(true);
@@ -2658,7 +2681,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         jPanel7.setLayout(new java.awt.BorderLayout());
 
         jPanel8.setAutoscrolls(true);
-        jPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.W_RESIZE_CURSOR));
+        jPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel8.setFocusable(false);
         jPanel8.setPreferredSize(new java.awt.Dimension(10, 518));
         jPanel8.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -4854,14 +4877,14 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     private void jmiForumActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmiForumActionPerformed
     {//GEN-HEADEREND:event_jmiForumActionPerformed
 
-        Tools.openUrl(this, "http://myopenlab.informe.com");
+        Tools.openUrl(this, "http://myopenlab.org/comunidad/");
 
     }//GEN-LAST:event_jmiForumActionPerformed
 
     private void jmiTutorialsActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmiTutorialsActionPerformed
     {//GEN-HEADEREND:event_jmiTutorialsActionPerformed
 
-        Tools.openUrl(this, "http://www.myopenlab.de/downloads.html");
+        Tools.openUrl(this, "http://myopenlab.org/videos/");
 
     }//GEN-LAST:event_jmiTutorialsActionPerformed
 
@@ -4975,6 +4998,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     {//GEN-HEADEREND:event_jmiHomepageActionPerformed
 
         Tools.openUrl(this, "http://myopenlab.de");
+        Tools.openUrl(this, "http://myopenlab.org");
 
     }//GEN-LAST:event_jmiHomepageActionPerformed
 
@@ -5338,7 +5362,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     }//GEN-LAST:event_jmiInfoActionPerformed
 
     public void executeMainVM(String projectPath, String mainVM) {
-        globalPath = projectPath + "/" + mainVM;
+        //globalPath = projectPath + "/" + mainVM;
+        globalPath = projectPath + File.separator + mainVM;
         globalProjectPath = projectPath;
         SwingWorker worker = new SwingWorker<Object, Object>() {
 
@@ -5491,12 +5516,14 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
                 File project = new File(projectName);
                 project.mkdir();
-                File projectFile = new File(project.getAbsolutePath() + "/project.myopenlab");
+                //File projectFile = new File(project.getAbsolutePath() + "/project.myopenlab");
+                File projectFile = new File(project.getAbsolutePath() + File.separator+"project.myopenlab");
 
                 projectFile.createNewFile();
 
                 if (createMainVM) {
-                    String filename = projectName + "/" + mainVMFilename + ".vlogic";
+                    //String filename = projectName + "/" + mainVMFilename + ".vlogic";
+                    String filename = projectName + File.separator + mainVMFilename + ".vlogic";
                     Basis basis = new Basis(this, this.elementPath);
                     basis.saveToFile(filename, false);
 
@@ -5532,7 +5559,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             File f = new File(projectName);
             if (!f.exists()) {
 
-                projectName = projectName.replace("\\", "/");
+                projectName = projectName.replace("\\", File.separator);
+                projectName = projectName.replace("/", File.separator);
 
                 createNewProject(projectName, frm.createMainVM, frm.mainVMFilename, frm.projectType);
                 projects.add(projectName);
