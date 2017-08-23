@@ -1,7 +1,8 @@
 //*****************************************************************************
 //* Element of MyOpenLab Library                                              *
 //*                                                                           *
-//* Copyright (C) 2004  Carmelo Salafia (cswi@gmx.de)                         *
+//* Copyright (C) 2004  Carmelo Salafia  (cswi@gmx.de)                         *
+//* Copyright (C) 2017  Javier Velásquez (javiervelasquez125@gmail.com)                                                                          *
 //*                                                                           *
 //* This library is free software; you can redistribute it and/or modify      *
 //* it under the terms of the GNU Lesser General Public License as published  *
@@ -43,12 +44,12 @@ public class GaugePanel extends CustomAnalogComp2 implements PanelIF
     super.init();
     backColor.setValue(Color.WHITE);
     showBackground.setValue(true);
-    textInside.setValue(true);
+    textInside.setValue(false);
     element.jSetMinimumSize(50,50);
-    knobSizeInProzent.setValue(3);
-    nibbleLenInProzent.setValue(45);
-    nibbleColor.setValue(Color.RED);
-    buttonColor.setValue(Color.BLACK);
+    knobSizeInProzent.setValue(4);
+    nibbleLenInProzent.setValue(25);
+    nibbleColor.setPinIndex(1);
+    buttonColor.setValue(new Color(153,153,153));
   }
 
 

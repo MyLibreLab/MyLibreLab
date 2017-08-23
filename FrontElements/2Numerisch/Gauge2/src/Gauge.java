@@ -1,7 +1,8 @@
 //*****************************************************************************
 //* Element of MyOpenLab Library                                              *
 //*                                                                           *
-//* Copyright (C) 2004  Carmelo Salafia (cswi@gmx.de)                         *
+//* Copyright (C) 2004  Carmelo Salafia  (cswi@gmx.de)                         *
+//* Copyright (C) 2017  Javier Velásquez (javiervelasquez125@gmail.com)                                                                          *
 //*                                                                           *
 //* This library is free software; you can redistribute it and/or modify      *
 //* it under the terms of the GNU Lesser General Public License as published  *
@@ -56,7 +57,7 @@ public class Gauge extends JVSMain
   public void init()
   {
     initPins(0,0,0,1);
-    setSize(40,25);
+    setSize(45,45);
 
     initPinVisibility(false,false,false,true);
     image=element.jLoadImage(element.jGetSourcePath()+"icon.gif");
@@ -64,7 +65,7 @@ public class Gauge extends JVSMain
     setPin(0,ExternalIF.C_VARIANT,element.PIN_INPUT);
     element.jSetPinDescription(0,"in");
 
-    setName("Gauge2");
+    setName("Gauge JV");
   }
 
 

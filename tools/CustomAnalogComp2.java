@@ -1,7 +1,8 @@
 //*****************************************************************************
 //* Element of MyOpenLab Library                                              *
 //*                                                                           *
-//* Copyright (C) 2004  Carmelo Salafia (cswi@gmx.de)                         *
+//* Copyright (C) 2004  Carmelo Salafia  (cswi@gmx.de)                         *
+//* Copyright (C) 2017  Javier Velásquez (javiervelasquez125@gmail.com)                         *
 //*                                                                           *
 //* This library is free software; you can redistribute it and/or modify      *
 //* it under the terms of the GNU Lesser General Public License as published  *
@@ -53,23 +54,27 @@ public class CustomAnalogComp2 extends JVSMain
   public VSDouble max=new VSDouble(100);
   private ArrayList listeBeschriftungen = new ArrayList();
   public VSInteger abschnitte=new VSInteger(10);
-  public VSInteger abstand=new VSInteger(15);
-  public VSInteger knobSizeInProzent=new VSInteger(30);
-  public VSInteger nibbleLenInProzent=new VSInteger(30);
+  public VSInteger abstand=new VSInteger(5);
+  public VSInteger knobSizeInProzent=new VSInteger(5);
+  public VSInteger nibbleLenInProzent=new VSInteger(25);
   public VSInteger nibbleCircleSizeInProzent=new VSInteger(5);
   public VSBoolean showText = new VSBoolean(false);
   public VSDouble minGrad = new VSDouble(-45);
   public VSDouble maxGrad = new VSDouble(270);
   public VSColor backColor=new VSColor(Color.WHITE);
-  public VSColor buttonColor=new VSColor(new Color(190,250,190));
-  public VSColor nibbleColor=new VSColor(Color.BLACK);
+  //public VSColor buttonColor=new VSColor(new Color(204,204,204));
+  public VSColor buttonColor=new VSColor(new Color(153,153,153));
+  public VSComboBox nibbleColor=new VSComboBox();
   public VSColor lineColor=new VSColor(Color.BLACK);
-  public  VSColor fontColor=new VSColor(Color.BLACK);
+  public  VSColor fontColor=new VSColor(new Color(255, 102, 0)); //Naranja O
+  public  VSColor StrokeColor=new VSColor(new Color(204,204,204)); //G
   public VSString formatierung = new VSString("#0");
   public VSBoolean textInside = new VSBoolean(false);
+  public VSBoolean CircleComplete = new VSBoolean(false);
+  public VSBoolean SetKnobStroke = new VSBoolean(true);
   public VSBoolean showBackground = new VSBoolean(false);
   public VSBoolean showNibbleAsCircle= new VSBoolean(false);
-  public VSFont font = new VSFont(new java.awt.Font("Courier", 1, 10));
+  public VSFont font = new VSFont(new java.awt.Font("Courier", Font.BOLD, 11));
   public VS1DString values = new VS1DString(0);
   public VSPropertyDialog captions= new VSPropertyDialog();
   public VSBoolean transparent = new VSBoolean(false);
@@ -81,7 +86,12 @@ public class CustomAnalogComp2 extends JVSMain
   private double theAngle=0.0;
   private ExternalIF circuitElement;
   private VSImage spitze = new VSImage();
-  
+  public int Stroke=10;
+  public int ArcGap=-2;
+  public int diameterBack=140;
+  public int diameterLine=140;
+  public int TextGap=0;
+  public Color NibbleColorTemp;
 
   public void setValue(double value)
   {
@@ -120,15 +130,46 @@ public class CustomAnalogComp2 extends JVSMain
         int y1=0;
         int mitteX=1+(w/2);
         int mitteY=1+(h/2);
+        
+        if(nibbleColor.selectedIndex==0){
+        spitze.loadImage(element.jGetSourcePath()+"SpitzeBlack.png");    
+        NibbleColorTemp=Color.BLACK;    
+        }
+        if(nibbleColor.selectedIndex==1){
+        spitze.loadImage(element.jGetSourcePath()+"SpitzeRed.png");
+        NibbleColorTemp=Color.RED;
+        }
+        if(nibbleColor.selectedIndex==2){
+        spitze.loadImage(element.jGetSourcePath()+"SpitzeYellow.png");
+        NibbleColorTemp=Color.YELLOW;
+        }
+        
+        //TextGap=(int) (w*0.20); // Gap of 20% of Total Width
+        //TextGap=(int) (w*0.10); // Gap of 20% of Total Width
+        TextGap=(int) (w*0.20); // Gap of 20% of Total Width
 
-        double vectorLaenge=Math.sqrt((x1*x1)+(y1*y1))-5;
-        double vectLen=vectorLaenge+abstand.getValue();
-        double vectLen1=vectorLaenge+7.0;
+          
+        double vectorLaenge=(Math.sqrt((x1*x1)+(y1*y1))-TextGap);
+        double vectLen=vectorLaenge+abstand.getValue(); // Magnitud Vector Textos
+        //double vectLen=(double) (vectorLaenge+abstand.getValue()+ w*5/100 +((w-(w*5/100)*2)*0.3)); //(Distancia circulo + Distancia texto)
+                
+//double vectLen1=vectorLaenge+7.0;
+        double vectLen1=vectorLaenge;
 
         if (textInside.getValue())
-        {
+        { //vectorLaenge=(Math.sqrt((x1*x1)+(y1*y1))-3*TextGap+5);
+          TextGap=(int) (w*0.28);  
+          vectorLaenge=(w/2-TextGap);
           vectLen=vectorLaenge-abstand.getValue();
-          vectLen1=vectorLaenge-7.0;
+          //vectLen1=vectorLaenge-7.0;
+          vectLen1=vectorLaenge;
+        }else{
+          //vectorLaenge=(Math.sqrt((x1*x1)+(y1*y1))-TextGap+15);
+          int TextGapEx=(int) (w*0.20);
+          vectorLaenge=(w/2-TextGapEx);
+          vectLen=vectorLaenge+abstand.getValue();
+          //vectLen1=vectorLaenge-7.0;
+          vectLen1=vectorLaenge;
         }
 
         
@@ -181,10 +222,11 @@ public class CustomAnalogComp2 extends JVSMain
   {
       int mitteX=x+(w/2);
       int mitteY=y+(h/2);
+      
 
       Graphics2D g = (Graphics2D)gx;
       
-      
+      Stroke StrokeRestore = g.getStroke();
 
       
       gb = g;
@@ -200,6 +242,7 @@ public class CustomAnalogComp2 extends JVSMain
       double c;
       double value;
       int x1,y1,x2,y2;
+      
 
       x1=w/2;
       y1=0;
@@ -213,57 +256,131 @@ public class CustomAnalogComp2 extends JVSMain
       }
       initSubElements();
 
-
-
       distance=w*5/100;
-
+      int InsideGapW=(int)((w-distance*2)*0.3);
+      int InsideGapH=(int)((w-distance*2)*0.3);
+      
+      int TempW=(int)((w-distance*2)-InsideGapW)+abstand.getValue();
+      int TempH=(int)((h-distance*2)-InsideGapH)+abstand.getValue();
+      int Tam=((3*TempW/4)-15)+abstand.getValue(); // Tamaño del circulo cuando se selecciona Texto Externo
+      if(textInside.getValue()){
+      TempW=(int)((w-distance*2)-InsideGapW)-abstand.getValue();
+      TempH=(int)((h-distance*2)-InsideGapH)-abstand.getValue();
+      Tam=((3*TempW/4)-15)+abstand.getValue(); // Tamaño del circulo cuando se selecciona Texto Externo    
+      }
       if (transparent.getValue()==false)
       {
         if (showBackground.getValue())
         {
+          
+          g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);  
+          //g.setColor(backColor.getValue());
+          //g.fillOval(distance,distance,(w-distance*2)+4,(h-distance*2)+4); // Fill Background
+          g.setColor(StrokeColor.getValue()); //GRAY
+          //g.setStroke(new BasicStroke(Stroke));
+          //g.setColor(new Color(204,204,204)); //GRAY C
+          //g.setColor(Color.ORANGE);
+          //g.setColor(Color.ORANGE);
+          g.fillOval(Stroke,Stroke,(w-2*Stroke)+1,(h-2*Stroke)+1); // Fill Color Circle 2 (Between Stroke and BackGround)
+          
           g.setColor(backColor.getValue());
-          g.fillOval(distance,distance,w-distance*2,h-distance*2);
-          g.setColor(Color.BLACK);
-          g.drawOval(distance,distance,w-distance*2,h-distance*2);
+          g.fillOval((2*Stroke),(2*Stroke),(w-(4*Stroke)),(h-(4*Stroke))); // Fill Background (White)
+          //g.fillOval(distance,distance,(w-distance*2)+3,((h-distance*2)+3));
+          //g.setColor(Color.ORANGE);
+          g.setColor(lineColor.getValue());
+          g.setStroke(new BasicStroke(2)); // Stroke Default 10
+          
+          if(CircleComplete.getValue())
+          {
+            //g.setColor(Color.ORANGE);
+            if(showText.getValue() && textInside.getValue()){
+                g.drawOval(w/2-(TempW/2),h/2-(TempH/2),TempW,TempH); // Completar Circulo
+            }else{
+                g.drawOval(w/2-(Tam/2),h/2-(Tam/2),Tam,Tam); // Completar Circulo
+            }
+          }
+          
+          if(SetKnobStroke.getValue())
+          {
+          //g.setColor(new Color(153,153,153)); //GRAY
+          g.setColor(buttonColor.getValue());
+          g.setStroke(new BasicStroke(Stroke)); // Stroke Default 10
+          //g.drawOval(distance-5,distance-5,((w-distance*2)+10),((h-distance*2)+10)); //Stroke Border
+          g.drawOval(Stroke/2,Stroke/2,w-Stroke,h-Stroke); //Stroke Border
+          }
+          g.setStroke(StrokeRestore);
+          //g.drawOval(distance,distance,w-distance*2,h-distance*2);
+          
         }
       }
+      //g.drawLine(0, 0, w, h);
+      //g.drawLine(w, 0, 0, h);
+      //g.drawOval(w/2-60, h/2-60,120,120);
+      
 
       g.setColor(lineColor.getValue());
-      if (showText.getValue())
-      {
-        g.drawArc(distance,distance,w-distance*2+2,h-distance*2+2, 180-(int)minGrad.getValue(),-(int)maxGrad.getValue());
+      if (showText.getValue()) // Dibujar Arco sobre el que van las líneas de división
+      { 
+        //g.setColor(Color.ORANGE);
+        g.setStroke(new BasicStroke(2));  
+        //g.drawArc(distance,distance,w-distance*2+2,h-distance*2+2, 180-(int)minGrad.getValue(),-(int)maxGrad.getValue());
+        if(showText.getValue() && textInside.getValue()){
+          g.drawArc(w/2-(TempW/2),h/2-(TempH/2),TempW,TempH, 180-(int)minGrad.getValue(),-(int)maxGrad.getValue());     
+          }else{
+          
+          g.drawArc(w/2-(Tam/2),h/2-(Tam/2),Tam,Tam, 180-(int)minGrad.getValue(),-(int)maxGrad.getValue());
+    
+          }
+        
+        
         distance=(int) (  ((double)w)/100.0 * (double)knobSizeInProzent.getValue() );
+        g.setStroke(StrokeRestore);
       } else distance=w/2;
 
       if (transparent.getValue()==false)
-      {
-        g.setColor(buttonColor.getValue());
-        g.fillOval(mitteX-distance,mitteY-distance,2*distance,2*distance);
+      { 
+        
+        //g.setColor(lineColor.getValue());
+        g.setColor(NibbleColorTemp);
+        if(showNibbleAsCircle.getValue()==false){
+        g.fillOval(mitteX-distance,mitteY-distance,2*distance,2*distance); // Circulo central 
+        }
         //g.setColor(Color.black);
         //g.drawOval(mitteX-distance,mitteY-distance,2*distance,2*distance);
       }
         // Draw Linien
         x1=w/2;
         y1=0;
+        //TextGap = (int) ((w/2)*0.3);
         int d2=w*5/100;
-        double vectorLaenge=Math.sqrt((x1*x1)+(y1*y1))-(double)d2+2.0;
+        
+        double vectorLaenge=((Math.sqrt((x1*x1)+(y1*y1))-(double)d2)-(InsideGapW/2)+3); // Vector sobre el que quedarán las rayitas polares del gráfico
+        //System.out.println("LenW="+w+"Vector Magnitude: "+vectorLaenge);
+        
 
 
         if (showText.getValue())
         {
           int counter=0;
-          double vectLen=vectorLaenge+abstand.getValue();
-          double vectLen1=vectorLaenge+(double)d2;
+          
+          double vectLen=(vectorLaenge+abstand.getValue()+(InsideGapW)+(double)d2); //(Distancia circulo + Distancia texto)
+          double vectLen1=vectorLaenge+(double)d2; // Tamaño rayas indicadoras
+          
 
           if (textInside.getValue())
-          {
+          { vectorLaenge=(vectorLaenge-2)-abstand.getValue();
             vectLen=vectorLaenge-abstand.getValue();
             vectLen1=vectorLaenge-(double)d2;
+          }else{
+            vectorLaenge=((Math.sqrt((x1*x1)+(y1*y1))-(double)d2)-(InsideGapW/2)-15)+abstand.getValue();
+            vectLen=vectorLaenge-abstand.getValue();
+            vectLen1=vectorLaenge-(double)d2;  
           }
 
           double disVal=((double)(max.getValue()-min.getValue()) )/(double)abschnitte.getValue();
 
           double dis=100.0/(double)abschnitte.getValue();
+          g.setStroke(new BasicStroke(2)); // Stroke for 
           for (double i=0;i<=100.0;i+=dis)
           {
           f=(-maxGrad.getValue()/100.0);
@@ -275,8 +392,10 @@ public class CustomAnalogComp2 extends JVSMain
 
           g.setColor(lineColor.getValue());
           g.drawLine(mitteX+p1.x,mitteY-p1.y,mitteX+p2.x,mitteY-p2.y);
+          //System.out.println("mitteX="+mitteX+"mitteY="+mitteY+"p1.x="+p1.x+"p1.y="+p1.y+"p2.x"+p2.x+"p2.y"+p2.y);
 
-        }
+          }
+          g.setStroke(StrokeRestore); // Original Stroke 
       }
 
       
@@ -307,7 +426,7 @@ public class CustomAnalogComp2 extends JVSMain
 
       if (value0.getValue()>=min.getValue() && value0.getValue()<=max.getValue())
       {
-        g.setColor(nibbleColor.getValue());
+        g.setColor(NibbleColorTemp);
         
         if (showNibbleAsCircle.getValue())
         {
@@ -317,17 +436,22 @@ public class CustomAnalogComp2 extends JVSMain
           g.drawOval(mitteX-x2-1-disX, mitteY-y2-disX,disX*2, disX*2);
         } else
         {
+            //g.setColor(nibbleColor.getValue());
+            //g.setColor(Color.RED);
             AffineTransform origTransform = g.getTransform();
+            
 
             g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
             
             g.rotate(-3.14+angle,mitteX,mitteY);
+            
 
             int ws=spitze.getImage().getWidth(null);
             int hs=spitze.getImage().getHeight(null);
 
             double z = (double)( (double)w/(double)ws*2)*(double)nibbleLenInProzent.getValue()/100.0 ;
+           
 
 
             g.translate(mitteX,mitteY);
@@ -390,7 +514,7 @@ public class CustomAnalogComp2 extends JVSMain
 
       element.jSetResizeSynchron(true);
       element.jSetResizable(true);
-      setName("Regler");
+      setName("Gauge JV");
       showText.setValue(true);
       element.jSetMinimumSize(10,10);
 
@@ -400,10 +524,14 @@ public class CustomAnalogComp2 extends JVSMain
       captions.setText(getTextWithKomma());
       
       firstTime=true;
+      nibbleColor.addItem("BLACK");
+      nibbleColor.addItem("RED");
+      nibbleColor.addItem("YELLOW");
+      nibbleColor.setPinIndex(1);
 
-      spitze.loadImage(element.jGetSourcePath()+"Spitze.png");
+      spitze.loadImage(element.jGetSourcePath()+"SpitzeRed.png");
       
-      element.jSetInfo("Carmelo Salafia","Open Source 2006 & Freeware","");
+      element.jSetInfo("Carmelo Salafia","","");
       
     }
     
@@ -660,7 +788,9 @@ public class CustomAnalogComp2 extends JVSMain
     element.jAddPEItem("Position",value0, 0,9999999);
     element.jAddPEItem("Text anzeigen",showText, 0,0);
     element.jAddPEItem("Anfangswert",initValue, 0,9999999);
-    element.jAddPEItem("Knopf-Farbe",buttonColor, 0,0);
+    element.jAddPEItem("Äußere Kante",SetKnobStroke, 0,0);
+    element.jAddPEItem("Knopf-Farbe 1",buttonColor, 0,0);
+    element.jAddPEItem("Knopf-Farbe 2",StrokeColor, 0,0);
     element.jAddPEItem("Hintergrund-Farbe",backColor, 0,0);
     element.jAddPEItem("Nibble-Farbe",nibbleColor, 0,0);
     element.jAddPEItem("Schrift-Farbe",fontColor, 0,0);
@@ -668,6 +798,7 @@ public class CustomAnalogComp2 extends JVSMain
     element.jAddPEItem("Transparent",transparent, 0,0);
     element.jAddPEItem("Min Grad",minGrad, -360,360);
     element.jAddPEItem("Max Grad",maxGrad, -360,360);
+    element.jAddPEItem("Vollständiger Kreis",CircleComplete, 0,0);
     element.jAddPEItem("Formatierung",formatierung, 0,0);
     element.jAddPEItem("Texte",captions, 0,0);
     element.jAddPEItem("Text innen",textInside, 0,0);
@@ -698,53 +829,58 @@ public class CustomAnalogComp2 extends JVSMain
     element.jSetPEItemLocale(d+3,language,"Position");
     element.jSetPEItemLocale(d+4,language,"Show Text");
     element.jSetPEItemLocale(d+5,language,"Init-Value");
-    element.jSetPEItemLocale(d+6,language,"Button Color");
-    element.jSetPEItemLocale(d+7,language,"Background Color");
-    element.jSetPEItemLocale(d+8,language,"Nibble Color");
-    element.jSetPEItemLocale(d+9,language,"Font Color");
-    element.jSetPEItemLocale(d+10,language,"Line Color");
-    element.jSetPEItemLocale(d+11,language,"Transparent");
-    element.jSetPEItemLocale(d+12,language,"Min Grad");
-    element.jSetPEItemLocale(d+13,language,"Max Grad");
-    element.jSetPEItemLocale(d+14,language,"Format");
-    element.jSetPEItemLocale(d+15,language,"Captions");
-    element.jSetPEItemLocale(d+16,language,"Text Inside");
-    element.jSetPEItemLocale(d+17,language,"Show Background");
-    element.jSetPEItemLocale(d+18,language,"Text-Distance");
-    element.jSetPEItemLocale(d+19,language,"Font");
-    element.jSetPEItemLocale(d+20,language,"Knobsize[%]");
-    element.jSetPEItemLocale(d+21,language,"Nibblesize[%]");
-    element.jSetPEItemLocale(d+22,language,"Nibble-Circlesize [%]");
-    element.jSetPEItemLocale(d+23,language,"Show Nibble As Circle");
-    element.jSetPEItemLocale(d+24,language,"Only Numbers");
-
+    element.jSetPEItemLocale(d+6,language,"Show Button Edge?");
+    element.jSetPEItemLocale(d+7,language,"Button Edge Color");
+    element.jSetPEItemLocale(d+8,language,"Button Mid Color");
+    element.jSetPEItemLocale(d+9,language,"Background Color");
+    element.jSetPEItemLocale(d+10,language,"Nibble Color");
+    element.jSetPEItemLocale(d+11,language,"Font Color");
+    element.jSetPEItemLocale(d+12,language,"Line Color");
+    element.jSetPEItemLocale(d+13,language,"Transparent");
+    element.jSetPEItemLocale(d+14,language,"Min Grad");
+    element.jSetPEItemLocale(d+15,language,"Max Grad");
+    element.jSetPEItemLocale(d+16,language,"Full Circle?");
+    element.jSetPEItemLocale(d+17,language,"Format");
+    element.jSetPEItemLocale(d+18,language,"Captions");
+    element.jSetPEItemLocale(d+19,language,"Text Inside");
+    element.jSetPEItemLocale(d+20,language,"Show Background");
+    element.jSetPEItemLocale(d+21,language,"Text-Distance");
+    element.jSetPEItemLocale(d+22,language,"Font");
+    element.jSetPEItemLocale(d+23,language,"Knobsize[%]");
+    element.jSetPEItemLocale(d+24,language,"Nibblesize[%]");
+    element.jSetPEItemLocale(d+25,language,"Nibble-Circlesize [%]");
+    element.jSetPEItemLocale(d+26,language,"Show Nibble As Circle");
+    element.jSetPEItemLocale(d+27,language,"Only Numbers");
     language="es_ES";
 
-    element.jSetPEItemLocale(d+0,language,"Min");
-    element.jSetPEItemLocale(d+1,language,"Max");
-    element.jSetPEItemLocale(d+2,language,"Stages");
-    element.jSetPEItemLocale(d+3,language,"Position");
-    element.jSetPEItemLocale(d+4,language,"Show Text");
-    element.jSetPEItemLocale(d+5,language,"Init-Value");
-    element.jSetPEItemLocale(d+6,language,"Button Color");
-    element.jSetPEItemLocale(d+7,language,"Background Color");
-    element.jSetPEItemLocale(d+8,language,"Nibble Color");
-    element.jSetPEItemLocale(d+9,language,"Font Color");
-    element.jSetPEItemLocale(d+10,language,"Line Color");
-    element.jSetPEItemLocale(d+11,language,"Transparent");
-    element.jSetPEItemLocale(d+12,language,"Min Grad");
-    element.jSetPEItemLocale(d+13,language,"Max Grad");
-    element.jSetPEItemLocale(d+14,language,"Format");
-    element.jSetPEItemLocale(d+15,language,"Captions");
-    element.jSetPEItemLocale(d+16,language,"Text Inside");
-    element.jSetPEItemLocale(d+17,language,"Show Background");
-    element.jSetPEItemLocale(d+18,language,"Text-Distance");
-    element.jSetPEItemLocale(d+19,language,"Font");
-    element.jSetPEItemLocale(d+20,language,"Knobsize[%]");
-    element.jSetPEItemLocale(d+21,language,"Nibblesize[%]");
-    element.jSetPEItemLocale(d+22,language,"Nibble-Circlesize [%]");
-    element.jSetPEItemLocale(d+23,language,"Show Nibble As Circle");
-    element.jSetPEItemLocale(d+24,language,"Only Numbers");
+    element.jSetPEItemLocale(d+0,language,"Minimo");
+    element.jSetPEItemLocale(d+1,language,"Maximo");
+    element.jSetPEItemLocale(d+2,language,"Cantidad Items");
+    element.jSetPEItemLocale(d+3,language,"Posicion");
+    element.jSetPEItemLocale(d+4,language,"Mostar Texto?");
+    element.jSetPEItemLocale(d+5,language,"Valor Inicial");
+    element.jSetPEItemLocale(d+6,language,"Mostrar Borde Externo?");
+    element.jSetPEItemLocale(d+7,language,"Color Borde Externo");
+    element.jSetPEItemLocale(d+8,language,"Color Medio");
+    element.jSetPEItemLocale(d+9,language,"Color de fondo");
+    element.jSetPEItemLocale(d+10,language,"Color Aguja");
+    element.jSetPEItemLocale(d+11,language,"Color Letra");
+    element.jSetPEItemLocale(d+12,language,"Color Linea");
+    element.jSetPEItemLocale(d+13,language,"Transparente?");
+    element.jSetPEItemLocale(d+14,language,"Angulo Min");
+    element.jSetPEItemLocale(d+15,language,"Angulo Max");
+    element.jSetPEItemLocale(d+16,language,"Circulo Completo?");
+    element.jSetPEItemLocale(d+17,language,"Formato Numeros");
+    element.jSetPEItemLocale(d+18,language,"Captions");
+    element.jSetPEItemLocale(d+19,language,"Texto Interno?");
+    element.jSetPEItemLocale(d+20,language,"Mostrar Fondo?");
+    element.jSetPEItemLocale(d+21,language,"Distancia Texto");
+    element.jSetPEItemLocale(d+22,language,"Fuente");
+    element.jSetPEItemLocale(d+23,language,"Tamaño Perilla Central[%]");
+    element.jSetPEItemLocale(d+24,language,"Distancia Aguja-Circulo[%]");
+    element.jSetPEItemLocale(d+25,language,"Diametro Aguja-Circulo [%]");
+    element.jSetPEItemLocale(d+26,language,"Show Nibble As Circle");
+    element.jSetPEItemLocale(d+27,language,"Only Numbers");
 
   }
 
@@ -777,6 +913,9 @@ public class CustomAnalogComp2 extends JVSMain
       showNibbleAsCircle.loadFromStream(fis);
       nibbleCircleSizeInProzent.loadFromStream(fis);
       spitze.loadFromStream(fis);
+      StrokeColor.loadFromStream(fis);
+      CircleComplete.loadFromStream(fis);
+      SetKnobStroke.loadFromStream(fis);
 
       if (min.getValue()>=max.getValue()) min.setValue(max.getValue()-1);
       oldValue=value0.getValue()+1;
@@ -813,6 +952,9 @@ public class CustomAnalogComp2 extends JVSMain
       showNibbleAsCircle.saveToStream(fos);
       nibbleCircleSizeInProzent.saveToStream(fos);
       spitze.saveToStream(fos);
+      StrokeColor.saveToStream(fos);
+      CircleComplete.saveToStream(fos);
+      SetKnobStroke.saveToStream(fos);
   }
 
 }

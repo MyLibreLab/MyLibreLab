@@ -1,8 +1,8 @@
 isDirectory  = FALSE
-Caption      = Regler
-CAPTION_EN= Gauge
-CAPTION_ES= Indicador de Aguja
-JAR          = bin/Gauge.jar
+Caption      = Gauge JV
+CAPTION_EN= Gauge JV
+CAPTION_ES= Indicador de Aguja JV
+JAR          = bin/Gauge_JV.jar
 Classcircuit = Gauge
 Classfront   = GaugePanel
 icon         = bin/Gauge.gif
