@@ -181,7 +181,7 @@ public class TasterPanel extends JVSMain
     button.setFont(font.getValue());
     button.setText(caption.getValue());
     button.setForeground(fontColor.getValue());
-    button.setBackground(backColor.getValue());
+    
     
     if (textAlign.getValue()==0)
     {
@@ -195,6 +195,7 @@ public class TasterPanel extends JVSMain
     {
       button.setIcon(new javax.swing.ImageIcon(image.getImage()));
     }
+    button.setBackground(backColor.getValue());
 
   }
 

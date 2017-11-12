@@ -2,7 +2,7 @@
 //* Element of MyOpenLab Library                                              *
 //*                                                                           *
 //* Copyright (C) 2004  Carmelo Salafia (cswi@gmx.de)                         *
-//*                                                                           *
+//* Copyright (C) 2017  Javier VelÃ¡squez (javiervelasquez125@gmail.com)                                                                          *
 //* This library is free software; you can redistribute it and/or modify      *
 //* it under the terms of the GNU Lesser General Public License as published  *
 //* by the Free Software Foundation; either version 2.1 of the License,       *
@@ -61,6 +61,7 @@ public class SubVM extends JVSMain
      image.flush();
      image=null;
    }
+   element.resetValuesPanelElement();
   }
 
   public void paint(java.awt.Graphics g)
@@ -82,7 +83,7 @@ public class SubVM extends JVSMain
 
     element.jSetCaptionVisible(true);
 
-    setName("Sub-VM");
+    setName("Sub-VM_JV");
   }
 
     public static void showMessage(String message)
@@ -97,7 +98,7 @@ public class SubVM extends JVSMain
      return frm.result;
     }
   
-  // Notwendig für die doc.html & ect...
+  // Notwendig fï¿½r die doc.html & ect...
   public String getBinDir()
   {
     return element.jGetSourcePath();
@@ -133,7 +134,7 @@ public class SubVM extends JVSMain
     else
     if (strLocale.equalsIgnoreCase("es_ES"))
     {
-      strDisplayVM="show VM";
+      strDisplayVM="Lanzar VM";
     }
 
     element.jClearMenuItems();
@@ -298,6 +299,7 @@ public class SubVM extends JVSMain
   public void start()
   {
     if (basis!=null) basis.vsStart();
+    
   }
 
   public void stop()
@@ -305,6 +307,8 @@ public class SubVM extends JVSMain
     if (basis!=null)
     {
       basis.vsStop();
+      //basis.vsClose();
+      //basis=null;
       element.jCloseFrontPanel();
     }
   }
@@ -318,7 +322,7 @@ public class SubVM extends JVSMain
 
   public void elementActionPerformed(ElementActionEvent evt)
   {
-
+    
 
       //System.out.println("evt.getSourcePinIndex()="+evt.getSourcePinIndex());
       //System.out.println("outputs.length="+outputs.length);
@@ -328,6 +332,7 @@ public class SubVM extends JVSMain
         if (inShow.getValue() && evt.getSourcePinIndex()==outputs.length)
         {
          element.jShowFrontPanel(modal.getValue());
+         
         }
       }
       if (evt.getSourcePinIndex()>=outputs.length)

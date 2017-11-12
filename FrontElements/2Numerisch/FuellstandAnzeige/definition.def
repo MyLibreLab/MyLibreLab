@@ -1,7 +1,7 @@
 ISDIRECTORY  = FALSE
-CAPTION      = FuellstandAnzeige
-CAPTION_EN= Fill-Display
-CAPTION_ES= Barra de color
+CAPTION      = ColorBar_JV
+CAPTION_EN= Fill-Display_JV
+CAPTION_ES= Barra de color_JV
 Jar          = bin/FuellstandAnzeige.jar
 ClassCircuit = FuellstandAnzeige
 ClassFront   = AnzeigePanel

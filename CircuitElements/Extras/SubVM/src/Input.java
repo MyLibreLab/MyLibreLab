@@ -2,7 +2,7 @@
 //* Element of MyOpenLab Library                                              *
 //*                                                                           *
 //* Copyright (C) 2004  Carmelo Salafia (cswi@gmx.de)                         *
-//*                                                                           *
+//* Copyright (C) 2017  Javier Velásquez (javiervelasquez125@gmail.com)                                                                          *
 //* This library is free software; you can redistribute it and/or modify      *
 //* it under the terms of the GNU Lesser General Public License as published  *
 //* by the Free Software Foundation; either version 2.1 of the License,       *
@@ -46,7 +46,9 @@ public class Input extends JDialog{
     // Frame-Initialisierung
     super(parent, modal);
     addWindowListener(new WindowAdapter() {
-      public void windowClosing(WindowEvent evt) { System.exit(0); }
+      public void windowClosing(WindowEvent evt) { dispose();
+      //System.exit(0); 
+      }
     });
     int frameWidth = 300;
     int frameHeight = 130;
@@ -55,11 +57,22 @@ public class Input extends JDialog{
     int x = (d.width - getSize().width) / 2;
     int y = (d.height - getSize().height) / 2 ;
     setLocation(x, y);
-    Panel cp = new Panel(null);
+    JPanel cp = new JPanel(null);
+    FlowLayout experimentLayout = new FlowLayout();
+    cp.setLayout(experimentLayout);
     add(cp);
     // Anfang Komponenten
 
-    button1.setBounds(208, 72, 75, 25);
+    textField1.setBounds(8, 40, 273, 24);
+    textField1.setText("");
+    cp.add(textField1);
+    label1.setBounds(8, 16, 117, 16);
+    label1.setText("Name Of VM With File Extension");
+    label1.setFont(new Font("MS Sans Serif", Font.PLAIN, 13));
+    cp.add(label1);
+    // Ende Komponenten
+    
+     button1.setBounds(208, 72, 75, 25);
     button1.setLabel("Cancel");
     cp.add(button1);
     button1.addActionListener(new ActionListener() {
@@ -76,15 +89,6 @@ public class Input extends JDialog{
         button2ActionPerformed(evt);
       }
     });
-
-    textField1.setBounds(8, 40, 273, 24);
-    textField1.setText("");
-    cp.add(textField1);
-    label1.setBounds(8, 16, 117, 16);
-    label1.setText("Relative Path to VM");
-    label1.setFont(new Font("MS Sans Serif", Font.PLAIN, 13));
-    cp.add(label1);
-    // Ende Komponenten
 
     setResizable(false);
     setVisible(true);
