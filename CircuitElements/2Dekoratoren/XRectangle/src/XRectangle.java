@@ -34,7 +34,7 @@ public class XRectangle extends JVSMain
 
   private VSColorAdvanced fillColor = new VSColorAdvanced();
   private VSColorAdvanced strokeColor = new VSColorAdvanced();
-  private VSInteger strokeWidth = new VSInteger();
+  private VSInteger strokeWidth = new VSInteger(5);
   private VSBoolean fill = new VSBoolean(true);
 
   public void paint(java.awt.Graphics g)
@@ -72,7 +72,7 @@ public class XRectangle extends JVSMain
     element.jSetResizable(true);
     element.jSetInnerBorderVisibility(false);
 
-    setName("Rectangle");
+    setName("Rectangle JV");
 
     element.jSetResizable(true);
     strokeWidth.setValue(1);

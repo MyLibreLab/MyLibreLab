@@ -21,6 +21,7 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.File;
 
 /**
   *
@@ -38,6 +39,7 @@ public class Input extends JDialog{
   private Button button2 = new Button();
   private TextField textField1 = new TextField();
   private Label label1 = new Label();
+  private Label label2 = new Label();
   public static String result="";
   
   // Ende Variablen
@@ -51,7 +53,7 @@ public class Input extends JDialog{
       }
     });
     int frameWidth = 300;
-    int frameHeight = 130;
+    int frameHeight = 350;
     setSize(frameWidth, frameHeight);
     Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
     int x = (d.width - getSize().width) / 2;
@@ -63,16 +65,25 @@ public class Input extends JDialog{
     add(cp);
     // Anfang Komponenten
 
-    textField1.setBounds(8, 40, 273, 24);
+    //label1.setBounds(8, 16, 117, 16);
+    label1.setBounds(10, 10, 280, 25);
+    label1.setText("Relative Patch Of VM With File Extension .vlogic");
+    label1.setFont(new Font("Dialog", Font.BOLD, 13));
+    cp.add(label1);
+    
+    //textField1.setBounds(8, 40, 273, 24);
+    textField1.setBounds(10, 45, 280, 45);
     textField1.setText("");
     cp.add(textField1);
-    label1.setBounds(8, 16, 117, 16);
-    label1.setText("Name Of VM With File Extension");
-    label1.setFont(new Font("MS Sans Serif", Font.PLAIN, 13));
-    cp.add(label1);
-    // Ende Komponenten
     
-     button1.setBounds(208, 72, 75, 25);
+    label2.setBounds(10, 90, 280, 25);
+    label2.setText("By Example: YourVM.vlogic (If your VM is located in root project Patch)\n By Example"+File.separator+"YourVM_Folder"+File.separator+"YourVM.vlogic");
+    label2.setFont(new Font("Dialog", Font.BOLD, 11));
+    cp.add(label2);
+    
+    
+    //button1.setBounds(208, 72, 75, 25);
+    button1.setBounds(200, 120, 100, 25);
     button1.setLabel("Cancel");
     cp.add(button1);
     button1.addActionListener(new ActionListener() {
@@ -81,7 +92,8 @@ public class Input extends JDialog{
       }
     });
 
-    button2.setBounds(128, 72, 75, 25);
+    //button2.setBounds(128, 72, 75, 25);
+    button2.setBounds(50, 120, 100, 25);
     button2.setLabel("OK");
     cp.add(button2);
     button2.addActionListener(new ActionListener() {

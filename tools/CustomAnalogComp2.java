@@ -225,6 +225,7 @@ public class CustomAnalogComp2 extends JVSMain
       
 
       Graphics2D g = (Graphics2D)gx;
+      g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
       
       Stroke StrokeRestore = g.getStroke();
 

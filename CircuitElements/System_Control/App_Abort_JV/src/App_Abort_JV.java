@@ -121,6 +121,9 @@ private Image image;
 
   public void start()
   {
+      
+     
+      
   }
 
   public void stop()
@@ -130,13 +133,19 @@ private Image image;
   public void process()
   {
     Window topFrame = javax.swing.FocusManager.getCurrentManager().getActiveWindow(); 
-    //JFrame frame = (JFrame) SwingUtilities.getRoot(topFrame);
+    //JFrame frame = (JFrame) SwingUtilities.getRoot(element.getFrontPanel());
+    
+    
     
     if(topFrame!=null)
     {
         if(Dispose_VM!=null && Dispose_VM.getValue()){ 
         topFrame.dispose();
-        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        //element.jGetBasis().vsStop();
+        //element.jStopVM();
+        //element.jGetBasis().vsClose();
+        
         topFrame.dispatchEvent(new WindowEvent(topFrame, WindowEvent.WINDOW_CLOSING));
         topFrame.dispatchEvent(new WindowEvent(topFrame, WindowEvent.WINDOW_CLOSED));
         topFrame.removeAll();

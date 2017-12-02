@@ -1,0 +1,16 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+LOADER          = 
+CAPTION         = InitSerialCOM_JV
+CAPTION_EN      = InitSerialCOM_JV
+CAPTION_ES      = IniciarCOM_Serial_JV
+VM              = 
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = InitSerialCOM_JV
+CLASSFRONT      = 
+ICON            = bin/icon.gif
+CLASSPATH       = 
+CLASSPATH2      = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

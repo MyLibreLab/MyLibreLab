@@ -57,7 +57,7 @@ public class Pane_Text_Control_JV extends JVSMain implements ChangeListener
   // public void paint(java.awt.Graphics g)
   public void paint(java.awt.Graphics g)
    {
-
+   super.paint(g);
    }
    
    public void onDispose()

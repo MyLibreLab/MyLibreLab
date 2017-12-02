@@ -33,11 +33,13 @@ public class AnzeigePanel extends JVSMain implements PanelIF
   private double value=0.0;
   private double oldPin;
   private VSString formatierung = new VSString("#,##0.00");
-  private VSFont font = new VSFont(new Font("Courier",Font.BOLD,16));
+  private VSFont font = new VSFont(new Font("Dialog",Font.BOLD,12));
   private VSColor textColor = new VSColor(new Color(0,0,51));  
   private DecimalFormat df = new DecimalFormat(formatierung.getValue());
   private VSColor EdgeColor = new VSColor(new Color(253,153,0));
   private VSBoolean EdgeVisible = new VSBoolean(true);
+  
+  private VSInteger AlignNumber= new VSInteger(0);
   
   private VSComboBox Align = new VSComboBox();
   private VSBoolean Transparent = new VSBoolean(false);
@@ -58,10 +60,6 @@ public class AnzeigePanel extends JVSMain implements PanelIF
     {
        Rectangle bounds=element.jGetBounds();
 
-       
-
-       
-       
        String StrNumOut ="";
        if(UnitsVisible.getValue()){
           StrNumOut = df.format(value)+" "+UnitsStr.getValue();
@@ -87,13 +85,13 @@ public class AnzeigePanel extends JVSMain implements PanelIF
        // //-df.toString().length()
        int widthText = (int) r.getWidth();
        
-       if(Align.selectedIndex==0){
+       if(AlignNumber.getValue()==1){
        g.drawString(StrNumOut,bounds.x+5,((bounds.height) /2)+5);   
        }
-       if(Align.selectedIndex==1){
+       if(AlignNumber.getValue()==0){
        g.drawString(StrNumOut,((bounds.width)/2)-(widthText/2),((bounds.height) /2)+5);
        }
-       if(Align.selectedIndex==2){
+       if(AlignNumber.getValue()==2){
        g.drawString(StrNumOut,(bounds.width)-(widthText+5),((bounds.height) /2)+5);   
        }
             
@@ -109,13 +107,13 @@ public class AnzeigePanel extends JVSMain implements PanelIF
     element.jSetInnerBorderVisibility(false);
     
     element.jSetResizable(true);
-    Align.addItem("LEFT");
-    Align.addItem("CENTER");
-    Align.addItem("RIGHT");
-    Align.setPinIndex(1);
-    Align.setPin(Align.selectedIndex);
     
+    Align.addItem("CENTER");
+    Align.addItem("LEFT");
+    Align.addItem("RIGHT");
     setName("Numeric Indicator J.V. (DBL)");
+    value=0.0;
+    
   }
 
   public void setPropertyEditor()
@@ -125,7 +123,7 @@ public class AnzeigePanel extends JVSMain implements PanelIF
     element.jAddPEItem("Text-Farbe",textColor, 0,0);
     element.jAddPEItem("Edge Visible?",EdgeVisible, 0,0);
     element.jAddPEItem("Edge Color",EdgeColor, 0,0);
-    element.jAddPEItem("Align",Align, 0,0);
+    element.jAddPEItem("Align",Align, 0,2);
     element.jAddPEItem("Units String",UnitsStr, 0,0);
     element.jAddPEItem("Units Visible?",UnitsVisible, 0,0);
     element.jAddPEItem("Transparent Back?",Transparent, 0,0);
@@ -174,6 +172,9 @@ public class AnzeigePanel extends JVSMain implements PanelIF
     {
       df = new DecimalFormat("0.00");
     }
+    if(o.equals(Align)){
+    AlignNumber.setValue(Align.selectedIndex);
+    }
 
     element.jRepaint();
   }
@@ -192,7 +193,11 @@ public class AnzeigePanel extends JVSMain implements PanelIF
       BackGroundColor.loadFromStream(fis);
       Transparent.loadFromStream(fis);
       df = new DecimalFormat(formatierung.getValue());
+      AlignNumber.loadFromStream(fis);
+      
       element.jRepaint();
+      
+      
   }
 
   public void saveToStream(java.io.FileOutputStream fos)
@@ -207,6 +212,8 @@ public class AnzeigePanel extends JVSMain implements PanelIF
       UnitsVisible.saveToStream(fos);
       BackGroundColor.saveToStream(fos);
       Transparent.saveToStream(fos);
+      AlignNumber.setValue(Align.selectedIndex);
+      AlignNumber.saveToStream(fos);
   }
 
 

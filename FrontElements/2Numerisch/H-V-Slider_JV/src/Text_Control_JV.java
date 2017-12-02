@@ -14,6 +14,7 @@ import java.text.*;
 import tools.*;
 import java.awt.geom.Rectangle2D;
 
+
 public class Text_Control_JV extends JVSMain
 {
   private ExternalIF panelElement;

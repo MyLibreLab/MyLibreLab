@@ -162,7 +162,8 @@ public class SubVM extends JVSMain
     } else
     {
 
-       projektPath=new File(element.jGetProjectPath()).getParentFile().getPath()+"/";
+       //projektPath=new File(element.jGetProjectPath()).getParentFile().getPath()+"/";
+       projektPath=new File(element.jGetProjectPath()).getParentFile().getPath()+File.separator;
        //showMessage(projektPath);
     }
 
@@ -199,7 +200,7 @@ public class SubVM extends JVSMain
 
     } else
     {
-      showMessage("VM \""+fn+"\"not found!");
+      showMessage("VM "+File.separator+fn+" \nNot found!");
       image=null;
       initPins(0,0,0,0);
       element.jSetCaption("");
@@ -493,7 +494,8 @@ public class SubVM extends JVSMain
         String str;
 
         try {
-            BufferedReader input = new BufferedReader(new FileReader(file.getAbsolutePath()+"/"+"definition.def"));
+            //BufferedReader input = new BufferedReader(new FileReader(file.getAbsolutePath()+"/"+"definition.def"));
+            BufferedReader input = new BufferedReader(new FileReader(file.getAbsolutePath()+File.separator+"definition.def"));
             String inputString;
             while ((inputString = input.readLine()) != null) {
                 String elementClass=extractClassName(inputString);
