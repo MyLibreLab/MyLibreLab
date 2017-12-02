@@ -42,7 +42,7 @@ public class Loader
 
         cl= new URLClassLoader( new URL[]{ url, url2},Thread.currentThread().getContextClassLoader());
                 
-        Class<?> c = cl.loadClass( klassename );
+        Class<?> c = cl.loadClass(klassename );
         
         o=c.newInstance();
                 

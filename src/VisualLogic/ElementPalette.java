@@ -788,7 +788,7 @@ public class ElementPalette extends javax.swing.JPanel {
             String str = Tools.mapFile(aktiveButton.filePath);
             frameCircuit.openElement(str);
 
-            //frameCircuit.getAktuelleBasis().openVLogicFileAsFrontPanel(aktiveButton.filePath+"/"+definition_def.vm);
+            //frameCircuit.getActualBasis().openVLogicFileAsFrontPanel(aktiveButton.filePath+"/"+definition_def.vm);
         }
 
     }//GEN-LAST:event_jmiEditVMActionPerformed

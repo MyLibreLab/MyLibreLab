@@ -65,7 +65,7 @@ public class MyGraphX extends javax.swing.JPanel
     {
         xyAxisVisible=value;        
     }
-
+ 
     
     public void setAutoZoomX(boolean value)
     {

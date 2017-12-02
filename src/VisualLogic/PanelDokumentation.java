@@ -369,7 +369,7 @@ public class PanelDokumentation extends javax.swing.JPanel {
 
         Image img;
 
-        if (element.owner.equals(owner.getAktuelleBasis().getCircuitBasis())) {
+        if (element.owner.equals(owner.getActualBasis().getCircuitBasis())) {
             img = element.getImage();
         } else {
             img = owner.createImageOfElement(element);

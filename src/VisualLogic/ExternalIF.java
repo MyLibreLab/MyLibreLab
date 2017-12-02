@@ -55,6 +55,7 @@ public interface ExternalIF
     public static final int C_CANVAS          = 19;
     public static final int C_FONT            = 20;
     public static final int C_FLOWINFO        = 21;
+    public static final int C_OBJECT          = 22;
     
     public static final int C_SHAPE_POINTS      = 0;
     public static final int C_SHAPE_RECTANGLE   = 1;

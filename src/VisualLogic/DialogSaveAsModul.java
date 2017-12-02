@@ -359,7 +359,7 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
             // 2. Icon von der Quelle zum verzeichniss kopieren
             // 3. definition.def in das Verzeichniss generieren
 
-            String baseDir = frameCircuit.getAktuelleBasis().getElementPath() + group + "/" + xname;
+            String baseDir = frameCircuit.getActualBasis().getElementPath() + group + "/" + xname;
 
             createDocDirsIfNotExist(baseDir);
 
@@ -376,7 +376,7 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
 
             String vmFile = baseDir;
 
-            frameCircuit.getAktuelleBasis().saveToFile(vmFile + "/" + xname + ".vlogic", false);
+            frameCircuit.getActualBasis().saveToFile(vmFile + "/" + xname + ".vlogic", false);
 
             //savedocFile(editorDE, baseDir + "/doc.html");
             //savedocFile(editorEN, baseDir + "/doc_en.html");
@@ -412,7 +412,7 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
 
     public void execute() {
         if (modeEdit == false) {
-            Basis basis = frameCircuit.getAktuelleBasis();
+            Basis basis = frameCircuit.getActualBasis();
 
             int c = basis.getFrontBasis().getElementCount();
             if (c == 0) {
@@ -835,7 +835,7 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
             xname = txtName.getText();
             resizeProportional = jCheckBox1.isSelected();
             group = elementPalette.aktuellesVerzeichniss;
-            String baseDir = frameCircuit.getAktuelleBasis().getElementPath() + group + xname;
+            String baseDir = frameCircuit.getActualBasis().getElementPath() + group + xname;
             baseDir = Tools.mapFile(baseDir);
 
             if (editing) {

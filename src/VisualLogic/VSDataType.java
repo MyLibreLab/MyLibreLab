@@ -64,6 +64,7 @@ public class VSDataType
           case ExternalIF.C_CANVAS           : return  new VSCanvas();
           case ExternalIF.C_FONT             : return  new VSFont(new Font("Arial",Font.PLAIN,10));
           case ExternalIF.C_FLOWINFO         : return  new VSFlowInfo();
+          case ExternalIF.C_OBJECT           : return  new VSObjRef();
           
           default: return null;
         }
@@ -96,6 +97,7 @@ public class VSDataType
           case ExternalIF.C_CANVAS           : return "VSCanvas";
           case ExternalIF.C_FONT             : return "VSFont";
           case ExternalIF.C_FLOWINFO         : return "VSFlowInfo";
+          case ExternalIF.C_OBJECT           : return "VSObjReference";
           
           default: return "";
         }
@@ -128,6 +130,7 @@ public class VSDataType
           case ExternalIF.C_CANVAS           : return "VSCanvas()";
           case ExternalIF.C_FONT             : return "VSFont(new Font(\"Arial\",Font.PLAIN,10))";
           case ExternalIF.C_FLOWINFO         : return "VSFlowInfo()";
+          case ExternalIF.C_OBJECT           : return "VSObjRef()";
           
           default: return "";
         }
@@ -135,7 +138,7 @@ public class VSDataType
     
     public static String[] getDataTypeList()
     {
-        String[] list= new String[22];
+        String[] list= new String[23];
         
         list[0]="C_VARIANT";
         list[1]="C_GROUP";               
@@ -159,6 +162,7 @@ public class VSDataType
         list[19]="C_CANVAS";
         list[20]="C_FONT";
         list[21]="C_FLOWINFO";
+        list[22]="C_OBJECT";
                 
         return list;        
     }
@@ -191,6 +195,7 @@ public class VSDataType
           case ExternalIF.C_CANVAS           : return "canvas";
           case ExternalIF.C_FONT             : return "font";
           case ExternalIF.C_FLOWINFO         : return "Flow";
+          case ExternalIF.C_OBJECT           : return "Obj.Ref";
           
           default: return "var";
         }
@@ -221,6 +226,7 @@ public class VSDataType
         if (obj instanceof VS1DByte) return ExternalIF.C_ARRAY1D_BYTE;else 
         if (obj instanceof VSCanvas) return ExternalIF.C_CANVAS;else 
         if (obj instanceof VSFont) return ExternalIF.C_FONT;else 
+        if (obj instanceof VSObjRef) return ExternalIF.C_OBJECT;else 
         if (obj instanceof VSFlowInfo) return ExternalIF.C_FLOWINFO;else return -1;
         
     }    
@@ -232,6 +238,7 @@ public class VSDataType
         Color orange = new Color(248,197,140);
         Color pur = new Color(192,0,192);
         Color strColor = new Color(245,101,234);
+        Color ObjColor = new Color(51,254,204);
         
         switch (dataType)
         {
@@ -261,6 +268,7 @@ public class VSDataType
           case ExternalIF.C_CANVAS           : color=new Color(52,158,31);  lineStyle=dashed1D; break;
           case ExternalIF.C_FONT             : color=new Color(128,128,128); lineStyle=standard; break;
           case ExternalIF.C_FLOWINFO         : color=new Color(28,228,28);  lineStyle=dashed1D; break;
+          case ExternalIF.C_OBJECT           : color=ObjColor;              lineStyle=standard; break;
         }
 
         g.setColor(color);        
@@ -278,6 +286,7 @@ public class VSDataType
         Color orange = new Color(248,197,140);
         Color pur = new Color(192,0,192);
         Color strColor = new Color(245,101,234);
+        Color ObjColor = new Color(51,254,204);
         
         switch (dataType)
         {
@@ -307,6 +316,7 @@ public class VSDataType
           case ExternalIF.C_CANVAS           : color=new Color(52,158,31); break;
           case ExternalIF.C_FONT             : color=new Color(128,128,128); break;  
           case ExternalIF.C_FLOWINFO         : color=new Color(28,228,28); break;  
+          case ExternalIF.C_OBJECT           : color=ObjColor; break;  
         }
 
         return color;        

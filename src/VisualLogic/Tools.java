@@ -185,7 +185,7 @@ public class Tools
             options.add("-d");
             options.add(destPath + "/bin");
             options.add("-cp");
-            options.add(destPath + "/src" + ";.;" + elementPath + ";" + destPath + "/" + classpath);
+            options.add(destPath + "/src" + ";.;" + elementPath + ";" + destPath + File.separator + classpath);
 
 
             StringWriter out = new StringWriter();
@@ -471,7 +471,7 @@ public class Tools
 
         try
         {
-            BufferedReader input = new BufferedReader(new FileReader(file.getAbsolutePath() + "/" + "project.myopenlab"));
+            BufferedReader input = new BufferedReader(new FileReader(file.getAbsolutePath() + File.separator + "project.myopenlab"));
             String inputString;
             while ((inputString = input.readLine()) != null)
             {
@@ -512,7 +512,7 @@ public class Tools
     {
         try
         {
-            BufferedWriter out = new BufferedWriter(new FileWriter(file.getAbsolutePath() + "/" + "project.myopenlab"));
+            BufferedWriter out = new BufferedWriter(new FileWriter(file.getAbsolutePath() + File.separator + "project.myopenlab"));
 
             out.write("MAINVM          = " + props.mainVM);
             out.newLine();
@@ -536,7 +536,7 @@ public class Tools
 
         try
         {
-            BufferedReader input = new BufferedReader(new FileReader(file.getAbsolutePath() + "/" + "driver.info"));
+            BufferedReader input = new BufferedReader(new FileReader(file.getAbsolutePath() + File.separator + "driver.info"));
             String inputString;
             while ((inputString = input.readLine()) != null)
             {
@@ -594,7 +594,7 @@ public class Tools
     {
         try
         {
-            BufferedWriter out = new BufferedWriter(new FileWriter(file.getAbsolutePath() + "/" + "definition.def"));
+            BufferedWriter out = new BufferedWriter(new FileWriter(file.getAbsolutePath() + File.separator + "definition.def"));
 
             String value = "";
             String full = "";
@@ -672,7 +672,7 @@ public class Tools
 
         try
         {
-            BufferedReader input = new BufferedReader(new FileReader(file.getAbsolutePath() + "/" + "definition.def"));
+            BufferedReader input = new BufferedReader(new FileReader(file.getAbsolutePath() + File.separator + "definition.def"));
             String inputString;
             while ((inputString = input.readLine()) != null)
             {

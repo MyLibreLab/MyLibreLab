@@ -84,6 +84,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     public boolean startInFrontMode = false;
     public boolean started = false;
     public boolean debugMode = false;
+    public boolean unDecorated = false;
     public boolean showFrontPanelWhenStart = true;
     //private Hashtable variablen = new Hashtable();
     private ArrayList variableNotifyList = new ArrayList();
@@ -1191,10 +1192,11 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
     }
 
-    private void createRunningFrame() {
-        //JFrame.setDefaultLookAndFeelDecorated(true);
-        frm = new FrameRunning(this);
-
+    private void createRunningFrame(boolean unDecoratedIn) {
+        //JFrame.setDefaultLookAndFeelDecorated(false);
+        this.unDecorated=unDecoratedIn;
+        frm = new FrameRunning(this,unDecorated);
+       
         frm.setIconImage(vsIcon.getImage());
         int h = 0;
         if (showToolBar) {
@@ -1310,7 +1312,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
                 //BasisPanel panelFront = new BasisPanel(basis.getFrontBasis());
                 //this.getContentPane().add(panelFront);
-                createRunningFrame();
+                createRunningFrame(unDecorated);
             }
 
             circuitBasis.start();
@@ -1615,11 +1617,12 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
             DataInputStream stream = new DataInputStream(fis);
 
             String ver = stream.readUTF(); // Version
+            System.out.println("LoadFomStream_BasisVersion:"+ver+"|");
             if (Double.parseDouble(ver) < 1.981) {
                 showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("Ungueltige_Version_oder_Version_wird_nicht_unterstuetzt"));
                 return;
             }
-
+            
             if (Double.parseDouble(ver) >= 3.12) {
 
                 String tmpPassword = stream.readUTF(); // Password einlesen
@@ -1692,6 +1695,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                     }
                 }
             }
+            
 
             if (fromAblage == false) {
                 caption = strCaption;
@@ -1722,7 +1726,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
         } catch (IOException | NumberFormatException ex) {
             showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("Fehler_in_Basis.loadFromStream()_:") + ex.toString());
-            showErrorMessage("error loading File : " + XfileName);
+            showErrorMessage("error loading File : " + XfileName + "\n"+ex.getMessage());
         }
     }
 
@@ -1808,6 +1812,8 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
             DataOutputStream dos = new DataOutputStream(fos);
 
             dos.writeUTF(Version.strFileVersion); // Version
+            //System.out.println("SavetoStream_BasisVersion:"+Version.strFileVersion+"|");
+            
 
             if (vmPassword.length() == 0) {
                 vmPassword = "";
@@ -1842,6 +1848,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                     dos.writeInt(node.size2);
                 }
             }
+            
 
             fsOut.postItem();
 

@@ -20,7 +20,7 @@ package VisualLogic.variables;
 
 import java.io.Serializable;
 
-public class VSObject  implements Serializable
+public class VSObject extends Object implements Serializable
 {
     private boolean changed=false;
     private int pinIndex=0;// nur für SocketServer und SocketClient Elemente!
@@ -70,15 +70,17 @@ public class VSObject  implements Serializable
         
     }
     
+    
     public void copyReferenceFrom(Object in)
     {
-        
+         
     }
     
     public void copyValueFrom(Object in)
     {
         
     }
+    
     
     public boolean equals(VSObject obj)
     {

@@ -33,14 +33,17 @@ public class FrameRunning extends javax.swing.JFrame
     
     
     /** Creates new form FrameRunning */
-    public FrameRunning(Basis basis)
+    public FrameRunning(Basis basis, boolean unDecorated)
     {
+        this.setVisible(false);
+        this.setUndecorated(unDecorated);
+        
         initComponents();
         
         this.basis=basis;
         
         SpinnerNumberModel model1 = new SpinnerNumberModel(0,0,5000,1);
-        jSpinner1.setModel(model1);
+        jSpinnerDebugDelay.setModel(model1);
         
         JPanel panelFront = new BasisPanel(basis.getFrontBasis());
         panelFront.setSize(basis.getFrontBasis().getWidth(),basis.getFrontBasis().getHeight());
@@ -72,16 +75,16 @@ public class FrameRunning extends javax.swing.JFrame
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
-        jButton4 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        jButton_PauseVM = new javax.swing.JButton();
+        jButtonStopVM = new javax.swing.JButton();
+        jButtonStepVM = new javax.swing.JButton();
+        jButtonAnalogWindow = new javax.swing.JButton();
+        jButtonDigitalWindow = new javax.swing.JButton();
+        jButtonTestPoint = new javax.swing.JButton();
+        jButtonDebugConsole = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        jLabelDebugDelay = new javax.swing.JLabel();
+        jSpinnerDebugDelay = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -95,89 +98,89 @@ public class FrameRunning extends javax.swing.JFrame
         jToolBar1.setRollover(true);
         jToolBar1.setPreferredSize(new java.awt.Dimension(100, 33));
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/pause24.gif"))); // NOI18N
+        jButton_PauseVM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/pause24.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("VisualLogic/FrameCircuit"); // NOI18N
-        jButton4.setToolTipText(bundle.getString("Pause_VM")); // NOI18N
-        jButton4.setPreferredSize(new java.awt.Dimension(25, 25));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButton_PauseVM.setToolTipText(bundle.getString("Pause_VM")); // NOI18N
+        jButton_PauseVM.setPreferredSize(new java.awt.Dimension(25, 25));
+        jButton_PauseVM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButton_PauseVMActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton4);
+        jToolBar1.add(jButton_PauseVM);
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/stop24.gif"))); // NOI18N
-        jButton3.setToolTipText(bundle.getString("Stop_VM")); // NOI18N
-        jButton3.setPreferredSize(new java.awt.Dimension(25, 25));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButtonStopVM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/stop24.gif"))); // NOI18N
+        jButtonStopVM.setToolTipText(bundle.getString("Stop_VM")); // NOI18N
+        jButtonStopVM.setPreferredSize(new java.awt.Dimension(25, 25));
+        jButtonStopVM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButtonStopVMActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton3);
+        jToolBar1.add(jButtonStopVM);
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/Resume.GIF"))); // NOI18N
-        jButton5.setToolTipText(bundle.getString("Weiter_VM")); // NOI18N
-        jButton5.setPreferredSize(new java.awt.Dimension(25, 25));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jButtonStepVM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/Resume.GIF"))); // NOI18N
+        jButtonStepVM.setToolTipText(bundle.getString("Weiter_VM")); // NOI18N
+        jButtonStepVM.setPreferredSize(new java.awt.Dimension(25, 25));
+        jButtonStepVM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jButtonStepVMActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton5);
+        jToolBar1.add(jButtonStepVM);
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/graphDouble.gif"))); // NOI18N
-        jButton6.setToolTipText(bundle.getString("NumerikGraphWindow")); // NOI18N
-        jButton6.setPreferredSize(new java.awt.Dimension(25, 25));
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAnalogWindow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/graphDouble.gif"))); // NOI18N
+        jButtonAnalogWindow.setToolTipText(bundle.getString("NumerikGraphWindow")); // NOI18N
+        jButtonAnalogWindow.setPreferredSize(new java.awt.Dimension(25, 25));
+        jButtonAnalogWindow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                jButtonAnalogWindowActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton6);
+        jToolBar1.add(jButtonAnalogWindow);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/graphBoolean.gif"))); // NOI18N
-        jButton1.setToolTipText(bundle.getString("DigitalGraphWindow")); // NOI18N
-        jButton1.setPreferredSize(new java.awt.Dimension(25, 25));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDigitalWindow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/graphBoolean.gif"))); // NOI18N
+        jButtonDigitalWindow.setToolTipText(bundle.getString("DigitalGraphWindow")); // NOI18N
+        jButtonDigitalWindow.setPreferredSize(new java.awt.Dimension(25, 25));
+        jButtonDigitalWindow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonDigitalWindowActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton1);
+        jToolBar1.add(jButtonDigitalWindow);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/testpoint.PNG"))); // NOI18N
-        jButton2.setToolTipText(bundle.getString("TestpointWindow")); // NOI18N
-        jButton2.setPreferredSize(new java.awt.Dimension(25, 25));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonTestPoint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/testpoint.PNG"))); // NOI18N
+        jButtonTestPoint.setToolTipText(bundle.getString("TestpointWindow")); // NOI18N
+        jButtonTestPoint.setPreferredSize(new java.awt.Dimension(25, 25));
+        jButtonTestPoint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonTestPointActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton2);
+        jToolBar1.add(jButtonTestPoint);
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/utilities-terminal.png"))); // NOI18N
-        jButton7.setToolTipText("Console");
-        jButton7.setPreferredSize(new java.awt.Dimension(25, 25));
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDebugConsole.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/utilities-terminal.png"))); // NOI18N
+        jButtonDebugConsole.setToolTipText("Console");
+        jButtonDebugConsole.setPreferredSize(new java.awt.Dimension(25, 25));
+        jButtonDebugConsole.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                jButtonDebugConsoleActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton7);
+        jToolBar1.add(jButtonDebugConsole);
 
         jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        jLabel2.setText(bundle.getString("Delay")); // NOI18N
-        jPanel1.add(jLabel2);
+        jLabelDebugDelay.setText(bundle.getString("Delay")); // NOI18N
+        jPanel1.add(jLabelDebugDelay);
 
-        jSpinner1.setPreferredSize(new java.awt.Dimension(50, 20));
-        jSpinner1.addChangeListener(new javax.swing.event.ChangeListener() {
+        jSpinnerDebugDelay.setPreferredSize(new java.awt.Dimension(50, 20));
+        jSpinnerDebugDelay.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jSpinner1StateChanged(evt);
+                jSpinnerDebugDelayStateChanged(evt);
             }
         });
-        jPanel1.add(jSpinner1);
+        jPanel1.add(jSpinnerDebugDelay);
 
         jToolBar1.add(jPanel1);
 
@@ -186,41 +189,41 @@ public class FrameRunning extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton7ActionPerformed
-    {//GEN-HEADEREND:event_jButton7ActionPerformed
+    private void jButtonDebugConsoleActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonDebugConsoleActionPerformed
+    {//GEN-HEADEREND:event_jButtonDebugConsoleActionPerformed
         if (basis.frameCircuit!=null)
         {
             basis.console.setVisible(true);
         }
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_jButtonDebugConsoleActionPerformed
     
-    private void jSpinner1StateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_jSpinner1StateChanged
-    {//GEN-HEADEREND:event_jSpinner1StateChanged
+    private void jSpinnerDebugDelayStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_jSpinnerDebugDelayStateChanged
+    {//GEN-HEADEREND:event_jSpinnerDebugDelayStateChanged
         
-        basis.delay=((Integer)jSpinner1.getValue()).intValue();
+        basis.delay=((Integer)jSpinnerDebugDelay.getValue()).intValue();
         
-    }//GEN-LAST:event_jSpinner1StateChanged
+    }//GEN-LAST:event_jSpinnerDebugDelayStateChanged
     
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton6ActionPerformed
-    {//GEN-HEADEREND:event_jButton6ActionPerformed
+    private void jButtonAnalogWindowActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAnalogWindowActionPerformed
+    {//GEN-HEADEREND:event_jButtonAnalogWindowActionPerformed
         if (basis.frameCircuit!=null)
         {
             basis.frameDoubleGraph.setVisible(true);
         }
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_jButtonAnalogWindowActionPerformed
     
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton5ActionPerformed
-    {//GEN-HEADEREND:event_jButton5ActionPerformed
+    private void jButtonStepVMActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonStepVMActionPerformed
+    {//GEN-HEADEREND:event_jButtonStepVMActionPerformed
         basis.resume();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_jButtonStepVMActionPerformed
     
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
-    {//GEN-HEADEREND:event_jButton4ActionPerformed
+    private void jButton_PauseVMActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton_PauseVMActionPerformed
+    {//GEN-HEADEREND:event_jButton_PauseVMActionPerformed
         basis.pause();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jButton_PauseVMActionPerformed
     
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
-    {//GEN-HEADEREND:event_jButton3ActionPerformed
+    private void jButtonStopVMActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonStopVMActionPerformed
+    {//GEN-HEADEREND:event_jButtonStopVMActionPerformed
         
         basis.stop();
         if (basis.frameCircuit!=null)
@@ -229,24 +232,24 @@ public class FrameRunning extends javax.swing.JFrame
             //basis.frameCircuit.setVisible(true);
         }
         
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButtonStopVMActionPerformed
     
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
-    {//GEN-HEADEREND:event_jButton2ActionPerformed
+    private void jButtonTestPointActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonTestPointActionPerformed
+    {//GEN-HEADEREND:event_jButtonTestPointActionPerformed
         if (basis.frameCircuit!=null)
         {
             basis.dialogTestpoint.setVisible(true);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonTestPointActionPerformed
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
+    private void jButtonDigitalWindowActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonDigitalWindowActionPerformed
+    {//GEN-HEADEREND:event_jButtonDigitalWindowActionPerformed
         if (basis.frameCircuit!=null)
         {
             basis.frameBooleanGraph.setVisible(true);
         }
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonDigitalWindowActionPerformed
     
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         //removeAll();
@@ -259,16 +262,16 @@ public class FrameRunning extends javax.swing.JFrame
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton jButtonAnalogWindow;
+    private javax.swing.JButton jButtonDebugConsole;
+    private javax.swing.JButton jButtonDigitalWindow;
+    private javax.swing.JButton jButtonStepVM;
+    private javax.swing.JButton jButtonStopVM;
+    private javax.swing.JButton jButtonTestPoint;
+    private javax.swing.JButton jButton_PauseVM;
+    private javax.swing.JLabel jLabelDebugDelay;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JSpinner jSpinnerDebugDelay;
     public javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
     

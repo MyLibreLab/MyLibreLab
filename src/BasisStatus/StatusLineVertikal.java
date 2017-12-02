@@ -418,6 +418,9 @@ public class StatusLineVertikal extends Object implements StatusBasisIF
     
     public void mousePressed(MouseEvent e) 
     {
+      if(e!=null)
+      { 
+        try{  
         Point p = vmobject.getMousePosition();
 
         Line line=vmobject.getLineInNaehe(p);
@@ -497,7 +500,10 @@ public class StatusLineVertikal extends Object implements StatusBasisIF
               startPoint.y=p.y;
               addStueck(startPoint, startPoint); 
         }
+        }catch(NullPointerException eV){
         
+        }
+      }  
     }
 
     public void mouseReleased(MouseEvent e) {

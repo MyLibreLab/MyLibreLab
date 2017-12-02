@@ -233,15 +233,15 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
         panelCircuit = new BasisPanel(basis.getCircuitBasis());
         panelCircuit.setVisible(!basis.vmProtected);
         
-        jScrollPane1.add(panelCircuit);
-        jScrollPane1.setViewportView(panelCircuit);
+        jScrollPaneCircuitPanel.add(panelCircuit);
+        jScrollPaneCircuitPanel.setViewportView(panelCircuit);
         
         panelFront = new BasisPanel(basis.getFrontBasis());
         
         
         
-        jScrollPane2.add(panelFront);
-        jScrollPane2.setViewportView(panelFront);
+        jScrollPaneFrontPanel.add(panelFront);
+        jScrollPaneFrontPanel.setViewportView(panelFront);
         //basis.getFrontBasis().panel=panelFront;
         
         setVMObject(basis.getCircuitBasis());
@@ -423,8 +423,10 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
                 {
                     if (list[i].endsWith(".java")==false && list[i].endsWith(".bat")==false)
                     {
-                        String dest1 = dest.getAbsolutePath() + "\\" + list[i];
-                        String src1 = src.getAbsolutePath() + "\\" + list[i];
+                        //String dest1 = dest.getAbsolutePath() + "\\" + list[i];
+                        String dest1 = dest.getAbsolutePath() + File.separator + list[i];
+                        //String src1 = src.getAbsolutePath() + "\\" + list[i];
+                        String src1 = src.getAbsolutePath() + File.separator + list[i];
                         copyFiles(src1 , dest1,javaFilter);
                     }
                 }
@@ -775,9 +777,9 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPaneCircuitPanel = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPaneFrontPanel = new javax.swing.JScrollPane();
 
         jTabbedPane1.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -786,19 +788,19 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
             }
         });
 
-        jScrollPane1.setBackground(new java.awt.Color(102, 102, 102));
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane1.setMinimumSize(new java.awt.Dimension(60, 24));
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(100, 20));
-        jScrollPane1.addComponentListener(new java.awt.event.ComponentAdapter() {
+        jScrollPaneCircuitPanel.setBackground(new java.awt.Color(102, 102, 102));
+        jScrollPaneCircuitPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPaneCircuitPanel.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPaneCircuitPanel.setMinimumSize(new java.awt.Dimension(60, 24));
+        jScrollPaneCircuitPanel.setPreferredSize(new java.awt.Dimension(100, 20));
+        jScrollPaneCircuitPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
-                jScrollPane1ComponentResized(evt);
+                jScrollPaneCircuitPanelComponentResized(evt);
             }
         });
-        jScrollPane1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        jScrollPaneCircuitPanel.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jScrollPane1PropertyChange(evt);
+                jScrollPaneCircuitPanelPropertyChange(evt);
             }
         });
 
@@ -813,11 +815,11 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
             .add(0, 248, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(jPanel1);
+        jScrollPaneCircuitPanel.setViewportView(jPanel1);
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("VisualLogic/FrameCircuit"); // NOI18N
-        jTabbedPane1.addTab(bundle.getString("Circuit"), jScrollPane1); // NOI18N
-        jTabbedPane1.addTab(bundle.getString("Frontpanel"), jScrollPane2); // NOI18N
+        jTabbedPane1.addTab(bundle.getString("Circuit"), jScrollPaneCircuitPanel); // NOI18N
+        jTabbedPane1.addTab(bundle.getString("Frontpanel"), jScrollPaneFrontPanel); // NOI18N
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -849,21 +851,21 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
     
-    private void jScrollPane1PropertyChange(java.beans.PropertyChangeEvent evt)//GEN-FIRST:event_jScrollPane1PropertyChange
-    {//GEN-HEADEREND:event_jScrollPane1PropertyChange
+    private void jScrollPaneCircuitPanelPropertyChange(java.beans.PropertyChangeEvent evt)//GEN-FIRST:event_jScrollPaneCircuitPanelPropertyChange
+    {//GEN-HEADEREND:event_jScrollPaneCircuitPanelPropertyChange
         
-    }//GEN-LAST:event_jScrollPane1PropertyChange
+    }//GEN-LAST:event_jScrollPaneCircuitPanelPropertyChange
     
-    private void jScrollPane1ComponentResized(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_jScrollPane1ComponentResized
-    {//GEN-HEADEREND:event_jScrollPane1ComponentResized
+    private void jScrollPaneCircuitPanelComponentResized(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_jScrollPaneCircuitPanelComponentResized
+    {//GEN-HEADEREND:event_jScrollPaneCircuitPanelComponentResized
         
-    }//GEN-LAST:event_jScrollPane1ComponentResized
+    }//GEN-LAST:event_jScrollPaneCircuitPanelComponentResized
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
-    public javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JScrollPane jScrollPane2;
+    public javax.swing.JScrollPane jScrollPaneCircuitPanel;
+    public javax.swing.JScrollPane jScrollPaneFrontPanel;
     public javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
     

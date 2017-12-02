@@ -113,13 +113,12 @@ public class MyGraph extends javax.swing.JPanel
     public void setYAxisFormatString(String value)          { graph.yaxis.setFormatString(value); }
     public void setYAxisText(String text)                   { labelLeft.setText(text);}
     public void setYAxisTextFont(Font font)                 { labelLeft.setFont(font); }
-    public void setYAxisTextFontColor(Color color)          { labelLeft.setForeground(color); }    
-    public void setAutoScroll(Boolean value)                { graph.autoscroll=value.booleanValue(); }    
+    public void setYAxisTextFontColor(Color color)          { labelLeft.setForeground(color); }       
     public void setCoordinatesVisible(Boolean value)        { graph.back.jLabel1.setVisible(value.booleanValue()); }        
     public void setPointType(Integer value)                 { if (graph.graphRenderer.length>0) graph.graphRenderer[0].pointType=value.intValue(); } // Dummy!
     public void setbufferLen(Integer value)         { if (graph.graphRenderer.length>0) graph.graphRenderer[0].bufferLen=value.intValue(); } // Dummy!
     public void setLineColor(Color color)                   { if (graph.graphRenderer.length>0) graph.graphRenderer[0].setLineColor(color);}  // Dummy!
-    
+    public void setAutoScroll(Boolean value)                { graph.autoscroll=value.booleanValue(); } 
     
     // ----------- GETTER ---------
     public Boolean getBackgroundTransparent( )  {return new Boolean(graph.back.getBackgroundTransparent());}

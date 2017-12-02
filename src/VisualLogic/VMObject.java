@@ -96,6 +96,7 @@ public class VMObject extends JPanel implements MouseListener, MouseMotionListen
     private VSColor vsColor = new VSColor(Color.LIGHT_GRAY);
     private VSString vsCaption = new VSString("");
     private VSBoolean vsShowToolbar = new VSBoolean(false);
+    private VSBoolean vsUnDecorate = new VSBoolean(false);
     private int elementsCount = 0;
     private ArrayList elList;
     private boolean borderVisible = true;
@@ -440,6 +441,7 @@ public class VMObject extends JPanel implements MouseListener, MouseMotionListen
             setBackground(vsColor.getValue());
             owner.caption = vsCaption.getValue();
             owner.showToolBar = vsShowToolbar.getValue();
+            owner.unDecorated = vsUnDecorate.getValue();
         }
 
         repaint();
@@ -474,7 +476,9 @@ public class VMObject extends JPanel implements MouseListener, MouseMotionListen
             vsColor.setValue(getBackground());
             vsCaption.setValue(owner.caption);
             vsShowToolbar.setValue(owner.showToolBar);
+            vsUnDecorate.setValue(owner.unDecorated);
 
+         
             owner.propertyEditor.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("Width"), vsWidth, 20, 5000, true);
             owner.propertyEditor.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("Height"), vsHeight, 20, 5000, true);
 
@@ -482,6 +486,7 @@ public class VMObject extends JPanel implements MouseListener, MouseMotionListen
 
             if (this == owner.getFrontBasis()) {
                 owner.propertyEditor.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("ShowToolbar"), vsShowToolbar, 0, 0, true);
+                owner.propertyEditor.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("unDecorateFrame"), vsUnDecorate, 0, 0, true);
                 owner.propertyEditor.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("Color"), vsColor, 20, 5000, true);
                 owner.propertyEditor.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("Title"), vsCaption, 20, 5000, true);
                 owner.propertyEditor.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("Icon"), owner.vsIcon, 0, 0, true);
