@@ -1610,22 +1610,110 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     }
 
     public void loadFromStream(FileSystemInput fsIn, boolean fromAblage) {
-        try {
-            fileCount = 0;
+    try {
+        fileCount = 0;
+        String tmpPassword;
+        int modusx=0;
+        String strCaption;
+        String strCircuitPanelTitel;
+        String strFrontPanelTitel;
+        int intElementWidth;
+        int intElementHeight;
+        String strElementName;
+        String strBasisTitel;
+        String strBasisVersion;
+        String strAutorName;
+        String strAutorMail;
+        String strAutorWWW;
+        
+        FileInputStream fis = fsIn.gotoItem(fileCount++);
+        DataInputStream stream = new DataInputStream(fis);
+        String ver = stream.readUTF(); // Version
+        if (Double.parseDouble(ver) == 3.12){
+        System.out.println("LoadFomStream_BasisVersion:"+ver+"|");
+        tmpPassword = stream.readUTF(); // Password einlesen
+                if (tmpPassword.length() > 0) {
+                    if (frameCircuit != null && frameCircuit.frontMode == false) {
+                        DialogPassword dialog = new DialogPassword(null, true);
 
-            FileInputStream fis = fsIn.gotoItem(fileCount++);
-            DataInputStream stream = new DataInputStream(fis);
+                        dialog.setVisible(true);
+                        String refPassword = DialogPassword.password;
+                        vmPassword = tmpPassword;
 
-            String ver = stream.readUTF(); // Version
-            System.out.println("LoadFomStream_BasisVersion:"+ver+"|");
+                        String res = bytesToHex(calcDigest(refPassword));
+                        String res1 = tmpPassword;
+
+                        if (res.equals(res1)) {
+                            vmProtected = false;
+                        } else {
+                            //Tools.showMessage("Password incorrect!\nVM is now readonly.");
+                            vmProtected = true;
+                        }
+                    } else {
+                        vmProtected = true;
+                    }
+                }
+                
+        modusx = stream.readInt();
+        strCaption = stream.readUTF();
+        vsIcon.loadFromStream(fis);
+        strCircuitPanelTitel = stream.readUTF();
+        strFrontPanelTitel = stream.readUTF();
+        intElementWidth = stream.readInt();
+        intElementHeight = stream.readInt();
+        strElementName = stream.readUTF();
+        showToolBar = stream.readBoolean();
+        unDecorated = stream.readBoolean();
+        strBasisTitel = stream.readUTF();
+        strBasisVersion = stream.readUTF();
+        strAutorName = stream.readUTF();
+        strAutorMail = stream.readUTF();
+        strAutorWWW = stream.readUTF();
+        if (fromAblage == false) {
+            variablenListe.clear();
+            int count = stream.readInt();
+            for (int i = 0; i < count; i++) {
+                OpenVariable node = new OpenVariable();
+                node.name = stream.readUTF();
+                node.datatype = stream.readInt();
+                if (Double.parseDouble(ver) >= 3.84) {
+                    node.size1 = stream.readInt();
+                    node.size2 = stream.readInt();
+                }
+
+                variablenListe.add(node);
+            }
+        }
+        /*  dos.writeUTF(Version.strFileVersion); // Version
+            dos.writeUTF(vmPassword);               int modusx = 0;
+            dos.writeInt(modusx);                   dos.writeUTF(caption); 
+            vsIcon.saveToStream(fos);               dos.writeUTF(circuitPanelTitel);
+            dos.writeUTF(frontPanelTitel);          dos.writeInt(elementWidth);
+            dos.writeInt(elementHeight);            dos.writeUTF(elementName);
+            dos.writeBoolean(showToolBar);          dos.writeBoolean(unDecorated);
+            dos.writeUTF(basisTitel);               dos.writeUTF(basisVersion);
+            dos.writeUTF(autorName);                dos.writeUTF(autorMail);
+            dos.writeUTF(autorWWW);             
+        if (onlySelected == false) {
+                dos.writeInt(variablenListe.size());
+                OpenVariable node;
+                for (int i = 0; i < variablenListe.size(); i++) {
+                    node = (OpenVariable) variablenListe.get(i);
+                    dos.writeUTF(node.name);
+                    dos.writeInt(node.datatype);
+                    dos.writeInt(node.size1);
+                    dos.writeInt(node.size2);
+                }
+            }*/
+        }else{
             if (Double.parseDouble(ver) < 1.981) {
                 showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("Ungueltige_Version_oder_Version_wird_nicht_unterstuetzt"));
                 return;
             }
-            
+
             if (Double.parseDouble(ver) >= 3.12) {
 
-                String tmpPassword = stream.readUTF(); // Password einlesen
+                tmpPassword = stream.readUTF(); // Password einlesen
 
                 if (tmpPassword.length() > 0) {
                     if (frameCircuit != null && frameCircuit.frontMode == false) {
@@ -1650,32 +1738,32 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                 }
             }
 
-            int modusx = 0;
+            
             if (Double.parseDouble(ver) >= 3.04) {
                 modusx = stream.readInt();
             }
 
-            String strCaption = stream.readUTF();
+            strCaption = stream.readUTF();
 
             if (Double.parseDouble(ver) >= 3.06) {
                 vsIcon.loadFromStream(fis);
             }
 
-            String strCircuitPanelTitel = stream.readUTF();
-            String strFrontPanelTitel = stream.readUTF();
-            int intElementWidth = stream.readInt();
-            int intElementHeight = stream.readInt();
-            String strElementName = stream.readUTF();
+            strCircuitPanelTitel = stream.readUTF();
+            strFrontPanelTitel = stream.readUTF();
+            intElementWidth = stream.readInt();
+            intElementHeight = stream.readInt();
+            strElementName = stream.readUTF();
 
             if (Double.parseDouble(ver) >= 3.11) {
                 showToolBar = stream.readBoolean();
             }
 
-            String strBasisTitel = stream.readUTF();
-            String strBasisVersion = stream.readUTF();
-            String strAutorName = stream.readUTF();
-            String strAutorMail = stream.readUTF();
-            String strAutorWWW = stream.readUTF();
+            strBasisTitel = stream.readUTF();
+            strBasisVersion = stream.readUTF();
+            strAutorName = stream.readUTF();
+            strAutorMail = stream.readUTF();
+            strAutorWWW = stream.readUTF();
 
             if (Double.parseDouble(ver) >= 3.07) {
                 if (fromAblage == false) {
@@ -1696,8 +1784,9 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                 }
             }
             
-
-            if (fromAblage == false) {
+        }
+        
+         if (fromAblage == false) {
                 caption = strCaption;
                 circuitPanelTitel = strCircuitPanelTitel;
                 frontPanelTitel = strFrontPanelTitel;
@@ -1728,6 +1817,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
             showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("Fehler_in_Basis.loadFromStream()_:") + ex.toString());
             showErrorMessage("error loading File : " + XfileName + "\n"+ex.getMessage());
         }
+        
     }
 
     public void showErrorMessage(String message) {
@@ -1807,14 +1897,58 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     }
 
     public void saveToStream(FileSystemOutput fsOut, boolean onlySelected) {
+      if(Double.parseDouble(Version.strFileVersion)==3.12){
+      try {
+            FileOutputStream fos = fsOut.addItem("Properties");
+            DataOutputStream dos = new DataOutputStream(fos);
+            dos.writeUTF(Version.strFileVersion); // Version
+            System.out.println("SavetoStream_BasisVersion:"+Version.strFileVersion+"|");
+            if (vmPassword.length() == 0) {
+                vmPassword = "";
+            }
+            dos.writeUTF(vmPassword); // Password
+            int modusx = 0;
+            dos.writeInt(modusx); // NOPE!
+            dos.writeUTF(caption);            // Caption
+            vsIcon.saveToStream(fos);
+            dos.writeUTF(circuitPanelTitel);
+            dos.writeUTF(frontPanelTitel);
+            dos.writeInt(elementWidth);
+            dos.writeInt(elementHeight);
+            dos.writeUTF(elementName);
+            dos.writeBoolean(showToolBar);
+            dos.writeBoolean(unDecorated);
+            dos.writeUTF(basisTitel);
+            dos.writeUTF(basisVersion);
+            dos.writeUTF(autorName);
+            dos.writeUTF(autorMail);
+            dos.writeUTF(autorWWW);
+            if (onlySelected == false) {
+                dos.writeInt(variablenListe.size());
+                OpenVariable node;
+                for (int i = 0; i < variablenListe.size(); i++) {
+                    node = (OpenVariable) variablenListe.get(i);
+                    dos.writeUTF(node.name);
+                    dos.writeInt(node.datatype);
+                    dos.writeInt(node.size1);
+                    dos.writeInt(node.size2);
+                }
+            }
+            fsOut.postItem();
+            circuitBasis.saveToStream(fsOut, "CircuitPanel", onlySelected);
+            frontBasis.saveToStream(fsOut, "FrontPanel", onlySelected);
+            //speichereNunAlleBasisElemente(circuitBasis,fsOut,onlySelected);
+            //speichereNunAlleBasisElemente(frontBasis,fsOut,onlySelected);
+        } catch (Exception ex) {
+            showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("Fehler_in_Basis.saveToStream()_:") + ex.toString());
+        }      
+      }else{
         try {
             FileOutputStream fos = fsOut.addItem("Properties");
             DataOutputStream dos = new DataOutputStream(fos);
 
             dos.writeUTF(Version.strFileVersion); // Version
             //System.out.println("SavetoStream_BasisVersion:"+Version.strFileVersion+"|");
-            
-
             if (vmPassword.length() == 0) {
                 vmPassword = "";
             }
@@ -1860,6 +1994,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         } catch (Exception ex) {
             showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("Fehler_in_Basis.saveToStream()_:") + ex.toString());
         }
+      }
 
     }
 

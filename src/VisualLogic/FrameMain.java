@@ -894,9 +894,12 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() instanceof MyButtonX) {
                     MyButtonX button = (MyButtonX) e.getSource();
-
+                    if(button.panel!=null){
                     closeVM(button.panel);
-                    button.panel = null;
+                    }else{
+                        System.out.println("Null Button - VisualLogic.FrameMain$2.actionPerformed(FrameMain.java:898)");    
+                    }
+                    //button.panel = null; //If user Cancel this button will be null when try to close, It must not be setted null
                 }
             }
         });
@@ -4982,6 +4985,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
     public void createDistribution(String projectPath, String destPath, String mainVM) {
         File destDir = new File(destPath);
+        boolean Error=false;
 
         if (!destDir.exists()) {
             destDir.mkdir();
@@ -4998,6 +5002,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         } catch (IOException ex) {
             ex.printStackTrace();
+            Error=true;
         }
 
         ArrayList<String> files = listAllVMsFromProject(projectPath);
@@ -5014,11 +5019,15 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             execFile.createNewFile();
         } catch (IOException ex) {
             ex.printStackTrace();
+            Error=true;
         }
 
         ProjectProperties props = new ProjectProperties();
         props.mainVM = mainVM;
         Tools.saveProjectFile(destDir, props);
+        if(Error==false){
+        JOptionPane.showMessageDialog(rootPane, "If you have subVMs into Folders you must Copy it to the Distribution Folder");
+        }
 
     }
 
