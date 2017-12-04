@@ -97,6 +97,12 @@ public class VMObject extends JPanel implements MouseListener, MouseMotionListen
     private VSString vsCaption = new VSString("");
     private VSBoolean vsShowToolbar = new VSBoolean(false);
     private VSBoolean vsUnDecorate = new VSBoolean(false);
+    private VSBoolean vsAlwaysOnTop = new VSBoolean(false);
+    private VSComboBox vsWindowsPosition = new VSComboBox();
+    
+    private VSInteger vsCustomXwindowPos = new VSInteger(0);
+    private VSInteger vsCustomYwindowPos = new VSInteger(0);
+    
     private int elementsCount = 0;
     private ArrayList elList;
     private boolean borderVisible = true;
@@ -442,9 +448,17 @@ public class VMObject extends JPanel implements MouseListener, MouseMotionListen
             owner.caption = vsCaption.getValue();
             owner.showToolBar = vsShowToolbar.getValue();
             owner.unDecorated = vsUnDecorate.getValue();
+            owner.AlwaysOnTop = vsAlwaysOnTop.getValue();
+            owner.WindowsPosition=vsWindowsPosition;
+            owner.CustomXwindowPos=vsCustomXwindowPos.getValue();
+            owner.CustomYwindowPos=vsCustomYwindowPos.getValue();
+            if(referenz.equals(vsWindowsPosition)){
+            processPropertyEditor(); //Added v3.12.0    
+            }
         }
 
         repaint();
+        
     }
 
     public void processpropertyChangedToAllElements(Object o) {
@@ -477,16 +491,30 @@ public class VMObject extends JPanel implements MouseListener, MouseMotionListen
             vsCaption.setValue(owner.caption);
             vsShowToolbar.setValue(owner.showToolBar);
             vsUnDecorate.setValue(owner.unDecorated);
+            vsAlwaysOnTop.setValue(owner.AlwaysOnTop);
+            vsWindowsPosition=owner.WindowsPosition;
+            vsCustomXwindowPos.setValue(owner.CustomXwindowPos);
+            vsCustomYwindowPos.setValue(owner.CustomYwindowPos);
 
          
             owner.propertyEditor.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("Width"), vsWidth, 20, 5000, true);
             owner.propertyEditor.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("Height"), vsHeight, 20, 5000, true);
 
             owner.propertyEditor.addItem("Properties", vsProperties, 0, 0, true);
+            boolean EditableTemp=false;
+            if(owner.WindowsPosition.selectedIndex==5){ // IF user select "CUSTOM" enable editable X and Y Loation
+            EditableTemp=true;    
+            }else{
+            EditableTemp=false;    
+            }
 
             if (this == owner.getFrontBasis()) {
                 owner.propertyEditor.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("ShowToolbar"), vsShowToolbar, 0, 0, true);
                 owner.propertyEditor.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("unDecorateFrame"), vsUnDecorate, 0, 0, true);
+                owner.propertyEditor.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("AlwaysOnTop"), vsAlwaysOnTop, 0, 0, true);
+                owner.propertyEditor.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("WindowPosition"), vsWindowsPosition, 0, 100, true);
+                owner.propertyEditor.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("XcustomPos"), vsCustomXwindowPos, Integer.MIN_VALUE, Integer.MAX_VALUE, EditableTemp);
+                owner.propertyEditor.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("YcustomPos"), vsCustomYwindowPos, Integer.MIN_VALUE, Integer.MAX_VALUE, EditableTemp);
                 owner.propertyEditor.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("Color"), vsColor, 20, 5000, true);
                 owner.propertyEditor.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("Title"), vsCaption, 20, 5000, true);
                 owner.propertyEditor.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("Icon"), owner.vsIcon, 0, 0, true);
@@ -566,7 +594,8 @@ public class VMObject extends JPanel implements MouseListener, MouseMotionListen
         enableEvents(AWTEvent.KEY_EVENT_MASK);          // catch KeyEvents
         enableEvents(AWTEvent.MOUSE_EVENT_MASK);        // catch MouseEvents
         enableEvents(AWTEvent.COMPONENT_EVENT_MASK);    // catch ComponentEvents
-
+        
+        
         DropTargetListener dropTargetListener = new DropTargetListener() {
 
             // Die Maus betritt die Komponente mit

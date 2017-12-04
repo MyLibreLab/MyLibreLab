@@ -74,6 +74,7 @@ import projectfolder.ProjectPalette;
 import ParserCode.*;
 //import com.apple.eawt.Application;
 import de.myopenlab.update.frmUpdate;
+import java.awt.event.KeyEvent;
 import java.beans.XMLDecoder;
 import javax.swing.JEditorPane;
 import javax.swing.JMenu;
@@ -402,7 +403,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
                     Basis oBasis = addBasisToVMPanel(globalPath, globalProjectPath, true);
                     if (oBasis != null) {
-                        paneRight.setSelectedComponent(oBasis.ownerVMPanel);
+                        jPaneVMPanels.setSelectedComponent(oBasis.ownerVMPanel);
                     }
 
                     return null;
@@ -631,14 +632,14 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     }
 
     public void removeTab(String vmFileName) {
-        for (int i = 0; i < paneRight.getComponentCount(); i++) {
-            Component comp = paneRight.getComponent(i);
+        for (int i = 0; i < jPaneVMPanels.getComponentCount(); i++) {
+            Component comp = jPaneVMPanels.getComponent(i);
 
             System.out.println("" + comp.toString());
             if (comp instanceof VMEditorPanel) {
                 VMEditorPanel pnl = (VMEditorPanel) comp;
                 if (pnl.basis.fileName.equalsIgnoreCase(vmFileName)) {
-                    paneRight.remove(pnl);
+                    jPaneVMPanels.remove(pnl);
                     desktop.remove(pnl.basis);
                     return;
                 }
@@ -711,27 +712,27 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     }
 
     public Basis getActualBasis() {
-        Component comp = paneRight.getSelectedComponent();
+        Component comp = jPaneVMPanels.getSelectedComponent();
         if (comp != null) {
-            VMEditorPanel editor = (VMEditorPanel) paneRight.getSelectedComponent();
+            VMEditorPanel editor = (VMEditorPanel) jPaneVMPanels.getSelectedComponent();
             return editor.basis;
         }
         return null;
     }
 
     public VMObject getVMObject() {
-        Component comp = paneRight.getSelectedComponent();
+        Component comp = jPaneVMPanels.getSelectedComponent();
         if (comp != null) {
-            VMEditorPanel editor = (VMEditorPanel) paneRight.getSelectedComponent();
+            VMEditorPanel editor = (VMEditorPanel) jPaneVMPanels.getSelectedComponent();
             return editor.getVMObject();
         }
         return null;
     }
 
     public void onButtonClicken(String[] params) {
-        Component comp = paneRight.getSelectedComponent();
+        Component comp = jPaneVMPanels.getSelectedComponent();
         if (comp != null) {
-            VMEditorPanel editor = (VMEditorPanel) paneRight.getSelectedComponent();
+            VMEditorPanel editor = (VMEditorPanel) jPaneVMPanels.getSelectedComponent();
             editor.getVMObject().newElement = params;
         }
     }
@@ -782,7 +783,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         settings.setElementSplitterPosition(jSplitPane3.getDividerLocation());
         settings.setElementSplitterHozPosition(jSplitPane1.getDividerLocation());
 
-        settings.setRightSplitterPos(jPanel7.getPreferredSize().width);
+        settings.setRightSplitterPos(jPanelHelpWindow.getPreferredSize().width);
 
         settings.setDocumentation_language(panelDoc.selectedLanguage);
 
@@ -850,12 +851,12 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         //propertyEditor.vmobject=basis;
 
         String caption = new File(basis.fileName).getName();
-        paneRight.add(pnl);
+        jPaneVMPanels.add(pnl);
         //paneRight.addTab("",new javax.swing.ImageIcon("Y:\\icons\\tango-icon-theme-0.7.2\\tango-icon-theme-0.7.2\\16x16\\actions\\address-book-new.png"),pnl);
 
         // jTabbedPane1.addTab("tab1",  jPanel1);
-        int index = paneRight.getTabCount() - 1;
-        paneRight.setSelectedIndex(index);
+        int index = jPaneVMPanels.getTabCount() - 1;
+        jPaneVMPanels.setSelectedIndex(index);
 
         final JPanel content = new JPanel();
 
@@ -912,7 +913,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         /*tabLabel.setPreferredSize(new Dimension(87,15));
         tabCloseButton.setPreferredSize(new Dimension(10,15));
         tab.setPreferredSize(new Dimension(110,15));*/
-        paneRight.setTabComponentAt(paneRight.getTabCount() - 1, tab);
+        jPaneVMPanels.setTabComponentAt(jPaneVMPanels.getTabCount() - 1, tab);
 
         basis.saveForUndoRedo();
         basis.setChanged(false);
@@ -946,7 +947,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         }
         panel.basis.stop();
         panel.basis.frameCircuit = null;
-        paneRight.remove(panel);
+        jPaneVMPanels.remove(panel);
         desktop.remove(panel.basis);
         panel.basis.close();
         panel.basis = null;
@@ -1464,6 +1465,28 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         UIManager.put("MenuItem.font", f);
 
         initComponents();
+        
+        jButtonNewProject_A.setMnemonic(KeyEvent.VK_A);
+        jButtonOpenProject_B.setMnemonic(KeyEvent.VK_B);
+        jButtonSave_C.setMnemonic(KeyEvent.VK_C);
+        jButtonUndo_D.setMnemonic(KeyEvent.VK_D);
+        jButtonRedo_E.setMnemonic(KeyEvent.VK_E);
+        jButtonRefreshVM_F.setMnemonic(KeyEvent.VK_F);
+        jButtonOptions_G.setMnemonic(KeyEvent.VK_G);
+        jButtonVariables_H.setMnemonic(KeyEvent.VK_H);
+        jButtonWireLegends_I.setMnemonic(KeyEvent.VK_I);
+        jButtonStart_J.setMnemonic(KeyEvent.VK_J);
+        jButtonDebug_K.setMnemonic(KeyEvent.VK_K);
+        jButtonStop_L.setMnemonic(KeyEvent.VK_L);
+        jButtonPause_M.setMnemonic(KeyEvent.VK_M);
+        jButtonResume_N.setMnemonic(KeyEvent.VK_N);
+        jButtonStep_O.setMnemonic(KeyEvent.VK_O);
+        jButtonAnalogWindow_P.setMnemonic(KeyEvent.VK_P);
+        jButtonDigitalWindow_Q.setMnemonic(KeyEvent.VK_Q);
+        jButtonTestPointWin_R.setMnemonic(KeyEvent.VK_R);
+        jButtonConsoleOut_S.setMnemonic(KeyEvent.VK_S);
+        jButtonRepository_T.setMnemonic(KeyEvent.VK_T);
+        jButtonAbout_U.setMnemonic(KeyEvent.VK_U);
 
         panelDoc = new PanelDokumentation();
         jPanel9.add(panelDoc, BorderLayout.CENTER);
@@ -1498,7 +1521,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         if (settings.getRightSplitterPos() < 10) {
             settings.setRightSplitterPos(10);
         }
-        jPanel7.setPreferredSize(new Dimension(settings.getRightSplitterPos(), 10));
+        jPanelHelpWindow.setPreferredSize(new Dimension(settings.getRightSplitterPos(), 10));
         panelDoc.setSelectedLanguage(settings.getDocumentation_language());
 
         int xx = settings.getRightSplitterPos();
@@ -1534,7 +1557,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         jTabPropertyEditor.addTab(java.util.ResourceBundle.getBundle("VisualLogic/FrameCircuit").getString("Property-Editor"), propertyEditor);
 
         projectPalette1 = new ProjectPalette(this);
-        jPanel1.add(projectPalette1);
+        jPanelProjectExplorer.add(projectPalette1);
 
         elementPaletteCircuit = new ElementPalette(this);
         elementPaletteCircuit.frameCircuit = this;
@@ -1592,29 +1615,29 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 Basis basis = getActualBasis();
 
                 if (basis == null) {
-                    jButton5.setEnabled(false);
+                    jButtonVariables_H.setEnabled(false);
                     jmiStart.setEnabled(false);
                     jmiStop.setEnabled(false);
-                    jButtonStart.setEnabled(false);
-                    jButtonStop.setEnabled(false);
-                    jButtonPause.setEnabled(false);
-                    jButtonResume.setEnabled(false);
+                    jButtonStart_J.setEnabled(false);
+                    jButtonStop_L.setEnabled(false);
+                    jButtonPause_M.setEnabled(false);
+                    jButtonResume_N.setEnabled(false);
                     jmiPause.setEnabled(false);
                     jmiResume.setEnabled(false);
 
-                    jButtonStep.setEnabled(false);
+                    jButtonStep_O.setEnabled(false);
                     jmiStep.setEnabled(false);
-                    jButtonRefreshVM.setEnabled(false);
-                    cmdUndo.setEnabled(false);
-                    cmdRedo.setEnabled(false);
-                    cmdSave.setEnabled(false);
-                    jButtonDebug.setEnabled(false);
+                    jButtonRefreshVM_F.setEnabled(false);
+                    jButtonUndo_D.setEnabled(false);
+                    jButtonRedo_E.setEnabled(false);
+                    jButtonSave_C.setEnabled(false);
+                    jButtonDebug_K.setEnabled(false);
 
-                    jButton7.setEnabled(false);
-                    jButton8.setEnabled(false);
-                    jButton9.setEnabled(false);
+                    jButtonTestPointWin_R.setEnabled(false);
+                    jButtonDigitalWindow_Q.setEnabled(false);
+                    jButtonAnalogWindow_P.setEnabled(false);
                     jSpinnerDebugDelayTime.setEnabled(false);
-                    jButton12.setEnabled(false);
+                    jButtonConsoleOut_S.setEnabled(false);
 
                     //elementPaletteCircuit.setEnabled(false);
                     //elementPaletteFront.setEnabled(false);
@@ -1670,28 +1693,28 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 jmniDefineVariables.setEnabled(true);
                 jmniPasswordProtection.setEnabled(true);
 
-                jButton12.setEnabled(true);
+                jButtonConsoleOut_S.setEnabled(true);
                 jSpinnerDebugDelayTime.setEnabled(true);
-                jButton7.setEnabled(true);
-                jButton8.setEnabled(true);
-                jButton9.setEnabled(true);
+                jButtonTestPointWin_R.setEnabled(true);
+                jButtonDigitalWindow_Q.setEnabled(true);
+                jButtonAnalogWindow_P.setEnabled(true);
 
                 if (basis != null) {
                     if (basis.projectPath.trim().length() > 0) {
                         ProjectProperties props = Tools.openProjectFile(new File(basis.projectPath));
                         if (props.projectType.equalsIgnoreCase("SPS")) {
-                            jButtonDebug.setEnabled(false);
+                            jButtonDebug_K.setEnabled(false);
                         } else {
-                            jButtonDebug.setEnabled(true);
+                            jButtonDebug_K.setEnabled(true);
                         }
                     }
                 }
 
-                jButton5.setEnabled(true);
-                jButtonRefreshVM.setEnabled(true);
-                cmdUndo.setEnabled(true);
-                cmdRedo.setEnabled(true);
-                cmdSave.setEnabled(true);
+                jButtonVariables_H.setEnabled(true);
+                jButtonRefreshVM_F.setEnabled(true);
+                jButtonUndo_D.setEnabled(true);
+                jButtonRedo_E.setEnabled(true);
+                jButtonSave_C.setEnabled(true);
 
                 if (basis.isLoading()) {
                     return;
@@ -1718,7 +1741,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 oldElementCount=getVMObject().getElementCount();
                 }*/
 
-                jButtonStart.setEnabled(true);
+                jButtonStart_J.setEnabled(true);
 
                 jmiSave.setEnabled(true);
                 //jmiSaveAsModul.setEnabled(true);
@@ -1727,10 +1750,10 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 //jButtonDebug.setEnabled(true);
                 jmiStop.setEnabled(true);
 
-                jButtonRefreshVM.setEnabled(true);
+                jButtonRefreshVM_F.setEnabled(true);
 
-                jButtonPause.setEnabled(true);
-                jButtonResume.setEnabled(true);
+                jButtonPause_M.setEnabled(true);
+                jButtonResume_N.setEnabled(true);
                 jmiPause.setEnabled(true);
                 jmiResume.setEnabled(true);
                 jmiStep.setEnabled(true);
@@ -1739,50 +1762,50 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 //jComboBox1.setSelectedItem(""+getVMObject().owner.getDelay());
                 if (getVMObject().owner.getUndoPointer() > 1) {
                     jmiUndo.setEnabled(true);
-                    cmdUndo.setEnabled(true);
+                    jButtonUndo_D.setEnabled(true);
                 } else {
                     jmiUndo.setEnabled(false);
-                    cmdUndo.setEnabled(false);
+                    jButtonUndo_D.setEnabled(false);
                 }
 
                 if (getVMObject().owner.getUndoPointer() < getVMObject().owner.getUndoHistorySize()) {
                     jmiRedo.setEnabled(true);
-                    cmdRedo.setEnabled(true);
+                    jButtonRedo_E.setEnabled(true);
                 } else {
                     jmiRedo.setEnabled(false);
-                    cmdRedo.setEnabled(false);
+                    jButtonRedo_E.setEnabled(false);
                 }
 
                 if (getVMObject().isRunning()) {
                     jmiStart.setEnabled(false);
                     jmiStop.setEnabled(true);
-                    jButtonStart.setEnabled(false);
-                    jButtonDebug.setEnabled(false);
-                    jButtonStop.setEnabled(true);
+                    jButtonStart_J.setEnabled(false);
+                    jButtonDebug_K.setEnabled(false);
+                    jButtonStop_L.setEnabled(true);
 
-                    jButtonStep.setEnabled(true);
+                    jButtonStep_O.setEnabled(true);
                     jmiStep.setEnabled(true);
                     //setBarsEnabled(false);
 
-                    jButtonRefreshVM.setEnabled(false);
+                    jButtonRefreshVM_F.setEnabled(false);
 
                     if (getVMObject().isPaused()) {
-                        jButtonPause.setEnabled(false);
-                        jButtonResume.setEnabled(true);
+                        jButtonPause_M.setEnabled(false);
+                        jButtonResume_N.setEnabled(true);
                         jmiPause.setEnabled(false);
                         jmiResume.setEnabled(true);
 
-                        jButtonStep.setEnabled(true);
+                        jButtonStep_O.setEnabled(true);
                         jmiStep.setEnabled(true);
 
                     } else {
                         jmiPause.setEnabled(true);
                         jmiResume.setEnabled(false);
 
-                        jButtonPause.setEnabled(true);
-                        jButtonResume.setEnabled(false);
+                        jButtonPause_M.setEnabled(true);
+                        jButtonResume_N.setEnabled(false);
 
-                        jButtonStep.setEnabled(false);
+                        jButtonStep_O.setEnabled(false);
                         jmiStep.setEnabled(false);
 
                     }
@@ -1790,14 +1813,14 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 } else {
                     jmiStart.setEnabled(true);
                     jmiStop.setEnabled(false);
-                    jButtonStart.setEnabled(true);
-                    jButtonStop.setEnabled(false);
-                    jButtonPause.setEnabled(false);
-                    jButtonResume.setEnabled(false);
+                    jButtonStart_J.setEnabled(true);
+                    jButtonStop_L.setEnabled(false);
+                    jButtonPause_M.setEnabled(false);
+                    jButtonResume_N.setEnabled(false);
                     jmiPause.setEnabled(false);
                     jmiResume.setEnabled(false);
 
-                    jButtonStep.setEnabled(false);
+                    jButtonStep_O.setEnabled(false);
                     jmiStep.setEnabled(false);
                 }
             }
@@ -1898,7 +1921,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     }
 
     public void removeVMPanel(VMEditorPanel panel) {
-        paneRight.remove(panel);
+        jPaneVMPanels.remove(panel);
         desktop.remove(panel.basis);
     }
 
@@ -2123,49 +2146,49 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         jmiCopyToClip = new javax.swing.JMenuItem();
         jPopupMenu2 = new javax.swing.JPopupMenu();
         jmniCloseAllVMs = new javax.swing.JMenuItem();
-        jPanel5 = new javax.swing.JPanel();
-        jToolBar6 = new javax.swing.JToolBar();
-        jButton10 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        cmdSave = new javax.swing.JButton();
-        cmdUndo = new javax.swing.JButton();
-        cmdRedo = new javax.swing.JButton();
-        jButtonRefreshVM = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButtonStart = new javax.swing.JButton();
-        jButtonDebug = new javax.swing.JButton();
-        jButtonStop = new javax.swing.JButton();
-        jButtonPause = new javax.swing.JButton();
-        jButtonResume = new javax.swing.JButton();
-        jButtonStep = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jPanelMainToolsMenuAndDebugTime = new javax.swing.JPanel();
+        jToolBar_MainToolbar = new javax.swing.JToolBar();
+        jButtonNewProject_A = new javax.swing.JButton();
+        jButtonOpenProject_B = new javax.swing.JButton();
+        jButtonSave_C = new javax.swing.JButton();
+        jButtonUndo_D = new javax.swing.JButton();
+        jButtonRedo_E = new javax.swing.JButton();
+        jButtonRefreshVM_F = new javax.swing.JButton();
+        jButtonOptions_G = new javax.swing.JButton();
+        jButtonVariables_H = new javax.swing.JButton();
+        jButtonWireLegends_I = new javax.swing.JButton();
+        jButtonStart_J = new javax.swing.JButton();
+        jButtonDebug_K = new javax.swing.JButton();
+        jButtonStop_L = new javax.swing.JButton();
+        jButtonPause_M = new javax.swing.JButton();
+        jButtonResume_N = new javax.swing.JButton();
+        jButtonStep_O = new javax.swing.JButton();
+        jButtonAnalogWindow_P = new javax.swing.JButton();
+        jButtonDigitalWindow_Q = new javax.swing.JButton();
+        jButtonTestPointWin_R = new javax.swing.JButton();
+        jButtonConsoleOut_S = new javax.swing.JButton();
+        jButtonRepository_T = new javax.swing.JButton();
+        jButtonAbout_U = new javax.swing.JButton();
+        jPanelDebugTimeSettings = new javax.swing.JPanel();
+        jLabelDebugDelay = new javax.swing.JLabel();
         jSpinnerDebugDelayTime = new javax.swing.JSpinner();
         jSplitPane3 = new javax.swing.JSplitPane();
         jPanelLeft = new javax.swing.JPanel();
         jSplitPane1 = new javax.swing.JSplitPane();
-        jPanelPE = new javax.swing.JPanel();
+        jPanelPropertyEditor = new javax.swing.JPanel();
         jTabPropertyEditor = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
+        jPanelElementList = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
+        jPanelProjectExplorer = new javax.swing.JPanel();
+        jPanelCenter = new javax.swing.JPanel();
         jPanelElementPalette = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        paneRight = new javax.swing.JTabbedPane();
-        jPanel7 = new javax.swing.JPanel();
+        jPanelVMsWorkSpace = new javax.swing.JPanel();
+        jPaneVMPanels = new javax.swing.JTabbedPane();
+        jPanelHelpWindow = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jButton13 = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
-        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenuBar_MainMenuBar = new javax.swing.JMenuBar();
         jmnuDatei = new javax.swing.JMenu();
         jmiNewProject = new javax.swing.JMenuItem();
         jmiOpenProject = new javax.swing.JMenuItem();
@@ -2284,256 +2307,258 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             }
         });
 
-        jPanel5.setPreferredSize(new java.awt.Dimension(100, 38));
+        jPanelMainToolsMenuAndDebugTime.setPreferredSize(new java.awt.Dimension(100, 38));
 
-        jToolBar6.setBorder(null);
-        jToolBar6.setRollover(true);
-        jToolBar6.setBorderPainted(false);
-        jToolBar6.setOpaque(false);
-        jToolBar6.setPreferredSize(new java.awt.Dimension(70, 35));
+        jToolBar_MainToolbar.setBorder(null);
+        jToolBar_MainToolbar.setRollover(true);
+        jToolBar_MainToolbar.setBorderPainted(false);
+        jToolBar_MainToolbar.setOpaque(false);
+        jToolBar_MainToolbar.setPreferredSize(new java.awt.Dimension(70, 35));
 
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/document-new.png"))); // NOI18N
-        jButton10.setToolTipText(bundle.getString("NewProject")); // NOI18N
-        jButton10.setBorderPainted(false);
-        jButton10.setPreferredSize(new java.awt.Dimension(28, 25));
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        jButtonNewProject_A.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/document-new.png"))); // NOI18N
+        jButtonNewProject_A.setToolTipText(bundle.getString("NewProject")); // NOI18N
+        jButtonNewProject_A.setBorderPainted(false);
+        jButtonNewProject_A.setPreferredSize(new java.awt.Dimension(28, 25));
+        jButtonNewProject_A.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                jButtonNewProject_AActionPerformed(evt);
             }
         });
-        jToolBar6.add(jButton10);
+        jToolBar_MainToolbar.add(jButtonNewProject_A);
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/open24Project.gif"))); // NOI18N
-        jButton3.setToolTipText(bundle.getString("openProject")); // NOI18N
-        jButton3.setBorderPainted(false);
-        jButton3.setPreferredSize(new java.awt.Dimension(28, 25));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButtonOpenProject_B.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/open24Project.gif"))); // NOI18N
+        jButtonOpenProject_B.setToolTipText(bundle.getString("openProject")); // NOI18N
+        jButtonOpenProject_B.setBorderPainted(false);
+        jButtonOpenProject_B.setPreferredSize(new java.awt.Dimension(28, 25));
+        jButtonOpenProject_B.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButtonOpenProject_BActionPerformed(evt);
             }
         });
-        jToolBar6.add(jButton3);
+        jToolBar_MainToolbar.add(jButtonOpenProject_B);
 
-        cmdSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/save.png"))); // NOI18N
-        cmdSave.setToolTipText(bundle.getString("VM_Speichern")); // NOI18N
-        cmdSave.setBorderPainted(false);
-        cmdSave.setPreferredSize(new java.awt.Dimension(28, 25));
-        cmdSave.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSave_C.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/save.png"))); // NOI18N
+        jButtonSave_C.setToolTipText(bundle.getString("VM_Speichern")); // NOI18N
+        jButtonSave_C.setBorderPainted(false);
+        jButtonSave_C.setPreferredSize(new java.awt.Dimension(28, 25));
+        jButtonSave_C.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdSaveActionPerformed(evt);
+                jButtonSave_CActionPerformed(evt);
             }
         });
-        jToolBar6.add(cmdSave);
+        jToolBar_MainToolbar.add(jButtonSave_C);
 
-        cmdUndo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/edit-undo.png"))); // NOI18N
-        cmdUndo.setToolTipText(bundle.getString("Rückgängig")); // NOI18N
-        cmdUndo.setBorderPainted(false);
-        cmdUndo.setPreferredSize(new java.awt.Dimension(28, 25));
-        cmdUndo.addActionListener(new java.awt.event.ActionListener() {
+        jButtonUndo_D.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/edit-undo.png"))); // NOI18N
+        jButtonUndo_D.setToolTipText(bundle.getString("Rückgängig")); // NOI18N
+        jButtonUndo_D.setBorderPainted(false);
+        jButtonUndo_D.setPreferredSize(new java.awt.Dimension(28, 25));
+        jButtonUndo_D.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdUndoActionPerformed(evt);
+                jButtonUndo_DActionPerformed(evt);
             }
         });
-        jToolBar6.add(cmdUndo);
+        jToolBar_MainToolbar.add(jButtonUndo_D);
 
-        cmdRedo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/edit-redo.png"))); // NOI18N
-        cmdRedo.setToolTipText(bundle.getString("Wiederholen")); // NOI18N
-        cmdRedo.setBorderPainted(false);
-        cmdRedo.setPreferredSize(new java.awt.Dimension(28, 25));
-        cmdRedo.addActionListener(new java.awt.event.ActionListener() {
+        jButtonRedo_E.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/edit-redo.png"))); // NOI18N
+        jButtonRedo_E.setToolTipText(bundle.getString("Wiederholen")); // NOI18N
+        jButtonRedo_E.setBorderPainted(false);
+        jButtonRedo_E.setPreferredSize(new java.awt.Dimension(28, 25));
+        jButtonRedo_E.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdRedoActionPerformed(evt);
+                jButtonRedo_EActionPerformed(evt);
             }
         });
-        jToolBar6.add(cmdRedo);
+        jToolBar_MainToolbar.add(jButtonRedo_E);
 
-        jButtonRefreshVM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/view-refresh.png"))); // NOI18N
-        jButtonRefreshVM.setToolTipText(bundle.getString("Reload VM")); // NOI18N
-        jButtonRefreshVM.setBorderPainted(false);
-        jButtonRefreshVM.setPreferredSize(new java.awt.Dimension(28, 25));
-        jButtonRefreshVM.addActionListener(new java.awt.event.ActionListener() {
+        jButtonRefreshVM_F.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/view-refresh.png"))); // NOI18N
+        jButtonRefreshVM_F.setToolTipText(bundle.getString("Reload VM")); // NOI18N
+        jButtonRefreshVM_F.setBorderPainted(false);
+        jButtonRefreshVM_F.setPreferredSize(new java.awt.Dimension(28, 25));
+        jButtonRefreshVM_F.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRefreshVMActionPerformed(evt);
+                jButtonRefreshVM_FActionPerformed(evt);
             }
         });
-        jToolBar6.add(jButtonRefreshVM);
+        jToolBar_MainToolbar.add(jButtonRefreshVM_F);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/preferences-desktop.png"))); // NOI18N
-        jButton2.setToolTipText(bundle.getString("Options")); // NOI18N
-        jButton2.setBorderPainted(false);
-        jButton2.setPreferredSize(new java.awt.Dimension(28, 25));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonOptions_G.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/preferences-desktop.png"))); // NOI18N
+        jButtonOptions_G.setToolTipText(bundle.getString("Options")); // NOI18N
+        jButtonOptions_G.setBorderPainted(false);
+        jButtonOptions_G.setPreferredSize(new java.awt.Dimension(28, 25));
+        jButtonOptions_G.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonOptions_GActionPerformed(evt);
             }
         });
-        jToolBar6.add(jButton2);
+        jToolBar_MainToolbar.add(jButtonOptions_G);
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/variables.png"))); // NOI18N
-        jButton5.setToolTipText(bundle.getString("variable_definition")); // NOI18N
-        jButton5.setBorderPainted(false);
-        jButton5.setPreferredSize(new java.awt.Dimension(28, 25));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jButtonVariables_H.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/variables.png"))); // NOI18N
+        jButtonVariables_H.setToolTipText(bundle.getString("variable_definition")); // NOI18N
+        jButtonVariables_H.setBorderPainted(false);
+        jButtonVariables_H.setPreferredSize(new java.awt.Dimension(28, 25));
+        jButtonVariables_H.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jButtonVariables_HActionPerformed(evt);
             }
         });
-        jToolBar6.add(jButton5);
+        jToolBar_MainToolbar.add(jButtonVariables_H);
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/Legende.GIF"))); // NOI18N
-        jButton6.setToolTipText(bundle.getString("Datentyp-Legende")); // NOI18N
-        jButton6.setBorderPainted(false);
-        jButton6.setPreferredSize(new java.awt.Dimension(28, 25));
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        jButtonWireLegends_I.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/Legende.GIF"))); // NOI18N
+        jButtonWireLegends_I.setToolTipText(bundle.getString("Datentyp-Legende")); // NOI18N
+        jButtonWireLegends_I.setBorderPainted(false);
+        jButtonWireLegends_I.setPreferredSize(new java.awt.Dimension(28, 25));
+        jButtonWireLegends_I.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                jButtonWireLegends_IActionPerformed(evt);
             }
         });
-        jToolBar6.add(jButton6);
+        jToolBar_MainToolbar.add(jButtonWireLegends_I);
 
-        jButtonStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/play24.gif"))); // NOI18N
-        jButtonStart.setToolTipText(bundle.getString("Start_VM")); // NOI18N
-        jButtonStart.setBorderPainted(false);
-        jButtonStart.setPreferredSize(new java.awt.Dimension(28, 25));
-        jButtonStart.addActionListener(new java.awt.event.ActionListener() {
+        jButtonStart_J.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/play24.gif"))); // NOI18N
+        jButtonStart_J.setToolTipText(bundle.getString("Start_VM")); // NOI18N
+        jButtonStart_J.setBorderPainted(false);
+        jButtonStart_J.setPreferredSize(new java.awt.Dimension(28, 25));
+        jButtonStart_J.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonStartActionPerformed(evt);
+                jButtonStart_JActionPerformed(evt);
             }
         });
-        jToolBar6.add(jButtonStart);
+        jToolBar_MainToolbar.add(jButtonStart_J);
 
-        jButtonDebug.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/startX.png"))); // NOI18N
-        jButtonDebug.setToolTipText(bundle.getString("Start_VM_(Debug_Modus)")); // NOI18N
-        jButtonDebug.setBorderPainted(false);
-        jButtonDebug.setPreferredSize(new java.awt.Dimension(28, 25));
-        jButtonDebug.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDebug_K.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/startX.png"))); // NOI18N
+        jButtonDebug_K.setToolTipText(bundle.getString("Start_VM_(Debug_Modus)")); // NOI18N
+        jButtonDebug_K.setBorderPainted(false);
+        jButtonDebug_K.setPreferredSize(new java.awt.Dimension(28, 25));
+        jButtonDebug_K.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDebugActionPerformed(evt);
+                jButtonDebug_KActionPerformed(evt);
             }
         });
-        jToolBar6.add(jButtonDebug);
+        jToolBar_MainToolbar.add(jButtonDebug_K);
 
-        jButtonStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/stop24.gif"))); // NOI18N
-        jButtonStop.setToolTipText(bundle.getString("Stop_VM")); // NOI18N
-        jButtonStop.setBorderPainted(false);
-        jButtonStop.setPreferredSize(new java.awt.Dimension(28, 25));
-        jButtonStop.addActionListener(new java.awt.event.ActionListener() {
+        jButtonStop_L.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/stop24.gif"))); // NOI18N
+        jButtonStop_L.setToolTipText(bundle.getString("Stop_VM")); // NOI18N
+        jButtonStop_L.setBorderPainted(false);
+        jButtonStop_L.setPreferredSize(new java.awt.Dimension(28, 25));
+        jButtonStop_L.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonStopActionPerformed(evt);
+                jButtonStop_LActionPerformed(evt);
             }
         });
-        jToolBar6.add(jButtonStop);
+        jToolBar_MainToolbar.add(jButtonStop_L);
 
-        jButtonPause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/pause24.gif"))); // NOI18N
-        jButtonPause.setToolTipText(bundle.getString("Pause_VM")); // NOI18N
-        jButtonPause.setBorderPainted(false);
-        jButtonPause.setPreferredSize(new java.awt.Dimension(28, 25));
-        jButtonPause.addActionListener(new java.awt.event.ActionListener() {
+        jButtonPause_M.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/pause24.gif"))); // NOI18N
+        jButtonPause_M.setToolTipText(bundle.getString("Pause_VM")); // NOI18N
+        jButtonPause_M.setBorderPainted(false);
+        jButtonPause_M.setPreferredSize(new java.awt.Dimension(28, 25));
+        jButtonPause_M.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonPauseActionPerformed(evt);
+                jButtonPause_MActionPerformed(evt);
             }
         });
-        jToolBar6.add(jButtonPause);
+        jToolBar_MainToolbar.add(jButtonPause_M);
 
-        jButtonResume.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/Resume.GIF"))); // NOI18N
-        jButtonResume.setToolTipText(bundle.getString("Weiter_VM")); // NOI18N
-        jButtonResume.setBorderPainted(false);
-        jButtonResume.setPreferredSize(new java.awt.Dimension(28, 25));
-        jButtonResume.addActionListener(new java.awt.event.ActionListener() {
+        jButtonResume_N.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/Resume.GIF"))); // NOI18N
+        jButtonResume_N.setToolTipText(bundle.getString("Weiter_VM")); // NOI18N
+        jButtonResume_N.setBorderPainted(false);
+        jButtonResume_N.setPreferredSize(new java.awt.Dimension(28, 25));
+        jButtonResume_N.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonResumeActionPerformed(evt);
+                jButtonResume_NActionPerformed(evt);
             }
         });
-        jToolBar6.add(jButtonResume);
+        jToolBar_MainToolbar.add(jButtonResume_N);
 
-        jButtonStep.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/Step24.PNG"))); // NOI18N
-        jButtonStep.setToolTipText(bundle.getString("Schritt_VM")); // NOI18N
-        jButtonStep.setBorderPainted(false);
-        jButtonStep.setPreferredSize(new java.awt.Dimension(28, 25));
-        jButtonStep.addActionListener(new java.awt.event.ActionListener() {
+        jButtonStep_O.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/Step24.PNG"))); // NOI18N
+        jButtonStep_O.setToolTipText(bundle.getString("Schritt_VM")); // NOI18N
+        jButtonStep_O.setBorderPainted(false);
+        jButtonStep_O.setPreferredSize(new java.awt.Dimension(28, 25));
+        jButtonStep_O.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonStepActionPerformed(evt);
+                jButtonStep_OActionPerformed(evt);
             }
         });
-        jToolBar6.add(jButtonStep);
+        jToolBar_MainToolbar.add(jButtonStep_O);
 
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/graphDouble.gif"))); // NOI18N
-        jButton9.setToolTipText(bundle.getString("NumerikGraphWindow")); // NOI18N
-        jButton9.setBorderPainted(false);
-        jButton9.setPreferredSize(new java.awt.Dimension(28, 25));
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAnalogWindow_P.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/graphDouble.gif"))); // NOI18N
+        jButtonAnalogWindow_P.setToolTipText(bundle.getString("NumerikGraphWindow")); // NOI18N
+        jButtonAnalogWindow_P.setBorderPainted(false);
+        jButtonAnalogWindow_P.setPreferredSize(new java.awt.Dimension(28, 25));
+        jButtonAnalogWindow_P.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                jButtonAnalogWindow_PActionPerformed(evt);
             }
         });
-        jToolBar6.add(jButton9);
+        jToolBar_MainToolbar.add(jButtonAnalogWindow_P);
 
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/graphBoolean.gif"))); // NOI18N
-        jButton8.setToolTipText(bundle.getString("DigitalGraphWindow")); // NOI18N
-        jButton8.setBorderPainted(false);
-        jButton8.setPreferredSize(new java.awt.Dimension(28, 25));
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDigitalWindow_Q.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/graphBoolean.gif"))); // NOI18N
+        jButtonDigitalWindow_Q.setToolTipText(bundle.getString("DigitalGraphWindow")); // NOI18N
+        jButtonDigitalWindow_Q.setBorderPainted(false);
+        jButtonDigitalWindow_Q.setPreferredSize(new java.awt.Dimension(28, 25));
+        jButtonDigitalWindow_Q.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                jButtonDigitalWindow_QActionPerformed(evt);
             }
         });
-        jToolBar6.add(jButton8);
+        jToolBar_MainToolbar.add(jButtonDigitalWindow_Q);
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/testpoint.PNG"))); // NOI18N
-        jButton7.setToolTipText(bundle.getString("TestpointWindow")); // NOI18N
-        jButton7.setBorderPainted(false);
-        jButton7.setPreferredSize(new java.awt.Dimension(28, 25));
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        jButtonTestPointWin_R.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/testpoint.PNG"))); // NOI18N
+        jButtonTestPointWin_R.setToolTipText(bundle.getString("TestpointWindow")); // NOI18N
+        jButtonTestPointWin_R.setBorderPainted(false);
+        jButtonTestPointWin_R.setPreferredSize(new java.awt.Dimension(28, 25));
+        jButtonTestPointWin_R.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                jButtonTestPointWin_RActionPerformed(evt);
             }
         });
-        jToolBar6.add(jButton7);
+        jToolBar_MainToolbar.add(jButtonTestPointWin_R);
 
-        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/utilities-terminal.png"))); // NOI18N
-        jButton12.setBorderPainted(false);
-        jButton12.setPreferredSize(new java.awt.Dimension(28, 25));
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
+        jButtonConsoleOut_S.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/utilities-terminal.png"))); // NOI18N
+        jButtonConsoleOut_S.setToolTipText(bundle.getString("FrameMain.jButtonConsoleOut_S.toolTipText")); // NOI18N
+        jButtonConsoleOut_S.setBorderPainted(false);
+        jButtonConsoleOut_S.setPreferredSize(new java.awt.Dimension(28, 25));
+        jButtonConsoleOut_S.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
+                jButtonConsoleOut_SActionPerformed(evt);
             }
         });
-        jToolBar6.add(jButton12);
+        jToolBar_MainToolbar.add(jButtonConsoleOut_S);
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/storage24x24.png"))); // NOI18N
-        jButton4.setText(bundle.getString("FrameMain.jButton4.text")); // NOI18N
-        jButton4.setToolTipText(bundle.getString("FrameMain.jButton4.toolTipText")); // NOI18N
-        jButton4.setBorderPainted(false);
-        jButton4.setFocusable(false);
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButtonRepository_T.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/storage24x24.png"))); // NOI18N
+        jButtonRepository_T.setText(bundle.getString("FrameMain.jButtonRepository_T.text")); // NOI18N
+        jButtonRepository_T.setToolTipText(bundle.getString("FrameMain.jButtonRepository_T.toolTipText")); // NOI18N
+        jButtonRepository_T.setBorderPainted(false);
+        jButtonRepository_T.setFocusable(false);
+        jButtonRepository_T.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonRepository_T.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonRepository_T.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButtonRepository_TActionPerformed(evt);
             }
         });
-        jToolBar6.add(jButton4);
+        jToolBar_MainToolbar.add(jButtonRepository_T);
 
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/Information24.gif"))); // NOI18N
-        jButton11.setToolTipText(bundle.getString("Info")); // NOI18N
-        jButton11.setBorderPainted(false);
-        jButton11.setPreferredSize(new java.awt.Dimension(28, 25));
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAbout_U.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/Information24.gif"))); // NOI18N
+        jButtonAbout_U.setToolTipText(bundle.getString("Info")); // NOI18N
+        jButtonAbout_U.setBorderPainted(false);
+        jButtonAbout_U.setPreferredSize(new java.awt.Dimension(28, 25));
+        jButtonAbout_U.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                jButtonAbout_UActionPerformed(evt);
             }
         });
-        jToolBar6.add(jButton11);
+        jToolBar_MainToolbar.add(jButtonAbout_U);
 
-        jPanel3.setPreferredSize(new java.awt.Dimension(230, 30));
+        jPanelDebugTimeSettings.setPreferredSize(new java.awt.Dimension(230, 30));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText(bundle.getString("Delay")); // NOI18N
-        jLabel2.setToolTipText(bundle.getString("FrameMain.jLabel2.toolTipText")); // NOI18N
-        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setPreferredSize(new java.awt.Dimension(120, 15));
+        jLabelDebugDelay.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelDebugDelay.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelDebugDelay.setText(bundle.getString("Delay")); // NOI18N
+        jLabelDebugDelay.setToolTipText(bundle.getString("FrameMain.jLabelDebugDelay.toolTipText")); // NOI18N
+        jLabelDebugDelay.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jLabelDebugDelay.setPreferredSize(new java.awt.Dimension(120, 15));
 
+        jSpinnerDebugDelayTime.setToolTipText(bundle.getString("FrameMain.jSpinnerDebugDelayTime.toolTipText")); // NOI18N
         jSpinnerDebugDelayTime.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jSpinnerDebugDelayTime.setMinimumSize(new java.awt.Dimension(41, 55));
         jSpinnerDebugDelayTime.setPreferredSize(new java.awt.Dimension(80, 27));
@@ -2548,42 +2573,42 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             }
         });
 
-        org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel3Layout.createSequentialGroup()
-                .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 144, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+        org.jdesktop.layout.GroupLayout jPanelDebugTimeSettingsLayout = new org.jdesktop.layout.GroupLayout(jPanelDebugTimeSettings);
+        jPanelDebugTimeSettings.setLayout(jPanelDebugTimeSettingsLayout);
+        jPanelDebugTimeSettingsLayout.setHorizontalGroup(
+            jPanelDebugTimeSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanelDebugTimeSettingsLayout.createSequentialGroup()
+                .add(jLabelDebugDelay, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 144, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jSpinnerDebugDelayTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 67, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                .add(jLabel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+        jPanelDebugTimeSettingsLayout.setVerticalGroup(
+            jPanelDebugTimeSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanelDebugTimeSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                .add(jLabelDebugDelay, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                 .add(jSpinnerDebugDelayTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
 
-        org.jdesktop.layout.GroupLayout jPanel5Layout = new org.jdesktop.layout.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel5Layout.createSequentialGroup()
-                .add(jToolBar6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 711, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+        org.jdesktop.layout.GroupLayout jPanelMainToolsMenuAndDebugTimeLayout = new org.jdesktop.layout.GroupLayout(jPanelMainToolsMenuAndDebugTime);
+        jPanelMainToolsMenuAndDebugTime.setLayout(jPanelMainToolsMenuAndDebugTimeLayout);
+        jPanelMainToolsMenuAndDebugTimeLayout.setHorizontalGroup(
+            jPanelMainToolsMenuAndDebugTimeLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanelMainToolsMenuAndDebugTimeLayout.createSequentialGroup()
+                .add(jToolBar_MainToolbar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 711, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 256, Short.MAX_VALUE)
-                .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 225, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jPanelDebugTimeSettings, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 225, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel5Layout.createSequentialGroup()
-                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .add(jToolBar6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        jPanelMainToolsMenuAndDebugTimeLayout.setVerticalGroup(
+            jPanelMainToolsMenuAndDebugTimeLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanelMainToolsMenuAndDebugTimeLayout.createSequentialGroup()
+                .add(jPanelMainToolsMenuAndDebugTimeLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(jPanelDebugTimeSettings, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .add(jToolBar_MainToolbar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel5, java.awt.BorderLayout.NORTH);
+        getContentPane().add(jPanelMainToolsMenuAndDebugTime, java.awt.BorderLayout.NORTH);
 
         jSplitPane3.setDividerLocation(150);
         jSplitPane3.setContinuousLayout(true);
@@ -2605,16 +2630,18 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             }
         });
 
-        jPanelPE.setPreferredSize(new java.awt.Dimension(150, 5));
-        jPanelPE.setLayout(new java.awt.BorderLayout());
+        jPanelPropertyEditor.setPreferredSize(new java.awt.Dimension(150, 5));
+        jPanelPropertyEditor.setLayout(new java.awt.BorderLayout());
 
+        jTabPropertyEditor.setToolTipText(bundle.getString("FrameMain.jTabPropertyEditor.toolTipText")); // NOI18N
         jTabPropertyEditor.setPreferredSize(new java.awt.Dimension(100, 5));
-        jPanelPE.add(jTabPropertyEditor, java.awt.BorderLayout.CENTER);
+        jPanelPropertyEditor.add(jTabPropertyEditor, java.awt.BorderLayout.CENTER);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("Elements"))); // NOI18N
-        jPanel2.setPreferredSize(new java.awt.Dimension(100, 50));
-        jPanel2.setLayout(new java.awt.BorderLayout());
+        jPanelElementList.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("Elements"))); // NOI18N
+        jPanelElementList.setPreferredSize(new java.awt.Dimension(100, 50));
+        jPanelElementList.setLayout(new java.awt.BorderLayout());
 
+        jComboBox1.setToolTipText(bundle.getString("FrameMain.jComboBox1.toolTipText")); // NOI18N
         jComboBox1.setMinimumSize(new java.awt.Dimension(28, 25));
         jComboBox1.setPreferredSize(new java.awt.Dimension(28, 25));
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
@@ -2622,14 +2649,14 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 jComboBox1ItemStateChanged(evt);
             }
         });
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
         jComboBox1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jComboBox1MouseDragged(evt);
+            }
+        });
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
             }
         });
         jComboBox1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -2637,31 +2664,32 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 jComboBox1PropertyChange(evt);
             }
         });
-        jPanel2.add(jComboBox1, java.awt.BorderLayout.CENTER);
+        jPanelElementList.add(jComboBox1, java.awt.BorderLayout.CENTER);
 
-        jPanelPE.add(jPanel2, java.awt.BorderLayout.NORTH);
+        jPanelPropertyEditor.add(jPanelElementList, java.awt.BorderLayout.NORTH);
 
-        jSplitPane1.setRightComponent(jPanelPE);
+        jSplitPane1.setRightComponent(jPanelPropertyEditor);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
-        jPanel1.setPreferredSize(new java.awt.Dimension(200, 0));
-        jPanel1.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
+        jPanelProjectExplorer.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelProjectExplorer.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
+        jPanelProjectExplorer.setToolTipText(bundle.getString("FrameMain.jPanelProjectExplorer.toolTipText")); // NOI18N
+        jPanelProjectExplorer.setPreferredSize(new java.awt.Dimension(200, 0));
+        jPanelProjectExplorer.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
             public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
             }
             public void ancestorResized(java.awt.event.HierarchyEvent evt) {
-                jPanel1AncestorResized(evt);
+                jPanelProjectExplorerAncestorResized(evt);
             }
         });
-        jPanel1.setLayout(new java.awt.BorderLayout());
-        jSplitPane1.setTopComponent(jPanel1);
+        jPanelProjectExplorer.setLayout(new java.awt.BorderLayout());
+        jSplitPane1.setTopComponent(jPanelProjectExplorer);
 
         jPanelLeft.add(jSplitPane1, java.awt.BorderLayout.CENTER);
 
         jSplitPane3.setLeftComponent(jPanelLeft);
 
-        jPanel4.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel4.setLayout(new java.awt.BorderLayout());
+        jPanelCenter.setBackground(new java.awt.Color(153, 153, 153));
+        jPanelCenter.setLayout(new java.awt.BorderLayout());
 
         jPanelElementPalette.setAutoscrolls(true);
         jPanelElementPalette.setFocusTraversalPolicyProvider(true);
@@ -2683,28 +2711,28 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             }
         });
         jPanelElementPalette.setLayout(new java.awt.BorderLayout());
-        jPanel4.add(jPanelElementPalette, java.awt.BorderLayout.NORTH);
+        jPanelCenter.add(jPanelElementPalette, java.awt.BorderLayout.NORTH);
 
-        jPanel6.setLayout(new java.awt.BorderLayout());
+        jPanelVMsWorkSpace.setLayout(new java.awt.BorderLayout());
 
-        paneRight.setBackground(new java.awt.Color(237, 237, 237));
-        paneRight.setPreferredSize(new java.awt.Dimension(500, 500));
-        paneRight.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                paneRightMousePressed(evt);
-            }
-        });
-        paneRight.addChangeListener(new javax.swing.event.ChangeListener() {
+        jPaneVMPanels.setBackground(new java.awt.Color(237, 237, 237));
+        jPaneVMPanels.setPreferredSize(new java.awt.Dimension(500, 500));
+        jPaneVMPanels.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                paneRightStateChanged(evt);
+                jPaneVMPanelsStateChanged(evt);
             }
         });
-        jPanel6.add(paneRight, java.awt.BorderLayout.CENTER);
+        jPaneVMPanels.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPaneVMPanelsMousePressed(evt);
+            }
+        });
+        jPanelVMsWorkSpace.add(jPaneVMPanels, java.awt.BorderLayout.CENTER);
 
-        jPanel7.setFocusTraversalPolicyProvider(true);
-        jPanel7.setPreferredSize(new java.awt.Dimension(300, 100));
-        jPanel7.setRequestFocusEnabled(false);
-        jPanel7.setLayout(new java.awt.BorderLayout());
+        jPanelHelpWindow.setFocusTraversalPolicyProvider(true);
+        jPanelHelpWindow.setPreferredSize(new java.awt.Dimension(300, 100));
+        jPanelHelpWindow.setRequestFocusEnabled(false);
+        jPanelHelpWindow.setLayout(new java.awt.BorderLayout());
 
         jPanel8.setAutoscrolls(true);
         jPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -2742,24 +2770,25 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 .addContainerGap(439, Short.MAX_VALUE))
         );
 
-        jPanel7.add(jPanel8, java.awt.BorderLayout.WEST);
+        jPanelHelpWindow.add(jPanel8, java.awt.BorderLayout.WEST);
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setToolTipText(bundle.getString("FrameMain.jPanel9.toolTipText")); // NOI18N
         jPanel9.setEnabled(false);
         jPanel9.setPreferredSize(new java.awt.Dimension(100, 518));
         jPanel9.setLayout(new java.awt.BorderLayout());
-        jPanel7.add(jPanel9, java.awt.BorderLayout.CENTER);
+        jPanelHelpWindow.add(jPanel9, java.awt.BorderLayout.CENTER);
 
-        jPanel6.add(jPanel7, java.awt.BorderLayout.EAST);
+        jPanelVMsWorkSpace.add(jPanelHelpWindow, java.awt.BorderLayout.EAST);
 
-        jPanel4.add(jPanel6, java.awt.BorderLayout.CENTER);
+        jPanelCenter.add(jPanelVMsWorkSpace, java.awt.BorderLayout.CENTER);
 
-        jSplitPane3.setRightComponent(jPanel4);
+        jSplitPane3.setRightComponent(jPanelCenter);
 
         getContentPane().add(jSplitPane3, java.awt.BorderLayout.CENTER);
 
-        jMenuBar2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jMenuBar2.setFont(new java.awt.Font("Serif", 3, 36)); // NOI18N
+        jMenuBar_MainMenuBar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jMenuBar_MainMenuBar.setFont(new java.awt.Font("Serif", 3, 36)); // NOI18N
 
         jmnuDatei.setMnemonic('D');
         jmnuDatei.setText(bundle.getString("Datei")); // NOI18N
@@ -2851,7 +2880,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         });
         jmnuDatei.add(jmiCloseWindow);
 
-        jMenuBar2.add(jmnuDatei);
+        jMenuBar_MainMenuBar.add(jmnuDatei);
 
         jmnuEdit.setText(bundle.getString("Bearbeiten")); // NOI18N
 
@@ -2915,7 +2944,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         });
         jmnuEdit.add(jmiSelectAny);
 
-        jMenuBar2.add(jmnuEdit);
+        jMenuBar_MainMenuBar.add(jmnuEdit);
 
         jmnuVM.setText(bundle.getString("VM")); // NOI18N
         jmnuVM.addActionListener(new java.awt.event.ActionListener() {
@@ -3005,7 +3034,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         });
         jmnuVM.add(jmniDeletePasswordProtection);
 
-        jMenuBar2.add(jmnuVM);
+        jMenuBar_MainMenuBar.add(jmnuVM);
 
         jmnuExtras.setText(bundle.getString("FrameMain.jmnuExtras.text_1")); // NOI18N
         jmnuExtras.addActionListener(new java.awt.event.ActionListener() {
@@ -3058,7 +3087,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         });
         jmnuExtras.add(jmniUpdater);
 
-        jMenuBar2.add(jmnuExtras);
+        jMenuBar_MainMenuBar.add(jmnuExtras);
 
         jmnuWindow.setText(bundle.getString("Fenster")); // NOI18N
 
@@ -3124,7 +3153,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         });
         jmnuWindow.add(jmniCloseAllVms);
 
-        jMenuBar2.add(jmnuWindow);
+        jMenuBar_MainMenuBar.add(jmnuWindow);
 
         jmnuHelp.setText(bundle.getString("Hilfe")); // NOI18N
 
@@ -3186,9 +3215,9 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         });
         jmnuHelp.add(jmiInfo);
 
-        jMenuBar2.add(jmnuHelp);
+        jMenuBar_MainMenuBar.add(jmnuHelp);
 
-        setJMenuBar(jMenuBar2);
+        setJMenuBar(jMenuBar_MainMenuBar);
     }// </editor-fold>//GEN-END:initComponents
 
     private boolean unusedPinsExist() {
@@ -4433,17 +4462,17 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         }
     }//GEN-LAST:event_jmniShowErrorsAndWarningsActionPerformed
 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton12ActionPerformed
-    {//GEN-HEADEREND:event_jButton12ActionPerformed
+    private void jButtonConsoleOut_SActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonConsoleOut_SActionPerformed
+    {//GEN-HEADEREND:event_jButtonConsoleOut_SActionPerformed
         if (getActualBasis() != null) {
             getActualBasis().console.setVisible(true);
         }
-    }//GEN-LAST:event_jButton12ActionPerformed
+    }//GEN-LAST:event_jButtonConsoleOut_SActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton11ActionPerformed
-    {//GEN-HEADEREND:event_jButton11ActionPerformed
+    private void jButtonAbout_UActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAbout_UActionPerformed
+    {//GEN-HEADEREND:event_jButtonAbout_UActionPerformed
         showInfo(this);
-    }//GEN-LAST:event_jButton11ActionPerformed
+    }//GEN-LAST:event_jButtonAbout_UActionPerformed
 
     public static void copyFile(String src, String dst) throws IOException {
         Tools.copyHighSpeed(new File(src), new File(dst));
@@ -4636,8 +4665,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     }
 
     public int getTabIndex(VMEditorPanel panel) {
-        for (int i = 0; i < paneRight.getComponentCount(); i++) {
-            Component comp = paneRight.getComponentAt(i);
+        for (int i = 0; i < jPaneVMPanels.getComponentCount(); i++) {
+            Component comp = jPaneVMPanels.getComponentAt(i);
 
             if (comp.equals(panel)) {
                 return i;
@@ -4708,12 +4737,12 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
     private void jmiShowDigitalWindowActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmiShowDigitalWindowActionPerformed
     {//GEN-HEADEREND:event_jmiShowDigitalWindowActionPerformed
-        jButton8ActionPerformed(evt);
+        jButtonDigitalWindow_QActionPerformed(evt);
     }//GEN-LAST:event_jmiShowDigitalWindowActionPerformed
 
     private void jmiShowAnalogWindowActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmiShowAnalogWindowActionPerformed
     {//GEN-HEADEREND:event_jmiShowAnalogWindowActionPerformed
-        jButton9ActionPerformed(evt);
+        jButtonAnalogWindow_PActionPerformed(evt);
     }//GEN-LAST:event_jmiShowAnalogWindowActionPerformed
 
     private void jmniCloseAllVmsActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmniCloseAllVmsActionPerformed
@@ -4721,14 +4750,14 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         closeAllVms();
     }//GEN-LAST:event_jmniCloseAllVmsActionPerformed
 
-    private void jPanel1AncestorResized(java.awt.event.HierarchyEvent evt)//GEN-FIRST:event_jPanel1AncestorResized
-    {//GEN-HEADEREND:event_jPanel1AncestorResized
+    private void jPanelProjectExplorerAncestorResized(java.awt.event.HierarchyEvent evt)//GEN-FIRST:event_jPanelProjectExplorerAncestorResized
+    {//GEN-HEADEREND:event_jPanelProjectExplorerAncestorResized
 
-    }//GEN-LAST:event_jPanel1AncestorResized
+    }//GEN-LAST:event_jPanelProjectExplorerAncestorResized
 
     public boolean closeAllVms() {
-        while (paneRight.getTabCount() > 0) {
-            Component comp = paneRight.getComponentAt(0);
+        while (jPaneVMPanels.getTabCount() > 0) {
+            Component comp = jPaneVMPanels.getComponentAt(0);
 
             if (comp instanceof VMEditorPanel) {
                 VMEditorPanel panel = (VMEditorPanel) comp;
@@ -4748,8 +4777,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         closeAllVms();
     }//GEN-LAST:event_jmniCloseAllVMsActionPerformed
 
-    private void paneRightStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_paneRightStateChanged
-    {//GEN-HEADEREND:event_paneRightStateChanged
+    private void jPaneVMPanelsStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_jPaneVMPanelsStateChanged
+    {//GEN-HEADEREND:event_jPaneVMPanelsStateChanged
 
         Basis basis = getActualBasis();
         if (basis == null) {
@@ -4779,38 +4808,38 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     elementPalette.loadFolder(elementPalette.aktuellesVerzeichniss);
     }*/
 
-    }//GEN-LAST:event_paneRightStateChanged
+    }//GEN-LAST:event_jPaneVMPanelsStateChanged
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton9ActionPerformed
-    {//GEN-HEADEREND:event_jButton9ActionPerformed
+    private void jButtonAnalogWindow_PActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAnalogWindow_PActionPerformed
+    {//GEN-HEADEREND:event_jButtonAnalogWindow_PActionPerformed
 
         if (getActualBasis() != null) {
             getActualBasis().frameDoubleGraph.setVisible(true);
         }
 
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_jButtonAnalogWindow_PActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton8ActionPerformed
-    {//GEN-HEADEREND:event_jButton8ActionPerformed
+    private void jButtonDigitalWindow_QActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonDigitalWindow_QActionPerformed
+    {//GEN-HEADEREND:event_jButtonDigitalWindow_QActionPerformed
         if (getActualBasis() != null) {
             getActualBasis().frameBooleanGraph.setVisible(true);
         }
 
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_jButtonDigitalWindow_QActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton7ActionPerformed
-    {//GEN-HEADEREND:event_jButton7ActionPerformed
+    private void jButtonTestPointWin_RActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonTestPointWin_RActionPerformed
+    {//GEN-HEADEREND:event_jButtonTestPointWin_RActionPerformed
 
         if (getActualBasis() != null) {
             getActualBasis().dialogTestpoint.setVisible(true);
         }
 
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_jButtonTestPointWin_RActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton10ActionPerformed
-    {//GEN-HEADEREND:event_jButton10ActionPerformed
+    private void jButtonNewProject_AActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonNewProject_AActionPerformed
+    {//GEN-HEADEREND:event_jButtonNewProject_AActionPerformed
         jmiNewProjectActionPerformed(evt);
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_jButtonNewProject_AActionPerformed
 
     public void choiceLanguage(JFrame frame) {
         DialogLanguage lan = new DialogLanguage(frame, true);
@@ -4836,7 +4865,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
     private void jmiShowTestpointWindowActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmiShowTestpointWindowActionPerformed
     {//GEN-HEADEREND:event_jmiShowTestpointWindowActionPerformed
-        jButton7ActionPerformed(evt);
+        jButtonTestPointWin_RActionPerformed(evt);
     }//GEN-LAST:event_jmiShowTestpointWindowActionPerformed
 
     private void jSpinnerDebugDelayTimePropertyChange(java.beans.PropertyChangeEvent evt)//GEN-FIRST:event_jSpinnerDebugDelayTimePropertyChange
@@ -4886,7 +4915,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         }
     }
 
-    private void jButtonRefreshVMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshVMActionPerformed
+    private void jButtonRefreshVM_FActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshVM_FActionPerformed
 
         timer.stop();
         propertyEditor.locked = true;
@@ -4917,7 +4946,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     };
     worker.execute();*/
 
-    }//GEN-LAST:event_jButtonRefreshVMActionPerformed
+    }//GEN-LAST:event_jButtonRefreshVM_FActionPerformed
 
     private void jmiForumActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmiForumActionPerformed
     {//GEN-HEADEREND:event_jmiForumActionPerformed
@@ -4935,11 +4964,11 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
     private void jmniDefineVariablesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmniDefineVariablesActionPerformed
     {//GEN-HEADEREND:event_jmniDefineVariablesActionPerformed
-        jButton5ActionPerformed(evt);
+        jButtonVariables_HActionPerformed(evt);
     }//GEN-LAST:event_jmniDefineVariablesActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton5ActionPerformed
-    {//GEN-HEADEREND:event_jButton5ActionPerformed
+    private void jButtonVariables_HActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonVariables_HActionPerformed
+    {//GEN-HEADEREND:event_jButtonVariables_HActionPerformed
 
         Basis basis = getActualBasis();
         if (basis != null) {
@@ -4950,7 +4979,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             dialogVariables.setVisible(true);
             basis.generateAllVariabled();
         }
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_jButtonVariables_HActionPerformed
 
     public ArrayList<String> listAllVMsFromProject(String projectPath) {
         ArrayList<String> result = new ArrayList<String>();
@@ -5001,6 +5030,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             Tools.saveText(new File(destDir + File.separator + "start_linux_distribution"), "#!/bin/sh \njava -jar DistributionStarter.jar .");
 
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Distribution Could not be Created!");
             ex.printStackTrace();
             Error=true;
         }
@@ -5018,6 +5048,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         try {
             execFile.createNewFile();
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Distribution Could not be Created!");
             ex.printStackTrace();
             Error=true;
         }
@@ -5026,7 +5057,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         props.mainVM = mainVM;
         Tools.saveProjectFile(destDir, props);
         if(Error==false){
-        JOptionPane.showMessageDialog(rootPane, "If you have subVMs into Folders you must Copy it to the Distribution Folder");
+        JOptionPane.showMessageDialog(rootPane, "Distribution Successfully Created");    
+        JOptionPane.showMessageDialog(rootPane, "If your project contains subVMs located into folders you must copy that folders to the Distribution root Folder");
         }
 
     }
@@ -5041,10 +5073,10 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
     }//GEN-LAST:event_jmiSaveAsJPGActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
-    {//GEN-HEADEREND:event_jButton2ActionPerformed
+    private void jButtonOptions_GActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonOptions_GActionPerformed
+    {//GEN-HEADEREND:event_jButtonOptions_GActionPerformed
         jmniOptionsActionPerformed(evt);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonOptions_GActionPerformed
 
     private void jmiHomepageActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmiHomepageActionPerformed
     {//GEN-HEADEREND:event_jmiHomepageActionPerformed
@@ -5093,12 +5125,12 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
     private void jmiLegendActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmiLegendActionPerformed
     {//GEN-HEADEREND:event_jmiLegendActionPerformed
-        jButton6ActionPerformed(evt);
+        jButtonWireLegends_IActionPerformed(evt);
     }//GEN-LAST:event_jmiLegendActionPerformed
 
     private void refreshAllBasis() {
-        for (int i = 0; i < paneRight.getTabCount(); i++) {
-            Component comp = paneRight.getComponentAt(i);
+        for (int i = 0; i < jPaneVMPanels.getTabCount(); i++) {
+            Component comp = jPaneVMPanels.getComponentAt(i);
 
             if (comp instanceof VMEditorPanel) {
                 VMEditorPanel panel = (VMEditorPanel) comp;
@@ -5167,20 +5199,20 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
     }//GEN-LAST:event_jSplitPane1PropertyChange
 
-    private void cmdRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRedoActionPerformed
+    private void jButtonRedo_EActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRedo_EActionPerformed
         if (getActualBasis() != null) {
             getActualBasis().redo();
         }
 
-    }//GEN-LAST:event_cmdRedoActionPerformed
+    }//GEN-LAST:event_jButtonRedo_EActionPerformed
 
-    private void cmdUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdUndoActionPerformed
+    private void jButtonUndo_DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUndo_DActionPerformed
 
         if (getActualBasis() != null) {
             getActualBasis().undo();
         }
 
-    }//GEN-LAST:event_cmdUndoActionPerformed
+    }//GEN-LAST:event_jButtonUndo_DActionPerformed
 
     private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
 
@@ -5218,27 +5250,27 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
     }//GEN-LAST:event_jmiRedoActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void jButtonWireLegends_IActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonWireLegends_IActionPerformed
         frmDTLengend frm = new frmDTLengend(this.getIconImage());
         frm.setVisible(true);
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_jButtonWireLegends_IActionPerformed
 
     private void formComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentMoved
         //  basis.circuitPanelLeft=getLocation().x;
         //   basis.circuitPanelTop=getLocation().y;
     }//GEN-LAST:event_formComponentMoved
 
-    private void cmdSaveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cmdSaveActionPerformed
-    {//GEN-HEADEREND:event_cmdSaveActionPerformed
+    private void jButtonSave_CActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonSave_CActionPerformed
+    {//GEN-HEADEREND:event_jButtonSave_CActionPerformed
         jmiSaveActionPerformed(evt);
-    }//GEN-LAST:event_cmdSaveActionPerformed
+    }//GEN-LAST:event_jButtonSave_CActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButtonOpenProject_BActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOpenProject_BActionPerformed
 
         jmiOpenProjectActionPerformed(evt);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButtonOpenProject_BActionPerformed
 
-    private void jButtonDebugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDebugActionPerformed
+    private void jButtonDebug_KActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDebug_KActionPerformed
 
         Basis basis = getActualBasis();
         if (basis != null) {
@@ -5247,7 +5279,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 basis.start(true);
             }
         }
-    }//GEN-LAST:event_jButtonDebugActionPerformed
+    }//GEN-LAST:event_jButtonDebug_KActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
 
@@ -5645,35 +5677,35 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
     }//GEN-LAST:event_formFocusGained
 
-    private void jButtonStepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStepActionPerformed
+    private void jButtonStep_OActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStep_OActionPerformed
 
         Basis basis = getActualBasis();
         if (basis != null) {
             basis.step();
         }
 
-    }//GEN-LAST:event_jButtonStepActionPerformed
+    }//GEN-LAST:event_jButtonStep_OActionPerformed
 
-    private void jButtonResumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResumeActionPerformed
+    private void jButtonResume_NActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResume_NActionPerformed
         Basis basis = getActualBasis();
         if (basis != null) {
             basis.resume();
         }
-    }//GEN-LAST:event_jButtonResumeActionPerformed
+    }//GEN-LAST:event_jButtonResume_NActionPerformed
 
-    private void jButtonPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPauseActionPerformed
+    private void jButtonPause_MActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPause_MActionPerformed
         Basis basis = getActualBasis();
         if (basis != null) {
             basis.pause();
         }
-    }//GEN-LAST:event_jButtonPauseActionPerformed
+    }//GEN-LAST:event_jButtonPause_MActionPerformed
 
-    private void jButtonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStopActionPerformed
+    private void jButtonStop_LActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStop_LActionPerformed
         Basis basis = getActualBasis();
         if (basis != null) {
             basis.stop();
         }
-    }//GEN-LAST:event_jButtonStopActionPerformed
+    }//GEN-LAST:event_jButtonStop_LActionPerformed
 
     // MyOpenLabIF
     public void ownerMessage(String message) {
@@ -5751,7 +5783,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         }
     }
 
-    private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
+    private void jButtonStart_JActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStart_JActionPerformed
         //startBasis();
         Basis basis = getActualBasis();
         if (basis != null) {
@@ -5771,7 +5803,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         }
 
-    }//GEN-LAST:event_jButtonStartActionPerformed
+    }//GEN-LAST:event_jButtonStart_JActionPerformed
 
     private void jmiMantisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMantisActionPerformed
         Tools.openUrl(this, "http://mantis.myopenlab.de");
@@ -5789,13 +5821,13 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         showRepository();
     }//GEN-LAST:event_jmniUpdaterActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButtonRepository_TActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRepository_TActionPerformed
         showRepository();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jButtonRepository_TActionPerformed
 
-    private void paneRightMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paneRightMousePressed
+    private void jPaneVMPanelsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPaneVMPanelsMousePressed
 
-    }//GEN-LAST:event_paneRightMousePressed
+    }//GEN-LAST:event_jPaneVMPanelsMousePressed
 
     private void jPanel8MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseDragged
         Rectangle rect = getBounds();
@@ -5804,25 +5836,25 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         if (w < 5) {
             w = 5;
         }
-        jPanel7.setPreferredSize(new Dimension(w, 100));
-        jPanel7.updateUI();
+        jPanelHelpWindow.setPreferredSize(new Dimension(w, 100));
+        jPanelHelpWindow.updateUI();
     }//GEN-LAST:event_jPanel8MouseDragged
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
 
-        int xx = jPanel7.getWidth();
+        int xx = jPanelHelpWindow.getWidth();
 
         if (xx < 20) {
 
-            jPanel7.setPreferredSize(new Dimension(settings.getOldRightSplitterPos(), 100));
+            jPanelHelpWindow.setPreferredSize(new Dimension(settings.getOldRightSplitterPos(), 100));
             jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/arrow_black_right.png"))); // NOI18N
         } else {
             settings.setOldRightSplitterPos(xx);
-            jPanel7.setPreferredSize(new Dimension(10, 100));
+            jPanelHelpWindow.setPreferredSize(new Dimension(10, 100));
             jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/arrow_black_left.png"))); // NOI18N
         }
 
-        jPanel7.updateUI();
+        jPanelHelpWindow.updateUI();
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void showRepository() {
@@ -5963,43 +5995,44 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cmdRedo;
-    private javax.swing.JButton cmdSave;
-    private javax.swing.JButton cmdUndo;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JButton jButtonDebug;
-    private javax.swing.JButton jButtonPause;
-    private javax.swing.JButton jButtonRefreshVM;
-    private javax.swing.JButton jButtonResume;
-    private javax.swing.JButton jButtonStart;
-    private javax.swing.JButton jButtonStep;
-    private javax.swing.JButton jButtonStop;
+    private javax.swing.JButton jButtonAbout_U;
+    private javax.swing.JButton jButtonAnalogWindow_P;
+    private javax.swing.JButton jButtonConsoleOut_S;
+    private javax.swing.JButton jButtonDebug_K;
+    private javax.swing.JButton jButtonDigitalWindow_Q;
+    private javax.swing.JButton jButtonNewProject_A;
+    private javax.swing.JButton jButtonOpenProject_B;
+    private javax.swing.JButton jButtonOptions_G;
+    private javax.swing.JButton jButtonPause_M;
+    private javax.swing.JButton jButtonRedo_E;
+    private javax.swing.JButton jButtonRefreshVM_F;
+    private javax.swing.JButton jButtonRepository_T;
+    private javax.swing.JButton jButtonResume_N;
+    private javax.swing.JButton jButtonSave_C;
+    private javax.swing.JButton jButtonStart_J;
+    private javax.swing.JButton jButtonStep_O;
+    private javax.swing.JButton jButtonStop_L;
+    private javax.swing.JButton jButtonTestPointWin_R;
+    private javax.swing.JButton jButtonUndo_D;
+    private javax.swing.JButton jButtonVariables_H;
+    private javax.swing.JButton jButtonWireLegends_I;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
+    private javax.swing.JLabel jLabelDebugDelay;
+    private javax.swing.JMenuBar jMenuBar_MainMenuBar;
+    public javax.swing.JTabbedPane jPaneVMPanels;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel jPanelCenter;
+    private javax.swing.JPanel jPanelDebugTimeSettings;
+    private javax.swing.JPanel jPanelElementList;
     private javax.swing.JPanel jPanelElementPalette;
+    private javax.swing.JPanel jPanelHelpWindow;
     private javax.swing.JPanel jPanelLeft;
-    private javax.swing.JPanel jPanelPE;
+    private javax.swing.JPanel jPanelMainToolsMenuAndDebugTime;
+    private javax.swing.JPanel jPanelProjectExplorer;
+    private javax.swing.JPanel jPanelPropertyEditor;
+    private javax.swing.JPanel jPanelVMsWorkSpace;
     private javax.swing.JPopupMenu jPopupMenu1;
     public javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JSeparator jSeparator1;
@@ -6008,7 +6041,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     public javax.swing.JSplitPane jSplitPane1;
     public javax.swing.JSplitPane jSplitPane3;
     private javax.swing.JTabbedPane jTabPropertyEditor;
-    private javax.swing.JToolBar jToolBar6;
+    private javax.swing.JToolBar jToolBar_MainToolbar;
     private javax.swing.JMenuItem jmiClearWindow;
     private javax.swing.JMenuItem jmiCloseWindow;
     private javax.swing.JMenuItem jmiCopy;
@@ -6061,6 +6094,5 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     private javax.swing.JMenuItem jmnuOpenSingleVM;
     private javax.swing.JMenu jmnuVM;
     private javax.swing.JMenu jmnuWindow;
-    public javax.swing.JTabbedPane paneRight;
     // End of variables declaration//GEN-END:variables
 }

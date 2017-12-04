@@ -24,6 +24,7 @@ import SimpleFileSystem.FileSystemInput;
 import SimpleFileSystem.FileSystemOutput;
 import VisualLogic.variables.VS1DDouble;
 import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSComboBox;
 import VisualLogic.variables.VSDouble;
 import VisualLogic.variables.VSFlowInfo;
 import VisualLogic.variables.VSImage;
@@ -96,7 +97,12 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     public JLabel panelLabel = null;
     private int dedugDelay = 10; // Speed from 0 to 100 : 0 = fast ; 100 =slow
     public int delay = 0; // Speed from 0 to 100 : 0 = fast ; 100 =slow
-
+    
+    public boolean AlwaysOnTop=false;
+    public VSComboBox WindowsPosition=new VSComboBox();
+    public int CustomXwindowPos=0;
+    public int CustomYwindowPos=0;
+    
     public Stack stack = new Stack();
 
     ScriptEngineManager engineManager;
@@ -860,6 +866,13 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         undoPointer = 0;
 
         frontBasis.setPreferredSize(new Dimension(500, 500));
+        
+        WindowsPosition.addItem("CENTER");
+        WindowsPosition.addItem("TOP_LEFT");
+        WindowsPosition.addItem("TOP_RIGHT");
+        WindowsPosition.addItem("BOTTOM_LEFT");
+        WindowsPosition.addItem("BOTTOM_RIGHT");
+        WindowsPosition.addItem("CUSTOM");
 
         getCircuitBasis().setAlignToGrid(frameCircuit.settings.isCircuittAlignToGrid());
         getCircuitBasis().setRasterOn(frameCircuit.settings.isCircuitRasterOn());
@@ -1191,10 +1204,13 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         }
 
     }
-
-    private void createRunningFrame(boolean unDecoratedIn) {
+        
+    private void createRunningFrame(boolean unDecoratedIn, boolean AlwaysOnTopIn) {
         //JFrame.setDefaultLookAndFeelDecorated(false);
         this.unDecorated=unDecoratedIn;
+        this.AlwaysOnTop=AlwaysOnTopIn;
+        //this.WindowsPosition=WindowPositionIn;
+        
         frm = new FrameRunning(this,unDecorated);
        
         frm.setIconImage(vsIcon.getImage());
@@ -1214,11 +1230,56 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
         frm.pack();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        frm.setLocation(screenSize.width / 2 - frm.getWidth() / 2, screenSize.height / 2 - frm.getHeight() / 2);
-
+        
+        //VMObject.java Line 579
+        //vsWindowsPosition.addItem("CENTER");
+        //vsWindowsPosition.addItem("TOP_LEFT");
+        //vsWindowsPosition.addItem("TOP_RIGHT");
+        //vsWindowsPosition.addItem("BOTTOM_LEFT");
+        //vsWindowsPosition.addItem("BOTTOM_RIGHT");
+        int XPosTemp=0;
+        int YPosTemp=0;
+        if(WindowsPosition.selectedIndex==0){// CENTER
+        //frm.setLocation(screenSize.width / 2 - frm.getWidth() / 2, screenSize.height / 2 - frm.getHeight() / 2);
+        XPosTemp=screenSize.width / 2 - frm.getWidth() / 2;
+        YPosTemp=screenSize.height / 2 - frm.getHeight() / 2;
+        }
+        if(WindowsPosition.selectedIndex==1){
+        //frm.setLocation(0,0);
+        XPosTemp=0;
+        YPosTemp=0;
+        }
+        if(WindowsPosition.selectedIndex==2){
+        //frm.setLocation(screenSize.width - frm.getWidth(),0);
+        XPosTemp=screenSize.width - frm.getWidth();
+        YPosTemp=0;
+        }
+        if(WindowsPosition.selectedIndex==3){
+        //frm.setLocation(0,screenSize.height - frm.getHeight());
+        XPosTemp=0;
+        YPosTemp=screenSize.height - frm.getHeight();
+        }
+        if(WindowsPosition.selectedIndex==4){
+        //frm.setLocation(screenSize.width - frm.getWidth(),screenSize.height - frm.getHeight());
+        XPosTemp=screenSize.width - frm.getWidth();
+        YPosTemp=screenSize.height - frm.getHeight();
+        }
+        
+        if(WindowsPosition.selectedIndex==5){ // If Customized Position
+        //frm.setLocation(CustomXwindowPos,CustomYwindowPos);
+        XPosTemp=CustomXwindowPos;
+        YPosTemp=CustomYwindowPos;
+        }else{
+        CustomXwindowPos=XPosTemp;
+        CustomYwindowPos=YPosTemp;    
+        }
+        
+        frm.setLocation(XPosTemp,YPosTemp);    
+        
+        
         frm.setVisible(true);
 
-        if (debugMode) {
+        if (debugMode || AlwaysOnTop) {
             frm.setAlwaysOnTop(true);
         }
         frm.toFront();
@@ -1312,7 +1373,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
                 //BasisPanel panelFront = new BasisPanel(basis.getFrontBasis());
                 //this.getContentPane().add(panelFront);
-                createRunningFrame(unDecorated);
+                createRunningFrame(unDecorated,AlwaysOnTop);
             }
 
             circuitBasis.start();
@@ -1664,6 +1725,10 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         strElementName = stream.readUTF();
         showToolBar = stream.readBoolean();
         unDecorated = stream.readBoolean();
+        AlwaysOnTop = stream.readBoolean();
+        WindowsPosition.loadFromStream(fis);
+        CustomXwindowPos=stream.readInt();
+        CustomYwindowPos=stream.readInt();
         strBasisTitel = stream.readUTF();
         strBasisVersion = stream.readUTF();
         strAutorName = stream.readUTF();
@@ -1918,6 +1983,10 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
             dos.writeUTF(elementName);
             dos.writeBoolean(showToolBar);
             dos.writeBoolean(unDecorated);
+            dos.writeBoolean(AlwaysOnTop);
+            WindowsPosition.saveToStream(fos);
+            dos.writeInt(CustomXwindowPos);
+            dos.writeInt(CustomYwindowPos);
             dos.writeUTF(basisTitel);
             dos.writeUTF(basisVersion);
             dos.writeUTF(autorName);
@@ -2436,7 +2505,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
                     loading = false;
                 } else if (ownerBasis != null && ownerBasis.frameCircuit != null) {
-                    ownerBasis.frameCircuit.paneRight.setSelectedComponent(this.ownerVMPanel);
+                    ownerBasis.frameCircuit.jPaneVMPanels.setSelectedComponent(this.ownerVMPanel);
                 }
             }
 
