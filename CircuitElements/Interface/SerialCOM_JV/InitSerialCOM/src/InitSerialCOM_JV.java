@@ -15,19 +15,16 @@ import jssc.SerialPortException;
 
 public class InitSerialCOM_JV extends JVSMain
 {
-  private SocketServerUDP_JV ServerUDP= new SocketServerUDP_JV();
-  
-  private Thread ServerThread;
-  
-  public ArduinoJSSC_JV JSSC;
+
   private Image image;
-  private VSInteger SokectPort=new VSInteger(9876);
   String s = "";
   String sysOut_N_Err= ""; // String System Response without error
   String sysOut_Err= "";   // String System Response when error
-  boolean firstTime=false;
-  boolean ServerStarted=false;
+  boolean started=false;
   boolean PortOpened=false;
+  boolean firstTime=true;
+  boolean BaudRateExternalEnable=false;
+  
   final String Element_Tag= "#Element:|InitSerialCOM_JV|";
   final String Error_Tag="#Error:";
   final String Debug_Tag="#Debug_Msj:";
@@ -35,9 +32,8 @@ public class InitSerialCOM_JV extends JVSMain
   // Inputs
     
   VSBoolean Enable_VM_in = new VSBoolean(false);
-  VSString SerialPortNameIn = new VSString("COM3");
-  VSString SerialPortOut = new VSString();
-  //VSString  SerialPortOut = new VSString("COM3");
+  VSString SerialPortNameIn = new VSString("");
+  VSString SerialPortNameOut = new VSString("");  //VSString  SerialPortNameOut = new VSString("COM3");
   VSComboBox BaudRateComboBox = new VSComboBox();
   VSComboBox dataBitsComboBox = new VSComboBox();
   VSComboBox stopBitsComboBox = new VSComboBox();
@@ -47,7 +43,8 @@ public class InitSerialCOM_JV extends JVSMain
   
   VSBoolean Debug_Window_En_in = new VSBoolean(false);
   VSBoolean Error_in = new VSBoolean(false);
-  VSInteger AutoResetTime =new VSInteger(1000);
+  VSInteger AutoResetTime =new VSInteger(1500);
+  VSInteger BaudRate_External =null;
   VSInteger MessageTimeOUT =new VSInteger(50);
   // Outputs
   VSBoolean Enable_VM_out = new VSBoolean(false);
@@ -56,77 +53,51 @@ public class InitSerialCOM_JV extends JVSMain
   VSBoolean Error_out = new VSBoolean(false);
   VSBoolean CR_Enable = new VSBoolean(true);
   VSBoolean LF_Enable = new VSBoolean(true);
+  VSBoolean RTS_Enable = new VSBoolean(false);
+  VSBoolean DTR_Enable = new VSBoolean(false);
   
   volatile Boolean EnableOld=false;
   volatile Boolean EnableProccess=false;
-  Boolean ThreadCreated=false;
-  
- public void xOnInit()
-  {
-      //element.jConsolePrintln("XonInit");
-    
 
-  }
+  
+  NewSerialDriverManager serialDriverJV;
+  VSserialPort vsSerial;
+          
   
   public void onDispose()
-  { element.jConsolePrintln("OnDispose");
+  { 
     if (image!=null)
     {
       image.flush();
       image=null;
     }
-    firstTime=true;
-    PortOpened=false;
-    
-      try {
-        if(ServerStarted && ThreadCreated){
-            ServerUDP.CloseSocket();
-            ServerThread.destroy();
-            ServerStarted=false;
-            ThreadCreated=false;
-        }
-        this.finalize(); 
-        Runtime.getRuntime().runFinalization();
-      } catch (Exception ex) {
-          //Logger.getLogger(InitSerialCOM_JV.class.getName()).log(Level.SEVERE, null, ex);
-      } catch (Throwable ex) {
-          //Logger.getLogger(InitSerialCOM_JV.class.getName()).log(Level.SEVERE, null, ex);
-      }finally{
-      JSSC.DisposeSerialPort();
-      System.gc();    
-      }
-
   }
 
   public void paint(java.awt.Graphics g)
   { //element.jConsolePrintln("Paint");
-    if (image!=null) drawImageCentred(g,image);
-      
-    try {
-          Thread.sleep(125);
-      } catch (InterruptedException ex) {
-          //Logger.getLogger(InitSerialCOM_JV.class.getName()).log(Level.SEVERE, null, ex);
-      }
-    
+    if (image!=null) {
+    drawImageCentred(g,image);
+    }
+
   }
 
  
 
 
   public void init()
-  { ServerStarted=false;
-    ThreadCreated=false;
-    //element.jConsolePrintln("Init");
-    element.jSetName("SerialCOM_Port_JV");
+  { 
+    element.jSetName("Open_COM_Port_JV");
     initPinVisibility(false,false,false,false);
-    setSize(50,50);
+    setSize(50,60);
     element.jSetLeftPins(5);
     element.jSetRightPins(5);
+    element.jSetTopPins(1);
+    element.jSetBottomPins(1);
     element.jSetLeftPinsVisible(true);
-    //element.jSetTopPinsVisible(true);
+    element.jSetTopPinsVisible(true);
     element.jSetRightPinsVisible(true);
-    //element.jSetBottomPinsVisible(true);
-    initPins(0,5,0,5); //initPins(0,2,0,4);
+    element.jSetBottomPinsVisible(true);
+    initPins(1,5,1,5); //initPins(0,2,0,4);
     element.jSetInnerBorderVisibility(false);
     image=element.jLoadImage(element.jGetSourcePath()+"icon.gif");
     
@@ -164,73 +135,85 @@ public class InitSerialCOM_JV extends JVSMain
     stopBitsComboBox.addItem("1.5");
     stopBitsComboBox.addItem("2.0");
     stopBitsComboBox.setPinIndex(0);
-    /*
-    try{
-    String[] Lista = SerialPortList.getPortNames();    
-    for(String Port: Lista){
-        PortComboBox.addItem(Port);
-        element.jConsolePrintln("Puertos: "+Port);
-    }
-    }finally{
-        element.jConsolePrintln("ERROR");
-    } */
-    //TOP 3 Pins
-    //setPin(0, ExternalIF.C_BOOLEAN, ExternalIF.PIN_INPUT);
-    //setPin(1, ExternalIF.C_BOOLEAN, ExternalIF.PIN_INPUT);
-    //setPin(2, ExternalIF.C_BYTE, ExternalIF.PIN_INPUT);
+    
+
+    // Top 1 Pins
+    setPin(0, ExternalIF.C_INTEGER, ExternalIF.PIN_INPUT);
+    
     // Right 5 Pins
-    setPin(0, ExternalIF.C_BOOLEAN, ExternalIF.PIN_OUTPUT);
-    setPin(1, ExternalIF.C_STRING, ExternalIF.PIN_OUTPUT);
+    setPin(1, ExternalIF.C_BOOLEAN, ExternalIF.PIN_OUTPUT);
     setPin(2, ExternalIF.C_STRING, ExternalIF.PIN_OUTPUT);
-    setPin(3, ExternalIF.C_BOOLEAN, ExternalIF.PIN_OUTPUT);
+    setPin(3, ExternalIF.C_VARIANT, ExternalIF.PIN_OUTPUT);
     setPin(4, ExternalIF.C_BOOLEAN, ExternalIF.PIN_OUTPUT);
+    setPin(5, ExternalIF.C_BOOLEAN, ExternalIF.PIN_OUTPUT);
     
-    setPin(5, ExternalIF.C_BOOLEAN, ExternalIF.PIN_INPUT);
-    setPin(6, ExternalIF.C_STRING, ExternalIF.PIN_INPUT);
+    //Bottom 1 Pin
+    setPin(6, ExternalIF.C_VARIANT, ExternalIF.PIN_OUTPUT);
+    
+    //Left 5 Pins
     setPin(7, ExternalIF.C_BOOLEAN, ExternalIF.PIN_INPUT);
-    setPin(8, ExternalIF.C_BOOLEAN, ExternalIF.PIN_INPUT);
+    setPin(8, ExternalIF.C_STRING, ExternalIF.PIN_INPUT);
     setPin(9, ExternalIF.C_BOOLEAN, ExternalIF.PIN_INPUT);
+    setPin(10, ExternalIF.C_BOOLEAN, ExternalIF.PIN_INPUT);
+    setPin(11, ExternalIF.C_BOOLEAN, ExternalIF.PIN_INPUT);
     
-    element.jSetPinDescription(0, "Enable_VM_out");
-    element.jSetPinDescription(1, "PortName_out");
-    element.jSetPinDescription(2, "System_out");
-    element.jSetPinDescription(3, "Debug_Window_Enable_out");
-    element.jSetPinDescription(4, "Error_out");
-        
-    element.jSetPinDescription(5, "Enable_VM_in");
-    element.jSetPinDescription(6, "PortName_in");
-    element.jSetPinDescription(7, "ArduinoAutoResetEnabled_in");
-    element.jSetPinDescription(8, "Debug_Window_Enable_in");
-    element.jSetPinDescription(9, "Error_in");
+    element.jSetPinDescription(0, "BaudRate_External_in");
+    
+    element.jSetPinDescription(1, "Enable_VM_out");
+    element.jSetPinDescription(2, "PortName_out");
+    element.jSetPinDescription(3, "N/C");
+    element.jSetPinDescription(4, "Debug_Window_Enable_out");
+    element.jSetPinDescription(5, "Error_out");
+    
+    element.jSetPinDescription(6, "N/C");
+    
+    
+    element.jSetPinDescription(7, "Enable_VM_in");
+    element.jSetPinDescription(8, "PortName_in");
+    element.jSetPinDescription(9, "ArduinoAutoResetEnabled_in");
+    element.jSetPinDescription(10, "Debug_Window_Enable_in");
+    element.jSetPinDescription(11, "Error_in");
 
     element.jSetResizable(false);
     element.jSetResizeSynchron(false);
+
+    serialDriverJV = new NewSerialDriverManager();
+    vsSerial=new VSserialPort();
+    started=false;
     firstTime=true;
-    JSSC = new ArduinoJSSC_JV();
+    
     initInputPins();
     
   }
 
   public void initInputPins()
   {
-    Enable_VM_in= (VSBoolean)element.getPinInputReference(5);
+    BaudRate_External=(VSInteger) element.getPinInputReference(0);
+    if(BaudRate_External==null){
+    BaudRate_External=new VSInteger();
+    BaudRateExternalEnable=false;
+    }else{
+    BaudRateExternalEnable=true;    
+    }
+    
+    Enable_VM_in= (VSBoolean)element.getPinInputReference(7);
     if(Enable_VM_in==null){
       Enable_VM_in=new VSBoolean(false);
       Enable_VM_out=new VSBoolean(false);
     }
-    SerialPortNameIn = (VSString)element.getPinInputReference(6);
+    SerialPortNameIn = (VSString)element.getPinInputReference(8);
     if(SerialPortNameIn==null){
         SerialPortNameIn=new VSString("");
     }
-    ArduinoAutoRESET = (VSBoolean)element.getPinInputReference(7);
+    ArduinoAutoRESET = (VSBoolean)element.getPinInputReference(9);
     if(ArduinoAutoRESET==null){
     ArduinoAutoRESET = new VSBoolean(true);
     }
-    Debug_Window_En_in= (VSBoolean)element.getPinInputReference(8);
+    Debug_Window_En_in= (VSBoolean)element.getPinInputReference(10);
     if (Debug_Window_En_in==null){
        Debug_Window_En_in=new VSBoolean(false);
     }
-    Error_in= (VSBoolean)element.getPinInputReference(9);
+    Error_in= (VSBoolean)element.getPinInputReference(11);
     if(Error_in==null){
        Error_in=new VSBoolean(false);
     }
@@ -238,43 +221,94 @@ public class InitSerialCOM_JV extends JVSMain
 
   public void initOutputPins()
   {
-    element.setPinOutputReference(0, Enable_VM_out); 
-    element.setPinOutputReference(1, SerialPortOut);
-    element.setPinOutputReference(2, System_out);
-    element.setPinOutputReference(3, Debug_Window_En_out);
-    element.setPinOutputReference(4, Error_out);
+    element.setPinOutputReference(1, Enable_VM_out); 
+    element.setPinOutputReference(2, SerialPortNameOut);
+    //element.setPinOutputReference(3, System_out);
+    element.setPinOutputReference(4, Debug_Window_En_out);
+    element.setPinOutputReference(5, Error_out);
   }
 
   public void start()
   { 
-    //element.jConsolePrintln("Start");
-    firstTime=true;
     Error_in.setValue(false);
-    System_out.setValue("");
+    
     Error_out.setValue(false);
-    ServerStarted=false;
+    PortOpened=false;
+    
+    Enable_VM_out.setValue(false);
+    SerialPortNameOut.setValue(SerialPortNameIn.getValue());
+    System_out.setValue("");
+    Debug_Window_En_out.setValue(Debug_Window_En_in.getValue());
+    Error_out.setValue(Error_in.getValue());
+    element.notifyPin(1); // Enable VM Out
+    element.notifyPin(2); //Serial PortNameOut
+    //element.notifyPin(2); // SystemOut
+    element.notifyPin(4); // Debug Enable Out
+    element.notifyPin(5); // Error Out
+    started=true;
+    firstTime=true;
 
+  }
+
+ 
+  
+  public void stop()
+  { //element.jConsolePrintln("Stop");
+    String ErrorData="";
+    Error_out.setValue(false);
+    
     if(SerialPortNameIn!=null)
     {
+     if(vsSerial!=null){
       try {
-          
-        if(ThreadCreated==false){
-        //System.err.println("CrandoThreadServer");   
-        ServerThread = new Thread(ServerUDP);
-        ServerThread.start();
-        ThreadCreated=true;
-        ServerStarted=true;
-        ServerUDP.SetPort(SokectPort.getValue());
-        ServerUDP.setDebudMessagesEnable(Debug_Window_En_in.getValue());
-        ServerUDP.OpenSocket();
-        ServerUDP.SetJSSC(JSSC);
-        ServerUDP.SetTimeout(MessageTimeOUT.getValue());
-        ServerUDP.setEnableCR(CR_Enable.getValue());
-        ServerUDP.setEnableLF(LF_Enable.getValue());
+          if(vsSerial.isOpened()){
+          //JSSC.ClosePort();
+          NewSerialDriverManager.RemoveSerialPortByPortName(SerialPortNameIn.getValue());
+          PortOpened=false; 
+          vsSerial=null;
+          //System.err.println("PuertoCerradoOK");
+          }
+          Error_out.setValue(false);  
+       
+      } 
+      catch (Exception e){
         
-        //System.err.println("ThreadServerOK");
+      }
+      
+     }
+    }
+     
+    
+  }
+
+  public void process()
+  { //element.jConsolePrintln("Proccess");
+    
+   if(EnableOld==false && Enable_VM_in.getValue() && started){
+      EnableProccess=true;   
+    }   
+
+   if(EnableProccess==true && Error_in.getValue()==false && PortOpened==false) // Only executes one time if no error.
+   { EnableProccess=false; 
+    if(firstTime){
+    firstTime=false;
+    Enable_VM_out.setValue(false);
+    element.notifyPin(1); // Enable VM Out
+    SerialPortNameOut.setValue(SerialPortNameIn.getValue());
+    element.notifyPin(2); //Serial PortNameOut
+    Debug_Window_En_out.setValue(Debug_Window_En_in.getValue());
+    element.notifyPin(4); // Debug Enable Out
+    }
+    if(SerialPortNameIn!=null)
+    {
+      String BufferError="";
+      try {
+        int BaudRateTemp=0;
+        if(BaudRateExternalEnable){
+        BaudRateTemp=BaudRate_External.getValue();
+        }else{
+        BaudRateTemp= Integer.valueOf(BaudRateComboBox.getItem(BaudRateComboBox.selectedIndex));
         }
-        int BaudRateTemp= Integer.valueOf(BaudRateComboBox.getItem(BaudRateComboBox.selectedIndex));
         int dataBitsTemp = Integer.valueOf(dataBitsComboBox.getItem(dataBitsComboBox.selectedIndex));
         int stopBitsIndex = stopBitsComboBox.selectedIndex; //
         int ParityTemp = ParityComboBox.selectedIndex;
@@ -284,155 +318,97 @@ public class InitSerialCOM_JV extends JVSMain
         if(stopBitsIndex==2) stopBitsInt=2;   //INDEX 2 = STOPBITS_2    = 2 
         
         if(PortOpened==false){
-        JSSC.OpenPort(SerialPortNameIn.getValue());
-        //System.err.println("PuertoAbiertoOK");
-        }
-        //JSSC.setDefaultParameters(ArduinoAutoRESET.getValue(), Thread.currentThread());
-        JSSC.setParameters(ArduinoAutoRESET.getValue(), Thread.currentThread(),AutoResetTime.getValue(),BaudRateTemp,dataBitsTemp,stopBitsInt,ParityTemp);
+        //JSSC.OpenPort(SerialPortNameIn.getValue());
+        vsSerial=serialDriverJV.NewSerialPort(SerialPortNameIn.getValue());
+        //System.err.println("SerialPortNameIn.getValue()"+SerialPortNameIn.getValue());
+        if(vsSerial.getValue().isOpened()){
         PortOpened=true;
+        //vsSerial.getSerialPort().closePort();
+        }else{
+        PortOpened=false;
+        vsSerial.getSerialPort().openPort();
+        PortOpened=vsSerial.getValue().isOpened();
+        }
+        vsSerial.setEnableCR(CR_Enable.getValue());
+        vsSerial.setEnableLF(LF_Enable.getValue());
+        vsSerial.setMessageTimeOut(MessageTimeOUT.getValue());
+        
+        if (Debug_Window_En_in.getValue()) {
+            element.jConsolePrintln(Element_Tag+"|Port:_" +vsSerial.getSerialPort().getPortName()+"_Opened OK_Total Ports:_"+NewSerialDriverManager.getPortsOpened()+"|");
+        }
+        vsSerial.setParameters(ArduinoAutoRESET.getValue(), Thread.currentThread(),AutoResetTime.getValue(),BaudRateTemp,dataBitsTemp,stopBitsInt,ParityTemp);
+        NewSerialDriverManager.UpdateSerialPortByPortName(vsSerial,SerialPortNameIn.getValue());
+        }
         Error_out.setValue(false);
         
         if (Debug_Window_En_in.getValue()) {
-            element.jConsolePrintln("Baud"+BaudRateTemp+"_dataBits:"+dataBitsTemp+"_StopBits:"+stopBitsInt+"_Paridad:"+ParityComboBox.selectedIndex);
+            element.jConsolePrintln(Element_Tag+"|Port_Configured_OK_"+"Baud:"+BaudRateTemp+"_dataBits:"+dataBitsTemp+"_StopBits:"+stopBitsInt+"_Paridad:"+ParityComboBox.selectedIndex+"|");
         }
-        
         
       } catch (SerialPortException ex) {
           //Logger.getLogger(InitSerialCOM_JV.class.getName()).log(Level.SEVERE, null, ex);
+          BufferError+=ex.getMessage()+"\n";
           Error_out.setValue(true);
+          element.notifyPin(5); // Error Out
           PortOpened=false;
       } catch (InterruptedException ex) {
           //Logger.getLogger(InitSerialCOM_JV.class.getName()).log(Level.SEVERE, null, ex);
+          BufferError+=ex.getMessage()+"\n";
           Error_out.setValue(true);
+          element.notifyPin(5); // Error Out
           PortOpened=false;
-      } catch (Exception e){
+      } catch (Exception ex){
+          //Logger.getLogger(InitSerialCOM_JV.class.getName()).log(Level.SEVERE, null, e);
+          BufferError+=ex.getMessage()+"\n";
           Error_out.setValue(true);
+          element.notifyPin(5); // Error Out
           PortOpened=false;
       }
       finally{
         if (Debug_Window_En_in.getValue() && Error_out.getValue()) {
-            element.jConsolePrintln(Element_Tag+Error_Tag+"|ErrorOpeningPort:"+SerialPortNameIn.getValue());
-            System_out.setValue(Element_Tag+Error_Tag+"|ErrorOpeningPort:"+SerialPortNameIn.getValue());
+            element.jConsolePrintln(Element_Tag+Error_Tag+"|ErrorOpeningPort:"+SerialPortNameIn.getValue()+BufferError);
+            System_out.setValue(Element_Tag+Error_Tag+"|ErrorOpeningPort:"+SerialPortNameIn.getValue()+BufferError);
         }
       }
       
     }else{ // PORT Null
           Error_out.setValue(true);
-          if (Debug_Window_En_in.getValue()) {
+          if (Debug_Window_En_in.getValue()){
                     element.jConsolePrintln(Element_Tag+Error_Tag+"|Element_Not_Executed_Because_PortName=NULL|");
                     System_out.setValue(Element_Tag+Error_Tag+"|Element_Not_Executed_Because_PortName=NULL|");
-                }    
+          }    
     }
-  }
-
-  public void stop()
-  { //element.jConsolePrintln("Stop");
-    
-    if(SerialPortNameIn!=null)
-    {
-      try {
-          if(PortOpened==true){
-          JSSC.ClosePort();
-          PortOpened=false; 
-          //System.err.println("PuertoCerradoOK");
-          }
-          Error_out.setValue(false);  
-      } catch (SerialPortException ex) {    
-      //Logger.getLogger(InitSerialCOM_JV.class.getName()).log(Level.SEVERE, null, ex);
-        Error_out.setValue(true);
-        
-      }
-      finally{
-        if (Debug_Window_En_in.getValue() && Error_out.getValue()){
-            element.jConsolePrintln(Element_Tag+Error_Tag+"|ErrorClosingPort:"+SerialPortNameIn.getValue());
-            System_out.setValue(Element_Tag+Error_Tag+"|ErrorClosingPort:"+SerialPortNameIn.getValue());
-        }  
-        EnableOld=false;
-        EnableProccess=false;   
-      }
+    if(vsSerial.getSerialPort().isOpened()){
+    PortOpened=true;
     }
-    
-  }
-
-  public void process()
-  { //element.jConsolePrintln("Proccess");
-    
-   if(EnableOld==false && Enable_VM_in.getValue()){
-      EnableProccess=true;   
-     }   
-
-   if(EnableProccess==true && PortOpened==true && Error_in.getValue()==false) // Only executes one time if no error.
-   { EnableProccess=false; 
-       /*
-     try{
-
-        //setParams(BaudRate, dataBits, stopBits, Parity);
-        //COMPort.setParams(9600, 8, 1, 0);
-        //JSSC.WriteString("=1;");
-        //Thread.sleep(5);
-        //String TempStr = JSSC.ReadFromPort(Thread.currentThread(), MessageTimeOUT.getValue());
-        
-        //element.jConsolePrintln(Element_Tag+"READ:"+TempStr);
-                
-     }
-     
-     catch(SerialPortException e){
-       Error_out.setValue(true);
-       PortOpened=false;  
-       System_out.setValue(Element_Tag+Error_Tag+"|Error_Reading_Port:"+JSSC.getPortName());
-       if (Debug_Window_En_in.getValue()) {
-           element.jConsolePrintln(System_out.getValue());
-       }
-     }
-     catch(InterruptedException e){
-       Error_out.setValue(true);
-       PortOpened=false;  
-       System_out.setValue(Element_Tag+Error_Tag+"|JVM_Error_Reading_Port:"+JSSC.getPortName());
-       if (Debug_Window_En_in.getValue()) {
-           element.jConsolePrintln(System_out.getValue());
-       }
-     }
-     catch(Exception e){
-       Error_out.setValue(true);
-       PortOpened=false;  
-       System_out.setValue(Element_Tag+Error_Tag+"|Error_Reading_Port:"+JSSC.getPortName()+"|PortDisconnected_OR_Wrong_Parameters");
-       if (Debug_Window_En_in.getValue()) {
-           element.jConsolePrintln(System_out.getValue());
-       }
-          
-     } */
-   }
-   
-   SerialPortOut=SerialPortNameIn;
-   
-   if(Error_out.getValue()){         // If there is error do not enable other VMs
+   }  
+   if(Error_out.getValue() || Error_in.getValue() || PortOpened==false){         // If there is error do not enable other VMs
    Enable_VM_out.setValue(false);
+   element.notifyPin(1); // Enable VM Out
    }else{
-   Enable_VM_out.setValue(Enable_VM_in.getValue());
+        if(PortOpened){
+        Enable_VM_out.setValue(Enable_VM_in.getValue());
+        element.notifyPin(1); // Enable VM Out
+        }
    }
+   
+   //element.notifyPin(2); // SystemOut
+   
    EnableOld=Enable_VM_in.getValue();
-   Debug_Window_En_out.setValue(Debug_Window_En_in.getValue());
-   element.notifyPin(0);
-   element.notifyPin(1);
-   element.notifyPin(2); //Notify Error MSJ
-   element.notifyPin(3);
-   element.notifyPin(4); //Notify Error Boolean Out
+
   }
 
   
    public void setPropertyEditor()
   {
-    
     element.jAddPEItem("BaudRate", BaudRateComboBox, 0,100);
     element.jAddPEItem("DataBits", dataBitsComboBox, 0,100);
     element.jAddPEItem("StopBits", stopBitsComboBox, 0,100);
     element.jAddPEItem("Partity", ParityComboBox, 0,100);
-    element.jAddPEItem("Enable LF", LF_Enable, 0, 0);
-    element.jAddPEItem("Enable CR", CR_Enable, 0, 0);
+    element.jAddPEItem("Enable_LF", LF_Enable, 0, 0);
+    element.jAddPEItem("Enable_CR", CR_Enable, 0, 0);
     element.jAddPEItem("Message_Timeout[mS]", MessageTimeOUT, 1, 1000);
-    element.jAddPEItem("AutoResetTime[mS]", AutoResetTime, 1, 20000);
-    element.jAddPEItem("Socket_Server_Port",SokectPort, 1, 9999);
-    
+    element.jAddPEItem("AutoReset_Delay[mS]", AutoResetTime, 1, 20000);
     
     localize();
   }
@@ -446,22 +422,21 @@ public class InitSerialCOM_JV extends JVSMain
     element.jSetPEItemLocale(d+1,language,"DataBits");
     element.jSetPEItemLocale(d+2,language,"StopBits");
     element.jSetPEItemLocale(d+3,language,"Parity");
-    element.jSetPEItemLocale(d+4,language,"Enable LF");
-    element.jSetPEItemLocale(d+5,language,"Enable CR");
+    element.jSetPEItemLocale(d+4,language,"Enable_LF");
+    element.jSetPEItemLocale(d+5,language,"Enable_CR");
     element.jSetPEItemLocale(d+6,language,"Message_Timeout[mS]");
-    element.jSetPEItemLocale(d+7,language,"AutoResetTime[mS]");
-    element.jSetPEItemLocale(d+8,language,"Socket_Server_Port]");
+    element.jSetPEItemLocale(d+7,language,"AutoReset_Delay[mS]");
+    
 
     language="es_ES";
     element.jSetPEItemLocale(d+0,language,"Tasa_De_Baudios");
     element.jSetPEItemLocale(d+1,language,"Bits_De_Datos");
     element.jSetPEItemLocale(d+2,language,"Bits_De_Parada");
     element.jSetPEItemLocale(d+3,language,"Paridad");
-    element.jSetPEItemLocale(d+4,language,"Habilitar LF");
-    element.jSetPEItemLocale(d+5,language,"Hbilitar CR");
+    element.jSetPEItemLocale(d+4,language,"Habilitar_LF");
+    element.jSetPEItemLocale(d+5,language,"Habilitar_CR");
     element.jSetPEItemLocale(d+6,language,"Timeout_Mensajes[mS]");
-    element.jSetPEItemLocale(d+7,language,"Tiempo_de_AutoReset[mS]");
-    element.jSetPEItemLocale(d+8,language,"Puerto_del_Socket_Servidor");
+    element.jSetPEItemLocale(d+7,language,"Retardo_de_AutoReset[mS]");
     
   }
   public void propertyChanged(Object o)

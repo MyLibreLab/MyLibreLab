@@ -1,4 +1,6 @@
 
+
+import VisualLogic.variables.VSserialPort;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -9,6 +11,8 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import jssc.SerialPortException;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /*
@@ -26,11 +30,16 @@ public class SocketServerUDP_JV implements Runnable {
     public ServerSocket serverSocket;
     public Socket socketOut = new Socket();
     public Boolean Error=false;
-    private ArduinoJSSC_JV JSSC_External;
-    private Boolean EnableCR=false;
-    private Boolean EnableLF=false;
+    private VSserialPort vsSerialExternal;
+   
     private Boolean DebugMessages=false;
     private int TimeOut=125;
+    private int TimeBeforeRead=50;
+    public boolean socketOpened=false;
+
+    public void setTimeBeforeRead(int TimeBeforeRead) {
+        this.TimeBeforeRead = TimeBeforeRead;
+    }
     private int Port=9876;
 
     volatile String BufferIn="";
@@ -51,21 +60,14 @@ public class SocketServerUDP_JV implements Runnable {
     public void setDebudMessagesEnable(Boolean DebugMsjEn){
         this.DebugMessages=DebugMsjEn;
     }
-    public void setEnableCR(Boolean EnCRin){
-        this.EnableCR=EnCRin;
-    }
-    public void setEnableLF(Boolean EnLFin){
-        this.EnableLF=EnLFin;
-    }
-    public void SetTimeout(int timeout){
-        this.TimeOut=timeout;
-    }
+   
+
     
     public void SetPort(int PortIn){
         this.Port=PortIn;
     }
-    public void SetJSSC(ArduinoJSSC_JV JSSCIn){
-        this.JSSC_External=JSSCIn;
+    public void SetVSSerialP(VSserialPort JSSCIn){
+        this.vsSerialExternal=JSSCIn;
     }
     public Boolean GetErrorStatus(){
         return Error;
@@ -75,11 +77,13 @@ public class SocketServerUDP_JV implements Runnable {
         serverSocket = new ServerSocket(Port);
         IPAddress =InetAddress.getLocalHost();
         Error=false;
+        socketOpened=true;
         if(DebugMessages) System.err.println("SERVER|SOCKET_SERVER_Opened_at_Port:"+Port);
         
     }
     public void CloseSocket() throws IOException{
-       if(serverSocket.isClosed()==false){
+       socketOpened=false;
+     if(serverSocket.isClosed()==false){
           serverSocket.close();
        } 
     }
@@ -87,7 +91,7 @@ public class SocketServerUDP_JV implements Runnable {
     @Override
     public void run() {
      
-        while(true)
+        do
          {
           try {  
                   socketOut=serverSocket.accept(); // Esperar Conección
@@ -100,12 +104,12 @@ public class SocketServerUDP_JV implements Runnable {
                   salidaCliente.writeUTF("200_OK"); //Send Confirmation
                   BufferIn=RespuestaCliente.readUTF();
                   if(DebugMessages) System.err.println("SERVER|"+BufferIn.length()+"|RECEIVED: " + BufferIn+"|");
-                  JSSC_External.SetEnableCR(EnableCR);
-                  JSSC_External.SetEnableLF(EnableLF);
-                  JSSC_External.WriteString(BufferIn);
+                
+                  vsSerialExternal.writeBufferStr(BufferIn);
                   //Thread.sleep(150);
                   COMResponseStr="";
-                  COMResponseStr = JSSC_External.ReadFromPort(Thread.currentThread(), TimeOut);
+                  vsSerialExternal.setTimeBeforeRead(TimeBeforeRead);
+                  COMResponseStr = vsSerialExternal.ReadStrBuffer(Thread.currentThread());
                   if(COMResponseStr==null) COMResponseStr="ERROR";
                   salidaCliente.writeUTF(COMResponseStr);
                   if(DebugMessages) System.err.println("SERVER|RespuestaEnviada"+COMResponseStr+"|");
@@ -127,7 +131,7 @@ public class SocketServerUDP_JV implements Runnable {
         catch (Exception E){
             Error=true;
         }
-      }
+      }while(socketOpened);
     }
     
     

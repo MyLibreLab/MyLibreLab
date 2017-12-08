@@ -43,6 +43,7 @@ public void SetEnableLF(Boolean EnableLFin){
 }
 public void DisposeSerialPort(){
     serialPort.onDispose();
+    serialPort=null;
 }
 public void OpenPort(String PortName) throws SerialPortException, InterruptedException, Exception{
          

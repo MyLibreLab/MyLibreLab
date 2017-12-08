@@ -1,0 +1,16 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+LOADER          = 
+CAPTION         = Read_SerialPort_JV
+CAPTION_EN      = Read_SerialPort_JV
+CAPTION_ES      = Leer_Puerto_Serial_JV
+VM              = 
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = Read_SerialPort_JV
+CLASSFRONT      = 
+ICON            = bin/icon.gif
+CLASSPATH       = 
+CLASSPATH2      = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

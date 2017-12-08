@@ -23,8 +23,7 @@ import VisualLogic.*;
 import VisualLogic.variables.*;
 import tools.*;
 import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+
 
 public class Verteiler extends JVSMain
 {
@@ -209,9 +208,9 @@ public class Verteiler extends JVSMain
     {
       anzPins.setValue(((VSInteger)outPins).getValue());
       
-      // 1. die Größe ändern
-      // 2. ändere die anzahl der Out-Pins
-      // 3. setze für die Out-Pins den Datentyp und den IO-Typ aud Output
+      // 1. die Gre ndern
+      // 2. ï¿½ndere die anzahl der Out-Pins
+      // 3. setze fr die Out-Pins den Datentyp und den IO-Typ aud Output
       element.jSetSize(element.jGetWidth(), 20+(anzPins.getValue())*10);
       
       
