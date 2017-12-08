@@ -1482,8 +1482,12 @@ public class VMObject extends JPanel implements MouseListener, MouseMotionListen
         }
 
         removeFromElementReferences(el.getID());
+        try{
         this.remove(el.lblName);
         this.remove(el);
+        }catch(Exception e){
+            System.out.println("Error at VisualLogic.VMObject.deleteOtherPanelElement(VMObject.java:1487)");   
+        }
         try {
             if (el.classRef != null) {
                 el.classRef.onDispose();

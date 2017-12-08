@@ -693,7 +693,8 @@ public class StatusLineVertikal extends Object implements StatusBasisIF
     public void elementPinMousePressed(MouseEvent e, int elementID, int pin) 
     {
         Element sourceElement = (Element)vmobject.getObjectWithID(elementID);                    
-        JPin apin = sourceElement.getPin(pin);                                    
+        JPin apin = sourceElement.getPin(pin); 
+        try{
 
         if (  (sourceDataType==apin.dataType || 
                sourceDataType==ExternalIF.C_VARIANT || 
@@ -702,7 +703,9 @@ public class StatusLineVertikal extends Object implements StatusBasisIF
         {                                
           abschliessen(elementID, pin);        
         }
-        
+        }catch(Exception er){
+         System.out.println(er.getMessage()); 
+        }
     }
 
     public void elementPinMouseMoved(MouseEvent e, int elementID, int pin) {

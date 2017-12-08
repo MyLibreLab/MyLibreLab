@@ -565,14 +565,16 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF
     {
         Element sourceElement = (Element)vmobject.getObjectWithID(elementID);
         JPin apin = sourceElement.getPin(pin);
-        
+        try{
         if (( sourceDataType==apin.dataType        ||
                 sourceDataType==ExternalIF.C_VARIANT ||
                 apin.dataType==ExternalIF.C_VARIANT) && ( (apin.pinIO==JPin.PIN_INPUT || pan.pinIO==JPin.PIN_INPUT_OUTPUT ) && apin.draht==null))
         {
             abschliessen(elementID, pin);
         }
-        
+        }catch(Exception er){
+            System.out.println(er.getMessage());    
+        }
     }
     
     public void elementPinMouseMoved(MouseEvent e, int elementID, int pin)

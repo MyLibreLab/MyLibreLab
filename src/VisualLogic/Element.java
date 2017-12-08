@@ -902,10 +902,16 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
     }
 
     public void inDenVordergrund() {
+       try{
         getVMObject().remove(this);
         getVMObject().add(this, 0);
         owner.sortSubPanels();
         repaint();
+       }catch (IllegalArgumentException e){
+           System.out.println("Error VisualLogic.Element.inDenVordergrund(Element.java:906) "+e.getMessage());   
+       }catch (Exception e){
+           System.out.println("Error VisualLogic.Element.inDenVordergrund "+e.getMessage());
+       }
     }
 
     public void inDenHintergrund() {

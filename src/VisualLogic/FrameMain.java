@@ -946,10 +946,12 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             }
         }
         panel.basis.stop();
+        //panel.basis.frameCircuit.dispose(); // v3.12.0
         panel.basis.frameCircuit = null;
         jPaneVMPanels.remove(panel);
         desktop.remove(panel.basis);
         panel.basis.close();
+        panel.basis.onDispose(); // v3.12.0
         panel.basis = null;
 
         panel = null;
@@ -1506,6 +1508,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         // Load Drivers from "Drivers" Directory"
         Tools.driverManager = new DriverManager(this);
+        
+        NewSerialDriverManager.NewDriverManager(this); // v3.12.0
 
         ArrayList<String> drivers = Tools.listDrivers(driverPath);
 
