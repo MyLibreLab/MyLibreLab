@@ -1,8 +1,8 @@
 /*
- * Simple Demo for MyopenLab and Arduino
+ * Simple Demo for MyopenLab v1.3 I/0 Interface Element and Arduino Boards
  * by Carmelo Salafia cswi@gmx.de
- * Updated to Arduino IDE 1.8.2 by:
- * Javier Velásquez Bogotá DC - 04-abril-2017
+ * Updated to Arduino IDE 1.8.5 by:
+ * Javier Velásquez Bogotá DC - 11-December-2017
  * javiervelasquez125@gmail.com
  * 
  * Please use the 104 ceramic capacitor between RESET and GND to avoid auto-reset.
@@ -31,7 +31,7 @@ unsigned char inputs;
 
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(115200);
   delay(125);
   pinMode(in1, INPUT_PULLUP);
   pinMode(in2, INPUT_PULLUP);

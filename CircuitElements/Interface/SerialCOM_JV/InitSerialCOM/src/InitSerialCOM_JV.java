@@ -85,7 +85,7 @@ public class InitSerialCOM_JV extends JVSMain
 
 
   public void init()
-  { 
+  { //element.jConsolePrintln("Init!");
     element.jSetName("Open_COM_Port_JV");
     initPinVisibility(false,false,false,false);
     setSize(50,60);
@@ -182,12 +182,12 @@ public class InitSerialCOM_JV extends JVSMain
     started=false;
     firstTime=true;
     
-    initInputPins();
+    //initInputPins();
     
   }
 
   public void initInputPins()
-  {
+  { //element.jConsolePrintln("Init Input Pins!");
     BaudRate_External=(VSInteger) element.getPinInputReference(0);
     if(BaudRate_External==null){
     BaudRate_External=new VSInteger();
@@ -220,7 +220,7 @@ public class InitSerialCOM_JV extends JVSMain
   }
 
   public void initOutputPins()
-  {
+  { //element.jConsolePrintln("Init Output Pins!");
     element.setPinOutputReference(1, Enable_VM_out); 
     element.setPinOutputReference(2, SerialPortNameOut);
     //element.setPinOutputReference(3, System_out);
@@ -229,7 +229,7 @@ public class InitSerialCOM_JV extends JVSMain
   }
 
   public void start()
-  { 
+  { //element.jConsolePrintln("start!");
     Error_in.setValue(false);
     
     Error_out.setValue(false);
@@ -285,11 +285,13 @@ public class InitSerialCOM_JV extends JVSMain
   { //element.jConsolePrintln("Proccess");
     
    if(EnableOld==false && Enable_VM_in.getValue() && started){
-      EnableProccess=true;   
+      EnableProccess=true; 
+      //element.jConsolePrintln("Enable Proccess!");
     }   
 
    if(EnableProccess==true && Error_in.getValue()==false && PortOpened==false) // Only executes one time if no error.
    { EnableProccess=false; 
+   
     if(firstTime){
     firstTime=false;
     Enable_VM_out.setValue(false);
@@ -304,6 +306,7 @@ public class InitSerialCOM_JV extends JVSMain
       String BufferError="";
       try {
         int BaudRateTemp=0;
+        //element.jConsolePrintln("Doing Proccess!");
         if(BaudRateExternalEnable){
         BaudRateTemp=BaudRate_External.getValue();
         }else{
@@ -373,16 +376,33 @@ public class InitSerialCOM_JV extends JVSMain
       
     }else{ // PORT Null
           Error_out.setValue(true);
+          element.notifyPin(5); // Error Out
           if (Debug_Window_En_in.getValue()){
                     element.jConsolePrintln(Element_Tag+Error_Tag+"|Element_Not_Executed_Because_PortName=NULL|");
                     System_out.setValue(Element_Tag+Error_Tag+"|Element_Not_Executed_Because_PortName=NULL|");
           }    
     }
-    if(vsSerial.getSerialPort().isOpened()){
-    PortOpened=true;
+    
+   if(vsSerial!=null){
+    try{    
+    PortOpened=vsSerial.getSerialPort().isOpened();
+    } catch (Exception e){
+    PortOpened=false;
+    Error_out.setValue(true); 
+    element.notifyPin(5); // Error Out
     }
+   }else{
+   PortOpened=false;
+   Error_out.setValue(true); 
+   element.notifyPin(5); // Error Out  
+   if (Debug_Window_En_in.getValue()){
+                    element.jConsolePrintln(Element_Tag+Error_Tag+"|Element_Not_Executed_Because_Port=NULL|");
+                    System_out.setValue(Element_Tag+Error_Tag+"|Element_Not_Executed_Because_Port=NULL|");
+          }
    }  
-   if(Error_out.getValue() || Error_in.getValue() || PortOpened==false){         // If there is error do not enable other VMs
+ 
+  }
+  if(Error_out.getValue() || Error_in.getValue() || PortOpened==false){         // If there is error do not enable other VMs
    Enable_VM_out.setValue(false);
    element.notifyPin(1); // Enable VM Out
    }else{
@@ -391,16 +411,17 @@ public class InitSerialCOM_JV extends JVSMain
         element.notifyPin(1); // Enable VM Out
         }
    }
+  if(Error_in.getValue()){
+       Error_out.setValue(true);
+       element.notifyPin(5); // Error Out
+   }
    
-   //element.notifyPin(2); // SystemOut
-   
-   EnableOld=Enable_VM_in.getValue();
-
-  }
+  EnableOld=Enable_VM_in.getValue(); 
+}
 
   
    public void setPropertyEditor()
-  {
+  { //element.jConsolePrintln("Set Property Editor!");
     element.jAddPEItem("BaudRate", BaudRateComboBox, 0,100);
     element.jAddPEItem("DataBits", dataBitsComboBox, 0,100);
     element.jAddPEItem("StopBits", stopBitsComboBox, 0,100);

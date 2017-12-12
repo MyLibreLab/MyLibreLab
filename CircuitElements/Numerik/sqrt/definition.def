@@ -1,6 +1,6 @@
 ISDIRECTORY = FALSE
 CAPTION= Wurzel
-CAPTION_EN = radix 
+CAPTION_EN = Square Root 
 CAPTION_ES = Raiz Cuadrada
 Jar= bin/Sqrt.jar
 ClassCircuit =Sqrt

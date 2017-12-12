@@ -31,7 +31,7 @@ import java.io.*;
 import java.nio.channels.*;
 import java.nio.*;
 import javax.swing.*;
-import java.util.*;
+
 
 
 public class Arduino extends JVSMain implements MyOpenLabDriverOwnerIF
@@ -120,7 +120,7 @@ public class Arduino extends JVSMain implements MyOpenLabDriverOwnerIF
 
   public void setPropertyEditor()
   {
-    element.jAddPEItem("RPI_Port", comport, 0, 0);
+    element.jAddPEItem("Serial_Port", comport, 0, 0);
     element.jAddPEItem("Poll Time[ms]",pollTime, 1,5000);
     
     /*element.jAddPEItem("Baud",baud, 1,999999);
@@ -205,36 +205,36 @@ public class Arduino extends JVSMain implements MyOpenLabDriverOwnerIF
     setPin(c++,ExternalIF.C_BOOLEAN,element.PIN_INPUT); // LED 4
 
     c=0;
-    element.jSetPinDescription(c++,"In-1");
-    element.jSetPinDescription(c++,"In-2");
-    element.jSetPinDescription(c++,"In-3");
-    element.jSetPinDescription(c++,"In-4");
-    element.jSetPinDescription(c++,"In-5");
-    element.jSetPinDescription(c++,"In-6");
+    element.jSetPinDescription(c++,"In-1 (Arduino Pin 2)");
+    element.jSetPinDescription(c++,"In-2 (Arduino Pin 3)");
+    element.jSetPinDescription(c++,"In-3 (Arduino Pin 4)");
+    element.jSetPinDescription(c++,"In-4 (Arduino Pin 5)");
+    element.jSetPinDescription(c++,"In-5 (Arduino Pin 6)");
+    element.jSetPinDescription(c++,"In-6 (Arduino Pin 7)");
     
-    element.jSetPinDescription(c++,"ADC-1");
-    element.jSetPinDescription(c++,"ADC-2");
-    element.jSetPinDescription(c++,"ADC-3");
-    element.jSetPinDescription(c++,"ADC-4");
-    element.jSetPinDescription(c++,"ADC-5");
-    element.jSetPinDescription(c++,"ADC-6");
+    element.jSetPinDescription(c++,"ADC-1 (Arduino Pin A0)");
+    element.jSetPinDescription(c++,"ADC-2 (Arduino Pin A1)");
+    element.jSetPinDescription(c++,"ADC-3 (Arduino Pin A2)");
+    element.jSetPinDescription(c++,"ADC-4 (Arduino Pin A3)");
+    element.jSetPinDescription(c++,"ADC-5 (Arduino Pin A4)");
+    element.jSetPinDescription(c++,"ADC-6 (Arduino Pin A5)");
 
     //element.jSetPinDescription(c++,"/dev/ttyACM0");
     //element.jSetPinDescription(c++,"start");
 
-    element.jSetPinDescription(c++,"Out-1");
-    element.jSetPinDescription(c++,"Out-2");
-    element.jSetPinDescription(c++,"Out-3");
-    element.jSetPinDescription(c++,"Out-4");
-    element.jSetPinDescription(c++,"Out-5");
-    element.jSetPinDescription(c++,"Out-6");
+    element.jSetPinDescription(c++,"Out-1 (Arduino Pin 8)");
+    element.jSetPinDescription(c++,"Out-2 (Arduino Pin 9)");
+    element.jSetPinDescription(c++,"Out-3 (Arduino Pin 10)");
+    element.jSetPinDescription(c++,"Out-4 (Arduino Pin 11)");
+    element.jSetPinDescription(c++,"Out-5 (Arduino Pin 12)");
+    element.jSetPinDescription(c++,"Out-6 (Arduino Pin 13)");
 
     String fileName=element.jGetSourcePath()+"icon.png";
     image=element.jLoadImage(fileName);
 
     element.jSetCaptionVisible(true);
-    element.jSetCaption("Arduino IO RPI JV");
-    setName("Arduino IO RPI JV");
+    element.jSetCaption("Arduino I/O JV");
+    setName("Arduino I/O JV");
       
       
   }
@@ -368,7 +368,7 @@ public class Arduino extends JVSMain implements MyOpenLabDriverOwnerIF
           //args.add(new String("COM"+comPort.getValue()));
           args.add(new String(comport.getItem(comport.selectedIndex)));
           System.out.println("Port_Loaded:"+comport.getItem(comport.selectedIndex));
-          args.add(new Integer(9600));
+          args.add(new Integer(115200));
           args.add(new Integer(8));
           args.add(new Integer(1));
           args.add(new Integer(0)); // No Parity

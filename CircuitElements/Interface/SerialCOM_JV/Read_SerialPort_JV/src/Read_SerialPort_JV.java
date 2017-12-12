@@ -297,10 +297,14 @@ public class Read_SerialPort_JV extends JVSMain
      }
       
    }
+   
    if(Error_out.getValue() || Error_in.getValue()){
-   Enable_VM_out.setValue(false);    
+   Enable_VM_out.setValue(false);
    }else{
-   Enable_VM_out.setValue(Enable_VM_in.getValue());        
+       Enable_VM_out.setValue(Enable_VM_in.getValue());        
+   }
+   if(Error_in.getValue()){
+       Error_out.setValue(true);
    }
    element.notifyPin(1); // Enable VM Out
    //element.notifyPin(2); // Serial Port Out
