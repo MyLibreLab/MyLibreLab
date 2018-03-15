@@ -2,7 +2,7 @@
 //* Element of MyOpenLab Library                                              *
 //*                                                                           *
 //* Copyright (C) 2014  Carmelo Salafia (cswi@gmx.de)                         *
-//*                                                                           *
+//* Copyright (C) 2018  Javier Velásquez (javiervelasquez125@gmail.com)                                                                         *
 //* This library is free software; you can redistribute it and/or modify      *
 //* it under the terms of the GNU Lesser General Public License as published  *
 //* by the Free Software Foundation; either version 2.1 of the License,       *
@@ -738,6 +738,7 @@ public class Firmata extends JVSMain implements MyOpenLabDriverOwnerIF {
 
                 textVar.setValue(dialogPins.result);
                 init();
+                
             }
         }
 
@@ -905,7 +906,13 @@ public class Firmata extends JVSMain implements MyOpenLabDriverOwnerIF {
         }
 
         initPins(0, outputPins, 0, inputPins);
-        setSize(32 + 22, 10 + (12 * 10));
+        //setSize(32 + 22, 10 + (12 * 10));
+        int minSize=0;
+        if(inputPins>outputPins) minSize=inputPins;
+        if(outputPins>inputPins) minSize=outputPins;
+        minSize=(12 * minSize);
+        setSize(32 + 22, 76 + minSize);
+        //System.err.println("OutPut Pins="+outputPins+" InputPins="+inputPins);
 
         initPinVisibility(false, true, false, true);
 
@@ -962,12 +969,12 @@ public class Firmata extends JVSMain implements MyOpenLabDriverOwnerIF {
             }
         }
 
-        String fileName = element.jGetSourcePath() + "icon.png";
+        String fileName = element.jGetSourcePath() + "iconCircuit.png";
         image = element.jLoadImage(fileName);
 
         element.jSetCaptionVisible(true);
-        element.jSetCaption("Firmata IO Interface");
-        setName("Firmata IO Interface");
+        element.jSetCaption("Standard Firmata Interface v1.1 JV");
+        setName("Standard Firmata Interface JV");
 
     }
 
