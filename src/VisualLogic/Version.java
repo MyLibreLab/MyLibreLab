@@ -25,6 +25,6 @@ public class Version
 {           
     public static String strApplicationTitle="MyOpenLab";
     public static String strApplicationVersion="3.12.0";
-    public static String strFileVersion="3.12"; //3.90
+    public static String strFileVersion="3.13"; //3.90
     public static String strStatus="";
 }

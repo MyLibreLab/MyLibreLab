@@ -1690,7 +1690,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         FileInputStream fis = fsIn.gotoItem(fileCount++);
         DataInputStream stream = new DataInputStream(fis);
         String ver = stream.readUTF(); // Version
-        if (Double.parseDouble(ver) == 3.12){
+        if (Double.parseDouble(ver) == 3.13){
         System.out.println("LoadFomStream_BasisVersion:"+ver+"|");
         tmpPassword = stream.readUTF(); // Password einlesen
                 if (tmpPassword.length() > 0) {
@@ -1742,9 +1742,12 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                 node.name = stream.readUTF();
                 node.datatype = stream.readInt();
                 if (Double.parseDouble(ver) >= 3.84) {
+                    System.out.println("Basis.java 1745 Double.parseDouble (ver)" + Double.parseDouble(ver));
+                }
+                
                     node.size1 = stream.readInt();
                     node.size2 = stream.readInt();
-                }
+                //}
 
                 variablenListe.add(node);
             }
@@ -1962,10 +1965,11 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     }
 
     public void saveToStream(FileSystemOutput fsOut, boolean onlySelected) {
-      if(Double.parseDouble(Version.strFileVersion)==3.12){
+      if(Double.parseDouble(Version.strFileVersion)>=3.12){
       try {
             FileOutputStream fos = fsOut.addItem("Properties");
             DataOutputStream dos = new DataOutputStream(fos);
+            //dos.writeUTF(Version.strFileVersion); // Version
             dos.writeUTF(Version.strFileVersion); // Version
             System.out.println("SavetoStream_BasisVersion:"+Version.strFileVersion+"|");
             if (vmPassword.length() == 0) {
@@ -2238,7 +2242,12 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
     @Override
     public void onDispose() {
-
+        
+        try {// Added on v3.12.0
+            this.finalize();
+        } catch (Throwable ex) {
+            Logger.getLogger(Basis.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
