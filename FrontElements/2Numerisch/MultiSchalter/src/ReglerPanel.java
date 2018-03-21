@@ -46,17 +46,19 @@ public class ReglerPanel extends CustomAnalogComp
 
     nibbleColor.setValue(Color.RED);
     buttonColor.setValue(new Color(200,150,150));
-    max.setValue(10);
-
+    max.setValue(100);
+    showBackground.setValue(false);
+    font.setValue(new Font("Dialog", Font.BOLD, 11));
     generateFromNumbersValues();
     generateFromValuesSubElements();
     captions.setText(getTextWithKomma());
-    knobSizeInProzent.setValue(36);
+    knobSizeInProzent.setValue(37);
     nibbleLenInProzent.setValue(30);
-    nibbleCircleSizeInProzent.setValue(7);
-
+    nibbleCircleSizeInProzent.setValue(6);
+    lineColor.setValue(new Color(255,242,181));
     showNibbleAsCircle.setValue(true);
-    setSize(80,80);
+    nibbleColor.setValue(new Color(0,0,255));
+    setSize(140,140);
   }
 
 

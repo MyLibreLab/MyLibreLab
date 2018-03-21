@@ -1,10 +1,11 @@
-BalkenRegler
 MultiSchalter
 Regler
+H-V-Slider_JV
+BalkenRegler
 Eingabe
-INTCombo
 INTSpinner
 DBLSpinner
+INTCombo
 Switch2
 Anzeige
 Analoge Anzeige

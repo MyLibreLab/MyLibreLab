@@ -83,9 +83,9 @@ public class Triangle extends JVSMain
     setName("Triangle");
 
     element.jSetResizable(true);
-    strokeWidth.setValue(1);
-    fillColor.color1=Color.LIGHT_GRAY;
-    strokeColor.color1=Color.BLACK;
+    strokeWidth.setValue(5);
+    fillColor.color1=new Color(153,153,153);
+    strokeColor.color1=new Color(204,204,204);
   }
 
 
@@ -116,7 +116,7 @@ public class Triangle extends JVSMain
     element.jSetPEItemLocale(d+0,language,"Color Interior");
     element.jSetPEItemLocale(d+1,language,"Color Contorno");
     element.jSetPEItemLocale(d+2,language,"Espesor contorno");
-    element.jSetPEItemLocale(d+3,language,"Fill");
+    element.jSetPEItemLocale(d+3,language,"Rellenar");
   }
 
   public void propertyChanged(Object o)

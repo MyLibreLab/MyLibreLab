@@ -1,7 +1,7 @@
 ISDIRECTORY  = FALSE
-CAPTION      = Multischalter
-CAPTION_EN= Multi-Switch
-CAPTION_ES= Potenciómetro
+CAPTION      = Numeric Control
+CAPTION_EN= Numeric Control
+CAPTION_ES= Control Numerico
 Jar          = bin/Regler.jar
 ClassCircuit = Regler
 ClassFront   = ReglerPanel

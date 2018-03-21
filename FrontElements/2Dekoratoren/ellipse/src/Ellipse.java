@@ -81,16 +81,21 @@ public class Ellipse extends JVSMain
 
     element.jSetResizable(true);
     
-    strokeWidth.setValue(1);
-
-    fillColor.color1=Color.LIGHT_GRAY;
-    strokeColor.color1=Color.BLACK;
+    strokeWidth.setValue(5);
+    fillColor.color1=new Color(153,153,153);
+    strokeColor.color1=new Color(204,204,204);
   }
   
 
 
   public void propertyChanged(Object o)
-  {
+  { 
+    //System.err.println("Color1"+fillColor.color1);
+    //System.err.println("Color2"+fillColor.color2);
+    //System.err.println("P1"+fillColor.p1);
+    //System.err.println("P2"+fillColor.p2);
+    //System.err.println("Modo"+fillColor.modus);
+
     element.jRepaint();
   }
 
@@ -122,7 +127,7 @@ public class Ellipse extends JVSMain
     element.jSetPEItemLocale(d+0,language,"Color Interior");
     element.jSetPEItemLocale(d+1,language,"Color Contorno");
     element.jSetPEItemLocale(d+2,language,"Espesor Contorno");
-    element.jSetPEItemLocale(d+3,language,"Fill");
+    element.jSetPEItemLocale(d+3,language,"Rellenar");
 
   }
 

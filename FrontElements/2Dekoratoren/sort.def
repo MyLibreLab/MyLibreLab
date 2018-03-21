@@ -2,7 +2,8 @@ Ellipse
 XRectangle
 RoundRect
 Triangle
+Label
+Path
 Image_2_0
 SVGImage
-Label
-XText
+SVGSalamanderImage

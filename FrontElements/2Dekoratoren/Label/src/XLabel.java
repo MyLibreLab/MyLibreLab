@@ -36,7 +36,7 @@ public class XLabel extends JVSMain
   private VSInteger ausrichtungH = new VSInteger();
   private VSInteger ausrichtungV = new VSInteger();
 
-  private VSFont font=new VSFont(new Font("Monospaced",0,11));
+  private VSFont font=new VSFont(new Font("Dialog",Font.BOLD,11));
   private VSColor fontColor = new VSColor(Color.BLACK);
   private String[] values= new String[3];
   private JLabel label = new JLabel("Label");

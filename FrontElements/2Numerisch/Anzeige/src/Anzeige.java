@@ -2,7 +2,7 @@
 //* Element of MyOpenLab Library                                              *
 //*                                                                           *
 //* Copyright (C) 2004  Carmelo Salafia (cswi@gmx.de)                         *
-//* Copyright (C) 2017  Javier Velásquez (javiervelasquez125@gmail.com)                                                                          *
+//*                                                                           *
 //* This library is free software; you can redistribute it and/or modify      *
 //* it under the terms of the GNU Lesser General Public License as published  *
 //* by the Free Software Foundation; either version 2.1 of the License,       *
@@ -59,12 +59,12 @@ public class Anzeige extends JVSMain
     image=element.jLoadImage(element.jGetSourcePath()+"icon.gif");
     
     setPin(0,ExternalIF.C_VARIANT,element.PIN_INPUT);
-    element.jSetPinDescription(0,"input (INT - DBL)");
+    element.jSetPinDescription(0,"in");
 
     element.jSetCaptionVisible(true);
-    element.jSetCaption("Numeric Indicator JV");
+    element.jSetCaption("num-anzeige");
 
-    setName("Numeric Indicator JV");
+    setName("Num-Anzeige");
   }
 
 
