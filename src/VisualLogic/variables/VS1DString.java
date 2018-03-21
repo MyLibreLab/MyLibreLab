@@ -125,7 +125,7 @@ public class VS1DString extends VSObject
             }        
         } catch(Exception ex)
         {
-            System.err.println("Fehler in VS1DString.saveToStream() : "+ex.toString()); 
+            System.err.println("Fehler in VS1DString.saveToStream() : "+ex); 
         }                        
     }
     

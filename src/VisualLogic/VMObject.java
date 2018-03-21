@@ -576,9 +576,9 @@ public class VMObject extends JPanel implements MouseListener, MouseMotionListen
         this.elementPath = elementPath;
         initElementReferences(); // alle Referenzen auf null setzen!
         time1 = System.currentTimeMillis();
-        setSize(500, 500);
+        setSize(800, 460);
 
-        setPreferredSize(new Dimension(500, 500));
+        setPreferredSize(new Dimension(800, 460));
 
         this.setBackground(Color.white);
 

@@ -98,8 +98,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     private boolean oki = false;
     //public MyImage doc_image = new MyImage();
     public PanelDokumentation panelDoc;
-    public static String elementPath = ""; //NOI18N
-    //public static String elementPath = "C:\\Users\\velas\\Documents\\NetBeansProjects\\myopenlab_source\\distribution\\Elements";
+    //public static String elementPath = ""; //NOI18N
+    public static String elementPath = "C:\\Users\\velas\\Documents\\NetBeansProjects\\myopenlab_source\\distribution\\Elements";
     public String activeElement = ""; //NOI18N
     public static FrameMain frm;
     public javax.swing.Timer timer;
