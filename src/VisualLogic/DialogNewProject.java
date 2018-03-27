@@ -43,6 +43,7 @@ public class DialogNewProject extends javax.swing.JDialog
         jTextField2.setText(path);
         
         make();
+        
     }
     
     /** This method is called from within the constructor to
@@ -53,35 +54,35 @@ public class DialogNewProject extends javax.swing.JDialog
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        cancelBtn = new javax.swing.JButton();
+        Ok_btn = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        FinalProjectPath = new javax.swing.JTextField();
+        ExploreFolder_btn = new javax.swing.JButton();
         jCheckBox2 = new javax.swing.JCheckBox();
-        jTextField4 = new javax.swing.JTextField();
+        MainVMName = new javax.swing.JTextField();
         jCheckSPSProjekt = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("VisualLogic/DialogNewProject"); // NOI18N
         setTitle(bundle.getString("New_Project")); // NOI18N
 
-        jButton2.setText(bundle.getString("Cancel")); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        cancelBtn.setText(bundle.getString("Cancel")); // NOI18N
+        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                cancelBtnActionPerformed(evt);
             }
         });
 
-        jButton1.setText(bundle.getString("OK")); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Ok_btn.setText(bundle.getString("OK")); // NOI18N
+        Ok_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                Ok_btnActionPerformed(evt);
             }
         });
 
@@ -90,6 +91,11 @@ public class DialogNewProject extends javax.swing.JDialog
         jLabel1.setText(bundle.getString("Project_Name_:_")); // NOI18N
 
         jTextField1.setText(bundle.getString("project1")); // NOI18N
+        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField1MouseClicked(evt);
+            }
+        });
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -101,11 +107,6 @@ public class DialogNewProject extends javax.swing.JDialog
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField1KeyReleased(evt);
-            }
-        });
-        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTextField1MouseClicked(evt);
             }
         });
 
@@ -127,12 +128,12 @@ public class DialogNewProject extends javax.swing.JDialog
 
         jLabel3.setText(bundle.getString("Project_Folder_:")); // NOI18N
 
-        jTextField3.setEditable(false);
+        FinalProjectPath.setEditable(false);
 
-        jButton3.setText(bundle.getString("Browse...")); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        ExploreFolder_btn.setText(bundle.getString("Browse...")); // NOI18N
+        ExploreFolder_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                ExploreFolder_btnActionPerformed(evt);
             }
         });
 
@@ -150,9 +151,9 @@ public class DialogNewProject extends javax.swing.JDialog
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
+                    .addComponent(FinalProjectPath, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(ExploreFolder_btn)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -165,12 +166,12 @@ public class DialogNewProject extends javax.swing.JDialog
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jButton3)
+                    .addComponent(ExploreFolder_btn)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(FinalProjectPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -179,7 +180,7 @@ public class DialogNewProject extends javax.swing.JDialog
         jCheckBox2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jCheckBox2.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-        jTextField4.setText("Main");
+        MainVMName.setText("Main");
 
         jCheckSPSProjekt.setText(bundle.getString("MYOPENLAB_SPS_PROJEKT")); // NOI18N
         jCheckSPSProjekt.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -201,15 +202,15 @@ public class DialogNewProject extends javax.swing.JDialog
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jCheckBox2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(MainVMName, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jCheckSPSProjekt)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(Ok_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -220,12 +221,12 @@ public class DialogNewProject extends javax.swing.JDialog
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCheckBox2)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MainVMName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCheckSPSProjekt))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(cancelBtn)
+                    .addComponent(Ok_btn))
                 .addContainerGap())
         );
 
@@ -237,7 +238,8 @@ public class DialogNewProject extends javax.swing.JDialog
     private void make()
     {
         //jTextField3.setText(jTextField2.getText()+"\\"+jTextField1.getText()); //NOI18N
-        jTextField3.setText(jTextField2.getText()+File.separator+jTextField1.getText()); //NOI18N
+        FinalProjectPath.setText(jTextField2.getText()+File.separator+jTextField1.getText()); //NOI18N
+        
     }
     
     
@@ -276,25 +278,37 @@ public class DialogNewProject extends javax.swing.JDialog
         
     }//GEN-LAST:event_jTextField2ActionPerformed
     
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
-    {//GEN-HEADEREND:event_jButton3ActionPerformed
+    private void ExploreFolder_btnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ExploreFolder_btnActionPerformed
+    {//GEN-HEADEREND:event_ExploreFolder_btnActionPerformed
         
-        JFileChooser chooser = new JFileChooser();
+        JFileChooser chooser = new JFileChooser(){
+            public void approveSelection()
+            {
+                if (getSelectedFile().isDirectory())
+                {
+                    // beep
+                    super.approveSelection();
+                    
+                }
+                return;
+            }
+        };
         
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        OnlyDirectoryFilter filter= new OnlyDirectoryFilter();
-        chooser.setFileFilter(filter);
+        //OnlyDirectoryFilter filter= new OnlyDirectoryFilter();
+        //chooser.setFileFilter(filter);
         
         chooser.setDialogTitle(java.util.ResourceBundle.getBundle("VisualLogic/DialogNewProject").getString("Browse..."));
-        chooser.setDialogType(JFileChooser.DIRECTORIES_ONLY);
+        //chooser.setDialogType(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setDialogType(JFileChooser.SAVE_DIALOG);
         
-        chooser.setCurrentDirectory(new File(".")); //NOI18N
+        chooser.setCurrentDirectory(new File(System.getProperty("user.home"))); //NOI18N
         
         //chooser.setFileFilter(filter);
         FileView view = new JavaFileView();
         chooser.setFileView(view);
         
-        int value = chooser.showSaveDialog(this);
+        int value = chooser.showOpenDialog(this);
         
         if (value == JFileChooser.APPROVE_OPTION)
         {
@@ -303,24 +317,25 @@ public class DialogNewProject extends javax.swing.JDialog
             String fileName=file.getPath();
             jTextField2.setText(fileName);
             make();
+            
         }
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
+       Ok_btn.requestFocus();
+    }//GEN-LAST:event_ExploreFolder_btnActionPerformed
     
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
-    {//GEN-HEADEREND:event_jButton2ActionPerformed
+    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cancelBtnActionPerformed
+    {//GEN-HEADEREND:event_cancelBtnActionPerformed
         result=false;
         dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_cancelBtnActionPerformed
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
+    private void Ok_btnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_Ok_btnActionPerformed
+    {//GEN-HEADEREND:event_Ok_btnActionPerformed
                    
         if (jCheckSPSProjekt.isSelected())
         {
           projectType="SPS"; //NOI18N
         }
-        projectName=jTextField3.getText();
+        projectName=FinalProjectPath.getText();
         if (!new File(projectName).exists())
         {
             result=true;
@@ -328,7 +343,7 @@ public class DialogNewProject extends javax.swing.JDialog
             
             if (createMainVM)
             {
-                mainVMFilename=jTextField4.getText();
+                mainVMFilename=MainVMName.getText();
                 
                 if (mainVMFilename.length()==0)
                 {
@@ -341,10 +356,11 @@ public class DialogNewProject extends javax.swing.JDialog
         }
         else
         {
+            cancelBtn.requestFocus();
             Tools.showMessage(java.util.ResourceBundle.getBundle("VisualLogic/DialogNewProject").getString("Folder_already_exist_:_")+"\""+projectName+"\"");
         }
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_Ok_btnActionPerformed
 
     private void jCheckSPSProjektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckSPSProjektActionPerformed
         // TODO add your handling code here:
@@ -359,9 +375,11 @@ public class DialogNewProject extends javax.swing.JDialog
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton ExploreFolder_btn;
+    private javax.swing.JTextField FinalProjectPath;
+    private javax.swing.JTextField MainVMName;
+    private javax.swing.JButton Ok_btn;
+    private javax.swing.JButton cancelBtn;
     private javax.swing.JCheckBox jCheckBox2;
     public static javax.swing.JCheckBox jCheckSPSProjekt;
     private javax.swing.JLabel jLabel1;
@@ -370,8 +388,6 @@ public class DialogNewProject extends javax.swing.JDialog
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
     
 }

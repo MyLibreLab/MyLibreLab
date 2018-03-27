@@ -78,7 +78,10 @@ import java.awt.event.KeyEvent;
 import java.beans.XMLDecoder;
 import javax.swing.JEditorPane;
 import javax.swing.JMenu;
+import javax.swing.LookAndFeel;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.nimbus.NimbusStyle;
+
 
 class MyButtonX extends JButton {
 
@@ -98,8 +101,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     private boolean oki = false;
     //public MyImage doc_image = new MyImage();
     public PanelDokumentation panelDoc;
-    //public static String elementPath = ""; //NOI18N
-    public static String elementPath = "C:\\Users\\velas\\Documents\\NetBeansProjects\\myopenlab_source\\distribution\\Elements";
+    public static String elementPath = ""; //NOI18N
+    //public static String elementPath = "C:\\Users\\velas\\Documents\\NetBeansProjects\\myopenlab_source\\distribution\\Elements";
     public String activeElement = ""; //NOI18N
     public static FrameMain frm;
     public javax.swing.Timer timer;
@@ -366,8 +369,9 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     }
 
     public String searchElement(File file) {
-        boolean res = setQuestionDialogYES_NO_CANCEL(this, "Element not found : " + file.getName() + "\n" + "do you want to search the Element?");
-
+        System.out.println("Element not found : " + file.getName());
+        //boolean res = setQuestionDialogYES_NO_CANCEL(this, "Element not found : " + file.getName() + "\n" + "do you want to search the Element?");
+        boolean res = false;  
         if (res) {
             DialogElementSearchAssistent frm = new DialogElementSearchAssistent(this, true);
             frm.init(file);
@@ -400,7 +404,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 public Object doInBackground() {
                     Tools.dialogWait = new DialogWait();
                     Tools.dialogWait.setVisible(true);
-                    Tools.dialogWait.setLocation(Tools.dialogWait.getLocation().x, Tools.dialogWait.getLocation().y - 150);
+                    //Tools.dialogWait.setLocation(Tools.dialogWait.getLocation().x, Tools.dialogWait.getLocation().y - 150);
 
                     Basis oBasis = addBasisToVMPanel(globalPath, globalProjectPath, true);
                     if (oBasis != null) {
@@ -1140,7 +1144,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         //new File(path + "/FrontElements").mkdirs();
 
         if (!new File(path + File.separator+ "CircuitElements"+File.separator+"definition.def").exists()) {
-            String src = elementPath +File.separator +"UserElementsTemplate"+"CircuitElements"+File.separator+"definition.def";
+            String src = elementPath +File.separator +"UserElementsTemplate"+File.separator+"CircuitElements"+File.separator+"definition.def";
             String dst = path + File.separator+"CircuitElements"+File.separator+"definition.def";
             try {
                 Tools.copyFile(new File(src), new File(dst));
@@ -1363,8 +1367,9 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
     public FrameMain(String args[]) {
         
-         //ImageIcon icon = new ImageIcon(getClass().getResource("/Bilder/logo.png"));
-        try {
+            
+        //ImageIcon icon = new ImageIcon(getClass().getResource("/Bilder/logo.png"));
+         try {
 
             //iconImage = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Bilder/16x16/icon.png"));
             //setIconImage(iconImage);            ?
@@ -1456,6 +1461,28 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         }
 
         System.out.println("myopenlab Path=" + myopenlabX);
+        
+        try{
+            String OS_arch = System.getProperty("os.arch"); // arm Raspberry PI
+            String OS_name = System.getProperty("os.name"); // Linux Raspberry PI
+            System.out.println("OS_Name="+OS_name+"_OS_Arch="+OS_arch);
+
+            if(OS_arch.equalsIgnoreCase("arm")   || OS_name.contains("Linux") 
+                    || OS_name.contains("linux") || OS_name.contains("LINUX")
+                    || OS_name.contains("mac")   || OS_name.contains("MAC")
+                    || OS_name.contains("Mac")){
+                
+             System.setProperty( "sun.java2d.xrender","True"); //sun.java2d.xrender=True
+                        //xrender Intended use: To enable the XRender-based Java 2D rendering pipeline for modern X11-based desktops, offering improved graphics performance.
+
+             System.setProperty( "sun.java2d.d3d","false"); //sun.java2d.d3d=false //d3d
+             //Intended use: To turn off the Java 2D system's use of Direct3D.   
+             //https://docs.oracle.com/javase/7/docs/technotes/guides/2d/flags.html#xrender   
+            }    
+            
+            }catch(Exception e){
+                System.out.println(e);   
+            }
 
         /*DialogLanguage lan = new DialogLanguage(this, true);
 
@@ -1594,6 +1621,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     }
 
     public void showPinDescription(JPin pin) {
+        try{
         String desc = pin.getDescription();
         desc += " (" + VSDataType.getDataTypeShortCut(pin.dataType) + ")";
         JLabel lbl = layedLabel;
@@ -1609,6 +1637,10 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         lbl.setOpaque(true);
 
         lbl.updateUI();
+        }catch(Exception e){
+            System.out.println("FrameMain Line 1624 Error"); 
+            //This error is caused on MAC OS Jdescription does not work
+        }
     }
 
     public void startButtonHandler() {
@@ -1736,7 +1768,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 if (element != null) {
                     if (element != oldElement) {
                         comboIsEditing = true;
-                        jComboBox1.setSelectedItem(element);
+                        jComboBoxElementList.setSelectedItem(element);
                         comboIsEditing = false;
                     }
                     oldElement = element;
@@ -1842,12 +1874,12 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         VMObject vmObject = getVMObject();
         if (vmObject != null) {
             comboIsEditing = true;
-            jComboBox1.removeAllItems();
+            jComboBoxElementList.removeAllItems();
 
             Element element = null;
             for (int i = 0; i < vmObject.getElementCount(); i++) {
                 element = vmObject.getElement(i);
-                jComboBox1.addItem(element);
+                jComboBoxElementList.addItem(element);
             }
             comboIsEditing = false;
         }
@@ -1916,14 +1948,44 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     public static void setLookAndFeel() {
 
         String nativeLF = UIManager.getSystemLookAndFeelClassName();
+        
         try {
-            UIManager.setLookAndFeel(nativeLF);
-        } catch (ClassNotFoundException | InstantiationException |
-                IllegalAccessException | UnsupportedLookAndFeelException ex) {
+                UIManager.setLookAndFeel(nativeLF);
+                for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                    System.out.println(info.getName());
+                    if ("Nimbus".equals(info.getName())) {
+                        //UIManager.setLookAndFeel(info.getClassName());
+                        //UIManager.setLookAndFeel(nativeLF);
+                        
+                        //System.setProperty( "sun.java2d.xrender","false"); //sun.java2d.xrender=True
+                        //xrender Intended use: To enable the XRender-based Java 2D rendering pipeline for modern X11-based desktops, offering improved graphics performance.
 
-        }
+                        //System.setProperty( "sun.java2d.d3d","false"); //sun.java2d.d3d=false //d3d
+                        //Intended use: To turn off the Java 2D system's use of Direct3D.
+                        
+                        //-Dsun.java2d.xrender=false -Dsun.java2d.d3d=false
+                        break;
+                    }
+                }
+                 // Set cross-platform Java L&F (also called "Metal")
+                 //UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+                 
+            } catch (Exception e) {
+                // If Nimbus is not available, you can set the GUI to another look and feel.
+                try {
+                    
+                 UIManager.setLookAndFeel(nativeLF);
+                } catch (ClassNotFoundException | InstantiationException |
+                        IllegalAccessException | UnsupportedLookAndFeelException ex) {
 
+                }
+
+            }
     }
+            
+        
+
+    
 
     public void removeVMPanel(VMEditorPanel panel) {
         jPaneVMPanels.remove(panel);
@@ -2026,8 +2088,9 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-
-        setUIFont(new javax.swing.plaf.FontUIResource("Tahoma", Font.PLAIN, 12)); //Application Font
+        
+        
+        setUIFont(new javax.swing.plaf.FontUIResource("Dialog", Font.PLAIN, 12)); //Application Font
         
         SplashScreen splash = SplashScreen.getSplashScreen();
         if (splash != null) {
@@ -2103,7 +2166,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             public Object doInBackground() {
                 Tools.dialogWait = new DialogWait();
                 Tools.dialogWait.setVisible(true);
-                Tools.dialogWait.setLocation(Tools.dialogWait.getLocation().x, Tools.dialogWait.getLocation().y - 150);
+                //Tools.dialogWait.setLocation(Tools.dialogWait.getLocation().x, Tools.dialogWait.getLocation().y - 150);
 
                 frontMode = true;
                 Basis basis = addBasisToVMPanel(globalPath, globalProjectPath, true);
@@ -2183,7 +2246,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         jPanelPropertyEditor = new javax.swing.JPanel();
         jTabPropertyEditor = new javax.swing.JTabbedPane();
         jPanelElementList = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox();
+        jComboBoxElementList = new javax.swing.JComboBox();
         jPanelProjectExplorer = new javax.swing.JPanel();
         jPanelCenter = new javax.swing.JPanel();
         jPanelElementPalette = new javax.swing.JPanel();
@@ -2643,33 +2706,34 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         jPanelPropertyEditor.add(jTabPropertyEditor, java.awt.BorderLayout.CENTER);
 
         jPanelElementList.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("Elements"))); // NOI18N
-        jPanelElementList.setPreferredSize(new java.awt.Dimension(100, 50));
+        jPanelElementList.setMinimumSize(new java.awt.Dimension(112, 50));
+        jPanelElementList.setPreferredSize(new java.awt.Dimension(100, 55));
         jPanelElementList.setLayout(new java.awt.BorderLayout());
 
-        jComboBox1.setToolTipText(bundle.getString("FrameMain.jComboBox1.toolTipText")); // NOI18N
-        jComboBox1.setMinimumSize(new java.awt.Dimension(28, 25));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(28, 25));
-        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+        jComboBoxElementList.setToolTipText(bundle.getString("FrameMain.jComboBoxElementList.toolTipText")); // NOI18N
+        jComboBoxElementList.setMinimumSize(new java.awt.Dimension(100, 50));
+        jComboBoxElementList.setPreferredSize(new java.awt.Dimension(100, 60));
+        jComboBoxElementList.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox1ItemStateChanged(evt);
+                jComboBoxElementListItemStateChanged(evt);
             }
         });
-        jComboBox1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        jComboBoxElementList.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
-                jComboBox1MouseDragged(evt);
+                jComboBoxElementListMouseDragged(evt);
             }
         });
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBoxElementList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jComboBoxElementListActionPerformed(evt);
             }
         });
-        jComboBox1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        jComboBoxElementList.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jComboBox1PropertyChange(evt);
+                jComboBoxElementListPropertyChange(evt);
             }
         });
-        jPanelElementList.add(jComboBox1, java.awt.BorderLayout.CENTER);
+        jPanelElementList.add(jComboBoxElementList, java.awt.BorderLayout.CENTER);
 
         jPanelPropertyEditor.add(jPanelElementList, java.awt.BorderLayout.NORTH);
 
@@ -2696,10 +2760,17 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         jPanelCenter.setBackground(new java.awt.Color(153, 153, 153));
         jPanelCenter.setLayout(new java.awt.BorderLayout());
 
+        jPanelElementPalette.setBackground(new java.awt.Color(230, 230, 230));
+        jPanelElementPalette.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanelElementPalette.setAutoscrolls(true);
         jPanelElementPalette.setFocusTraversalPolicyProvider(true);
         jPanelElementPalette.setMinimumSize(new java.awt.Dimension(50, 65));
-        jPanelElementPalette.setPreferredSize(new java.awt.Dimension(150, 98));
+        jPanelElementPalette.setPreferredSize(new java.awt.Dimension(150, 110));
+        jPanelElementPalette.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jPanelElementPaletteMouseMoved(evt);
+            }
+        });
         jPanelElementPalette.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanelElementPaletteMousePressed(evt);
@@ -2708,11 +2779,6 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         jPanelElementPalette.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 jPanelElementPaletteComponentResized(evt);
-            }
-        });
-        jPanelElementPalette.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jPanelElementPaletteMouseMoved(evt);
             }
         });
         jPanelElementPalette.setLayout(new java.awt.BorderLayout());
@@ -2772,7 +2838,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             .add(jPanel8Layout.createSequentialGroup()
                 .add(43, 43, 43)
                 .add(jButton13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(439, Short.MAX_VALUE))
+                .addContainerGap(427, Short.MAX_VALUE))
         );
 
         jPanelHelpWindow.add(jPanel8, java.awt.BorderLayout.WEST);
@@ -4026,10 +4092,10 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
     }//GEN-LAST:event_jmniPrintVMActionPerformed
 
-    private void jComboBox1MouseDragged(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jComboBox1MouseDragged
-    {//GEN-HEADEREND:event_jComboBox1MouseDragged
+    private void jComboBoxElementListMouseDragged(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jComboBoxElementListMouseDragged
+    {//GEN-HEADEREND:event_jComboBoxElementListMouseDragged
 
-    }//GEN-LAST:event_jComboBox1MouseDragged
+    }//GEN-LAST:event_jComboBoxElementListMouseDragged
 
     /**
      * generate a new subVM
@@ -4723,7 +4789,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 public Object doInBackground() {
                     Tools.dialogWait = new DialogWait();
                     Tools.dialogWait.setVisible(true);
-                    Tools.dialogWait.setLocation(Tools.dialogWait.getLocation().x, Tools.dialogWait.getLocation().y - 150);
+                    //Tools.dialogWait.setLocation(Tools.dialogWait.getLocation().x, Tools.dialogWait.getLocation().y - 150);
 
                     addBasisToVMPanel(globalPath, "", true);
                     return null;
@@ -5028,8 +5094,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
             Tools.copy(new File(elementPath + File.separator + ".." + File.separator + "DistributionStarter.jar"), new File(destDir + File.separator + "DistributionStarter.jar"));
 
-            Tools.copy(new File(elementPath + File.separator + ".." + File.separator + "rxtxSerial.dll"), new File(destDir + File.separator + "rxtxSerial.dll"));
-            Tools.copy(new File(elementPath + File.separator + ".." + File.separator + "rxtxParallel.dll"), new File(destDir + File.separator + "rxtxParallel.dll"));
+            //Tools.copy(new File(elementPath + File.separator + ".." + File.separator + "rxtxSerial.dll"), new File(destDir + File.separator + "rxtxSerial.dll"));
+            //Tools.copy(new File(elementPath + File.separator + ".." + File.separator + "rxtxParallel.dll"), new File(destDir + File.separator + "rxtxParallel.dll"));
 
             Tools.saveText(new File(destDir + File.separator + "start.bat"), "start javaw -jar DistributionStarter.jar .");
             Tools.saveText(new File(destDir + File.separator + "start_linux_distribution"), "#!/bin/sh \njava -jar DistributionStarter.jar .");
@@ -5091,18 +5157,18 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
     }//GEN-LAST:event_jmiHomepageActionPerformed
 
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_jComboBox1ItemStateChanged
-    {//GEN-HEADEREND:event_jComboBox1ItemStateChanged
+    private void jComboBoxElementListItemStateChanged(java.awt.event.ItemEvent evt)//GEN-FIRST:event_jComboBoxElementListItemStateChanged
+    {//GEN-HEADEREND:event_jComboBoxElementListItemStateChanged
 
-    }//GEN-LAST:event_jComboBox1ItemStateChanged
+    }//GEN-LAST:event_jComboBoxElementListItemStateChanged
 
-    private void jComboBox1PropertyChange(java.beans.PropertyChangeEvent evt)//GEN-FIRST:event_jComboBox1PropertyChange
-    {//GEN-HEADEREND:event_jComboBox1PropertyChange
+    private void jComboBoxElementListPropertyChange(java.beans.PropertyChangeEvent evt)//GEN-FIRST:event_jComboBoxElementListPropertyChange
+    {//GEN-HEADEREND:event_jComboBoxElementListPropertyChange
 
-    }//GEN-LAST:event_jComboBox1PropertyChange
+    }//GEN-LAST:event_jComboBoxElementListPropertyChange
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBox1ActionPerformed
-    {//GEN-HEADEREND:event_jComboBox1ActionPerformed
+    private void jComboBoxElementListActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBoxElementListActionPerformed
+    {//GEN-HEADEREND:event_jComboBoxElementListActionPerformed
 
         Basis basis = getActualBasis();
 
@@ -5126,7 +5192,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             }
         }
 
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_jComboBoxElementListActionPerformed
 
     private void jmiLegendActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmiLegendActionPerformed
     {//GEN-HEADEREND:event_jmiLegendActionPerformed
@@ -5461,7 +5527,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             public Object doInBackground() {
                 Tools.dialogWait = new DialogWait();
                 Tools.dialogWait.setVisible(true);
-                Tools.dialogWait.setLocation(Tools.dialogWait.getLocation().x, Tools.dialogWait.getLocation().y - 150);
+                //Tools.dialogWait.setLocation(Tools.dialogWait.getLocation().x, Tools.dialogWait.getLocation().y - 150);
 
                 frontMode = true;
                 Basis basis = addBasisToVMPanel(globalPath, globalProjectPath, false);
@@ -6022,7 +6088,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     private javax.swing.JButton jButtonUndo_D;
     private javax.swing.JButton jButtonVariables_H;
     private javax.swing.JButton jButtonWireLegends_I;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBoxElementList;
     private javax.swing.JLabel jLabelDebugDelay;
     private javax.swing.JMenuBar jMenuBar_MainMenuBar;
     public javax.swing.JTabbedPane jPaneVMPanels;

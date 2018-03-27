@@ -19,7 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package VisualLogic;
 
 
+import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Toolkit;
 
 
 /**
@@ -39,7 +41,10 @@ public class DialogWait extends javax.swing.JFrame
     {
         initComponents();
         this.setAlwaysOnTop(true); // To avoid Myopenlab Freezes if user click main Frame while this window is loading
-        
+        //Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        //this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        //this.pack();
+        this.setLocationRelativeTo(null);
     }
     
     public void setProgress()
@@ -96,12 +101,16 @@ public class DialogWait extends javax.swing.JFrame
         jPanel1.setBackground(new java.awt.Color(73, 88, 159));
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setForeground(new java.awt.Color(51, 51, 51));
+        jPanel1.setPreferredSize(new java.awt.Dimension(500, 150));
 
+        label1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         label1.setForeground(new java.awt.Color(255, 255, 255));
         label1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/ajax-loader.gif"))); // NOI18N
         label1.setText("Please wait");
+        label1.setAlignmentX(0.5F);
 
-        jProgressBar1.setForeground(new java.awt.Color(255, 204, 0));
+        jProgressBar1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jProgressBar1.setForeground(new java.awt.Color(253, 153, 0));
         jProgressBar1.setStringPainted(true);
 
         label2.setForeground(new java.awt.Color(255, 255, 255));
@@ -114,20 +123,20 @@ public class DialogWait extends javax.swing.JFrame
                 .addContainerGap()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jProgressBar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, label2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, label1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, label2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, label1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .add(21, 21, 21)
                 .add(label1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 42, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(label2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 5, Short.MAX_VALUE)
+                .add(label2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 11, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jProgressBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .add(32, 32, 32))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);

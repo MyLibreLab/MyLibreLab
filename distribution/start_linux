@@ -1,4 +1,0 @@
-#!/bin/sh 
-java -splash:images/splashJV.png -jar myopenlab.jar Elements
-
- 

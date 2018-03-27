@@ -1,0 +1,5 @@
+#!/bin/sh 
+cd /usr/lib
+sudo rm librxtxSerial.so
+sudo rm librxtxParallel.so
+ 
