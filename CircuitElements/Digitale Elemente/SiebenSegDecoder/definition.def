@@ -1,2 +1,2 @@
 ISDIRECTORY = FALSE
-REDIRECT    = CircuitElements\Boolean\Decoder\SiebenSegDecoder
+REDIRECT    = CircuitElements/Boolean/Decoder/SiebenSegDecoder

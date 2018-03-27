@@ -1,2 +1,2 @@
 ISDIRECTORY = FALSE
-REDIRECT    = CircuitElements\Sockets\SocketServer
+REDIRECT    = CircuitElements/Sockets/SocketServer

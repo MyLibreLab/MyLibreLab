@@ -5,4 +5,4 @@ CAPTION_ES= Control Numerico
 Jar          = bin/Regler.jar
 ClassCircuit = Regler
 ClassFront   = ReglerPanel
-Icon         = bin/Regler.GIF
+Icon         = bin/Regler.gif

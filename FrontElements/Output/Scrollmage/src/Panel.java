@@ -51,12 +51,18 @@ public class Panel extends JVSMain implements PanelIF
 
   public void processPanel(int pinIndex, double value, Object obj)
   {
-     in=(VSImage24)obj;
      
-     if (in!=null)
-     {
+     
+     if (obj!=null)
+     { 
+       try{ 
+       in=(VSImage24)obj;
        img= Toolkit.getDefaultToolkit().createImage(new MemoryImageSource(in.getWidth(),in.getHeight(),in.getPixels(), 0, in.getWidth()) );
        image.setImage(img);
+       
+       }catch(Exception e){
+           
+       }
      } else
      {
 
@@ -66,31 +72,7 @@ public class Panel extends JVSMain implements PanelIF
 
    public void paint(java.awt.Graphics g)
    {
-     /*if (element!=null)
-     {
-        Rectangle bounds=element.jGetBounds();
-
-        Graphics2D g2 = (Graphics2D)g;
-
-        if (interpolation.getValue()==true)
-        {
-          g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BICUBIC );
-        } else
-        {
-          g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
-        }
-
-
-
-        if (img!=null)
-        {
-          g2.drawImage(img,bounds.x,bounds.y,bounds.width,bounds.height,null);
-        } else
-        {
-          g2.setColor(Color.WHITE);
-          g2.fillRect( bounds.x,bounds.y,bounds.width,bounds.height);
-        }
-      }   */
+     
    }
    
   public void setPropertyEditor()
@@ -111,7 +93,7 @@ public class Panel extends JVSMain implements PanelIF
 
     language="es_ES";
 
-    element.jSetPEItemLocale(d+0,language,"Interpolación");
+    element.jSetPEItemLocale(d+0,language,"Interpolaciï¿½n");
   }
 
   public void propertyChanged(Object o)

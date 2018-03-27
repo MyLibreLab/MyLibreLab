@@ -2,7 +2,8 @@
 //* Element of MyOpenLab Library                                              *
 //*                                                                           *
 //* Copyright (C) 2014  Carmelo Salafia (cswi@gmx.de)                         *
-//* Copyright (C) 2018  Javier Velásquez (javiervelasquez125@gmail.com)                                                                         *
+//* Copyright (C) 2018  Javier Velásquez (javiervelasquez125@gmail.com)       *                                                                         *
+//*                                                                           *
 //* This library is free software; you can redistribute it and/or modify      *
 //* it under the terms of the GNU Lesser General Public License as published  *
 //* by the Free Software Foundation; either version 2.1 of the License,       *
@@ -63,7 +64,7 @@ class MyTimer extends Thread {
             int pinNumber = owner.outPinNumbers[i];
             String pinType = owner.outPinType[i];
 
-            if (pinType.startsWith("DIGITAL_INPUT")) {
+            if (pinType.startsWith("DIGITAL_INPUT") || pinType.startsWith("INPUT_PULLUP")) {
                 if (owner.out[i] instanceof VSBoolean) {
 
                     VSBoolean pin = (VSBoolean) owner.out[i];
@@ -659,6 +660,9 @@ public class Firmata extends JVSMain implements MyOpenLabDriverOwnerIF {
                             case Constanten.PIN_INPUT:
                                 type = "DIGITAL_INPUT";
                                 break;
+                            case Constanten.INPUT_PULLUP:
+                                type = "INPUT_PULLUP";
+                                break;
                             case Constanten.PIN_OUTPUT:
                                 type = "DIGITAL_OUTPUT";
                                 break;
@@ -898,7 +902,7 @@ public class Firmata extends JVSMain implements MyOpenLabDriverOwnerIF {
                     if (pinType.trim().startsWith("DIGITAL_OUTPUT") || pinType.trim().startsWith("PWM_OUTPUT") || pinType.trim().startsWith("SERVO_OUTPUT")) {
                         inputPins++;
                     }
-                    if (pinType.trim().startsWith("DIGITAL_INPUT") || pinType.trim().startsWith("ANALOG_INPUT")) {
+                    if (pinType.trim().startsWith("DIGITAL_INPUT") || pinType.trim().startsWith("INPUT_PULLUP") || pinType.trim().startsWith("ANALOG_INPUT")) {
                         outputPins++;
                     }
                 }
@@ -927,15 +931,15 @@ public class Firmata extends JVSMain implements MyOpenLabDriverOwnerIF {
                 String pinNum = cols[0].trim().replace("\n", "");
                 String pinType = cols[1].trim().replace("\n", "");
 
-                if (pinType.trim().startsWith("DIGITAL_INPUT")) {
+                if (pinType.trim().startsWith("DIGITAL_INPUT") || pinType.trim().startsWith("INPUT_PULLUP")) {
                     setPin(c, ExternalIF.C_BOOLEAN, ExternalIF.PIN_OUTPUT);
-                    element.jSetPinDescription(c, "Out Pin " + pinNum);
+                    element.jSetPinDescription(c, pinType +" pin(" + pinNum +") ");
                     c++;
                 }
 
                 if (pinType.trim().startsWith("ANALOG_INPUT")) {
                     setPin(c, ExternalIF.C_INTEGER, ExternalIF.PIN_OUTPUT);
-                    element.jSetPinDescription(c, "Out Pin " + pinNum);
+                    element.jSetPinDescription(c, pinType +" pin(" + pinNum +") ");
                     c++;
                 }
 
@@ -950,19 +954,19 @@ public class Firmata extends JVSMain implements MyOpenLabDriverOwnerIF {
 
                 if (pinType.startsWith("DIGITAL_OUTPUT")) {
                     setPin(c, ExternalIF.C_BOOLEAN, ExternalIF.PIN_INPUT);
-                    element.jSetPinDescription(c, "IN (DIGITAL)" + pinNum);
+                    element.jSetPinDescription(c, pinType +" pin(" + pinNum +") ");
                     c++;
                 }
 
                 if (pinType.startsWith("PWM_OUTPUT")) {
                     setPin(c, ExternalIF.C_INTEGER, ExternalIF.PIN_INPUT);
-                    element.jSetPinDescription(c, "IN (PWM)" + pinNum);
+                    element.jSetPinDescription(c, pinType +" pin(" + pinNum +") ");
                     c++;
                 }
 
                 if (pinType.startsWith("SERVO_OUTPUT")) {
                     setPin(c, ExternalIF.C_INTEGER, ExternalIF.PIN_INPUT);
-                    element.jSetPinDescription(c, "IN (SERVO)" + pinNum);
+                    element.jSetPinDescription(c, pinType +" pin(" + pinNum +") ");
                     c++;
                 }
 
@@ -973,7 +977,7 @@ public class Firmata extends JVSMain implements MyOpenLabDriverOwnerIF {
         image = element.jLoadImage(fileName);
 
         element.jSetCaptionVisible(true);
-        element.jSetCaption("Standard Firmata Interface v1.1 JV");
+        element.jSetCaption("Standard Firmata Interface v1.2 JV");
         setName("Standard Firmata Interface JV");
 
     }
@@ -1049,7 +1053,7 @@ public class Firmata extends JVSMain implements MyOpenLabDriverOwnerIF {
                     String pinNum = cols[0].trim().replace("\n", "");
                     String pinType = cols[1].trim().replace("\n", "").trim();
 
-                    if (pinType.startsWith("DIGITAL_INPUT")) {
+                    if (pinType.startsWith("DIGITAL_INPUT")||pinType.startsWith("INPUT_PULLUP") ) {
                         //element.setPinOutputReference(c++,taste1);
                         out[c] = new VSBoolean();
                         element.setPinOutputReference(c, out[c]);
@@ -1130,6 +1134,10 @@ public class Firmata extends JVSMain implements MyOpenLabDriverOwnerIF {
                     }
                     if (pinType.trim().startsWith("DIGITAL_INPUT")) {
                         pinMode(pinNum, Constanten.PIN_INPUT);
+                        //reportPin(pinNum);
+                    }
+                    if (pinType.trim().startsWith("INPUT_PULLUP")) {
+                        pinMode(pinNum, Constanten.INPUT_PULLUP);
                         //reportPin(pinNum);
                     }
                     if (pinType.trim().startsWith("ANALOG_INPUT")) {

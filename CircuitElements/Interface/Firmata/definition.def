@@ -1,8 +1,8 @@
 ISDIRECTORY     = FALSE
 REDIRECT        = 
-CAPTION         = Arduino Standard Firmata IO Interface v1.1
-CAPTION_EN      = Arduino Standard Firmata IO Interface v1.1
-CAPTION_ES      = Arduino Standard Firmata IO Interface v1.1
+CAPTION         = Arduino Standard Firmata IO Interface v1.2
+CAPTION_EN      = Arduino Standard Firmata IO Interface v1.2
+CAPTION_ES      = Arduino Standard Firmata IO Interface v1.2
 VM              = 
 VM_DIR_EDITABLE = false
 CLASSCIRCUIT    = Firmata

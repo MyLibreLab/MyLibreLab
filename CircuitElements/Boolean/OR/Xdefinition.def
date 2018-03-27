@@ -4,4 +4,4 @@ CAPTION_EN=OR-Gate
 CAPTION_ES= Operador OR
 Jar= bin/OR.jar
 classCircuit =OR
-Icon= bin/OR.GIF
+Icon= bin/OR.gif

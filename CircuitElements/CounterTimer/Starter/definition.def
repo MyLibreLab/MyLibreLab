@@ -1,2 +1,2 @@
 ISDIRECTORY  = FALSE
-REDIRECT = CircuitElements\Extras\Starter
+REDIRECT = CircuitElements/Extras/Starter

@@ -5,4 +5,4 @@ CAPTION_ES= LED Rojo
 Jar = bin/LED.jar
 ClassCircuit = LED
 ClassFront = LEDPanel
-icon= bin/LED.GIF
+icon= bin/LED.gif

@@ -4,4 +4,4 @@ CAPTION_EN= Button
 CAPTION_ES= Botón
 ClassCircuit = Taster
 ClassFront = TasterPanel
-Icon= bin/Taster.GIF
+Icon= bin/Taster.gif

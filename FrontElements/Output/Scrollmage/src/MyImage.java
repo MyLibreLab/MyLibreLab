@@ -31,18 +31,25 @@ public class MyImage extends JPanel
     private Image image=null;
 
     public MyImage(Image image)
-    {
-      this.image=image;
+    { 
+      if(image!=null){
+      this.image=image;    
+      }  
+      
     }
 
     public void setImage(Image image)
     {
+        try{
         this.image=image;
         int w=image.getWidth(this);
         int h=image.getHeight(this);
         this.setSize(w,h);
         this.setPreferredSize(new Dimension(w,h));
         updateUI();
+        }catch(Exception e){
+            
+        }
     }
 
     public MyImage()
@@ -53,12 +60,18 @@ public class MyImage extends JPanel
 
     public void paintComponent(Graphics g)
     {
+        try{
         super.paintComponent(g);
         if (image!=null)
         {
+            
             int x=getWidth()/2-image.getWidth(this)/2;
             int y=getHeight()/2-image.getHeight(this)/2;
             g.drawImage(image,x,y,null);
+            
+        }
+        }catch(Exception e){
+                
         }
     }
 }

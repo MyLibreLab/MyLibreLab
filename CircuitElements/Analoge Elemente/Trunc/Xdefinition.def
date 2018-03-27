@@ -4,4 +4,4 @@ CAPTION_EN= Trunc
 CAPTION_ES= Truncador de señal
 Jar= bin/Trigger.jar
 classCircuit =Trigger
-Icon= bin/Trigger.GIF
+Icon= bin/Trigger.gif

@@ -4,4 +4,4 @@ CAPTION_EN = Square Root
 CAPTION_ES = Raiz Cuadrada
 Jar= bin/Sqrt.jar
 ClassCircuit =Sqrt
-Icon= bin/Sqrt.GIF
+Icon= bin/Sqrt.gif

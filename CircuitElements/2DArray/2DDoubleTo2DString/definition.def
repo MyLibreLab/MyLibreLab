@@ -1,2 +1,2 @@
 ISDIRECTORY  = FALSE
-REDIRECT     = CircuitElements\VectorenMatrix\2DDoubleTo2DString
+REDIRECT     = CircuitElements/VectorenMatrix/2DDoubleTo2DString

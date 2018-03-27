@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION= DeGruppierer
+CAPTION_ES=Desagrupar
+Jar= bin/DeGruppierer.jar
+ClassCircuit =DeGruppierer
+Icon= bin/DeGruppierer.gif

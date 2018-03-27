@@ -3,4 +3,4 @@ CAPTION     = Rechteck
 CAPTION_EN= Rectangle
 CAPTION_ES= Rectangulo
 ClassCircuit= XRectangle
-Icon        = bin/XRectangle.GIF
+Icon        = bin/XRectangle.gif

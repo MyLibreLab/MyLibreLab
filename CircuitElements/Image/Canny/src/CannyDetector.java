@@ -53,8 +53,9 @@ public class CannyDetector extends JVSMain
   }
 
   public void paint(java.awt.Graphics g)
-  {
+  { try{
     drawImageCentred(g,image);
+    }catch(Exception e){}
   }
 
   public void init()
@@ -134,6 +135,7 @@ public class CannyDetector extends JVSMain
   
    public int[] handlepixels(VSImage24 img)
    {
+     try{
      int w = img.getWidth();
      int h = img.getHeight();
      
@@ -141,8 +143,12 @@ public class CannyDetector extends JVSMain
      
      Canny c = new Canny();
      pixBuff=c.apply_canny(img.getPixels(),w,h,w*h,    (float)theta.getValue(),  lowthresh.getValue()  ,  highthresh.getValue()  ,       (float)1.0,0);
-
+     
      return pixBuff;
+     }catch(Exception e){
+     return new int[1 * 1];
+     }
+     
     }
 
 
@@ -151,12 +157,15 @@ public class CannyDetector extends JVSMain
   {
     if (in!=null)
     {
-
+      try{
        if (in.getWidth()>1 && in.getHeight()>1)
        {
          out.setPixels(handlepixels(in),in.getWidth(),in.getHeight());
          out.setChanged(true);
          element.notifyPin(0);
+         Thread.currentThread().sleep(5);
+       }
+      }catch(Exception e){
        }
      }
   }

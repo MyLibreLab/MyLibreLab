@@ -1,2 +1,2 @@
 ISDIRECTORY = FALSE
-REDIRECT    = CircuitElements\String\Message
+REDIRECT    = CircuitElements/String/Message

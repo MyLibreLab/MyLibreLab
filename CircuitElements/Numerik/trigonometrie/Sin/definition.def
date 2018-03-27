@@ -4,4 +4,4 @@ CAPTION_EN   = Sinus
 CAPTION_ES   = Seno
 CLASSCIRCUIT = XSin
 CLASSFRONT   = 
-ICON         = bin/XSin.GIF
+ICON         = bin/XSin.gif

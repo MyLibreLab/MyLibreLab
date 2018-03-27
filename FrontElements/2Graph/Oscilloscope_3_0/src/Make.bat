@@ -1,4 +1,2 @@
-set CLASSPATH=%CLASSPATH%;..\bin;.
-echo %classpath%
-javac -g:none -d ..\bin  *.java
+javac -d ..\bin  *.java
 cmd

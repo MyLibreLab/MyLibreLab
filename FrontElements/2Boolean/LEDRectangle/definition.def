@@ -4,4 +4,4 @@ CAPTION_EN   = LED Rectangle
 CAPTION_ES   = LED Rectangle
 ClassCircuit = LED
 ClassFront   = LEDPanel
-icon         = bin/LED.GIF
+icon         = bin/LED.gif

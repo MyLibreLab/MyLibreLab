@@ -4,4 +4,4 @@ CAPTION_EN=isBigger
 CAPTION_ES=Mayor que
 Jar= bin/isGroesser.jar
 classCircuit =isGroesser
-Icon= bin/isGroesser.GIF
+Icon= bin/isGroesser.gif

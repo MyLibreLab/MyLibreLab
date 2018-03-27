@@ -39,7 +39,7 @@ public class Input extends JDialog{
   private Button button2 = new Button();
   private TextField textField1 = new TextField();
   private Label label1 = new Label();
-  private Label label2 = new Label();
+  private JTextArea TextFiledHelp = new JTextArea();
   public static String result="";
   
   // Ende Variablen
@@ -52,7 +52,7 @@ public class Input extends JDialog{
       //System.exit(0); 
       }
     });
-    int frameWidth = 300;
+    int frameWidth = 600;
     int frameHeight = 350;
     setSize(frameWidth, frameHeight);
     Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -66,25 +66,49 @@ public class Input extends JDialog{
     // Anfang Komponenten
 
     //label1.setBounds(8, 16, 117, 16);
-    label1.setBounds(10, 10, 280, 25);
-    label1.setText("Relative Patch Of VM With File Extension .vlogic");
-    label1.setFont(new Font("Dialog", Font.BOLD, 13));
+    //label1.setBounds(10, 10, 280, 25);
+    label1.setText("Relative Path Of VM With File Extension .vlogic");
+    label1.setFont(new Font("Dialog", Font.BOLD, 14));
     cp.add(label1);
     
     //textField1.setBounds(8, 40, 273, 24);
-    textField1.setBounds(10, 45, 280, 45);
+    //textField1.setBounds(10, 45, 280, 45);
+    textField1.setMinimumSize(new Dimension(550,40));
+    textField1.setPreferredSize(new Dimension(560,40));
     textField1.setText("");
+    textField1.requestFocus();
     cp.add(textField1);
     
-    label2.setBounds(10, 90, 280, 25);
-    label2.setText("By Example: YourVM.vlogic (If your VM is located in root project Patch)\n By Example"+File.separator+"YourVM_Folder"+File.separator+"YourVM.vlogic");
-    label2.setFont(new Font("Dialog", Font.BOLD, 11));
-    cp.add(label2);
+    //label2.setBounds(10, 90, 280, 25);
+    TextFiledHelp.setText("\nIf your VM is located in root project Path only write VM name and file extension:\nExample:\nYourVM.vlogic\nIf your VM is located inside a project's folder, write relative location, name and extension.\nExample:\n"+"/subvmFolder/subvm.vlogic");
+    TextFiledHelp.setFont(new Font("Dialog", Font.PLAIN, 12));
+    TextFiledHelp.setMinimumSize(new Dimension(560,100));
+    TextFiledHelp.setPreferredSize(new Dimension(560,150));
     
+    cp.add(TextFiledHelp);
     
+    Label labelSeparator = new Label();
+    labelSeparator.setText(" ");
+    labelSeparator.setPreferredSize(new Dimension(560,20));
+    labelSeparator.setVisible(true);
+    cp.add(labelSeparator);
     //button1.setBounds(208, 72, 75, 25);
-    button1.setBounds(200, 120, 100, 25);
+    //button1.setBounds(200, 120, 100, 25);
+    button2.setBackground(Color.LIGHT_GRAY);
+    button2.setLabel("OK");
+    button2.setFont(new Font("Dialog", Font.BOLD, 12));
+    button2.setPreferredSize(new Dimension(100,50));
+    cp.add(button2);
+    button2.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+        button2ActionPerformed(evt);
+      }
+    });
+    
+    button1.setBackground(Color.LIGHT_GRAY);
+    button1.setPreferredSize(new Dimension(100,50));
     button1.setLabel("Cancel");
+    button1.setFont(new Font("Dialog", Font.BOLD, 12));
     cp.add(button1);
     button1.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
@@ -93,14 +117,8 @@ public class Input extends JDialog{
     });
 
     //button2.setBounds(128, 72, 75, 25);
-    button2.setBounds(50, 120, 100, 25);
-    button2.setLabel("OK");
-    cp.add(button2);
-    button2.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent evt) {
-        button2ActionPerformed(evt);
-      }
-    });
+    //button2.setBounds(50, 120, 100, 25);
+    
 
     setResizable(false);
     setVisible(true);

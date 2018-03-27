@@ -4,4 +4,4 @@ CAPTION_EN   = Oscilloscope-X/Y JV
 CAPTION_ES   = Osciloscopio-X/Y JV
 ClassCircuit = Oscilloscope
 ClassFront   = OscPanel
-Icon         = bin/Oscilloscope.GIF
+Icon         = bin/Oscilloscope.gif

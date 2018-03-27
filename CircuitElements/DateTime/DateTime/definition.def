@@ -1,2 +1,2 @@
 ISDIRECTORY = FALSE
-REDIRECT    = CircuitElements\Numerik\DateTime\DateTime
+REDIRECT    = CircuitElements/Numerik/DateTime/DateTime

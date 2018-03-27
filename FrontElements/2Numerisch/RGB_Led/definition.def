@@ -3,4 +3,4 @@ CAPTION= RGB LED
 Jar= bin/LED.jar
 classCircuit =LED
 ClassFront=LEDPanel
-Icon= bin/LED.GIF
+Icon= bin/LED.gif

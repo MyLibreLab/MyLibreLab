@@ -3,4 +3,4 @@ CAPTION      = Konstante (dbl)
 CAPTION_EN   = Constant (dbl)
 CAPTION_ES   = Constante (dbl)
 ClassCircuit = Const
-Icon         = bin/Const.GIF
+Icon         = bin/Const.gif

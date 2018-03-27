@@ -116,7 +116,7 @@ public class Generator extends JVSMain
 
 
     
-    String fileName=element.jGetSourcePath()+"XGenerator.GIF";
+    String fileName=element.jGetSourcePath()+"XGenerator.gif";
     image=element.jLoadImage(fileName);
     
     element.jSetCaptionVisible(true);

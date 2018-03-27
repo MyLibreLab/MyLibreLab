@@ -32,7 +32,7 @@ public class Dec2Bin extends JVSMain
   private VSInteger in;
   private VSBoolean[] out;
   private Font font=new Font("Courier",Font.BOLD,8);
-
+ 
     
   public void paint(java.awt.Graphics g)
   {

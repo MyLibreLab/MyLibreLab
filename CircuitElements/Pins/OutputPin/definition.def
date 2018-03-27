@@ -4,4 +4,4 @@ CAPTION_EN= Output-Pin
 CAPTION_ES= Pin-Salida
 Jar= bin/CElement.jar
 ClassCircuit =CElement
-Icon= bin/CElement.GIF
+Icon= bin/CElement.gif

@@ -22,6 +22,7 @@ public final class Constanten {
     public final static int PIN_ANALOG = 2;
     public final static int PIN_PWM = 3;
     public final static int PIN_SERVO = 4;
+    public final static int INPUT_PULLUP = 11;
 
     public static int LOW = 0;
     public static int HIGH = 1;

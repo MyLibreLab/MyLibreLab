@@ -4,4 +4,4 @@ CAPTION_EN= NOR-Gate
 CAPTION_ES= Operador NOR
 Jar= bin/NOR.jar
 classCircuit =NOR
-Icon= bin/NOR.GIF
+Icon= bin/NOR.gif

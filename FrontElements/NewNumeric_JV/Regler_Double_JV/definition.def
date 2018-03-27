@@ -5,4 +5,4 @@ CAPTION_ES= Conmutador
 JAR          = bin/Regler.jar
 Classcircuit = Regler
 Classfront   = ReglerPanel
-icon         = bin/Regler.GIF
+icon         = bin/Regler.gif

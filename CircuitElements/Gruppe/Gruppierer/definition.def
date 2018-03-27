@@ -3,4 +3,4 @@ CAPTION= Gruppierer
 CAPTION_ES=Agrupar
 Jar= bin/Gruppierer.jar
 ClassCircuit =Gruppierer
-Icon= bin/Gruppierer.GIF
+Icon= bin/Gruppierer.gif

@@ -4,4 +4,4 @@ CAPTION_EN=AudioIn
 CAPTION_ES=Entrada Audio
 Jar= bin/AudioIn.jar
 classCircuit  =AudioIn
-Icon= bin/AudioIn.GIF
+Icon= bin/AudioIn.gif

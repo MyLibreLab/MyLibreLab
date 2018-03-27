@@ -4,4 +4,4 @@ CAPTION_EN = Constant (int)
 CAPTION_ES = Constante (int)
 Jar= bin/Const.jar
 ClassCircuit =Const
-Icon= bin/Const.GIF
+Icon= bin/Const.gif

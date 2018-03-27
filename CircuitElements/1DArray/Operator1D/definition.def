@@ -1,2 +1,2 @@
 ISDIRECTORY = FALSE
-REDIRECT = CircuitElements\VectorenMatrix\Operator1D
+REDIRECT = CircuitElements/VectorenMatrix/Operator1D

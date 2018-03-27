@@ -83,9 +83,9 @@ public class Triangle extends JVSMain
     setName("Triangle");
 
     element.jSetResizable(true);
-    strokeWidth.setValue(1);
-    fillColor.color1=Color.LIGHT_GRAY;
-    strokeColor.color1=Color.BLACK;
+    strokeWidth.setValue(5);
+    fillColor.color1=new Color(153,153,153);
+    strokeColor.color1=new Color(204,204,204);
   }
 
 

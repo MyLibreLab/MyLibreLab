@@ -4,4 +4,4 @@ CAPTION_EN   = Cosine
 CAPTION_ES   = Coseno
 CLASSCIRCUIT = XCos
 CLASSFRONT   = 
-ICON         = bin/XCos.GIF
+ICON         = bin/XCos.gif

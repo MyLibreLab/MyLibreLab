@@ -4,4 +4,4 @@ CAPTION_EN  = Ellipse
 CAPTION_ES  = Elipse
 JAR         = bin/Ellipse.jar
 ClassCircuit= Ellipse
-Icon        = bin/Ellipse.GIF
+Icon        = bin/Ellipse.gif

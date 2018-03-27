@@ -1,2 +1,2 @@
 ISDIRECTORY  = FALSE
-REDIRECT     = CircuitElements\Extras\LogicSubVM
+REDIRECT     = CircuitElements/Extras/LogicSubVM

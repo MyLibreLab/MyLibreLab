@@ -5,4 +5,4 @@ CAPTION_ES= Display 7 Segmentos
 Jar= bin/Seg7.jar
 ClassCircuit=Seg7
 ClassFront=Panel
-Icon= bin/Seg7.GIF
+Icon= bin/Seg7.gif

@@ -5,4 +5,4 @@ CAPTION_ES= Interruptor
 Jar= bin/KippSchalter.jar
 ClassCircuit = KippSchalter
 ClassFront = SchalterPanel
-Icon = bin/KippSchalter.GIF
+Icon = bin/KippSchalter.gif

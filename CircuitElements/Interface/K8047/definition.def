@@ -3,4 +3,4 @@ CAPTION      = K8047/PSC10
 CAPTION_EN   = K8047/PSC10
 CAPTION_ES   = K8047/PSC10
 ClassCircuit = K8047
-ICON         = bin/K8047.GIF
+ICON         = bin/K8047.gif

@@ -41,7 +41,7 @@ public class Panel extends JVSMain
   private VSDouble min=new VSDouble(-99999999);
   private VSDouble max=new VSDouble(99999999);
   private VSDouble step=new VSDouble(1);
-  private Font fnt = new Font("Monospaced",0,12);
+  private Font fnt = new Font("Dialog",0,12);
   private ExternalIF circuitElement;
   private javax.swing.JSpinner jSpinner;
   
@@ -125,6 +125,7 @@ public class Panel extends JVSMain
     SpinnerNumberModel model = new SpinnerNumberModel(new Double(initValue.getValue()), new Double(min.getValue()), new Double(max.getValue()), new Double(step.getValue()));
     jSpinner.setModel(model);
     JSpinner.NumberEditor editor = new JSpinner.NumberEditor(jSpinner);
+    editor.getTextField().setHorizontalAlignment(JTextField.CENTER);
     jSpinner.setEditor(editor);
   }
   

@@ -41,8 +41,10 @@ public class Threshold extends JVSMain
 
 
   public void paint(java.awt.Graphics g)
-  {
+  { 
+    try{
     drawImageCentred(g,image);
+    }catch(Exception e){}
   }
 
   public void onDispose()
@@ -109,9 +111,9 @@ public class Threshold extends JVSMain
     int h=in.getHeight();
     int pixel1;
     int gray1;
-
+    
     RGB rgb=new RGB();
-
+    try{
     for (int j = 0; j <h; j++)
     {
         for (int i = 0; i <w; i++)
@@ -127,8 +129,9 @@ public class Threshold extends JVSMain
           pixels[j*w+i]=rgb.getPixel();
         }
     }
+    }catch(Exception e){}
    return pixels;
-
+   
   }
 
 
@@ -136,10 +139,12 @@ public class Threshold extends JVSMain
   public void process()
   {
     if (in!=null)
-    {
+    { 
+      try{
        out.setPixels(threshold(in.getPixels().clone(),inThreshold.getValue()),in.getWidth(),in.getHeight());
        out.setChanged(true);
        element.notifyPin(0);
+       }catch(Exception e){}
     }
   }
   

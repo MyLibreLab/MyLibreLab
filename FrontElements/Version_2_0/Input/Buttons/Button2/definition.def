@@ -5,4 +5,4 @@ CAPTION_ES= Botón 2
 Jar= bin/Taster.jar
 ClassCircuit = Taster
 ClassFront = TasterPanel
-Icon= bin/Taster.GIF
+Icon= bin/Taster.gif

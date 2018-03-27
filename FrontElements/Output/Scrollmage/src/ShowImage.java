@@ -34,8 +34,12 @@ public class ShowImage extends JVSMain
   private VSObject in;
   
   public void paint(java.awt.Graphics g)
-  {
-    drawImageCentred(g,image);
+  { 
+        try{
+      drawImageCentred(g,image);
+    }catch(Exception e){
+
+    }
   }
 
   public void onDispose()
@@ -57,7 +61,7 @@ public class ShowImage extends JVSMain
     setPin(0,ExternalIF.C_IMAGE,element.PIN_INPUT);
 
     image=element.jLoadImage(element.jGetSourcePath()+"ShowImage.gif");
-    setName("led");
+    setName("Show Image");
     
     element.jSetResizable(false);
   }
@@ -79,21 +83,23 @@ public class ShowImage extends JVSMain
   
   public void process()
   {
+    try{
     if (in instanceof VSImage24)
-    {
-      VSImage24 inX=(VSImage24)in;
-      
-      if (in!=null)
-      {
-        if (panelElement!=null)
-        {
-         panelElement.jProcessPanel(0,0.0,in);
-         panelElement.jRepaint();
-         
-        }
+     {
+       VSImage24 inX=(VSImage24)in;
+
+       if (in!=null)
+       {
+         if (panelElement!=null)
+         {
+          panelElement.jProcessPanel(0,0.0,in);
+          panelElement.jRepaint();
+
+         }
+       }
       }
-    }
-  }
+    }catch(Exception e){}
+}
   
 
 }

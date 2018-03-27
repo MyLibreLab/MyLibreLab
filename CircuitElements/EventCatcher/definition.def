@@ -1,2 +1,2 @@
 ISDIRECTORY  = FALSE
-REDIRECT     = CircuitElements\Extras\EventCatcher
+REDIRECT     = CircuitElements/Extras/EventCatcher

@@ -4,4 +4,4 @@ CAPTION_EN   = Oscilloscope 3.0
 CAPTION_ES   = Osciloscopio 3.0
 ClassCircuit = Oscilloscope
 ClassFront   = OscPanel
-Icon         = bin/Oscilloscope.GIF
+Icon         = bin/Oscilloscope.gif

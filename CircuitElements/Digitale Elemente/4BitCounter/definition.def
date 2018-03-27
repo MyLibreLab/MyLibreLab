@@ -1,2 +1,2 @@
 ISDIRECTORY = FALSE
-REDIRECT    = CircuitElements\Boolean\Counter\4BitCounter
+REDIRECT    = CircuitElements/Boolean/Counter/4BitCounter

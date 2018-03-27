@@ -180,7 +180,7 @@ public class JVSMain extends Object implements ElementIF
   public void xsetExternalIF(ExternalIF externalIF){ element=externalIF;init();}
   public void xonInitInputPins(){initInputPins();}
   public void xonInitOutputPins(){initOutputPins();}
-  public void xpaint(java.awt.Graphics g){paint(g);}
+  public void xpaint(java.awt.Graphics g){if(g!=null)paint(g);}
   public void xonMouseDragged(MouseEvent e){mouseDragged(e);}
   public void xonMousePressed(MouseEvent e){mousePressed(e);}
   public void xonMousePressedOnIdle(MouseEvent e){mousePressedOnIdle(e);}

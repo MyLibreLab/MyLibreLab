@@ -128,7 +128,7 @@ public class Panel extends JVSMain
     more.setText(getTextWithKomma());
     model=new DefaultComboBoxModel();
     combo.setModel(model);
-    
+    ((JLabel)combo.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
     combo.addActionListener(new java.awt.event.ActionListener()
     {
         public void actionPerformed(java.awt.event.ActionEvent evt)

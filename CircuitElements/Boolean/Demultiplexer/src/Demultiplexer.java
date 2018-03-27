@@ -39,7 +39,7 @@ public class Demultiplexer extends JVSMain
 
   private boolean setted=false;
 
-  private Image image;
+  private Image image; 
 
 
   public void onDispose()

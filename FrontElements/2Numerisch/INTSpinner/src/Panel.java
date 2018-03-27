@@ -41,9 +41,9 @@ public class Panel extends JVSMain
   private VSInteger min=new VSInteger(-99999999);
   private VSInteger max=new VSInteger(99999999);
   private VSInteger step=new VSInteger(1);
-  private Font fnt = new Font("Monospaced",0,12);
+  private Font fnt = new Font("Dialog",0,12);
   private ExternalIF circuitElement;
-  private javax.swing.JSpinner ;
+  private javax.swing.JSpinner jSpinner;
   
 
    public void paint(java.awt.Graphics g)
@@ -105,10 +105,15 @@ public class Panel extends JVSMain
   {
     JPanel panel=element.getFrontPanel();
     jSpinner=new javax.swing.JSpinner();
+    
+    //JSpinner.DefaultEditor spinnerEditor = (JSpinner.DefaultEditor)editor;
+    
+    
     panel.setLayout(new BorderLayout());
     panel.add(jSpinner,BorderLayout.CENTER);
     //circuitElement=element.getCircuitElement();
     element.setAlwaysOnTop(true);
+    
 
     make();
 
@@ -126,6 +131,7 @@ public class Panel extends JVSMain
     SpinnerNumberModel model = new SpinnerNumberModel(new Integer(initValue.getValue()), new Integer(min.getValue()), new Integer(max.getValue()), new Integer(step.getValue()));
     jSpinner.setModel(model);
     JSpinner.NumberEditor editor = new JSpinner.NumberEditor(jSpinner);
+    editor.getTextField().setHorizontalAlignment(JTextField.CENTER);
     jSpinner.setEditor(editor);
   }
   

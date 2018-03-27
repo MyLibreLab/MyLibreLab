@@ -4,4 +4,4 @@ CAPTION_EN   = Tangent
 CAPTION_ES   = Tangente
 CLASSCIRCUIT = XTan
 CLASSFRONT   = 
-ICON         = bin/XTan.GIF
+ICON         = bin/XTan.gif

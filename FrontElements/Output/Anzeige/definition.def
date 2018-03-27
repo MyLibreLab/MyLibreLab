@@ -5,4 +5,4 @@ CAPTION_ES   = Salida Numérica (DBL)
 Jar          = bin/Anzeige.jar
 ClassCircuit = Anzeige
 ClassFront   = AnzeigePanel
-Icon         = bin/Anzeige.GIF
+Icon         = bin/Anzeige.gif

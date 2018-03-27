@@ -4,4 +4,4 @@ CAPTION_EN   = Arc-Tangent
 CAPTION_ES   = Arco Tangente
 CLASSCIRCUIT = XATan
 CLASSFRONT   = 
-ICON         = bin/XATan.GIF
+ICON         = bin/XATan.gif
