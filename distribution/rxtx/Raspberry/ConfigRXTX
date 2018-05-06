@@ -1,5 +1,0 @@
-#!/bin/sh 
-sudo cp librxtxSerial.so /usr/lib/
-sudo cp librxtxParallel.so /usr/lib/
- 
- 
