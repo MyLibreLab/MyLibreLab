@@ -259,6 +259,11 @@ public class ElementPalette extends javax.swing.JPanel {
     }
 
     private void addButton(JButton button) {
+        button.setOpaque(true);
+        button.setContentAreaFilled(true);
+        button.setBackground(new Color(242,242,242,250));
+        button.setBorderPainted(true);
+        button.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1,true));
         jPanelButtons.add(button);
 
         if (jToggleButton1.isSelected()) {
@@ -655,7 +660,7 @@ public class ElementPalette extends javax.swing.JPanel {
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("jLabel1");
-        jLabel1.setPreferredSize(new java.awt.Dimension(34, 22));
+        jLabel1.setPreferredSize(new java.awt.Dimension(34, 25));
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -672,11 +677,11 @@ public class ElementPalette extends javax.swing.JPanel {
 
         jScrollPane1.setBorder(null);
         jScrollPane1.setFocusable(false);
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(200, 70));
 
-        jPanelButtons.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelButtons.setAutoscrolls(true);
         jPanelButtons.setMinimumSize(new java.awt.Dimension(9, 39));
-        jPanelButtons.setPreferredSize(new java.awt.Dimension(200, 30));
+        jPanelButtons.setPreferredSize(new java.awt.Dimension(200, 50));
         jPanelButtons.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanelButtonsMousePressed(evt);
@@ -690,6 +695,7 @@ public class ElementPalette extends javax.swing.JPanel {
         jPanelButtons.setLayout(null);
 
         jButton7.setText("XXX");
+        jButton7.setContentAreaFilled(false);
         jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jButton7MousePressed(evt);
@@ -701,6 +707,7 @@ public class ElementPalette extends javax.swing.JPanel {
         jButton8.setBackground(new java.awt.Color(240, 240, 24));
         jButton8.setText("XXX");
         jButton8.setBorder(null);
+        jButton8.setContentAreaFilled(false);
         jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jButton8MousePressed(evt);
@@ -710,6 +717,7 @@ public class ElementPalette extends javax.swing.JPanel {
         jButton8.setBounds(57, 2, 19, 15);
 
         jButton10.setText("XXX");
+        jButton10.setContentAreaFilled(false);
         jButton10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jButton10MousePressed(evt);
@@ -722,6 +730,7 @@ public class ElementPalette extends javax.swing.JPanel {
 
         jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/16x16/Text.png"))); // NOI18N
         jToggleButton1.setToolTipText(bundle.getString("Show_Item_Names")); // NOI18N
+        jToggleButton1.setContentAreaFilled(false);
         jToggleButton1.setPreferredSize(new java.awt.Dimension(25, 23));
         jToggleButton1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -736,6 +745,7 @@ public class ElementPalette extends javax.swing.JPanel {
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/view-refresh.png"))); // NOI18N
         jButton1.setToolTipText("Reload");
+        jButton1.setContentAreaFilled(false);
         jButton1.setPreferredSize(new java.awt.Dimension(25, 23));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

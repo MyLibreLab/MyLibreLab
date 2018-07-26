@@ -40,11 +40,19 @@ public class DialogWait extends javax.swing.JFrame
     public DialogWait()
     {
         initComponents();
+        
         this.setAlwaysOnTop(true); // To avoid Myopenlab Freezes if user click main Frame while this window is loading
-        //Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        //this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        this.setAutoRequestFocus(false);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, (dim.height/2-this.getSize().height/2));
+        //Double gapWdbl = dim.width*0.05;
+        //int gapW=gapWdbl.intValue();
+        //Double gapHdbl = dim.height*0.1;
+        //int gapH=gapHdbl.intValue();
+        //this.setLocation(dim.width-this.getSize().width - gapW, (dim.height-this.getSize().height)-gapH);
+        
         //this.pack();
-        this.setLocationRelativeTo(null);
+        //this.setLocationRelativeTo(null);
     }
     
     public void setProgress()
@@ -95,13 +103,15 @@ public class DialogWait extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(73, 88, 159));
+        setMaximumSize(new java.awt.Dimension(500, 100));
         setUndecorated(true);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(73, 88, 159));
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setForeground(new java.awt.Color(51, 51, 51));
-        jPanel1.setPreferredSize(new java.awt.Dimension(500, 150));
+        jPanel1.setMinimumSize(new java.awt.Dimension(400, 100));
+        jPanel1.setPreferredSize(new java.awt.Dimension(400, 100));
 
         label1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         label1.setForeground(new java.awt.Color(255, 255, 255));
@@ -111,6 +121,7 @@ public class DialogWait extends javax.swing.JFrame
 
         jProgressBar1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jProgressBar1.setForeground(new java.awt.Color(253, 153, 0));
+        jProgressBar1.setPreferredSize(new java.awt.Dimension(380, 23));
         jProgressBar1.setStringPainted(true);
 
         label2.setForeground(new java.awt.Color(255, 255, 255));
@@ -119,27 +130,33 @@ public class DialogWait extends javax.swing.JFrame
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jProgressBar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, label2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, label1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
-                .addContainerGap())
+            .add(jPanel1Layout.createSequentialGroup()
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(18, 18, 18)
+                        .add(label1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 372, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(jProgressBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(label2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                .add(21, 21, 21)
+            .add(jPanel1Layout.createSequentialGroup()
+                .add(5, 5, 5)
                 .add(label1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 42, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(label2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 11, Short.MAX_VALUE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jProgressBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(32, 32, 32))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(jProgressBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(label2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
+                        .add(41, 41, 41))))
         );
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
         pack();
         setLocationRelativeTo(null);

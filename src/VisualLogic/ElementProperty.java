@@ -29,6 +29,7 @@ public class ElementProperty
     public Object referenz;
     public double min;
     public double max;
+    public boolean editable=true; //editable by Default
     
     /** Creates a new instance of ElementProperty */
     public ElementProperty(String label,Object referenz, double min, double max)
@@ -37,6 +38,17 @@ public class ElementProperty
         this.referenz=referenz;
         this.min=min;
         this.max=max;
+    }
+    public ElementProperty(String label,Object referenz, double min, double max, boolean editable)
+    {
+        this.label=label;
+        this.referenz=referenz;
+        this.min=min;
+        this.max=max;
+        this.editable=editable;
+    }
+    public void setEditableVar(boolean editableIn){
+        this.editable=editableIn;
     }
     
 }

@@ -582,6 +582,9 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
             repaint();
         }
     }
+    public VMObject getElementOwner(){
+        return this.owner;
+    }
     private String[] args;
     public VMObject owner;
     public String definitionPath = "";
@@ -1417,7 +1420,7 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
                 Element theElement = vm.getElementWithID(prop.elementID);
                 ElementProperty elProp = (ElementProperty) theElement.propertyList.get(prop.propertyIndex);
 
-                jAddPEItem(elProp.label, elProp.referenz, elProp.min, elProp.max);
+                jAddPEItem(elProp.label, elProp.referenz, elProp.min, elProp.max,elProp.editable);
             }
             //jAddPEItem("Modal",this, 0,0);
             isLoading = false;
@@ -1624,7 +1627,10 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
 
     public void processPropertyEditor() {
         jClearPE();
-
+        
+        propertyList.clear();
+        jLoadProperties();
+        
         if (owner.owner.frameCircuit != null) {
             //owner.owner.frameCircuit
         }
@@ -1646,7 +1652,7 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
                         ElementProperty prop = (ElementProperty) propertyList.get(i);
 
                         //System.out.println(""+prop.label+" XX");
-                        jAddPEItem(prop.label, prop.referenz, prop.min, prop.max);
+                        jAddPEItem(prop.label, prop.referenz, prop.min, prop.max,prop.editable);
                     }
 
                     /*for (int i=0;i<vm.propertyList.size();i++)
@@ -1664,7 +1670,7 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
                 for (int i = 0; i < propertyList.size(); i++) {
                     ElementProperty prop = (ElementProperty) propertyList.get(i);
 
-                    jAddPEItem(prop.label, prop.referenz, prop.min, prop.max);
+                    jAddPEItem(prop.label, prop.referenz, prop.min, prop.max,prop.editable);
                 }
 
             }
@@ -1676,6 +1682,9 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
         owner.setCursor(Cursor.getPredefinedCursor(cursor));
     }
 
+    public PropertyEditor getPE(){
+        return owner.owner.propertyEditor;
+    }
     public void jClearPE() {
         //propertyList.clear();
         if (owner.owner.propertyEditor != null) {
@@ -1699,6 +1708,13 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
             propertyList.add(new ElementProperty(label, referenz, min, max));
         } else {
             owner.owner.propertyEditor.addItem(label, referenz, min, max, true);
+        }
+    }
+    public void jAddPEItem(String label, Object referenz, double min, double max, boolean editable) {
+        if (isLoading == true) {
+            propertyList.add(new ElementProperty(label, referenz, min, max, editable));
+        } else {
+            owner.owner.propertyEditor.addItem(label, referenz, min, max, editable);
         }
     }
 
@@ -3396,7 +3412,7 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
             elementBasis.getCircuitBasis().processpropertyChangedToAllElements(o);
             elementBasis.getFrontBasis().processpropertyChangedToAllElements(o);
         }
-
+        
     }
 
     public void paintComponent(Graphics2D g) {

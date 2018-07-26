@@ -76,10 +76,19 @@ import ParserCode.*;
 import de.myopenlab.update.frmUpdate;
 import java.awt.event.KeyEvent;
 import java.beans.XMLDecoder;
+import java.util.Iterator;
+import javax.swing.BorderFactory;
 import javax.swing.JEditorPane;
 import javax.swing.JMenu;
 import javax.swing.LookAndFeel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIDefaults;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.metal.DefaultMetalTheme;
+import javax.swing.plaf.metal.MetalLookAndFeel;
+import javax.swing.plaf.metal.OceanTheme;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.plaf.nimbus.NimbusStyle;
 
 
@@ -101,8 +110,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     private boolean oki = false;
     //public MyImage doc_image = new MyImage();
     public PanelDokumentation panelDoc;
-    public static String elementPath = ""; //NOI18N
-    //public static String elementPath = "C:\\Users\\velas\\Documents\\NetBeansProjects\\myopenlab_source\\distribution\\Elements";
+    //public static String elementPath = ""; //NOI18N
+    public static String elementPath = "C:\\Users\\velas\\Documents\\NetBeansProjects\\myopenlab_source\\distribution\\Elements";
     public String activeElement = ""; //NOI18N
     public static FrameMain frm;
     public javax.swing.Timer timer;
@@ -403,9 +412,10 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
                 public Object doInBackground() {
                     Tools.dialogWait = new DialogWait();
-                    Tools.dialogWait.setVisible(true);
+                    
                     //Tools.dialogWait.setLocation(Tools.dialogWait.getLocation().x, Tools.dialogWait.getLocation().y - 150);
-
+                    Tools.dialogWait.setVisible(true);
+                    
                     Basis oBasis = addBasisToVMPanel(globalPath, globalProjectPath, true);
                     if (oBasis != null) {
                         jPaneVMPanels.setSelectedComponent(oBasis.ownerVMPanel);
@@ -1367,8 +1377,6 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
     public FrameMain(String args[]) {
         
-            
-        //ImageIcon icon = new ImageIcon(getClass().getResource("/Bilder/logo.png"));
          try {
 
             //iconImage = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Bilder/16x16/icon.png"));
@@ -1472,10 +1480,10 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                     || OS_name.contains("mac")   || OS_name.contains("MAC")
                     || OS_name.contains("Mac")){
                 
-             System.setProperty( "sun.java2d.xrender","True"); //sun.java2d.xrender=True
+             //System.setProperty( "sun.java2d.xrender","True"); //sun.java2d.xrender=True
                         //xrender Intended use: To enable the XRender-based Java 2D rendering pipeline for modern X11-based desktops, offering improved graphics performance.
 
-             System.setProperty( "sun.java2d.d3d","false"); //sun.java2d.d3d=false //d3d
+             //System.setProperty( "sun.java2d.d3d","false"); //sun.java2d.d3d=false //d3d
              //Intended use: To turn off the Java 2D system's use of Direct3D.   
              //https://docs.oracle.com/javase/7/docs/technotes/guides/2d/flags.html#xrender   
             }    
@@ -1610,6 +1618,9 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         startButtonHandler();
 
         //SwingUtilities.updateComponentTreeUI()
+        
+        
+        
     }
 
     public void removePinDescription() {
@@ -1949,12 +1960,138 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         String nativeLF = UIManager.getSystemLookAndFeelClassName();
         
-        try {
-                UIManager.setLookAndFeel(nativeLF);
+        try {  
+        //SwingUtilities.updateComponentTreeUI(this);
+        //this.pack();       
+        
+
+                //UIManager.setLookAndFeel(nativeLF);
                 for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                     System.out.println(info.getName());
+                    //UIManager.setLookAndFeel( "com.seaglasslookandfeel.SeaGlassLookAndFeel" );
+                    
+                    //System.out.println("SYSTEM_laf:"+UIManager.getSystemLookAndFeelClassName()); //SYSTEM
+
                     if ("Nimbus".equals(info.getName())) {
+                        
+                        //MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
+                        //MetalLookAndFeel.setCurrentTheme(new OceanTheme());
+                        MetalLookAndFeel.setCurrentTheme(new TestTheme());
                         //UIManager.setLookAndFeel(info.getClassName());
+                        UIManager.setLookAndFeel(new MetalLookAndFeel()); 
+                        UIManager.put("CheckBox.background", new Color(255,255,255));
+                        UIManager.put("ComboBox.background",new Color(233,236,242));
+                        UIManager.put("ComboBox.buttonBackground",Color.white);
+                        UIManager.put("ComboBox.buttonDarkShadow",Color.gray);
+                        UIManager.put("ComboBox.buttonHighlight",new Color(247,248,250));
+                        UIManager.put("ComboBox.buttonShadow",Color.darkGray);
+                        UIManager.put("ComboBox.disabledBackground",Color.lightGray);
+                        UIManager.put("ComboBox.disabledForeground",Color.white);
+                        UIManager.put("ComboBox.foreground",new Color(0,0,51));
+                        UIManager.put("ComboBox.selectionBackground",new Color(191,98,4)); //115,164,209
+                        UIManager.put("ComboBox.selectionForeground",Color.WHITE);
+                        
+                        UIManager.put("ComboBox.font",new Font("Dialog",1,12));
+                        
+                        UIManager.put("Tree.font",new Font("Dialog",0,12));
+                        UIManager.put("ToolTip.font",new Font("Dialog",1,12));
+                        UIManager.put("TextPane.font",new Font("Dialog",1,12));
+                        UIManager.put("TextField.font",new Font("Dialog",1,12));
+                        UIManager.put("ToolTip.foreground",new Color(0,0,51));
+                        UIManager.put("TextField.foreground",new Color(0,0,51));
+                        UIManager.put("TextPane.foreground",new Color(0,0,51));
+                        UIManager.put("TextPane.background",new Color(214,217,223));
+                        
+                        UIManager.put("SplitPane.background",new Color(214,217,223));
+                        UIManager.put("Separator.foreground",new Color(214,217,223));
+                        
+                        //jPanelProjectExplorer.setBackground(new Color(214,217,223));
+                        UIManager.put("TextPane.inactiveBackground",new Color(214,217,223));
+                        UIManager.put("ToolTip.background",new Color(255,242,181));
+                        
+                        UIManager.put("controltHighlight",new Color(233,236,242));
+                        UIManager.put("controlLtHighlight",new Color(247,248,250));
+                        
+                        UIManager.put("Button.opaque",true);
+                        UIManager.put("ToggleButton.highlight",Color.orange);
+                        UIManager.put("ToggleButton.light",Color.yellow);
+                        UIManager.put("ToggleButton.border",BorderFactory.createRaisedBevelBorder());
+                        UIManager.put("Button.border",BorderFactory.createRaisedBevelBorder());
+                        UIManager.put("RadioButton.border",BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(),BorderFactory.createRaisedBevelBorder()));
+                        UIManager.put("ScrollPane.border",BorderFactory.createRaisedBevelBorder());
+                        UIManager.put("ScrollPane.background",Color.WHITE);
+                        UIManager.put("ScrollPane.foreground",Color.WHITE);
+                         
+                        UIManager.put("ToolBar.border",BorderFactory.createEmptyBorder());
+                        UIManager.put("Panel.border",BorderFactory.createEmptyBorder());
+                        UIManager.put("SplitPane.border",BorderFactory.createEmptyBorder());
+                        
+                        UIManager.put("Tree.background",new Color(255,255,255)); //214,217,223
+                        UIManager.put("Tree.textBackground",new Color(255,255,255));        
+                        UIManager.put("Tree.font",new Font("Dialog",0,12));
+                        UIManager.put("List.font",new Font("Dialog",1,12));
+                        UIManager.put("TabbedPane.font",new Font("Dialog",1,11));
+                        UIManager.put("PopupMenu.font",new Font("Dialog",0,12));
+                        UIManager.put("MenuItem.font",new Font("Dialog",0,12));
+                        UIManager.put("Menu.font",new Font("Dialog",0,12));
+                        UIManager.put("MenuBar.font",new Font("Dialog",0,12));
+                        UIManager.put("MenuBar.disabledForeground",Color.DARK_GRAY);
+                        UIManager.put("Menu.selectionForeground",Color.white);
+                        UIManager.put("MenuBar.selectionForeground",Color.white);
+                        UIManager.put("MenuItem.selectionForeground",Color.white);
+                        UIManager.put("Menu.disabledForeground",Color.DARK_GRAY);
+                        UIManager.put("MenuItem.disabledForeground",Color.DARK_GRAY);
+                        
+                        UIManager.put("Table.foreground",new Color(0,0,51));
+                        UIManager.put("Tree.foreground",new Color(0,0,51));
+                        UIManager.put("List.background",Color.white);
+                        UIManager.put("ScrollBar.squareButtons",false);
+                        
+                        UIManager.put("TableHeader.background",new Color(214,217,223));
+                        UIManager.put("TableHeader.foreground",new Color(0,0,51));
+                        UIManager.put("TableHeader.font",new Font("Dialog",1,13));
+                        
+                        UIManager.put("Table.gridColor",new Color(51,98,140));
+                        
+                        UIManager.put("Table.background",Color.white);
+                        UIManager.put("List.dropLineColor",Color.red);
+                        UIManager.put("Table.dropLineColor",Color.red);
+                        UIManager.put("List.selectionBackground",new Color(115,164,209));
+                        UIManager.put("Table.selectionBackground",new Color(115,164,209));
+                        //UIManager.put("List.focusCellHighlightBorder",Color.green);
+                       // UIManager.put("Table.focusCellHighlightBorder",Color.green);
+                        UIManager.put("List.selectionForeground",Color.WHITE);
+                        UIManager.put("Table.selectionForeground",Color.WHITE);
+                        //UIManager.put("TableHeader.cellBorder",false);
+                        
+                        UIManager.put("Panel.opaque",true);
+                        UIManager.put("Panel.background",new Color(214,217,223));
+                        UIManager.put("Panel.foreground",new Color(214,217,223));
+                        UIManager.put("Separator.foreground",new Color(214,217,223));
+                        //UIManager.put("TabbedPane.tabsOverlapBorder",true);
+                        UIManager.put("TabbedPane.focus",new Color(51,98,140));
+                        UIManager.put("TabbedPane.shadow",Color.black);
+                        UIManager.put("TabbedPane.highlight",new Color(51,98,140));
+                        UIManager.put("TabbedPane.light",Color.WHITE);
+                        //UIManager.put("TabbedPane.leftTabInsets",new Color(51,98,140));
+                        //UIManager.put("TabbedPane.darkShadow",new Color(191,98,4)); 
+                        UIManager.put("TabbedPane.background",new Color(115,164,209)); // Relleno de la Pestaña Deshabilitada
+                        
+                        //UIManager.put("ScrollBar.background",new Color(214,217,223));
+                        UIManager.put("ScrollBar.background",new Color(233,236,242));
+                        UIManager.put("ScrollBar.foreground",Color.DARK_GRAY);
+                        UIManager.put("ScrollBar.thumbDarkShadow",Color.black);
+                        UIManager.put("ScrollBar.width",16);
+                        UIManager.put("ScrollBar.thumbHighlight",Color.lightGray);
+                        UIManager.put("ScrollBar.thumbShadow",Color.gray);
+
+                        
+                        //SwingUtilities.updateComponentTreeUI(this);
+                        //pack();
+                        
+                        // Specify the theme to use by defining the THEME constant
+                        // Valid values are: "DefaultMetal", "Ocean",  and "Test"
+                        //MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
                         //UIManager.setLookAndFeel(nativeLF);
                         
                         //System.setProperty( "sun.java2d.xrender","false"); //sun.java2d.xrender=True
@@ -1981,6 +2118,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 }
 
             }
+        
     }
             
         
@@ -2166,7 +2304,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             public Object doInBackground() {
                 Tools.dialogWait = new DialogWait();
                 Tools.dialogWait.setVisible(true);
-                //Tools.dialogWait.setLocation(Tools.dialogWait.getLocation().x, Tools.dialogWait.getLocation().y - 150);
+                Tools.dialogWait.setLocation(Tools.dialogWait.getLocation().x, Tools.dialogWait.getLocation().y - 150);
 
                 frontMode = true;
                 Basis basis = addBasisToVMPanel(globalPath, globalProjectPath, true);
@@ -2596,6 +2734,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         jButtonRepository_T.setText(bundle.getString("FrameMain.jButtonRepository_T.text")); // NOI18N
         jButtonRepository_T.setToolTipText(bundle.getString("FrameMain.jButtonRepository_T.toolTipText")); // NOI18N
         jButtonRepository_T.setBorderPainted(false);
+        jButtonRepository_T.setEnabled(false);
         jButtonRepository_T.setFocusable(false);
         jButtonRepository_T.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonRepository_T.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -2654,7 +2793,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         jPanelDebugTimeSettingsLayout.setVerticalGroup(
             jPanelDebugTimeSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanelDebugTimeSettingsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                .add(jLabelDebugDelay, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .add(jLabelDebugDelay, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 27, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(jSpinnerDebugDelayTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -2672,21 +2811,24 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             .add(jPanelMainToolsMenuAndDebugTimeLayout.createSequentialGroup()
                 .add(jPanelMainToolsMenuAndDebugTimeLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(jPanelDebugTimeSettings, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .add(jToolBar_MainToolbar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(jToolBar_MainToolbar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanelMainToolsMenuAndDebugTime, java.awt.BorderLayout.NORTH);
 
+        jSplitPane3.setBorder(null);
         jSplitPane3.setDividerLocation(150);
         jSplitPane3.setContinuousLayout(true);
         jSplitPane3.setMinimumSize(new java.awt.Dimension(200, 66));
         jSplitPane3.setPreferredSize(new java.awt.Dimension(550, 62));
 
+        jPanelLeft.setBackground(new java.awt.Color(214, 217, 223));
         jPanelLeft.setMinimumSize(new java.awt.Dimension(100, 12));
         jPanelLeft.setPreferredSize(new java.awt.Dimension(300, 257));
         jPanelLeft.setLayout(new java.awt.BorderLayout());
 
+        jSplitPane1.setBorder(null);
         jSplitPane1.setDividerLocation(100);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setContinuousLayout(true);
@@ -2698,21 +2840,24 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             }
         });
 
+        jPanelPropertyEditor.setBackground(new java.awt.Color(214, 217, 223));
         jPanelPropertyEditor.setPreferredSize(new java.awt.Dimension(150, 5));
         jPanelPropertyEditor.setLayout(new java.awt.BorderLayout());
 
+        jTabPropertyEditor.setBackground(new java.awt.Color(214, 217, 223));
         jTabPropertyEditor.setToolTipText(bundle.getString("FrameMain.jTabPropertyEditor.toolTipText")); // NOI18N
         jTabPropertyEditor.setPreferredSize(new java.awt.Dimension(100, 5));
         jPanelPropertyEditor.add(jTabPropertyEditor, java.awt.BorderLayout.CENTER);
 
-        jPanelElementList.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("Elements"))); // NOI18N
+        jPanelElementList.setBackground(new java.awt.Color(214, 217, 223));
         jPanelElementList.setMinimumSize(new java.awt.Dimension(112, 50));
-        jPanelElementList.setPreferredSize(new java.awt.Dimension(100, 55));
+        jPanelElementList.setPreferredSize(new java.awt.Dimension(100, 40));
         jPanelElementList.setLayout(new java.awt.BorderLayout());
 
         jComboBoxElementList.setToolTipText(bundle.getString("FrameMain.jComboBoxElementList.toolTipText")); // NOI18N
+        jComboBoxElementList.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
         jComboBoxElementList.setMinimumSize(new java.awt.Dimension(100, 50));
-        jComboBoxElementList.setPreferredSize(new java.awt.Dimension(100, 60));
+        jComboBoxElementList.setPreferredSize(new java.awt.Dimension(100, 40));
         jComboBoxElementList.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBoxElementListItemStateChanged(evt);
@@ -2739,8 +2884,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         jSplitPane1.setRightComponent(jPanelPropertyEditor);
 
-        jPanelProjectExplorer.setBackground(new java.awt.Color(255, 255, 255));
-        jPanelProjectExplorer.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
+        jPanelProjectExplorer.setBackground(new java.awt.Color(214, 217, 223));
         jPanelProjectExplorer.setToolTipText(bundle.getString("FrameMain.jPanelProjectExplorer.toolTipText")); // NOI18N
         jPanelProjectExplorer.setPreferredSize(new java.awt.Dimension(200, 0));
         jPanelProjectExplorer.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
@@ -2757,15 +2901,15 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         jSplitPane3.setLeftComponent(jPanelLeft);
 
-        jPanelCenter.setBackground(new java.awt.Color(153, 153, 153));
+        jPanelCenter.setBackground(new java.awt.Color(214, 217, 223));
         jPanelCenter.setLayout(new java.awt.BorderLayout());
 
-        jPanelElementPalette.setBackground(new java.awt.Color(230, 230, 230));
-        jPanelElementPalette.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanelElementPalette.setBackground(new java.awt.Color(214, 217, 223));
+        jPanelElementPalette.setToolTipText(bundle.getString("FrameMain.jPanelElementPalette.toolTipText")); // NOI18N
         jPanelElementPalette.setAutoscrolls(true);
         jPanelElementPalette.setFocusTraversalPolicyProvider(true);
-        jPanelElementPalette.setMinimumSize(new java.awt.Dimension(50, 65));
-        jPanelElementPalette.setPreferredSize(new java.awt.Dimension(150, 110));
+        jPanelElementPalette.setMinimumSize(new java.awt.Dimension(50, 75));
+        jPanelElementPalette.setPreferredSize(new java.awt.Dimension(150, 100));
         jPanelElementPalette.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 jPanelElementPaletteMouseMoved(evt);
@@ -2786,7 +2930,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         jPanelVMsWorkSpace.setLayout(new java.awt.BorderLayout());
 
-        jPaneVMPanels.setBackground(new java.awt.Color(237, 237, 237));
+        jPaneVMPanels.setBackground(new java.awt.Color(214, 217, 223));
         jPaneVMPanels.setPreferredSize(new java.awt.Dimension(500, 500));
         jPaneVMPanels.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -2838,12 +2982,12 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             .add(jPanel8Layout.createSequentialGroup()
                 .add(43, 43, 43)
                 .add(jButton13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(427, Short.MAX_VALUE))
+                .addContainerGap(439, Short.MAX_VALUE))
         );
 
         jPanelHelpWindow.add(jPanel8, java.awt.BorderLayout.WEST);
 
-        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setBackground(new java.awt.Color(214, 217, 223));
         jPanel9.setToolTipText(bundle.getString("FrameMain.jPanel9.toolTipText")); // NOI18N
         jPanel9.setEnabled(false);
         jPanel9.setPreferredSize(new java.awt.Dimension(100, 518));
@@ -3636,7 +3780,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         String code = "";
         code += "// *********************************************************\n";
-        code += "// * Code generated from MyOpenLab (www.MyOpenLab.de)\n";
+        code += "// * Code generated from MyOpenLab (www.MyOpenLab.org)\n";
         code += "// * MyOpenLab is Freeware!\n";
         code += "// * This Code is generated from MyOpenLab v." + Version.strApplicationVersion + " " + Version.strStatus + "\n";
         code += "// * Date : " + new java.util.Date() + " \n";
@@ -3741,7 +3885,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         String code = "";
         code += "// *********************************************************\n";
-        code += "// * Code generated from MyOpenLab (www.MyOpenLab.de)\n";
+        code += "// * Code generated from MyOpenLab (www.MyOpenLab.org)\n";
         code += "// * MyOpenLab is Freeware!\n";
         code += "// * This Code is generated from MyOpenLab v." + Version.strApplicationVersion + " " + Version.strStatus + "\n";
         code += "// * Date : " + new java.util.Date() + " \n";
@@ -3826,7 +3970,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         Basis basis = getActualBasis();
         String code = "";
         code += "// *********************************************************\n";
-        code += "// * Code generated from MyOpenLab (www.MyOpenLab.de)\n";
+        code += "// * Code generated from MyOpenLab (www.MyOpenLab.org)\n";
         code += "// * MyOpenLab is Freeware!\n";
         code += "// * This is a nano VM for MyOpenLab v." + Version.strApplicationVersion + " " + Version.strStatus + "\n";
         code += "// * Date : " + new java.util.Date() + " \n";
@@ -5152,7 +5296,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     private void jmiHomepageActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmiHomepageActionPerformed
     {//GEN-HEADEREND:event_jmiHomepageActionPerformed
 
-        Tools.openUrl(this, "http://myopenlab.de");
+        //Tools.openUrl(this, "http://myopenlab.de");
         Tools.openUrl(this, "http://myopenlab.org");
 
     }//GEN-LAST:event_jmiHomepageActionPerformed
@@ -5877,7 +6021,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     }//GEN-LAST:event_jButtonStart_JActionPerformed
 
     private void jmiMantisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMantisActionPerformed
-        Tools.openUrl(this, "http://mantis.myopenlab.de");
+        //Tools.openUrl(this, "http://mantis.myopenlab.de");
+        Tools.openUrl(this, "http://myopenlab.org/soporte/");
 
     }//GEN-LAST:event_jmiMantisActionPerformed
 
@@ -6101,7 +6246,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     private javax.swing.JPanel jPanelHelpWindow;
     private javax.swing.JPanel jPanelLeft;
     private javax.swing.JPanel jPanelMainToolsMenuAndDebugTime;
-    private javax.swing.JPanel jPanelProjectExplorer;
+    private static javax.swing.JPanel jPanelProjectExplorer;
     private javax.swing.JPanel jPanelPropertyEditor;
     private javax.swing.JPanel jPanelVMsWorkSpace;
     private javax.swing.JPopupMenu jPopupMenu1;
@@ -6166,4 +6311,42 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     private javax.swing.JMenu jmnuVM;
     private javax.swing.JMenu jmnuWindow;
     // End of variables declaration//GEN-END:variables
+}
+ 
+/**
+ * This class describes a theme using "primary" colors.
+ * You can change the colors to anything else you want.
+ *
+ * 1.9 07/26/04
+ */
+
+
+class TestTheme extends DefaultMetalTheme {
+ 
+    public String getName() { return "Toms"; }
+    private OceanTheme oc = new OceanTheme();
+    
+    private final ColorUIResource primary1 = new ColorUIResource(0,0,0); //Borde de Marcos
+    private final ColorUIResource primary2 = new ColorUIResource(51,98,140); //Resasltado de Texto Menu
+    private final ColorUIResource primary3 = new ColorUIResource(115,164,209); //Color Fondo Textos
+   
+    private final ColorUIResource SECONDARY1 = new ColorUIResource(115,164,209); // Resaltado al seleccionar
+    //private final ColorUIResource SECONDARY1 = new ColorUIResource(214,217,223); // Resaltado al seleccionar
+    private final ColorUIResource SECONDARY2 = new ColorUIResource(164,171,184); // Bordes Sombra
+    private final ColorUIResource SECONDARY3 = new ColorUIResource(214,217,223); // Color Fondo
+    private final ColorUIResource CONTROL_TEXT_COLOR = new ColorUIResource(242,242,189);
+    private final ColorUIResource INACTIVE_CONTROL_TEXT_COLOR = new ColorUIResource(242,242,189);
+    private final ColorUIResource MENU_DISABLED_FOREGROUND = new ColorUIResource(242,242,189);
+    private final ColorUIResource OCEAN_BLACK = new ColorUIResource(242,242,189);
+    private final ColorUIResource OCEAN_DROP = new ColorUIResource(242,242,189);
+ 
+    protected ColorUIResource getPrimary1() { return primary1; }
+    protected ColorUIResource getPrimary2() { return primary2; }
+    protected ColorUIResource getPrimary3() { return primary3; }
+    protected ColorUIResource getSecondary1() { return SECONDARY1; }
+    protected ColorUIResource getSecondary2() { return SECONDARY2; }
+    protected ColorUIResource getSecondary3() { return SECONDARY3; }
+    protected String getDefaultFontName() { return "Dialog"; }
+    protected int getDefaultFontSize() { return 10; }
+ 
 }

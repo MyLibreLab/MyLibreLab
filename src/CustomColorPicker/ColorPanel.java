@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package CustomColorPicker;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -220,6 +222,19 @@ public class ColorPanel extends javax.swing.JPanel
         if (modus!=MODE_FLAT)
         {
             int d=6;
+            
+            g2.setFont(new Font("Dialog",1,12));
+            FontMetrics fm = g2.getFontMetrics();
+            String txtTemp="P1 X:"+p1.x+" Y:"+p1.y +" - P2 X:"+p2.x+" Y:"+p2.y;
+            Rectangle2D rFont = fm.getStringBounds(txtTemp,g2);
+            g2.setColor(new Color(255,242,181));
+            g2.fillRect((int) (getWidth()-rFont.getWidth()-12),3, (int) rFont.getWidth()+d ,(int) rFont.getHeight()+3);
+            g2.setColor(new Color(253,153,0));
+            g2.drawRect((int) (getWidth()-rFont.getWidth()-12),3, (int) rFont.getWidth()+d ,(int) rFont.getHeight()+3);
+            g2.setColor(Color.BLACK);
+            g2.drawString(txtTemp,(int) (getWidth()-rFont.getWidth()-9), (int)((rFont.getHeight())+3));
+            
+            
             g2.setColor(Color.BLACK);
             g2.fillOval(p1.x-d,p1.y-d,d*2,d*2);
             g2.setColor(Color.WHITE);

@@ -56,7 +56,6 @@ public class FrameErrorWarnings extends javax.swing.JFrame
     public FrameErrorWarnings()
     {
         initComponents();
-        
         javax.swing.ImageIcon icon =new javax.swing.ImageIcon("/Bilder/16x16/process-stop.png");
         setIconImage(icon.getImage());
         

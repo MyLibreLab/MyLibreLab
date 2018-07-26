@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 package VisualLogic;
+import Peditor.PropertyEditor;
 import VisualLogic.variables.*;
 
 import java.awt.*;
@@ -91,6 +92,7 @@ public interface ExternalIF
     public abstract String jIfPathNotFoundThenSearch(String path);
     
     public abstract void jSetProperties();
+    public abstract void processPropertyEditor();
     public abstract void jFixElement();
     public abstract VSObject[] jGetProperties();
     public abstract VSBasisIF jGetElementBasis();
@@ -101,7 +103,9 @@ public interface ExternalIF
     public abstract ExternalIF getElementByhName(VSBasisIF basis, String name);
     
     public abstract void jClearPE();
+    public VMObject getElementOwner();
     public abstract void jAddPEItem(String label,Object referenz, double min, double max);
+    public abstract void jAddPEItem(String label,Object referenz, double min, double max, boolean editable);
     public abstract void jSetPEItemLocale(int index, String language, String translation);
     public abstract JFrame jGetFrame();
     public abstract String[] jGetDataTypeList();

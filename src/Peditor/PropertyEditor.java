@@ -1184,7 +1184,7 @@ public class PropertyEditor extends javax.swing.JPanel {
             updateUI();
         }
     }
-
+    
     public void clear() {
         liste.clear();
         leftPanel.removeAll();

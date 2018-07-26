@@ -24,6 +24,7 @@ import SimpleFileSystem.FileSystemInput;
 import SimpleFileSystem.FileSystemOutput;
 import VisualLogic.variables.VS1DDouble;
 import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSColor;
 import VisualLogic.variables.VSComboBox;
 import VisualLogic.variables.VSDouble;
 import VisualLogic.variables.VSFlowInfo;
@@ -66,6 +67,7 @@ class VariableNotifyRecord {
  */
 public class Basis extends Object implements ElementIF, VSBasisIF {
 
+    public VSColor backDisabledColor = new VSColor(Color.yellow);
     public DataHistory dataHistory = new DataHistory();
     public String elementPaletteCircuitElementsOldPath = "";
     public String elementPaletteFrontElementsOldPath = "";
@@ -873,6 +875,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         WindowsPosition.addItem("BOTTOM_LEFT");
         WindowsPosition.addItem("BOTTOM_RIGHT");
         WindowsPosition.addItem("CUSTOM");
+        WindowsPosition.addItem("MAXIMIZED");
 
         getCircuitBasis().setAlignToGrid(frameCircuit.settings.isCircuittAlignToGrid());
         getCircuitBasis().setRasterOn(frameCircuit.settings.isCircuitRasterOn());
@@ -1171,6 +1174,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         frontBasis.stop();
 
         circuitBasis.selectAny(false);
+        frontBasis.setLocation(0,0);
         frontBasis.selectAny(false);
 
         if (ownerVMPanel != null) {
@@ -1227,7 +1231,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
         frm.setTitle(caption);
         //frm.setSize(frontBasis.getWidth()+10,frontBasis.getHeight()+30+h);
-
+        
         frm.pack();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         
@@ -1266,7 +1270,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         }
         
         if(WindowsPosition.selectedIndex==5){ // If Customized Position
-        //frm.setLocation(CustomXwindowPos,CustomYwindowPos);
         XPosTemp=CustomXwindowPos;
         YPosTemp=CustomYwindowPos;
         }else{
@@ -1274,10 +1277,22 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         CustomYwindowPos=YPosTemp;    
         }
         
-        frm.setLocation(XPosTemp,YPosTemp);    
-        
-        
+        if(WindowsPosition.selectedIndex==6){// MAXIMIZED 
+        //frm.setLocation(XPosTemp,YPosTemp);
+        frm.setSize(screenSize);
+        Rectangle b=this.frontBasis.getBounds();
+        try{
+        //Thread.currentThread().sleep(125);
+        frm.getContentPane().getComponent(1).setBackground(this.frontBasis.getBackground());
+        this.frontBasis.setLocation((screenSize.width/2)-(b.width/2),((screenSize.height/2)-(b.height/2)));
+        }catch(Exception e){}
+        //frm.repaint();
+        }else{
+        frm.setLocation(CustomXwindowPos,CustomYwindowPos);    
+        }
         frm.setVisible(true);
+        
+        
 
         if (debugMode || AlwaysOnTop) {
             frm.setAlwaysOnTop(true);

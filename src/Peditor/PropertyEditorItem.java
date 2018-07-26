@@ -61,7 +61,7 @@ public class PropertyEditorItem
     {
       return element;    
     }
-    
+
     public void processChanged() 
     {
         ((PEIF)component).changed();                
@@ -90,8 +90,7 @@ public class PropertyEditorItem
         this.strLabel=strLabel;
         this.value=value;  
         this.element=element;
-        this.vmobject=vmobject;
-               
+        this.vmobject=vmobject;      
         
         label=new JLabel(strLabel);
         //label.setBorder(new LineBorder(Color.lightGray));
