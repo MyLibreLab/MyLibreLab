@@ -33,7 +33,7 @@ public class Pane_Text_Control_JV extends JVSMain
   private VSInteger ausrichtungH = new VSInteger();
   private VSColor Element_Color_Bakground = new VSColor(Color.WHITE);
 
-  private VSFont font=new VSFont(new Font("Monospaced",0,11));
+  private VSFont font=new VSFont(new Font("Dialog",0,12));
   private VSColor fontColor = new VSColor(Color.BLACK);
   private ExternalIF circuitElement;
 
@@ -63,7 +63,7 @@ public class Pane_Text_Control_JV extends JVSMain
     
     
     setName("Pane_Text_Control_JV");
-    element.jSetCaptionVisible(true);
+    element.jSetCaptionVisible(false);
   }
   
 

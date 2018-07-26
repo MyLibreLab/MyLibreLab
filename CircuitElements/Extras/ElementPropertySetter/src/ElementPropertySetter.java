@@ -132,6 +132,7 @@ public class ElementPropertySetter extends JVSMain
   }
   public void propertyChanged(Object o)
   {
+    try{
     if (o.equals(elList))
     {
       int id=elements[elList.selectedIndex].jGetID();
@@ -139,6 +140,7 @@ public class ElementPropertySetter extends JVSMain
       selectedID.setValue(id);
       selectedCaption.setValue(caption);
     }
+  }catch(Exception e){}
   }
 
   public void start()

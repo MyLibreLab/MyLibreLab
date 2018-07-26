@@ -74,7 +74,7 @@ public class JVSMain extends Object implements ElementIF
   public void processMethod(VSFlowInfo flowInfo){}
   public void processClock(){}
   public void elementActionPerformed(ElementActionEvent evt){}
-
+  
   public void mouseDragged(MouseEvent e){}
   public void mousePressed(MouseEvent e){}
   public void mousePressedOnIdle(MouseEvent e){}

@@ -10,14 +10,10 @@ import VisualLogic.*;
 import VisualLogic.variables.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.text.*;
 import javax.swing.*;
 import tools.*;
-import java.awt.geom.Rectangle2D;
 import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
 
 public class Pane_Text_Indicator_JV extends JVSMain implements PanelIF
@@ -34,7 +30,7 @@ public class Pane_Text_Indicator_JV extends JVSMain implements PanelIF
   private VSInteger ausrichtungH = new VSInteger();
   private VSColor Element_Color_Bakground = new VSColor(Color.WHITE);
 
-  private VSFont font=new VSFont(new Font("Monospaced",0,11));
+  private VSFont font=new VSFont(new Font("Dialog",0,11));
   private VSColor fontColor = new VSColor(Color.BLACK);
   private VSBoolean Label_Use = new VSBoolean();
 
@@ -73,13 +69,13 @@ public class Pane_Text_Indicator_JV extends JVSMain implements PanelIF
     
     element.jSetResizable(true);
     text.setContentType("text/html");
-    text.setText("<html><body><p>Multiline Text Indicator Element \n\nWith Horizontal and vertical Auto Scroll when needed J.V. </p></body></html>");
-      
+    text.setText("<HTML> <HEAD> <TITLE>Example 1 JV</TITLE> </HEAD> <BODY> HTML Ausgabe Preview.<BR> <FONT SIZE=\"1\">Text Size 1.</FONT><BR> <FONT SIZE=\"2\">Text Size 2.</FONT><BR> <FONT SIZE=\"4\">Text Size 4.</FONT><BR> <FONT SIZE=\"+1\">Text Size +1 (Same Size 4).</FONT><BR> <FONT FACE=\"Arial\" SIZE=\"5\" COLOR=\"F39C12\">Formated Text JV.</FONT> </BODY> </HTML>");
+  
     //text.setText("");
     
     
     setName("HTML/Text_Indicator_JV");
-    element.jSetCaptionVisible(true);
+    element.jSetCaptionVisible(false);
   }
   
 
@@ -113,7 +109,7 @@ public class Pane_Text_Indicator_JV extends JVSMain implements PanelIF
       }
     else{
      text.setContentType("text/html");
-     text.setText("Multiline HTML/Text Indicator J.V.");   
+     text.setText("<HTML> <HEAD> <TITLE>Example 1 JV</TITLE> </HEAD> <BODY> HTML Ausgabe Preview.<BR> <FONT SIZE=\"1\">Text Size 1.</FONT><BR> <FONT SIZE=\"2\">Text Size 2.</FONT><BR> <FONT SIZE=\"4\">Text Size 4.</FONT><BR> <FONT SIZE=\"+1\">Text Size +1 (Same Size 4).</FONT><BR> <FONT FACE=\"Arial\" SIZE=\"5\" COLOR=\"F39C12\">Formated Text JV.</FONT> </BODY> </HTML>");
     }
     panel.add(paneScrollPane, java.awt.BorderLayout.CENTER);
     
@@ -168,7 +164,7 @@ public class Pane_Text_Indicator_JV extends JVSMain implements PanelIF
   }
           
          
-  public void start()
+  public void stop()
   {
     if(Label_Use.getValue()){
         text.setContentType("text/html");

@@ -43,7 +43,7 @@ public class Ausgabe extends JVSMain
   public void init()
   {
     initPins(0,0,0,1);
-    setSize(35,28);
+    setSize(45,40);
 
     element.jSetInnerBorderVisibility(true);
     initPinVisibility(false,false,false,true);
@@ -52,7 +52,7 @@ public class Ausgabe extends JVSMain
 
     setPin(0,ExternalIF.C_STRING,element.PIN_INPUT);
 
-    element.jSetCaptionVisible(true);
+    element.jSetCaptionVisible(false);
     element.jSetCaption("Ausgabe (String)");
 
     setName("Ausgabe (String)");

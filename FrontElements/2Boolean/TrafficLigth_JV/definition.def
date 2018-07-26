@@ -1,0 +1,8 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Traffic_Ligth_JV
+CAPTION_EN= Traffic_Ligth_JV
+CAPTION_ES= Semaforo_JV
+Jar          = bin/Compass_JV.jar
+ClassCircuit = GaugeCircuit
+ClassFront   = GaugePanel
+Icon         = bin/Gauge.gif

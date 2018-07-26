@@ -39,7 +39,7 @@ public class Panel extends JVSMain
   private VSInteger value=new VSInteger(0);
   private VSPropertyDialog more= new VSPropertyDialog();
 
-  private Font fnt = new Font("Monospaced",0,12);
+  private Font fnt = new Font("Dialog",1,16);
   private ExternalIF circuitElement;
   private VS1DString values = new VS1DString(0);
   private JComboBox combo = new JComboBox();

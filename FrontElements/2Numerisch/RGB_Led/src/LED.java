@@ -50,7 +50,7 @@ public class LED extends JVSMain
   public void init()
   {
     initPins(0,0,0,3);
-    setSize(40,35);
+    setSize(50,45);
     
     initPinVisibility(false,false,false,true);
     image=element.jLoadImage(element.jGetSourcePath()+"icon.gif");

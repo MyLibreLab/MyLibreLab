@@ -1,0 +1,8 @@
+ISDIRECTORY = FALSE
+CAPTION= Down_Derivation_JV
+CAPTION_EN= Down_Derivation_JV
+CAPTION_ES= Derivacion D _JV
+Jar = bin/LED.jar
+ClassCircuit = LED
+ClassFront = LEDPanel
+icon= bin/Pipe.gif

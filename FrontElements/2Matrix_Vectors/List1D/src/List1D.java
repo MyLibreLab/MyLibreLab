@@ -94,6 +94,7 @@ public class List1D extends JVSMain
         out.setValue(i,(String)values[i]);
       }
       element.notifyPin(0);
+      
     }
   }
 

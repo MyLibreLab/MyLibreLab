@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= FF_Konstante
+CAPTION_EN= FF_Constant
+CAPTION_ES= Constante_FF
+Jar= bin/Const.jar
+ClassCircuit =Const
+Icon= bin/Const.gif

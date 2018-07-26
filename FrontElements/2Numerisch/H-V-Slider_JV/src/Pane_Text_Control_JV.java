@@ -40,7 +40,7 @@ public class Pane_Text_Control_JV extends JVSMain implements ChangeListener
   private VSBoolean Transparent = new VSBoolean(false);
   private VSColor Element_Color_Bakground = new VSColor(Color.WHITE);
 
-  private VSFont font=new VSFont(new Font("Monospaced",1,11));
+  private VSFont font=new VSFont(new Font("Dialog",1,11));
   private VSColor fontColor = new VSColor(Color.BLACK);
   private ExternalIF circuitElement;
   

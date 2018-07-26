@@ -30,7 +30,7 @@ public class Text_Indicator_JV extends JVSMain
   public void init()
   {
     initPins(0,0,0,1);
-    setSize(35,28);
+    setSize(45,40);
 
     element.jSetInnerBorderVisibility(true);
     initPinVisibility(false,false,false,true);
@@ -39,7 +39,7 @@ public class Text_Indicator_JV extends JVSMain
 
     setPin(0,ExternalIF.C_STRING,element.PIN_INPUT);
 
-    element.jSetCaptionVisible(true);
+    element.jSetCaptionVisible(false);
     element.jSetCaption("Pane_Text_JV");
 
     setName("Text_Indicator_JV");
@@ -55,13 +55,17 @@ public class Text_Indicator_JV extends JVSMain
   {
     firstTime=true;
   }
-
+  public void start(){
+  super.start();
+  oldValue="-1";
+  firstTime=true;
+  }
   public void process()
   {
     if (in!=null)
     {
       if (in.getValue()!=oldValue || firstTime)
-      {
+      { 
         oldValue=in.getValue();
         firstTime=false;
         panelElement=element.getPanelElement();

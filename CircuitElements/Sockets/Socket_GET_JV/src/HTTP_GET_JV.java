@@ -28,6 +28,7 @@ public class HTTP_GET_JV extends JVSMain
   private VSBoolean enableVMin = new VSBoolean(false);
   private VSBoolean enableVMout=new VSBoolean(false);
   private String oldValue="";
+  private boolean oldEnableValue=false;
 
   public void onDispose()
   {
@@ -101,7 +102,7 @@ public class HTTP_GET_JV extends JVSMain
      
     enableVMout.setValue(enableVMin.getValue());
      
-    if (IPAddress!=null && ServerPort!=null && enableVMin.getValue())
+    if (IPAddress!=null && ServerPort!=null && enableVMin.getValue() && oldEnableValue==false)
     { 
         Socket s;
         BufferedReader input;
@@ -114,8 +115,11 @@ public class HTTP_GET_JV extends JVSMain
         
         try{
         s = new Socket(serverAddress,ServerPort.getValue());
-        s.setReceiveBufferSize(128);
-        s.setSendBufferSize(128);
+        s.setReceiveBufferSize(512);
+        s.setSendBufferSize(512);
+        s.setSoTimeout(1500);
+        s.setKeepAlive(true);
+        
         input =
             new BufferedReader(new InputStreamReader(s.getInputStream()));
         out = new PrintWriter(s.getOutputStream(), true);
@@ -129,30 +133,40 @@ public class HTTP_GET_JV extends JVSMain
         GetTemp+=("Host: "+serverAddress+"\r"+"\n"+"\r"+"\n");
         out.print("GET / HTTP/1.1\n\r\n");
         out.println("Host: 192.168.0.13\n\r\n");
-        out.flush();
+        
+       
+        
+        //out.flush();
         response="";
         //out.print(GetTemp);
         System.out.print(GetTemp);
-        
-        while (AnswerOk==false && counter<=15){
-                    response += input.readLine()+"\n";
+        String line = "";
+         while ((line = input.readLine()) != null){
+                    response += line;
                     counter++;
                         
                     if (response.contains("<html>") && response.contains("</html>")) {
                         AnswerOk=true;
-                        System.out.println(response);
+                        //System.out.println(response);
                         //System.out.println(counter);
                           //System.exit(0);
                       }
                     }
         //JOptionPane.showMessageDialog(null, response);
-                    s.close();
+                    
                     
                     input.close();
+                    out.flush();
                     out.close();
+                    s.close();
         
         }catch(Exception e){
-            System.out.println("Error Comm");   
+            System.out.println("Error Comm"+e.toString()); 
+            try{
+             Thread.currentThread().sleep(25);
+            }catch(Exception et){
+                
+            }
         }
 
         ServerAnswer.setValue(response);
@@ -162,6 +176,7 @@ public class HTTP_GET_JV extends JVSMain
         element.notifyPin(1);
       
     }
+    oldEnableValue=enableVMin.getValue();
   }
 
 }

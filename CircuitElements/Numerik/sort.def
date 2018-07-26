@@ -9,6 +9,8 @@ Dividierer
 inc
 dec
 sqrt
+modulus_JV
+Hypot_JV
 abs
 log
 random

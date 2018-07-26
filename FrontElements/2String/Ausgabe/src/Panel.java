@@ -73,10 +73,13 @@ public class Panel extends JVSMain implements PanelIF
     panel.add(text, java.awt.BorderLayout.CENTER);
     element.setAlwaysOnTop(true);
     text.setEditable(false);
-
+    //Code added to avoid JText Focus Lost Error
+    //text.setEnabled(false);
+    text.setFocusable(false);
+    
   }
 
-  public void start()
+  public void stop()
   {
     text.setText("");
   }

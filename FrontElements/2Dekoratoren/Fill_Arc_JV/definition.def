@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Fill_Arc_JV
+CAPTION_EN  = Fill_Arc_JV
+CAPTION_ES  = Arco Relleno JV
+ClassFront  = RoundRect
+Icon        = bin/RoundRect.gif

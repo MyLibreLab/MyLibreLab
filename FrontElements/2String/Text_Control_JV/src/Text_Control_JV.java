@@ -33,20 +33,20 @@ public class Text_Control_JV extends JVSMain
   public void init()
   {
     initPins(0,1,0,0);
-    setSize(35,28);
+    setSize(45,40);
 
     element.jSetInnerBorderVisibility(true);
-    initPinVisibility(false,false,false,true);
+    initPinVisibility(false,true,false,false);
 
     image=element.jLoadImage(element.jGetSourcePath()+"icon.gif");
 
     //setPin(0,ExternalIF.C_STRING,element.PIN_INPUT);
     setPin(0, ExternalIF.C_STRING, ExternalIF.PIN_OUTPUT);
     
-    element.jSetCaptionVisible(true);
-    element.jSetCaption("Pane_Text_JV");
+    element.jSetCaptionVisible(false);
+    element.jSetCaption("Pane_Text_Control_JV");
 
-    setName("Text_Indicator_JV");
+    setName("Text_Control_JV");
   }
 
   public void changePin(int pinIndex, Object value)

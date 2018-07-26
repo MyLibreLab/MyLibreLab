@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <caption>String_Constant_JV</caption>
+  <caption_en>String_Constant_JV</caption_en>
+  <caption_es>Constantes_Texto_JV</caption_es>
+  <categorie>Education</categorie>
+  <author>Ing. Javier Velásquez</author>
+  <email>javiervelasquez125@gmail.com</email>
+  <web>http://myopenlab.org</web>
+  <version>1.0.0.0</version>
+  <date>04.05.2018</date>
+  <dest_path>/CircuitElements/Constant_JV</dest_path>
+  <type>CircuitElements</type>
+  <content>
+  </content>
+</root>

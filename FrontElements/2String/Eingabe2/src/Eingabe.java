@@ -48,7 +48,7 @@ public class Eingabe extends JVSMain
   public void init()
   {
     initPins(0,1,0,0);
-    setSize(35,28);
+    setSize(45,40);
 
     element.jSetInnerBorderVisibility(true);
     initPinVisibility(false,true,false,false);

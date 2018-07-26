@@ -33,13 +33,13 @@ public class XLabel extends JVSMain
 {
   private Image image=null;
   private VSString strText = new VSString();
-  private VSInteger ausrichtungH = new VSInteger();
-  private VSInteger ausrichtungV = new VSInteger();
+  private VSInteger ausrichtungH = new VSInteger(1);
+  private VSInteger ausrichtungV = new VSInteger(1);
 
   private VSFont font=new VSFont(new Font("Dialog",Font.BOLD,11));
   private VSColor fontColor = new VSColor(Color.BLACK);
   private String[] values= new String[3];
-  private JLabel label = new JLabel("Label");
+  private JLabel label = new JLabel("Text");
 
 
   public XLabel()
@@ -112,7 +112,7 @@ public class XLabel extends JVSMain
     {
       JPanel panel =element.getFrontPanel();
       panel.setLayout(new java.awt.BorderLayout());
-
+      label.setHorizontalAlignment(label.CENTER);
       panel.add(label, java.awt.BorderLayout.CENTER);
       element.setAlwaysOnTop(true);
     } catch(Exception ex)

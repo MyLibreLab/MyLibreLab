@@ -1,9 +1,14 @@
 Button
+ToggleButton
 Button2
 Taster
-KippSchalter
 SchiebeSchalter
-SchiebeSchalter2
+KippSchalter
+UserdefinedBooleanDisplay
+Indicator_JV
+LigthBulb_JV
+TrafficLigth_JV
+TrafficLigth_2_JV
+Led_JV
 LED
 LEDRectangle
-UserdefinedBooleanDisplay

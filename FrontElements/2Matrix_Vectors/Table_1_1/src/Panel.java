@@ -113,7 +113,7 @@ public class Panel extends JVSMain implements PanelIF
   private VS2DString in ;
   private VS2DString out = new VS2DString(spalten.getValue(),zeilen.getValue());
 
-  private VSBoolean resizeTableAutomatic = new VSBoolean(false);
+  private VSBoolean resizeTableAutomatic = new VSBoolean(true);
   private VSBoolean tableReadOnly = new VSBoolean(false);
 
 

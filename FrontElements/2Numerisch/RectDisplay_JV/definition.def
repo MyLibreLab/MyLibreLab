@@ -1,0 +1,8 @@
+ISDIRECTORY  = FALSE
+CAPTION      = RectDisplay_JV
+CAPTION_EN= RectDisplay_JV
+CAPTION_ES= RectDisplay_JV
+Jar          = bin/Compass_JV.jar
+ClassCircuit = GaugeCircuit
+ClassFront   = GaugePanel
+Icon         = bin/Gauge.gif

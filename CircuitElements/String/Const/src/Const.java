@@ -75,6 +75,10 @@ public class Const extends JVSMain
        FontMetrics fm = g2.getFontMetrics();
        Rectangle2D   r = fm.getStringBounds(constValue.getValue(),g2);
 
+       g2.setColor(new Color(245,101,234));
+       g.fillRect(bounds.x,bounds.y,bounds.width-1,bounds.height-1);
+
+       g2.setColor(Color.black);
        g.drawString(constValue.getValue(),bounds.x+5,((bounds.height) /2)+5);
        g.drawRect(bounds.x,bounds.y,bounds.width-1,bounds.height-1);
     }

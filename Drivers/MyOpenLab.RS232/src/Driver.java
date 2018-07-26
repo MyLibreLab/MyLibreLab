@@ -22,10 +22,6 @@
 import VisualLogic.*;
 import VisualLogic.variables.*;
 import java.util.*;
-import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-//import gnu.io.*;
 import jssc.*;
 
 public class Driver {
@@ -45,6 +41,7 @@ public class Driver {
     private SerialReader serialThread;
 
     public boolean useOwnInHandler = false;
+    public boolean portConfigured = false;
 
     public String port;
 
@@ -61,6 +58,7 @@ public class Driver {
     public Driver(String port, int baud, int bits, int stopBits, int parity) {
 
         this.port = port;
+        portConfigured = false;
 
         error = true;
 
@@ -80,13 +78,17 @@ public class Driver {
                 
                 if(!serss.isOpened()){
                   serss.openPort();
+                  System.out.println("Port Opened OK");
                 }
                 
                 //serss.setSerialPortParams(baud, bits, stopBits, parity);
-                if(serss.isOpened()){
+                if(serss.isOpened() && portConfigured == false){
+                    portConfigured = true;
                     serss.setParams(baud, bits, stopBits, parity);
+                    serss.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
+                    
                 } // setSerialPortParams(baud, bits, stopBits, parity);
-                System.out.println("Port Settings"+baud+bits+stopBits+parity);
+                System.out.println("Port Baud:"+baud+"_Bits:"+bits+"_StopBits:"+stopBits+"_Parity:"+parity);
                 //Thread.currentThread().sleep(2000);
                 //dos = new DataOutputStream();
                 error = false;
@@ -143,7 +145,10 @@ public class Driver {
         
         if (serss != null) {
             try{
-                if(serss.isOpened()) serss.closePort();
+                if(serss.isOpened()){
+                    serss.closePort();
+                    portConfigured = false;
+                }
                 System.out.println("Port closed OK");
             }catch(Exception e){
                 System.out.println("Error Closing Port "+e);   
@@ -255,6 +260,7 @@ public class Driver {
                 //System.out.println("Time="+diff);
 
                 if (diff > timeOut) {
+                    System.out.println("timeout");
                     break;
                 }
                 try {
@@ -330,14 +336,13 @@ public class Driver {
         @Override
         public void serialEvent(SerialPortEvent event) {
             if (event.getEventType() == SerialPortEvent.TXEMPTY) { //.OUTPUT_BUFFER_EMPTY
-                System.out.println("Ignored event");
+                System.out.println("Ignored event TX Empty");
             }
 
             if (event.getEventType() == SerialPortEvent.RXCHAR) {//DATA_AVAILABLE
 
                 try {
-
-                    //byte[] buffer = new byte[ins.available()];
+ 
                     int BytesAvalaible=event.getEventValue();
                     byte[] buffer = new byte[BytesAvalaible];
                     

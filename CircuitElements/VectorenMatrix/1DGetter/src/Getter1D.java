@@ -149,14 +149,14 @@ public class Getter1D extends JVSMain
 
 
   public void process()
-  {
+  { 
     if (in==null) return;
-    out.copyReferenceFrom(in);
+    //out.copyReferenceFrom(in);
 
-    if (read.getValue())
-    {
+    //if (read.getValue())
+    //{
       int r=row.getValue();
-
+      
       if (in instanceof VS1DString)
       {
         VS1DString inX=(VS1DString)in;
@@ -165,6 +165,8 @@ public class Getter1D extends JVSMain
         String val=inX.getValue(r);
         VSString outValue = (VSString)value;
         outValue.setValue(val);
+        outValue.setChanged(true);
+        //element.jConsolePrintln("Proccess"+ val);
       }
       if (in instanceof VS1DBoolean)
       {
@@ -207,7 +209,7 @@ public class Getter1D extends JVSMain
         outValue.setValue(val);
       }
       element.notifyPin(1);
-    }
+    //}
     element.notifyPin(0);
   }
   

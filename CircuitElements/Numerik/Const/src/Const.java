@@ -140,6 +140,7 @@ public class Const extends JVSMain
     out.setValue(constValue.getValue());
     out.setChanged(true);
     element.notifyPin(0);
+    //element.jConsolePrintln("NotificadoCTE");
   }
   
   public void process()

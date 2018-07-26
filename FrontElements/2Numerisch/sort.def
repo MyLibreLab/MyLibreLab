@@ -1,17 +1,22 @@
-MultiSchalter
+Steel_Gauges_JV
+Regler_Double_JV
+Regler_Integer_JV
 Regler
+MultiSchalter
 H-V-Slider_JV
-BalkenRegler
-Eingabe
-INTSpinner
-DBLSpinner
-INTCombo
-Switch2
-Anzeige
-Analoge Anzeige
-AnalogAnzeige2
-FuellstandAnzeige
-Gauge
-Gauge2
+INTSpinner_JV
+DBLSpinner_JV
+INTCombo_JV
+BalkenRegler_JV
+Switch_JV
+ColorBar_JV
+Analoge Anzeige_JV
+Linear_JV
+Linear_BarGraph_JV
+RectDisplay_JV
 RGB_Led
-StatusAnzeige
+Battery_JV
+Gauge_JV
+Tank_8_JV
+Numeric_Indicator_JV
+

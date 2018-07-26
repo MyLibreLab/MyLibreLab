@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Dreieck Left_JV
+CAPTION_EN  = Triangle Left_JV
+CAPTION_ES  = Triangulo Izquierda_JV
+ClassFront  = Triangle
+Icon        = bin/Triangle.gif

@@ -31,9 +31,9 @@ public class Pane_Text_Indicator_JV extends JVSMain implements PanelIF
   
   private VSString strText = new VSString();
   private VSInteger ausrichtungH = new VSInteger();
-  private VSColor Element_Color_Bakground = new VSColor(Color.WHITE);
+  private VSColor Element_Color_Bakground = new VSColor(new Color(214,217,223));
 
-  private VSFont font=new VSFont(new Font("Monospaced",0,11));
+  private VSFont font=new VSFont(new Font("Dialog",0,12));
   private VSColor fontColor = new VSColor(Color.BLACK);
   private VSBoolean Label_Use = new VSBoolean();
 
@@ -48,9 +48,12 @@ public class Pane_Text_Indicator_JV extends JVSMain implements PanelIF
       
       if(Label_Use.getValue()){
            str=strText.getValue();
+      }else{
+      strText.setValue(str);
       }
+      
       text.setText(str);
-      element.jRepaint();
+
     }
   }
   
@@ -73,7 +76,7 @@ public class Pane_Text_Indicator_JV extends JVSMain implements PanelIF
     
     
     setName("Pane_Text_Indicator_JV");
-    element.jSetCaptionVisible(true);
+    element.jSetCaptionVisible(false);
   }
   
 
@@ -160,7 +163,7 @@ public class Pane_Text_Indicator_JV extends JVSMain implements PanelIF
   }
           
          
-  public void start()
+  public void stop()
   {
     if(Label_Use.getValue()){
           text.setText(strText.getValue());

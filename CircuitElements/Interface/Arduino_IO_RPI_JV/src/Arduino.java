@@ -2,7 +2,7 @@
 //* Element of MyOpenLab Library                                              *
 //*                                                                           *
 //* Copyright (C) 2004  Carmelo Salafia (cswi@gmx.de)                         *
-//*                                                                           *
+//* Copyright (C) 2018  Javier Velásquez (javiervelasquez125@gmail.com)                                                                         *
 //* This library is free software; you can redistribute it and/or modify      *
 //* it under the terms of the GNU Lesser General Public License as published  *
 //* by the Free Software Foundation; either version 2.1 of the License,       *
@@ -317,7 +317,7 @@ public class Arduino extends JVSMain implements MyOpenLabDriverOwnerIF
               //if (driver!=null) driver.sendCommand("COM"+comPort.getValue()+";SENDBYTES", inBytes);
               //if (driver!=null) driver.sendCommand(Port.getValue()+";SENDBYTES", inBytes);
               if (driver!=null) driver.sendCommand(comport.getItem(comport.selectedIndex)+";SENDBYTES", inBytes);
-                  System.out.println(comport.getItem(comport.selectedIndex));
+                  //System.out.println(comport.getItem(comport.selectedIndex)+"SEND"+value);
             }
           }
     });
@@ -351,7 +351,7 @@ public class Arduino extends JVSMain implements MyOpenLabDriverOwnerIF
   public void elementActionPerformed(ElementActionEvent evt)
   {
     int idx=evt.getSourcePinIndex();
-    //System.out.println("Event: "+idx);
+    System.out.println("Event: "+idx);
     switch (idx)
     {
       case 12:

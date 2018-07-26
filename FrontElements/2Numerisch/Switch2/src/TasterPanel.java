@@ -39,7 +39,7 @@ public class TasterPanel extends JVSMain
   private VSInteger initValue=new VSInteger(0);
   private VSInteger anzahlStellungen=new VSInteger(3);
   public VSColor fontColor = new VSColor(Color.BLACK);
-  public VSFont font = new VSFont(new java.awt.Font("Courier", 1, 12));
+  public VSFont font = new VSFont(new java.awt.Font("Dialog", 1, 11));
   public VS1DString values = new VS1DString(0);
   
   public VSPropertyDialog captions= new VSPropertyDialog();

@@ -1,0 +1,6 @@
+ISDIRECTORY = TRUE
+CAPTION   =String_Conversion
+CAPTION_EN=String_Conversion
+CAPTION_ES=Conversiones desde Texto
+ICON=icon32.png
+VM_DIR_EDITABLE = TRUE

@@ -8,10 +8,7 @@ import VisualLogic.*;
 import VisualLogic.variables.*;
 import tools.*;
 import java.awt.*;
-import java.awt.event.*;
-import javax.swing.Timer;
 import javax.swing.*;
-import java.util.*;
 
 
 
@@ -26,7 +23,7 @@ public class JVLabel extends JVSMain
   private VSFont font=new VSFont(new Font("Monospaced",0,11));
   private VSColor fontColor = new VSColor(Color.BLACK);
   private String[] values= new String[3];
-  private JLabel label = new JLabel("HTML/Text JV");
+  private JLabel label = new JLabel("<HTML> <HEAD> <TITLE>Example 1 JV</TITLE> </HEAD> <BODY> HTML Ausgabe Preview.<BR> <FONT SIZE=\"1\">Text Size 1.</FONT><BR> <FONT SIZE=\"2\">Text Size 2.</FONT><BR> <FONT SIZE=\"4\">Text Size 4.</FONT><BR> <FONT SIZE=\"+1\">Text Size +1 (Same Size 4).</FONT><BR> <FONT FACE=\"Arial\" SIZE=\"5\" COLOR=\"F39C12\">Formated Text JV.</FONT> </BODY> </HTML>");
   private VSString StrOut= new VSString();
 
 
@@ -82,12 +79,13 @@ public class JVLabel extends JVSMain
   public void init()
   {
     initPins(0,1,0,0);
-    setSize(100,150);
+    setSize(250 ,150);
 
     element.jSetInnerBorderVisibility(true);
     element.jSetTopPinsVisible(false);
     element.jSetLeftPinsVisible(false);
     element.jSetBottomPinsVisible(false);
+    element.jSetResizable(true);
 
     setPin(0,ExternalIF.C_STRING,element.PIN_OUTPUT);
     element.jSetPinDescription(0,"StringOut");
@@ -138,7 +136,7 @@ public class JVLabel extends JVSMain
   public void setPropertyEditor()
   {
     element.jAddPEItem("Schriftart",font, 0,0);
-    element.jAddPEItem("Beschreibung",strText, 0,0);
+    element.jAddPEItem("Html",strText, 0,0);
     element.jAddPEItem("Farbe",fontColor, 0,0);
     element.jAddPEItem("Ausrichtung Hoz",ausrichtungH, 0,2);
     element.jAddPEItem("Ausrichtung Vert",ausrichtungV, 0,2);
@@ -154,7 +152,7 @@ public class JVLabel extends JVSMain
     language="en_US";
 
     element.jSetPEItemLocale(d+0,language,"Font");
-    element.jSetPEItemLocale(d+1,language,"Text");
+    element.jSetPEItemLocale(d+1,language,"Html");
     element.jSetPEItemLocale(d+2,language,"Color");
     element.jSetPEItemLocale(d+3,language,"Align Hoz");
     element.jSetPEItemLocale(d+4,language,"Align Vert");
@@ -162,10 +160,10 @@ public class JVLabel extends JVSMain
     language="es_ES";
 
     element.jSetPEItemLocale(d+0,language,"Fuente");
-    element.jSetPEItemLocale(d+1,language,"Nombre");
+    element.jSetPEItemLocale(d+1,language,"Html");
     element.jSetPEItemLocale(d+2,language,"Color");
-    element.jSetPEItemLocale(d+3,language,"Alineaci�n Hoz");
-    element.jSetPEItemLocale(d+4,language,"Alineaci�n Vert");
+    element.jSetPEItemLocale(d+3,language,"Alineacion Hoz");
+    element.jSetPEItemLocale(d+4,language,"Alineacion Vert");
 
   }
   public void propertyChanged(Object o)

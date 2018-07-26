@@ -122,6 +122,7 @@ public class XRectangle extends JVSMain
       strokeColor.loadFromStream(fis);
       strokeWidth.loadFromStream(fis);
       fill.loadFromStream(fis);
+      element.jRepaint();
   }
 
   public void saveToStream(java.io.FileOutputStream fos)

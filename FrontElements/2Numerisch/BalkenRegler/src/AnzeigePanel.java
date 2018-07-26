@@ -34,12 +34,12 @@ public class AnzeigePanel extends JVSMain
   private double value=0.0;
   private double oldPin;
   private ExternalIF circuitElement;
-  private VSColor colorBackgroung=new VSColor(Color.WHITE);
-  private VSColor colorNibble=new VSColor(Color.LIGHT_GRAY);
+  private VSColor colorBackgroung=new VSColor( new Color(255,242,181));
+  private VSColor colorNibble=new VSColor(new Color(253,153,0));
   private VSDouble min=new VSDouble();
   private VSDouble max=new VSDouble();
   private VSDouble abschnitte = new VSDouble();
-  private Font fnt = new Font("Monospaced",0,10);
+  private Font fnt = new Font("Dialog",1,11);
 
 
    public void paint(java.awt.Graphics g)

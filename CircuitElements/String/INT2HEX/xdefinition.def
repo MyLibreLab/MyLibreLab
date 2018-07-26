@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = INT->Hex
+CAPTION_EN  = INT->Hex
+CAPTION_ES  = Convierte INT->Hex
+ClassCircuit= INT2HEX
+Icon        = bin/INT2HEX.gif

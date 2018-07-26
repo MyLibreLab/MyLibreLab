@@ -67,7 +67,7 @@ public class LEDPanel extends JVSMain implements PanelIF
   {
     initPins(0,0,0,0);
     initPinVisibility(false,false,false,false);
-    setSize(25,25);
+    setSize(30,30);
     element.jSetInnerBorderVisibility(false);
 
     element.jSetResizeSynchron(true);

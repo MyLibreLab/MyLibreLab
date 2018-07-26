@@ -50,7 +50,7 @@ public class LED extends JVSMain
   {
     element.jSetInnerBorderVisibility(true);
     initPins(0,0,0,1);
-    setSize(40,30);
+    setSize(45,40);
     initPinVisibility(false,false,false,true);
     
     setPin(0,ExternalIF.C_BOOLEAN,element.PIN_INPUT);

@@ -1,0 +1,8 @@
+ISDIRECTORY = FALSE
+CAPTION= Right_Derivation_JV
+CAPTION_EN= Right_Derivation_JV
+CAPTION_ES= Derivacion R_JV
+Jar = bin/LED.jar
+ClassCircuit = LED
+ClassFront = LEDPanel
+icon= bin/Pipe.gif

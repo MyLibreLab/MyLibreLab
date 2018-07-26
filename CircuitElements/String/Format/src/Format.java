@@ -54,7 +54,7 @@ public class Format extends JVSMain
   public void init()
   {
     initPins(0,1,0,2);
-    setSize(45,30);
+    setSize(50,40);
 
     initPinVisibility(false,true,false,true);
 
