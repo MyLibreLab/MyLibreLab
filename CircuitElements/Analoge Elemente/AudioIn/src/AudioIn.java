@@ -194,7 +194,7 @@ public class AudioIn extends JVSMain {
 
         element.jSetInnerBorderVisibility(true);
 
-        String fileName = element.jGetSourcePath() + "XAudioIn.GIF";
+        String fileName = element.jGetSourcePath() + "XAudioIn.gif";
         System.out.println("imageFileName=" + fileName);
         image = element.jLoadImage(fileName);
 

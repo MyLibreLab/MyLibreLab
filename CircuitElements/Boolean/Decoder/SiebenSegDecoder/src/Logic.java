@@ -98,7 +98,7 @@ public class Logic extends JVSMain
     element.jSetTopPinsVisible(false);
     element.jSetBottomPinsVisible(false);
 
-    image=element.jLoadImage(element.jGetSourcePath()+"Logic.GIF");
+    image=element.jLoadImage(element.jGetSourcePath()+"Logic.gif");
     
     width=60;
     if (outputs>inputs) height=20+10*outputs; else height=20+10*inputs;
