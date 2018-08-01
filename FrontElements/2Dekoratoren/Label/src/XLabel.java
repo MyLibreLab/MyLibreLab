@@ -98,7 +98,7 @@ public class XLabel extends JVSMain
     initPinVisibility(false,false,false,false);
     element.jSetResizable(true);
     element.jSetInnerBorderVisibility(false);
-    setSize(125,30);
+    setSize(120,30);
     
     setName("XLabel Version 1.0");
     

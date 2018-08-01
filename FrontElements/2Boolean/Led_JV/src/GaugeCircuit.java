@@ -100,6 +100,8 @@ public class GaugeCircuit extends JVSMain
 public void start()
   {
     panelElement=element.getPanelElement();
+    oldValue=false;
+    oldValue2=false;
     panelElement.jProcessPanel(0,0.0,(Object)this);
     panelElement.jProcessPanel(1,0.0,(Object)this);
   }

@@ -74,7 +74,7 @@ public class Pane_Text_Indicator_JV extends JVSMain implements PanelIF
     
     text.setText("Multiline Text Indicator Element \n\nWith Horizontal and vertical Auto Scroll when needed J.V.");
     
-    
+    ausrichtungH.setValue(1);
     setName("Pane_Text_Indicator_JV");
     element.jSetCaptionVisible(false);
   }
@@ -131,7 +131,7 @@ public class Pane_Text_Indicator_JV extends JVSMain implements PanelIF
 
      
     Set_Text_Style(1);
-    ausrichtungH.setValue(1);
+   
      
      element.jRepaint();
     }catch(Exception ex)
@@ -168,7 +168,7 @@ public class Pane_Text_Indicator_JV extends JVSMain implements PanelIF
     if(Label_Use.getValue()){
           text.setText(strText.getValue());
     }else{
-    text.setText("");    
+    //text.setText("");    
     }
     
   }
