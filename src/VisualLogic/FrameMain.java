@@ -111,7 +111,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     //public MyImage doc_image = new MyImage();
     public PanelDokumentation panelDoc;
     //public static String elementPath = ""; //NOI18N
-    public static String elementPath = "C:\\Users\\velas\\Documents\\NetBeansProjects\\myopenlab_source\\distribution\\Elements";
+    public static String elementPath = "C:\\Users\\velas\\Documents\\NetBeansProjects\\myoepnlab_source\\distribution\\Elements";
     public String activeElement = ""; //NOI18N
     public static FrameMain frm;
     public javax.swing.Timer timer;
@@ -572,8 +572,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             if (frm.result && frm.vmName.length() > 0) {
 
                 // 1. Verzeichniss mit Value unter dem Project erzeugen
-                //String dir = node.projectPath + "/" + frm.vmName;
-                String dir = node.projectPath + File.separator + frm.vmName;
+                String dir = node.projectPath + "/" + frm.vmName;
+                //String dir = node.projectPath + File.separator + frm.vmName;
                 if (!new File(dir).exists()) {
                     new File(dir).mkdir();
 
@@ -582,15 +582,16 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                         Tools.copy(new File(elementPath + File.separator+"nope.html"), new File(dir + File.separator+"doc_en.html"));
                         Tools.copy(new File(elementPath + File.separator+"nope.html"), new File(dir + File.separator+"doc_es.html"));
 
-                        //Tools.copy(new File(elementPath + "/element.gif"), new File(dir + "/" + frm.vmName + ".gif"));
-                        Tools.copy(new File(elementPath + File.separator+"element.gif"), new File(dir + File.separator + frm.vmName + ".gif"));
+                        Tools.copy(new File(elementPath + "/element.gif"), new File(dir + "/" + frm.vmName + ".gif"));
+                        //Tools.copy(new File(elementPath + File.separator+"element.gif"), new File(dir + File.separator + frm.vmName + ".gif"));
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-                    File file = new File(dir + File.separator+"subvm.vlogic");
+                    //File file = new File(dir + File.separator+"subvm.vlogic");
+                    File file = new File(dir + "/"+"subvm.vlogic");
 
-                    //generateSubVM(node.projectPath, frm.pinsLeft, frm.pinsRight, dir + "/" + frm.vmName + ".vlogic");
-                    generateSubVM(node.projectPath, frm.pinsLeft, frm.pinsRight, dir + File.separator + frm.vmName + ".vlogic");
+                    generateSubVM(node.projectPath, frm.pinsLeft, frm.pinsRight, dir + "/" + frm.vmName + ".vlogic");
+                    //generateSubVM(node.projectPath, frm.pinsLeft, frm.pinsRight, dir + File.separator + frm.vmName + ".vlogic");
 
                     //Basis basis=new Basis(this,this.elementPath);
                     //basis.saveToFile(filename,false);
@@ -1498,7 +1499,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         settings.language = lan.result;      */
         //jMenuBar2.setFont(new Font("Tahoma", Font.PLAIN, 21));
-        Font f = new Font("Tahoma", Font.PLAIN, 14);
+        Font f = new Font("Dialog", Font.PLAIN, 13);
         UIManager.put("Menu.font", f);
         UIManager.put("MenuItem.font", f);
 
@@ -1587,7 +1588,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         JLayeredPane mnu = getLayeredPane();
 
-        layedLabel.setFont(new Font("TAHOMA", 1, 12));
+        layedLabel.setFont(new Font("Dialog", 1, 13));
         layedLabel.setLocation(0, 0);
         layedLabel.setSize(0, 0);
         mnu.add(layedLabel);
@@ -1991,12 +1992,12 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                         UIManager.put("ComboBox.selectionBackground",new Color(191,98,4)); //115,164,209
                         UIManager.put("ComboBox.selectionForeground",Color.WHITE);
                         
-                        UIManager.put("ComboBox.font",new Font("Dialog",1,12));
+                        UIManager.put("ComboBox.font",new Font("Dialog",1,13));
                         
-                        UIManager.put("Tree.font",new Font("Dialog",0,12));
-                        UIManager.put("ToolTip.font",new Font("Dialog",1,12));
-                        UIManager.put("TextPane.font",new Font("Dialog",1,12));
-                        UIManager.put("TextField.font",new Font("Dialog",1,12));
+                        UIManager.put("Tree.font",new Font("Dialog",0,13));
+                        UIManager.put("ToolTip.font",new Font("Dialog",1,13));
+                        UIManager.put("TextPane.font",new Font("Dialog",1,13));
+                        UIManager.put("TextField.font",new Font("Dialog",1,13));
                         UIManager.put("ToolTip.foreground",new Color(0,0,51));
                         UIManager.put("TextField.foreground",new Color(0,0,51));
                         UIManager.put("TextPane.foreground",new Color(0,0,51));
@@ -2028,13 +2029,13 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                         
                         UIManager.put("Tree.background",new Color(255,255,255)); //214,217,223
                         UIManager.put("Tree.textBackground",new Color(255,255,255));        
-                        UIManager.put("Tree.font",new Font("Dialog",0,12));
-                        UIManager.put("List.font",new Font("Dialog",1,12));
-                        UIManager.put("TabbedPane.font",new Font("Dialog",1,11));
-                        UIManager.put("PopupMenu.font",new Font("Dialog",0,12));
-                        UIManager.put("MenuItem.font",new Font("Dialog",0,12));
-                        UIManager.put("Menu.font",new Font("Dialog",0,12));
-                        UIManager.put("MenuBar.font",new Font("Dialog",0,12));
+                        UIManager.put("Tree.font",new Font("Dialog",0,13));
+                        UIManager.put("List.font",new Font("Dialog",1,13));
+                        UIManager.put("TabbedPane.font",new Font("Dialog",1,13));
+                        UIManager.put("PopupMenu.font",new Font("Dialog",0,13));
+                        UIManager.put("MenuItem.font",new Font("Dialog",0,13));
+                        UIManager.put("Menu.font",new Font("Dialog",0,13));
+                        UIManager.put("MenuBar.font",new Font("Dialog",0,13));
                         UIManager.put("MenuBar.disabledForeground",Color.DARK_GRAY);
                         UIManager.put("Menu.selectionForeground",Color.white);
                         UIManager.put("MenuBar.selectionForeground",Color.white);
@@ -2228,7 +2229,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     public static void main(String args[]) {
         
         
-        setUIFont(new javax.swing.plaf.FontUIResource("Dialog", Font.PLAIN, 12)); //Application Font
+        setUIFont(new javax.swing.plaf.FontUIResource("Dialog", Font.PLAIN, 13)); //Application Font
         
         SplashScreen splash = SplashScreen.getSplashScreen();
         if (splash != null) {
@@ -2758,7 +2759,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         jPanelDebugTimeSettings.setPreferredSize(new java.awt.Dimension(230, 30));
 
-        jLabelDebugDelay.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelDebugDelay.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabelDebugDelay.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelDebugDelay.setText(bundle.getString("Delay")); // NOI18N
         jLabelDebugDelay.setToolTipText(bundle.getString("FrameMain.jLabelDebugDelay.toolTipText")); // NOI18N
@@ -6347,6 +6348,6 @@ class TestTheme extends DefaultMetalTheme {
     protected ColorUIResource getSecondary2() { return SECONDARY2; }
     protected ColorUIResource getSecondary3() { return SECONDARY3; }
     protected String getDefaultFontName() { return "Dialog"; }
-    protected int getDefaultFontSize() { return 10; }
+    protected int getDefaultFontSize() { return 13; }
  
 }

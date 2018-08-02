@@ -43,7 +43,14 @@ public class FileSystemInput {
     public FileSystemInput(String filename)
     {
         try
-        {          
+        {
+         //System.out.println("FileInput-Received: "+filename);   
+         //filename = filename.replace("\\", File.separator);
+         //filename = filename.replace("/", File.separator);
+         //filename = filename.replace("/\\", File.separator);
+         //filename = filename.replace("//", File.separator);
+         //System.out.println("Modified: "+filename);
+         
          fis=new FileInputStream(new File(filename));
          DataInputStream dis = new DataInputStream(fis);
          
@@ -72,7 +79,7 @@ public class FileSystemInput {
           
         } catch(Exception ex)
         {
-            System.out.println("Error in Methode loadIndexList()"+ex.toString());
+            System.out.println("Error in Methode loadIndexList()"+ex);
         }        
     }
     
