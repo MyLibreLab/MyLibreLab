@@ -266,9 +266,11 @@ public class VMElement extends JVSMain
     String iconFilename=getFileNameWithoutExtension(new File(filename.getValue()));
 
 
-    String str=projectPath+"/"+filename.getValue();
-    String iconFile=new File(str).getParent()+"\\"+iconFilename;
-
+    //String str=projectPath+"/"+filename.getValue();
+    String str=projectPath+File.separator+filename.getValue();
+    //String iconFile=new File(str).getParent()+"\\"+iconFilename;
+    String iconFile=new File(str).getParent()+File.separator+iconFilename;
+    
     if (new File(iconFile+".jpg").exists())
     {
       iconFilename=iconFilename+".jpg";
@@ -281,13 +283,14 @@ public class VMElement extends JVSMain
     {
        iconFilename=iconFilename+".png";
     }
-
+    
     onDispose();
     
-    System.out.println("icon="+iconFile);
+    System.out.println("icon="+iconFilename);
 
     
-    image=element.jLoadImage(new File(str).getParent()+"\\"+iconFilename);
+    //image=element.jLoadImage(new File(str).getParent()+"\\"+iconFilename);
+    image=element.jLoadImage(new File(str).getParent()+File.separator+iconFilename);
     
     CaptionDef def=getIconFromDefinitionDef();
     
@@ -418,6 +421,9 @@ public class VMElement extends JVSMain
     try
     {
       filename.loadFromStream(fis);
+      if(filename!=null){
+      filename.setValue(filename.getValue().replace("\\", "/")); //3.12.0 r93    
+      }
       elementName.loadFromStream(fis);
       elementIcon.loadFromStream(fis);
       
@@ -431,6 +437,9 @@ public class VMElement extends JVSMain
   public void saveToStream(java.io.FileOutputStream fos)
   {
     //showMessage("save "+filename.getValue());
+    if(filename!=null){
+    filename.setValue(filename.getValue().replace("\\", "/")); //3.12.0 r93    
+    }
     filename.saveToStream(fos);
     elementName.saveToStream(fos);
     elementIcon.saveToStream(fos);
