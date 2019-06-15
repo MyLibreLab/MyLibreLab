@@ -1,0 +1,76 @@
+Fix Setter y Getter for Array Type
+Poner en la Ayuda la ubicación del componente dentro de la paleta de elementos
+Nodo splitter notifica en proccess error
+Blink Automático? booleans
+Bombas de Agua
+Display Analogico media aguja
+Teclado 
+Display 7S
+Clima
+Resistencia y quemadores
+Cilindro Neumático
+Banda Transportadora
+Arreglar ejemplos VectorAndMatrix AppendToFile
+y Server TCP
+Servomotor
+Ventilador
+Fotocelda 
+Relevos 
+
+constrain(x, a, b)
+map()
+long map(long x, long in_min, long in_max, long out_min, long out_max)
+{
+  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+mi()
+max()
+I2C
+SPI
+MATRIX
+ARCHIVOS
+PERSISTENCIA
+
+Indicador Láser e Infrarrojo
+Ultrasonido - Parlante - Buzzer
+Grafica Polar
+Gráfica digital
+
+Antena Dipolo o satelital
+Anemometro - Turbina eólica
+Panel solar - sol - iluminación
+Cama caliente de impresora
+Start Proccess
+Campo Magnetico
+Encoder
+Teclado
+Joy stick
+Indicador LCD
+Torniquete
+
+
+
+
+
+3.12.0
++String Functions added
++String Constants Added
++Element Properties could be enabled/disabled in the next new elements.
++New option "Maximized" in "Windows Position" item of VM Properties.
++All Numeric Palette Elements Updated and added Front Temperature Element
++Decoration Palette Updated and New Elements Added.
++New "Industrial Buttons JV" Palette in Automation Front Elements
++New "Tanks JV" Palette in Automation Front Elements
++New "Pipeline JV" Palette  Automation Front Elements
++New "Valves JV"  Palette Automation Front Elements
++New "Steel Gauges JV" Palette in Numeric Palette.
+
++Custom Color Picker shows coordiates for Advanced Linear and radial colors
++RXTXComm Driver replaced with JSSC driver that works on MAC, Linux, Windows and Linux ARM.
++Firmata Element Updated to include "INPUT_PULLUP" option.
++"Elements/UserElementsTemplateCircuitElements/definition.def" Not Found Error Raspberry PI fixed
++Fixed some "definition.def" that includes "Redirect" field with bad file separator and causes xpaint errors on Linux and Mac
+
++Definition.def files updated to unify Gif File format extension from .GIF to .gif and avoid the xpaint error on Linux.
++Front Panel PreferredSise 800 x 460 px 
+
