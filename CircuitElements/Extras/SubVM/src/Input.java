@@ -21,7 +21,11 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.File;
+
+import com.sun.jmx.mbeanserver.Introspector;
+import java.util.Locale;
+
+
 
 /**
   *
@@ -41,7 +45,6 @@ public class Input extends JDialog{
   private Label label1 = new Label();
   private JTextArea TextFiledHelp = new JTextArea();
   public static String result="";
-  
   // Ende Variablen
 
   public Input(java.awt.Frame parent, boolean modal) {
@@ -52,7 +55,7 @@ public class Input extends JDialog{
       //System.exit(0); 
       }
     });
-    int frameWidth = 600;
+    int frameWidth = 680;
     int frameHeight = 350;
     setSize(frameWidth, frameHeight);
     Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -63,40 +66,74 @@ public class Input extends JDialog{
     FlowLayout experimentLayout = new FlowLayout();
     cp.setLayout(experimentLayout);
     add(cp);
+    
+    Locale lang = Locale.getDefault();
+    System.out.println("Locale ISO3:"+lang.getISO3Language()); //spa
+    
+    String langStr=lang.getISO3Language();
+    String languageDef="en";
+    
+    if(langStr.equalsIgnoreCase("spa") || langStr.contains("es")){
+        languageDef="es";    
+    }    
+    if(langStr.equalsIgnoreCase("eng") || langStr.contains("en")){
+        languageDef="en";   
+    }    
+    if(langStr.equalsIgnoreCase("deu") ||langStr.equalsIgnoreCase("ger") || langStr.contains("de")){
+        languageDef="de";    
+    }    
     // Anfang Komponenten
 
     //label1.setBounds(8, 16, 117, 16);
     //label1.setBounds(10, 10, 280, 25);
-    label1.setText("Relative Path Of VM With File Extension .vlogic");
+    if(languageDef=="en" || languageDef=="de"){
+    label1.setText("Relative Path Of VM With File Extension .vlogic");    
+    }
+    if(languageDef=="es"){
+    label1.setText("Ruta relativa del VM con su Extensión \".vlogic\"");    
+    }
+    
     label1.setFont(new Font("Dialog", Font.BOLD, 14));
+    label1.setForeground(Color.BLACK);
     cp.add(label1);
     
     //textField1.setBounds(8, 40, 273, 24);
     //textField1.setBounds(10, 45, 280, 45);
-    textField1.setMinimumSize(new Dimension(550,40));
-    textField1.setPreferredSize(new Dimension(560,40));
+    textField1.setMinimumSize(new Dimension(670,40));
+    textField1.setPreferredSize(new Dimension(670,40));
+    textField1.setFont(new Font("Dialog", Font.BOLD, 13));
+    textField1.setForeground(Color.red);
+    textField1.setBackground(Color.LIGHT_GRAY);
     textField1.setText("");
     textField1.requestFocus();
     cp.add(textField1);
     
     //label2.setBounds(10, 90, 280, 25);
-    TextFiledHelp.setText("\nIf your VM is located in root project Path only write VM name and file extension:\nExample:\nYourVM.vlogic\nIf your VM is located inside a project's folder, write relative location, name and extension.\nExample:\n"+"/subvmFolder/subvm.vlogic");
-    TextFiledHelp.setFont(new Font("Dialog", Font.PLAIN, 12));
-    TextFiledHelp.setMinimumSize(new Dimension(560,100));
-    TextFiledHelp.setPreferredSize(new Dimension(560,150));
+    String tempTxt="";
+    if(languageDef=="en" || languageDef=="de"){
+     tempTxt= "\nIf your VM is located in root project Path only write VM name and file extension.\nExample:\nYourVM.vlogic\n\nIf your VM is located inside a project's folder, write relative location, name and extension.\nExample:\n"+"/subvmFolder/subvm.vlogic";  
+    }
+    if(languageDef=="es"){
+    tempTxt= "\nSi su VM está ubicado en la ruta principal del proyecto solo escriba el nobre del VM con la extensión del archivo.\nEjemplo:\nNombreVM.vlogic\n\nSi su VM está ubicado dentro de alguna carpeta del proyecto, escriba la ubicación relativa, nombre y extensión.\nEjemplo:\n"+"/CarpetaSubvm1/subvm1.vlogic";  
+    }
+    TextFiledHelp.setText(tempTxt);
+    TextFiledHelp.setFont(new Font("Dialog", Font.BOLD, 12));
+    TextFiledHelp.setMinimumSize(new Dimension(670,150));
+    TextFiledHelp.setPreferredSize(new Dimension(670,150));
     
     cp.add(TextFiledHelp);
     
     Label labelSeparator = new Label();
     labelSeparator.setText(" ");
-    labelSeparator.setPreferredSize(new Dimension(560,20));
+    labelSeparator.setPreferredSize(new Dimension(670,20));
     labelSeparator.setVisible(true);
     cp.add(labelSeparator);
     //button1.setBounds(208, 72, 75, 25);
     //button1.setBounds(200, 120, 100, 25);
-    button2.setBackground(Color.LIGHT_GRAY);
+    button2.setBackground(Color.GRAY);
     button2.setLabel("OK");
     button2.setFont(new Font("Dialog", Font.BOLD, 12));
+    button2.setForeground(Color.BLACK);
     button2.setPreferredSize(new Dimension(100,50));
     cp.add(button2);
     button2.addActionListener(new ActionListener() {
@@ -105,10 +142,11 @@ public class Input extends JDialog{
       }
     });
     
-    button1.setBackground(Color.LIGHT_GRAY);
+    button1.setBackground(Color.GRAY);
     button1.setPreferredSize(new Dimension(100,50));
     button1.setLabel("Cancel");
     button1.setFont(new Font("Dialog", Font.BOLD, 12));
+    button1.setForeground(Color.BLACK);
     cp.add(button1);
     button1.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
@@ -126,12 +164,19 @@ public class Input extends JDialog{
 
   // Anfang Ereignisprozeduren
   public void button1ActionPerformed(ActionEvent evt) {
+    result="";
+    textField1.setText("");
     dispose();
   }
 
   public void button2ActionPerformed(ActionEvent evt) {
     result=textField1.getText();
-    dispose();
+    if(result.endsWith(".vlogic")){
+    dispose();    
+    }else{
+    textField1.setBackground(Color.YELLOW);
+    }
+    
   }
 
   // Ende Ereignisprozeduren

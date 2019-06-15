@@ -77,6 +77,7 @@ public class DateTime extends JVSMain
     param.addItem("YEAR");
     param.addItem("MONTH");
     param.addItem("DAY_OF_MONTH");
+    param.addItem("DAY_OF_WEEK");
     
 
     timer = new javax.swing.Timer(500, new ActionListener()
@@ -141,6 +142,7 @@ public class DateTime extends JVSMain
            case 3 : val=rightNow.get(rightNow.YEAR); break;
            case 4 : val=rightNow.get(rightNow.MONTH)+1; break;
            case 5 : val=rightNow.get(rightNow.DAY_OF_MONTH); break;
+           case 6 : val=rightNow.get(rightNow.DAY_OF_WEEK); break;
        }
 
        if (oldValue!=val)

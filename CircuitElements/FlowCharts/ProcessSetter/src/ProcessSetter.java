@@ -114,6 +114,10 @@ public class ProcessSetter extends MainFlow {
                     } else {
                         if (input instanceof VSDouble) {
                             value = new VSDouble();
+                        }else{
+                          if (input instanceof VSInteger) {
+                            value = new VSInteger();  
+                          }
                         }
                     }
                 }
@@ -165,6 +169,10 @@ public class ProcessSetter extends MainFlow {
                 if (varDT == 2) {
                     dt = ExternalIF.C_BOOLEAN;
                 }
+                if (varDT == 3) {
+                    dt = ExternalIF.C_INTEGER;
+                }
+                //System.err.println("DT="+varDT);
 
                 element.jSetPinDataType(2, dt);
 

@@ -81,7 +81,7 @@ public class Anzeige extends JVSMain
   
   public void start()
   {
-
+    oldValue2=false;
     panelElement=element.getPanelElement();
     panelElement.jProcessPanel(0,0.0,(Object)this);
     panelElement.jProcessPanel(1,0.0,(Object)this);

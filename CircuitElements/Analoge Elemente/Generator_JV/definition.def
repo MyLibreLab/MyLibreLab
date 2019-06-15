@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Frequenzgenerator_JV
+CAPTION_EN=FrequencyGenerator_JV
+CAPTION_ES=Generador de frecuencia_JV
+Jar= bin/Generator.jar
+classCircuit =Generator
+icon= bin/Generator.gif

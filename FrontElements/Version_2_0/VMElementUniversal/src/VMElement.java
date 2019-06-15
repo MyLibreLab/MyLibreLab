@@ -2,7 +2,7 @@
 //* Element of MyOpenLab Library                                              *
 //*                                                                           *
 //* Copyright (C) 2004  Carmelo Salafia (cswi@gmx.de)                         *
-//*                                                                           *
+//* Copyright (C) 2018  Javier Velásquez (javiervelasquez125@gmail.com)       *
 //* This library is free software; you can redistribute it and/or modify      *
 //* it under the terms of the GNU Lesser General Public License as published  *
 //* by the Free Software Foundation; either version 2.1 of the License,       *
@@ -265,7 +265,7 @@ public class VMElement extends JVSMain
 
     String iconFilename=getFileNameWithoutExtension(new File(filename.getValue()));
 
-
+     boolean iconFound=false;
     //String str=projectPath+"/"+filename.getValue();
     String str=projectPath+File.separator+filename.getValue();
     //String iconFile=new File(str).getParent()+"\\"+iconFilename;
@@ -274,23 +274,33 @@ public class VMElement extends JVSMain
     if (new File(iconFile+".jpg").exists())
     {
       iconFilename=iconFilename+".jpg";
+      iconFound=true;
     }
     if (new File(iconFile+".gif").exists())
     {
       iconFilename=iconFilename+".gif";
+      iconFound=true;
     }
     if (new File(iconFile+".png").exists())
     {
        iconFilename=iconFilename+".png";
+       iconFound=true;
     }
     
     onDispose();
     
-    System.out.println("icon="+iconFilename);
+    
 
     
     //image=element.jLoadImage(new File(str).getParent()+"\\"+iconFilename);
-    image=element.jLoadImage(new File(str).getParent()+File.separator+iconFilename);
+    if(iconFound){
+    System.out.println("icon="+iconFilename);   
+    image=element.jLoadImage(new File(str).getParent()+File.separator+iconFilename);    
+    }else{
+    System.out.println("subVM icon:"+iconFilename+".gif Not Found"); 
+    image=element.jLoadImage(element.jGetSourcePath()+"bin/VMElement.gif");
+    //System.out.println(element.jGetSourcePath()+"bin/VMElement.gif");
+    }
     
     CaptionDef def=getIconFromDefinitionDef();
     
