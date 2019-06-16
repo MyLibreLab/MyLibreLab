@@ -1,0 +1,4 @@
+#!/bin/sh 
+java -Djava.library.path=./lib -Dsun.java2d.xrender=false -Dsun.java2d.d3d=false -splash:images/splashJV.png -jar myopenlab.jar Elements
+
+ 

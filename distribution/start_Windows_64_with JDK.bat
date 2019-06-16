@@ -1,0 +1,3 @@
+echo Please wait...
+C:\Program Files\Java\jdk1.8.0_65\bin\java -version
+"C:\Program Files\Java\jdk1.8.0_65\bin\java" -splash:images/splashJV.png -Djava.library.path=./lib -jar myopenlab.jar Elements
