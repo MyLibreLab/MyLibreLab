@@ -23,7 +23,8 @@ import VisualLogic.variables.*;
 import java.util.*;
 import javax.swing.*;
 
-import gnu.io.*;
+//import gnu.io.*;
+import jssc.*;
 
 public class RS232 implements MyOpenLabDriverIF {
 
