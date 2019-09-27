@@ -207,8 +207,8 @@
         <delete file="${temp_dir}/start_linux_deb_64"/>
         <delete file="${temp_dir}/start_linux_suse_64"/>
         <delete file="${temp_dir}/start_macosx"/>
-        <delete file="${temp_dir}/start_Windows_64.bat"/>
-        <delete file="${temp_dir}/start_Windows_64_with JDK.bat"/>
+        <delete file="${temp_dir}/start_Windows_32.bat"/>
+        <delete file="${temp_dir}/start_Windows_32_with JDK.bat"/>
         <delete file="${temp_dir}/MyOpenLab With Terminal.desktop"/>
         <delete file="${temp_dir}/MyOpenLab.desktop"/>
         <delete file="${temp_dir}/myopenlab.jar"/>
