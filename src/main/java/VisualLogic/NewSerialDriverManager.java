@@ -26,7 +26,7 @@ import jssc.SerialPortException;
  * @author Javier Velasquez
  */
 public class NewSerialDriverManager {
-   
+
 public static SerialPort serialPortTemp;
 public static VSserialPort vsSerialPortTemp;
 public static ArrayList <VSserialPort> serialPortsArray;
@@ -42,22 +42,22 @@ private static int PortsOpened=0;
             int i=0;
             System.out.println(i+" Element: "+vsTemp.getValue().getPortName());
         }
-        
+
         return PortsOpened;
     }
 
 public static FrameMain frameCircuit;
 
 public static void NewDriverManager(FrameMain frameCircuitIn){
-frameCircuit=frameCircuitIn;    
+frameCircuit=frameCircuitIn;
 PortsOpened=0;
-serialPortsArray=new ArrayList<VSserialPort>();   
+serialPortsArray=new ArrayList<VSserialPort>();
 }
 public VSserialPort NewSerialPort(String PortNameIN) throws InterruptedException, Exception{
     VSserialPort vsSerialTemp= new VSserialPort();
-        
+
         serialPortTemp = OpenPort(PortNameIN);
-        
+
         vsSerialPortTemp=new VSserialPort(serialPortTemp);
         if(PortNameExist(PortNameIN)){
         UpdateSerialPortByPortName(vsSerialPortTemp,PortNameIN); // Do not add repeated ports
@@ -65,7 +65,7 @@ public VSserialPort NewSerialPort(String PortNameIN) throws InterruptedException
         serialPortsArray.add(vsSerialPortTemp);
         }
         vsSerialTemp.setValue(serialPortTemp);
-        
+
   return vsSerialTemp;
 }
 
@@ -88,25 +88,25 @@ public static VSserialPort FindSerialPortByPortName(String PortNameIN){
             vsSerialTemp=vsTemp;
             //System.out.println("Port "+PortNameIN+" Found!");
             return vsSerialTemp;
-            
+
         }
     }
     System.out.println("NewSerialDriverManager.java Line-94 - Port "+PortNameIN+" Not Found!");
     return null;
 }
 public static void UpdateSerialPortByPortName(VSserialPort vsPortIn, String PortNameIN){
-    
+
     for(VSserialPort vsTemp:serialPortsArray){
         if(vsTemp.getSerialPort().getPortName().equalsIgnoreCase(PortNameIN))
         {
             serialPortsArray.remove(vsTemp);
-            serialPortsArray.add(vsPortIn);  
+            serialPortsArray.add(vsPortIn);
         }
     }
-    
+
 }
 public static void RemoveSerialPortByPortName(String PortNameIN){
-    
+
     for(VSserialPort vsTemp:serialPortsArray){
         if(vsTemp.getSerialPort().getPortName().equalsIgnoreCase(PortNameIN))
         {
@@ -118,27 +118,22 @@ public static void RemoveSerialPortByPortName(String PortNameIN){
                 }
             }
             serialPortsArray.remove(vsTemp);
-            
+
         }
     }
-    
+
 }
 
 //______________________________________________________________________________________________
 
 private SerialPort OpenPort(String PortName) throws SerialPortException, InterruptedException, Exception{
-         
+
          this.PortName=PortName;
-         serialPortTemp = new SerialPort(PortName);    
+         serialPortTemp = new SerialPort(PortName);
          if(serialPortTemp.isOpened()) serialPortTemp.closePort();
          serialPortTemp.openPort();
-            
-         return serialPortTemp;
-    }  
 
-private void DisposeSerialPort(){
-    serialPortTemp.onDispose();
-    serialPortTemp=null;
-}
+         return serialPortTemp;
+    }
 
 }

@@ -24,7 +24,7 @@ import jssc.SerialPortTimeoutException;
  * @author velas
  */
 public class VSserialPort extends VSObject {
-    
+
     private SerialPort serialPort;
     private boolean enableCR=true;
     private boolean enableLF=true;
@@ -50,21 +50,21 @@ public class VSserialPort extends VSObject {
     public boolean isEnableLF() {
         return enableLF;
     }
-    
+
     public void setEnableCR(boolean EnableIn){
-    this.enableCR=EnableIn;        
+    this.enableCR=EnableIn;
     }
     public void setEnableLF(boolean EnableIn){
-    this.enableLF=EnableIn;        
+    this.enableLF=EnableIn;
     }
-    
+
     public void setDefaultParameters (Boolean ArduinoAutoReset, Thread ThreadIn) throws SerialPortException, InterruptedException{
     if(serialPort.isOpened()){
         serialPort.setParams(9600, 8, 1, 0);
-        if(ArduinoAutoReset){ 
+        if(ArduinoAutoReset){
             ThreadIn.sleep(5000);
          } // Si el Arduino tiene AutoRest se debe esperar 5 Segundos mientras inicia.
-    }    
+    }
    }
 
     public void setParameters(boolean ArduinoAutoRESET,
@@ -85,26 +85,26 @@ public class VSserialPort extends VSObject {
         }
     }
 
-    
+
    public int GetBytesAtPort() throws SerialPortException{
-     int BytesCount=0;  
+     int BytesCount=0;
      if(serialPort.isOpened()){
      BytesCount=serialPort.getInputBufferBytesCount();
      }
      return BytesCount;
-   }    
+   }
    public boolean isOpened(){
-   return serialPort.isOpened();    
+   return serialPort.isOpened();
    }
    public void CloseCOMPort() throws SerialPortException{
     if(serialPort.isOpened()){
        serialPort.closePort();
     }
     }
-   
+
     public VSserialPort()
     {
-        
+
     }
     public VSserialPort(SerialPort serialPortIn)
     {
@@ -136,10 +136,10 @@ public class VSserialPort extends VSObject {
     @Override
     public String toString()
     {
-        return serialPort.getName();
+        return "COM1"; // serialPort.getName();
     }
-    
-    
+
+
     public void setValue(SerialPort value)
     {
        if (value!=null)
@@ -148,7 +148,7 @@ public class VSserialPort extends VSObject {
             setChanged(true);
         }
     }
-    
+
     public SerialPort getValue()
     {
         return this.serialPort;
@@ -169,9 +169,9 @@ public class VSserialPort extends VSObject {
     public void copyReferenceFrom(Object in)
     {
       copyValueFrom(in);
-    }    
-        
-    
+    }
+
+
     @Override
     public boolean equals(VSObject obj)
     {
@@ -179,45 +179,46 @@ public class VSserialPort extends VSObject {
         if (temp.serialPort.getPortName().equalsIgnoreCase(serialPort.getPortName()))  return true;
         else return false;
     }
-    
+
     @Override
     public boolean isBigger(VSObject obj)
     {
-        
+
         return false;
     }
-    
+
     @Override
     public boolean isSmaller(VSObject obj)
     {
         return false;
     }
-    
-    
+
+
     @Override
     public void loadFromStream(java.io.FileInputStream fis)
     {
         try
         {
             java.io.DataInputStream dis = new java.io.DataInputStream(fis);
-            
-            serialPort.setName(dis.readUTF());
+
+            //serialPort.setName(dis.readUTF());
         }
         catch(Exception ex)
         {
-            
+
         }
-        
+
     }
-    
+
     @Override
     public void saveToStream(java.io.FileOutputStream fos)
     {
         try
         {
             java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
-            dos.writeUTF(serialPort.getName());
-            
+            //dos.writeUTF(serialPort.getName());
+            dos.writeUTF("COM1");
+
         }
         catch(Exception ex)
         {
@@ -226,12 +227,13 @@ public class VSserialPort extends VSObject {
     }
     public void loadFromXML(String name,org.w3c.dom.Element nodeElement)
     {
-        serialPort.setName(nodeElement.getAttribute("VSserialPort"+name));
+        //serialPort.setName(nodeElement.getAttribute("VSserialPort"+name));
     }
-    
+
     public void saveToXML(String name, org.w3c.dom.Element nodeElement)
     {
-        nodeElement.setAttribute("VSserialPort"+name, serialPort.getName());
+        //nodeElement.setAttribute("VSserialPort"+name, serialPort.getName());
+        nodeElement.setAttribute("VSserialPort"+name, "COM1");
     }
-    
+
 }
