@@ -1,6 +1,161 @@
 
-# Created by https://www.gitignore.io/api/java,linux,macos,windows
-# Edit at https://www.gitignore.io/?templates=java,linux,macos,windows
+# Created by https://www.gitignore.io/api/java,linux,macos,gradle,windows,eclipse,netbeans,intellij+all
+# Edit at https://www.gitignore.io/?templates=java,linux,macos,gradle,windows,eclipse,netbeans,intellij+all
+
+### Eclipse ###
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# PyDev specific (Python IDE for Eclipse)
+*.pydevproject
+
+# CDT-specific (C/C++ Development Tooling)
+.cproject
+
+# CDT- autotools
+.autotools
+
+# Java annotation processor (APT)
+.factorypath
+
+# PDT-specific (PHP Development Tools)
+.buildpath
+
+# sbteclipse plugin
+.target
+
+# Tern plugin
+.tern-project
+
+# TeXlipse plugin
+.texlipse
+
+# STS (Spring Tool Suite)
+.springBeans
+
+# Code Recommenders
+.recommenders/
+
+# Annotation Processing
+.apt_generated/
+
+# Scala IDE specific (Scala & Java development for Eclipse)
+.cache-main
+.scala_dependencies
+.worksheet
+
+### Eclipse Patch ###
+# Eclipse Core
+.project
+
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
+
+# Annotation Processing
+.apt_generated
+
+.sts4-cache/
+
+### Intellij+all ###
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+# User-specific stuff
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+
+# Generated files
+.idea/**/contentModel.xml
+
+# Sensitive or high-churn files
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+
+# Gradle
+.idea/**/gradle.xml
+.idea/**/libraries
+
+# Gradle and Maven with auto-import
+# When using Gradle or Maven with auto-import, you should exclude module files,
+# since they will be recreated, and may cause churn.  Uncomment if using
+# auto-import.
+# .idea/modules.xml
+# .idea/*.iml
+# .idea/modules
+# *.iml
+# *.ipr
+
+# CMake
+cmake-build-*/
+
+# Mongo Explorer plugin
+.idea/**/mongoSettings.xml
+
+# File-based project format
+*.iws
+
+# IntelliJ
+out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Cursive Clojure plugin
+.idea/replstate.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# Editor-based Rest Client
+.idea/httpRequests
+
+# Android studio 3.1+ serialized cache file
+.idea/caches/build_file_checksums.ser
+
+### Intellij+all Patch ###
+# Ignores the whole .idea folder and all .iml files
+# See https://github.com/joeblau/gitignore.io/issues/186 and https://github.com/joeblau/gitignore.io/issues/360
+
+.idea/
+
+# Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-249601023
+
+*.iml
+modules.xml
+.idea/misc.xml
+*.ipr
+
+# Sonarlint plugin
+.idea/sonarlint
 
 ### Java ###
 # Compiled class file
@@ -70,6 +225,16 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+### NetBeans ###
+**/nbproject/private/
+**/nbproject/Makefile-*.mk
+**/nbproject/Package-*.bash
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -96,177 +261,25 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.gitignore.io/api/java,linux,macos,windows
+### Gradle ###
+.gradle
 
+# Ignore Gradle GUI config
+gradle-app.setting
 
-/temp_distribution_linux/Elements/CircuitElements/Extras/EventCatcher/nbproject/private/
-/temp_distribution_linux/Elements/CircuitElements/Extras/SubVM/build
-/temp_distribution_linux/Elements/CircuitElements/Extras/SubVM/dist
-/temp_distribution_linux/Elements/CircuitElements/Extras/SubVM/nbproject/private
-/temp_distribution_linux/Elements/CircuitElements/Extras/Verteiler/build
-/temp_distribution_linux/Elements/CircuitElements/Extras/Verteiler/dist
-/temp_distribution_linux/Elements/CircuitElements/Extras/Verteiler/nbproject/private
-/temp_distribution_linux/Elements/CircuitElements/FlowCharts/Variables/Getter/build
-/temp_distribution_linux/Elements/CircuitElements/FlowCharts/Variables/Getter/nbproject/private
-/temp_distribution_linux/Elements/CircuitElements/FlowCharts/Variables/Setter/build
-/temp_distribution_linux/Elements/CircuitElements/FlowCharts/Variables/Setter/dist
-/temp_distribution_linux/Elements/CircuitElements/FlowCharts/Variables/Setter/nbproject/private
-/temp_distribution_linux/Elements/CircuitElements/Image/JPEG Codec/build
-/temp_distribution_linux/Elements/CircuitElements/Image/JPEG Codec/nbproject/private
-/temp_distribution_linux/Elements/CircuitElements/Interface/Arduino_IO_RPI_JV/build
-/temp_distribution_linux/Elements/CircuitElements/Interface/Arduino_IO_RPI_JV/dist
-/temp_distribution_linux/Elements/CircuitElements/Interface/Arduino_IO_RPI_JV/nbproject/private
-/temp_distribution_linux/Elements/CircuitElements/Interface/Firmata/build
-/temp_distribution_linux/Elements/CircuitElements/Interface/Firmata/nbproject/private
-/temp_distribution_linux/Elements/CircuitElements/Interface/RS232v2/nbproject/private
-/temp_distribution_linux/Elements/CircuitElements/Interface/Raspberry_GPIO/nbproject/private
-/temp_distribution_linux/Elements/CircuitElements/Interface/SerialCOM_JV/Get_Bytes_at_Port_JV/build
-/temp_distribution_linux/Elements/CircuitElements/Interface/SerialCOM_JV/Get_Bytes_at_Port_JV/dist
-/temp_distribution_linux/Elements/CircuitElements/Interface/SerialCOM_JV/Get_Bytes_at_Port_JV/nbproject/private
-/temp_distribution_linux/Elements/CircuitElements/Interface/SerialCOM_JV/InitSerialCOM/build
-/temp_distribution_linux/Elements/CircuitElements/Interface/SerialCOM_JV/InitSerialCOM/nbproject/private
-/temp_distribution_linux/Elements/CircuitElements/Interface/SerialCOM_JV/Print_SerialPort_JV/build
-/temp_distribution_linux/Elements/CircuitElements/Interface/SerialCOM_JV/Print_SerialPort_JV/dist
-/temp_distribution_linux/Elements/CircuitElements/Interface/SerialCOM_JV/Print_SerialPort_JV/nbproject/private
-/temp_distribution_linux/Elements/CircuitElements/Interface/SerialCOM_JV/Read_SerialPort_JV/build
-/temp_distribution_linux/Elements/CircuitElements/Interface/SerialCOM_JV/Read_SerialPort_JV/dist
-/temp_distribution_linux/Elements/CircuitElements/Interface/SerialCOM_JV/Read_SerialPort_JV/nbproject/private
-/temp_distribution_linux/Elements/CircuitElements/Interface/SerialCOM_JV/SerialPort_Transaction_JV/build
-/temp_distribution_linux/Elements/CircuitElements/Interface/SerialCOM_JV/SerialPort_Transaction_JV/nbproject/private
-/temp_distribution_linux/Elements/CircuitElements/Numerik/Hypot_JV/nbproject/private
-/temp_distribution_linux/Elements/CircuitElements/Numerik/modulus_JV/build
-/temp_distribution_linux/Elements/CircuitElements/Numerik/modulus_JV/dist
-/temp_distribution_linux/Elements/CircuitElements/Numerik/modulus_JV/nbproject/private
-/temp_distribution_linux/Elements/CircuitElements/Sockets/SocketServer/nbproject/private
-/temp_distribution_linux/Elements/CircuitElements/Sockets/Socket_GET_JV/nbproject/private
-/temp_distribution_linux/Elements/CircuitElements/String/HTML_Constant/build
-/temp_distribution_linux/Elements/CircuitElements/String/HTML_Constant/dist
-/temp_distribution_linux/Elements/CircuitElements/String/HTML_Constant/nbproject/private
-/temp_distribution_linux/Elements/CircuitElements/String/StrFcn_JV/build
-/temp_distribution_linux/Elements/CircuitElements/String/StrFcn_JV/dist
-/temp_distribution_linux/Elements/CircuitElements/String/StrFcn_JV/nbproject/private
-/temp_distribution_linux/Elements/CircuitElements/System_Control/App_Abort_JV/build
-/temp_distribution_linux/Elements/CircuitElements/System_Control/App_Abort_JV/dist
-/temp_distribution_linux/Elements/CircuitElements/System_Control/App_Abort_JV/nbproject/private
-/temp_distribution_linux/Elements/Drivers/MyOpenLab.RS232/build
-/temp_distribution_linux/Elements/Drivers/MyOpenLab.RS232/dist
-/temp_distribution_linux/Elements/Drivers/MyOpenLab.RS232/nbproject/private
-/temp_distribution_linux/Elements/Drivers/modusbus.CompuLab/nbproject/private
-/temp_distribution_linux/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_1_JV/build
-/temp_distribution_linux/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_1_JV/dist
-/temp_distribution_linux/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_1_JV/nbproject/private
-/temp_distribution_linux/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_2_JV/build
-/temp_distribution_linux/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_2_JV/dist
-/temp_distribution_linux/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_2_JV/nbproject/private
-/temp_distribution_linux/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_3_JV/build
-/temp_distribution_linux/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_3_JV/dist
-/temp_distribution_linux/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_3_JV/nbproject/private
-/temp_distribution_linux/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_4_JV/build
-/temp_distribution_linux/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_4_JV/dist
-/temp_distribution_linux/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_4_JV/nbproject/private
-/distribution/Elements/CircuitElements/Interface/Raspberry_GPIO/build/
-/distribution/Elements/CircuitElements/Interface/Raspberry_GPIO/dist/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Extras/EventCatcher/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Extras/SubVM/build/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Extras/SubVM/dist/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Extras/SubVM/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Extras/Verteiler/build/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Extras/Verteiler/dist/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Extras/Verteiler/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/FlowCharts/Variables/Getter/build/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/FlowCharts/Variables/Getter/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/FlowCharts/Variables/Setter/build/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/FlowCharts/Variables/Setter/dist/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/FlowCharts/Variables/Setter/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Image/JPEG Codec/build/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Image/JPEG Codec/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Interface/Arduino_IO_RPI_JV/build/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Interface/Arduino_IO_RPI_JV/dist/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Interface/Arduino_IO_RPI_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Interface/Firmata/build/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Interface/Firmata/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Interface/RS232v2/nbproject/private/
-/build/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Interface/Raspberry_GPIO/build/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Interface/Raspberry_GPIO/dist/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Interface/Raspberry_GPIO/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Numerik/Hypot_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/Drivers/MyOpenLab.RS232/build/
-/temp_distribution_win_lin_mac/Elements/Drivers/MyOpenLab.RS232/dist/
-/temp_distribution_win_lin_mac/Elements/Drivers/MyOpenLab.RS232/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/Drivers/modusbus.CompuLab/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_1_JV/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_1_JV/dist/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_1_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_2_JV/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_3_JV/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_3_JV/dist/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_3_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_4_JV/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_4_JV/dist/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_4_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_5_JV/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_5_JV/dist/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_5_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_6_JV/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_6_JV/dist/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_6_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_7_JV/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_7_JV/dist/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_7_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_8_JV/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_8_JV/dist/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Automation/Industrial_Buttons_JV/Button_8_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Numerik/modulus_JV/build/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Numerik/modulus_JV/dist/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Numerik/modulus_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Boolean/Indicator_JV/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Boolean/Indicator_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Boolean/Led_JV/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Boolean/Led_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Boolean/LigthBulb_JV/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Boolean/LigthBulb_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Boolean/TrafficLigth_2_JV/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Boolean/TrafficLigth_2_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Boolean/TrafficLigth_JV/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Boolean/TrafficLigth_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Dekoratoren/Fill_Arc_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Dekoratoren/GIF_Container_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Dekoratoren/Line_JV/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Dekoratoren/Line_JV/dist/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Dekoratoren/Line_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Dekoratoren/UserDef_Triangle_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Graph/OscilloscopeXY2/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Graph/OscilloscopeXY2/dist/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Graph/OscilloscopeXY2/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Graph/Oscilloscope_3_0/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Graph/Oscilloscope_3_0/dist/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Graph/Oscilloscope_3_0/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Graph/TimeGraphX/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Graph/TimeGraphX/dist/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Graph/TimeGraphX/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Numerisch/Analoge Anzeige_JV/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Numerisch/Analoge Anzeige_JV/dist/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Numerisch/Analoge Anzeige_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Numerisch/Anzeige/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Numerisch/Anzeige/dist/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Numerisch/Anzeige/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Numerisch/BalkenRegler_JV/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Numerisch/BalkenRegler_JV/dist/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Numerisch/BalkenRegler_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Numerisch/Battery_JV/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Numerisch/Battery_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Numerisch/ColorBar_JV/build/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Numerisch/ColorBar_JV/dist/
-/temp_distribution_win_lin_mac/Elements/FrontElements/2Numerisch/ColorBar_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Sockets/SocketServer/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/Sockets/Socket_GET_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/String/HTML_Constant/build/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/String/HTML_Constant/dist/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/String/HTML_Constant/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/String/StrFcn_JV/build/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/String/StrFcn_JV/dist/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/String/StrFcn_JV/nbproject/private/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/System_Control/App_Abort_JV/build/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/System_Control/App_Abort_JV/dist/
-/temp_distribution_win_lin_mac/Elements/CircuitElements/System_Control/App_Abort_JV/nbproject/private/
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Cache of project
+.gradletasknamecache
+
+# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
+# gradle/wrapper/gradle-wrapper.properties
+
+### Gradle Patch ###
+**/build/
+
+# End of https://www.gitignore.io/api/java,linux,macos,gradle,windows,eclipse,netbeans,intellij+all
+
+# Ignore Gradle build output directory
+build
