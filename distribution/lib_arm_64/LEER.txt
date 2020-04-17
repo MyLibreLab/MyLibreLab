@@ -1,2 +1,0 @@
-librxtx-java_2.2pre2-13_armhf.deb
-Probada en Raspbian Stretch JV 14-JUN-19
