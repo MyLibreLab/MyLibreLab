@@ -1,0 +1,65 @@
+name: Deployment
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        include:
+          - os: ubuntu-latest
+            displayName: linux
+            archivePortable: mkdir build/distribution && tar -c -C build/jpackage/MyLibreLab | pigz --rsyncable > build/distribution/MyLibreLab-portable_linux.tar.gz && rm -R build/image
+          - os: windows-latest
+            displayName: windows
+            archivePortable: 7z a -r build/distribution/MyLibreLab-portable_windows.zip build/jpackage/MyLibreLab
+          - os: macOS-latest
+            displayName: macOS
+            archivePortable: mkdir build/distribution && brew install pigz && tar -c -C build/jpackage/MyLibreLab | pigz --rsyncable > build/distribution/MyLibreLab-portable_macos.tar.gz
+
+    runs-on: ${{ matrix.os }}
+    name: Create installer and portable version for ${{ matrix.displayName }}
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 14
+      - uses: actions/cache@v1
+        name: Restore gradle cache
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-cache-${{ hashFiles('**/*.gradle') }}
+          # in case there is no cache for the current OS, fall back to any other OS
+          restore-keys: |
+            ${{ runner.os }}-gradle-cache-
+            Linux-gradle-cache-${{ hashFiles('**/*.gradle') }}
+            Windows-gradle-cache-${{ hashFiles('**/*.gradle') }}
+            macOS-gradle-cache-${{ hashFiles('**/*.gradle') }}
+      - uses: actions/cache@v1
+        name: Cache gradle wrapper
+        with:
+          path: ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+          # in case there is no cache for the current OS, fall back to any other OS
+          restore-keys: |
+            Linux-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+            Windows-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+            macOS-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+      - name: Build runtime image
+        run: ./gradlew runtimeZip
+      - name: Build installer
+        run: ./gradlew jpackage
+        shell: bash
+      - name: Package application image
+        run: ${{ matrix.archivePortable }}
+        shell: bash
+      - name: Upload to GitHub workflow artifacts store
+        uses: actions/upload-artifact@master
+        with:
+          name: MyLibreLab-${{ matrix.displayName }}
+          path: build/distribution
