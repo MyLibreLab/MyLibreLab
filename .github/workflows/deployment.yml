@@ -56,7 +56,7 @@ jobs:
         run: ./gradlew jpackage
         shell: bash
       - name: Package application image
-        run: ${{ matrix.archivePortable }}
+        run: ls -la build && ${{ matrix.archivePortable }} || true
         shell: bash
       - name: Upload to GitHub workflow artifacts store
         uses: actions/upload-artifact@master
