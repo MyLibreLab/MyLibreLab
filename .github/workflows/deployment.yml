@@ -11,13 +11,15 @@ jobs:
         include:
           - os: ubuntu-latest
             displayName: linux
-            archivePortable: mkdir build/distribution && tar -c -C build/jpackage/MyLibreLab | pigz --rsyncable > build/distribution/MyLibreLab-portable_linux.tar.gz && rm -R build/image
+            archivePortable: ls -la build && ls -la build/jpackage && mkdir build/distribution && mv build/image.zip build/distribution/MyLibreLab-linux.zip
+            # tar -c -C build/jpackage/MyLibreLab | pigz --rsyncable > build/distribution/MyLibreLab-portable_linux.tar.gz
           - os: windows-latest
             displayName: windows
-            archivePortable: 7z a -r build/distribution/MyLibreLab-portable_windows.zip build/jpackage/MyLibreLab
+            archivePortable: mkdir build/distribution && mv build/image.zip build/distribution/MyLibreLab-windows.zip && 7z a -r build/distribution/MyLibreLab-portable_windows.zip build/jpackage/MyLibreLab
           - os: macOS-latest
             displayName: macOS
-            archivePortable: mkdir build/distribution && brew install pigz && tar -c -C build/jpackage/MyLibreLab | pigz --rsyncable > build/distribution/MyLibreLab-portable_macos.tar.gz
+            archivePortable: ls -la build && ls -la build/jpackage && mkdir build/distribution && mv build/image.zip build/distribution/MyLibreLab-macos.zip
+            # brew install pigz && tar -c -C build/jpackage/MyLibreLab | pigz --rsyncable > build/distribution/MyLibreLab-portable_macos.tar.gz
 
     runs-on: ${{ matrix.os }}
     name: Create installer and portable version for ${{ matrix.displayName }}
@@ -56,7 +58,7 @@ jobs:
         run: ./gradlew jpackage
         shell: bash
       - name: Package application image
-        run: ls -la build && ${{ matrix.archivePortable }} || true
+        run: ${{ matrix.archivePortable }} || true
         shell: bash
       - name: Upload to GitHub workflow artifacts store
         uses: actions/upload-artifact@master
