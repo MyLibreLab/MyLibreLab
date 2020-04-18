@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic;
 
-import java.security.acl.Owner;
 import javax.swing.JFrame;
 
 /**
@@ -27,20 +26,20 @@ import javax.swing.JFrame;
  */
 public class FrameCode extends javax.swing.JFrame
 {
-    
+
     /** Creates new form FrameCode */
     public FrameCode(JFrame owner,String code)
     {
         initComponents();
         jTextPane1.setText(code);
-        
+
         jTextPane1.setCaretPosition(0);
-        
+
         setIconImage(owner.getIconImage());
         setVisible(true);
-        
+
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -95,16 +94,16 @@ public class FrameCode extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButton1ActionPerformed
        jTextPane1.selectAll();
        jTextPane1.copy();
-       
+
        jTextPane1.select(0,0);
        jTextPane1.setCaretPosition(0);
     }//GEN-LAST:event_jButton1ActionPerformed
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextPane jTextPane1;
     // End of variables declaration//GEN-END:variables
-    
+
 }

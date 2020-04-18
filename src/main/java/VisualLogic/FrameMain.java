@@ -1,7 +1,7 @@
 /*
 MyOpenLab by Carmelo Salafia www.myopenlab.de
 Copyright (C) 2004  Carmelo Salafia  (cswi@gmx.de)
-Copyright (C) 2017  Javier Velásquez (javiervelasquez125@gmail.com)
+Copyright (C) 2017  Javier Velï¿½squez (javiervelasquez125@gmail.com)
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -171,8 +171,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         frmVmName.setVisible(true);
 
         if (DialogVMName.result) {
-            //String filename = node.projectPath + node.relativePath + "/" + DialogVMName.newName + ".vlogic"; //NOI18N 
-            String filename = node.projectPath + node.relativePath + File.separator + DialogVMName.newName + ".vlogic"; //NOI18N 
+            //String filename = node.projectPath + node.relativePath + "/" + DialogVMName.newName + ".vlogic"; //NOI18N
+            String filename = node.projectPath + node.relativePath + File.separator + DialogVMName.newName + ".vlogic"; //NOI18N
 
             if (!new File(filename).exists()) {
                 Basis basis = new Basis(this, FrameMain.elementPath);
@@ -223,10 +223,10 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     }
 
     public void dirRename(MyNode node) {
-        
+
         if (node != null) {
             File file = new File(node.projectPath + node.relativePath);
-            
+
             boolean res = setQuestionDialogYES_NO_CANCEL(this, "All VMs will be closed to rename this project, Do you want to continue?");
             if(res)
             {
@@ -263,11 +263,11 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 projectPalette1.jTree1.updateUI();
                 projectPalette1.reloadFolder(node);*/
                     //reloadProjectPanelFolder(node);
-                    
+
                 }
             }
-            
-            
+
+
 
         }
     }
@@ -380,7 +380,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     public String searchElement(File file) {
         System.out.println("Element not found : " + file.getName());
         //boolean res = setQuestionDialogYES_NO_CANCEL(this, "Element not found : " + file.getName() + "\n" + "do you want to search the Element?");
-        boolean res = false;  
+        boolean res = false;
         if (res) {
             DialogElementSearchAssistent frm = new DialogElementSearchAssistent(this, true);
             frm.init(file);
@@ -412,10 +412,10 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
                 public Object doInBackground() {
                     Tools.dialogWait = new DialogWait();
-                    
+
                     //Tools.dialogWait.setLocation(Tools.dialogWait.getLocation().x, Tools.dialogWait.getLocation().y - 150);
                     Tools.dialogWait.setVisible(true);
-                    
+
                     Basis oBasis = addBasisToVMPanel(globalPath, globalProjectPath, true);
                     if (oBasis != null) {
                         jPaneVMPanels.setSelectedComponent(oBasis.ownerVMPanel);
@@ -825,11 +825,11 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             //oos.close();
 
             String fileName_xml = getUserURL().getFile() + System.getProperty("file.separator") + "config.xml";
-           
-            
+
+
             XMLSerializer.write(settings, fileName_xml);
-            
-            
+
+
 
         } catch (Exception e) {
 
@@ -914,7 +914,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                     if(button.panel!=null){
                     closeVM(button.panel);
                     }else{
-                        System.out.println("Null Button - VisualLogic.FrameMain$2.actionPerformed(FrameMain.java:898)");    
+                        System.out.println("Null Button - VisualLogic.FrameMain$2.actionPerformed(FrameMain.java:898)");
                     }
                     //button.panel = null; //If user Cancel this button will be null when try to close, It must not be setted null
                 }
@@ -1067,7 +1067,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         setTitle(Version.strApplicationTitle + " Version-" + ver.trim());
 
-       
+
 
         // Loesche alle tmp Dateien implements User Verzeichniss //Borrar los archivos temporales
         //File verzeichniss = new File(getUserURL().getFile() + "/");
@@ -1105,19 +1105,6 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 //closeApplication();
             }
         });
-
-        String str = System.getProperty("java.version");
-
-        int intVerMain = Integer.parseInt(str.substring(0, 1));
-        int intVerSub = Integer.parseInt(str.substring(2, 3));
-
-        System.out.println("Java version :" + str);
-
-        if (intVerMain >= 1 && intVerSub >= 5) {
-
-        } else {
-            JOptionPane.showMessageDialog((Component) null, "Sie benutzen eine aeltere Java-Version: \"" + str + "\"\nSie brauchen mindestens Java 1.5 oder besser.\nDie aktuelle Version finden Sie unter \"http://java.sun.com/\"", "Achtung", JOptionPane.WARNING_MESSAGE);
-        }
 
         //this.setMaximumSize(new Dimension(500,500));
     }
@@ -1359,10 +1346,10 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         }
 
         /*try
-        {              
+        {
             URL url = getClass().getResource("/legend/"+filename);
             jTextPane1.setContentType("text/html");
-            jTextPane1.setPage(url);            
+            jTextPane1.setPage(url);
         } catch (Exception ex) {System.out.println(ex.toString());}
          */
         java.awt.event.ActionListener actionListener = new java.awt.event.ActionListener() {
@@ -1377,7 +1364,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     }
 
     public FrameMain(String args[]) {
-        
+
          try {
 
             //iconImage = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Bilder/16x16/icon.png"));
@@ -1391,7 +1378,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             images.add(iconImage32);
             images.add(iconImage64);
             setIconImages(images);
-            
+
             // for mac os!
             //Application application = Application.getApplication();
             //application.setDockIconImage(iconImage64);
@@ -1470,27 +1457,27 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         }
 
         System.out.println("myopenlab Path=" + myopenlabX);
-        
+
         try{
             String OS_arch = System.getProperty("os.arch"); // arm Raspberry PI
             String OS_name = System.getProperty("os.name"); // Linux Raspberry PI
             System.out.println("OS_Name="+OS_name+"_OS_Arch="+OS_arch);
 
-            if(OS_arch.equalsIgnoreCase("arm")   || OS_name.contains("Linux") 
+            if(OS_arch.equalsIgnoreCase("arm")   || OS_name.contains("Linux")
                     || OS_name.contains("linux") || OS_name.contains("LINUX")
                     || OS_name.contains("mac")   || OS_name.contains("MAC")
                     || OS_name.contains("Mac")){
-                
+
              //System.setProperty( "sun.java2d.xrender","True"); //sun.java2d.xrender=True
                         //xrender Intended use: To enable the XRender-based Java 2D rendering pipeline for modern X11-based desktops, offering improved graphics performance.
 
              //System.setProperty( "sun.java2d.d3d","false"); //sun.java2d.d3d=false //d3d
-             //Intended use: To turn off the Java 2D system's use of Direct3D.   
-             //https://docs.oracle.com/javase/7/docs/technotes/guides/2d/flags.html#xrender   
-            }    
-            
+             //Intended use: To turn off the Java 2D system's use of Direct3D.
+             //https://docs.oracle.com/javase/7/docs/technotes/guides/2d/flags.html#xrender
+            }
+
             }catch(Exception e){
-                System.out.println(e);   
+                System.out.println(e);
             }
 
         /*DialogLanguage lan = new DialogLanguage(this, true);
@@ -1504,7 +1491,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         UIManager.put("MenuItem.font", f);
 
         initComponents();
-        
+
         jButtonNewProject_A.setMnemonic(KeyEvent.VK_A);
         jButtonOpenProject_B.setMnemonic(KeyEvent.VK_B);
         jButtonSave_C.setMnemonic(KeyEvent.VK_C);
@@ -1545,7 +1532,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         // Load Drivers from "Drivers" Directory"
         Tools.driverManager = new DriverManager(this);
-        
+
         NewSerialDriverManager.NewDriverManager(this); // v3.12.0
 
         ArrayList<String> drivers = Tools.listDrivers(driverPath);
@@ -1557,7 +1544,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         setLocation(settings.getCircuitWindowLocation());
         setSize(settings.getCircuitWindowDimension());
-       
+
 
         if (settings.getRightSplitterPos() < 10) {
             settings.setRightSplitterPos(10);
@@ -1619,9 +1606,9 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         startButtonHandler();
 
         //SwingUtilities.updateComponentTreeUI()
-        
-        
-        
+
+
+
     }
 
     public void removePinDescription() {
@@ -1650,7 +1637,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         lbl.updateUI();
         }catch(Exception e){
-            System.out.println("FrameMain Line 1624 Error"); 
+            System.out.println("FrameMain Line 1624 Error");
             //This error is caused on MAC OS Jdescription does not work
         }
     }
@@ -1960,26 +1947,26 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     public static void setLookAndFeel() {
 
         String nativeLF = UIManager.getSystemLookAndFeelClassName();
-        
-        try {  
+
+        try {
         //SwingUtilities.updateComponentTreeUI(this);
-        //this.pack();       
-        
+        //this.pack();
+
 
                 //UIManager.setLookAndFeel(nativeLF);
                 for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                     System.out.println(info.getName());
                     //UIManager.setLookAndFeel( "com.seaglasslookandfeel.SeaGlassLookAndFeel" );
-                    
+
                     //System.out.println("SYSTEM_laf:"+UIManager.getSystemLookAndFeelClassName()); //SYSTEM
 
                     if ("Nimbus".equals(info.getName())) {
-                        
+
                         //MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
                         //MetalLookAndFeel.setCurrentTheme(new OceanTheme());
                         MetalLookAndFeel.setCurrentTheme(new TestTheme());
                         //UIManager.setLookAndFeel(info.getClassName());
-                        UIManager.setLookAndFeel(new MetalLookAndFeel()); 
+                        UIManager.setLookAndFeel(new MetalLookAndFeel());
                         UIManager.put("CheckBox.background", new Color(255,255,255));
                         UIManager.put("ComboBox.background",new Color(233,236,242));
                         UIManager.put("ComboBox.buttonBackground",Color.white);
@@ -1991,9 +1978,9 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                         UIManager.put("ComboBox.foreground",new Color(0,0,51));
                         UIManager.put("ComboBox.selectionBackground",new Color(191,98,4)); //115,164,209
                         UIManager.put("ComboBox.selectionForeground",Color.WHITE);
-                        
+
                         UIManager.put("ComboBox.font",new Font("Dialog",1,13));
-                        
+
                         UIManager.put("Tree.font",new Font("Dialog",0,13));
                         UIManager.put("ToolTip.font",new Font("Dialog",1,13));
                         UIManager.put("TextPane.font",new Font("Dialog",1,13));
@@ -2002,17 +1989,17 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                         UIManager.put("TextField.foreground",new Color(0,0,51));
                         UIManager.put("TextPane.foreground",new Color(0,0,51));
                         UIManager.put("TextPane.background",new Color(214,217,223));
-                        
+
                         UIManager.put("SplitPane.background",new Color(214,217,223));
                         UIManager.put("Separator.foreground",new Color(214,217,223));
-                        
+
                         //jPanelProjectExplorer.setBackground(new Color(214,217,223));
                         UIManager.put("TextPane.inactiveBackground",new Color(214,217,223));
                         UIManager.put("ToolTip.background",new Color(255,242,181));
-                        
+
                         UIManager.put("controltHighlight",new Color(233,236,242));
                         UIManager.put("controlLtHighlight",new Color(247,248,250));
-                        
+
                         UIManager.put("Button.opaque",true);
                         UIManager.put("ToggleButton.highlight",Color.orange);
                         UIManager.put("ToggleButton.light",Color.yellow);
@@ -2022,13 +2009,13 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                         UIManager.put("ScrollPane.border",BorderFactory.createRaisedBevelBorder());
                         UIManager.put("ScrollPane.background",Color.WHITE);
                         UIManager.put("ScrollPane.foreground",Color.WHITE);
-                         
+
                         UIManager.put("ToolBar.border",BorderFactory.createEmptyBorder());
                         UIManager.put("Panel.border",BorderFactory.createEmptyBorder());
                         UIManager.put("SplitPane.border",BorderFactory.createEmptyBorder());
-                        
+
                         UIManager.put("Tree.background",new Color(255,255,255)); //214,217,223
-                        UIManager.put("Tree.textBackground",new Color(255,255,255));        
+                        UIManager.put("Tree.textBackground",new Color(255,255,255));
                         UIManager.put("Tree.font",new Font("Dialog",0,13));
                         UIManager.put("List.font",new Font("Dialog",1,13));
                         UIManager.put("TabbedPane.font",new Font("Dialog",1,13));
@@ -2042,18 +2029,18 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                         UIManager.put("MenuItem.selectionForeground",Color.white);
                         UIManager.put("Menu.disabledForeground",Color.DARK_GRAY);
                         UIManager.put("MenuItem.disabledForeground",Color.DARK_GRAY);
-                        
+
                         UIManager.put("Table.foreground",new Color(0,0,51));
                         UIManager.put("Tree.foreground",new Color(0,0,51));
                         UIManager.put("List.background",Color.white);
                         UIManager.put("ScrollBar.squareButtons",false);
-                        
+
                         UIManager.put("TableHeader.background",new Color(214,217,223));
                         UIManager.put("TableHeader.foreground",new Color(0,0,51));
                         UIManager.put("TableHeader.font",new Font("Dialog",1,13));
-                        
+
                         UIManager.put("Table.gridColor",new Color(51,98,140));
-                        
+
                         UIManager.put("Table.background",Color.white);
                         UIManager.put("List.dropLineColor",Color.red);
                         UIManager.put("Table.dropLineColor",Color.red);
@@ -2064,7 +2051,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                         UIManager.put("List.selectionForeground",Color.WHITE);
                         UIManager.put("Table.selectionForeground",Color.WHITE);
                         //UIManager.put("TableHeader.cellBorder",false);
-                        
+
                         UIManager.put("Panel.opaque",true);
                         UIManager.put("Panel.background",new Color(214,217,223));
                         UIManager.put("Panel.foreground",new Color(214,217,223));
@@ -2075,9 +2062,9 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                         UIManager.put("TabbedPane.highlight",new Color(51,98,140));
                         UIManager.put("TabbedPane.light",Color.WHITE);
                         //UIManager.put("TabbedPane.leftTabInsets",new Color(51,98,140));
-                        //UIManager.put("TabbedPane.darkShadow",new Color(191,98,4)); 
-                        UIManager.put("TabbedPane.background",new Color(115,164,209)); // Relleno de la Pestaña Deshabilitada
-                        
+                        //UIManager.put("TabbedPane.darkShadow",new Color(191,98,4));
+                        UIManager.put("TabbedPane.background",new Color(115,164,209)); // Relleno de la Pestaï¿½a Deshabilitada
+
                         //UIManager.put("ScrollBar.background",new Color(214,217,223));
                         UIManager.put("ScrollBar.background",new Color(233,236,242));
                         UIManager.put("ScrollBar.foreground",Color.DARK_GRAY);
@@ -2086,32 +2073,32 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                         UIManager.put("ScrollBar.thumbHighlight",Color.lightGray);
                         UIManager.put("ScrollBar.thumbShadow",Color.gray);
 
-                        
+
                         //SwingUtilities.updateComponentTreeUI(this);
                         //pack();
-                        
+
                         // Specify the theme to use by defining the THEME constant
                         // Valid values are: "DefaultMetal", "Ocean",  and "Test"
                         //MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
                         //UIManager.setLookAndFeel(nativeLF);
-                        
+
                         //System.setProperty( "sun.java2d.xrender","false"); //sun.java2d.xrender=True
                         //xrender Intended use: To enable the XRender-based Java 2D rendering pipeline for modern X11-based desktops, offering improved graphics performance.
 
                         //System.setProperty( "sun.java2d.d3d","false"); //sun.java2d.d3d=false //d3d
                         //Intended use: To turn off the Java 2D system's use of Direct3D.
-                        
+
                         //-Dsun.java2d.xrender=false -Dsun.java2d.d3d=false
                         break;
                     }
                 }
                  // Set cross-platform Java L&F (also called "Metal")
                  //UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-                 
+
             } catch (Exception e) {
                 // If Nimbus is not available, you can set the GUI to another look and feel.
                 try {
-                    
+
                  UIManager.setLookAndFeel(nativeLF);
                 } catch (ClassNotFoundException | InstantiationException |
                         IllegalAccessException | UnsupportedLookAndFeelException ex) {
@@ -2119,12 +2106,12 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 }
 
             }
-        
-    }
-            
-        
 
-    
+    }
+
+
+
+
 
     public void removeVMPanel(VMEditorPanel panel) {
         jPaneVMPanels.remove(panel);
@@ -2139,7 +2126,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         boolean config_file_loaded = false;
 
-        // Alte Config.xml löschen!
+        // Alte Config.xml lï¿½schen!
         String fileName = getUserURL().getFile() + System.getProperty("file.separator") + "Config.conf";
         File fconf = new File(fileName);
         fconf.delete();
@@ -2227,10 +2214,10 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
-        
+
+
         setUIFont(new javax.swing.plaf.FontUIResource("Dialog", Font.PLAIN, 13)); //Application Font
-        
+
         SplashScreen splash = SplashScreen.getSplashScreen();
         if (splash != null) {
             Graphics2D g = (Graphics2D) splash.createGraphics();
@@ -2321,7 +2308,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
                 basis.getCircuitBasis().ProcessPinDataType();
 
-                basis.start(false); 
+                basis.start(false);
                 return null;
             }
 
@@ -2556,7 +2543,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         jToolBar_MainToolbar.add(jButtonSave_C);
 
         jButtonUndo_D.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/edit-undo.png"))); // NOI18N
-        jButtonUndo_D.setToolTipText(bundle.getString("Rückgängig")); // NOI18N
+        jButtonUndo_D.setToolTipText(bundle.getString("Rueckgaengig")); // NOI18N
         jButtonUndo_D.setBorderPainted(false);
         jButtonUndo_D.setPreferredSize(new java.awt.Dimension(28, 25));
         jButtonUndo_D.addActionListener(new java.awt.event.ActionListener() {
@@ -3088,7 +3075,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         jmnuDatei.add(jSeparator1);
 
         jmiCloseWindow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/16x16/system-log-out.png"))); // NOI18N
-        jmiCloseWindow.setText(bundle.getString("Schließen")); // NOI18N
+        jmiCloseWindow.setText(bundle.getString("Schliessen")); // NOI18N
         jmiCloseWindow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiCloseWindowActionPerformed(evt);
@@ -3102,7 +3089,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         jmiUndo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
         jmiUndo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/16x16/edit-undo.png"))); // NOI18N
-        jmiUndo.setText(bundle.getString("Rückgängig")); // NOI18N
+        jmiUndo.setText(bundle.getString("Rueckgaengig")); // NOI18N
         jmiUndo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiUndoActionPerformed(evt);
@@ -3143,7 +3130,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         jmiPaste.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
         jmiPaste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/16x16/edit-paste.png"))); // NOI18N
-        jmiPaste.setText(bundle.getString("Einfügen")); // NOI18N
+        jmiPaste.setText(bundle.getString("Einfuegen")); // NOI18N
         jmiPaste.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiPasteActionPerformed(evt);
@@ -3579,7 +3566,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             if (index > -1) {
                 String number = extraceNumber(str, index + 4);
 
-                // Lösche das Wort aus dem String!
+                // Lï¿½sche das Wort aus dem String!
                 String newString = str.substring(0, index);
 
                 JPin pin = element.getPin(Integer.parseInt(number));
@@ -3615,7 +3602,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             index = str.indexOf("%procedure");
 
             if (index > -1) {
-                // Lösche das Wort aus dem String!
+                // Lï¿½sche das Wort aus dem String!
                 String newString = str.substring(0, index);
 
                 String xx = "ELEMENT" + element.getID();
@@ -3639,7 +3626,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                     return str;
                 }
 
-                // Lösche das Wort aus dem String!
+                // Lï¿½sche das Wort aus dem String!
                 String newString = str.substring(0, index);
 
                 //newString+="NOTIFY";
@@ -3675,7 +3662,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                     return str;
                 }
 
-                // Lösche das Wort aus dem String!
+                // Lï¿½sche das Wort aus dem String!
                 String newString = str.substring(0, index);
 
                 //newString+="NOTIFY";
@@ -3710,7 +3697,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             }
         }
 
-        // Einheitliche Formatierung : Einrücken        
+        // Einheitliche Formatierung : Einrï¿½cken
         String result = "";
 
         int i = 0;
@@ -3736,7 +3723,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         //System.out.println(element.getCaption());
         element.isAlreadyCompiled = true;
         String code = "";
-        // Alle Inputs 
+        // Alle Inputs
         for (int j = 0; j < element.getPinCount(); j++) {
             JPin pin = element.getPin(j);
 
@@ -3791,7 +3778,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         if (basis != null) {
             VMObject circuit = basis.getCircuitBasis();
 
-            // Globals          
+            // Globals
             code += "// GLOBALS\n";
             for (int i = 0; i < circuit.getElementCount(); i++) {
                 Element element = circuit.getElement(i);
@@ -3831,7 +3818,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     if (index > -1)
     {
     String number = extraceNumber(str, index + 4);
-    // Lösche das Wort aus dem String!
+    // Lï¿½sche das Wort aus dem String!
     String newString = str.substring(0, index);
     JPin pin = element.getPin(Integer.parseInt(number));
     if (pin.draht != null)
@@ -3899,7 +3886,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             // Remove all Errors and Warnings
             errorWarnings.clearMessages();
 
-            // Code generierung für jedes Element auslösen!
+            // Code generierung fï¿½r jedes Element auslï¿½sen!
             for (int i = 0; i < circuit.getElementCount(); i++) {
                 Element element = circuit.getElement(i);
 
@@ -3920,7 +3907,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 code += "  DIM " + vars[j] + ", SSHORT\n";
             }
 
-            // Globals          
+            // Globals
             code += "// GLOBALS\n";
             for (int i = 0; i < circuit.getElementCount(); i++) {
                 Element element = circuit.getElement(i);
@@ -4342,7 +4329,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             }
         }
 
-        // Sortieren! für LEFT Lines!
+        // Sortieren! fï¿½r LEFT Lines!
         // also nach Y sortieren
         if (align == 1 || align == 3) {
             Collections.sort(result, new Comparator() {
@@ -4580,7 +4567,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 Tools.showMessage(this, "" + ex.toString());
             }
 
-            // verbinde die subVM mit den Drähten!
+            // verbinde die subVM mit den Drï¿½hten!
             if (subVM != null) {
                 // INPUTS
                 int outpintCount = subVM.getRightPins();
@@ -4776,7 +4763,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     public void openElement(String path) {
         DFProperties definition_def = Tools.getProertiesFromDefinitionFile(new File(path));
         if (definition_def.vm.length() == 0) {
-            // öffne Code editor
+            // ï¿½ffne Code editor
 
             String f1 = new File(Tools.userElementPath).getAbsolutePath();
             String f2 = new File(path).getAbsolutePath();
@@ -5273,7 +5260,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         props.mainVM = mainVM;
         Tools.saveProjectFile(destDir, props);
         if(Error==false){
-        JOptionPane.showMessageDialog(rootPane, "Distribution Successfully Created");    
+        JOptionPane.showMessageDialog(rootPane, "Distribution Successfully Created");
         JOptionPane.showMessageDialog(rootPane, "If your project contains subVMs located into folders you must copy that folders to the Distribution root Folder");
         }
 
@@ -5934,7 +5921,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         try
         {
             url = new URL("file:" + System.getProperty("user.home") + System.getProperty("file.separator") + "MyOpenLabMCU");
-            
+
         } catch (MalformedURLException ex)
         {
             ex.printStackTrace();
@@ -5988,7 +5975,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             //String code = generateMCUFlowChartCode();
             //String code = generateMCUVMCode();
             String code = generateMCUFlowChartCode();
-            //new FrameCode(this, code);  
+            //new FrameCode(this, code);
 
             if (code.length() > 0) {
                 code = entferneReduntanteJMPs(code);
@@ -6106,7 +6093,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 // ist untendrunter das Label vorhanden?
                 int lastIndex = index;
                 while (true) {
-                    // gehe bis keine Leerzeilen/Zeichen vorhanden                        
+                    // gehe bis keine Leerzeilen/Zeichen vorhanden
                     ch = code.substring(index, index + 1);
                     index++;
                     if (index >= code.length()) {
@@ -6313,7 +6300,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     private javax.swing.JMenu jmnuWindow;
     // End of variables declaration//GEN-END:variables
 }
- 
+
 /**
  * This class describes a theme using "primary" colors.
  * You can change the colors to anything else you want.
@@ -6323,14 +6310,14 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
 
 class TestTheme extends DefaultMetalTheme {
- 
+
     public String getName() { return "Toms"; }
     private OceanTheme oc = new OceanTheme();
-    
+
     private final ColorUIResource primary1 = new ColorUIResource(0,0,0); //Borde de Marcos
     private final ColorUIResource primary2 = new ColorUIResource(51,98,140); //Resasltado de Texto Menu
     private final ColorUIResource primary3 = new ColorUIResource(115,164,209); //Color Fondo Textos
-   
+
     private final ColorUIResource SECONDARY1 = new ColorUIResource(115,164,209); // Resaltado al seleccionar
     //private final ColorUIResource SECONDARY1 = new ColorUIResource(214,217,223); // Resaltado al seleccionar
     private final ColorUIResource SECONDARY2 = new ColorUIResource(164,171,184); // Bordes Sombra
@@ -6340,7 +6327,7 @@ class TestTheme extends DefaultMetalTheme {
     private final ColorUIResource MENU_DISABLED_FOREGROUND = new ColorUIResource(242,242,189);
     private final ColorUIResource OCEAN_BLACK = new ColorUIResource(242,242,189);
     private final ColorUIResource OCEAN_DROP = new ColorUIResource(242,242,189);
- 
+
     protected ColorUIResource getPrimary1() { return primary1; }
     protected ColorUIResource getPrimary2() { return primary2; }
     protected ColorUIResource getPrimary3() { return primary3; }
@@ -6349,5 +6336,5 @@ class TestTheme extends DefaultMetalTheme {
     protected ColorUIResource getSecondary3() { return SECONDARY3; }
     protected String getDefaultFontName() { return "Dialog"; }
     protected int getDefaultFontSize() { return 13; }
- 
+
 }

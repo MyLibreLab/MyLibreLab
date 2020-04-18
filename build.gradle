@@ -7,6 +7,14 @@ repositories {
     mavenCentral()
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_14
+    targetCompatibility = JavaVersion.VERSION_14
+
+}
+
+compileJava.options.encoding = "cp1252"
+
 dependencies {
     implementation 'com.google.guava:guava:28.2-jre'
 
@@ -14,6 +22,11 @@ dependencies {
     implementation 'com.pi4j:pi4j-device:1.1'
     implementation 'com.pi4j:pi4j-gpio-extension:1.1'
     implementation 'com.pi4j:pi4j-service:1.1'
+
+    implementation 'javax.xml.bind:jaxb-api:2.3.0'
+
+    implementation 'com.sun.xml.bind:jaxb-core:2.3.0'
+    implementation 'com.sun.xml.bind:jaxb-impl:2.3.0'
 
     implementation group: 'org.netbeans.external', name: 'AbsoluteLayout', version: 'RELEASE113'
 

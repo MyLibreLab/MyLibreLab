@@ -21,7 +21,6 @@ package codeeditor;
 
 import java.io.File;
 
-import sun.tools.jar.*;
 import VisualLogic.*;
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -40,12 +39,12 @@ import javax.swing.JPanel;
  */
 public class frmCodeEditor extends javax.swing.JFrame
 {
-    
+
     private String elementPath;
     private String elementLocation;
     private String filename;
-    
-    
+
+
     /** Creates new form frmCodeEditor */
     public frmCodeEditor(FrameMain parent)
     {
@@ -56,9 +55,9 @@ public class frmCodeEditor extends javax.swing.JFrame
         }
         catch(Exception ex)
         { }
-        
+
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -273,7 +272,7 @@ public class frmCodeEditor extends javax.swing.JFrame
         {
             panel.cut();
         }
-        
+
     }//GEN-LAST:event_jmniCutActionPerformed
 
     private void jmnuRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuRedoActionPerformed
@@ -285,27 +284,27 @@ public class frmCodeEditor extends javax.swing.JFrame
 
     }//GEN-LAST:event_jmnuRedoActionPerformed
 
-    
+
     public PanelEditor getAktuellerEditor()
     {
         if (jTabbedPane1.getSelectedComponent() instanceof PanelEditor)
         {
             return (PanelEditor)jTabbedPane1.getSelectedComponent();
         }
-        
+
         return null;
     }
-    
-    
+
+
     private void jmniSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniSearchActionPerformed
 
-       
+
         PanelEditor panel = getAktuellerEditor();
         if (panel!=null)
         {
             panel.openSearchDialog();
         }
-        
+
     }//GEN-LAST:event_jmniSearchActionPerformed
 
     private void jmniUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniUndoActionPerformed
@@ -315,20 +314,20 @@ public class frmCodeEditor extends javax.swing.JFrame
         {
             panel.undo();
         }
-        
+
     }//GEN-LAST:event_jmniUndoActionPerformed
 
     private void jmnuFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnuFileActionPerformed
 // TODO add your handling code here:
     }//GEN-LAST:event_jmnuFileActionPerformed
-    
+
     private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing
     {//GEN-HEADEREND:event_formWindowClosing
-        
+
         for (int i=0;i<jTabbedPane1.getTabCount();i++)
         {
             Component comp= jTabbedPane1.getComponentAt(i);
-            
+
             if (comp instanceof PanelEditor)
             {
                 PanelEditor editor = (PanelEditor)comp;
@@ -337,14 +336,14 @@ public class frmCodeEditor extends javax.swing.JFrame
         }
         dispose();
     }//GEN-LAST:event_formWindowClosing
-    
-    
+
+
     public boolean openFile()
     {
         JFileChooser chooser  = new JFileChooser();
         String make=elementPath+"/src";
         chooser.setCurrentDirectory(new java.io.File(make));
-        
+
         chooser.addChoosableFileFilter(new javax.swing.filechooser.FileFilter()
         {
             public boolean accept(File f)
@@ -356,21 +355,21 @@ public class frmCodeEditor extends javax.swing.JFrame
             { return "Java Files"; }
         });
         int returnVal = chooser.showOpenDialog(this);
-        
+
         if(returnVal == JFileChooser.APPROVE_OPTION)
         {
             loadFile(chooser.getSelectedFile().getAbsolutePath());
-            
+
             return true;
         }
         else return false;
     }
-    
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton4ActionPerformed
     {//GEN-HEADEREND:event_jButton4ActionPerformed
         openFile();
     }//GEN-LAST:event_jButton4ActionPerformed
-    
+
     private void saveProject()
     {
         for (int i=0;i<jTabbedPane1.getTabCount();i++)
@@ -379,143 +378,143 @@ public class frmCodeEditor extends javax.swing.JFrame
             if (comp instanceof PanelEditor)
             {
                 PanelEditor editor = (PanelEditor)comp;
-                
+
                 editor.saveFile();
             }
         }
     }
-    
-    
+
+
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         saveProject();
     }//GEN-LAST:event_jButton3ActionPerformed
-    
 
-    
+
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-                        
+
         saveProject();
-        
+
         for (int i=0;i<jTabbedPane1.getTabCount();i++)
         {
             Component comp = jTabbedPane1.getComponentAt(i);
             if (comp instanceof PanelEditor)
             {
                 PanelEditor editor = (PanelEditor)comp;
-                
+
                 String srcFile=editor.filename;
 
                 File file= new File(elementLocation);
                 DFProperties definition_def =Tools.getProertiesFromDefinitionFile(file);
-                                
+
                 Tools.compileFile(elementPath, srcFile,elementLocation, definition_def.classPath);
             }
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
-    
+
     public void execute(String elementPath, String elementLocation, String elementname)
     {
         this.elementPath=elementPath;
         this.elementLocation=elementLocation;
-        
-        
+
+
         File file= new File(elementLocation);
         DFProperties definition_def =Tools.getProertiesFromDefinitionFile(file);
-        
+
         String fn=elementLocation+"/src/";
-        
+
         String srcPath=new File(fn).getAbsolutePath()+"/";
-        
+
         jTabbedPane1.removeAll();
         if (definition_def.classcircuit.length()>0)
         {
             loadFile(srcPath+definition_def.classcircuit+".java");
         }
-        
+
         if (definition_def.classfront.length()>0)
         {
             loadFile(srcPath+definition_def.classfront+".java");
         }
-        
+
         setTitle(java.util.ResourceBundle.getBundle("codeeditor/frmCodeEditor").getString("Code_Editor")+" ["+ elementname+"]");
         setVisible(true);
     }
-    
-    
+
+
     class JButtonX extends JButton
     {
         public PanelEditor panel;
-        
+
         public JButtonX(javax.swing.ImageIcon icon)
         {
             super(icon);
         }
     }
-    
+
     public void loadFile(String filename)
     {
         PanelEditor pnl = new PanelEditor(this);
         pnl.loadFile(filename);
-        
+
         //jTabbedPane1.add(panel,new File(filename).getName());
-        
+
         //jTabbedPane1.setSelectedComponent(pnl);
-        
+
         String caption=new File(filename).getName();
         jTabbedPane1.add(pnl);
-                        
+
         final JPanel content = new JPanel();
-        
+
         JPanel tab = new JPanel();
         tab.setLayout(new BorderLayout());
         tab.setOpaque(false);
-        
+
         JLabel tabLabel = new JLabel();
-        
+
         tabLabel.setText(caption+"  ");
-                
+
         javax.swing.ImageIcon closeXIcon=new javax.swing.ImageIcon(getClass().getResource("/Bilder/Cross9x9.png"));
         Dimension closeButtonSize;
-        
+
         closeButtonSize = new Dimension(closeXIcon.getIconWidth()+3,closeXIcon.getIconHeight()+3);
-        
+
         JButtonX tabCloseButton = new JButtonX(closeXIcon);
         tabCloseButton.setBorderPainted(false);
         tabCloseButton.panel=pnl;
-        
+
         tabCloseButton.setPreferredSize(closeButtonSize);
-                
+
         ImageIcon icon = new ImageIcon(getClass().getResource("/Bilder/16x16/page_java.gif"));
         tabLabel.setIcon(icon);
         tabLabel.setBorder(null);
         tab.setBorder(null);
         tabCloseButton.setBorder(null);
-        
+
         tabCloseButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
                 if (e.getSource() instanceof JButtonX)
-                {                    
+                {
                     JButtonX btn = (JButtonX)e.getSource();
-                    
-                    btn.panel.close();                                                
+
+                    btn.panel.close();
                 }
             }
         });
-        
+
         tab.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        
+
         tab.add(tabLabel, BorderLayout.WEST);
         tab.add(tabCloseButton, BorderLayout.EAST);
-        
+
         jTabbedPane1.setTabComponentAt(jTabbedPane1.getTabCount()-1, tab);
-        
+
     }
-    
-    
-    
+
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -538,5 +537,5 @@ public class frmCodeEditor extends javax.swing.JFrame
     private javax.swing.JMenu jmnuFile;
     private javax.swing.JMenuItem jmnuRedo;
     // End of variables declaration//GEN-END:variables
-    
+
 }
