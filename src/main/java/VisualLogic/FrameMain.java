@@ -45,9 +45,11 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -1494,14 +1496,9 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         // Load Drivers from "Drivers" Directory"
         Tools.driverManager = new DriverManager(this);
-
         NewSerialDriverManager.NewDriverManager(this); // v3.12.0
-
-        ArrayList<String> drivers = Tools.listDrivers(driverPath);
-
-        for (int i = 0; i < drivers.size(); i++) {
-            Tools.driverManager.registerDriver(drivers.get(i));
-        }
+        List<Path> drivers = Tools.listDrivers(driverPath);
+        drivers.stream().forEach(driver -> Tools.driverManager.registerDriver(driver));
         // End Loading Drivers.
 
         setLocation(settings.getCircuitWindowLocation());

@@ -52,6 +52,9 @@ dependencies {
 
     implementation group: 'org.bidib.jbidib', name: 'bidib-rxtx-binaries', version: '2.2'
 
+    implementation 'org.tinylog:tinylog-api:2.1.1'
+    implementation 'org.tinylog:tinylog-impl:2.1.1'
+
     // implementation fileTree(dir: 'distribution/lib', include: ['*.jar])
     // implementation fileTree(dir: 'distribution/lib_win_64', include: ['*.jar'])
     // implementation fileTree(dir: 'jssc', include: ['*.jar'])
