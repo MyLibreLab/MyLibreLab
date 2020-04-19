@@ -25,89 +25,69 @@ import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Toolkit;
 import java.io.File;
+
 import javax.swing.JPanel;
 
+public class MyImage extends JPanel {
+    private Image image = null;
 
-
-public class MyImage extends JPanel
-{
-    private Image image=null;
-    
-    public MyImage(Image image)
-    {
-        this.image=image;
+    public MyImage(Image image) {
+        this.image = image;
     }
-    
-    public Image getImage()
-    {
+
+    public Image getImage() {
         return image;
     }
-    
-    public void setImage(Image image)
-    {
-        if (this.image!=null)
-        {
+
+    public void setImage(Image image) {
+        if (this.image != null) {
             this.image.flush();
-            this.image=null;
+            this.image = null;
         }
-        
-        this.image=image;
-        int w=image.getWidth(this);
-        int h=image.getHeight(this);
-        this.setSize(w,h);
-        this.setPreferredSize(new Dimension(w,h));
-        
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
+
+        this.image = image;
+        int w = image.getWidth(this);
+        int h = image.getHeight(this);
+        this.setSize(w, h);
+        this.setPreferredSize(new Dimension(w, h));
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 updateUI();
             }
         });
-        
-        
     }
-    
-    public MyImage()
-    {
-        this.image=null;
+
+    public MyImage() {
+        this.image = null;
     }
-    
-    
-    public void loadImage(String fileName)
-    {
-        Image img=null;
-        if (new File(fileName).exists())
-        {
-            img=Toolkit.getDefaultToolkit().getImage(fileName);
+
+    public void loadImage(String fileName) {
+        Image img = null;
+        if (new File(fileName).exists()) {
+            img = Toolkit.getDefaultToolkit().getImage(fileName);
             MediaTracker mc = new MediaTracker(this);
-            mc.addImage(img,0);
-            
-            try
-            {
+            mc.addImage(img, 0);
+
+            try {
                 mc.waitForID(0);
-            }
-            catch (InterruptedException ex)
-            {
+            } catch (InterruptedException ex) {
                 System.out.println(ex);
             }
-            
-        }    
+        }
         setImage(img);
     }
-    
+
     @Override
-    public void paintComponent(Graphics g)
-    {
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (image!=null)
-        {
+        if (image != null) {
             g.setColor(Color.WHITE);
-            g.fillRect(0,0,5000,5000);
-            int x=getWidth()/2-image.getWidth(this)/2;
-            int y=getHeight()/2-image.getHeight(this)/2;
-            g.drawImage(image,x,y,null);
+            g.fillRect(0, 0, 5000, 5000);
+            int x = getWidth() / 2 - image.getWidth(this) / 2;
+            int y = getHeight() / 2 - image.getHeight(this) / 2;
+            g.drawImage(image, x, y, null);
         }
     }
 }

@@ -19,11 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package VisualLogic;
 
 /**
- *
  * @author Carmelo
  */
-public interface MyOpenLabDriverOwnerIF
-{
+public interface MyOpenLabDriverOwnerIF {
     public abstract void getCommand(String commando, Object value);
+
     public abstract void getSingleByte(int value);
 }

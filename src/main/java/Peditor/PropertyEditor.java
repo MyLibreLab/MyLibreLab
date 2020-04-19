@@ -17,6 +17,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package Peditor;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 import CustomColorPicker.CustomColorPicker;
 import VisualLogic.DialogFontChooser;
 import VisualLogic.Element;
@@ -36,10 +57,6 @@ import VisualLogic.variables.VSObject;
 import VisualLogic.variables.VSProperties;
 import VisualLogic.variables.VSPropertyDialog;
 import VisualLogic.variables.VSString;
-import java.util.ArrayList;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 
 interface PEIF {
 
@@ -54,7 +71,7 @@ class VSNope extends VSObject {
 
 class ComboBoxEditor extends JComboBox implements PEIF, ActionListener {
 
-    private VSComboBox referenz;    
+    private VSComboBox referenz;
     private PropertyEditorItem item;
 
     @Override
@@ -63,7 +80,7 @@ class ComboBoxEditor extends JComboBox implements PEIF, ActionListener {
     }
 
     ;
-            
+
     public void jChanged() {
         item.processChanged();
     }
@@ -95,7 +112,6 @@ class ComboBoxEditor extends JComboBox implements PEIF, ActionListener {
     @Override
     public void changed() {
     }
-
 }
 
 class NopeEditor extends JPanel implements PEIF {
@@ -122,10 +138,9 @@ class BooleanEditor extends JCheckBox implements PEIF {
     }
 
     ;
-    
+
     public void jChanged() {
         item.processChanged();
-
     }
 
     @Override
@@ -133,7 +148,6 @@ class BooleanEditor extends JCheckBox implements PEIF {
         super.paintComponent(g);
         g.setColor(Color.BLACK);
         g.drawRect(0, 0, getBounds().width - 1, getBounds().height - 1);
-
     }
 
     public BooleanEditor(PropertyEditorItem item, VSBoolean referenz) {
@@ -149,7 +163,6 @@ class BooleanEditor extends JCheckBox implements PEIF {
                 jChanged();
             }
         });
-
     }
 
     @Override
@@ -171,8 +184,7 @@ class AdvancedColorEditor extends JPanel implements PEIF {
     }
 
     ;
-    
-    
+
     public void setValue(int modus, Point p1, Point p2, Color color1, Color color2, int color1Transparency, int color2Transparency, boolean wiederholung) {
         referenz.setValue(modus, p1, p2, color1, color2, color1Transparency, color2Transparency, wiederholung);
         item.processChanged();
@@ -224,14 +236,12 @@ class AdvancedColorEditor extends JPanel implements PEIF {
                 //jChanged();
             }
         });
-
     }
 
     @Override
     public void changed() {
-        //referenz.setValue(button.getBackground());  
+        //referenz.setValue(button.getBackground());
     }
-
 }
 
 class ColorEditor extends JPanel implements PEIF {
@@ -247,8 +257,7 @@ class ColorEditor extends JPanel implements PEIF {
     }
 
     ;
-    
-    
+
     private void setColor(Color color) {
         referenz.setValue(color);
         button.setBackground(referenz.getValue());
@@ -288,14 +297,12 @@ class ColorEditor extends JPanel implements PEIF {
                 jChanged();
             }
         });
-
     }
 
     @Override
     public void changed() {
         referenz.setValue(button.getBackground());
     }
-
 }
 
 class ReadonlySelector extends JButton implements PEIF {
@@ -307,8 +314,7 @@ class ReadonlySelector extends JButton implements PEIF {
     public Object getReference() {
         return referenz;
     }
-    
-    
+
     private void callElementPropertyMethode() {
 
     }
@@ -332,7 +338,6 @@ class ReadonlySelector extends JButton implements PEIF {
                 jChanged();
             }
         });
-
     }
 
     @Override
@@ -352,8 +357,7 @@ class OpenPropertyDialogEditor extends JPanel implements PEIF {
     public Object getReference() {
         return referenz;
     }
-    
-    
+
     private void callElementPropertyMethode() {
         if (element != null) {
             if (element.classRef != null) {
@@ -388,7 +392,6 @@ class OpenPropertyDialogEditor extends JPanel implements PEIF {
                 jChanged();
             }
         });
-
     }
 
     @Override
@@ -412,7 +415,7 @@ class FileEditor extends JPanel implements PEIF {
     }
 
     ;
-    
+
     private void mySetFile(String filename) {
         if (referenz != null) {
             referenz.setValue(filename);
@@ -491,14 +494,12 @@ class FileEditor extends JPanel implements PEIF {
                 }
             }
         });
-
     }
 
     @Override
     public void changed() {
         referenz.setValue(path);
     }
-
 }
 
 class FontEditor extends JPanel implements PEIF {
@@ -515,7 +516,7 @@ class FontEditor extends JPanel implements PEIF {
     }
 
     ;
-    
+
     private void mySetFont(Font font) {
         referenz.setValue(font);
         //setFont(font);
@@ -574,14 +575,12 @@ class FontEditor extends JPanel implements PEIF {
                 }
             }
         });
-
     }
 
     @Override
     public void changed() {
         referenz.setValue(myGetFont());
     }
-
 }
 
 class DoubleEditor extends JTextField implements PEIF {
@@ -595,8 +594,7 @@ class DoubleEditor extends JTextField implements PEIF {
     public Object getReference() {
         return referenz;
     }
-    
-    
+
     public void jchanged() {
         item.processChanged();
     }
@@ -616,7 +614,6 @@ class DoubleEditor extends JTextField implements PEIF {
                 }
             }
         });
-
     }
 
     @Override
@@ -651,8 +648,7 @@ class IntegerEditor extends JTextField implements PEIF {
     public Object getReference() {
         return referenz;
     }
-    
-    
+
     public void pChanged() {
         item.processChanged();
     }
@@ -673,7 +669,6 @@ class IntegerEditor extends JTextField implements PEIF {
                 }
             }
         });
-
     }
 
     @Override
@@ -688,12 +683,10 @@ class IntegerEditor extends JTextField implements PEIF {
             if (referenz.getValue() > max) {
                 referenz.setValue(max);
             }
-
         } catch (NumberFormatException nfe) {
             setText("0");
         }
     }
-
 }
 
 class ByteEditor extends JTextField implements PEIF {
@@ -707,8 +700,7 @@ class ByteEditor extends JTextField implements PEIF {
     public Object getReference() {
         return referenz;
     }
-    
-    
+
     public void pChanged() {
         item.processChanged();
     }
@@ -729,7 +721,6 @@ class ByteEditor extends JTextField implements PEIF {
                 }
             }
         });
-
     }
 
     @Override
@@ -744,12 +735,10 @@ class ByteEditor extends JTextField implements PEIF {
             if (VSByte.toSigned(referenz.getValue()) > max) {
                 referenz.setValue(VSByte.toUnsigned((short) max));
             }
-
         } catch (NumberFormatException nfe) {
             setText("0");
         }
     }
-
 }
 
 class ImageEditor extends JPanel implements PEIF {
@@ -768,7 +757,7 @@ class ImageEditor extends JPanel implements PEIF {
     }
 
     ;
-    
+
     private void mySetFile(String filename) {
         if (referenz != null) {
             referenz.loadImage(filename);
@@ -837,14 +826,12 @@ class ImageEditor extends JPanel implements PEIF {
                 }
             }
         });
-
     }
 
     @Override
     public void changed() {
         referenz.loadImage(path);
     }
-
 }
 
 class PropertiesEditor extends JButton implements PEIF, ActionListener {
@@ -858,10 +845,9 @@ class PropertiesEditor extends JButton implements PEIF, ActionListener {
     public Object getReference() {
         return referenz;
     }
-    
-    
+
     public void pChanged() {
-        item.processChanged(); 
+        item.processChanged();
     }
 
     public PropertiesEditor(PropertyEditorItem item, JFrame frame, VMObject vmobject, VSProperties referenz) {
@@ -910,7 +896,7 @@ class StringEditor extends JTextField implements PEIF {
     }
 
     ;
-    
+
     public void pChanged() {
         item.processChanged();
     }
@@ -929,7 +915,6 @@ class StringEditor extends JTextField implements PEIF {
                 }
             }
         });
-
     }
 
     @Override
@@ -939,7 +924,6 @@ class StringEditor extends JTextField implements PEIF {
 }
 
 /**
- *
  * @author Homer
  */
 public class PropertyEditor extends javax.swing.JPanel {
@@ -990,9 +974,8 @@ public class PropertyEditor extends javax.swing.JPanel {
     }
 
     /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
+     * content of this method is always regenerated by the Form Editor.
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1039,7 +1022,7 @@ public class PropertyEditor extends javax.swing.JPanel {
             }
         });
         jSplitPane1.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
-            public void vetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {
+            public void vetoableChange(java.beans.PropertyChangeEvent evt) throws java.beans.PropertyVetoException {
                 jSplitPane1VetoableChange(evt);
             }
         });
@@ -1122,7 +1105,7 @@ public class PropertyEditor extends javax.swing.JPanel {
         reorderItems();
     }//GEN-LAST:event_formComponentResized
 
-    private void jSplitPane1VetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_jSplitPane1VetoableChange
+    private void jSplitPane1VetoableChange(java.beans.PropertyChangeEvent evt) throws java.beans.PropertyVetoException {//GEN-FIRST:event_jSplitPane1VetoableChange
 
     }//GEN-LAST:event_jSplitPane1VetoableChange
 
@@ -1184,7 +1167,7 @@ public class PropertyEditor extends javax.swing.JPanel {
             updateUI();
         }
     }
-    
+
     public void clear() {
         liste.clear();
         leftPanel.removeAll();
@@ -1220,5 +1203,4 @@ public class PropertyEditor extends javax.swing.JPanel {
     private javax.swing.JPanel leftPanel;
     private javax.swing.JPanel rightPanel;
     // End of variables declaration//GEN-END:variables
-
 }

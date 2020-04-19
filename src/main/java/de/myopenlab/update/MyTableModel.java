@@ -2,6 +2,7 @@ package de.myopenlab.update;
 
 import java.util.List;
 import java.util.Locale;
+
 import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
@@ -50,8 +51,8 @@ public class MyTableModel extends AbstractTableModel {
 
         switch (column) {
             case 0:
-                return rowData.isSelected();                
-            case 1:{                
+                return rowData.isSelected();
+            case 1: {
                 return rowData.getIcon();
             }
             case 2:
@@ -88,16 +89,15 @@ public class MyTableModel extends AbstractTableModel {
         return HEADER[column];
     }
 
-// Hier kann man die Klasse für eine Spalte ändern.
+    // Hier kann man die Klasse für eine Spalte ändern.
     @Override
     public Class<?> getColumnClass(int column) {
         if (column == 0) {
             return Boolean.class;
         }
         if (column == 1) {
-            return ImageIcon.class;            
+            return ImageIcon.class;
         }
         return super.getColumnClass(column);
     }
-
 }

@@ -5,12 +5,6 @@
  */
 package de.myopenlab.update;
 
-import VisualLogic.DFProperties;
-import VisualLogic.DialogSaveAsModul;
-import VisualLogic.FrameMain;
-import VisualLogic.Tools;
-import static VisualLogic.Tools.settings;
-import create_new_group.Dialog_create_new_group;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
@@ -26,10 +20,8 @@ import java.net.Authenticator;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
-import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +29,7 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -52,6 +45,12 @@ import javax.swing.table.TableColumn;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
+import VisualLogic.DFProperties;
+import VisualLogic.DialogSaveAsModul;
+import VisualLogic.FrameMain;
+import VisualLogic.Tools;
+import create_new_group.Dialog_create_new_group;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
@@ -61,8 +60,9 @@ import org.xml.sax.SAXException;
 import projectfolder.MyNode;
 import ziputils.ZipFiles;
 
+import static VisualLogic.Tools.settings;
+
 /**
- *
  * @author salafica
  */
 public class frmUpdate extends javax.swing.JFrame {
@@ -108,7 +108,6 @@ public class frmUpdate extends javax.swing.JFrame {
         }
 
         return response.toString();
-
     }
 
     private ArrayList<MyOpenLabRow> getMyOpenLabRepositoryData() {
@@ -119,11 +118,11 @@ public class frmUpdate extends javax.swing.JFrame {
         try {
 
             String domain = settings.getRepository_domain();
-            
-            if (domain.trim().equalsIgnoreCase("http://myopenlab.de")){
-                domain="https://myopenlab.de";
+
+            if (domain.trim().equalsIgnoreCase("http://myopenlab.de")) {
+                domain = "https://myopenlab.de";
             }
-            
+
             JSON_DATA = getStringFromUrl(domain + "/repository/index.php");
             System.out.println(JSON_DATA);
         } catch (Exception ex) {
@@ -176,7 +175,6 @@ public class frmUpdate extends javax.swing.JFrame {
 
                                 TestItem tItem = new TestItem(name, type, caption_de2, caption_en2, caption_es2);
                                 rowData.items.add(tItem);
-
                             }
                         }
                     }
@@ -197,12 +195,9 @@ public class frmUpdate extends javax.swing.JFrame {
                         TestItem tItem = new TestItem(name, type, caption_de2, caption_en2, caption_es2);
 
                         rowData.items.add(tItem);
-
                     }
-
                 }
             }
-
         }
 
         return data;
@@ -325,7 +320,7 @@ public class frmUpdate extends javax.swing.JFrame {
                 break;
             }
             case "es": {
-                String[] HEADER = {"Instalar", "", "Nombre del paquete", "Subtítulo", "Categoría", "Fecha", "Autor", "Tipo"};
+                String[] HEADER = {"Instalar", "", "Nombre del paquete", "Subtï¿½tulo", "Categorï¿½a", "Fecha", "Autor", "Tipo"};
                 model1.HEADER = HEADER;
                 break;
             }
@@ -354,7 +349,6 @@ public class frmUpdate extends javax.swing.JFrame {
         FillData2(files2, model1, "FrontElements");
         FillData2(files3, model1, "Documentations");
         FillData2(files4, model1, "VirtualMachines");
-
     }
 
     private void FillModelWithData(MyTableModel model, String type) {
@@ -431,10 +425,9 @@ public class frmUpdate extends javax.swing.JFrame {
                                         caption = caption_es;
                                     }
                                 }
-
                             }
 
-                            // Zuerst das Icon aus dem Cache löschen!
+                            // Zuerst das Icon aus dem Cache lï¿½schen!
                             ImageIcon icon = new ImageIcon(file.getAbsolutePath() + "/" + definition_def.iconFilename);
                             icon.getImage().flush();
 
@@ -454,7 +447,6 @@ public class frmUpdate extends javax.swing.JFrame {
                         }
                     }
                 }
-
             }
         }
 
@@ -550,10 +542,9 @@ public class frmUpdate extends javax.swing.JFrame {
                                         caption = caption_es;
                                     }
                                 }
-
                             }
 
-                            // Zuerst das Icon aus dem Cache löschen!
+                            // Zuerst das Icon aus dem Cache lï¿½schen!
                             ImageIcon icon = new ImageIcon(file.getAbsolutePath() + "/" + definition_def.iconFilename);
                             icon.getImage().flush();
 
@@ -572,7 +563,6 @@ public class frmUpdate extends javax.swing.JFrame {
                             Logger.getLogger(frmUpdate.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-
                 }
             }
         }
@@ -597,7 +587,7 @@ public class frmUpdate extends javax.swing.JFrame {
                 break;
             }
             case "es": {
-                String[] HEADER = {"", "", "Nombre del paquete", "Subtítulo", "Categoría", "Fecha", "Autor", "Tipo"};
+                String[] HEADER = {"", "", "Nombre del paquete", "Subtï¿½tulo", "Categorï¿½a", "Fecha", "Autor", "Tipo"};
                 model2.HEADER = HEADER;
                 break;
             }
@@ -614,7 +604,6 @@ public class frmUpdate extends javax.swing.JFrame {
         FillModelWithData(model2, "FrontElements");
         FillModelWithData_forDocumentations(model2, "Documentations");
         FillModelWithData_forDocumentations(model2, "VirtualMachines");
-
     }
 
     /**
@@ -652,11 +641,11 @@ public class frmUpdate extends javax.swing.JFrame {
                 }
 
                 public void checkClientTrusted(
-                        java.security.cert.X509Certificate[] certs, String authType) {
+                    java.security.cert.X509Certificate[] certs, String authType) {
                 }
 
                 public void checkServerTrusted(
-                        java.security.cert.X509Certificate[] certs, String authType) {
+                    java.security.cert.X509Certificate[] certs, String authType) {
                 }
             }
         };
@@ -686,9 +675,8 @@ public class frmUpdate extends javax.swing.JFrame {
     }
 
     /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
+     * content of this method is always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -747,13 +735,13 @@ public class frmUpdate extends javax.swing.JFrame {
 
         jTable2.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object[][]{
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
             },
-            new String [] {
+            new String[]{
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
@@ -762,6 +750,7 @@ public class frmUpdate extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable2MouseClicked(evt);
             }
+
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTable2MousePressed(evt);
             }
@@ -842,53 +831,53 @@ public class frmUpdate extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jButton9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton14))
-                            .addComponent(jButton3))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                         .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addContainerGap()
+                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                       .addComponent(jScrollPane3)
+                                                                       .addGroup(jPanel3Layout.createSequentialGroup()
+                                                                                              .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                                                     .addComponent(jLabel4)
+                                                                                                                     .addGroup(jPanel3Layout.createSequentialGroup()
+                                                                                                                                            .addComponent(jButton9)
+                                                                                                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                                                                            .addComponent(jButton2)
+                                                                                                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                                                                            .addComponent(jButton4)
+                                                                                                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                                                                            .addComponent(jButton5)
+                                                                                                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                                                                            .addComponent(jButton11)
+                                                                                                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                                                                            .addComponent(jButton12)
+                                                                                                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                                                                            .addComponent(jButton13)
+                                                                                                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                                                                            .addComponent(jButton14))
+                                                                                                                     .addComponent(jButton3))
+                                                                                              .addGap(0, 0, Short.MAX_VALUE)))
+                                                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(jButton9)
-                    .addComponent(jButton11)
-                    .addComponent(jButton12)
-                    .addComponent(jButton13)
-                    .addComponent(jButton14))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
-                .addContainerGap())
+                         .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addContainerGap()
+                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                                       .addComponent(jButton2)
+                                                                       .addComponent(jButton4)
+                                                                       .addComponent(jButton5)
+                                                                       .addComponent(jButton9)
+                                                                       .addComponent(jButton11)
+                                                                       .addComponent(jButton12)
+                                                                       .addComponent(jButton13)
+                                                                       .addComponent(jButton14))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton3)
+                                                .addContainerGap())
         );
 
         jTabbedPane1.addTab(bundle.getString("DELETE PACKAGES"), jPanel3); // NOI18N
@@ -897,13 +886,13 @@ public class frmUpdate extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(590, 472));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object[][]{
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
             },
-            new String [] {
+            new String[]{
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
@@ -961,42 +950,42 @@ public class frmUpdate extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 279, Short.MAX_VALUE)
-                                .addComponent(jButton10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton8)))
-                        .addContainerGap())))
+                         .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addContainerGap()
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                       .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                                              .addComponent(jButton1)
+                                                                                              .addGap(0, 0, Short.MAX_VALUE))
+                                                                       .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                                              .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                                                     .addComponent(jScrollPane1)
+                                                                                                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                                                                                                                                                        .addComponent(jLabel3)
+                                                                                                                                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 279, Short.MAX_VALUE)
+                                                                                                                                                                                        .addComponent(jButton10)
+                                                                                                                                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                                                                                                                        .addComponent(jButton6)
+                                                                                                                                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                                                                                                                        .addComponent(jButton7)
+                                                                                                                                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                                                                                                                        .addComponent(jButton8)))
+                                                                                              .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
-                    .addComponent(jButton7)
-                    .addComponent(jButton8)
-                    .addComponent(jButton10)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap())
+                         .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addContainerGap()
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                                       .addComponent(jButton6)
+                                                                       .addComponent(jButton7)
+                                                                       .addComponent(jButton8)
+                                                                       .addComponent(jButton10)
+                                                                       .addComponent(jLabel3))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton1)
+                                                .addContainerGap())
         );
 
         jTabbedPane1.addTab(bundle.getString("INSTALL PACKAGES"), jPanel1); // NOI18N
@@ -1012,40 +1001,40 @@ public class frmUpdate extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane6)
-                .addContainerGap())
+                         .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(jLabel1)
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                         .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(jScrollPane6)
+                                                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
+                         .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addContainerGap()
+                                                .addComponent(jLabel1)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                  .addGroup(layout.createSequentialGroup()
+                                  .addContainerGap()
+                                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                  .addComponent(jTabbedPane1)
+                                                  .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                  .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                                              .addContainerGap()
+                                                                              .addComponent(jTabbedPane1)
+                                                                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                              .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                              .addContainerGap())
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Installed Packages");
@@ -1095,10 +1084,8 @@ public class frmUpdate extends javax.swing.JFrame {
                 //str += subItem.name + "\n";
 
                 listModel.addElement(getTranslation(subItem));
-
             }
         }
-
     }
 
     private ArrayList<String> listFilesFromDir(int stufe, String dirname) {
@@ -1144,14 +1131,12 @@ public class frmUpdate extends javax.swing.JFrame {
         frm.setVisible(true);
 
         initTable2();
-
     }
 
     public void log(String message) {
 
         jTextArea1.setText(jTextArea1.getText() + message + "\n");
         jTextArea1.setCaretPosition(jTextArea1.getDocument().getLength());
-
     }
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -1228,7 +1213,6 @@ public class frmUpdate extends javax.swing.JFrame {
         return xml;
     }
 
-
     private void jMenuItemDownloadPAckageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDownloadPAckageActionPerformed
 
         int row_index = jTable2.getSelectedRow();
@@ -1297,8 +1281,8 @@ public class frmUpdate extends javax.swing.JFrame {
                 connection.setDoOutput(true);
                 connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
                 try (
-                        OutputStream output = connection.getOutputStream();
-                        PrintWriter writer = new PrintWriter(new OutputStreamWriter(output, charset), true);) {
+                    OutputStream output = connection.getOutputStream();
+                    PrintWriter writer = new PrintWriter(new OutputStreamWriter(output, charset), true);) {
 
                     // Send normal param.
                     writer.append("--" + boundary).append(CRLF);
@@ -1333,7 +1317,7 @@ public class frmUpdate extends javax.swing.JFrame {
                 String str = "";
 
                 try (BufferedReader in = new BufferedReader(
-                        new InputStreamReader(connection.getInputStream()))) {
+                    new InputStreamReader(connection.getInputStream()))) {
                     String inputLine;
                     while ((inputLine = in.readLine()) != null) {
                         str += inputLine + "\n";
@@ -1356,8 +1340,8 @@ public class frmUpdate extends javax.swing.JFrame {
         tmp.mkdirs();
 
         //URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
-        
-         String icon32=new File(FrameMain.elementPath + "/std_lib_icon_32.png").getAbsolutePath();
+
+        String icon32 = new File(FrameMain.elementPath + "/std_lib_icon_32.png").getAbsolutePath();
 
         try {
             Tools.copyFileUsingStream(new File(icon32), new File(tmp + "/icon32.png"));
@@ -1387,7 +1371,7 @@ public class frmUpdate extends javax.swing.JFrame {
         tmp.mkdirs();
 
         //URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
-         String icon32=new File(FrameMain.elementPath + "/std_lib_icon_32.png").getAbsolutePath();
+        String icon32 = new File(FrameMain.elementPath + "/std_lib_icon_32.png").getAbsolutePath();
 
         try {
             Tools.copyFileUsingStream(new File(icon32), new File(tmp + "/icon32.png"));
@@ -1430,9 +1414,9 @@ public class frmUpdate extends javax.swing.JFrame {
             try {
                 tmp.mkdirs();
 
-               // URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
-                
-                 String icon32=new File(FrameMain.elementPath + "/std_lib_icon_32.png").getAbsolutePath();
+                // URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
+
+                String icon32 = new File(FrameMain.elementPath + "/std_lib_icon_32.png").getAbsolutePath();
 
                 try {
                     Tools.copyFileUsingStream(new File(icon32), new File(tmp + "/icon32.png"));
@@ -1464,15 +1448,12 @@ public class frmUpdate extends javax.swing.JFrame {
                 } else {
                     Tools.deleteDirectory(tmp);
                 }
-
             } catch (IOException ex) {
                 Logger.getLogger(frmUpdate.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         } else {
             Tools.showMessage(this, java.util.ResourceBundle.getBundle("de/myopenlab/update/MainFrame").getString("VM PACKAGE ALREADY EXISTS"));
         }
-
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -1494,7 +1475,7 @@ public class frmUpdate extends javax.swing.JFrame {
         if (!tmp.exists()) {
             tmp.mkdirs();
 
-            String icon32=new File(FrameMain.elementPath + "/std_lib_icon_32.png").getAbsolutePath();
+            String icon32 = new File(FrameMain.elementPath + "/std_lib_icon_32.png").getAbsolutePath();
             //URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
 
             try {
@@ -1528,18 +1509,15 @@ public class frmUpdate extends javax.swing.JFrame {
                 initTable2();
             } else {
                 Tools.deleteDirectory(tmp);
-
             }
         } else {
             Tools.showMessage(this, java.util.ResourceBundle.getBundle("de/myopenlab/update/MainFrame").getString("DOCUMENT PACKAGE ALREADY EXISTS"));
         }
-
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
 
         initTable2();
-
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -1547,7 +1525,6 @@ public class frmUpdate extends javax.swing.JFrame {
         for (MyTableRow row : list2) {
 
             row.setSelected(!row.isSelected());
-
         }
         jTable2.repaint();
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -1557,7 +1534,6 @@ public class frmUpdate extends javax.swing.JFrame {
         for (MyTableRow row : list2) {
 
             row.setSelected(false);
-
         }
 
         jTable2.repaint();
@@ -1576,7 +1552,6 @@ public class frmUpdate extends javax.swing.JFrame {
 
         Thread temp = new Thread(new DeletePackages(this));
         temp.start();
-
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTable2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable2KeyReleased
@@ -1648,5 +1623,4 @@ public class frmUpdate extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
-
 }

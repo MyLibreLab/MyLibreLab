@@ -18,135 +18,99 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package BasisStatus;
 
-import VisualLogic.*;
-import VisualLogic.Element;
-import java.awt.event.*;
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
-public class StatusNone extends Object implements StatusBasisIF
-{
-    private VMObject vmObject;    
-    public  Element element;
-    
-    
-    public VMObject getBasis()
-    {
+import VisualLogic.Element;
+import VisualLogic.VMObject;
+
+public class StatusNone extends Object implements StatusBasisIF {
+    private VMObject vmObject;
+    public Element element;
+
+    public VMObject getBasis() {
         return this.vmObject;
     }
-    
-    
-    public StatusNone(VMObject vmObject, Element element)
-    {
-        this.vmObject=vmObject;
-        this.element=element;        
-    }
-    
-    public void mouseDblClick(MouseEvent e)
-    {
-    }
-    
-    
-    public void showElementInfo()
-    {
-    }
-    
-    public void openFile(String fileName)
-    {
-    }
-    
-    
-    public void elementPinMouseReleased(MouseEvent e, int elementID,int pin)
-    {
-        
-    }
-    
-    public  void elementPinMousePressed(MouseEvent e, int elementID,int pin)
-    {
-    }
-    
-    
-    
-    public void elementPinMouseMoved(MouseEvent e, int elementID,int pin)
-    {
-    }
-    
 
-    
-    public void processKeyEvent(KeyEvent ke)
-    {                
+    public StatusNone(VMObject vmObject, Element element) {
+        this.vmObject = vmObject;
+        this.element = element;
     }
 
+    public void mouseDblClick(MouseEvent e) {
+    }
 
-    public void mouseDragged(MouseEvent e)
-    {
-        
-        if (e.getSource() instanceof Element)
-        {            
-            Element el=(Element)e.getSource();
+    public void showElementInfo() {
+    }
+
+    public void openFile(String fileName) {
+    }
+
+    public void elementPinMouseReleased(MouseEvent e, int elementID, int pin) {
+
+    }
+
+    public void elementPinMousePressed(MouseEvent e, int elementID, int pin) {
+    }
+
+    public void elementPinMouseMoved(MouseEvent e, int elementID, int pin) {
+    }
+
+    public void processKeyEvent(KeyEvent ke) {
+    }
+
+    public void mouseDragged(MouseEvent e) {
+
+        if (e.getSource() instanceof Element) {
+            Element el = (Element) e.getSource();
             //e.translatePoint(-e.getX(),-e.getY());
             //e.translatePoint(oldX,oldY);
             //vmObject.setModusMoveElements(e);
-            
-            element.mouseDragged(e);
-        } 
-        
-    }
-    
 
-    private int getResizeRect(Element element, int x, int y)
-    {
+            element.mouseDragged(e);
+        }
+    }
+
+    private int getResizeRect(Element element, int x, int y) {
         return 0;
     }
-    
-    
+
     /*
      * wurde aus ein PolyLine Punkt gedrueckt
-     **/    
-    public void mousePressed(MouseEvent e)
-    {                       
-        if (e.getSource() instanceof Element)
-        {            
-            Element el=(Element)e.getSource();
+     **/
+    public void mousePressed(MouseEvent e) {
+        if (e.getSource() instanceof Element) {
+            Element el = (Element) e.getSource();
             //e.translatePoint(-e.getX(),-e.getY());
             //e.translatePoint(oldX,oldY);
             //vmObject.setModusMoveElements(e);
-            
+
             //element.mousePressed(e);
-        } 
-                
+        }
     }
-    
 
-                
-    public void mouseReleased(MouseEvent e)
-    {               
+    public void mouseReleased(MouseEvent e) {
 
     }
 
-    public void mouseClicked(MouseEvent e)   
-    {
-        
+    public void mouseClicked(MouseEvent e) {
+
     }
-    
-    public void mouseEntered(MouseEvent e)
-    {
-        
+
+    public void mouseEntered(MouseEvent e) {
+
     }
-    
-    public void mouseExited(MouseEvent e)
-    {
-        
+
+    public void mouseExited(MouseEvent e) {
+
     }
-    
-    
-    public void mouseMoved(MouseEvent e)
-    {   
+
+    public void mouseMoved(MouseEvent e) {
     }
-    
-    public void draw(Graphics g)
-    {
-        
+
+    public void draw(Graphics g) {
+
     }
-    
 }
- 
+

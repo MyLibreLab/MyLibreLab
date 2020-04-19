@@ -19,13 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package VisualLogic;
 
 /**
- *
  * @author Salafia
  */
-public class DriverInfo
-{
+public class DriverInfo {
     public String Jar;
-    public String Classe;    
+    public String Classe;
     public String classpath;
     public String classpath2;
     public String Copyrights;

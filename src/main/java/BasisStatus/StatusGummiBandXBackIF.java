@@ -17,16 +17,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package BasisStatus;
 
-import VisualLogic.VMObject;
 import java.awt.Rectangle;
 
+import VisualLogic.VMObject;
+
 /**
- *
  * @author Salafia
  */
-public interface StatusGummiBandXBackIF
-{
-    
+public interface StatusGummiBandXBackIF {
+
     public abstract void binFertig(VMObject vm, Rectangle rect);
-    
 }

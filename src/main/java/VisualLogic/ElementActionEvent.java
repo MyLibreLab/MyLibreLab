@@ -10,30 +10,26 @@
 package VisualLogic;
 
 /**
- *
  * @author Salafia
  */
-public class ElementActionEvent
-{
-    
-    private int pinIndex=-1;
-    private ExternalIF element=null;
-    
-    /** Creates a new instance of ElementActionEvent */
-    public ElementActionEvent(int pinIndex, ExternalIF element) 
-    {
-        this.pinIndex=pinIndex;
-        this.element=element;
+public class ElementActionEvent {
+
+    private int pinIndex = -1;
+    private ExternalIF element = null;
+
+    /**
+     * Creates a new instance of ElementActionEvent
+     */
+    public ElementActionEvent(int pinIndex, ExternalIF element) {
+        this.pinIndex = pinIndex;
+        this.element = element;
     }
-    
-    public int getSourcePinIndex()
-    {
+
+    public int getSourcePinIndex() {
         return pinIndex;
     }
-    
-    public ExternalIF getElement()
-    {
+
+    public ExternalIF getElement() {
         return element;
     }
-    
 }

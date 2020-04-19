@@ -18,55 +18,49 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic;
 
-
-import VisualLogic.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public  class NewJavaCompSettings implements Serializable
-{
+public class NewJavaCompSettings implements Serializable {
     public String circuitPanelName;
     public String frontPanelName;
-    
-    public boolean circuitElementResizable=false;
-    public boolean circuitElementResizableWithAspect=false;
-    
-    public boolean frontElementResizable=false;
-    public boolean frontElementResizableWithAspect=false;
-    
-    public boolean createCircuitAndFrontElements=false;
-    public boolean createOnyCircuitElement=false;
-    public boolean createOnyFrontElement=false;
-    
-    public boolean showInnerBorder=true;
-    public boolean showOuterBorder=true;
-        
-    public ArrayList<PinsSettings> pins= new ArrayList<PinsSettings>();
-    
-    public ArrayList<ElementPropertyX> properties= new ArrayList<ElementPropertyX>();
-    
+
+    public boolean circuitElementResizable = false;
+    public boolean circuitElementResizableWithAspect = false;
+
+    public boolean frontElementResizable = false;
+    public boolean frontElementResizableWithAspect = false;
+
+    public boolean createCircuitAndFrontElements = false;
+    public boolean createOnyCircuitElement = false;
+    public boolean createOnyFrontElement = false;
+
+    public boolean showInnerBorder = true;
+    public boolean showOuterBorder = true;
+
+    public ArrayList<PinsSettings> pins = new ArrayList<PinsSettings>();
+
+    public ArrayList<ElementPropertyX> properties = new ArrayList<ElementPropertyX>();
 }
-class PinsSettingsItem implements Serializable
-{
+
+class PinsSettingsItem implements Serializable {
     public String name;
     public String dt; // zb: C_INTEGER
     public int intDT; // zb: 0,1,2,3 aldi DT!
-    public String io="";
+    public String io = "";
 }
 
-class ElementPropertyX implements Serializable
-{
+class ElementPropertyX implements Serializable {
     public String name;
     public String dt; // zb: C_INTEGER
     public int intDT; // zb: 0,1,2,3 aldi DT!
     public int min;
-    public int max;    
+    public int max;
 }
 
-class PinsSettings implements Serializable
-{
-    public boolean pinsVisible=true;
-    public int pinsCount=0;
-    
+class PinsSettings implements Serializable {
+    public boolean pinsVisible = true;
+    public int pinsCount = 0;
+
     ArrayList<PinsSettingsItem> items = new ArrayList<PinsSettingsItem>();
 }

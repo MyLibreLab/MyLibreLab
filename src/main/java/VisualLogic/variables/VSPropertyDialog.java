@@ -19,31 +19,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic.variables;
 
-import java.awt.*;
+import java.awt.Image;
 
-public class VSPropertyDialog extends VSObject
-{    
-    private String text="";
-    
-    public String getText()
-    {
+public class VSPropertyDialog extends VSObject {
+    private String text = "";
+
+    public String getText() {
         return text;
     }
-    
-    public void setText(String text)
-    {
-        this.text=text;
-        Image img=null;                
-    }
-    
-    public VSPropertyDialog() { }
-        
-    public void loadFromXML(String name,org.w3c.dom.Element nodeElement)
-    {
+
+    public void setText(String text) {
+        this.text = text;
+        Image img = null;
     }
 
-    public void saveToXML(String name, org.w3c.dom.Element nodeElement)    
-    {        
+    public VSPropertyDialog() {
     }
-    
+
+    public void loadFromXML(String name, org.w3c.dom.Element nodeElement) {
+    }
+
+    public void saveToXML(String name, org.w3c.dom.Element nodeElement) {
+    }
 }

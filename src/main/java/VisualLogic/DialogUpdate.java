@@ -26,126 +26,100 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author  Carmelo
+ * @author Carmelo
  */
-public class DialogUpdate extends javax.swing.JDialog
-{
-    public boolean downloadInProgress=false;
+public class DialogUpdate extends javax.swing.JDialog {
+    public boolean downloadInProgress = false;
     public String addressX;
     public String localFileNameX;
     private FrameMain parent;
-    
-    /** Creates new form DialogUpdate */
-    public DialogUpdate(FrameMain parent, boolean modal)
-    {
+
+    /**
+     * Creates new form DialogUpdate
+     */
+    public DialogUpdate(FrameMain parent, boolean modal) {
         super(parent, modal);
         initComponents();
         jLabel1.setText(java.util.ResourceBundle.getBundle("VisualLogic/DialogUpdate").getString("Press_Start_Download_to_begin"));
-        
+
         jLabel4.setText(Version.strApplicationVersion);
     }
-    
-    
-    
-    
-    public void download(String address, String localFileName)
-    {
-        addressX=address;
-        localFileNameX=localFileName;
+
+    public void download(String address, String localFileName) {
+        addressX = address;
+        localFileNameX = localFileName;
         downloadInProgress = true;
-        
-        new Thread()
-        {
-            public void run()
-            {
+
+        new Thread() {
+            public void run() {
                 InputStream inputStream = null;
                 OutputStream outputStream = null;
-                try
-                {
+                try {
                     String urlText = addressX;
                     URL url = new URL(urlText);
                     URLConnection urlConnection = url.openConnection();
                     jProgressBar1.setMaximum(urlConnection.getContentLength());
-                    
+
                     inputStream = urlConnection.getInputStream();
-                    
+
                     outputStream = new FileOutputStream(new File(localFileNameX));
-                    
+
                     byte[] buffer = new byte[16384];
                     int bytesRead = -1;
                     int bytesWritten = 0;
-                    
+
                     long deltaTime = 0;
-                    while((bytesRead = inputStream.read(buffer)) > 0)
-                    {
-                        if (!downloadInProgress)
-                        {
+                    while ((bytesRead = inputStream.read(buffer)) > 0) {
+                        if (!downloadInProgress) {
                             return;
                         }
-                        
-                        outputStream.write(buffer,0,bytesRead);
-                        bytesWritten +=bytesRead;
+
+                        outputStream.write(buffer, 0, bytesRead);
+                        bytesWritten += bytesRead;
                         outputStream.flush();
                         jProgressBar1.setValue(bytesWritten);
                     }
-                    
+
                     jLabel1.setText(java.util.ResourceBundle.getBundle("VisualLogic/DialogUpdate").getString("Download_completed!"));
                     jButton2.setText(java.util.ResourceBundle.getBundle("VisualLogic/DialogUpdate").getString("Close"));
-                    
-                    Tools.showMessage(DialogUpdate.this,java.util.ResourceBundle.getBundle("VisualLogic/DialogUpdate").getString("Please_restart_the_Application!"), JOptionPane.INFORMATION_MESSAGE);
-                    Tools.appResult=10;
+
+                    Tools.showMessage(DialogUpdate.this, java.util.ResourceBundle.getBundle("VisualLogic/DialogUpdate").getString("Please_restart_the_Application!"), JOptionPane.INFORMATION_MESSAGE);
+                    Tools.appResult = 10;
                     dispose();
-                    
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     Tools.showMessage("No Connection!");
-                }
-                finally
-                {
-                    if(outputStream != null)
-                    {
-                        try
-                        {
+                } finally {
+                    if (outputStream != null) {
+                        try {
                             outputStream.close();
-                        }
-                        catch (IOException e)
-                        {
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
-                    if(inputStream != null)
-                    {
-                        try
-                        {
+                    if (inputStream != null) {
+                        try {
                             inputStream.close();
-                        }
-                        catch (IOException e)
-                        {
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
-                    
+
                     downloadInProgress = false;
                 }
-                
             }
         }.start();
     }
-    
-    
-    public boolean downloadVersionFile(String address, String localFileName)
-    {
-        
-        boolean result=false;
+
+    public boolean downloadVersionFile(String address, String localFileName) {
+
+        boolean result = false;
         InputStream inputStream = null;
         OutputStream outputStream = null;
-        try
-        {
+        try {
             String urlText = address;
             URL url = new URL(urlText);
             URLConnection urlConnection = url.openConnection();
@@ -158,78 +132,57 @@ public class DialogUpdate extends javax.swing.JDialog
             byte[] buffer = new byte[16384];
             int bytesRead = -1;
             int bytesWritten = 0;
-            
-            long deltaTime = 0;            
-            while((bytesRead = inputStream.read(buffer)) > 0)
-            {
-                outputStream.write(buffer,0,bytesRead);
-                bytesWritten +=bytesRead;
-                outputStream.flush();                        
-            }
-            
-            result=true;
 
-        }
-        catch (Exception e)
-        {
-          Tools.showMessage("No Connection!");  
-          result=false;
-        }
-        finally
-        {
-            if(outputStream != null)
-            {
-                try
-                {
+            long deltaTime = 0;
+            while ((bytesRead = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, bytesRead);
+                bytesWritten += bytesRead;
+                outputStream.flush();
+            }
+
+            result = true;
+        } catch (Exception e) {
+            Tools.showMessage("No Connection!");
+            result = false;
+        } finally {
+            if (outputStream != null) {
+                try {
                     outputStream.close();
-                }
-                catch (IOException e)
-                {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-            if(inputStream != null)
-            {
-                try
-                {
+            if (inputStream != null) {
+                try {
                     inputStream.close();
-                }
-                catch (IOException e)
-                {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-
         }
 
         return result;
-    }    
-    
-    private boolean close()
-    {
-        if (downloadInProgress)
-        {
-            
-            int result = JOptionPane.showConfirmDialog((Component)null, java.util.ResourceBundle.getBundle("VisualLogic/DialogUpdate").getString("Stop_Download?"), java.util.ResourceBundle.getBundle("VisualLogic/DialogUpdate").getString("Attention!"), JOptionPane.YES_NO_OPTION);
-            
-            if (result==JOptionPane.YES_OPTION)
-            {
-                downloadInProgress=false;
+    }
+
+    private boolean close() {
+        if (downloadInProgress) {
+
+            int result = JOptionPane.showConfirmDialog((Component) null, java.util.ResourceBundle.getBundle("VisualLogic/DialogUpdate").getString("Stop_Download?"), java.util.ResourceBundle.getBundle("VisualLogic/DialogUpdate").getString("Attention!"), JOptionPane.YES_NO_OPTION);
+
+            if (result == JOptionPane.YES_OPTION) {
+                downloadInProgress = false;
                 return true;
             }
-            if (result==JOptionPane.NO_OPTION)
-            {
+            if (result == JOptionPane.NO_OPTION) {
                 return false;
             }
         }
         return true;
-        
     }
-    
-    /** This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
+
+    /**
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
+     * content of this method is always regenerated by the Form Editor.
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -281,122 +234,110 @@ public class DialogUpdate extends javax.swing.JDialog
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(230, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
-                        .addGap(163, 163, 163))))
+                  .addGroup(layout.createSequentialGroup()
+                                  .addContainerGap()
+                                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                  .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                                                                              .addComponent(jButton1)
+                                                                                                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                                              .addComponent(jButton2)
+                                                                                                              .addContainerGap())
+                                                  .addGroup(layout.createSequentialGroup()
+                                                                  .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                  .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                  .addGroup(layout.createSequentialGroup()
+                                                                  .addComponent(jLabel1)
+                                                                  .addContainerGap(230, Short.MAX_VALUE))
+                                                  .addGroup(layout.createSequentialGroup()
+                                                                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                                  .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                                  .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                  .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                                                                                  .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
+                                                                  .addGap(163, 163, 163))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel3))
-                .addGap(14, 14, 14)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addContainerGap())
+                  .addGroup(layout.createSequentialGroup()
+                                  .addContainerGap()
+                                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                  .addComponent(jLabel2)
+                                                  .addComponent(jLabel4))
+                                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                  .addComponent(jLabel5)
+                                                  .addComponent(jLabel3))
+                                  .addGap(14, 14, 14)
+                                  .addComponent(jLabel1)
+                                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                  .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                  .addComponent(jButton2)
+                                                  .addComponent(jButton1))
+                                  .addContainerGap())
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-321)/2, (screenSize.height-162)/2, 321, 162);
+        setBounds((screenSize.width - 321) / 2, (screenSize.height - 162) / 2, 321, 162);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing
     {//GEN-HEADEREND:event_formWindowClosing
-        if (close())
-        {
+        if (close()) {
             dispose();
         }
     }//GEN-LAST:event_formWindowClosing
-    
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
-        if (close())
-        {
+        if (close()) {
             dispose();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-    
-    private double getUpdateVersion(String filename)
-    {
-       String str=Tools.loadTextFile(new File(filename));
-       
-       try
-       {
-           double cc=Double.valueOf(str);
-           return cc;
-       }catch(Exception ex)
-       {
-           
-       }
-       return 0;
+
+    private double getUpdateVersion(String filename) {
+        String str = Tools.loadTextFile(new File(filename));
+
+        try {
+            double cc = Double.valueOf(str);
+            return cc;
+        } catch (Exception ex) {
+
+        }
+        return 0;
     }
-    
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-        
-        String supdateTXT = parent.elementPath+"/update.txt";
-        
-        if (downloadVersionFile("http://www.myopenlab.de/downloads/update.txt", supdateTXT))
-        {
 
-            double ver=0;
-            try
-            {
-                ver=Double.valueOf(Version.strApplicationVersion);            
-           }catch(Exception ex)
-           {
+        String supdateTXT = parent.elementPath + "/update.txt";
 
-           }
-            double verX=getUpdateVersion(supdateTXT);
+        if (downloadVersionFile("http://www.myopenlab.de/downloads/update.txt", supdateTXT)) {
 
-            if (verX>ver)
-            {        
-                jLabel5.setText(""+verX);
-                download("http://www.myopenlab.de/downloads/c-exp-lab.jar", parent.elementPath+"/update.jar");
+            double ver = 0;
+            try {
+                ver = Double.valueOf(Version.strApplicationVersion);
+            } catch (Exception ex) {
+
+            }
+            double verX = getUpdateVersion(supdateTXT);
+
+            if (verX > ver) {
+                jLabel5.setText("" + verX);
+                download("http://www.myopenlab.de/downloads/c-exp-lab.jar", parent.elementPath + "/update.jar");
                 jButton1.setEnabled(false);
                 jButton2.setEnabled(true);
                 jLabel1.setText(java.util.ResourceBundle.getBundle("VisualLogic/DialogUpdate").getString("Downloading...._(Please_Wait)"));
-            } else
-            {
-                Tools.showMessage(DialogUpdate.this,java.util.ResourceBundle.getBundle("VisualLogic/DialogUpdate").getString("No_Updates_avaible"), JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                Tools.showMessage(DialogUpdate.this, java.util.ResourceBundle.getBundle("VisualLogic/DialogUpdate").getString("No_Updates_avaible"), JOptionPane.INFORMATION_MESSAGE);
 
                 dispose();
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -408,5 +349,4 @@ public class DialogUpdate extends javax.swing.JDialog
     private javax.swing.JLabel jLabel5;
     private javax.swing.JProgressBar jProgressBar1;
     // End of variables declaration//GEN-END:variables
-    
 }

@@ -20,125 +20,91 @@ package VisualLogic.variables;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
+public class VS1DDouble extends VSObject {
+    private double value[] = null;
 
-public class VS1DDouble extends VSObject
-{
-    private double value[]=null;
-    
-    
-    public int getLength()
-    {
+    public int getLength() {
         return value.length;
     }
-    public void setValue(int x, double value)
-    {
-        this.value[x]=value;
+
+    public void setValue(int x, double value) {
+        this.value[x] = value;
         setChanged(true);
     }
-    
-    public double getValue(int x)
-    {
+
+    public double getValue(int x) {
         return value[x];
     }
-    
-    
-    public double[] getValues()
-    {
+
+    public double[] getValues() {
         return value;
     }
-    
-    
-    public VS1DDouble(int size)
-    {
-        value=new double[size];
+
+    public VS1DDouble(int size) {
+        value = new double[size];
     }
-    
-    public void setValue(double value[])
-    {
-        this.value=value;
+
+    public void setValue(double value[]) {
+        this.value = value;
     }
-    public double[] getValue()
-    {
+
+    public double[] getValue() {
         return value;
     }
-    
-    public void setValues(double[] values)
-    {
-        this.value=new double[values.length];
-        
-        for (int i=0;i<values.length;i++)
-        {
-            this.value[i]=values[i];
-        }
-        
-    }
-    
-    public void copyReferenceFrom(Object in)
-    {
-        if (in!=null)
-        {
-            VS1DDouble temp =(VS1DDouble)in;
-            value=temp.value;
-        }
-        else
-        {
-            value=new double[0];
+
+    public void setValues(double[] values) {
+        this.value = new double[values.length];
+
+        for (int i = 0; i < values.length; i++) {
+            this.value[i] = values[i];
         }
     }
-    
-    public void copyValueFrom(Object in)
-    {
-        if (in!=null)
-        {
-            VS1DDouble temp =(VS1DDouble)in;
-            value=temp.value.clone();
+
+    public void copyReferenceFrom(Object in) {
+        if (in != null) {
+            VS1DDouble temp = (VS1DDouble) in;
+            value = temp.value;
+        } else {
+            value = new double[0];
+        }
+    }
+
+    public void copyValueFrom(Object in) {
+        if (in != null) {
+            VS1DDouble temp = (VS1DDouble) in;
+            value = temp.value.clone();
             setChanged(temp.isChanged());
-        }
-        else
-        {
-            value=new double[0] ;
+        } else {
+            value = new double[0];
         }
     }
-    
-    public void loadFromStream(java.io.FileInputStream fis)
-    {
-        try
-        {
+
+    public void loadFromStream(java.io.FileInputStream fis) {
+        try {
             DataInputStream dis = new DataInputStream(fis);
-            
-            int size=dis.readInt();
-            value=new double[size];
-            
-            for (int i=0;i<value.length;i++)
-            {
-                value[i]=dis.readDouble();
+
+            int size = dis.readInt();
+            value = new double[size];
+
+            for (int i = 0; i < value.length; i++) {
+                value[i] = dis.readDouble();
             }
+        } catch (Exception ex) {
+            System.err.println("Fehler in VS1DDouble.loadFromStream() : " + ex.toString());
         }
-        catch(Exception ex)
-        {
-            System.err.println("Fehler in VS1DDouble.loadFromStream() : "+ex.toString());
-        }
-        
     }
-    
-    public void saveToStream(java.io.FileOutputStream fos)
-    {
-        try
-        {
+
+    public void saveToStream(java.io.FileOutputStream fos) {
+        try {
             DataOutputStream dos = new DataOutputStream(fos);
             dos.writeInt(value.length);
-            
-            for (int i=0;i<value.length;i++)
-            {
-                double val=value[i];
+
+            for (int i = 0; i < value.length; i++) {
+                double val = value[i];
                 dos.writeDouble(val);
             }
-        }
-        catch(Exception ex)
-        {
-            System.err.println("Fehler in VS1DDouble.saveToStream() : "+ex.toString());
+        } catch (Exception ex) {
+            System.err.println("Fehler in VS1DDouble.saveToStream() : " + ex.toString());
         }
     }
-    
-    
 }

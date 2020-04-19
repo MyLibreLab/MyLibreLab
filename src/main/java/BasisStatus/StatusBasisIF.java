@@ -16,29 +16,37 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package BasisStatus;
-import java.awt.event.*;
-import java.awt.*;
-import VisualLogic.*;
 
-public interface StatusBasisIF 
-{    
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+
+public interface StatusBasisIF {
     public abstract void mouseDragged(MouseEvent e);
+
     public abstract void mousePressed(MouseEvent e);
-    public abstract void mouseReleased(MouseEvent e);   
-    public abstract void mouseDblClick(MouseEvent e);       
-    public abstract void mouseClicked(MouseEvent e);    
+
+    public abstract void mouseReleased(MouseEvent e);
+
+    public abstract void mouseDblClick(MouseEvent e);
+
+    public abstract void mouseClicked(MouseEvent e);
+
     public abstract void mouseEntered(MouseEvent e);
+
     public abstract void mouseExited(MouseEvent e);
+
     public abstract void mouseMoved(MouseEvent e);
-    
+
     public abstract void processKeyEvent(KeyEvent ke);
-    
+
     // fuer das Draht ziehen ist nur diese Methode notwendig!
-    public abstract void elementPinMouseReleased(MouseEvent e, int elementID,int pin);
-    public abstract void elementPinMousePressed(MouseEvent e, int elementID,int pin);
-    public abstract void elementPinMouseMoved(MouseEvent e, int elementID,int pin);
-    
-    
+    public abstract void elementPinMouseReleased(MouseEvent e, int elementID, int pin);
+
+    public abstract void elementPinMousePressed(MouseEvent e, int elementID, int pin);
+
+    public abstract void elementPinMouseMoved(MouseEvent e, int elementID, int pin);
+
     public abstract void draw(Graphics g);
 }
- 
+

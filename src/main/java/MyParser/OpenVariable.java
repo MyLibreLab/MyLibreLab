@@ -25,9 +25,6 @@ import VisualLogic.variables.VS2DBoolean;
 import VisualLogic.variables.VS2DDouble;
 import VisualLogic.variables.VS2DInteger;
 import VisualLogic.variables.VS2DString;
-import VisualLogic.variables.VSBoolean;
-import VisualLogic.variables.VSDouble;
-import VisualLogic.variables.VSInteger;
 
 public class OpenVariable {
 
@@ -93,7 +90,6 @@ public class OpenVariable {
             case C_INTEGER_2D:
                 dt = "2D_Integer";
                 break;
-
         }
 
         return dt;
@@ -113,23 +109,23 @@ public class OpenVariable {
     }
 
     public void createVariableByDt() {
-        
+
         switch (datatype) {
             case C_DOUBLE:
-                
+
                 value = new Double(0);
                 break;
             case C_STRING:
                 value = "";
                 break;
             case C_BOOLEAN:
-                 value = new Boolean(false);
+                value = new Boolean(false);
                 break;
             case C_INTEGER:
                 value = new Integer(0);
                 break;
             case C_DOUBLE_1D:
-               value = new VS1DDouble(size1);
+                value = new VS1DDouble(size1);
                 break;
             case C_STRING_1D:
                 value = new VS1DString(size1);
@@ -138,21 +134,20 @@ public class OpenVariable {
                 value = new VS1DBoolean(size1);
                 break;
             case C_INTEGER_1D:
-               value = new VS1DInteger(size1);
+                value = new VS1DInteger(size1);
                 break;
             case C_DOUBLE_2D:
-               value = new VS2DDouble(size1,size2);
+                value = new VS2DDouble(size1, size2);
                 break;
             case C_STRING_2D:
-              value = new VS2DString(size1,size2);
+                value = new VS2DString(size1, size2);
                 break;
             case C_BOOLEAN_2D:
-               value = new VS2DBoolean(size1,size2);
+                value = new VS2DBoolean(size1, size2);
                 break;
             case C_INTEGER_2D:
-                value = new VS2DInteger(size1,size2);
+                value = new VS2DInteger(size1, size2);
                 break;
-
         }
     }
 

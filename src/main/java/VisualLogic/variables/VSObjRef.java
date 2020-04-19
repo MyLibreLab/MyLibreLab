@@ -16,117 +16,92 @@
  */
 package VisualLogic.variables;
 
-/** 
- *
+/**
  * @author velas
  */
-public class VSObjRef extends VSObject{
-    
-private Object Obj;
+public class VSObjRef extends VSObject {
 
-     @Override
-    public String toString()
-    {
+    private Object Obj;
+
+    @Override
+    public String toString() {
         return Obj.toString();
     }
-    public void setValue(Object ObjIn)
-    {
+
+    public void setValue(Object ObjIn) {
         {
-            this.Obj=ObjIn;
+            this.Obj = ObjIn;
             setChanged(true);
         }
     }
-    public Object getValue()
-    {
+
+    public Object getValue() {
         return this.Obj;
     }
-    public VSObjRef(Object ObjInput)
-    {
-        this.Obj=ObjInput;
-    }
-    public VSObjRef()
-    {
-        this.Obj=new Object();
-    }
-    
 
-    
+    public VSObjRef(Object ObjInput) {
+        this.Obj = ObjInput;
+    }
+
+    public VSObjRef() {
+        this.Obj = new Object();
+    }
+
     @Override
-    public void copyValueFrom(Object in)
-    {
-        if (in!=null)
-        {
-            this.Obj=in;
+    public void copyValueFrom(Object in) {
+        if (in != null) {
+            this.Obj = in;
             setChanged(true);
         }
-       
     }
+
     @Override
-    public void copyReferenceFrom(Object in)
-    {
-      copyValueFrom(in);
-    }    
-        
-    
+    public void copyReferenceFrom(Object in) {
+        copyValueFrom(in);
+    }
+
     @Override
-    public boolean equals(VSObject objIn)
-    {
-        if (this.Obj.equals(objIn))  return true;
+    public boolean equals(VSObject objIn) {
+        if (this.Obj.equals(objIn)) return true;
         else return false;
     }
-    
+
     @Override
-    public boolean isBigger(VSObject obj)
-    {
-         return false;
+    public boolean isBigger(VSObject obj) {
+        return false;
     }
-    
+
     @Override
-    public boolean isSmaller(VSObject obj)
-    {
-         return false;
+    public boolean isSmaller(VSObject obj) {
+        return false;
     }
-    
-    
+
     @Override
-    public void loadFromStream(java.io.FileInputStream fis)
-    {
-        try
-        {
+    public void loadFromStream(java.io.FileInputStream fis) {
+        try {
             java.io.DataInputStream dis = new java.io.DataInputStream(fis);
-            
-            this.Obj=dis.readUTF();
+
+            this.Obj = dis.readUTF();
+        } catch (Exception ex) {
+
         }
-        catch(Exception ex)
-        {
-            
-        }
-        
     }
-    
+
     @Override
-    public void saveToStream(java.io.FileOutputStream fos)
-    {
-        try
-        {
+    public void saveToStream(java.io.FileOutputStream fos) {
+        try {
             java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
             dos.writeUTF(this.Obj.toString());
-            
-        }
-        catch(Exception ex)
-        {
-           System.err.println("Fehler in VSDouble.saveToStream() : "+ex.toString());
+        } catch (Exception ex) {
+            System.err.println("Fehler in VSDouble.saveToStream() : " + ex.toString());
         }
     }
-    public void loadFromXML(String name,org.w3c.dom.Element nodeElement)
-    {
-        this.Obj=nodeElement.getAttribute("VSString"+name);
+
+    public void loadFromXML(String name, org.w3c.dom.Element nodeElement) {
+        this.Obj = nodeElement.getAttribute("VSString" + name);
     }
-    
-    public void saveToXML(String name, org.w3c.dom.Element nodeElement)
-    {
-        nodeElement.setAttribute("VSString"+name, this.Obj.toString());
+
+    public void saveToXML(String name, org.w3c.dom.Element nodeElement) {
+        nodeElement.setAttribute("VSString" + name, this.Obj.toString());
     }
-    
-    
 }

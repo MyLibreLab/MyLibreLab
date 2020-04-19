@@ -17,8 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package projectfolder;
 
-import VisualLogic.Tools;
-import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -41,7 +39,7 @@ public class MyNode extends DefaultMutableTreeNode {
     }
 
     public String toString() {
-        
+
         return projectPath + relativePath;
     }
 }

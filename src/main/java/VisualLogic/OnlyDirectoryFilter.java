@@ -18,29 +18,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package VisualLogic;
 
 import java.io.File;
+
 import javax.swing.filechooser.FileFilter;
 
 /**
- *
  * @author Carmelo
  */
-public class OnlyDirectoryFilter extends FileFilter
-{
+public class OnlyDirectoryFilter extends FileFilter {
 
     @Override
-    public boolean accept(File f)
-    {
-        if (f.isDirectory())
-        {
+    public boolean accept(File f) {
+        if (f.isDirectory()) {
             return true;
         }
         return f.getName().toLowerCase().endsWith(".myopenlab");
-
     }
 
     @Override
-    public String getDescription()
-    {
+    public String getDescription() {
         return "";
     }
 }

@@ -23,77 +23,64 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 /**
- * 
  * @author Carmelo Salafia
  */
-public class Main 
-{
-    
-    /** Creates a new instance of Main */
-    public Main() 
-    {
+public class Main {
+
+    /**
+     * Creates a new instance of Main
+     */
+    public Main() {
     }
-    
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) 
-    {
-       FileSystemOutput fso= new FileSystemOutput("c:/test.dat");
-              
-       FileOutputStream fos=fso.addItem("Homer");
-             
-       try
-       {
-         fos.write(255);
-         fos.write(216);
-         fos.write(2);
-         fos.write(31);
-       } catch(Exception ex)
-       {
-           System.out.println(ex);
-       }
-       fso.postItem();
+    public static void main(String[] args) {
+        FileSystemOutput fso = new FileSystemOutput("c:/test.dat");
 
-       fos=fso.addItem("Simpson");
-       try
-       {
-         fos.write(21);
-         fos.write(239);
-       } catch(Exception ex)
-       {
-           System.out.println(ex);
-       }
-       fso.postItem();
-       
-       fso.close();
-       
-       
-       FileSystemInput fsIn = new FileSystemInput("c:/test.dat");
-       
-       for (int i=0;i<fsIn.indexListSize();i++)
-       {
-         SFileDescriptor dt=fsIn.getFileDescriptor(i);
-         
-         System.out.println("FName ="+dt.filename);
-         System.out.println("Pos   ="+dt.position);
-         System.out.println("Size   ="+dt.size);
-       }
-       
-       FileInputStream fis= fsIn.gotoItem(0);
-       
+        FileOutputStream fos = fso.addItem("Homer");
 
-       fis= fsIn.gotoItem(1);
-       
-       try
-       {
-         System.out.println("Value1="+fis.read());
-         System.out.println("Value2="+fis.read());
-       } catch(Exception ex)
-       {
-           
-       }
-       
+        try {
+            fos.write(255);
+            fos.write(216);
+            fos.write(2);
+            fos.write(31);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        fso.postItem();
+
+        fos = fso.addItem("Simpson");
+        try {
+            fos.write(21);
+            fos.write(239);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        fso.postItem();
+
+        fso.close();
+
+        FileSystemInput fsIn = new FileSystemInput("c:/test.dat");
+
+        for (int i = 0; i < fsIn.indexListSize(); i++) {
+            SFileDescriptor dt = fsIn.getFileDescriptor(i);
+
+            System.out.println("FName =" + dt.filename);
+            System.out.println("Pos   =" + dt.position);
+            System.out.println("Size   =" + dt.size);
+        }
+
+        FileInputStream fis = fsIn.gotoItem(0);
+
+        fis = fsIn.gotoItem(1);
+
+        try {
+            System.out.println("Value1=" + fis.read());
+            System.out.println("Value2=" + fis.read());
+        } catch (Exception ex) {
+
+        }
     }
-    
 }

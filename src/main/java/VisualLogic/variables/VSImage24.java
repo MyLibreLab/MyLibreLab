@@ -19,93 +19,77 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic.variables;
 
-
 /**
- *
  * @author Homer
  */
-public class VSImage24  extends VSObject
-{    
-    private int value[]=null;   
-    private int width=0;
-    private int height=0;
-        
-    public VSImage24(int width, int height) 
-    {        
-        this.width=width;
-        this.height=height;
-                
-        value=new int[width*height];
+public class VSImage24 extends VSObject {
+    private int value[] = null;
+    private int width = 0;
+    private int height = 0;
+
+    public VSImage24(int width, int height) {
+        this.width = width;
+        this.height = height;
+
+        value = new int[width * height];
     }
-    
-    public void resize(int width, int height) 
-    {        
-        this.width=width;
-        this.height=height;
-        
-        value=new int[width*height];
-    }    
-    
-    public int[] getPixels()
-    {
+
+    public void resize(int width, int height) {
+        this.width = width;
+        this.height = height;
+
+        value = new int[width * height];
+    }
+
+    public int[] getPixels() {
         return value;
     }
-    public void setPixels(int[] pixels, int w, int h)
-    {
-        value=pixels;
-        width=w;
-        height=h;        
+
+    public void setPixels(int[] pixels, int w, int h) {
+        value = pixels;
+        width = w;
+        height = h;
     }
-    public int getWidth()
-    {
+
+    public int getWidth() {
         return width;
     }
-    public int getHeight()
-    {
+
+    public int getHeight() {
         return height;
     }
-    
-    
-    
-    public int getLength()
-    {
+
+    public int getLength() {
         return value.length;
-    }    
-    
-    public void setValue(int x, int value)
-    {
-        this.value[x]=value;
+    }
+
+    public void setValue(int x, int value) {
+        this.value[x] = value;
         setChanged(true);
     }
-    
-    public int getValue(int x)
-    {
+
+    public int getValue(int x) {
         return value[x];
     }
 
-    public void copyReferenceFrom(Object in)
-    {
-      copyValueFrom(in);
-    }    
-        
-    
-    public void copyValueFrom(Object in)
-    {
-      if (in!=null)
-      {
-        VSImage24 temp =(VSImage24)in;
-        value=new int[temp.getPixels().length];
-        
-        for (int i=0;i<temp.getPixels().length;i++) value[i]=temp.getPixels()[i];
-        
-        width=temp.getWidth();
-        height=temp.getHeight();
-        setChanged(temp.isChanged());
-      } else 
-      {
-          value=new int[0];
-          width=0;
-          height=0;
-      }
-    }               
+    public void copyReferenceFrom(Object in) {
+        copyValueFrom(in);
+    }
+
+    public void copyValueFrom(Object in) {
+        if (in != null) {
+            VSImage24 temp = (VSImage24) in;
+            value = new int[temp.getPixels().length];
+
+            for (int i = 0; i < temp.getPixels().length; i++) value[i] = temp.getPixels()[i];
+
+            width = temp.getWidth();
+            height = temp.getHeight();
+            setChanged(temp.isChanged());
+        } else {
+            value = new int[0];
+            width = 0;
+            height = 0;
+        }
+    }
 }

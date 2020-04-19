@@ -5,7 +5,6 @@
  */
 package de.myopenlab.update;
 
-import VisualLogic.Settings;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,8 +13,9 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import VisualLogic.Settings;
+
 /**
- *
  * @author salafica
  */
 public class Tools2 {
@@ -62,6 +62,5 @@ public class Tools2 {
         FileOutputStream out = new FileOutputStream(destfilename);
 
         copy(in, out, 1024);
-
     }
 }

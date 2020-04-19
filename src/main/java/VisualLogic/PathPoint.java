@@ -20,13 +20,12 @@ package VisualLogic;
 
 import java.awt.Point;
 
-public class PathPoint
-{
-    public Point p1 = new Point(0,0);
-    public Point p2 = new Point(0,0);
-    public Point p = new Point(0,0);
-    
-    public boolean synchron=true;
-    public String commando="";
+public class PathPoint {
+    public Point p1 = new Point(0, 0);
+    public Point p2 = new Point(0, 0);
+    public Point p = new Point(0, 0);
+
+    public boolean synchron = true;
+    public String commando = "";
 }
 

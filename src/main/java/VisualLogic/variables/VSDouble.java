@@ -18,110 +18,90 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic.variables;
 
-import java.io.IOException;
+public class VSDouble extends VSObject {
+    private double value;
 
-public class VSDouble  extends VSObject
-{
-    private double value;    
-    
-    public VSDouble() { }
-    public VSDouble(double initValue) { value=initValue; }
-    
-    public String toString()
-    {
-        return ""+value;
+    public VSDouble() {
     }
-    
-    public void setValue(double value)
-    {
+
+    public VSDouble(double initValue) {
+        value = initValue;
+    }
+
+    public String toString() {
+        return "" + value;
+    }
+
+    public void setValue(double value) {
         //if (this.value!=value)
         {
-          this.value=value;
-          setChanged(true);
-        }    
+            this.value = value;
+            setChanged(true);
+        }
     }
-    
-    public double getValue()
-    {
+
+    public double getValue() {
         return value;
-    }    
-    public void copyReferenceFrom(Object in)
-    {
-      copyValueFrom(in);
-    }    
-    
-    public void copyValueFrom(Object in)
-    {
-        if (in!=null)
-        {
-          VSDouble temp =(VSDouble)in;
-          value=temp.value;      
-          setChanged(temp.isChanged());
-        } else
-        {
-            value=0.0;
-        }
-    }        
-    
-    public boolean equals(VSObject obj)
-    {
-        VSDouble temp =(VSDouble)obj;
-        if (temp.value==value)  return true; else return false;        
-    }
-        
-    public boolean isBigger(VSObject obj)
-    {
-        VSDouble temp =(VSDouble)obj;
-        if (value>temp.value)  return true; else return false;
     }
 
-    public boolean isSmaller(VSObject obj)
-    {
-        VSDouble temp =(VSDouble)obj;
-        if (value<temp.value)  return true; else return false;
-    }        
-    
-    
-    public void loadFromStream(java.io.FileInputStream fis) 
-    {
-        try
-        {
-        java.io.DataInputStream dis = new java.io.DataInputStream(fis);                        
-        value=dis.readDouble();                                   
-        } catch(Exception ex)
-        {
-            
-        }
-        
+    public void copyReferenceFrom(Object in) {
+        copyValueFrom(in);
     }
-    
-    public void saveToStream(java.io.FileOutputStream fos)
-    {
-        try
-        {
-            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);                
+
+    public void copyValueFrom(Object in) {
+        if (in != null) {
+            VSDouble temp = (VSDouble) in;
+            value = temp.value;
+            setChanged(temp.isChanged());
+        } else {
+            value = 0.0;
+        }
+    }
+
+    public boolean equals(VSObject obj) {
+        VSDouble temp = (VSDouble) obj;
+        if (temp.value == value) return true;
+        else return false;
+    }
+
+    public boolean isBigger(VSObject obj) {
+        VSDouble temp = (VSDouble) obj;
+        if (value > temp.value) return true;
+        else return false;
+    }
+
+    public boolean isSmaller(VSObject obj) {
+        VSDouble temp = (VSDouble) obj;
+        if (value < temp.value) return true;
+        else return false;
+    }
+
+    public void loadFromStream(java.io.FileInputStream fis) {
+        try {
+            java.io.DataInputStream dis = new java.io.DataInputStream(fis);
+            value = dis.readDouble();
+        } catch (Exception ex) {
+
+        }
+    }
+
+    public void saveToStream(java.io.FileOutputStream fos) {
+        try {
+            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
             dos.writeDouble(value);
-        
-        } catch(Exception ex)
-        {
-           System.err.println("Fehler in VSDouble.saveToStream() : "+ex.toString());
-        }                        
-    }    
-        
-    
-   public void loadFromXML(String name,org.w3c.dom.Element nodeElement)
-    {
-       try
-       {
-        value=Double.parseDouble(nodeElement.getAttribute("VSDouble"+name));               
-       } catch(Exception ex)
-       {           
-       }
+        } catch (Exception ex) {
+            System.err.println("Fehler in VSDouble.saveToStream() : " + ex.toString());
+        }
     }
 
-    public void saveToXML(String name, org.w3c.dom.Element nodeElement)    
-    {        
-        nodeElement.setAttribute("VSDouble"+name, ""+value);
-        
-    }        
+    public void loadFromXML(String name, org.w3c.dom.Element nodeElement) {
+        try {
+            value = Double.parseDouble(nodeElement.getAttribute("VSDouble" + name));
+        } catch (Exception ex) {
+        }
+    }
+
+    public void saveToXML(String name, org.w3c.dom.Element nodeElement) {
+        nodeElement.setAttribute("VSDouble" + name, "" + value);
+    }
 }

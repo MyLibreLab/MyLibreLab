@@ -18,31 +18,45 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 package VisualLogic;
-import java.awt.event.*;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 /**
- *
  * @author Homer
  */
-public interface VMObjectIF 
-{
-    public abstract void elementPinMousePressed(MouseEvent e, int elementID,int pin);
-    public abstract void elementPinMouseReleased(MouseEvent e, int elementID,int pin);
-    public abstract void elementPinMouseClicked(MouseEvent e, int elementID,int pin);
-    public abstract void elementPinMouseEntered(MouseEvent e, int elementID,int pin);
-    public abstract void elementPinMouseExited(MouseEvent e, int elementID,int pin);    
-    public abstract void elementPinMouseDragged(MouseEvent e, int elementID,int pin);
-    public abstract void elementPinMouseMoved(MouseEvent e, int elementID,int pin);
-    
+public interface VMObjectIF {
+    public abstract void elementPinMousePressed(MouseEvent e, int elementID, int pin);
+
+    public abstract void elementPinMouseReleased(MouseEvent e, int elementID, int pin);
+
+    public abstract void elementPinMouseClicked(MouseEvent e, int elementID, int pin);
+
+    public abstract void elementPinMouseEntered(MouseEvent e, int elementID, int pin);
+
+    public abstract void elementPinMouseExited(MouseEvent e, int elementID, int pin);
+
+    public abstract void elementPinMouseDragged(MouseEvent e, int elementID, int pin);
+
+    public abstract void elementPinMouseMoved(MouseEvent e, int elementID, int pin);
+
     public abstract void elementMouseClicked(MouseEvent e);
-    public abstract void elementMouseDblClick(MouseEvent e);    
+
+    public abstract void elementMouseDblClick(MouseEvent e);
+
     public abstract void elementMouseEntered(MouseEvent e);
+
     public abstract void elementMouseExited(MouseEvent e);
+
     public abstract void elementMouseReleased(MouseEvent e);
-    public abstract void elementMousePressed(MouseEvent e) ;
-    public abstract void elementMouseDragged(MouseEvent e); 
-    public abstract void elementMouseMoved(MouseEvent e) ;
+
+    public abstract void elementMousePressed(MouseEvent e);
+
+    public abstract void elementMouseDragged(MouseEvent e);
+
+    public abstract void elementMouseMoved(MouseEvent e);
+
     public abstract void elementProcessKeyEvent(KeyEvent ke);
-        
+
     public abstract void reorderWireFrames();
 }

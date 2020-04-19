@@ -11,14 +11,13 @@ public class TestItem {
     public String caption_de = "";
     public String caption_en = "";
     public String caption_es = "";
-        
-    public TestItem(String name, String type, String caption_de, String caption_en,String caption_es){
-        this.name=name;
-        this.type=type;
-        
-        this.caption_de=caption_de;
-        this.caption_en=caption_en;
-        this.caption_es=caption_es;
-    
+
+    public TestItem(String name, String type, String caption_de, String caption_en, String caption_es) {
+        this.name = name;
+        this.type = type;
+
+        this.caption_de = caption_de;
+        this.caption_en = caption_en;
+        this.caption_es = caption_es;
     }
 }

@@ -20,17 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package SimpleFileSystem;
 
 /**
- *
- * @author Carmelo Salafia
- * SFileDescriptor beschreibt
- * 1. den Datensatz-Name
- * 2. die Datensatz-Position innerhalb einer Datei
- * 3. die Datensatz-Groesse in der Datei
+ * @author Carmelo Salafia SFileDescriptor beschreibt 1. den Datensatz-Name 2. die Datensatz-Position innerhalb einer
+ * Datei 3. die Datensatz-Groesse in der Datei
  */
 
-public class SFileDescriptor 
-{    
+public class SFileDescriptor {
     public String filename;
     public long position;
-    public long size;        
+    public long size;
 }

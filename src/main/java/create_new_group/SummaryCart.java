@@ -10,21 +10,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement()
 public class SummaryCart {
-    
-  private String caption="";
-  private String caption_en="";
-  private String caption_es="";
-  private String categorie="";
-  private String author="";
-  private String email="";
-  private String web="";
-  private String version="";
-  private String date="";
-  private String short_description="";
-  private String dest_path="";
-  private String type="";  
 
-    @XmlElement( name = "caption" )
+    private String caption = "";
+    private String caption_en = "";
+    private String caption_es = "";
+    private String categorie = "";
+    private String author = "";
+    private String email = "";
+    private String web = "";
+    private String version = "";
+    private String date = "";
+    private String short_description = "";
+    private String dest_path = "";
+    private String type = "";
+
+    @XmlElement(name = "caption")
     public String getCaption() {
         return caption;
     }

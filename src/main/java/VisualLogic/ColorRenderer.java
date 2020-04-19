@@ -19,43 +19,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic;
 
-import javax.swing.DefaultListCellRenderer;
 import java.awt.Color;
-import javax.swing.JList;
 import java.awt.Component;
 
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JList;
 
+public class ColorRenderer extends DefaultListCellRenderer {
 
-public class ColorRenderer extends DefaultListCellRenderer
-{
-    
-    /** Creates a new instance of ColorRenderer */
-    public ColorRenderer()
-    {
-        
+    /**
+     * Creates a new instance of ColorRenderer
+     */
+    public ColorRenderer() {
+
     }
-    
+
     public Component getListCellRendererComponent(JList list,
-            Object value,
-            int index,
-            boolean isSelected,
-            boolean cellHasFocus)
-    {
-        
-        super.getListCellRendererComponent(list,value,index,isSelected,cellHasFocus);
-        
-        if (value instanceof ColoredListCell)
-        {
-            ColoredListCell cell= (ColoredListCell)value;
-           
-            
-           setForeground(cell.color);
-           setBackground(new Color(200,200,200));
-           setText(cell.text);
-        }        
-        
+                                                  Object value,
+                                                  int index,
+                                                  boolean isSelected,
+                                                  boolean cellHasFocus) {
+
+        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+        if (value instanceof ColoredListCell) {
+            ColoredListCell cell = (ColoredListCell) value;
+
+            setForeground(cell.color);
+            setBackground(new Color(200, 200, 200));
+            setText(cell.text);
+        }
+
         return this;
     }
-    
-    
 }

@@ -17,230 +17,176 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package BasisStatus;
 
-import VisualLogic.*;
+import java.awt.Cursor;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+
+import VisualLogic.Draht;
 import VisualLogic.Element;
-import java.awt.event.*;
-import java.awt.*;
+import VisualLogic.SelectionPane;
+import VisualLogic.VMObject;
 
-
-public class StatusRun extends Object implements StatusBasisIF
-{
+public class StatusRun extends Object implements StatusBasisIF {
     private VMObject basis;
-    
-    public StatusRun(VMObject basis) 
-    {
-       this.basis=basis; 
+
+    public StatusRun(VMObject basis) {
+        this.basis = basis;
     }
-    
-    public void start()
-    {                                
-        for (int i=0;i<basis.getElementCount();i++)
-        {
-            Element element=basis.getElement(i);
-                    
+
+    public void start() {
+        for (int i = 0; i < basis.getElementCount(); i++) {
+            Element element = basis.getElement(i);
+
             element.setVisible(element.isVisibleWhenRun());
             element.layeredPane.start();
-            
-            if (element.classRef!=null)
-            {
-                try
-                {
-                  element.classRef.xonStart();                      
-                } catch(Exception ex)  
-                {
-                    //basis.owner.stop();                    
-                    String err="Error in Method xonStart() : \""+ex+"\" in Element : \""+element.getInternName()+"\". Application interrupted!";
+
+            if (element.classRef != null) {
+                try {
+                    element.classRef.xonStart();
+                } catch (Exception ex) {
+                    //basis.owner.stop();
+                    String err = "Error in Method xonStart() : \"" + ex + "\" in Element : \"" + element.getInternName() + "\". Application interrupted!";
                     basis.owner.showErrorMessage(err);
-                    
-                    if (basis.owner.frameCircuit!=null)
-                    {
+
+                    if (basis.owner.frameCircuit != null) {
                         basis.owner.frameCircuit.setVisible(true);
-                    }                    
-                    
+                    }
                 }
-                element.oldBorderVisibility=element.borderVisibility;
+                element.oldBorderVisibility = element.borderVisibility;
                 element.setBorderVisibility(false);
             }
         }
-        
+
         //basis.processAllElements();
-        
+
     }
-    
-    
-    public void stop()
-    {
-        for (int i=0;i<basis.getElementCount();i++)
-        {
-            Element element=basis.getElement(i);
+
+    public void stop() {
+        for (int i = 0; i < basis.getElementCount(); i++) {
+            Element element = basis.getElement(i);
 
             element.layeredPane.stop();
             element.setVisible(true);
-            
-            if (element.classRef!=null)
-            {                                
-                try
-                {
-                  element.classRef.xonStop();
-                  element.mouseEventsTo=null;
-                } catch(Exception ex)  
-                {
+
+            if (element.classRef != null) {
+                try {
+                    element.classRef.xonStop();
+                    element.mouseEventsTo = null;
+                } catch (Exception ex) {
                     basis.owner.stop();
-                    basis.owner.showErrorMessage("Error in Method xonStop() :\n"+ex+"\n im Element : "+element.getName()+"\napplication interrupted abgebrochen!");
+                    basis.owner.showErrorMessage("Error in Method xonStop() :\n" + ex + "\n im Element : " + element.getName() + "\napplication interrupted abgebrochen!");
                 }
-                
-                
+
                 element.setBorderVisibility(element.oldBorderVisibility);
-            }            
-                        
-        }    
-        
-        for (int i=0;i<basis.getDrahtCount();i++)
-        {
-            Draht draht = basis.getDraht(i);
-            draht.setOff();                
+            }
         }
-        basis.repaint();        
+
+        for (int i = 0; i < basis.getDrahtCount(); i++) {
+            Draht draht = basis.getDraht(i);
+            draht.setOff();
+        }
+        basis.repaint();
     }
-    
-    public void processKeyEvent(KeyEvent ke)
-    {
-        
+
+    public void processKeyEvent(KeyEvent ke) {
+
     }
-    
-    public void mouseDblClick(MouseEvent e)
-    {
-    
+
+    public void mouseDblClick(MouseEvent e) {
+
     }
-    
-    
-    public void mouseDragged(MouseEvent e)
-    {
-        if (e.getSource() instanceof SelectionPane)
-        {
-            SelectionPane pane = (SelectionPane)e.getSource();
-            Element element=pane.getElement();
-            
-            try
-            {               
-                
-                if (element.mouseEventsTo==null)
-                {
+
+    public void mouseDragged(MouseEvent e) {
+        if (e.getSource() instanceof SelectionPane) {
+            SelectionPane pane = (SelectionPane) e.getSource();
+            Element element = pane.getElement();
+
+            try {
+
+                if (element.mouseEventsTo == null) {
                     element.classRef.xonMouseDragged(e);
-                } else
-                {
+                } else {
                     element.mouseEventsTo.xonMouseDragged(e);
                 }
-                
-            } catch (Exception ex)
-            {
-                
-            }
-        } else
-        {        
-        }
+            } catch (Exception ex) {
 
+            }
+        } else {
+        }
     }
-    
-    public synchronized void mousePressed(MouseEvent e)
-    {
-        if (e.getSource() instanceof SelectionPane)
-        {
-            SelectionPane pane = (SelectionPane)e.getSource();
-            Element element=pane.getElement();
-            
-            if (element.mouseEventsTo==null)
-            {
-                element.classRef.xonMousePressed(e);                                  
-            } else
-            {
+
+    public synchronized void mousePressed(MouseEvent e) {
+        if (e.getSource() instanceof SelectionPane) {
+            SelectionPane pane = (SelectionPane) e.getSource();
+            Element element = pane.getElement();
+
+            if (element.mouseEventsTo == null) {
+                element.classRef.xonMousePressed(e);
+            } else {
                 element.mouseEventsTo.xonMousePressed(e);
             }
-        } else
-        {        
-        }                
-    }
-    
-    public  void elementPinMousePressed(MouseEvent e, int elementID,int pin)
-    {
-    }    
-    
-    public  void elementPinMouseReleased(MouseEvent e, int elementID,int pin)
-    {
-        
-    }
-    public void elementPinMouseMoved(MouseEvent e, int elementID,int pin)
-    {
-        
-    }
-    
-    
-    public synchronized void mouseReleased(MouseEvent e)
-    {        
-        if (e.getSource() instanceof SelectionPane)
-        {
-            SelectionPane pane = (SelectionPane)e.getSource();
-            Element element=pane.getElement();
-            
-            
-            if (element.classRef!=null)  
-            {
-                if (element.mouseEventsTo==null)
-                {
-                    element.classRef.xonMouseReleased(e);
-                } else
-                {
-                    element.mouseEventsTo.xonMouseReleased(e);
-                }                                
-            }
-                                   
-        } else
-        {        
+        } else {
         }
-        
     }
 
-    public void mouseClicked(MouseEvent e)   
-    {
-        
+    public void elementPinMousePressed(MouseEvent e, int elementID, int pin) {
     }
-    
-    public void mouseEntered(MouseEvent e)
-    {
-        
+
+    public void elementPinMouseReleased(MouseEvent e, int elementID, int pin) {
+
     }
-    
-    public void mouseExited(MouseEvent e)
-    {
-        
+
+    public void elementPinMouseMoved(MouseEvent e, int elementID, int pin) {
+
     }
-    
-    public void mouseMoved(MouseEvent e)
-    {
-        
-        if (e.getSource() instanceof SelectionPane)
-        {
-            SelectionPane pane = (SelectionPane)e.getSource();
-            Element element=pane.getElement();
-            if (element.classRef!=null)  
-            {
-                if (element.mouseEventsTo==null)
-                {
+
+    public synchronized void mouseReleased(MouseEvent e) {
+        if (e.getSource() instanceof SelectionPane) {
+            SelectionPane pane = (SelectionPane) e.getSource();
+            Element element = pane.getElement();
+
+            if (element.classRef != null) {
+                if (element.mouseEventsTo == null) {
+                    element.classRef.xonMouseReleased(e);
+                } else {
+                    element.mouseEventsTo.xonMouseReleased(e);
+                }
+            }
+        } else {
+        }
+    }
+
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    public void mouseMoved(MouseEvent e) {
+
+        if (e.getSource() instanceof SelectionPane) {
+            SelectionPane pane = (SelectionPane) e.getSource();
+            Element element = pane.getElement();
+            if (element.classRef != null) {
+                if (element.mouseEventsTo == null) {
                     element.classRef.xonMouseMoved(e);
-                } else
-                {
+                } else {
                     element.mouseEventsTo.xonMouseMoved(e);
                 }
             }
-        } else
-        {                    
+        } else {
             basis.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         }
-               
     }
-    public void draw(java.awt.Graphics g)
-    {
-        
+
+    public void draw(java.awt.Graphics g) {
+
     }
 }
- 
+

@@ -18,111 +18,94 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic;
 
-import SimpleFileSystem.FileSystemOutput;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Point;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
 /**
- *
  * @author Homer
  */
-public class PolyPoint extends VisualObject
-{
+public class PolyPoint extends VisualObject {
     public int oldX;
-    public int oldY;    
+    public int oldY;
     private int pWidth;
-    private boolean selected;    
+    private boolean selected;
     private VMObject basis;
-    
-    public boolean deleted=false;
-        
-    
-    public void setSelected(boolean value)
-    {
-        selected=value;        
+
+    public boolean deleted = false;
+
+    public void setSelected(boolean value) {
+        selected = value;
     }
-    public boolean isSelected(){return selected;}
-    
-    /** Creates a new instance of PolyPoint */
-    public PolyPoint(VMObject basis) 
-    {                
-        this.basis=basis;
-        pWidth=6;   
-        setSize(pWidth,pWidth);
+
+    public boolean isSelected() {
+        return selected;
     }
-    
-    
-    public void loadFromStream(DataInputStream stream)
-    {
-        try
-        {
-          int x= stream.readInt();
-          int y= stream.readInt();
-          setLocation(x,y);        
-        } catch(Exception ex)
-        {
-          basis.owner.showErrorMessage(""+ex.toString());
+
+    /**
+     * Creates a new instance of PolyPoint
+     */
+    public PolyPoint(VMObject basis) {
+        this.basis = basis;
+        pWidth = 6;
+        setSize(pWidth, pWidth);
+    }
+
+    public void loadFromStream(DataInputStream stream) {
+        try {
+            int x = stream.readInt();
+            int y = stream.readInt();
+            setLocation(x, y);
+        } catch (Exception ex) {
+            basis.owner.showErrorMessage("" + ex.toString());
         }
     }
-        
-    public void saveToStream(DataOutputStream dos)
-    {
-       try
-       {                      
-           dos.writeInt(getX());
-           dos.writeInt(getY());
-           
-        } catch (Exception ex)
-       {
-           basis.owner.showErrorMessage(""+ex.toString());
-       }
-    }
-    
-    public void saveToXML(org.w3c.dom.Element node)
-    {
-       node.setAttribute("x", ""+getX());
-       node.setAttribute("y", ""+getY());              
+
+    public void saveToStream(DataOutputStream dos) {
+        try {
+            dos.writeInt(getX());
+            dos.writeInt(getY());
+        } catch (Exception ex) {
+            basis.owner.showErrorMessage("" + ex.toString());
+        }
     }
 
-    
-    public void loadFromXML(org.w3c.dom.Element node)
-    {                
-        int x= Integer.parseInt(node.getAttribute("x"));
-        int y= Integer.parseInt(node.getAttribute("y"));        
-        setLocation(x,y);
+    public void saveToXML(org.w3c.dom.Element node) {
+        node.setAttribute("x", "" + getX());
+        node.setAttribute("y", "" + getY());
     }
-    
-    public void setLocation(int x, int y)
-    {
-        super.setLocation(x,y);
-    }
-    
 
-    public void setLocation(Point p)
-    {
-        setLocation(p.y,p.y);        
+    public void loadFromXML(org.w3c.dom.Element node) {
+        int x = Integer.parseInt(node.getAttribute("x"));
+        int y = Integer.parseInt(node.getAttribute("y"));
+        setLocation(x, y);
     }
-    
-    
-    public void paint(Graphics2D g)
-    {
-        int pw=pWidth;
-        int pw2 = pw/2;
-        
-        if (selected) g.setColor(Color.red); else g.setColor(Color.black);
-        
-        int x=getX();
-        int y=getY();
-        int w=getWidth();
-        int h=getHeight();
+
+    public void setLocation(int x, int y) {
+        super.setLocation(x, y);
+    }
+
+    public void setLocation(Point p) {
+        setLocation(p.y, p.y);
+    }
+
+    public void paint(Graphics2D g) {
+        int pw = pWidth;
+        int pw2 = pw / 2;
+
+        if (selected) g.setColor(Color.red);
+        else g.setColor(Color.black);
+
+        int x = getX();
+        int y = getY();
+        int w = getWidth();
+        int h = getHeight();
         //if (!(basis.getStatus() instanceof VisualLogic.basisStatus.StatusRun))
         {
             // zeichne den PolyPoint
             //g.fillRect(x-pw2,y-pw2, w,h);
         }
     }
-
-    
-    
 }

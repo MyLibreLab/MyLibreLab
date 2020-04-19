@@ -20,111 +20,81 @@ package VisualLogic.variables;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
+public class VS1DInteger extends VSObject {
+    private int value[] = null;
 
-public class VS1DInteger extends VSObject
-{
-    private int value[]=null;
-    
-    
-    public int getLength()
-    {
+    public int getLength() {
         return value.length;
     }
-    public void setValue(int x, int value)
-    {
-        this.value[x]=value;
+
+    public void setValue(int x, int value) {
+        this.value[x] = value;
         setChanged(true);
     }
-    
-    public int getValue(int x)
-    {
+
+    public int getValue(int x) {
         return value[x];
     }
-    
-    public int[] getValues()
-    {
+
+    public int[] getValues() {
         return value;
     }
-    
-    public void setValues(int[] values)
-    {
-        this.value=new int[values.length];
-        
-        for (int i=0;i<values.length;i++)
-        {
-            this.value[i]=values[i];
-        }
-        
-    }
-    
-    
-    public VS1DInteger(int size)
-    {
-        value=new int[size];
-    }
-    
-    public void copyReferenceFrom(Object in)
-    {
-        if (in!=null)
-        {
-            VS1DInteger temp =(VS1DInteger)in;
-            value=temp.value;
-        }
-        else
-        {
-            value=new int[0];
+
+    public void setValues(int[] values) {
+        this.value = new int[values.length];
+
+        for (int i = 0; i < values.length; i++) {
+            this.value[i] = values[i];
         }
     }
-    
-    public void copyValueFrom(Object in)
-    {
-        if (in!=null)
-        {
-            VS1DInteger temp =(VS1DInteger)in;
-            value=temp.value.clone();
+
+    public VS1DInteger(int size) {
+        value = new int[size];
+    }
+
+    public void copyReferenceFrom(Object in) {
+        if (in != null) {
+            VS1DInteger temp = (VS1DInteger) in;
+            value = temp.value;
+        } else {
+            value = new int[0];
+        }
+    }
+
+    public void copyValueFrom(Object in) {
+        if (in != null) {
+            VS1DInteger temp = (VS1DInteger) in;
+            value = temp.value.clone();
             setChanged(temp.isChanged());
-        }
-        else value=new int[0];
+        } else value = new int[0];
     }
-    
-    public void loadFromStream(java.io.FileInputStream fis)
-    {
-        try
-        {
+
+    public void loadFromStream(java.io.FileInputStream fis) {
+        try {
             DataInputStream dis = new DataInputStream(fis);
-            
-            int size=dis.readInt();
-            value=new int[size];
-            
-            for (int i=0;i<value.length;i++)
-            {
-                value[i]=dis.readInt();
+
+            int size = dis.readInt();
+            value = new int[size];
+
+            for (int i = 0; i < value.length; i++) {
+                value[i] = dis.readInt();
             }
+        } catch (Exception ex) {
+            System.err.println("Fehler in VS1DInteger.loadFromStream() : " + ex.toString());
         }
-        catch(Exception ex)
-        {
-            System.err.println("Fehler in VS1DInteger.loadFromStream() : "+ex.toString());
-        }
-        
     }
-    
-    public void saveToStream(java.io.FileOutputStream fos)
-    {
-        try
-        {
+
+    public void saveToStream(java.io.FileOutputStream fos) {
+        try {
             DataOutputStream dos = new DataOutputStream(fos);
             dos.writeInt(value.length);
-            
-            for (int i=0;i<value.length;i++)
-            {
-                int val=value[i];
+
+            for (int i = 0; i < value.length; i++) {
+                int val = value[i];
                 dos.writeInt(val);
             }
-        }
-        catch(Exception ex)
-        {
-            System.err.println("Fehler in VS1DInteger.saveToStream() : "+ex.toString());
+        } catch (Exception ex) {
+            System.err.println("Fehler in VS1DInteger.saveToStream() : " + ex.toString());
         }
     }
-    
 }

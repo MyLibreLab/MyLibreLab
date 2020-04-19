@@ -21,17 +21,15 @@ package VisualLogic;
 import javax.swing.JPanel;
 
 /**
- *
  * @author Salafia
  */
-public class Wrapper extends JPanel
-{
-    
-    /** Creates a new instance of Wrapper */
-    public Wrapper()
-    {
+public class Wrapper extends JPanel {
+
+    /**
+     * Creates a new instance of Wrapper
+     */
+    public Wrapper() {
         super();
         this.setLayout(null);
     }
-    
 }

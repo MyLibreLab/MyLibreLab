@@ -21,65 +21,54 @@ package VisualLogic;
 import java.util.ArrayList;
 
 /**
- *
  * @author Carmelo
  */
-public class DataHistory
-{    
+public class DataHistory {
     private ArrayList<DataEntry> list = new ArrayList<DataEntry>();
-            
-    /** Creates a new instance of DataHistory */
-    public DataHistory()
-    {
+
+    /**
+     * Creates a new instance of DataHistory
+     */
+    public DataHistory() {
     }
-    
-    public boolean entryExist(String name)
-    {
-        if (getEntry(name)==null)
-        {
+
+    public boolean entryExist(String name) {
+        if (getEntry(name) == null) {
             return false;
-        }else
-        {
+        } else {
             return true;
         }
     }
-    
-    public DataEntry addEntry(String name)
-    {
+
+    public DataEntry addEntry(String name) {
         DataEntry entry = new DataEntry(name);
         list.add(entry);
-        
+
         return entry;
     }
-        
-    public void clearEntries()
-    {
+
+    public void clearEntries() {
         list.clear();
     }
-    
-    public DataEntry getEntry(String name)
-    {
-        name=name.trim();
-        
+
+    public DataEntry getEntry(String name) {
+        name = name.trim();
+
         DataEntry entry;
-        for (int i=0;i<list.size();i++)
-        {
-            entry=list.get(i);
-            if (entry.name.trim().equalsIgnoreCase(name))
-            {
+        for (int i = 0; i < list.size(); i++) {
+            entry = list.get(i);
+            if (entry.name.trim().equalsIgnoreCase(name)) {
                 return entry;
             }
-        }        
-        return null;        
+        }
+        return null;
     }
-    
-    public int size()
-    {
+
+    public int size() {
         return list.size();
     }
-    public DataEntry getEntry(int index)
-    {
-        return list.get(index);   
+
+    public DataEntry getEntry(int index) {
+        return list.get(index);
     }
-        
 }

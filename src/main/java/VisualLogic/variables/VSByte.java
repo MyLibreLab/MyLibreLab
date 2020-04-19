@@ -19,164 +19,129 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic.variables;
 
-
-import java.io.IOException;
-
-
-public class VSByte extends VSObject
-{
+public class VSByte extends VSObject {
     private byte value;
-    
-    public VSByte()
-    { }
-    
-    public VSByte(byte value)
-    {
-        this.value=value;
+
+    public VSByte() {
     }
-    
-    public String toString()
-    {
-        return ""+value;
+
+    public VSByte(byte value) {
+        this.value = value;
     }
-    
-    public void setValue(byte value)
-    {
+
+    public String toString() {
+        return "" + value;
+    }
+
+    public void setValue(byte value) {
         //if (this.value!=value)
         {
-            this.value=value;
+            this.value = value;
             setChanged(true);
         }
     }
-    
-    public byte getValue()
-    {
+
+    public byte getValue() {
         return value;
     }
-    
-    
-    public static byte toUnsigned(final short value)
-    {
-        return (byte) (0xFF&value);
+
+    public static byte toUnsigned(final short value) {
+        return (byte) (0xFF & value);
     }
-    
+
     /**
      * Converts an unsigned byte to a signed short.
+     *
      * @param value an unsigned byte value
      * @return a signed short that represents the unsigned byte's value.
      */
-    public static short toSigned( byte value)
-    {
-        return (short)copyBits(value, (byte)8);
+    public static short toSigned(byte value) {
+        return (short) copyBits(value, (byte) 8);
     }
-    
+
     /**
      * Returns a long that contains the same n bits as the given long,with cleared upper rest.
+     *
      * @param value the value which lowest bits should be copied.
-     * @param bits the number of lowest bits that should be copied.
+     * @param bits  the number of lowest bits that should be copied.
      * @return a long value that shares the same low bits as the given value.
      */
-    private static long copyBits(final long value, byte bits)
-    {
+    private static long copyBits(final long value, byte bits) {
         final boolean logging = false; //turn off logging here
         long converted = 0;
-        long comp =1L << bits;
-        while (--bits != -1)
-        {
-            if(((comp >>= 1) & value) != 0)
-            {
+        long comp = 1L << bits;
+        while (--bits != -1) {
+            if (((comp >>= 1) & value) != 0) {
                 converted |= comp;
             }
-            if(logging)
-            {System.out.print((comp & value)!=0?"1":"0");}
+            if (logging) {
+                System.out.print((comp & value) != 0 ? "1" : "0");
+            }
         }
-        if(logging)
-        {System.out.println();
+        if (logging) {
+            System.out.println();
         }
         return converted;
     }
-    
-    
-    public void copyValueFrom(Object in)
-    {
-        if (in!=null)
-        {
-            VSByte temp =(VSByte)in;
-            value=temp.value;
+
+    public void copyValueFrom(Object in) {
+        if (in != null) {
+            VSByte temp = (VSByte) in;
+            value = temp.value;
             setChanged(temp.isChanged());
-        }
-        else value=0;
+        } else value = 0;
     }
-    
-    public void copyReferenceFrom(Object in)
-    {
-      copyValueFrom(in);
-    }    
-    
-    public boolean equals(VSObject obj)
-    {
-        VSByte temp =(VSByte)obj;
-        if (temp.value==value)  return true;
+
+    public void copyReferenceFrom(Object in) {
+        copyValueFrom(in);
+    }
+
+    public boolean equals(VSObject obj) {
+        VSByte temp = (VSByte) obj;
+        if (temp.value == value) return true;
         else return false;
     }
-    
-    public boolean isBigger(VSObject obj)
-    {
-        VSByte temp =(VSByte)obj;
-        if (value>temp.value)  return true;
+
+    public boolean isBigger(VSObject obj) {
+        VSByte temp = (VSByte) obj;
+        if (value > temp.value) return true;
         else return false;
     }
-    
-    public boolean isSmaller(VSObject obj)
-    {
-        VSByte temp =(VSByte)obj;
-        if (value<temp.value)  return true;
+
+    public boolean isSmaller(VSObject obj) {
+        VSByte temp = (VSByte) obj;
+        if (value < temp.value) return true;
         else return false;
     }
-    
-    
-    public void loadFromStream(java.io.FileInputStream fis)
-    {
-        try
-        {
+
+    public void loadFromStream(java.io.FileInputStream fis) {
+        try {
             java.io.DataInputStream dis = new java.io.DataInputStream(fis);
-            
-            value=dis.readByte();
+
+            value = dis.readByte();
+        } catch (Exception ex) {
+
         }
-        catch(Exception ex)
-        {
-            
-        }
-        
     }
-    
-    public void saveToStream(java.io.FileOutputStream fos)
-    {
-        try
-        {
+
+    public void saveToStream(java.io.FileOutputStream fos) {
+        try {
             java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
             dos.writeByte(value);
-            
-        }
-        catch(Exception ex)
-        {
-            VisualLogic.Tools.showMessage("Fehler in VSByte.saveToStream() : "+ex.toString());
+        } catch (Exception ex) {
+            VisualLogic.Tools.showMessage("Fehler in VSByte.saveToStream() : " + ex.toString());
         }
     }
-    public void loadFromXML(String name,org.w3c.dom.Element nodeElement)
-    {
-        try
-        {
-            value=Byte.parseByte(nodeElement.getAttribute("VSByte"+name));
-        }
-        catch(Exception ex)
-        {
-            
+
+    public void loadFromXML(String name, org.w3c.dom.Element nodeElement) {
+        try {
+            value = Byte.parseByte(nodeElement.getAttribute("VSByte" + name));
+        } catch (Exception ex) {
+
         }
     }
-    
-    public void saveToXML(String name, org.w3c.dom.Element nodeElement)
-    {
-        nodeElement.setAttribute("VSByte"+name, ""+value);
+
+    public void saveToXML(String name, org.w3c.dom.Element nodeElement) {
+        nodeElement.setAttribute("VSByte" + name, "" + value);
     }
 }

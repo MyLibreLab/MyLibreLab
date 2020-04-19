@@ -19,36 +19,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic;
 
-import java.io.*;
+import java.io.File;
+
 /**
- *
  * @author Homer
  */
-class SimpleFilter  extends javax.swing.filechooser.FileFilter 
- { 
-   private String m_description = null; 
-   private String m_extension = null; 
+class SimpleFilter extends javax.swing.filechooser.FileFilter {
+    private String m_description = null;
+    private String m_extension = null;
 
+    public SimpleFilter(String extension, String description) {
+        m_description = description;
+        m_extension = "." + extension.toLowerCase();
+    }
 
-   public SimpleFilter(String extension, String description) 
-   { 
-     m_description = description; 
-     m_extension = "."+extension.toLowerCase();   
-   } 
+    public String getDescription() {
+        return m_description;
+    }
 
-
-   public String getDescription() 
-   { 
-     return m_description; 
-   } 
-
-
-   public boolean accept(File f) 
-   { 
-     if (f == null)  return false; 
-     if (f.isDirectory())  return true; 
-     return f.getName().toLowerCase().endsWith(m_extension); 
-   } 
- } 
+    public boolean accept(File f) {
+        if (f == null) return false;
+        if (f.isDirectory()) return true;
+        return f.getName().toLowerCase().endsWith(m_extension);
+    }
+}
 
 

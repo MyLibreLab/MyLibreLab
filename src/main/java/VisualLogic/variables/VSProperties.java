@@ -18,90 +18,74 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic.variables;
 
-import java.io.IOException;
+public class VSProperties extends VSObject {
 
-
-public class VSProperties extends VSObject
-{
-        
-    public VSProperties() { }   
-    
-
-    public void setValue(int value)
-    {
-  
+    public VSProperties() {
     }
-    
-    public int getValue()
-    {
+
+    public void setValue(int value) {
+
+    }
+
+    public int getValue() {
         return 0;
-    }    
-    
-    public void copyValueFrom(Object in)
-    {
-    }    
-    
-    public void copyReferenceFrom(Object in)
-    {
-      copyValueFrom(in);
-    }    
-        
-    
-    public boolean equals(VSObject obj)
-    {     
-        return false;
     }
-    
-    public boolean isBigger(VSObject obj)
-    {     
+
+    public void copyValueFrom(Object in) {
+    }
+
+    public void copyReferenceFrom(Object in) {
+        copyValueFrom(in);
+    }
+
+    public boolean equals(VSObject obj) {
         return false;
     }
 
-    public boolean isSmaller(VSObject obj)
-    {
+    public boolean isBigger(VSObject obj) {
         return false;
-    }            
+    }
 
-    
-    public void loadFromStream(java.io.FileInputStream fis) 
-    {
+    public boolean isSmaller(VSObject obj) {
+        return false;
+    }
+
+    public void loadFromStream(java.io.FileInputStream fis) {
         /*try
         {
             java.io.DataInputStream dis = new java.io.DataInputStream(fis);
-                        
+
             value=dis.readInt();
-            
+
         } catch(Exception ex)
         {
            System.err.println("Fehler in VSDouble.loadFromStream() : "+ex.toString());
-        } */                       
+        } */
     }
-    
-    public void saveToStream(java.io.FileOutputStream fos)
-    {
+
+    public void saveToStream(java.io.FileOutputStream fos) {
        /* try
         {
-            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);                
+            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
             dos.writeInt(value);
-        
+
         } catch(Exception ex)
         {
            System.err.println("Fehler in VSDouble.saveToStream() : "+ex.toString());
-        }*/                        
-    }        
-    public void loadFromXML(String name,org.w3c.dom.Element nodeElement)
-    {
+        }*/
+    }
+
+    public void loadFromXML(String name, org.w3c.dom.Element nodeElement) {
        /* try
         {
           value=Integer.parseInt(nodeElement.getAttribute("VSInteger"+name));
         } catch(Exception ex)
         {
-            
+
         }*/
     }
 
-    public void saveToXML(String name, org.w3c.dom.Element nodeElement)    
-    {        
-       // nodeElement.setAttribute("VSInteger"+name, ""+value);
+    public void saveToXML(String name, org.w3c.dom.Element nodeElement) {
+        // nodeElement.setAttribute("VSInteger"+name, ""+value);
     }
 }

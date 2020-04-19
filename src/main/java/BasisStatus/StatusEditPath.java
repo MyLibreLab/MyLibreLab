@@ -17,95 +17,78 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package BasisStatus;
 
-import VisualLogic.*;
-import java.awt.event.*;
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
+import VisualLogic.Element;
+import VisualLogic.VMObject;
 
+public class StatusEditPath extends Object implements StatusBasisIF {
 
-
-public class StatusEditPath extends Object implements StatusBasisIF
-{
-   
-    StatusBasisIF status=null;
+    StatusBasisIF status = null;
     public Element element;
-    
-    public StatusEditPath(VMObject vmobject, Element element)
-    {
-        this.element=element;
-        
-        if (element.points.size()==0) 
-        {
-            status=new StatusEditPathAddMode(vmobject,element);            
-        }else
-        {
-            status=new StatusEditPathEditMode(vmobject,element);
+
+    public StatusEditPath(VMObject vmobject, Element element) {
+        this.element = element;
+
+        if (element.points.size() == 0) {
+            status = new StatusEditPathAddMode(vmobject, element);
+        } else {
+            status = new StatusEditPathEditMode(vmobject, element);
         }
+    }
+
+    public void elementPinMouseMoved(MouseEvent e, int elementID, int pin) {
+    }
+
+    public void mouseDragged(MouseEvent e) {
+        if (status != null) status.mouseDragged(e);
+    }
+
+    public void mouseMoved(MouseEvent e) {
+        if (status != null) status.mouseMoved(e);
+    }
+
+    public void mousePressed(MouseEvent e) {
+        if (status != null) status.mousePressed(e);
+    }
+
+    public void mouseReleased(MouseEvent e) {
+        if (status != null) status.mouseReleased(e);
+    }
+
+    public void draw(Graphics g) {
+        if (status != null) status.draw(g);
+    }
+
+    public void elementPinMouseReleased(MouseEvent e, int elementID, int pin) {
+    }
+
+    public void elementPinMousePressed(MouseEvent e, int elementID, int pin) {
+    }
+
+    public void mouseDblClick(MouseEvent e) {
+    }
+
+    public void processKeyEvent(KeyEvent ke) {
+    }
+
+    public void mouseClicked(MouseEvent e) {
+    }
+
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    public void mouseExited(MouseEvent e) {
+    }
+
+    public void elementMouseEntered(MouseEvent e) {
 
     }
-    
-    public void elementPinMouseMoved(MouseEvent e, int elementID,int pin)
-    {        
+
+    public void elementMouseExited(MouseEvent e) {
+
     }
-    
-    public void mouseDragged(MouseEvent e)
-    {
-        if (status!=null) status.mouseDragged(e);
-    }
-    
-    public void mouseMoved(MouseEvent e)
-    {
-        if (status!=null) status.mouseMoved(e);
-    }
-    
-    
-    
-    public void mousePressed(MouseEvent e)
-    {
-        if (status!=null) status.mousePressed(e);
-    }
-    
-    public void mouseReleased(MouseEvent e)
-    {
-     if (status!=null) status.mouseReleased(e);
-    }
-    
-    
-    
-    public void draw(Graphics g)
-    {
-        if (status!=null) status.draw(g);
-    }
-    
-    
-    public void elementPinMouseReleased(MouseEvent e, int elementID,int pin)
-    {}
-    public void elementPinMousePressed(MouseEvent e, int elementID,int pin)
-    {
-    }
-    public void mouseDblClick(MouseEvent e)
-    {}
-    public void processKeyEvent(KeyEvent ke)
-    {}
-    
-    public void mouseClicked(MouseEvent e)
-    {}
-    public void mouseEntered(MouseEvent e)
-    {}
-    public void mouseExited(MouseEvent e)
-    {}
-    
-    
-    public void elementMouseEntered(MouseEvent e)
-    {
-        
-    }
-    
-    public void elementMouseExited(MouseEvent e)
-    {
-        
-    }
-    
-    
 }
 

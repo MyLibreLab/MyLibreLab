@@ -18,76 +18,58 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package SimulatorSocket;
 
-import java.io.*;
-import java.net.*;
-
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 /**
- *
  * @author Carmelo
  */
-public class Server extends Thread
-{
+public class Server extends Thread {
 
     private ServerSocket server = null;
     private DataOutputStream dos = null;
     private DataInputStream dis = null;
     private MyOpenLabOwnerIF owner;
-    
-    private Client client=null;
 
-    public void sendCmd(String cmd)
-    {
-        if (client!=null)
-        {
-          client.sendCmd(cmd);
+    private Client client = null;
+
+    public void sendCmd(String cmd) {
+        if (client != null) {
+            client.sendCmd(cmd);
         }
     }
-   
 
-    public void close()
-    {
-        if (client!=null)
-        {
-          client.close();
-          client=null;
-        }               
+    public void close() {
+        if (client != null) {
+            client.close();
+            client = null;
+        }
     }
 
-
-
-    public Server(MyOpenLabOwnerIF owner)
-    {
-        this.owner=owner;
+    public Server(MyOpenLabOwnerIF owner) {
+        this.owner = owner;
     }
-    
-    
+
     @Override
-    public void run()
-    {
-        try
-        {
+    public void run() {
+        try {
             server = new ServerSocket(1024);
-            while (true)
-            {
+            while (true) {
                 Socket c = server.accept();
-                client=new Client(c, owner);
+                client = new Client(c, owner);
                 client.start();
-                
+
                 owner.ownerMessage("Client accepted\n");
-                
+
                 //String str=dis.readUTF();
                 //System.out.println("String="+str);
-                
+
             }
+        } catch (IOException ex) {
+            close();
         }
-        catch (IOException ex)
-        {
-           close();
-        }
-
-        
     }
-        
-
 }

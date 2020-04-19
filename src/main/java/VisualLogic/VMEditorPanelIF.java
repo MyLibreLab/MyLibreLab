@@ -19,12 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package VisualLogic;
 
 /**
- *
  * @author Carmelo
  */
-public interface VMEditorPanelIF
-{
-    
+public interface VMEditorPanelIF {
+
     public void vmEditorPanelTabChanged(VMObject vmobject);
-    
 }

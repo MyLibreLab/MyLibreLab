@@ -3,34 +3,34 @@ package de.myopenlab.update;
 import java.util.ArrayList;
 
 public class MyOpenLabRow {
-      
+
     private String entry_name;
     private String version;
-    private String author;     
-    private String short_description; 
+    private String author;
+    private String short_description;
     private String date;
-    private String caption_de; 
-    private String caption_en; 
-    private String caption_es; 
-    private String dest_path; 
+    private String caption_de;
+    private String caption_en;
+    private String caption_es;
+    private String dest_path;
     private String categorie;
-    private String type; 
+    private String type;
     public ArrayList<TestItem> items = null;
- 
+
     public MyOpenLabRow() {
-        this( "", "", "", "", "", "", "", "");
+        this("", "", "", "", "", "", "", "");
     }
- 
+
     public MyOpenLabRow(String entry_name, String version, String author, String short_description, String dest_path, String categorie, String type, String date) {
         items = new ArrayList<>();
         this.entry_name = entry_name;
         this.version = version;
         this.author = author;
-        this.short_description = short_description;        
-        this.dest_path = dest_path;        
-        this.categorie=categorie;
-        this.type=type;
-        this.date=date;
+        this.short_description = short_description;
+        this.dest_path = dest_path;
+        this.categorie = categorie;
+        this.type = type;
+        this.date = date;
     }
 
     /**
@@ -186,6 +186,4 @@ public class MyOpenLabRow {
     public void setDate(String date) {
         this.date = date;
     }
-    
-    
 }

@@ -17,75 +17,50 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package VisualLogic;
 //import com.sun.org.omg.CORBA.ExcDescriptionSeqHelper;
-import java.io.*;
-import java.net.*;
-import java.lang.reflect.*; 
 
+import java.io.File;
+import java.net.URL;
+import java.net.URLClassLoader;
 
-        
-public class Loader 
-{    
+public class Loader {
     URLClassLoader cl;
 
-  public Object ladeClasse(String elementPath, String pfad, String klassename ) throws Exception
-  {
-    URL url;
-    Object o=null;
-    
-    
-    try
-    {        
-        url = new File(pfad).toURI().toURL(); 
-        
-        URL url2 = new File(elementPath).toURI().toURL(); 
-        //URL url3 = new File("Y:\\java\\carmelo's exp Lab 3\\Distribution\\Elements\\Drivers\\K8055\\bin\\TWUsb.jar").toURI().toURL();
+    public Object ladeClasse(String elementPath, String pfad, String klassename) throws Exception {
+        URL url;
+        Object o = null;
 
-        cl= new URLClassLoader( new URL[]{ url, url2},Thread.currentThread().getContextClassLoader());
-                
-        Class<?> c = cl.loadClass(klassename );
-        
-        o=c.newInstance();
-                
-    } 
-    catch (Exception ex)
-    {
-        System.out.println(""+ex);
+        try {
+            url = new File(pfad).toURI().toURL();
+
+            URL url2 = new File(elementPath).toURI().toURL();
+            //URL url3 = new File("Y:\\java\\carmelo's exp Lab 3\\Distribution\\Elements\\Drivers\\K8055\\bin\\TWUsb.jar").toURI().toURL();
+
+            cl = new URLClassLoader(new URL[]{url, url2}, Thread.currentThread().getContextClassLoader());
+
+            Class<?> c = cl.loadClass(klassename);
+
+            o = c.newInstance();
+        } catch (Exception ex) {
+            System.out.println("" + ex);
+        } catch (UnsupportedClassVersionError ex) {
+            System.out.println("" + ex);
+        }
+        return o;
     }
-    catch (UnsupportedClassVersionError ex)
-    {
-        System.out.println(""+ex);
+
+    public Object ladeClasseDriver(URL[] urls, String klassename) throws Exception {
+        Object o = null;
+        try {
+            URLClassLoader cl = new URLClassLoader(urls, Thread.currentThread().getContextClassLoader());
+
+            Class<?> c = cl.loadClass(klassename);
+
+            o = c.newInstance();
+        } catch (Exception ex) {
+            System.out.println("" + ex);
+        } catch (UnsupportedClassVersionError ex) {
+            System.out.println("" + ex);
+        }
+        return o;
     }
-    return o;
-  }
-    
-  
-  public Object ladeClasseDriver(URL[] urls, String klassename) throws Exception
-  {    
-    Object o=null;
-    try
-    {
-        URLClassLoader cl= new URLClassLoader(urls, Thread.currentThread().getContextClassLoader());
-        
-        Class<?> c = cl.loadClass( klassename );
-        
-        o=c.newInstance();
-                
-    } 
-    catch (Exception ex)
-    {
-        System.out.println(""+ex);        
-    }
-    catch (UnsupportedClassVersionError ex)
-    {
-        System.out.println(""+ex);        
-    }
-    return o;
-  }
-  
-    
- 
-    
- 
-    
-    
 }

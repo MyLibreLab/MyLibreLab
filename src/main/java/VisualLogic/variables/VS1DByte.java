@@ -22,121 +22,89 @@ package VisualLogic.variables;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
+public class VS1DByte extends VSObject {
+    private byte value[] = null;
 
-
-public class VS1DByte extends VSObject
-{
-    private byte value[]=null;
-    
-    
-    public VS1DByte(int size)
-    {
-        value=new byte[size];
+    public VS1DByte(int size) {
+        value = new byte[size];
     }
-    
-    public int getLength()
-    {
+
+    public int getLength() {
         return value.length;
     }
-    public void setValue(int x, byte value)
-    {
-        this.value[x]=value;
+
+    public void setValue(int x, byte value) {
+        this.value[x] = value;
         setChanged(true);
     }
-    
-    public void setBytes(byte[] values)
-    {
-        value=values.clone();
+
+    public void setBytes(byte[] values) {
+        value = values.clone();
     }
-    
-    public void setValues(byte[] values)
-    {
-        this.value=new byte[values.length];
-        
-        for (int i=0;i<values.length;i++)
-        {
-            this.value[i]=values[i];
+
+    public void setValues(byte[] values) {
+        this.value = new byte[values.length];
+
+        for (int i = 0; i < values.length; i++) {
+            this.value[i] = values[i];
         }
-        
     }
-    
-    public byte getValue(int x)
-    {
+
+    public byte getValue(int x) {
         return value[x];
     }
-    
-    public byte[] getBytes()
-    {
+
+    public byte[] getBytes() {
         return value;
     }
-    
-    public byte[] getValues()
-    {
+
+    public byte[] getValues() {
         return value;
     }
-    
-    
-    public void copyReferenceFrom(Object in)
-    {
-        if (in!=null)
-        {
-            VS1DByte temp =(VS1DByte)in;
-            value=temp.value;
-        }
-        else
-        {
-            value=new byte[0];
+
+    public void copyReferenceFrom(Object in) {
+        if (in != null) {
+            VS1DByte temp = (VS1DByte) in;
+            value = temp.value;
+        } else {
+            value = new byte[0];
         }
     }
-    
-    public void copyValueFrom(Object in)
-    {
-        if (in!=null)
-        {
-            VS1DByte temp =(VS1DByte)in;
-            value=temp.value.clone();
+
+    public void copyValueFrom(Object in) {
+        if (in != null) {
+            VS1DByte temp = (VS1DByte) in;
+            value = temp.value.clone();
             setChanged(temp.isChanged());
-        }
-        else value=new byte[0];
+        } else value = new byte[0];
     }
-    
-    public void loadFromStream(java.io.FileInputStream fis)
-    {
-        try
-        {
+
+    public void loadFromStream(java.io.FileInputStream fis) {
+        try {
             DataInputStream dis = new DataInputStream(fis);
-            
-            int size=dis.readInt();
-            value=new byte[size];
-            
-            for (int i=0;i<value.length;i++)
-            {
-                value[i]=dis.readByte();
+
+            int size = dis.readInt();
+            value = new byte[size];
+
+            for (int i = 0; i < value.length; i++) {
+                value[i] = dis.readByte();
             }
+        } catch (Exception ex) {
+            System.err.println("Fehler in VS1DByte.loadFromStream() : " + ex.toString());
         }
-        catch(Exception ex)
-        {
-            System.err.println("Fehler in VS1DByte.loadFromStream() : "+ex.toString());
-        }
-        
     }
-    
-    public void saveToStream(java.io.FileOutputStream fos)
-    {
-        try
-        {
+
+    public void saveToStream(java.io.FileOutputStream fos) {
+        try {
             DataOutputStream dos = new DataOutputStream(fos);
             dos.writeInt(value.length);
-            
-            for (int i=0;i<value.length;i++)
-            {
-                byte val=value[i];
+
+            for (int i = 0; i < value.length; i++) {
+                byte val = value[i];
                 dos.writeByte(val);
             }
-        }
-        catch(Exception ex)
-        {
-            System.err.println("Fehler in VS1DByte.saveToStream() : "+ex.toString());
+        } catch (Exception ex) {
+            System.err.println("Fehler in VS1DByte.saveToStream() : " + ex.toString());
         }
     }
 }

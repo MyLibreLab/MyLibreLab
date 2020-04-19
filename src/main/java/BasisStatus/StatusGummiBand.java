@@ -17,12 +17,16 @@
  */
 package BasisStatus;
 
-import VisualLogic.*;
-import java.awt.event.*;
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+
+import VisualLogic.VMObject;
 
 /**
- *
  * @author Homer
  */
 public class StatusGummiBand extends Object implements StatusBasisIF {
@@ -76,7 +80,6 @@ public class StatusGummiBand extends Object implements StatusBasisIF {
             x = xx;
             xx = temp;
             p.x = x;
-
         }
         if (yy < y) {
             temp = y;
@@ -91,7 +94,6 @@ public class StatusGummiBand extends Object implements StatusBasisIF {
         g2.drawRect(x, y, xx - x, yy - y);
 
         return p;
-
     }
 
     public void mouseDragged(MouseEvent e) {
@@ -113,10 +115,9 @@ public class StatusGummiBand extends Object implements StatusBasisIF {
             p = drawRectangle(g2, startX, startY, x, y);
             oldX = p.x;
             oldY = p.y;
-        } catch ( java.lang.InternalError ex) {
+        } catch (java.lang.InternalError ex) {
 
         }
-
     }
 
     /*
@@ -168,5 +169,4 @@ public class StatusGummiBand extends Object implements StatusBasisIF {
     public void draw(Graphics g) {
 
     }
-
 }

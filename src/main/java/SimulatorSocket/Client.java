@@ -19,91 +19,67 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package SimulatorSocket;
 
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.Socket;
 
 /**
- *
  * @author Carmelo
  */
-public class Client extends Thread
-{
-    
+public class Client extends Thread {
+
     private DataInputStream dis;
     private DataOutputStream dos;
     private Socket client;
     private MyOpenLabOwnerIF owner;
-    private boolean stopped=false;
-    
-    public Client(Socket client, MyOpenLabOwnerIF owner)
-    {
-        this.owner=owner;
-        try
-        {
+    private boolean stopped = false;
+
+    public Client(Socket client, MyOpenLabOwnerIF owner) {
+        this.owner = owner;
+        try {
             this.client = client;
             dis = new DataInputStream(client.getInputStream());
             dos = new DataOutputStream(client.getOutputStream());
-        }
-        catch (IOException ex)
-        {
+        } catch (IOException ex) {
             close();
         }
-
-        
     }
 
-  public void sendCmd(String cmd)
-    {
-        try
-        {
-            byte[] values=cmd.getBytes();
-            for (int i=0;i<values.length;i++)
-            {
-             dos.writeByte(values[i]);
-            }            
-        }
-        catch (IOException ex)
-        {
+    public void sendCmd(String cmd) {
+        try {
+            byte[] values = cmd.getBytes();
+            for (int i = 0; i < values.length; i++) {
+                dos.writeByte(values[i]);
+            }
+        } catch (IOException ex) {
             close();
         }
-    }    
-    
+    }
 
-    public void close()
-    {
-        stopped=true;
-        if (client != null)
-        {
-            try
-            {               
+    public void close() {
+        stopped = true;
+        if (client != null) {
+            try {
                 dis.close();
                 dos.close();
                 client.close();
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
             }
         }
     }
-    
-    
+
     @Override
-    public void run()
-    {
-        stopped=false;
-        while(!stopped)
-        {
-            try
-            {
+    public void run() {
+        stopped = false;
+        while (!stopped) {
+            try {
                 byte val = dis.readByte();
-                owner.ownerMessage("" + (char)val);
-            }
-            catch (IOException ex)
-            {
+                owner.ownerMessage("" + (char) val);
+            } catch (IOException ex) {
                 owner.ownerMessage("Client closed\n");
                 close();
             }
         }
     }
-    
 }

@@ -22,19 +22,17 @@ package VisualLogic;
 import java.awt.Color;
 
 /**
- *
  * @author Salafia
  */
-public class ColoredListCell
-{
+public class ColoredListCell {
     public String text;
-    public Color color=Color.BLACK;
-    /** Creates a new instance of ColoredListCell */
-    public ColoredListCell(String text, Color color)
-    {
-        this.text=text;
-        this.color=color;
-        
+    public Color color = Color.BLACK;
+
+    /**
+     * Creates a new instance of ColoredListCell
+     */
+    public ColoredListCell(String text, Color color) {
+        this.text = text;
+        this.color = color;
     }
-    
 }

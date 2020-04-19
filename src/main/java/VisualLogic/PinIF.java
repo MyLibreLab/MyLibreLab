@@ -17,18 +17,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 package VisualLogic;
-import java.awt.event.*;
+
+import java.awt.event.MouseEvent;
+
 /**
- *
  * @author Homer
  */
-public interface PinIF 
-{
-    public abstract void PinMousePressed(MouseEvent e, JPin pin,int pinIndex);
-    public abstract void PinMouseReleased(MouseEvent e, JPin pin,int pinIndex);
-    public abstract void PinMouseClicked(MouseEvent e, JPin pin,int pinIndex);     
-    public abstract void PinMouseEntered(MouseEvent e, JPin pin,int pinIndex);     
-    public abstract void PinMouseExited(MouseEvent e, JPin pin,int pinIndex);
-    public abstract void PinMouseDragged(MouseEvent e, JPin pin,int pinIndex);
-    public abstract void PinMouseMoved(MouseEvent e, JPin pin,int pinIndex);
+public interface PinIF {
+    public abstract void PinMousePressed(MouseEvent e, JPin pin, int pinIndex);
+
+    public abstract void PinMouseReleased(MouseEvent e, JPin pin, int pinIndex);
+
+    public abstract void PinMouseClicked(MouseEvent e, JPin pin, int pinIndex);
+
+    public abstract void PinMouseEntered(MouseEvent e, JPin pin, int pinIndex);
+
+    public abstract void PinMouseExited(MouseEvent e, JPin pin, int pinIndex);
+
+    public abstract void PinMouseDragged(MouseEvent e, JPin pin, int pinIndex);
+
+    public abstract void PinMouseMoved(MouseEvent e, JPin pin, int pinIndex);
 }

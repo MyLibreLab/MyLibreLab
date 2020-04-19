@@ -24,136 +24,102 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
-
-
 /**
- *
- * @author Carmelo Salafia
- * FileSystemOutput ist für das schreiben der Datensaetze und
- * ihrer IndexListe verantwortlich.
+ * @author Carmelo Salafia FileSystemOutput ist fï¿½r das schreiben der Datensaetze und ihrer IndexListe verantwortlich.
  * erzeugt ein kuenstliches Dateisystem!
  */
 
-public class FileSystemOutput
-{
-    private ArrayList liste = new ArrayList();    
-    private FileOutputStream fos=null;
+public class FileSystemOutput {
+    private ArrayList liste = new ArrayList();
+    private FileOutputStream fos = null;
     private SFileDescriptor oldItem;
-    
-    
-    /** Creates a new instance of SimpleFileSystem 
-     *  Erzeugt dabei ein eigenes Filesystem anhand des filename
-     */    
-    public FileSystemOutput(String filename)
-    {
-        try
-        {          
-          fos=new FileOutputStream(new File(filename));
-          
-          
-          DataOutputStream dos=new DataOutputStream(fos);
-          
-          
-          dos.writeLong(123479);  // platzhalter für die Position der IndexListe!
-          
-        } catch(Exception ex)
-        {
-            System.out.println("Error in Methode createFile()"+ex.toString());
+
+    /**
+     * Creates a new instance of SimpleFileSystem Erzeugt dabei ein eigenes Filesystem anhand des filename
+     */
+    public FileSystemOutput(String filename) {
+        try {
+            fos = new FileOutputStream(new File(filename));
+
+            DataOutputStream dos = new DataOutputStream(fos);
+
+            dos.writeLong(123479);  // platzhalter fï¿½r die Position der IndexListe!
+        } catch (Exception ex) {
+            System.out.println("Error in Methode createFile()" + ex.toString());
         }
     }
-    
-    /* Fuegt einen Stream Datensatz hinzu 
-     * und liefert den dazugehörigen Stream
-     */
-    public FileOutputStream addItem(String filename)
-    {                
-      try
-      {
-        SFileDescriptor dt = new SFileDescriptor();
-                  
-        dt.filename=filename;
-        dt.position=fos.getChannel().position();        
-        dt.size=0;
-        liste.add(dt);
-        
-        oldItem=dt;
 
-      } catch(Exception ex)
-      {
-          System.out.println("Error in Methode addItem()"+ex.toString());
-      }        
+    /* Fuegt einen Stream Datensatz hinzu
+     * und liefert den dazugehï¿½rigen Stream
+     */
+    public FileOutputStream addItem(String filename) {
+        try {
+            SFileDescriptor dt = new SFileDescriptor();
+
+            dt.filename = filename;
+            dt.position = fos.getChannel().position();
+            dt.size = 0;
+            liste.add(dt);
+
+            oldItem = dt;
+        } catch (Exception ex) {
+            System.out.println("Error in Methode addItem()" + ex.toString());
+        }
         return fos;
     }
-    
-    /* postItem sorgt dafür das der datensatz richtig abgeschlossen wird
+
+    /* postItem sorgt dafï¿½r das der datensatz richtig abgeschlossen wird
      * und muss nach jedem neuen Datensatz aufgerufen werden!
      */
-    public void postItem()
-    {
-      if (oldItem!=null)          
-      {
-          try
-          {
-            long position=fos.getChannel().position();
-            oldItem.size=position-oldItem.position;
-          } catch(Exception ex)
-          {
-              
-          }
-          
-      }            
+    public void postItem() {
+        if (oldItem != null) {
+            try {
+                long position = fos.getChannel().position();
+                oldItem.size = position - oldItem.position;
+            } catch (Exception ex) {
+
+            }
+        }
     }
-    
-    /* --- nur für interne Zwecke ---
+
+    /* --- nur fï¿½r interne Zwecke ---
      * schreibt die Liste der FileDiscriptoren am ende der datei!
      */
-    public void addIndexList()
-    {
-      DataOutputStream dos=new DataOutputStream(fos);  
+    public void addIndexList() {
+        DataOutputStream dos = new DataOutputStream(fos);
 
-      try
-      {              
-          
-        long pos=fos.getChannel().position();          
-        dos.writeLong(liste.size()); // IndexSize!
-        for (int i=0;i<liste.size();i++)
-        {
-          SFileDescriptor dt = (SFileDescriptor)liste.get(i);
-         
-          dos.writeByte(dt.filename.length());
-          for (int j=0;j<dt.filename.length();j++) dos.writeChar(dt.filename.charAt(j));
-           
-          dos.writeLong(dt.position);
-          dos.writeLong(dt.size);
+        try {
+
+            long pos = fos.getChannel().position();
+            dos.writeLong(liste.size()); // IndexSize!
+            for (int i = 0; i < liste.size(); i++) {
+                SFileDescriptor dt = (SFileDescriptor) liste.get(i);
+
+                dos.writeByte(dt.filename.length());
+                for (int j = 0; j < dt.filename.length(); j++) dos.writeChar(dt.filename.charAt(j));
+
+                dos.writeLong(dt.position);
+                dos.writeLong(dt.size);
+            }
+
+            fos.getChannel().position(0);
+            dos.writeLong(pos);
+        } catch (Exception ex) {
+            System.out.println("Error in Methode addIndexList()" + ex.toString());
         }
-        
-        fos.getChannel().position(0);
-        dos.writeLong(pos);
-        
-        
-      } catch(Exception ex) {
-          System.out.println("Error in Methode addIndexList()"+ex.toString());
-      }
-      
     }
-    
-    /* sorgt dafür das die datei erfolgreich abgeschlossen wird!
-     * und muss nachdem alle Datensätze geschrieben worden sind
+
+    /* sorgt dafï¿½r das die datei erfolgreich abgeschlossen wird!
+     * und muss nachdem alle Datensï¿½tze geschrieben worden sind
      * aufgerufen werden!
      */
-    public void close()
-    {
+    public void close() {
         addIndexList();
-        try
-        {
-          fos.flush();
-          fos.close();     
-        }catch(Exception ex)
-        {
-            System.out.println("Error in Methode close()"+ex.toString());
+        try {
+            fos.flush();
+            fos.close();
+        } catch (Exception ex) {
+            System.out.println("Error in Methode close()" + ex.toString());
         }
     }
-    
-    
-    
 }

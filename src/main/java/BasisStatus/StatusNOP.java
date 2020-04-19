@@ -24,67 +24,52 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 /**
- *
  * @author Carmelo
  */
-public class StatusNOP extends Object implements StatusBasisIF
-{
-    
-    /** Creates a new instance of StatusNOP */
-    public StatusNOP()
-    {
+public class StatusNOP extends Object implements StatusBasisIF {
+
+    /**
+     * Creates a new instance of StatusNOP
+     */
+    public StatusNOP() {
     }
 
-    public void mouseDragged(MouseEvent e)
-    {
+    public void mouseDragged(MouseEvent e) {
     }
 
-    public void mousePressed(MouseEvent e)
-    {
+    public void mousePressed(MouseEvent e) {
     }
 
-    public void mouseReleased(MouseEvent e)
-    {
+    public void mouseReleased(MouseEvent e) {
     }
 
-    public void mouseDblClick(MouseEvent e)
-    {
+    public void mouseDblClick(MouseEvent e) {
     }
 
-    public void mouseClicked(MouseEvent e)
-    {
+    public void mouseClicked(MouseEvent e) {
     }
 
-    public void mouseEntered(MouseEvent e)
-    {
+    public void mouseEntered(MouseEvent e) {
     }
 
-    public void mouseExited(MouseEvent e)
-    {
+    public void mouseExited(MouseEvent e) {
     }
 
-    public void mouseMoved(MouseEvent e)
-    {
+    public void mouseMoved(MouseEvent e) {
     }
 
-    public void processKeyEvent(KeyEvent ke)
-    {
+    public void processKeyEvent(KeyEvent ke) {
     }
 
-    public void elementPinMouseReleased(MouseEvent e, int elementID, int pin)
-    {
+    public void elementPinMouseReleased(MouseEvent e, int elementID, int pin) {
     }
 
-    public void elementPinMousePressed(MouseEvent e, int elementID, int pin)
-    {
+    public void elementPinMousePressed(MouseEvent e, int elementID, int pin) {
     }
 
-    public void elementPinMouseMoved(MouseEvent e, int elementID, int pin)
-    {
+    public void elementPinMouseMoved(MouseEvent e, int elementID, int pin) {
     }
 
-    public void draw(Graphics g)
-    {
+    public void draw(Graphics g) {
     }
-    
 }

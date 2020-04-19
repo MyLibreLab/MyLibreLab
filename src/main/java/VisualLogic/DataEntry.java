@@ -19,22 +19,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic;
 
-import VisualLogic.variables.VSObject;
 import java.util.ArrayList;
 
+import VisualLogic.variables.VSObject;
+
 /**
- *
  * @author Carmelo
  */
-public class DataEntry
-{
+public class DataEntry {
     public String name;
-    public ArrayList<VSObject> values=new ArrayList<VSObject>();
-    
-    /** Creates a new instance of DataPacket */
-    public DataEntry(String name)
-    {
-        this.name=name;        
+    public ArrayList<VSObject> values = new ArrayList<VSObject>();
+
+    /**
+     * Creates a new instance of DataPacket
+     */
+    public DataEntry(String name) {
+        this.name = name;
     }
-    
 }

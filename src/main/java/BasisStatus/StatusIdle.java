@@ -17,14 +17,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package BasisStatus;
 
-import VisualLogic.*;
-import VisualLogic.Element;
-import java.awt.event.*;
-import java.awt.*;
-import javax.swing.*;
-import java.io.*;
+import java.awt.Cursor;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
+
+import VisualLogic.DFProperties;
+import VisualLogic.Draht;
+import VisualLogic.Element;
+import VisualLogic.FrameMain;
+import VisualLogic.JPin;
+import VisualLogic.Line;
+import VisualLogic.PolyPoint;
+import VisualLogic.SelectionPane;
+import VisualLogic.Tools;
+import VisualLogic.VMObject;
 
 public class StatusIdle extends Object implements StatusBasisIF {
 
@@ -82,7 +101,6 @@ public class StatusIdle extends Object implements StatusBasisIF {
         JMenuItem menuitemDocEditor = new JMenuItem(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("DocEditor"));
         //menuitemDocEditor.setEnabled(false);
         JMenuItem menuitem5 = new JMenuItem(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("Element_Info"));
-        
 
         mnuReihenfolge = new JMenu(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("Reihenfolge"));
 
@@ -102,7 +120,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
         popupmenu.add(menuitemDocEditor);
         popupmenu.add(menuitemElementProperties);
         popupmenu.add(menuitem5);
-        
+
         popupmenu.add(mnuReihenfolge);
 
         jmiReienfolge1.addActionListener(new java.awt.event.ActionListener() {
@@ -127,7 +145,6 @@ public class StatusIdle extends Object implements StatusBasisIF {
                 if (aktuellesElement.classRef != null) {
                     aktuellesElement.eineEbeneNachVorne();
                 }
-
             }
         });
         jmiReienfolge4.addActionListener(new java.awt.event.ActionListener() {
@@ -161,13 +178,13 @@ public class StatusIdle extends Object implements StatusBasisIF {
                                 //Custom button text
                                 Object[] options = {"DE", "EN", "ES"};
                                 int n = JOptionPane.showOptionDialog(null,
-                                        java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("LANGUAGE"),
-                                        java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("QUESTION"),
-                                        JOptionPane.YES_NO_CANCEL_OPTION,
-                                        JOptionPane.QUESTION_MESSAGE,
-                                        null,
-                                        options,
-                                        options[2]);
+                                    java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("LANGUAGE"),
+                                    java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("QUESTION"),
+                                    JOptionPane.YES_NO_CANCEL_OPTION,
+                                    JOptionPane.QUESTION_MESSAGE,
+                                    null,
+                                    options,
+                                    options[2]);
 
                                 if (n == 0) {
                                     docFileName = mainPath + "doc.html";
@@ -190,17 +207,15 @@ public class StatusIdle extends Object implements StatusBasisIF {
                                         docFileName = mainPath + "doc_es/index.html";
                                     }
                                 }
-                                
-                                
+
                                 if (n > -1) {
                                     File f = new File(docFileName);
                                     f.getParentFile().mkdirs();
-                                                                        
-                                    if (f.isDirectory())
-                                    {
+
+                                    if (f.isDirectory()) {
                                         f.delete();
                                     }
-                                    
+
                                     if (f.exists() == false) {
                                         try {
                                             f.createNewFile();
@@ -211,7 +226,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
                                     try {
                                         Runtime.getRuntime().exec(htmlEditor + " " + docFileName);
                                     } catch (IOException ex) {
-                                        Tools.showMessage("can not open: "+htmlEditor);
+                                        Tools.showMessage("can not open: " + htmlEditor);
                                     }
                                 }
                             }
@@ -219,7 +234,6 @@ public class StatusIdle extends Object implements StatusBasisIF {
                         }
                     }
                 }
-
             }
         });
 
@@ -237,7 +251,6 @@ public class StatusIdle extends Object implements StatusBasisIF {
                         }
                     }
                 }
-
             }
         });
 
@@ -247,7 +260,6 @@ public class StatusIdle extends Object implements StatusBasisIF {
 
                 getBasis().owner.deleteAnythingSelected();
                 getBasis().owner.saveForUndoRedo();
-
             }
         });
         menuitem3.addActionListener(new java.awt.event.ActionListener() {
@@ -277,7 +289,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
                         DFProperties thisDirProps = Tools.getProertiesFromDefinitionFile(file);
 
                         if (thisDirProps.vm.contains(".vlogic")) {
-                             getBasis().owner.frameCircuit.openElement(strX);
+                            getBasis().owner.frameCircuit.openElement(strX);
                         } else {
                             getBasis().owner.frameCircuit.openJavaEditor(aktuellesElement);
                         }
@@ -295,8 +307,6 @@ public class StatusIdle extends Object implements StatusBasisIF {
                 showElementInfo();
             }
         });
-
-
     }
 
     @Override
@@ -356,7 +366,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
         if (vmObject.owner.vmProtected) {
             return;
         }
-        // wenn auf Pin die Maustaste losgelassen wurde, dann Wireframe ziehen 
+        // wenn auf Pin die Maustaste losgelassen wurde, dann Wireframe ziehen
         JPin xpin = ((Element) vmObject.getObjectWithID(elementID)).getPin(pin);
         if (xpin != null && xpin.draht == null && (xpin.pinIO == JPin.PIN_OUTPUT || xpin.pinIO == JPin.PIN_INPUT_OUTPUT)) //if (xpin!=null && xpin.draht==null && xpin.pinIO==JPin.PIN_OUTPUT)
         {
@@ -378,17 +388,17 @@ public class StatusIdle extends Object implements StatusBasisIF {
     }
 
     public void finalize(Element destElement, int destPin) {
-        /*Point p = destElement.getPinPosition(destPin);        
+        /*Point p = destElement.getPinPosition(destPin);
     xPoints[nPoints]=p.x;
     yPoints[nPoints]=p.y;
-    nPoints++;       
-    Draht draht = basis.addNode(sourceElement,sourcePin,destElement,destPin);                
+    nPoints++;
+    Draht draht = basis.addNode(sourceElement,sourcePin,destElement,destPin);
     for (int i=0;i<nPoints;i++)
     {
     int x = xPoints[i];
     int y = yPoints[i];
     draht.setPoint(x,y);
-    }      
+    }
     basis.repaint();*/
     }
 
@@ -405,7 +415,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
     {
     // Move All Selected Draehte
     Draht draht;
-    for (int i=0;i<vmObject.getDrahtCount();i++) 
+    for (int i=0;i<vmObject.getDrahtCount();i++)
     {
     draht = vmObject.getDraht(i);
     for (int j=0;j<draht.getPolySize();j++)
@@ -417,7 +427,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
     draht.setPoint(j,p.getX()+x,p.getY()+y);
     }
     }
-    }     
+    }
     }
     vmObject.reorderWireFrames();*/
     }
@@ -449,8 +459,8 @@ public class StatusIdle extends Object implements StatusBasisIF {
             }
         }
         vmObject.reorderWireFrames();
-
     }
+
     private boolean isShiftPressed = false;
     private boolean isControlPressed = false;
 
@@ -478,9 +488,9 @@ public class StatusIdle extends Object implements StatusBasisIF {
 
 
             /*if (code==ke.VK_F1)
-            {            
+            {
             aktuellesElement=vmObject.getSelectedElement();
-            if (aktuellesElement!=null) 
+            if (aktuellesElement!=null)
             {
             vmObject.owner.frameCircuit.openElementDocFile(aktuellesElement.docFileName,aktuellesElement);
             }
@@ -516,10 +526,8 @@ public class StatusIdle extends Object implements StatusBasisIF {
                         vergroesereAllSelectedElements(0, +1);
                     }
                 }
-
             }
         }
-
     }
 
     @Override
@@ -534,13 +542,13 @@ public class StatusIdle extends Object implements StatusBasisIF {
 
             int direction = myLine.getDirection();
             if (direction == 1) {
-                // Vertikal                
+                // Vertikal
                 if (px1 != null && px2 != null) {
                     px1.setLocation(p.x, px1.getY());
                     px2.setLocation(p.x, px2.getY());
                 }
             } else // Horizontal
-             if (px1 != null && px2 != null) {
+                if (px1 != null && px2 != null) {
                     px1.setLocation(px1.getX(), p.y);
                     px2.setLocation(px2.getX(), p.y);
                 }
@@ -562,7 +570,6 @@ public class StatusIdle extends Object implements StatusBasisIF {
         } else {
             vmObject.setModusGummiband(e.getX(), e.getY());
         }
-
     }
 
     private int getResizeRect(Element element, int x, int y) {
@@ -610,7 +617,6 @@ public class StatusIdle extends Object implements StatusBasisIF {
                     return 0;
                 }
             }
-
         }
         return 0;
     }
@@ -696,7 +702,6 @@ public class StatusIdle extends Object implements StatusBasisIF {
                     if (element.classRef != null) {
                         element.classRef.xonMousePressedOnIdle(e);
                     }
-
                 }
             }
 
@@ -751,15 +756,13 @@ public class StatusIdle extends Object implements StatusBasisIF {
                     });
 
                     popupmenu.show(vmObject, element.getX() + e.getX(), element.getY() + e.getY());
+                }
+            } else {
 
+                if (getBasis().owner.frameCircuit != null) {
+                    getBasis().owner.frameCircuit.activate_DocFrame(null);
                 }
 
-            } else {
-                
-                if (getBasis().owner.frameCircuit != null) {
-                getBasis().owner.frameCircuit.activate_DocFrame(null);
-            }
-                
                 vmObject.owner.disableAllElements();
                 Draht draht;
 
@@ -775,15 +778,14 @@ public class StatusIdle extends Object implements StatusBasisIF {
 
                     polyLineIndex = Tools.isPointInDrahtPoint(draht, e.getX(), e.getY());
                     if (polyLineIndex > -1) {
-                        //System.out.println("Punkt befindet sich in PolyLine Punkt:"+polyLineIndex);                    
+                        //System.out.println("Punkt befindet sich in PolyLine Punkt:"+polyLineIndex);
 
-                        //System.out.println("");                    
+                        //System.out.println("");
                         break;
                     }
                 }
             }
         }
-
     }
 
     public void removeElementPopupMenuItems() {
@@ -842,9 +844,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
             } else {
                 draht.setSelected(true);
             }
-
         }
-
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -858,6 +858,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
     public void mouseExited(MouseEvent e) {
 
     }
+
     private Element lastElement = null;
     private Line lastLine = null;
 
@@ -994,7 +995,6 @@ public class StatusIdle extends Object implements StatusBasisIF {
                     vmObject.setCursor(Cursor.getPredefinedCursor(Cursor.NW_RESIZE_CURSOR));
                 }
             }
-
         }
 
         if ((e.getSource() instanceof VMObject) && lastElement != null) {
@@ -1005,7 +1005,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
         /*if (vmObject==vmObject.owner.getCircuitBasis())
         {
         if (e.getSource() instanceof Element )
-        {            
+        {
         elx=(Element)e.getSource();
         java.awt.EventQueue.invokeLater(new Runnable()
         {
@@ -1023,7 +1023,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
         elx.repaint();
         }
         }
-        });                        
+        });
         }else
         {
         if (elx!=null)
@@ -1053,19 +1053,17 @@ public class StatusIdle extends Object implements StatusBasisIF {
                 //line.
                 int direction = line.getDirection();
                 if (direction == 1) {
-                    // Vertikal                
+                    // Vertikal
                     if (vmObject != null) {
                         vmObject.setCursor(Cursor.getPredefinedCursor(Cursor.W_RESIZE_CURSOR));
                     }
                 } else if (vmObject != null) {
                     vmObject.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
                 }
-
             } else {
 
             }
         }
-
     }
 
     public void draw(Graphics g) {

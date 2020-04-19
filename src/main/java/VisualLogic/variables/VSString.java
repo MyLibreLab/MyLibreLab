@@ -18,120 +18,94 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic.variables;
 
-import java.io.IOException;
+public class VSString extends VSObject {
+    private String value = "";
 
-public class VSString extends VSObject
-{
-    private String value="";
-    public VSString()
-    {
+    public VSString() {
     }
-    
+
     @Override
-    public String toString()
-    {
+    public String toString() {
         return value;
     }
-    
-    
-    public void setValue(String value)
-    {
+
+    public void setValue(String value) {
         // if (this.value!=value)
         {
-            this.value=value;
+            this.value = value;
             setChanged(true);
         }
     }
-    
-    public String getValue()
-    {
+
+    public String getValue() {
         return value;
     }
-    public VSString(String value)
-    {
-        this.value=value;
+
+    public VSString(String value) {
+        this.value = value;
     }
-    
+
     @Override
-    public void copyValueFrom(Object in)
-    {
-        if (in!=null)
-        {
-            VSString temp =(VSString)in;
-            value=temp.value;
+    public void copyValueFrom(Object in) {
+        if (in != null) {
+            VSString temp = (VSString) in;
+            value = temp.value;
             setChanged(temp.isChanged());
-        }
-        else value="";
+        } else value = "";
     }
+
     @Override
-    public void copyReferenceFrom(Object in)
-    {
-      copyValueFrom(in);
-    }    
-        
-    
+    public void copyReferenceFrom(Object in) {
+        copyValueFrom(in);
+    }
+
     @Override
-    public boolean equals(VSObject obj)
-    {
-        VSString temp =(VSString)obj;
-        if (temp.value.equals(value))  return true;
+    public boolean equals(VSObject obj) {
+        VSString temp = (VSString) obj;
+        if (temp.value.equals(value)) return true;
         else return false;
     }
-    
+
     @Override
-    public boolean isBigger(VSObject obj)
-    {
-        VSString temp =(VSString)obj;
-        if (value.length()>temp.value.length())  return true;
+    public boolean isBigger(VSObject obj) {
+        VSString temp = (VSString) obj;
+        if (value.length() > temp.value.length()) return true;
         else return false;
     }
-    
+
     @Override
-    public boolean isSmaller(VSObject obj)
-    {
-        VSString temp =(VSString)obj;
-        if (value.length()<temp.value.length())  return true;
+    public boolean isSmaller(VSObject obj) {
+        VSString temp = (VSString) obj;
+        if (value.length() < temp.value.length()) return true;
         else return false;
     }
-    
-    
+
     @Override
-    public void loadFromStream(java.io.FileInputStream fis)
-    {
-        try
-        {
+    public void loadFromStream(java.io.FileInputStream fis) {
+        try {
             java.io.DataInputStream dis = new java.io.DataInputStream(fis);
-            
-            value=dis.readUTF();
+
+            value = dis.readUTF();
+        } catch (Exception ex) {
+
         }
-        catch(Exception ex)
-        {
-            
-        }
-        
     }
-    
+
     @Override
-    public void saveToStream(java.io.FileOutputStream fos)
-    {
-        try
-        {
+    public void saveToStream(java.io.FileOutputStream fos) {
+        try {
             java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
             dos.writeUTF(value);
-            
-        }
-        catch(Exception ex)
-        {
-           System.err.println("Fehler in VSDouble.saveToStream() : "+ex.toString());
+        } catch (Exception ex) {
+            System.err.println("Fehler in VSDouble.saveToStream() : " + ex.toString());
         }
     }
-    public void loadFromXML(String name,org.w3c.dom.Element nodeElement)
-    {
-        value=nodeElement.getAttribute("VSString"+name);
+
+    public void loadFromXML(String name, org.w3c.dom.Element nodeElement) {
+        value = nodeElement.getAttribute("VSString" + name);
     }
-    
-    public void saveToXML(String name, org.w3c.dom.Element nodeElement)
-    {
-        nodeElement.setAttribute("VSString"+name, value);
+
+    public void saveToXML(String name, org.w3c.dom.Element nodeElement) {
+        nodeElement.setAttribute("VSString" + name, value);
     }
 }

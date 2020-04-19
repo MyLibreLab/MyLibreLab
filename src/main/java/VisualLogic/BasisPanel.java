@@ -19,35 +19,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
 
 /**
- *
- * @author Homer
- * sorgt dafuer das das VMObject dargestellt wird!
+ * @author Homer sorgt dafuer das das VMObject dargestellt wird!
  */
 
-public class BasisPanel extends javax.swing.JPanel
-{
+public class BasisPanel extends javax.swing.JPanel {
     public VMObject vmObject;
-        
-    public BasisPanel(VMObject vmObject)
-    {
-        this.vmObject=vmObject;
+
+    public BasisPanel(VMObject vmObject) {
+        this.vmObject = vmObject;
         this.setPreferredSize(new Dimension(vmObject.getWidth(), vmObject.getHeight()));
         this.setBackground(Color.GRAY);
-            
+
         setDoubleBuffered(false);
-        
+
         addMouseListener(vmObject);
         addMouseMotionListener(vmObject);
-        
+
         this.setLayout(null);
         this.add(vmObject);
-        vmObject.setLocation(0,0);
+        vmObject.setLocation(0, 0);
         vmObject.setLayout(null);
-        
-        this.setSize(500,500);
-        this.setPreferredSize(new Dimension(2000,2000));             
+
+        this.setSize(500, 500);
+        this.setPreferredSize(new Dimension(2000, 2000));
     }
 }

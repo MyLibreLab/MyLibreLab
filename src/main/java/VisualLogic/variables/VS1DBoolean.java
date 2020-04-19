@@ -21,109 +21,81 @@ package VisualLogic.variables;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
-public class VS1DBoolean extends VSObject
-{
-    private boolean value[]=null;
-    
-    
-    public int getLength()
-    {
+public class VS1DBoolean extends VSObject {
+    private boolean value[] = null;
+
+    public int getLength() {
         return value.length;
     }
-    public void setValue(int x, boolean value)
-    {
-        this.value[x]=value;
+
+    public void setValue(int x, boolean value) {
+        this.value[x] = value;
         setChanged(true);
-        
     }
-    
-    public boolean getValue(int x)
-    {
+
+    public boolean getValue(int x) {
         return value[x];
     }
-    
-    public VS1DBoolean(int size)
-    {
-        value=new boolean[size];
+
+    public VS1DBoolean(int size) {
+        value = new boolean[size];
     }
-    public boolean[] getValues()
-    {
+
+    public boolean[] getValues() {
         return value;
     }
-    
-    public void setValues(boolean[] values)
-    {
-        this.value=new boolean[values.length];
-        
-        for (int i=0;i<values.length;i++)
-        {
-            this.value[i]=values[i];
-        }
-        
-    }
-    
-    public void copyReferenceFrom(Object in)
-    {
-        if (in!=null)
-        {
-            VS1DBoolean temp =(VS1DBoolean)in;
-            value=temp.value;
-        }
-        else
-        {
-            value=new boolean[0];
+
+    public void setValues(boolean[] values) {
+        this.value = new boolean[values.length];
+
+        for (int i = 0; i < values.length; i++) {
+            this.value[i] = values[i];
         }
     }
-    
-    public void copyValueFrom(Object in)
-    {
-        if (in!=null)
-        {
-            VS1DBoolean temp =(VS1DBoolean)in;
-            value=temp.value.clone();
+
+    public void copyReferenceFrom(Object in) {
+        if (in != null) {
+            VS1DBoolean temp = (VS1DBoolean) in;
+            value = temp.value;
+        } else {
+            value = new boolean[0];
+        }
+    }
+
+    public void copyValueFrom(Object in) {
+        if (in != null) {
+            VS1DBoolean temp = (VS1DBoolean) in;
+            value = temp.value.clone();
             setChanged(temp.isChanged());
-        }
-        else value=new boolean[0];
+        } else value = new boolean[0];
     }
-    
-    public void loadFromStream(java.io.FileInputStream fis)
-    {
-        try
-        {
+
+    public void loadFromStream(java.io.FileInputStream fis) {
+        try {
             DataInputStream dis = new DataInputStream(fis);
-            
-            int size=dis.readInt();
-            value=new boolean [size];
-            
-            for (int i=0;i<value.length;i++)
-            {
-                value[i]=dis.readBoolean();
+
+            int size = dis.readInt();
+            value = new boolean[size];
+
+            for (int i = 0; i < value.length; i++) {
+                value[i] = dis.readBoolean();
             }
+        } catch (Exception ex) {
+            System.err.println("Fehler in VS1DBoolean.loadFromStream() : " + ex.toString());
         }
-        catch(Exception ex)
-        {
-            System.err.println("Fehler in VS1DBoolean.loadFromStream() : "+ex.toString());
-        }
-        
     }
-    
-    public void saveToStream(java.io.FileOutputStream fos)
-    {
-        try
-        {
+
+    public void saveToStream(java.io.FileOutputStream fos) {
+        try {
             DataOutputStream dos = new DataOutputStream(fos);
             dos.writeInt(value.length);
-            
-            for (int i=0;i<value.length;i++)
-            {
-                boolean  val=value[i];
+
+            for (int i = 0; i < value.length; i++) {
+                boolean val = value[i];
                 dos.writeBoolean(val);
             }
-        }
-        catch(Exception ex)
-        {
-            System.err.println("Fehler in VS1DBoolean.saveToStream() : "+ex.toString());
+        } catch (Exception ex) {
+            System.err.println("Fehler in VS1DBoolean.saveToStream() : " + ex.toString());
         }
     }
-    
 }

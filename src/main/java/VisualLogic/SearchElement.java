@@ -11,11 +11,8 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- *
  * @author salafica
  */
 public class SearchElement {
@@ -36,7 +33,6 @@ public class SearchElement {
             if (cols.length == 2) {
                 res.put(cols[0].trim().toLowerCase(), cols[1].trim());
             }
-
         }
         br.close();
 
@@ -71,7 +67,6 @@ public class SearchElement {
                         String isdirectory = def_def.get("isdirectory");
                         if (isdirectory != null && isdirectory.equalsIgnoreCase("true")) {
                             walk(f.getAbsolutePath(), suchwort, language);
-
                         } else {
 
                             String gefunden = "";
@@ -103,11 +98,9 @@ public class SearchElement {
                                 items.add(item);
                                 //System.out.println("suchwort=" + suchwort + "   gefunden=" + gefunden + "  im Element: " + f.getAbsolutePath());
                             }
-
                         }
-
                     } catch (Exception ex) {
-                        
+
                     }
                 }
 
@@ -117,5 +110,4 @@ public class SearchElement {
             }
         }
     }
-
 }

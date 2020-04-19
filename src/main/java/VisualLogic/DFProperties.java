@@ -19,24 +19,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic;
 
-public class DFProperties 
-{
-    public boolean isDirectory=false;    
-    public String redirect="";
-    public String loader=""; // um den Loader für die MCU Libary von immer den gleichen Verzeichniss zu laden!
-    public String vm="";
-    public String vm_dir_editable="false";
-    public String classcircuit="";
-    public String classfront="";
-    public String captionInternationalized="";
-    public String captionDE=""; 
-    public String captionEN=""; 
-    public String captionES=""; 
-    public String iconFilename="";  
-    public String elementImage="";
-    public String classPath="";
-    public String classPath2="";
-    public boolean showInnerborder=true;
-    public boolean resizeSynchron=true;
-        
+public class DFProperties {
+    public boolean isDirectory = false;
+    public String redirect = "";
+    public String loader = ""; // um den Loader fï¿½r die MCU Libary von immer den gleichen Verzeichniss zu laden!
+    public String vm = "";
+    public String vm_dir_editable = "false";
+    public String classcircuit = "";
+    public String classfront = "";
+    public String captionInternationalized = "";
+    public String captionDE = "";
+    public String captionEN = "";
+    public String captionES = "";
+    public String iconFilename = "";
+    public String elementImage = "";
+    public String classPath = "";
+    public String classPath2 = "";
+    public boolean showInnerborder = true;
+    public boolean resizeSynchron = true;
 }

@@ -19,11 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package VisualLogic;
 
 /**
- *
  * @author Salafia
  */
-public interface CommandIF 
-{
+public interface CommandIF {
     public abstract void sendCommand(String commando, Object value);
-    
 }

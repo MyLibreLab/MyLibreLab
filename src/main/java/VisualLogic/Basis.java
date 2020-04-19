@@ -17,6 +17,43 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package VisualLogic;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.script.Bindings;
+import javax.script.ScriptContext;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 import MyParser.OpenVariable;
 import MyParser.Parser;
 import Peditor.PropertyEditor;
@@ -32,22 +69,6 @@ import VisualLogic.variables.VSImage;
 import VisualLogic.variables.VSInteger;
 import VisualLogic.variables.VSObject;
 import VisualLogic.variables.VSString;
-import java.security.NoSuchAlgorithmException;
-import javax.swing.*;
-import java.util.*;
-import java.awt.event.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.security.MessageDigest;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.script.Bindings;
-import javax.script.ScriptContext;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
-import javax.script.SimpleBindings;
 
 class VariableNotifyRecord {
 
@@ -58,11 +79,9 @@ class VariableNotifyRecord {
         this.element = element;
         this.varName = varName;
     }
-
 }
 
 /**
- *
  * @author Homer
  */
 public class Basis extends Object implements ElementIF, VSBasisIF {
@@ -99,12 +118,12 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     public JLabel panelLabel = null;
     private int dedugDelay = 10; // Speed from 0 to 100 : 0 = fast ; 100 =slow
     public int delay = 0; // Speed from 0 to 100 : 0 = fast ; 100 =slow
-    
-    public boolean AlwaysOnTop=false;
-    public VSComboBox WindowsPosition=new VSComboBox();
-    public int CustomXwindowPos=0;
-    public int CustomYwindowPos=0;
-    
+
+    public boolean AlwaysOnTop = false;
+    public VSComboBox WindowsPosition = new VSComboBox();
+    public int CustomXwindowPos = 0;
+    public int CustomYwindowPos = 0;
+
     public Stack stack = new Stack();
 
     ScriptEngineManager engineManager;
@@ -180,7 +199,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
             }
 
             /*DataEntry entry;
-             
+
             String name=element.jGetCaption();
             if (dataHistory.entryExist(name))
             {
@@ -189,7 +208,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
             {
                 entry=dataHistory.addEntry(name);
             }
-             
+
             entry.values.add(in);*/
             //dataHistory.list.addLast(new DataEntry(element.jGetCaption(),in));
             if (dialogTestpoint != null) {
@@ -206,7 +225,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                 }
             }
         }
-
     }
 
     @Override
@@ -240,7 +258,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         }
 
         return result;
-
     }
 
     public int vsGetVariableDT(String varname) {
@@ -283,7 +300,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         } catch (Exception ex) {
             return false;
         }
-
     }
 
     public boolean isString(String val) {
@@ -384,25 +400,26 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         boolean res = false;
 
         if (node != null) {
-            
+
             if (vsobject instanceof VSInteger && node.value instanceof Integer) {
                 Integer v1 = (Integer) node.value;
                 VSInteger v2 = (VSInteger) vsobject;
                 v2.setValue(v1);
                 res = true;
-            }             
+            }
             if (vsobject instanceof VSDouble && node.value instanceof Double) {
                 Double v1 = (Double) node.value;
                 VSDouble v2 = (VSDouble) vsobject;
                 v2.setValue(v1);
                 res = true;
-            } 
+            }
             if (vsobject instanceof VSString && node.value instanceof String) {
                 String v1 = (String) node.value;
                 VSString v2 = (VSString) vsobject;
                 v2.setValue(v1);
                 res = true;
-            } if (vsobject instanceof VSBoolean && node.value instanceof Boolean) {
+            }
+            if (vsobject instanceof VSBoolean && node.value instanceof Boolean) {
                 Boolean v1 = (Boolean) node.value;
                 VSBoolean v2 = (VSBoolean) vsobject;
                 v2.setValue(v1);
@@ -490,32 +507,31 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
     public boolean vsCompareExpression(VSFlowInfo flowInfo, String expr) {
         /*String[] str =mySplitt(expr.trim());
-        
+
         //System.out.println("expr="+expr);
-        
+
         if (str.length==3)
         {
             str[0]=str[0].trim();
             str[1]=str[1].trim();
             str[2]=str[2].trim();
-          
+
             Object a=vsEvaluate(flowInfo,str[0]);
             Object b=vsEvaluate(flowInfo,str[2]);
-            
+
             if (a!=null && b!=null)
             {
                 return vsCompareValues(a, b, str[1]);
             }
         }
-        
+
         return false;*/
 
         try {
             //System.out.println("compareExpression(" + expr + ");");
 
             bindVars();
-            
-            
+
             Object o1 = engine.eval(expr, bindings);
 
             return (boolean) o1;
@@ -552,7 +568,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                 }
                 result[c] += ch;
             }
-
         }
 
         return result;
@@ -611,7 +626,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         }
 
         notifyAllElements(varname);
-
     }
 
     public void notifyAllElements(String varname) {
@@ -641,7 +655,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     @Override
     public Stack getStack() {
         return stack;
-
     }
 
     @Override
@@ -674,6 +687,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     public FrameMain getFrameCircuit() {
         return frameCircuit;
     }
+
     public String caption = "";
     public VSImage vsIcon = new VSImage();
     public int fileCount = 0;
@@ -705,7 +719,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     public int frontPanelHeight = 200;
     private boolean changed = false;
     private boolean oldRasterOn;
-    // Die basisVersion ändert sich nur bei Änderung der Basis Properties!
+    // Die basisVersion ï¿½ndert sich nur bei ï¿½nderung der Basis Properties!
     public String basisVersion = "0";
 
     public ExternalIF ownerElement;
@@ -785,51 +799,51 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         /*this.panelMode=panelMode;
         if (frameCircuit==null)
         {
-         
+
             JFrame.setDefaultLookAndFeelDecorated(false);
             frameCircuit=new FrameCircuit(frameMain);
-         
-         
+
+
             frameCircuit.setTitle(Version.strApplicationTitle+" ["+new File(fileName).getName()+"]");
             frameCircuit.setSize(circuitPanelWidth,circuitPanelHeight);
-         
+
             circuitBasis.setSize(2000,2000);
             circuitBasis.setPreferredSize(new Dimension(2000,2000));
             circuitBasis.setBackground(Color.white);
-         
+
             frontBasis.setPreferredSize(new Dimension(500,500));
-         
+
             int pos;
             pos=getFrameMain().settings.elementSplitterPosition;
             frameCircuit.jSplitPane3.setDividerLocation(pos);
-         
+
             pos=getFrameMain().settings.elementSplitterHozPosition;
             frameCircuit.jSplitPane1.setDividerLocation(pos);
-         
-         
+
+
             getCircuitBasis().setAlignToGrid(true);
             getCircuitBasis().setRasterOn(false);
             getCircuitBasis().setRaster(5,5);
             //getCircuitBasis().setRaster
-         
+
             getFrontBasis().setAlignToGrid(getFrameMain().settings.alignToGrid);
             getFrontBasis().setRasterOn(getFrameMain().settings.rasterOn);
             getFrontBasis().setRaster(getFrameMain().settings.rasterX,getFrameMain().settings.rasterY) ;
-         
+
             frameCircuit.setLocation(getFrameMain().settings.circuitWindowLocation);
             frameCircuit.setSize(getFrameMain().settings.circuitWindowDimension);
             frameCircuit.setExtendedState(getFrameMain().settings.status);
-         
+
             propertyEditor=frameCircuit.propertyEditor;
-         
-         
-         
+
+
+
             getCircuitBasis().setOpaque(true);
             getFrontBasis().setOpaque(true);
-         
+
             if (getPanelMode()==false) getFrameCircuit().setVisible(true);
             if (getPanelMode()==false) getFrameCircuit().toFront();
-         
+
         }
         else
         {
@@ -868,7 +882,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         undoPointer = 0;
 
         frontBasis.setPreferredSize(new Dimension(500, 500));
-        
+
         WindowsPosition.addItem("CENTER");
         WindowsPosition.addItem("TOP_LEFT");
         WindowsPosition.addItem("TOP_RIGHT");
@@ -912,7 +926,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         }
 
         console.addMessageToConsole(message);
-
     }
 
     public void cut() {
@@ -937,7 +950,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
             getCircuitBasis().ProcessPinDataType();
             setChanged(true);
         }
-
     }
 
     public void verknuepfeElemente(boolean fromAblage) {
@@ -964,10 +976,8 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                             }
                         }
                     }
-
                 }
             }
-
         }
 
         for (int i = 0; i < frontBasis.getElementCount(); i++) {
@@ -983,7 +993,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                 element.panelElement = (Element) frontBasis.getObjectWithID(element.panelElementID);
             }
         }
-
     }
 
     public boolean isWriteable(File f) {
@@ -1068,32 +1077,32 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         {
             frameCircuit.timer.stop();
             int pos=0;
-        
+
             if (modus==MODE_NORMAL)
             {
               this.clear();
             }
-        
+
             if (frameCircuit.dialogTestpoint!=null) frameCircuit.dialogTestpoint.dispose();
             if (frameCircuit.frameBooleanGraph!=null) frameCircuit.frameBooleanGraph.dispose();
             if (frameCircuit.frameDoubleGraph!=null) frameCircuit.frameDoubleGraph.dispose();
-        
+
 //          getFrameMain().settings.panelDirectory=frameCircuit.oldPanelDirectory;
 //          getFrameMain().settings.circuitDirectory=frameCircuit.oldCircuitDirectory;
-        
-        
+
+
             if (frameCircuit.docFrame!=null )
             {
                 frameCircuit.docFrame.setVisible(false);
-        
+
                 frameCircuit.timer.stop();
-        
+
                 Point loc=frameCircuit.docFrame.getLocation();
                 getFrameMain().settings.docLocation=loc;
-        
+
                 Dimension dim=frameCircuit.docFrame.getSize();
                 getFrameMain().settings.docDimension=dim;
-        
+
                 frameCircuit.docFrame.dispose();
                 getFrameMain().settings.isDocWindowsVisible=true;
             }
@@ -1101,25 +1110,25 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
             {
                 getFrameMain().settings.isDocWindowsVisible=false;
             }
-        
+
             pos=frameCircuit.jSplitPane1.getDividerLocation();
             getFrameMain().settings.elementSplitterHozPosition=pos;
-        
+
             pos=frameCircuit.jSplitPane3.getDividerLocation();
             getFrameMain().settings.elementSplitterPosition=pos;
-        
-        
+
+
             getFrameMain().settings.status=frameCircuit.getExtendedState();
             frameCircuit.setExtendedState(JFrame.NORMAL);
             getFrameMain().settings.circuitWindowLocation=frameCircuit.getLocation();
             getFrameMain().settings.circuitWindowDimension=frameCircuit.getSize();
-        
+
             frameCircuit.dispose();
             frameCircuit=null;
             System.gc();
-        
+
             deleteHistoryFiles();
-        
+
             frameCircuit=null;
         }
         if (frameCircuit==null)
@@ -1174,7 +1183,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         frontBasis.stop();
 
         circuitBasis.selectAny(false);
-        frontBasis.setLocation(0,0);
+        frontBasis.setLocation(0, 0);
         frontBasis.selectAny(false);
 
         if (ownerVMPanel != null) {
@@ -1206,17 +1215,16 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
               ownerVMPanel.jTabbedPane1.insertTab(title, null,ownerVMPanel.jScrollPane2,"",1); // NOI18N
             }*/
         }
-
     }
-        
+
     private void createRunningFrame(boolean unDecoratedIn, boolean AlwaysOnTopIn) {
         //JFrame.setDefaultLookAndFeelDecorated(false);
-        this.unDecorated=unDecoratedIn;
-        this.AlwaysOnTop=AlwaysOnTopIn;
+        this.unDecorated = unDecoratedIn;
+        this.AlwaysOnTop = AlwaysOnTopIn;
         //this.WindowsPosition=WindowPositionIn;
-        
-        frm = new FrameRunning(this,unDecorated);
-       
+
+        frm = new FrameRunning(this, unDecorated);
+
         frm.setIconImage(vsIcon.getImage());
         int h = 0;
         if (showToolBar) {
@@ -1231,68 +1239,67 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
         frm.setTitle(caption);
         //frm.setSize(frontBasis.getWidth()+10,frontBasis.getHeight()+30+h);
-        
+
         frm.pack();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        
+
         //VMObject.java Line 579
         //vsWindowsPosition.addItem("CENTER");
         //vsWindowsPosition.addItem("TOP_LEFT");
         //vsWindowsPosition.addItem("TOP_RIGHT");
         //vsWindowsPosition.addItem("BOTTOM_LEFT");
         //vsWindowsPosition.addItem("BOTTOM_RIGHT");
-        int XPosTemp=0;
-        int YPosTemp=0;
-        if(WindowsPosition.selectedIndex==0){// CENTER
-        //frm.setLocation(screenSize.width / 2 - frm.getWidth() / 2, screenSize.height / 2 - frm.getHeight() / 2);
-        XPosTemp=screenSize.width / 2 - frm.getWidth() / 2;
-        YPosTemp=screenSize.height / 2 - frm.getHeight() / 2;
+        int XPosTemp = 0;
+        int YPosTemp = 0;
+        if (WindowsPosition.selectedIndex == 0) {// CENTER
+            //frm.setLocation(screenSize.width / 2 - frm.getWidth() / 2, screenSize.height / 2 - frm.getHeight() / 2);
+            XPosTemp = screenSize.width / 2 - frm.getWidth() / 2;
+            YPosTemp = screenSize.height / 2 - frm.getHeight() / 2;
         }
-        if(WindowsPosition.selectedIndex==1){
-        //frm.setLocation(0,0);
-        XPosTemp=0;
-        YPosTemp=0;
+        if (WindowsPosition.selectedIndex == 1) {
+            //frm.setLocation(0,0);
+            XPosTemp = 0;
+            YPosTemp = 0;
         }
-        if(WindowsPosition.selectedIndex==2){
-        //frm.setLocation(screenSize.width - frm.getWidth(),0);
-        XPosTemp=screenSize.width - frm.getWidth();
-        YPosTemp=0;
+        if (WindowsPosition.selectedIndex == 2) {
+            //frm.setLocation(screenSize.width - frm.getWidth(),0);
+            XPosTemp = screenSize.width - frm.getWidth();
+            YPosTemp = 0;
         }
-        if(WindowsPosition.selectedIndex==3){
-        //frm.setLocation(0,screenSize.height - frm.getHeight());
-        XPosTemp=0;
-        YPosTemp=screenSize.height - frm.getHeight();
+        if (WindowsPosition.selectedIndex == 3) {
+            //frm.setLocation(0,screenSize.height - frm.getHeight());
+            XPosTemp = 0;
+            YPosTemp = screenSize.height - frm.getHeight();
         }
-        if(WindowsPosition.selectedIndex==4){
-        //frm.setLocation(screenSize.width - frm.getWidth(),screenSize.height - frm.getHeight());
-        XPosTemp=screenSize.width - frm.getWidth();
-        YPosTemp=screenSize.height - frm.getHeight();
+        if (WindowsPosition.selectedIndex == 4) {
+            //frm.setLocation(screenSize.width - frm.getWidth(),screenSize.height - frm.getHeight());
+            XPosTemp = screenSize.width - frm.getWidth();
+            YPosTemp = screenSize.height - frm.getHeight();
         }
-        
-        if(WindowsPosition.selectedIndex==5){ // If Customized Position
-        XPosTemp=CustomXwindowPos;
-        YPosTemp=CustomYwindowPos;
-        }else{
-        CustomXwindowPos=XPosTemp;
-        CustomYwindowPos=YPosTemp;    
+
+        if (WindowsPosition.selectedIndex == 5) { // If Customized Position
+            XPosTemp = CustomXwindowPos;
+            YPosTemp = CustomYwindowPos;
+        } else {
+            CustomXwindowPos = XPosTemp;
+            CustomYwindowPos = YPosTemp;
         }
-        
-        if(WindowsPosition.selectedIndex==6){// MAXIMIZED 
-        //frm.setLocation(XPosTemp,YPosTemp);
-        frm.setSize(screenSize);
-        Rectangle b=this.frontBasis.getBounds();
-        try{
-        //Thread.currentThread().sleep(125);
-        frm.getContentPane().getComponent(1).setBackground(this.frontBasis.getBackground());
-        this.frontBasis.setLocation((screenSize.width/2)-(b.width/2),((screenSize.height/2)-(b.height/2)));
-        }catch(Exception e){}
-        //frm.repaint();
-        }else{
-        frm.setLocation(CustomXwindowPos,CustomYwindowPos);    
+
+        if (WindowsPosition.selectedIndex == 6) {// MAXIMIZED
+            //frm.setLocation(XPosTemp,YPosTemp);
+            frm.setSize(screenSize);
+            Rectangle b = this.frontBasis.getBounds();
+            try {
+                //Thread.currentThread().sleep(125);
+                frm.getContentPane().getComponent(1).setBackground(this.frontBasis.getBackground());
+                this.frontBasis.setLocation((screenSize.width / 2) - (b.width / 2), ((screenSize.height / 2) - (b.height / 2)));
+            } catch (Exception e) {
+            }
+            //frm.repaint();
+        } else {
+            frm.setLocation(CustomXwindowPos, CustomYwindowPos);
         }
         frm.setVisible(true);
-        
-        
 
         if (debugMode || AlwaysOnTop) {
             frm.setAlwaysOnTop(true);
@@ -1304,7 +1311,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
         console.setVisible(true);
         console.addMessageToConsole(value + "\n");
-
     }
 
     public void start(boolean debugmode) {
@@ -1349,7 +1355,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
             node = (OpenVariable) variablenListe.get(i);
 
             bindings.put(node.name, node.value);
-
         }
 
         if (circuitBasis.errorExist()) {
@@ -1388,7 +1393,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
                 //BasisPanel panelFront = new BasisPanel(basis.getFrontBasis());
                 //this.getContentPane().add(panelFront);
-                createRunningFrame(unDecorated,AlwaysOnTop);
+                createRunningFrame(unDecorated, AlwaysOnTop);
             }
 
             circuitBasis.start();
@@ -1402,7 +1407,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                     }
                 }
             });
-
         }
         loading = false;
     }
@@ -1462,7 +1466,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
         loading = false;
         getCircuitBasis().ProcessPinDataType();
-
     }
 
     public void scrambleElementAndWires() {
@@ -1479,7 +1482,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
             draht = vm.getDraht(i);
             draht.scrambleAllPoints();
         }
-
     }
 
     private String generatePassword() {
@@ -1592,7 +1594,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
             Element element = frontBasis.getElement(0);
             frontBasis.deleteElement(element);
         }
-
     }
 
     private void rufeXOnInit(VMObject vm) {
@@ -1686,28 +1687,28 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     }
 
     public void loadFromStream(FileSystemInput fsIn, boolean fromAblage) {
-    try {
-        fileCount = 0;
-        String tmpPassword;
-        int modusx=0;
-        String strCaption;
-        String strCircuitPanelTitel;
-        String strFrontPanelTitel;
-        int intElementWidth;
-        int intElementHeight;
-        String strElementName;
-        String strBasisTitel;
-        String strBasisVersion;
-        String strAutorName;
-        String strAutorMail;
-        String strAutorWWW;
-        
-        FileInputStream fis = fsIn.gotoItem(fileCount++);
-        DataInputStream stream = new DataInputStream(fis);
-        String ver = stream.readUTF(); // Version
-        if (Double.parseDouble(ver) == 3.13){
-        System.out.println("LoadFomStream_BasisVersion:"+ver+"|");
-        tmpPassword = stream.readUTF(); // Password einlesen
+        try {
+            fileCount = 0;
+            String tmpPassword;
+            int modusx = 0;
+            String strCaption;
+            String strCircuitPanelTitel;
+            String strFrontPanelTitel;
+            int intElementWidth;
+            int intElementHeight;
+            String strElementName;
+            String strBasisTitel;
+            String strBasisVersion;
+            String strAutorName;
+            String strAutorMail;
+            String strAutorWWW;
+
+            FileInputStream fis = fsIn.gotoItem(fileCount++);
+            DataInputStream stream = new DataInputStream(fis);
+            String ver = stream.readUTF(); // Version
+            if (Double.parseDouble(ver) == 3.13) {
+                System.out.println("LoadFomStream_BasisVersion:" + ver + "|");
+                tmpPassword = stream.readUTF(); // Password einlesen
                 if (tmpPassword.length() > 0) {
                     if (frameCircuit != null && frameCircuit.frontMode == false) {
                         DialogPassword dialog = new DialogPassword(null, true);
@@ -1729,54 +1730,54 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                         vmProtected = true;
                     }
                 }
-                
-        modusx = stream.readInt();
-        strCaption = stream.readUTF();
-        vsIcon.loadFromStream(fis);
-        strCircuitPanelTitel = stream.readUTF();
-        strFrontPanelTitel = stream.readUTF();
-        intElementWidth = stream.readInt();
-        intElementHeight = stream.readInt();
-        strElementName = stream.readUTF();
-        showToolBar = stream.readBoolean();
-        unDecorated = stream.readBoolean();
-        AlwaysOnTop = stream.readBoolean();
-        WindowsPosition.loadFromStream(fis);
-        CustomXwindowPos=stream.readInt();
-        CustomYwindowPos=stream.readInt();
-        strBasisTitel = stream.readUTF();
-        strBasisVersion = stream.readUTF();
-        strAutorName = stream.readUTF();
-        strAutorMail = stream.readUTF();
-        strAutorWWW = stream.readUTF();
-        if (fromAblage == false) {
-            variablenListe.clear();
-            int count = stream.readInt();
-            for (int i = 0; i < count; i++) {
-                OpenVariable node = new OpenVariable();
-                node.name = stream.readUTF();
-                node.datatype = stream.readInt();
-                if (Double.parseDouble(ver) >= 3.84) {
-                    System.out.println("Basis.java 1745 Double.parseDouble (ver)" + Double.parseDouble(ver));
-                }
-                
-                    node.size1 = stream.readInt();
-                    node.size2 = stream.readInt();
-                //}
 
-                variablenListe.add(node);
-            }
-        }
+                modusx = stream.readInt();
+                strCaption = stream.readUTF();
+                vsIcon.loadFromStream(fis);
+                strCircuitPanelTitel = stream.readUTF();
+                strFrontPanelTitel = stream.readUTF();
+                intElementWidth = stream.readInt();
+                intElementHeight = stream.readInt();
+                strElementName = stream.readUTF();
+                showToolBar = stream.readBoolean();
+                unDecorated = stream.readBoolean();
+                AlwaysOnTop = stream.readBoolean();
+                WindowsPosition.loadFromStream(fis);
+                CustomXwindowPos = stream.readInt();
+                CustomYwindowPos = stream.readInt();
+                strBasisTitel = stream.readUTF();
+                strBasisVersion = stream.readUTF();
+                strAutorName = stream.readUTF();
+                strAutorMail = stream.readUTF();
+                strAutorWWW = stream.readUTF();
+                if (fromAblage == false) {
+                    variablenListe.clear();
+                    int count = stream.readInt();
+                    for (int i = 0; i < count; i++) {
+                        OpenVariable node = new OpenVariable();
+                        node.name = stream.readUTF();
+                        node.datatype = stream.readInt();
+                        if (Double.parseDouble(ver) >= 3.84) {
+                            System.out.println("Basis.java 1745 Double.parseDouble (ver)" + Double.parseDouble(ver));
+                        }
+
+                        node.size1 = stream.readInt();
+                        node.size2 = stream.readInt();
+                        //}
+
+                        variablenListe.add(node);
+                    }
+                }
         /*  dos.writeUTF(Version.strFileVersion); // Version
             dos.writeUTF(vmPassword);               int modusx = 0;
-            dos.writeInt(modusx);                   dos.writeUTF(caption); 
+            dos.writeInt(modusx);                   dos.writeUTF(caption);
             vsIcon.saveToStream(fos);               dos.writeUTF(circuitPanelTitel);
             dos.writeUTF(frontPanelTitel);          dos.writeInt(elementWidth);
             dos.writeInt(elementHeight);            dos.writeUTF(elementName);
             dos.writeBoolean(showToolBar);          dos.writeBoolean(unDecorated);
             dos.writeUTF(basisTitel);               dos.writeUTF(basisVersion);
             dos.writeUTF(autorName);                dos.writeUTF(autorMail);
-            dos.writeUTF(autorWWW);             
+            dos.writeUTF(autorWWW);
         if (onlySelected == false) {
                 dos.writeInt(variablenListe.size());
                 OpenVariable node;
@@ -1788,88 +1789,86 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                     dos.writeInt(node.size2);
                 }
             }*/
-        }else{
-            if (Double.parseDouble(ver) < 1.981) {
-                showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("Ungueltige_Version_oder_Version_wird_nicht_unterstuetzt"));
-                return;
-            }
+            } else {
+                if (Double.parseDouble(ver) < 1.981) {
+                    showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("Ungueltige_Version_oder_Version_wird_nicht_unterstuetzt"));
+                    return;
+                }
 
-            if (Double.parseDouble(ver) >= 3.12) {
+                if (Double.parseDouble(ver) >= 3.12) {
 
-                tmpPassword = stream.readUTF(); // Password einlesen
+                    tmpPassword = stream.readUTF(); // Password einlesen
 
-                if (tmpPassword.length() > 0) {
-                    if (frameCircuit != null && frameCircuit.frontMode == false) {
-                        DialogPassword dialog = new DialogPassword(null, true);
+                    if (tmpPassword.length() > 0) {
+                        if (frameCircuit != null && frameCircuit.frontMode == false) {
+                            DialogPassword dialog = new DialogPassword(null, true);
 
-                        dialog.setVisible(true);
-                        String refPassword = DialogPassword.password;
-                        vmPassword = tmpPassword;
+                            dialog.setVisible(true);
+                            String refPassword = DialogPassword.password;
+                            vmPassword = tmpPassword;
 
-                        String res = bytesToHex(calcDigest(refPassword));
-                        String res1 = tmpPassword;
+                            String res = bytesToHex(calcDigest(refPassword));
+                            String res1 = tmpPassword;
 
-                        if (res.equals(res1)) {
-                            vmProtected = false;
+                            if (res.equals(res1)) {
+                                vmProtected = false;
+                            } else {
+                                //Tools.showMessage("Password incorrect!\nVM is now readonly.");
+                                vmProtected = true;
+                            }
                         } else {
-                            //Tools.showMessage("Password incorrect!\nVM is now readonly.");
                             vmProtected = true;
                         }
-                    } else {
-                        vmProtected = true;
                     }
                 }
-            }
 
-            
-            if (Double.parseDouble(ver) >= 3.04) {
-                modusx = stream.readInt();
-            }
+                if (Double.parseDouble(ver) >= 3.04) {
+                    modusx = stream.readInt();
+                }
 
-            strCaption = stream.readUTF();
+                strCaption = stream.readUTF();
 
-            if (Double.parseDouble(ver) >= 3.06) {
-                vsIcon.loadFromStream(fis);
-            }
+                if (Double.parseDouble(ver) >= 3.06) {
+                    vsIcon.loadFromStream(fis);
+                }
 
-            strCircuitPanelTitel = stream.readUTF();
-            strFrontPanelTitel = stream.readUTF();
-            intElementWidth = stream.readInt();
-            intElementHeight = stream.readInt();
-            strElementName = stream.readUTF();
+                strCircuitPanelTitel = stream.readUTF();
+                strFrontPanelTitel = stream.readUTF();
+                intElementWidth = stream.readInt();
+                intElementHeight = stream.readInt();
+                strElementName = stream.readUTF();
 
-            if (Double.parseDouble(ver) >= 3.11) {
-                showToolBar = stream.readBoolean();
-            }
+                if (Double.parseDouble(ver) >= 3.11) {
+                    showToolBar = stream.readBoolean();
+                }
 
-            strBasisTitel = stream.readUTF();
-            strBasisVersion = stream.readUTF();
-            strAutorName = stream.readUTF();
-            strAutorMail = stream.readUTF();
-            strAutorWWW = stream.readUTF();
+                strBasisTitel = stream.readUTF();
+                strBasisVersion = stream.readUTF();
+                strAutorName = stream.readUTF();
+                strAutorMail = stream.readUTF();
+                strAutorWWW = stream.readUTF();
 
-            if (Double.parseDouble(ver) >= 3.07) {
-                if (fromAblage == false) {
-                    variablenListe.clear();
-                    int count = stream.readInt();
+                if (Double.parseDouble(ver) >= 3.07) {
+                    if (fromAblage == false) {
+                        variablenListe.clear();
+                        int count = stream.readInt();
 
-                    for (int i = 0; i < count; i++) {
-                        OpenVariable node = new OpenVariable();
-                        node.name = stream.readUTF();
-                        node.datatype = stream.readInt();
-                        if (Double.parseDouble(ver) >= 3.84) {
-                            node.size1 = stream.readInt();
-                            node.size2 = stream.readInt();
+                        for (int i = 0; i < count; i++) {
+                            OpenVariable node = new OpenVariable();
+                            node.name = stream.readUTF();
+                            node.datatype = stream.readInt();
+                            if (Double.parseDouble(ver) >= 3.84) {
+                                node.size1 = stream.readInt();
+                                node.size2 = stream.readInt();
+                            }
+
+                            variablenListe.add(node);
                         }
-
-                        variablenListe.add(node);
                     }
                 }
             }
-            
-        }
-        
-         if (fromAblage == false) {
+
+            if (fromAblage == false) {
                 caption = strCaption;
                 circuitPanelTitel = strCircuitPanelTitel;
                 frontPanelTitel = strFrontPanelTitel;
@@ -1895,12 +1894,10 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
             circuitBasis.reorderWireFrames();
             frontBasis.reorderWireFrames();
             setChanged(false);
-
         } catch (IOException | NumberFormatException ex) {
             showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("Fehler_in_Basis.loadFromStream()_:") + ex.toString());
-            showErrorMessage("error loading File : " + XfileName + "\n"+ex.getMessage());
+            showErrorMessage("error loading File : " + XfileName + "\n" + ex.getMessage());
         }
-        
     }
 
     public void showErrorMessage(String message) {
@@ -1912,18 +1909,18 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     /*  public void ladeNunAlleBasisElementeOnlyFromAblage(VMObject vm,FileSystemInput fsIn)
     {
         Element element;
-   
-   
+
+
         for (int i=0;i<vm.getElementCount();i++)
         {
             element=vm.getElement(i);
-   
-   
+
+
             if (element.loadedFromAblageFlag2)
             {
                 FileInputStream fis=fsIn.gotoItem(fileCount++);
                 DataInputStream stream= new DataInputStream(fis);
-   
+
                 try
                 {
                     element.classRef.loadFromStreamAfterXOnInit(fis);
@@ -1936,16 +1933,16 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                 {
                     System.out.println(ee.toString());
                 }
-   
+
                 if (element.elementBasis!=null)
                 {
                     element.elementBasis.getCircuitBasis(). processpropertyChangedToAllElements(null);
                     element.elementBasis.getFrontBasis(). processpropertyChangedToAllElements(null);
                 }
-   
+
             }
         }
-   
+
     }*/
     public void ladeNunAlleBasisElemente(VMObject vm, FileSystemInput fsIn) {
         Element element;
@@ -1971,7 +1968,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                 element.elementBasis.getFrontBasis().processpropertyChangedToAllElements(null);
             }
         }
-
     }
 
     public void setPassword(String pass) {
@@ -1980,110 +1976,108 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     }
 
     public void saveToStream(FileSystemOutput fsOut, boolean onlySelected) {
-      if(Double.parseDouble(Version.strFileVersion)>=3.12){
-      try {
-            FileOutputStream fos = fsOut.addItem("Properties");
-            DataOutputStream dos = new DataOutputStream(fos);
-            //dos.writeUTF(Version.strFileVersion); // Version
-            dos.writeUTF(Version.strFileVersion); // Version
-            System.out.println("SavetoStream_BasisVersion:"+Version.strFileVersion+"|");
-            if (vmPassword.length() == 0) {
-                vmPassword = "";
-            }
-            dos.writeUTF(vmPassword); // Password
-            int modusx = 0;
-            dos.writeInt(modusx); // NOPE!
-            dos.writeUTF(caption);            // Caption
-            vsIcon.saveToStream(fos);
-            dos.writeUTF(circuitPanelTitel);
-            dos.writeUTF(frontPanelTitel);
-            dos.writeInt(elementWidth);
-            dos.writeInt(elementHeight);
-            dos.writeUTF(elementName);
-            dos.writeBoolean(showToolBar);
-            dos.writeBoolean(unDecorated);
-            dos.writeBoolean(AlwaysOnTop);
-            WindowsPosition.saveToStream(fos);
-            dos.writeInt(CustomXwindowPos);
-            dos.writeInt(CustomYwindowPos);
-            dos.writeUTF(basisTitel);
-            dos.writeUTF(basisVersion);
-            dos.writeUTF(autorName);
-            dos.writeUTF(autorMail);
-            dos.writeUTF(autorWWW);
-            if (onlySelected == false) {
-                dos.writeInt(variablenListe.size());
-                OpenVariable node;
-                for (int i = 0; i < variablenListe.size(); i++) {
-                    node = (OpenVariable) variablenListe.get(i);
-                    dos.writeUTF(node.name);
-                    dos.writeInt(node.datatype);
-                    dos.writeInt(node.size1);
-                    dos.writeInt(node.size2);
+        if (Double.parseDouble(Version.strFileVersion) >= 3.12) {
+            try {
+                FileOutputStream fos = fsOut.addItem("Properties");
+                DataOutputStream dos = new DataOutputStream(fos);
+                //dos.writeUTF(Version.strFileVersion); // Version
+                dos.writeUTF(Version.strFileVersion); // Version
+                System.out.println("SavetoStream_BasisVersion:" + Version.strFileVersion + "|");
+                if (vmPassword.length() == 0) {
+                    vmPassword = "";
                 }
-            }
-            fsOut.postItem();
-            circuitBasis.saveToStream(fsOut, "CircuitPanel", onlySelected);
-            frontBasis.saveToStream(fsOut, "FrontPanel", onlySelected);
-            //speichereNunAlleBasisElemente(circuitBasis,fsOut,onlySelected);
-            //speichereNunAlleBasisElemente(frontBasis,fsOut,onlySelected);
-        } catch (Exception ex) {
-            showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("Fehler_in_Basis.saveToStream()_:") + ex.toString());
-        }      
-      }else{
-        try {
-            FileOutputStream fos = fsOut.addItem("Properties");
-            DataOutputStream dos = new DataOutputStream(fos);
-
-            dos.writeUTF(Version.strFileVersion); // Version
-            //System.out.println("SavetoStream_BasisVersion:"+Version.strFileVersion+"|");
-            if (vmPassword.length() == 0) {
-                vmPassword = "";
-            }
-
-            dos.writeUTF(vmPassword); // Password
-            int modusx = 0;
-            dos.writeInt(modusx); // NOPE!
-            dos.writeUTF(caption);            // Caption
-            vsIcon.saveToStream(fos);
-            dos.writeUTF(circuitPanelTitel);
-            dos.writeUTF(frontPanelTitel);
-            dos.writeInt(elementWidth);
-            dos.writeInt(elementHeight);
-            dos.writeUTF(elementName);
-            dos.writeBoolean(showToolBar);
-
-            dos.writeUTF(basisTitel);
-            dos.writeUTF(basisVersion);
-            dos.writeUTF(autorName);
-            dos.writeUTF(autorMail);
-            dos.writeUTF(autorWWW);
-
-            if (onlySelected == false) {
-                dos.writeInt(variablenListe.size());
-                OpenVariable node;
-                for (int i = 0; i < variablenListe.size(); i++) {
-                    node = (OpenVariable) variablenListe.get(i);
-                    dos.writeUTF(node.name);
-                    dos.writeInt(node.datatype);
-                    dos.writeInt(node.size1);
-                    dos.writeInt(node.size2);
+                dos.writeUTF(vmPassword); // Password
+                int modusx = 0;
+                dos.writeInt(modusx); // NOPE!
+                dos.writeUTF(caption);            // Caption
+                vsIcon.saveToStream(fos);
+                dos.writeUTF(circuitPanelTitel);
+                dos.writeUTF(frontPanelTitel);
+                dos.writeInt(elementWidth);
+                dos.writeInt(elementHeight);
+                dos.writeUTF(elementName);
+                dos.writeBoolean(showToolBar);
+                dos.writeBoolean(unDecorated);
+                dos.writeBoolean(AlwaysOnTop);
+                WindowsPosition.saveToStream(fos);
+                dos.writeInt(CustomXwindowPos);
+                dos.writeInt(CustomYwindowPos);
+                dos.writeUTF(basisTitel);
+                dos.writeUTF(basisVersion);
+                dos.writeUTF(autorName);
+                dos.writeUTF(autorMail);
+                dos.writeUTF(autorWWW);
+                if (onlySelected == false) {
+                    dos.writeInt(variablenListe.size());
+                    OpenVariable node;
+                    for (int i = 0; i < variablenListe.size(); i++) {
+                        node = (OpenVariable) variablenListe.get(i);
+                        dos.writeUTF(node.name);
+                        dos.writeInt(node.datatype);
+                        dos.writeInt(node.size1);
+                        dos.writeInt(node.size2);
+                    }
                 }
+                fsOut.postItem();
+                circuitBasis.saveToStream(fsOut, "CircuitPanel", onlySelected);
+                frontBasis.saveToStream(fsOut, "FrontPanel", onlySelected);
+                //speichereNunAlleBasisElemente(circuitBasis,fsOut,onlySelected);
+                //speichereNunAlleBasisElemente(frontBasis,fsOut,onlySelected);
+            } catch (Exception ex) {
+                showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("Fehler_in_Basis.saveToStream()_:") + ex.toString());
             }
-            
+        } else {
+            try {
+                FileOutputStream fos = fsOut.addItem("Properties");
+                DataOutputStream dos = new DataOutputStream(fos);
 
-            fsOut.postItem();
+                dos.writeUTF(Version.strFileVersion); // Version
+                //System.out.println("SavetoStream_BasisVersion:"+Version.strFileVersion+"|");
+                if (vmPassword.length() == 0) {
+                    vmPassword = "";
+                }
 
-            circuitBasis.saveToStream(fsOut, "CircuitPanel", onlySelected);
-            frontBasis.saveToStream(fsOut, "FrontPanel", onlySelected);
+                dos.writeUTF(vmPassword); // Password
+                int modusx = 0;
+                dos.writeInt(modusx); // NOPE!
+                dos.writeUTF(caption);            // Caption
+                vsIcon.saveToStream(fos);
+                dos.writeUTF(circuitPanelTitel);
+                dos.writeUTF(frontPanelTitel);
+                dos.writeInt(elementWidth);
+                dos.writeInt(elementHeight);
+                dos.writeUTF(elementName);
+                dos.writeBoolean(showToolBar);
 
-            //speichereNunAlleBasisElemente(circuitBasis,fsOut,onlySelected);
-            //speichereNunAlleBasisElemente(frontBasis,fsOut,onlySelected);
-        } catch (Exception ex) {
-            showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("Fehler_in_Basis.saveToStream()_:") + ex.toString());
+                dos.writeUTF(basisTitel);
+                dos.writeUTF(basisVersion);
+                dos.writeUTF(autorName);
+                dos.writeUTF(autorMail);
+                dos.writeUTF(autorWWW);
+
+                if (onlySelected == false) {
+                    dos.writeInt(variablenListe.size());
+                    OpenVariable node;
+                    for (int i = 0; i < variablenListe.size(); i++) {
+                        node = (OpenVariable) variablenListe.get(i);
+                        dos.writeUTF(node.name);
+                        dos.writeInt(node.datatype);
+                        dos.writeInt(node.size1);
+                        dos.writeInt(node.size2);
+                    }
+                }
+
+                fsOut.postItem();
+
+                circuitBasis.saveToStream(fsOut, "CircuitPanel", onlySelected);
+                frontBasis.saveToStream(fsOut, "FrontPanel", onlySelected);
+
+                //speichereNunAlleBasisElemente(circuitBasis,fsOut,onlySelected);
+                //speichereNunAlleBasisElemente(frontBasis,fsOut,onlySelected);
+            } catch (Exception ex) {
+                showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("Fehler_in_Basis.saveToStream()_:") + ex.toString());
+            }
         }
-      }
-
     }
 
     private void saveX(Element element, FileSystemOutput fsOut) {
@@ -2111,7 +2105,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                 saveX(element, fsOut);
                 //System.out.println("Element="+element.getCaption());
             }
-
         }
     }
 
@@ -2161,9 +2154,9 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
         /*getCircuitBasis().xsetExternalIF(externalIF);
         element=(Element)externalIF;
-         
+
         this.element=externalIF;
-         
+
         if (getFrontBasis().getElementCount()>0)
         {
             panelElement=externalIF.setPanelElement("Dummy");
@@ -2257,7 +2250,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
     @Override
     public void onDispose() {
-        
+
         try {// Added on v3.12.0
             this.finalize();
         } catch (Throwable ex) {
@@ -2327,7 +2320,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
             }
         }
         return c;
-
     }
 
     @Override
@@ -2381,14 +2373,12 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                                 flowInfo.setVariable(var.name, obj);
 
                                 var.createVariableByDt();
-                                
-                                var.value=obj;
-                                
+
+                                var.value = obj;
+
                                 flowInfo.bindings.put(var.name, var.value);
-                                
                             }
                         }
-
                     } else {
                         elementX.jException("parameter count have to be equal!");
                         return;
@@ -2403,7 +2393,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                         }
                     }
                 }
-
             }
         }
     }
@@ -2423,12 +2412,11 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     public Object vsEvaluate(VSFlowInfo flowInfo, String expression) {
         try {
 
-           
             //parser.flowInfo = flowInfo;
             //parser.delErrorMessage();
 
             /*Object o=parser.parseString(expression);
-            
+
             String err=parser.getErrorMessage().trim();
             if (err.length()>0)
             {
@@ -2437,30 +2425,26 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
             OpenVariable node;
             Object o1;
 
-            Bindings b=bindings;
-            ArrayList vars=variablenListe;
+            Bindings b = bindings;
+            ArrayList vars = variablenListe;
 
             if (flowInfo.bindings != null) {
                 b = flowInfo.bindings;
-                vars= flowInfo.variablenListe;
+                vars = flowInfo.variablenListe;
             }
-            
-           
 
             o1 = engine.eval(expression, b);
 
             for (int i = 0; i < vars.size(); i++) {
                 node = (OpenVariable) vars.get(i);
-                
-                if (b.get(node.name) instanceof Double && node.value instanceof Integer){
-                    node.value = ((Double)b.get(node.name)).intValue();
-                }else
-                if (b.get(node.name) instanceof Integer && node.value instanceof Double){
-                    node.value = ((Integer)b.get(node.name)).doubleValue();
-                }else {
+
+                if (b.get(node.name) instanceof Double && node.value instanceof Integer) {
+                    node.value = ((Double) b.get(node.name)).intValue();
+                } else if (b.get(node.name) instanceof Integer && node.value instanceof Double) {
+                    node.value = ((Integer) b.get(node.name)).doubleValue();
+                } else {
                     node.value = b.get(node.name);
                 }
-                
 
                 notifyAllElements(node.name);
             }
@@ -2486,16 +2470,16 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         for (int i=0;i<stack.size();i++)
         {
           ExternalIF sourceElement=(ExternalIF)stack.get(i);
-         
+
           o=sourceElement.jGetTag(0);
           if (o instanceof String)
           {
               String oo = ((String)o).trim();
               if (oo.equalsIgnoreCase(name))
               {
-         
+
                   Element el = ((Element)sourceElement);
-         
+
                   if (el!=null && el.classRef!=null)
                   {
                       el.classRef.resetValues();
@@ -2563,13 +2547,13 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     @Override
     public void vsLoadFromFile(String fileName) {
         /*File file = new File(fileName);
-         
+
         if (!file.exists())
         {
             String result=frameCircuit.searchElement(file.getParentFile());
             if (result.length()>0)
             {
-         
+
                 fileName=result+"/"+file.getName();
             }
         }*/
@@ -2689,7 +2673,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     }
 
     /**
-     *
      * @param result
      */
     @Override
@@ -2711,7 +2694,6 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
             node = (OpenVariable) variablenListe.get(i);
 
             bindings.put(node.name, node.value);
-
         }
     }
 
@@ -2719,5 +2701,4 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     public ScriptEngine vsGetEngine() {
         return engine;
     }
-
 }

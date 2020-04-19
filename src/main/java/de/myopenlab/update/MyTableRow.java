@@ -3,30 +3,30 @@ package de.myopenlab.update;
 import javax.swing.ImageIcon;
 
 public class MyTableRow {
- 
+
     private boolean selected;
     private ImageIcon icon;
     private String name;
-    private String categorie; 
-    private String date; 
-    private String author; 
-    private String type; 
-    private String caption_de; 
-    private String caption_en; 
-    private String caption_es; 
- 
+    private String categorie;
+    private String date;
+    private String author;
+    private String type;
+    private String caption_de;
+    private String caption_en;
+    private String caption_es;
+
     public MyTableRow() {
         this(false, null, "", "", "", "", "");
     }
- 
-    public MyTableRow(boolean selected, ImageIcon icon, String name, String categorie, String date,  String author, String type) {
+
+    public MyTableRow(boolean selected, ImageIcon icon, String name, String categorie, String date, String author, String type) {
         this.selected = selected;
-        this.icon=icon;
+        this.icon = icon;
         this.name = name;
         this.categorie = categorie;
         this.date = date;
-        this.author = author;        
-        this.type = type;        
+        this.author = author;
+        this.type = type;
     }
 
     /**

@@ -17,12 +17,10 @@
  */
 package VisualLogic;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 
 public interface MyOpenLabDriverIF {
-    /* Sendet ein Kommando an den Treiber 
+    /* Sendet ein Kommando an den Treiber
      * durch das Interface
      */
 
@@ -33,5 +31,4 @@ public interface MyOpenLabDriverIF {
     public abstract void driverStart(ArrayList args);
 
     public abstract void driverStop();
-        
 }

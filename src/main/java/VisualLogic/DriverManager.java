@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package VisualLogic;
 
-import VisualLogic.*;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -49,7 +48,6 @@ class MyOpenLabDriver {
             }
         }
     }
-
 }
 
 public class DriverManager {
@@ -129,5 +127,4 @@ public class DriverManager {
             return false;
         }
     }
-
 }

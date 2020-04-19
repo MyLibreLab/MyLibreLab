@@ -17,102 +17,77 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package VisualLogic.variables;
 
-import java.awt.*;
-import java.io.IOException;
+import java.awt.Color;
 
-public class VSColor extends VSObject
-{
-    private Color value=Color.BLACK;
+public class VSColor extends VSObject {
+    private Color value = Color.BLACK;
 
-   
-    public VSColor(Color color) 
-    {
-        value=color;
+    public VSColor(Color color) {
+        value = color;
     }
-    
-    public void setValue(Color value)
-    {
-       // if (!this.value.equals(value))
+
+    public void setValue(Color value) {
+        // if (!this.value.equals(value))
         {
-          this.value=value;
-          setChanged(true);
+            this.value = value;
+            setChanged(true);
         }
     }
-    
-    public Color getValue()
-    {
+
+    public Color getValue() {
         return value;
-    }    
-    
-    public void copyValueFrom(Object in)
-    {
-        if (in!=null)
-        {        
-          VSColor temp =(VSColor)in;
-          value=temp.value;
-          setChanged(temp.isChanged());
-        } else value=Color.BLACK;
-    }      
-    
-    public void copyReferenceFrom(Object in)
-    {
-      copyValueFrom(in);
-    }    
-    
-    
-    
-    public void loadFromStream(java.io.FileInputStream fis) 
-    {
-        try
-        {        
+    }
+
+    public void copyValueFrom(Object in) {
+        if (in != null) {
+            VSColor temp = (VSColor) in;
+            value = temp.value;
+            setChanged(temp.isChanged());
+        } else value = Color.BLACK;
+    }
+
+    public void copyReferenceFrom(Object in) {
+        copyValueFrom(in);
+    }
+
+    public void loadFromStream(java.io.FileInputStream fis) {
+        try {
             java.io.DataInputStream dis = new java.io.DataInputStream(fis);
 
-            int r=dis.readInt();
-            int g=dis.readInt();
-            int b=dis.readInt();
-            value=new Color(r,g,b);
-        } catch(Exception ex)
-        {
-            
-        }
+            int r = dis.readInt();
+            int g = dis.readInt();
+            int b = dis.readInt();
+            value = new Color(r, g, b);
+        } catch (Exception ex) {
 
+        }
     }
-    
-    public void saveToStream(java.io.FileOutputStream fos)
-    {
-        try
-        {
-            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);                
+
+    public void saveToStream(java.io.FileOutputStream fos) {
+        try {
+            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
             dos.writeInt(value.getRed());
             dos.writeInt(value.getGreen());
             dos.writeInt(value.getBlue());
-        
-        } catch(Exception ex)
-        {
-           System.err.println("Fehler in VSColor.saveToStream() : "+ex.toString());
-        }                        
-    }
-    
-    public void loadFromXML(String name,org.w3c.dom.Element nodeElement)
-    {
-        try
-        {
-            int r=Integer.parseInt(nodeElement.getAttribute("VSColorR"+name));
-            int g=Integer.parseInt(nodeElement.getAttribute("VSColorG"+name));
-            int b=Integer.parseInt(nodeElement.getAttribute("VSColorB"+name));
-            value=new Color(r,g,b);
-       } catch(Exception ex)
-       {
-           
-       }
-            
+        } catch (Exception ex) {
+            System.err.println("Fehler in VSColor.saveToStream() : " + ex.toString());
+        }
     }
 
-    public void saveToXML(String name, org.w3c.dom.Element nodeElement)    
-    {        
-        nodeElement.setAttribute("VSColorR"+name, ""+value.getRed());
-        nodeElement.setAttribute("VSColorG"+name, ""+value.getGreen());
-        nodeElement.setAttribute("VSColorB"+name, ""+value.getBlue());
+    public void loadFromXML(String name, org.w3c.dom.Element nodeElement) {
+        try {
+            int r = Integer.parseInt(nodeElement.getAttribute("VSColorR" + name));
+            int g = Integer.parseInt(nodeElement.getAttribute("VSColorG" + name));
+            int b = Integer.parseInt(nodeElement.getAttribute("VSColorB" + name));
+            value = new Color(r, g, b);
+        } catch (Exception ex) {
+
+        }
     }
-    
+
+    public void saveToXML(String name, org.w3c.dom.Element nodeElement) {
+        nodeElement.setAttribute("VSColorR" + name, "" + value.getRed());
+        nodeElement.setAttribute("VSColorG" + name, "" + value.getGreen());
+        nodeElement.setAttribute("VSColorB" + name, "" + value.getBlue());
+    }
 }

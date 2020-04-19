@@ -18,12 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package VisualLogic;
 
 import java.awt.Dimension;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayList;
 
+import javax.swing.UIManager;
+
 /**
- *
  * @author Homer
  */
 public class Settings {
@@ -756,5 +756,4 @@ public class Settings {
     public void setOldRightSplitterPos(int oldRightSplitterPos) {
         this.oldRightSplitterPos = oldRightSplitterPos;
     }
-
 }

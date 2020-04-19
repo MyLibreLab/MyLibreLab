@@ -17,114 +17,93 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-
 package VisualLogic.variables;
 
-public class VSBoolean extends VSObject
-{
+public class VSBoolean extends VSObject {
     private boolean value;
 
-    public VSBoolean()  {}
-    public VSBoolean(boolean value)  {this.value=value;}
-    
-    public String toString()
-    {
-        return ""+value;
+    public VSBoolean() {
     }
-    
-    public void setValue(boolean value)
-    {
+
+    public VSBoolean(boolean value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return "" + value;
+    }
+
+    public void setValue(boolean value) {
         //if (this.value!=value)
         {
-          this.value=value;
-          setChanged(true);  
-          
+            this.value = value;
+            setChanged(true);
         }
     }
-    
-    public boolean getValue()
-    {
+
+    public boolean getValue() {
         return value;
     }
-    
-    public void copyValueFrom(Object in)
-    {
-        if (in!=null)
-        {
-          VSBoolean temp =(VSBoolean)in;
-          value=temp.value;      
-          setChanged(temp.isChanged());
-        } else value=false;
-    }   
-    
-    public void copyReferenceFrom(Object in)
-    {
-      copyValueFrom(in);
-    }    
-    
-    
-    public boolean equals(VSObject obj)
-    {
-        VSBoolean temp =(VSBoolean)obj;
-        if (temp.value==value)  return true; else return false;        
-    }    
-        
-    public boolean isBigger(VSObject obj)
-    {
-        VSBoolean temp =(VSBoolean)obj;
-        if (value==true && temp.value==false)  return true; else return false;
+
+    public void copyValueFrom(Object in) {
+        if (in != null) {
+            VSBoolean temp = (VSBoolean) in;
+            value = temp.value;
+            setChanged(temp.isChanged());
+        } else value = false;
     }
 
-    public boolean isSmaller(VSObject obj)
-    {
-        VSBoolean temp =(VSBoolean)obj;
-        if (value==false && temp.value==true)  return true; else return false;
-    }           
-    
-    
-    public void loadFromStream(java.io.FileInputStream fis) 
-    {
-        try
-        {
-        java.io.DataInputStream dis = new java.io.DataInputStream(fis);
+    public void copyReferenceFrom(Object in) {
+        copyValueFrom(in);
+    }
 
-        value=dis.readBoolean();
-        } catch(Exception ex)
-        {
-            
+    public boolean equals(VSObject obj) {
+        VSBoolean temp = (VSBoolean) obj;
+        if (temp.value == value) return true;
+        else return false;
+    }
+
+    public boolean isBigger(VSObject obj) {
+        VSBoolean temp = (VSBoolean) obj;
+        if (value == true && temp.value == false) return true;
+        else return false;
+    }
+
+    public boolean isSmaller(VSObject obj) {
+        VSBoolean temp = (VSBoolean) obj;
+        if (value == false && temp.value == true) return true;
+        else return false;
+    }
+
+    public void loadFromStream(java.io.FileInputStream fis) {
+        try {
+            java.io.DataInputStream dis = new java.io.DataInputStream(fis);
+
+            value = dis.readBoolean();
+        } catch (Exception ex) {
+
         }
-        
-                      
-    }
-    
-    public void saveToStream(java.io.FileOutputStream fos)
-    {
-        try
-        {
-            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);                
-            dos.writeBoolean(value);
-        
-        } catch(Exception ex)
-        {
-           //System.err.println("Fehler in VSBoolean.saveToStream() : "+ex.toString());
-        }                        
-    }
-        
-   public void loadFromXML(String name,org.w3c.dom.Element nodeElement)
-    {
-       try
-       {
-        value=Boolean.parseBoolean(nodeElement.getAttribute("VSBoolean"+name));
-       } catch(Exception ex)
-       {
-           
-       }
     }
 
-    public void saveToXML(String name, org.w3c.dom.Element nodeElement)    
-    {        
-        nodeElement.setAttribute("VSBoolean"+name, ""+value);
-    }    
-    
+    public void saveToStream(java.io.FileOutputStream fos) {
+        try {
+            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
+            dos.writeBoolean(value);
+        } catch (Exception ex) {
+            //System.err.println("Fehler in VSBoolean.saveToStream() : "+ex.toString());
+        }
+    }
+
+    public void loadFromXML(String name, org.w3c.dom.Element nodeElement) {
+        try {
+            value = Boolean.parseBoolean(nodeElement.getAttribute("VSBoolean" + name));
+        } catch (Exception ex) {
+
+        }
+    }
+
+    public void saveToXML(String name, org.w3c.dom.Element nodeElement) {
+        nodeElement.setAttribute("VSBoolean" + name, "" + value);
+    }
 }
 

@@ -14,31 +14,30 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+
 import javax.swing.JPanel;
 
 /**
- *
  * @author Salafia
  */
-public class DummyElement extends JPanel
-{
-    private Stroke strokeDick=new BasicStroke(5);
-    /** Creates a new instance of DummyElement */
-    public DummyElement()
-    {
+public class DummyElement extends JPanel {
+    private Stroke strokeDick = new BasicStroke(5);
+
+    /**
+     * Creates a new instance of DummyElement
+     */
+    public DummyElement() {
         setOpaque(false);
     }
-    
-    public void paintComponent(Graphics g)
-    {
+
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        
-        Graphics2D g2 =(Graphics2D)g;
-        
+
+        Graphics2D g2 = (Graphics2D) g;
+
         g2.setStroke(strokeDick);
         g2.setColor(Color.RED);
-        g2.drawLine(0,0,50,0);
-        g2.drawLine(0,0,0,50);
+        g2.drawLine(0, 0, 50, 0);
+        g2.drawLine(0, 0, 0, 50);
     }
-    
 }

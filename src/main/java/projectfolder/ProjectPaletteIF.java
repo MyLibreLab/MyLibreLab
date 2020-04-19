@@ -19,22 +19,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package projectfolder;
 
 /**
- *
  * @author Carmelo
  */
-public interface ProjectPaletteIF
-{        
+public interface ProjectPaletteIF {
     public void projectPaletteDeleteProject(MyNode node);
+
     public void projectPaletteDeleteVM(MyNode node);
+
     public void projectPaletteRenameVM(MyNode node);
+
     public void projectPaletteAddNewProject(MyNode node);
+
     public void projectPaletteOpenProject(MyNode node);
-    public void projectPaletteProjectProperties(MyNode node);    
-    public void projectPaletteProjectClose(MyNode node);    
-    
-    public void projectPaletteNewSubVM(MyNode node);  
-    
+
+    public void projectPaletteProjectProperties(MyNode node);
+
+    public void projectPaletteProjectClose(MyNode node);
+
+    public void projectPaletteNewSubVM(MyNode node);
+
     public void projectPaletteAction(String command, MyNode node);
-    
-     
 }

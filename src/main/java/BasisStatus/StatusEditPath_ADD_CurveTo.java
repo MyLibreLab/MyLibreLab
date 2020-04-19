@@ -17,105 +17,92 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package BasisStatus;
 
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
-import VisualLogic.*;
-import java.awt.event.*;
-import java.awt.*;
+import VisualLogic.Element;
+import VisualLogic.PathPoint;
+import VisualLogic.VMObject;
 
-public class StatusEditPath_ADD_CurveTo extends Object implements StatusBasisIF
-{
+public class StatusEditPath_ADD_CurveTo extends Object implements StatusBasisIF {
     public VMObject vmobject;
     public Element element;
     public PathPoint path;
     public StatusEditPathAddMode owner;
-    public int pathIndex=-1;
+    public int pathIndex = -1;
 
-    public StatusEditPath_ADD_CurveTo(StatusEditPathAddMode owner,VMObject vmobject, Element element, int pathIndex)
-    {
-        this.owner=owner;
-        this.vmobject=vmobject;
-        this.element=element;
-        this.pathIndex=pathIndex;
-        
+    public StatusEditPath_ADD_CurveTo(StatusEditPathAddMode owner, VMObject vmobject, Element element, int pathIndex) {
+        this.owner = owner;
+        this.vmobject = vmobject;
+        this.element = element;
+        this.pathIndex = pathIndex;
     }
-    
-    public void elementPinMouseMoved(MouseEvent e, int elementID,int pin)
-    {        
+
+    public void elementPinMouseMoved(MouseEvent e, int elementID, int pin) {
     }
-    
-    public void mouseDragged(MouseEvent e)
-    {       
-        PathPoint path=element.points.get(pathIndex);
-        if (path!=null)
-        {
-            int x=e.getX();
-            int y=e.getY();
 
-            int dx=x-path.p.x;
-            int dy=y-path.p.y;
-            path.p1.x=path.p.x-dx;
-            path.p1.y=path.p.y-dy;                            
+    public void mouseDragged(MouseEvent e) {
+        PathPoint path = element.points.get(pathIndex);
+        if (path != null) {
+            int x = e.getX();
+            int y = e.getY();
 
-            path.p2.x=x;
-            path.p2.y=y;
+            int dx = x - path.p.x;
+            int dy = y - path.p.y;
+            path.p1.x = path.p.x - dx;
+            path.p1.y = path.p.y - dy;
+
+            path.p2.x = x;
+            path.p2.y = y;
 
             element.updateUI();
         }
     }
-    
-    public void mouseMoved(MouseEvent e)
-    {
-        
+
+    public void mouseMoved(MouseEvent e) {
+
     }
-    
-    
-    
-    public void mousePressed(MouseEvent e)
-    {
-        
+
+    public void mousePressed(MouseEvent e) {
+
     }
-    
-    public void mouseReleased(MouseEvent e)
-    {
-      owner.status=null;  
+
+    public void mouseReleased(MouseEvent e) {
+        owner.status = null;
     }
-    
-    
-    
-    public void draw(Graphics g)
-    {
-        
+
+    public void draw(Graphics g) {
+
     }
-    
-    
-    public void elementPinMouseReleased(MouseEvent e, int elementID,int pin)
-    {}
-    public void elementPinMousePressed(MouseEvent e, int elementID,int pin)
-    {
+
+    public void elementPinMouseReleased(MouseEvent e, int elementID, int pin) {
     }
-    public void mouseDblClick(MouseEvent e)
-    {}
-    public void processKeyEvent(KeyEvent ke)
-    {}
-    
-    public void mouseClicked(MouseEvent e)
-    {}
-    public void mouseEntered(MouseEvent e)
-    {}
-    public void mouseExited(MouseEvent e)
-    {}
-    
-    
-    public void elementMouseEntered(MouseEvent e)
-    {
-        
+
+    public void elementPinMousePressed(MouseEvent e, int elementID, int pin) {
     }
-    
-    public void elementMouseExited(MouseEvent e)
-    {
-        
+
+    public void mouseDblClick(MouseEvent e) {
     }
-    
-    
+
+    public void processKeyEvent(KeyEvent ke) {
+    }
+
+    public void mouseClicked(MouseEvent e) {
+    }
+
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    public void mouseExited(MouseEvent e) {
+    }
+
+    public void elementMouseEntered(MouseEvent e) {
+
+    }
+
+    public void elementMouseExited(MouseEvent e) {
+
+    }
 }
 

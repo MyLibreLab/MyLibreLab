@@ -17,35 +17,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package VisualLogic.variables;
 
-import java.util.*;
 import java.util.ArrayList;
 
-public class VSGroup extends VSObject
-{
+public class VSGroup extends VSObject {
     public ArrayList list = new ArrayList();
-    
-    public VSGroup() 
-    {        
+
+    public VSGroup() {
     }
-    
-   
-    public void copyValueFrom(Object in)
-    {
-       if (in!=null)
-       {
-        VSGroup temp =(VSGroup)in;
-        list=(ArrayList)temp.list.clone();
-        setChanged(temp.isChanged());
-       } else
-       {
-           list.clear();
-       }
-    }    
-    
-    public void copyReferenceFrom(Object in)
-    {
-      copyValueFrom(in);
-    }    
-        
-    
+
+    public void copyValueFrom(Object in) {
+        if (in != null) {
+            VSGroup temp = (VSGroup) in;
+            list = (ArrayList) temp.list.clone();
+            setChanged(temp.isChanged());
+        } else {
+            list.clear();
+        }
+    }
+
+    public void copyReferenceFrom(Object in) {
+        copyValueFrom(in);
+    }
 }

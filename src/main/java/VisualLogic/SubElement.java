@@ -19,20 +19,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic;
 
-import javax.swing.JPanel;
-public class SubElement 
-{    
-    
+public class SubElement {
+
     public ElementIF classRef;
-    public int x=0;    
-    public int y=0;
-    public int width=20;
-    public int height=15;
-    public boolean visible=true;
-    
-    public SubElement()
-    {
-        x=0; y=0; width=20; height=15;
-        classRef=null;
+    public int x = 0;
+    public int y = 0;
+    public int width = 20;
+    public int height = 15;
+    public boolean visible = true;
+
+    public SubElement() {
+        x = 0;
+        y = 0;
+        width = 20;
+        height = 15;
+        classRef = null;
     }
 }

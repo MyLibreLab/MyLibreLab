@@ -12,18 +12,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
- 
+
 public class UnzipFiles {
- 
-  
-    
-     /**
+
+    /**
      * Size of the buffer to read/write data
      */
     private static final int BUFFER_SIZE = 4096;
+
     /**
-     * Extracts a zip file specified by the zipFilePath to a directory specified by
-     * destDirectory (will be created if does not exists)
+     * Extracts a zip file specified by the zipFilePath to a directory specified by destDirectory (will be created if
+     * does not exists)
+     *
      * @param zipFilePath
      * @param destDirectory
      * @throws IOException
@@ -37,15 +37,15 @@ public class UnzipFiles {
         ZipEntry entry = zipIn.getNextEntry();
         // iterates over entries in the zip file
         while (entry != null) {
-            
+
             String filePath = destDirectory + File.separator + entry.getName();
             if (!entry.isDirectory()) {
-                
-                String tmp=new File(filePath).getParent();
+
+                String tmp = new File(filePath).getParent();
                 new File(tmp).mkdirs();
-                
+
                 // if the entry is a file, extracts it
-                
+
                 extractFile(zipIn, filePath);
             } else {
                 // if the entry is a directory, make the directory
@@ -57,16 +57,16 @@ public class UnzipFiles {
         }
         zipIn.close();
     }
+
     /**
      * Extracts a zip entry (file entry)
+     *
      * @param zipIn
      * @param filePath
      * @throws IOException
      */
     private void extractFile(ZipInputStream zipIn, String filePath) throws IOException {
-        
-        
-        
+
         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath));
         byte[] bytesIn = new byte[BUFFER_SIZE];
         int read = 0;
@@ -75,5 +75,4 @@ public class UnzipFiles {
         }
         bos.close();
     }
- 
 }

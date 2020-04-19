@@ -6,10 +6,9 @@
 package VisualLogic;
 
 /**
- *
  * @author salafica
  */
 public class Search_found_item {
-    public String found_word="";
-    public String found_in_element_dir="";
+    public String found_word = "";
+    public String found_in_element_dir = "";
 }

@@ -20,21 +20,19 @@ package VisualLogic.variables;
 
 import java.io.Serializable;
 
-public class VSObject extends Object implements Serializable
-{
-    private boolean changed=false;
-    private int pinIndex=0;// nur für SocketServer und SocketClient Elemente!
-    private int pin=-1;
-    
-    public void setPin(int index)
-    {
-        pin=index;
+public class VSObject extends Object implements Serializable {
+    private boolean changed = false;
+    private int pinIndex = 0;// nur fï¿½r SocketServer und SocketClient Elemente!
+    private int pin = -1;
+
+    public void setPin(int index) {
+        pin = index;
     }
-    public int getPin()
-    {
+
+    public int getPin() {
         return pin;
     }
-    
+
     /*public void setElement(ExternalIF element)
     {
         this.element=element;
@@ -43,67 +41,51 @@ public class VSObject extends Object implements Serializable
     {
         return element;
     }*/
-    
-    
-    
-    public void setPinIndex(int val)
-    {
-        pinIndex=val;
+
+    public void setPinIndex(int val) {
+        pinIndex = val;
     }
-    public int getPinIndex()
-    {
+
+    public int getPinIndex() {
         return pinIndex;
     }
-    
-    public boolean isChanged()
-    {
+
+    public boolean isChanged() {
         return changed;
     }
-    
-    public void setChanged(boolean value)
-    {                
-        changed=value;
+
+    public void setChanged(boolean value) {
+        changed = value;
     }
-    
-    public VSObject()
-    {
-        
+
+    public VSObject() {
+
     }
-    
-    
-    public void copyReferenceFrom(Object in)
-    {
-         
+
+    public void copyReferenceFrom(Object in) {
+
     }
-    
-    public void copyValueFrom(Object in)
-    {
-        
+
+    public void copyValueFrom(Object in) {
+
     }
-    
-    
-    public boolean equals(VSObject obj)
-    {
+
+    public boolean equals(VSObject obj) {
         return false;
     }
-    
-    public boolean isBigger(VSObject obj)
-    {
+
+    public boolean isBigger(VSObject obj) {
         return false;
     }
-    
-    public boolean isSmaller(VSObject obj)
-    {
+
+    public boolean isSmaller(VSObject obj) {
         return false;
     }
-    
-    public void loadFromStream(java.io.FileInputStream fis) 
-    {
+
+    public void loadFromStream(java.io.FileInputStream fis) {
     }
-    
-    public void saveToStream(java.io.FileOutputStream fos)
-    {
-        
+
+    public void saveToStream(java.io.FileOutputStream fos) {
+
     }
-    
 }

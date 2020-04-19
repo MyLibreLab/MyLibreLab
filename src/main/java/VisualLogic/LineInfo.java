@@ -19,12 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package VisualLogic;
 
 /**
- *
  * @author Salafia
  */
-public class LineInfo
-{
+public class LineInfo {
     public Line line;
     public JPin pin;
-    
 }

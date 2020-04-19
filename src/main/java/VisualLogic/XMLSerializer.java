@@ -15,17 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package VisualLogic;
-import java.beans.XMLEncoder;
+
 import java.beans.XMLDecoder;
-import java.io.*;
-
-
+import java.beans.XMLEncoder;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 public class XMLSerializer {
-    public static void write(Object f, String filename) throws Exception{
+    public static void write(Object f, String filename) throws Exception {
         try (XMLEncoder encoder = new XMLEncoder(
-                new BufferedOutputStream(
-                        new FileOutputStream(filename)))) {
+            new BufferedOutputStream(
+                new FileOutputStream(filename)))) {
             encoder.writeObject(f);
         }
     }
@@ -33,8 +35,8 @@ public class XMLSerializer {
     public static Object read(String filename) throws Exception {
         Object o;
         try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(
-                new FileInputStream(filename)))) {
-            o = (Object)decoder.readObject();
+            new FileInputStream(filename)))) {
+            o = (Object) decoder.readObject();
         }
         return o;
     }

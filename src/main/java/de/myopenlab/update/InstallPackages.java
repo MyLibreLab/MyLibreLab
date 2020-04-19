@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import VisualLogic.Tools;
 import static VisualLogic.Tools.settings;
 
 public class InstallPackages implements Runnable {
@@ -31,11 +30,10 @@ public class InstallPackages implements Runnable {
 
                         String type = row.getType();
 
-                        
-                        String domain=settings.getRepository_domain();
-                        
-                        String source = domain+"/repository/get_package.php?type="+row.getType()+"&package_name="+row.getName();
-                        source=source.replaceAll(" ", "%20");
+                        String domain = settings.getRepository_domain();
+
+                        String source = domain + "/repository/get_package.php?type=" + row.getType() + "&package_name=" + row.getName();
+                        source = source.replaceAll(" ", "%20");
                         String dest = myTempDir.toString() + "/" + row.getName() + ".zip";
 
                         owner.log("download " + row.getName() + "/package.zip");
@@ -55,7 +53,6 @@ public class InstallPackages implements Runnable {
                             // some errors occurred
                             ex.printStackTrace();
                         }
-
                     }
                 }
 
