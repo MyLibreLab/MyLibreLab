@@ -19,6 +19,7 @@ package VisualLogic;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 class MyOpenLabDriver {
@@ -114,14 +115,12 @@ public class DriverManager {
      *  if Result = false : driver already registred
      */
 
-    public boolean registerDriver(String driverPath) {
-        File file = new File(driverPath);
-
-        String driverName = file.getName();
+    public boolean registerDriver(Path file) {
+        String driverName = file.getFileName().toString();
 
         MyOpenLabDriver d = findDriver(driverName);
         if (d == null) {
-            drivers.add(new MyOpenLabDriver(driverName, driverPath));
+            drivers.add(new MyOpenLabDriver(driverName, file.toString()));
             return true;
         } else {
             return false;
