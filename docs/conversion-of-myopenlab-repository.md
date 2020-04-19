@@ -4,10 +4,10 @@ Following steps were done to convert the SVN-based MyOpenLab repository to this 
 
 - git to svn conversion of <https://sourceforge.net/p/myopenlab3/code/HEAD/tree/>
 
-  - using publicly availble information of the authors Carmelo Salafia and Javier Velásquez. Put in `authors.txt`
+  - using availble information (in the code) of the authors Carmelo Salafia and Javier Velásquez. Put in `authors.txt`
 
       ```properties
-      rjvelasquez40 = Javier Velásquez <admin@myopenlab.org>
+      rjvelasquez40 = Javier Velásquez <javiervelasquez125@gmail.com>
       carmelosalafia = Carmelo Salafia <cswi@gmx.de>
       ```
 
