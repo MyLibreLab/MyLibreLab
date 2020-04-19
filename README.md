@@ -43,7 +43,7 @@ On Windows:
 1. Install JDK 14: `choco install libericajdk`
 1. Edit `C:\ProgramData\chocolatey\lib\apache-netbeans.portable\App\netbeans\etc\netbeans.conf` (as Admin)
 
-  - `netbeans_jdkhome="C:\Program Files\BellSoft\LibericaJDK-14`
+  - `netbeans_jdkhome="C:\Program Files\BellSoft\LibericaJDK-14"`
 
 Then "Apache Netbeans" can be started. Open the folder containing the project.
 
