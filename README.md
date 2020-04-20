@@ -35,6 +35,9 @@ A working Java 14 installation is required. In the command line \(terminal in Li
 
 Download the JDK from <https://jdk.java.net/>. On Windows, you can execute `choco install openjdk` (requires [installation of chocolatey - a package manager for Windows](https://chocolatey.org/install)).
 
+Currently, MyLibreLab also works on Java 11.
+You can install it using `apt-get install openjdk-11-jdk` on Debian and Ubuntu linux.
+
 ### IDE Setup
 
 On Windows:
