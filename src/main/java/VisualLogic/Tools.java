@@ -38,10 +38,16 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -275,23 +281,17 @@ public class Tools {
         return result;
     }
 
-    public static ArrayList<String> listDrivers(String driverPath) {
-        ArrayList<String> result = new ArrayList<String>();
-
-        File[] files = new File(driverPath).listFiles();
-
-        for (int i = 0; i < files.length; i++) {
-            File f = files[i];
-            if (f.isDirectory()) {
-                DriverInfo props = Tools.openDriverInfo(f);
-
-                if (props != null) {
-                    result.add(f.getAbsolutePath());
-                }
-            }
+    public static List<Path> listDrivers(String driverPath) {
+        try {
+            return Files.list(Path.of(driverPath))
+                 .filter(path -> Files.isDirectory(path))
+                 .filter(path -> Tools.openDriverInfo(path.toFile()) != null)
+                 .map(path -> path.toAbsolutePath())
+                 .collect(Collectors.toList());
+        } catch (IOException e) {
+            org.tinylog.Logger.error(e, "Could not list drivers");
+            return Collections.emptyList();
         }
-
-        return result;
     }
 
     public static void showMessage(String message) {

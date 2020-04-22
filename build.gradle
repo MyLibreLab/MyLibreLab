@@ -9,9 +9,8 @@ repositories {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_14
-    targetCompatibility = JavaVersion.VERSION_14
-
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
 compileJava.options.encoding = "cp1252"
@@ -51,6 +50,9 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.0'
 
     implementation group: 'org.bidib.jbidib', name: 'bidib-rxtx-binaries', version: '2.2'
+
+    implementation 'org.tinylog:tinylog-api:2.1.1'
+    implementation 'org.tinylog:tinylog-impl:2.1.1'
 
     // implementation fileTree(dir: 'distribution/lib', include: ['*.jar])
     // implementation fileTree(dir: 'distribution/lib_win_64', include: ['*.jar'])
