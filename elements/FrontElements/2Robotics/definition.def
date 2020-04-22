@@ -1,0 +1,6 @@
+ISDIRECTORY = TRUE
+CAPTION   =Robotics
+CAPTION_EN=Robotics
+CAPTION_ES=Robotica
+ICON=icon32.png
+VM_DIR_EDITABLE = TRUE

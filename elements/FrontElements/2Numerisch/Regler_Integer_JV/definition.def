@@ -1,0 +1,16 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+LOADER          = 
+CAPTION         = Numeric Control
+CAPTION_EN      = Numeric Control
+CAPTION_ES      = Control Numerico
+VM              = 
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = Regler
+CLASSFRONT      = ReglerPanel
+ICON            = bin/Regler.gif
+CLASSPATH       = 
+CLASSPATH2      = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

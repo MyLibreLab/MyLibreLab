@@ -1,0 +1,5 @@
+ISDIRECTORY = true
+CAPTION     = Process Management
+CAPTION_EN  = Process Management
+CAPTION_ES  = Process Management
+ICON        = icon32.png

@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= CSV Einlesen
+CAPTION_EN=CSV Reader
+CAPTION_ES=Leer Fichero CSV
+Jar= bin/CSVReader.jar
+classCircuit =CSVReader
+icon= bin/CSVReader.gif

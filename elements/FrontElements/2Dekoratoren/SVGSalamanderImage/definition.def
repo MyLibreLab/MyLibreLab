@@ -1,0 +1,7 @@
+ISDIRECTORY  = FALSE
+CAPTION      = SVG Salamander Image
+CAPTION_EN   = SVG Salamander Image
+CAPTION_ES   = SVG Salamander Image
+ClassFront   = Panel
+icon         = bin/icon.png
+CLASSPATH    = bin/svgSalamander-tiny.jar

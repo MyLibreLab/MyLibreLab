@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Mathm. Rechner y=f(x)
+CAPTION_EN = Math Calculator y=f(x)
+CAPTION_ES = Calculadora y=f(x)
+Jar= bin/MathCalc.jar
+ClassCircuit =MathCalc
+Icon= bin/icon.png

@@ -1,0 +1,8 @@
+ISDIRECTORY = FALSE
+CAPTION= LED Rot
+CAPTION_EN= LED Red
+CAPTION_ES= LED Rojo
+Jar = bin/LED.jar
+ClassCircuit = LED
+ClassFront = LEDPanel
+icon= bin/LED.gif

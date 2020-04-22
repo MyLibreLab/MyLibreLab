@@ -1,0 +1,6 @@
+ISDIRECTORY = TRUE
+CAPTION   =Automation
+CAPTION_EN=Automation
+CAPTION_ES=Automatizacion
+ICON=icon32.png
+VM_DIR_EDITABLE = TRUE

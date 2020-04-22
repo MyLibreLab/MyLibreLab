@@ -1,0 +1,5 @@
+ISDIRECTORY = TRUE
+CAPTION= Serial_COM_JV
+CAPTION_EN = Serial_COM_JV
+CAPTION_ES = Serial_COM_JV
+Icon= icon.gif

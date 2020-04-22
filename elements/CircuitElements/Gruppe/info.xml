@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <caption>Gruppenelement</caption>
+  <caption_en>Group-Element</caption_en>
+  <caption_es>Grupo de Elementos</caption_es>
+  <categorie>Education</categorie>
+  <author>Carmelo Salafia</author>
+  <email>cswi@gmx.de</email>
+  <web>http://myopenlab.de</web>
+  <version>1.0.0.0</version>
+  <date>26.10.2016</date>
+  <dest_path>/CircuitElements/Gruppe</dest_path>
+  <type>CircuitElements</type>
+  <content>
+  </content>
+</root>

@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= FFT (Fast Fourier Transformation)
+CAPTION_EN=FFT (Fast Fourier Transformation)
+CAPTION_ES=FFT (Transformada de Fourier)
+Jar= bin/FFT.jar
+classCircuit =FFT
+Icon= bin/FFT.gif

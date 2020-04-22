@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = 2D-Double To 2D-String 
+CAPTION_EN   = 2D-Double To 2D-String 
+CAPTION_ES   = 2D-Double A 2D-String 
+ClassCircuit = Element
+Icon         = bin/icon.gif

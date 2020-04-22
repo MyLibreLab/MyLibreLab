@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <caption>Delete_Pa1ckages</caption>
+  <caption_en>Delete_Pa1ckages</caption_en>
+  <caption_es>Delete_Pa1ckages</caption_es>
+  <categorie>Education</categorie>
+  <author>Delete_Pa1ckages</author>
+  <email>Delete_Pa1ckages</email>
+  <web>Delete_Pa1ckages</web>
+  <version>1.0.0.0</version>
+  <date>16.10.2016</date>
+  <dest_path>/CircuitElements/ce-cb2c7d74-3fb6-41b4-be3d-4e8e56a06c6d</dest_path>
+  <type>CircuitElements</type>
+  <content>
+  </content>
+</root>

@@ -1,0 +1,9 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Bytes to String
+CAPTION_EN   = Bytes to String
+CAPTION_ES   = Bytes to String
+ClassCircuit = BytesToString
+Icon         = bin/icon.gif
+
+
+

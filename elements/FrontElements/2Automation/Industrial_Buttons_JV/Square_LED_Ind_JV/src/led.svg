@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   x="0.00000000"
+   y="0.00000000"
+   width="250.00000px"
+   height="250.00000px"
+   id="svg19667"
+   sodipodi:version="0.32"
+   inkscape:version="0.44.1"
+   sodipodi:docname="led.svg"
+   sodipodi:docbase="Y:\java\carmelo's exp Lab 3\Distribution\Elements\FrontElements\Boolean\LEDRectangle\bin">
+  <metadata
+     id="metadata15">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     inkscape:window-height="975"
+     inkscape:window-width="1280"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base"
+     inkscape:zoom="1.7603751"
+     inkscape:cx="76.415487"
+     inkscape:cy="135.39006"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
+     inkscape:current-layer="svg19667" />
+  
+  <path
+     style="fill:#393a37;fill-opacity:1;fill-rule:nonzero;stroke:black;stroke-width:6.51154566;stroke-miterlimit:4;stroke-opacity:1"
+     d="M 5.0683193,36.364941 L 246.01452,36.364941 L 246.01452,195.5104 L 5.0683193,195.5104 L 5.0683193,36.364941 z "
+     id="rect1871" />
+  <path
+     style="fill:red;fill-opacity:1;fill-rule:nonzero;stroke:#50502e;stroke-width:6.5999999;stroke-miterlimit:4;stroke-opacity:1"
+     d="M 8.0335913,41.126614 L 239.40104,41.126614 L 239.40104,190.55142 L 8.0335913,190.55142 L 8.0335913,41.126614 z "
+     id="light" />
+  <path
+     transform="translate(179.5508,-32.13437)"
+     style="opacity:0.45454544;fill:white;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:6.5999999;stroke-miterlimit:4;stroke-opacity:1"
+     inkscape:transform-center-x="83.549357"
+     inkscape:transform-center-y="-33.741086"
+     d="M -93.189674,111.82222 C -93.591354,135.12606 -93.506194,135.11964 -125.72572,135.11964 C -158.34693,135.11964 -158.05916,134.72348 -158.26177,111.82222 C -158.46261,88.920056 -158.34742,88.433974 -125.72572,88.524803 C -93.305695,88.615071 -93.390514,88.317537 -93.189674,111.82222 z "
+     id="path2762" />
+</svg>

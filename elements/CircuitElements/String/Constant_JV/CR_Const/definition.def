@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= CR_Konstante
+CAPTION_EN= CR_Constant
+CAPTION_ES= Constante_CR
+Jar= bin/Const.jar
+ClassCircuit =Const
+Icon= bin/Const.gif

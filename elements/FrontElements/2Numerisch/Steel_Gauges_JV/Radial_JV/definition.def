@@ -1,0 +1,8 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Radial_JV
+CAPTION_EN= Radial_JV
+CAPTION_ES= Radial_JV
+Jar          = bin/Compass_JV.jar
+ClassCircuit = GaugeCircuit
+ClassFront   = GaugePanel
+Icon         = bin/Gauge.gif

@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = 2D Setter
+CAPTION_EN  = 2D Setter
+CAPTION_ES  = 2D Escribir
+ClassCircuit= Setter2D
+Icon        = bin/icon.gif

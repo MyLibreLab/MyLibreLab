@@ -1,0 +1,9 @@
+ISDIRECTORY     = FALSE
+CAPTION         = Lamp
+CAPTION_EN      = Lamp
+CAPTION_ES      = Lampe
+VM              = Lamp.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = TRUE
+ICON            = icon.png

@@ -1,0 +1,8 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Temperature JV
+CAPTION_EN=  Temperature JV
+CAPTION_ES= Temperatura JV
+Jar          = bin/Anzeige.jar
+ClassCircuit = Anzeige
+ClassFront   = AnzeigePanel
+Icon         = bin/Anzeige.gif

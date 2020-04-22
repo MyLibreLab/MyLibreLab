@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Abzugsverzögerung
+CAPTION_EN  = Abzugsverzögerung
+CAPTION_ES  = Abzugsverzögerung
+classCircuit= AbzugsVerz
+Icon        = bin/icon.gif

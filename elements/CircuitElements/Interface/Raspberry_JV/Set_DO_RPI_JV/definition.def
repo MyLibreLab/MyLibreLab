@@ -1,0 +1,16 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+LOADER          = 
+CAPTION         = Set_DO_RPI_JV
+CAPTION_EN      = Set_DO_RPI_JV
+CAPTION_ES      = Configurar Salida Digital RPI JV
+VM              = 
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = Set_DO_RPI_JV
+CLASSFRONT      = 
+ICON            = bin/icon.gif
+CLASSPATH       = 
+CLASSPATH2      = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

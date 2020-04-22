@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION     = Text
+CAPTION_EN= Text
+CAPTION_ES= Texto
+Jar         = bin/XText.jar
+ClassFront  = XText 
+Icon        = bin/XText.gif

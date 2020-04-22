@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Text
+CAPTION_EN  = Text
+CAPTION_ES  = Texto
+ClassCircuit= XText 
+Icon        = bin/XText.gif

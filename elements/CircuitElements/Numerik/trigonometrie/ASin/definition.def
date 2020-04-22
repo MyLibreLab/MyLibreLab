@@ -1,0 +1,7 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Arc-Sinus
+CAPTION_EN   = Arc-Sinus
+CAPTION_ES   = Arco Seno
+CLASSCIRCUIT = XASin
+CLASSFRONT   = 
+ICON         = bin/XASin.gif

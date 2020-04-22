@@ -1,0 +1,8 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Numeric Control
+CAPTION_EN= Numeric Control
+CAPTION_ES= Control Numerico
+Jar          = bin/Regler.jar
+ClassCircuit = Regler
+ClassFront   = ReglerPanel
+Icon         = bin/Regler.gif

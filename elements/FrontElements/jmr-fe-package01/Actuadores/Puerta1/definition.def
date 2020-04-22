@@ -1,0 +1,16 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+LOADER          = 
+CAPTION         = 
+CAPTION_EN      = 
+CAPTION_ES      = Puerta de Cochera
+VM              = Puerta1.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = TRUE
+ICON            = icon.png
+CLASSPATH       = 
+CLASSPATH2      = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

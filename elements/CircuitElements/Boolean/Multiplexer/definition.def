@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Multiplexer
+CAPTION_EN   = Multiplexer
+CAPTION_ES   = Multiplexor
+ClassCircuit = Multiplexer
+Icon         = bin/icon.png

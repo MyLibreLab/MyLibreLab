@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = 1D Zufallsgenerator
+CAPTION_EN   = 1D Randomizer
+CAPTION_ES   = 1D Generador Numero Aleatorio
+ClassCircuit = XRandom
+Icon         = bin/XRandom.gif

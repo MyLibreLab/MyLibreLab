@@ -1,0 +1,6 @@
+Jar         = /bin/RXTXcomm.jar
+Class       = RS232
+classpath   = /bin
+Copyrights  = Carmelo Salafia
+Website     = http://www.myopenlab.de
+Licence     = LGPL siehe : http://www.gnu.org/licenses/lgpl.html

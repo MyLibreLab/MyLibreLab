@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Element Property Setter
+CAPTION_EN   = Element Property Setter
+CAPTION_ES   = Element Property Setter
+classCircuit = ElementPropertySetter
+Icon         = bin/icon.gif

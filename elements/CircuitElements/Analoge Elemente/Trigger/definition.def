@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Trigger
+CAPTION_EN= Trigger
+CAPTION_ES= Triger (disparador por nivel)
+Jar= bin/Trigger.jar
+classCircuit =Trigger
+Icon= bin/Trigger.gif

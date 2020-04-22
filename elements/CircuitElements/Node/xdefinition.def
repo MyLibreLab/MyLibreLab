@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Knoten
+CAPTION_EN   = Node
+CAPTION_ES   = Node
+classCircuit = Node
+Icon         = bin/test.gif

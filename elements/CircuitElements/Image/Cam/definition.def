@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Kamera
+CAPTION_EN = Cam
+CAPTION_ES = Cámara
+Jar= bin/Cam.jar
+ClassCircuit =Cam
+Icon= bin/Cam.gif

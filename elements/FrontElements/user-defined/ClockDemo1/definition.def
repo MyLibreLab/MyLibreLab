@@ -1,0 +1,9 @@
+ISDIRECTORY     = FALSE
+CAPTION         = ClockDemo1
+CAPTION_EN      = ClockDemo1
+CAPTION_ES      = ClockDemo1
+VM              = ClockDemo1.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = TRUE
+ICON            = icon.png

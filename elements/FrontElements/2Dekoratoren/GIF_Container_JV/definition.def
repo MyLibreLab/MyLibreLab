@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = GIF_Container_JV
+CAPTION_EN  = GIF_Container_JV
+CAPTION_ES  = Contenerdor_de_GIFS_JV
+ClassFront  = XLabel
+Icon        = bin/label.gif

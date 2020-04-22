@@ -1,0 +1,8 @@
+isDirectory  = FALSE
+Caption      = Regler
+CAPTION_EN= Control
+CAPTION_ES= Conmutador
+JAR          = bin/Regler.jar
+Classcircuit = Regler
+Classfront   = ReglerPanel
+icon         = bin/Regler.gif

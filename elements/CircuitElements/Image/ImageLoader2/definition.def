@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Bild laden
+CAPTION_EN = Load Image
+CAPTION_ES = Carga Imagen
+Jar= bin/LoadImage.jar
+ClassCircuit =LoadImage
+Icon= bin/LoadImage.gif

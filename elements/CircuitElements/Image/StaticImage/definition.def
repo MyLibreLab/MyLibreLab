@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Static Image
+CAPTION_EN  = Static Image
+CAPTION_ES  = Imágen Estática
+Classcircuit  = StaticImage
+Icon        = bin/icon.png

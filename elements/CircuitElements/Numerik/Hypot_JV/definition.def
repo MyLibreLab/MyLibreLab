@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Hypot_JV
+CAPTION_EN = Hypot_JV
+CAPTION_ES = Hipotenusa_JV
+Jar= bin/Dividierer.jar
+ClassCircuit =Dividierer
+Icon= bin/Dividierer.gif

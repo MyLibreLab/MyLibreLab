@@ -1,0 +1,8 @@
+ISDIRECTORY = FALSE
+CAPTION= Ausgabe (STR)
+CAPTION_EN= Output (Str)
+CAPTION_ES= Salida (cadena)
+Jar = bin/Ausgabe.jar
+ClassCircuit = Ausgabe
+ClassFront = Panel
+Icon= bin/Ausgabe.gif

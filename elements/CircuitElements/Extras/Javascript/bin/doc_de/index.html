@@ -1,0 +1,106 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>MyOpenLab Startseite</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <style>
+            body {
+                font-family: 'Arial';
+            }
+        </style> 
+    </head>
+    <body>
+        <h1>Die Javascript Komponente</h1>
+        Die Javascript Komponente verwendet die in Java eingebaute Javascript Engine.<br/>
+        Vor der Ausführung, wird der JS Code compiliert um die Geschwindigkeit zu verbessern.<br/>         
+        
+        Ist eine schnelle Alternative um eigene CircuitPanel Komponenten zu schreiben. Ohne Java SDK!<br/>
+        <br/>
+       
+        <h2>Wie funktioniert die JS Komponente?</h2>
+        1. Konfiguriere deine Input und Output Pins im Property-Editor<br/>
+        2. Stelle im Menu unter Extras->Optionen->Editoren:Javascript Editor dein lieblings JS Editor.<br/>
+        zb: <br/>
+        <ul>
+            <li>Notepad++ unter https://notepad-plus-plus.org/</li>
+            <li>Netbeans unter https://netbeans.org/</li>
+        </ul>
+        3. Im Property-Editor dann noch die Taste "..." unter Javascript drücken und deinen JS Code eingeben.
+        Wenn Du deinen JS Code speicherst, wird dieser automatisch in die Komponente übernommen.
+
+        <h2>Hier ein kleines Beispiel für eine Double 1D Array verarbeitung</h2>
+        
+        Generierung einer Sinus Kurve für ein Oscilliscope:<br/>
+        InPin1 auf C_DOUBLE (ZoomX)<br/>
+        InPin2 auf C_DOUBLE (ZoomY)<br/>
+        OutPin0 auf C_ARRAY_1D_DOUBLE (Punkte für die X-Achse)<br/>
+        OutPin0 auf C_ARRAY_1D_DOUBLE (Punkte für die Y-Achse)<br/>
+        <br/>
+        <code> 
+            var zoomx=in0.getValue();<br/>
+            var zoomy=in1.getValue();<br/>
+            <br/>
+            var max=1000;<br/>
+            var outX=new Array(max);<br/>
+            var outY=new Array(max);<br/>
+            <br/>
+            var x=0;<br/>
+            var y=0;<br/>
+            for (var i=0;i<max;i++) { <br/> 
+            <br/>
+            x=i*0.1;    <br/>
+            <br/>
+            y=Math.sin(x);<br/>
+            outX[i]=x*zoomx; 	<br/>
+            outY[i]=y*zoomy;<br/>
+            }<br/>
+            <br/>
+            out0.setValues(outX);<br/>
+            out1.setValues(outY);<br/>
+            <br/>
+            out0.setChanged(true);<br/>
+            out2.setChanged(true);<br/>
+        </code>
+        
+
+        
+
+        <h2>Was muss ich beachten?</h2>
+        Wenn ein Output Informationen versendet möchte, so muss nach den setzen des Wertes auch die Methode setChanged(true) aufgerufen werden.<br/>
+        Bsp: <br/>
+        <b>out.setvalue("Test");</b><br/>
+        <b>out.setChanged(true);</b><br/>
+        <br/>
+        
+        Die Komponente hat 8 Eingänge und 8 Ausgänge und kennt alle MyOpenLab Datentypen:<br/>
+        Eine Interface Beschreibung der Datentypen findest Du unter https://myopenlab.de/XXXXXXXXXXX
+        in0, in1,.....in7<br/>
+        out0, out1,.....out7<br/>        
+        <br/>        
+        <ul>
+            <li>C_VARIANT</li>    
+            <li>C_GROUP  </li>         
+            <li>C_BOOLEAN</li>         
+            <li>C_INTEGER</li>         
+            <li>C_DOUBLE </li>         
+            <li>C_STRING </li>         
+            <li>C_BYTE   </li>         
+            <li>C_ARRAY1D_BOOLEAN </li>
+            <li>C_ARRAY1D_INTEGER </li>
+            <li>C_ARRAY1D_DOUBLE  </li>
+            <li>C_ARRAY1D_STRING  </li>
+            <li>C_ARRAY2D_BYTE    </li>
+            <li>C_ARRAY2D_BOOLEAN </li>
+            <li>C_ARRAY2D_INTEGER </li>
+            <li>C_ARRAY2D_DOUBLE  </li>
+            <li>C_ARRAY2D_STRING  </li>
+            <li>C_COLOR           </li>
+            <li>C_IMAGE           </li>
+            <li>C_ARRAY1D_BYTE    </li>
+            <li>C_CANVAS          </li>
+            <li>C_FONT            </li>
+            <li>C_FLOWINFO        </li>
+        </ul>
+    </body>
+
+</html>

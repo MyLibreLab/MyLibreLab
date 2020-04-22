@@ -1,0 +1,13 @@
+ISDIRECTORY     = TRUE
+REDIRECT        = 
+CAPTION         = Eigene Elemente
+CAPTION_EN      = User defined Elements
+CAPTION_ES      = definido por el usario
+VM              = 
+VM_DIR_EDITABLE = TRUE
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon.png
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

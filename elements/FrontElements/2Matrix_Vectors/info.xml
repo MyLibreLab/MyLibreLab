@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <caption>Vektoren/Matrix</caption>
+  <caption_en>Vectors/Matrix</caption_en>
+  <caption_es>Vectores/Matrices</caption_es>
+  <categorie>Education</categorie>
+  <author>Carmelo Salafia</author>
+  <email>cswi@gmx.de</email>
+  <web>http://myopenlab.de</web>
+  <version>1.0.0.0</version>
+  <date>26.10.2016</date>
+  <dest_path>/FrontElements/2Matrix_Vectors</dest_path>
+  <type>FrontElements</type>
+  <content>
+  </content>
+</root>

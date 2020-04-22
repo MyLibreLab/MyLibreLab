@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Speicher
+CAPTION_EN = Memory
+CAPTION_ES = Memoria
+Jar= bin/Speicher.jar
+ClassCircuit =Speicher
+Icon= bin/Speicher.gif

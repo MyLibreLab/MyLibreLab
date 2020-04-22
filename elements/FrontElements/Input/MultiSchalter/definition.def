@@ -1,0 +1,8 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Multischalter
+CAPTION_EN= Multi-Switch
+CAPTION_ES= Potenciómetro
+Jar          = bin/Regler.jar
+ClassCircuit = Regler
+ClassFront   = ReglerPanel
+Icon         = bin/Regler.gif

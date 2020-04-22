@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Schlafen
+CAPTION_EN=Sleep
+CAPTION_ES=Retardo
+Jar= bin/Sleep.jar
+classCircuit =Sleep
+Icon= bin/Sleep.gif

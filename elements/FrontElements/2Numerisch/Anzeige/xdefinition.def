@@ -1,0 +1,8 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Anzeige (DBL)
+CAPTION_EN= Display (DBL)
+CAPTION_ES= Salida Numérica (DBL)
+Jar          = bin/Anzeige.jar
+ClassCircuit = Anzeige
+ClassFront   = AnzeigePanel
+Icon         = bin/Anzeige.gif

@@ -1,0 +1,5 @@
+ISDIRECTORY = TRUE
+CAPTION= Farbe
+CAPTION_EN= Color
+CAPTION_ES= Color
+Icon= icon32.png

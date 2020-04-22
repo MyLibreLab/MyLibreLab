@@ -1,0 +1,13 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+CAPTION         = MSE-PCIO-4E4S Control Board
+CAPTION_EN      = MSE-PCIO-4E4S Control Board
+CAPTION_ES      = Tarjeta de control MSE-PCIO-4E4S
+VM              = 
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = PCIO
+CLASSFRONT      = 
+ICON            = bin/icon.png
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

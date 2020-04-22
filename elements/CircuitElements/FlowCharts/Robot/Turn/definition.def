@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Drehen
+CAPTION_EN   = Turn
+CAPTION_ES   = Turn
+ClassCircuit = Turn
+Icon         = bin/icon.gif

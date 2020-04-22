@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Process
+CAPTION_EN   = Process
+CAPTION_ES   = Process
+ClassCircuit = SubVM
+Icon         = bin/icon.png

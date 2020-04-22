@@ -1,0 +1,11 @@
+ISDIRECTORY     = TRUE
+CAPTION         = 
+CAPTION_EN      = 
+CAPTION_ES      = Interruptores
+VM              = 
+VM_DIR_EDITABLE = TRUE
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon32.png
+ELEMENTIMAGE    = 
+SHOWINNERBORDER = TRUE

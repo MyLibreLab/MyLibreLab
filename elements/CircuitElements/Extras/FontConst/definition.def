@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION= Schriftart Konstante
+CAPTION_EN= Font constant
+CAPTION_ES= Tipo Fuentes
+ClassCircuit = FontConst
+Icon= bin/icon.gif

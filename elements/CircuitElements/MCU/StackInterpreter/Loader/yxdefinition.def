@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Loader
+CAPTION_EN   = Loader
+CAPTION_ES   = Loader
+classCircuit = Loader
+Icon         = bin/icon.gif

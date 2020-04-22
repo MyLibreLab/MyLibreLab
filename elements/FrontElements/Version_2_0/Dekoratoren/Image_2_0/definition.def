@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Bild 1.0
+CAPTION_EN= Image 2.0
+CAPTION_ES=Imagen 2.0
+JAR  = bin/XImage.jar
+Classfront   = XImage
+Icon = bin/icon.png

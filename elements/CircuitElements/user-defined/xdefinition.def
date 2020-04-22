@@ -1,0 +1,9 @@
+ISDIRECTORY     = TRUE
+CAPTION         = User-Defined
+CAPTION_EN      = User-Defined 
+CAPTION_ES      = User-Defined
+VM              = 
+VM_DIR_EDITABLE = TRUE
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon.png

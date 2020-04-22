@@ -1,0 +1,11 @@
+ISDIRECTORY     = FALSE
+CAPTION         = Wetter
+CAPTION_EN      = Weather
+CAPTION_ES      = Weather
+VM              = Weather.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = TRUE
+ICON            = icon.png
+ELEMENTIMAGE    = 
+SHOWINNERBORDER = TRUE

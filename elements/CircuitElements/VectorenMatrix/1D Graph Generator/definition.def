@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= 1D Funkltionsgenerator
+CAPTION_EN = 1D  Graph Generator
+CAPTION_ES = 1D Genera Gráfico
+Jar= bin/MathGraphGenerator.jar
+ClassCircuit =MathGraphGenerator
+Icon= bin/MathGraphGenerator.gif

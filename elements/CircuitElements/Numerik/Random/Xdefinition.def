@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Zufallsgenerator
+CAPTION_EN = Randomizer
+CAPTION_ES = Generador Numero Aleatorio
+Jar= bin/XRandom.jar
+ClassCircuit =XRandom
+Icon= bin/image.png

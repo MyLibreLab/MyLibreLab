@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Const
+CAPTION_EN  = Const
+CAPTION_ES  = Const
+classCircuit= Const
+Icon        = bin/icon.gif

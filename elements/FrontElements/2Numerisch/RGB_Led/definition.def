@@ -1,0 +1,8 @@
+ISDIRECTORY = FALSE
+CAPTION	=	RGB LED
+CAPTION_EN	=	RGB LED
+CAPTION_ES	=	RGB LED
+Jar= bin/LED.jar
+classCircuit =LED
+ClassFront=LEDPanel
+Icon= bin/LED.gif

@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Abschneiden
+CAPTION_EN= Trunc
+CAPTION_ES= Truncador de señal
+Jar= bin/Trigger.jar
+classCircuit =Trigger
+Icon= bin/Trigger.gif

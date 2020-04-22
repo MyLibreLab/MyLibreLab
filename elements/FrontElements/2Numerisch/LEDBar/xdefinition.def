@@ -1,0 +1,12 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+CAPTION         = LED Leiste
+CAPTION_EN      = LED Bar
+CAPTION_ES      = LED Bar
+VM              = LEDBar.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = TRUE
+ICON            = icon.gif
+ELEMENTIMAGE    = 
+SHOWINNERBORDER = TRUE

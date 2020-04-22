@@ -1,0 +1,6 @@
+ISDIRECTORY = TRUE
+CAPTION   =Gauge Elemente JV
+CAPTION_EN=Gauge Elements JV
+CAPTION_ES=Indicadores de Aguja JV
+ICON=icon32.png
+VM_DIR_EDITABLE = TRUE

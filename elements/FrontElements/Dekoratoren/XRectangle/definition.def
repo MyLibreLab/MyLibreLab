@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION     = Rechteck
+CAPTION_EN= Rectangle
+CAPTION_ES= Rectangulo
+Jar         = bin/XRectangle.jar
+ClassFront  = XRectangle
+Icon        = bin/XRectangle.gif

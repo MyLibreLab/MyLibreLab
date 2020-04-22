@@ -1,0 +1,16 @@
+ISDIRECTORY     = TRUE
+REDIRECT        = 
+LOADER          = 
+CAPTION         = 
+CAPTION_EN      =Arduino
+CAPTION_ES      =Arduino
+VM              = 
+VM_DIR_EDITABLE = TRUE
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon.png
+CLASSPATH       = 
+CLASSPATH2      = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

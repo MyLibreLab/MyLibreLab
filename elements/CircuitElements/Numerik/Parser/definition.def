@@ -1,0 +1,5 @@
+ISDIRECTORY = TRUE
+CAPTION= Mathematische Parser
+CAPTION_EN = Math Parser
+CAPTION_ES = Ecuaciones Matemáticas
+icon= icon.gif

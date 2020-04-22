@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= NAND-Gatter
+CAPTION_EN= NAND-Gatter
+CAPTION_ES= Operador NAND
+Jar= bin/NAND.jar
+classCircuit =NAND
+Icon= bin/NAND.gif

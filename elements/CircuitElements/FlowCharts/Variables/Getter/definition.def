@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = GetterJV
+CAPTION_EN   = GetterJV
+CAPTION_ES   = Leer Dato JV
+ClassCircuit = GetterDouble
+Icon         = bin/icon.gif

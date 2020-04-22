@@ -1,0 +1,16 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+LOADER          = 
+CAPTION         = Robot R1
+CAPTION_EN      = Robot R1
+CAPTION_ES      = Robot R1
+VM              = Macro_robot.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = TRUE
+ICON            = icon.gif
+CLASSPATH       = 
+CLASSPATH2      = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= NXOR-Gatter
+CAPTION_EN= NXOR-Gate
+CAPTION_ES= Operador NXOR
+Jar= bin/NXOR.jar
+classCircuit =NXOR
+Icon= bin/NXOR.gif

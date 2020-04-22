@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Demultiplexer
+CAPTION_EN   = Demultiplexer
+CAPTION_ES   = Demultiplexor
+ClassCircuit = Demultiplexer
+Icon         = bin/icon.png

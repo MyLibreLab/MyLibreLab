@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= NOT-Gatter
+CAPTION_EN= NOT-Gate
+CAPTION_ES= Operador NOT
+Jar= bin/NOT.jar
+classCircuit =NOT
+Icon= bin/NOT.gif

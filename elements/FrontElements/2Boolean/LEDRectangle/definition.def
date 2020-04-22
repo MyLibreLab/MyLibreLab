@@ -1,0 +1,7 @@
+ISDIRECTORY  = FALSE
+CAPTION      = LED Rechteckig
+CAPTION_EN   = LED Rectangle
+CAPTION_ES   = LED Rectangle
+ClassCircuit = LED
+ClassFront   = LEDPanel
+icon         = bin/LED.gif

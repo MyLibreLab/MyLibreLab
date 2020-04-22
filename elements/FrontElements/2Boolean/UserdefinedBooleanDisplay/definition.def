@@ -1,0 +1,7 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Benutzerdefinierte Boolean Anzeige
+CAPTION_EN   = Userdefined Boolean Display
+CAPTION_ES   = Userdefined Boolean Display
+ClassCircuit = Circuit
+ClassFront   = Panel
+Icon         = bin/icon.png

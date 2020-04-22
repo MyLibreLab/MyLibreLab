@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title></title>
+        <style>
+            body {
+                font-family: "Arial";
+                font-size: 11px;
+                color : #333333;
+                line-height: 16px;
+            }
+            h1 {
+                color : #333333;
+                font-size: 16px;
+            }
+            .hinweis {
+                background-color: green;
+                color : #FFFF00;
+                padding: 10px;
+                margin-top: 10px;
+                margin-bottom: 10px;                
+            }
+        </style>
+    </head>
+    <h1>MSE-PCIO-4E4S Schnittstellen-Karte</h1>
+    <br/>    
+    Diese Komponente dient zur Ansteuerung der MSE-PCIO-4E4S Schnittstellen-Karte,
+    von der Firma MSE Microsystems Engineering (http://www.msebilbao.com). <br/>
+    Die Karte ist für den PC und wird über den USB-Anschluss verbunden. <br/>
+    <br/>
+    Die Steuerung wird normalerweise durch eine Reihe von einfachen ASCII-Kommandos durchgeführt. <br/>
+    Dies wird von dieser Komponente komplett gekapselt. D.h. Sie brauchen kein Wissen über das Protokoll.<br/>
+    <br/>
+    Für eine detaliertere Beschreibung der MSE-PCIO-4E4S Schnittstellen-Karte siehe unter :
+    http://www.msebilbao.com/tienda/product_info.php?products_id=755<br/>
+    <br/>
+    <h2>Eigenschaften der karte</h2>
+    Hier ein Auszug aus der Webseite:
+    <ul>
+        <li>4 relay outputs</li>
+        <li>Maximum current contacts 2A at 24VDC or 125VAC 1A</li>
+        <li>4 opto-isolated digital inputs from 3.7 to 12VDC</li>
+        <li>4 analog inputs from 0V to +5 V or from 0V to + VREF</li>
+        <li>USB connection to the PC</li>
+        <li>Powered by the USB port itself (default)</li>
+        <li>Optional External Power 9VDC to 12VDC</li>
+        <li>Approximate Maximum consumption with all inputs and outputs on 250 mA</li>
+        <li>Dimensions of 110 x 76 mm</li>
+        <li>Includes Microchip driver for WXP, Vista and W7</li>
+    </ul>
+    <h2>Property-Editor</h2>
+    Sie brauchen nur noch im Property-Editor den Com-Port und die Poll Geschwindigkeit anzugeben.<br/>
+    <br/>
+    <h3>Der COM-PORT</h3>
+    Der Com-Port ist der Port an dem Ihre MSE-PCIO-4E4S Schnittstellen-Karte per USB an Ihren PC verbunden ist.    
+    <div class="hinweis">
+        <ul>
+            <li>Bitte achten Sie darauf das Ihre Karte mit dem PC verbunden ist <b>bevor</b> Sie MyOpenLab starten.</li>
+            <li>Und der COM-Port richtig gesetzt ist <b>bevor</b> Sie die VM (VirtalMachine) starten.</li>
+        </ul>
+
+    </div>
+    <br/>
+    <h3>Die Poll-Geschwindigkeit</h3>
+    Die Poll-Geschwindigkeit gibt, in Millisekunden [ms], an wie offt Daten aus der Schnittstellen-karte ausgelesen werden sollen.<br/>
+    <b>Kleine Werte = Hohe Auslesegeschwindigkeit.</b><br/>
+    <b>Hohe Werte = Geringe Auslesegeschwindigkeit.</b><br/>
+    <div class="hinweis">
+        <ul>
+            <li>Hinweis: Bei Langsamen PC's sollten Sie höhere Werte nutzen, da sonst die VM blockieren kann.</li>
+        </ul>        
+    </div>
+</html>

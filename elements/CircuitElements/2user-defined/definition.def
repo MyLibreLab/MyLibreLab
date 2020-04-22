@@ -1,0 +1,6 @@
+ISDIRECTORY     = TRUE
+CAPTION         = Eigene Elemente
+CAPTION_EN      = User defined Elements
+CAPTION_ES      = definido por el usario
+REDIRECT        = /CircuitElements/2user-defined
+ICON            = library.png

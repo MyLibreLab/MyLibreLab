@@ -1,0 +1,8 @@
+ISDIRECTORY = FALSE
+CAPTION= LED_Ind_JV
+CAPTION_EN= LED_Ind_JV
+CAPTION_ES= LED_Ind_JV
+Jar = bin/LED.jar
+ClassCircuit = LED
+ClassFront = LEDPanel
+icon= bin/LED.gif

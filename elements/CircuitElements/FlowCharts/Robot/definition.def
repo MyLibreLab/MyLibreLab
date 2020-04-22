@@ -1,0 +1,5 @@
+ISDIRECTORY = TRUE
+CAPTION     = Robot FlowCharts
+CAPTION_EN  = Robot FlowCharts
+CAPTION_ES  = Robot FlowCharts
+Icon        = icon32.png

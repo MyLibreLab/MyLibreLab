@@ -1,0 +1,14 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+CAPTION         = KeyPanel
+CAPTION_EN      = KeyPanel
+CAPTION_ES      = KeyPanel
+VM              = 
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = Element
+CLASSFRONT      = Panel
+ICON            = bin/icon.gif
+CLASSPATH       = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

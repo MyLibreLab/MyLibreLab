@@ -1,0 +1,5 @@
+ISDIRECTORY  = true
+CAPTION      = Version 2.0
+CAPTION_EN   = Version 2.0
+CAPTION_ES   = Version 2.0
+ICON         = icon.png

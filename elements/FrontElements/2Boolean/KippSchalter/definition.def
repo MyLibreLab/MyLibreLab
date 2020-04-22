@@ -1,0 +1,8 @@
+ISDIRECTORY = FALSE
+CAPTION= Kipp-Schalter
+CAPTION_EN= Tilt button
+CAPTION_ES= Interruptor
+Jar= bin/KippSchalter.jar
+ClassCircuit = KippSchalter
+ClassFront = SchalterPanel
+Icon = bin/KippSchalter.gif

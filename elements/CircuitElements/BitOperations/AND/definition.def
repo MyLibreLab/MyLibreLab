@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION=     AND Bit-Operation
+CAPTION_EN = AND Bit-Operation
+CAPTION_ES = AND Operación-Bit
+ClassCircuit =AND
+icon= bin/icon.gif

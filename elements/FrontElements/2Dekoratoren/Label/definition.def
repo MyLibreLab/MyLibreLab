@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Label
+CAPTION_EN  = Label
+CAPTION_ES  = Label
+ClassFront  = XLabel
+Icon        = bin/label.gif

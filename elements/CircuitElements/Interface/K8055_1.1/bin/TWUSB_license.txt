@@ -1,0 +1,58 @@
+Freeware - LIZENZVERTRAG FÜR TWUsb
+
+Die Software TWHexEdit ist Eigentum von:
+	Thomas Wenzlaff
+	Tempelhofer Str. 9
+	30853 Langenhagen
+	Deutschland
+	e-mail: twusb@wenzlaff.de
+
+im folgenden Lizenzgeber genannt. Die Software ist durch internationale Urheberrechtsgesetze geschützt. Der Besitz der Software erlaubt keinerlei weiteren Rechte, als die in dieser Lizenzvereinbarung angeführten. Darüber hinaus entstehen keinerlei Rechte oder Ansprüche. Der Benutzer ist dafür verantwortlich und damit einverstanden für die Einhaltung der Lizenzbedinungungen zu sorgen. Der Lizenznehmer verpflichtet sich, alles ihm Mögliche zu tun, um diese Software vor nicht vertragsgemäßer Benutzung, Vervielfältigung oder Verbreitung zu schützen.
+
+Der Einsatz und die Verwendung des Programmes obliegt gänzlich der persönlichen Entscheidung und Verantwortung des Benutzers (Lizenznehmers). Der Benutzer übernimmt die volle Verantwortung für die Auswahl, Installation und Nutzung der Software. Für Fehlfunktionen oder wie auch immer geartete Schäden, die sich aus der Verwendung der Software oder der Unfähigkeit sie zu benutzen ergeben, übernimmt der Lizenzgeber keinerlei Haftung.
+Alle Rechte an dieser Software samt ihren Daten sind dem Lizenzgeber vorbehalten.
+
+Nutzung der Software
+Der Besitz des Programmes erlaubt seine Verwendung lediglich dem Zweck entsprechend. Das Programm ist Freeware und darf so oft kopiert und weitergegeben werden wie gewünscht. Aber nur kommplet als TWUsb.zip und unverändert.
+
+Erlaubte Verwendung der Software/Daten
+
+1.	Das Programm mit seinen Daten, darf jemand anderen überlassen werden, sofern er sich mit den Lizenzbedingungen völlig einverstanden erklärt.
+
+3. 	Die Weitergabe einer Kopie des Programms ist insoweit erlaubt, als sich der Empfänger mit den Lizenzbedingungen völlig einverstanden erklärt.
+
+Nicht erlaubte Verwendung der Software/Daten
+
+1. 	Die Weiterverwendung oder Veränderung des Programms oder seiner Teile, durch welche Methoden sie auch immer gewonnen werden mögen. Das schließt unter anderem jegliche Verfahren zur Gewinnung der Programmethoden oder -quellen zur Reproduktion des Programmes ein (zum Beispiel die Deassemblierung oder -compilierung).
+
+2. 	Entfernen oder Unkenntlichmachen der Urheberrechts- oder Warenzeichenvermerke des Programmautors und Lizenzgebers.
+
+3. 	Die Weitergabe von Unterlizenzen der Vermietung, Verkauf oder Verleasung des Programmes von Programmteilen oder seiner Dokumentation.
+
+4. 	Benutzung der Software/Daten durch andere Zugriffsprogramme.
+
+5. 	Kopieren und/oder Verbreiten des Softwareprogramms zur Nutzung durch Dritte.
+
+6. 	Die Gewinnung von Programmethoden zum Vertrieb und/oder Verkauf an Dritte.
+
+7. 	Die Verwendung des Programms oder seiner Dokumentation für irgendwelche Geschäfte.
+
+8. 	Die Weitergabe des Programmes gegen irgendwelche Gebühren.
+
+Beschränkte Gewährleistung
+
+Die Software wird in vorliegender Form zur Verfügung gestellt, ohne jegliche Garantie für die Qualität und Einsatzfähigkeit für einen bestimmten Zweck, weder in ausdrücklicher noch in impliziter Form.
+
+
+	Thomas Wenzlaff
+	Tempelhofer Str. 9
+	30853 Langenhagen
+	Deutschland
+	e-mail: twusb@wenzlaff.de
+	Homepage: http://www.wenzlaff.de
+
+© Copyright 2004-2006 Thomas Wenzlaff. Alle Rechte vorbehalten.
+
+Java and all Java-related trademarks and logos are registered trademarks of Sun Microsystem, Inc in the U.S. and other countries, or both.
+
+Copyright der System Treiber und des "USB Experiment Interface Board" bei der Fa. Velleman

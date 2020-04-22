@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Impluse
+CAPTION_EN= Impulse
+CAPTION_ES= Impulso
+Jar= bin/Impluse.jar
+ClassCircuit = Impluse
+Icon = bin/Impluse.gif

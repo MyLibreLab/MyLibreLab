@@ -1,0 +1,8 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Linear_JV
+CAPTION_EN= Linear_JV
+CAPTION_ES= Lineal_JV
+Jar          = bin/Compass_JV.jar
+ClassCircuit = GaugeCircuit
+ClassFront   = GaugePanel
+Icon         = bin/Gauge.gif

@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Matrix Multiplikation
+CAPTION_EN  = Matrix Multiplication
+CAPTION_ES  = Producto Matrices
+ClassCircuit= MatrixMul
+Icon        = bin/icon.gif

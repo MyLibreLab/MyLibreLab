@@ -1,0 +1,8 @@
+ISDIRECTORY  = FALSE
+CAPTION      = BalkenRegler_JV
+CAPTION_EN= BarControl_JV
+CAPTION_ES= Barra de Control_JV
+Jar          = bin/BalkenRegler.jar
+ClassCircuit = BalkenRegler
+ClassFront   = AnzeigePanel
+Icon         = bin/BalkenRegler.gif

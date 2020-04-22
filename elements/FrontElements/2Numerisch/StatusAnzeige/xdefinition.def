@@ -1,0 +1,16 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+LOADER          = 
+CAPTION         = Statusanzeige
+CAPTION_EN      = Status Display
+CAPTION_ES      = Display Estados
+VM              = 
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = StatusDisplay
+CLASSFRONT      = Panel
+ICON            = bin/icon.gif
+CLASSPATH       = 
+CLASSPATH2      = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

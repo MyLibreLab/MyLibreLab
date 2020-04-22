@@ -1,0 +1,8 @@
+ISDIRECTORY = FALSE
+CAPTION= Ausgabe_In_Text_JV
+CAPTION_EN= Pane_Text_Intput_JV
+CAPTION_ES= Panel_Ingreso_Texto_JV
+Jar = bin/Text_Control_JV.jar
+ClassCircuit = Text_Control_JV
+ClassFront = Pane_Text_Control_JV
+Icon= bin/Text_Control_JV.gif

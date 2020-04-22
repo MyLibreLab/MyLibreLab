@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= INT->Str
+CAPTION_EN= INT->Str
+CAPTION_ES= Convierte INT->Str
+Jar= bin/INT2STR.jar
+ClassCircuit =INT2STR
+Icon= bin/INT2STR.gif

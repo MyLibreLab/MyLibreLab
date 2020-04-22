@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = 1D -> 2D converter
+CAPTION_EN  = 1D -> 2D converter
+CAPTION_ES  = 1D -> 2D Convertidor
+ClassCircuit= Converter1D2D
+Icon        = bin/icon.gif

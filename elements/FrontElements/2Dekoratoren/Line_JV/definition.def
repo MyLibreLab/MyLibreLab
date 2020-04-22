@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Line_JV
+CAPTION_EN  = Line_JV
+CAPTION_ES  = Linea_JV
+ClassFront  = XLabel
+Icon        = bin/label.gif

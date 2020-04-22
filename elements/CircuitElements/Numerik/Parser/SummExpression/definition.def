@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Summ Expression
+CAPTION_EN   = Summ Expression
+CAPTION_ES   = Sumatorio
+ClassCircuit = SummExpression
+Icon         = bin/icon.png

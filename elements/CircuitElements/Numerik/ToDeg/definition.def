@@ -1,0 +1,9 @@
+ISDIRECTORY     = FALSE
+CAPTION         = to Deg
+CAPTION_EN      = to Deg
+CAPTION_ES      = Conv. a Grados
+VM              = ToDeg.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon.png

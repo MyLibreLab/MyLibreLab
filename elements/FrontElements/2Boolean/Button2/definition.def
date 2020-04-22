@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Knopf
+CAPTION_EN= Button
+CAPTION_ES= Botón
+ClassCircuit = Taster
+ClassFront = TasterPanel
+Icon= bin/Taster.gif

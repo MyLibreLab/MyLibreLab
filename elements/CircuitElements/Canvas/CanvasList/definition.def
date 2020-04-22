@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = List of Canvas Objects
+CAPTION_EN   = List of Canvas Objects
+CAPTION_ES   = Lista de Objetos Canvas
+ClassCircuit = CanvasList
+Icon         = bin/icon.gif

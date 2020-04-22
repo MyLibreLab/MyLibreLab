@@ -1,0 +1,12 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+CAPTION         = Zähler hoch/runter
+CAPTION_EN      = counter up/down
+CAPTION_ES      = Contador up/down
+VM              = Counter_up_down.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon.gif
+ELEMENTIMAGE    = 
+SHOWINNERBORDER = TRUE

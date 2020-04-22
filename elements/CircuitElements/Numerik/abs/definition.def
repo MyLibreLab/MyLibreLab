@@ -1,0 +1,15 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+CAPTION         = abs
+CAPTION_EN      = abs
+CAPTION_ES      = Valor Absoluto
+VM              = 
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = Abs
+CLASSFRONT      = 
+ICON            = bin/Abs.gif
+CLASSPATH       = 
+CLASSPATH2      = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

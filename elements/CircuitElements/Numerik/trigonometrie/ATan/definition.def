@@ -1,0 +1,7 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Arc-Tangens
+CAPTION_EN   = Arc-Tangent
+CAPTION_ES   = Arco Tangente
+CLASSCIRCUIT = XATan
+CLASSFRONT   = 
+ICON         = bin/XATan.gif

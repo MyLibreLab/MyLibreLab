@@ -1,0 +1,8 @@
+ISDIRECTORY = FALSE
+CAPTION= Down_Left_Elbow_JV
+CAPTION_EN= Down_Left_Elbow_JV
+CAPTION_ES= Codo DL_JV
+Jar = bin/LED.jar
+ClassCircuit = LED
+ClassFront = LEDPanel
+icon= bin/Pipe.gif

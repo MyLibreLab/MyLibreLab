@@ -1,0 +1,16 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+LOADER          = 
+CAPTION         = Time Graph X JV
+CAPTION_EN      = Time Graph X JV
+CAPTION_ES      = Grafico Temporal X JV
+VM              = 
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = Oscilloscope
+CLASSFRONT      = OscPanel
+ICON            = bin/Oscilloscope.gif
+CLASSPATH       = 
+CLASSPATH2      = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

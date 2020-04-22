@@ -1,0 +1,8 @@
+ISDIRECTORY = FALSE
+CAPTION= Taster
+CAPTION_EN= push-button
+CAPTION_ES= Pulsador luminoso
+Jar= bin/Taster.jar
+ClassCircuit = Taster
+ClassFront = TasterPanel
+Icon= bin/Taster.gif

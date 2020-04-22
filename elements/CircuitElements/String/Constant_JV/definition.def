@@ -1,0 +1,6 @@
+ISDIRECTORY = TRUE
+CAPTION   =String_Constant_JV
+CAPTION_EN=String_Constant_JV
+CAPTION_ES=Constantes_Texto_JV
+ICON=icon32.png
+VM_DIR_EDITABLE = TRUE

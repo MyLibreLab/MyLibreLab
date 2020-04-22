@@ -1,0 +1,5 @@
+ISDIRECTORY = TRUE
+CAPTION     = Matrizen
+CAPTION_EN  = Matrix
+CAPTION_ES  = Matrix
+icon        = icon32.png

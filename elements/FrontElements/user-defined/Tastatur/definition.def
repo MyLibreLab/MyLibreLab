@@ -1,0 +1,9 @@
+ISDIRECTORY     = FALSE
+CAPTION         = Tastatur
+CAPTION_EN      = Keyboard
+CAPTION_ES      = Keyboard
+VM              = Tastatur.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = TRUE
+ICON            = icon.png

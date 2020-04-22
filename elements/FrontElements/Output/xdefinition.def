@@ -1,0 +1,5 @@
+ISDIRECTORY = true
+CAPTION     = Output
+CAPTION_EN  = Output
+CAPTION_ES  = Salida
+icon= icon32.png

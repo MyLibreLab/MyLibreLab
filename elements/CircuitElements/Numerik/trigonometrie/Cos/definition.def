@@ -1,0 +1,7 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Cosinus
+CAPTION_EN   = Cosine
+CAPTION_ES   = Coseno
+CLASSCIRCUIT = XCos
+CLASSFRONT   = 
+ICON         = bin/XCos.gif

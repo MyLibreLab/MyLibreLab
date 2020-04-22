@@ -1,0 +1,8 @@
+ISDIRECTORY = FALSE
+CAPTION= Eingabe 2 (STR)
+CAPTION_EN= Input 2 (Str)
+CAPTION_ES= Entrada 2 (texto)
+Jar= bin/Eingabe.jar
+ClassCircuit = Eingabe
+ClassFront = Panel
+Icon = bin/Eingabe.gif

@@ -1,0 +1,7 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Tangens
+CAPTION_EN   = Tangent
+CAPTION_ES   = Tangente
+CLASSCIRCUIT = XTan
+CLASSFRONT   = 
+ICON         = bin/XTan.gif

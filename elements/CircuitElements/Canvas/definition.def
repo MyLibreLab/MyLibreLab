@@ -1,0 +1,5 @@
+ISDIRECTORY = TRUE
+CAPTION	 = Canvas
+CAPTION_EN  = Canvas
+CAPTION_ES  = Canvas
+Icon        = icon32.png

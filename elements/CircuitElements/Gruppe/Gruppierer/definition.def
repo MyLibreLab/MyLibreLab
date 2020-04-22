@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION= Gruppierer
+CAPTION_ES=Agrupar
+Jar= bin/Gruppierer.jar
+ClassCircuit =Gruppierer
+Icon= bin/Gruppierer.gif

@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Ticker Counter
+CAPTION_EN  = Ticker Counter
+CAPTION_ES  = Contador Gen.
+classCircuit= TickerCounter
+Icon        = bin/icon.gif

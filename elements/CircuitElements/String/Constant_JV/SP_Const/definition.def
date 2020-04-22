@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Space_Konstante
+CAPTION_EN= Space_Constant
+CAPTION_ES= Constante_Espacio
+Jar= bin/Const.jar
+ClassCircuit =Const
+Icon= bin/Const.gif

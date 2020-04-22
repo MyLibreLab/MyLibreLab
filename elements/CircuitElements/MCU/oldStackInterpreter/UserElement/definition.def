@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = UserElement
+CAPTION_EN   = UserElement
+CAPTION_ES   = UserElement
+classCircuit = UserElement
+Icon         = bin/icon.gif

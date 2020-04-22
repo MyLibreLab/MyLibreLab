@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = 2D Matrix (Byte)
+CAPTION_EN   = 2D Matrix (Byte)
+CAPTION_ES   = 2D Matriz (Byte)
+ClassCircuit = MatrixNXM
+Icon         = bin/icon.png

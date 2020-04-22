@@ -1,0 +1,8 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Analoge Anzeige 2
+CAPTION_EN   = Analog Display 2
+CAPTION_ES   = Display Analógico 2
+VM           = Anzeige.vlogic
+CLASSFRONT   = TRUE
+Icon         = icon.jpg
+RESIZESYNCHRON  = TRUE

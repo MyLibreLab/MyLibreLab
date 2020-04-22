@@ -1,0 +1,229 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title></title>
+</head>
+
+<body>
+
+<p class="MsoNormal"
+style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+line-height:normal;mso-outline-level:2"><font
+size="6"><strong>El componente JavaScript</strong></font></p>
+
+<p class="MsoNormal"
+style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+line-height:normal;mso-outline-level:2">El
+componente JavaScript usará el motor de Javascript Java
+incorporado.</p>
+
+<p class="MsoNormal"
+style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+line-height:normal;mso-outline-level:2">Antes
+de la ejecución, el código JS se compila con el fin de mejorar
+la velocidad.<br>
+Es una alternativa rápida al propio panel de circuito para
+escribir componentes. Sin SDK Java!</p>
+
+<p class="MsoNormal"
+style="margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal"><font
+size="5">¿Cómo funciona el componente de JS?</font></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal">&nbsp;1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Configure los pines de entrada y salida en el Editor de
+propiedades</p>
+
+<p class="MsoListParagraphCxSpLast"
+style="margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-indent:-18.0pt;line-height:normal;mso-list:l1 level1 lfo2">2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+En el menú Herramientas-&gt; Opciones-&gt; Editores: Editor de
+Javascript de su editor favorito JS. por ejemplo:</p>
+
+<blockquote>
+    <p class="MsoNormal"
+    style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+margin-left:35.4pt;margin-bottom:.0001pt;line-height:normal">&#149;
+    Notepad ++ bajo https://notepad-plus-plus.org/<br>
+    &#149; Netbeans bajo <a href="https://netbeans.org/">https://netbeans.org/</a></p>
+</blockquote>
+
+<p class="MsoListParagraph"
+style="margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-indent:-18.0pt;line-height:normal;mso-list:l1 level1 lfo2">3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+En el editor de propiedades a continuación, el botón
+&quot;...&quot; bajo el código Javascript y JS. Si va a guardar
+el código JS, este se incorpora automáticamente en el
+componente.</p>
+
+<p class="MsoNormal"
+style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+line-height:normal;mso-outline-level:2"><font
+size="5">He aquí un pequeño ejemplo de una matriz de doble
+procesamiento 1D</font></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal">La
+generación de una onda sinusoidal para un osciloscopio:</p>
+
+<p class="MsoNormal"
+style="margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal">InPin1
+tipo C_DOUBLE (ZoomX)<br>
+InPin2 tipo C_DOUBLE (ZOOMY)<br>
+OutPin0 tipo C_ARRAY_1D_DOUBLE (puntos para el eje X)<br>
+OutPin0 tipo C_ARRAY_1D_DOUBLE (puntos para el eje Y)</p>
+
+<p class="MsoNormal"
+style="margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal">Listado
+del programa<br>
+<br>
+<em>var zoomx=in0.getValue();<br>
+var zoomy=in1.getValue();<br>
+<br>
+var max=1000;<br>
+var outX=new Array(max);<br>
+var outY=new Array(max);<br>
+<br>
+var x=0;<br>
+var y=0;<br>
+for (var i=0;i<br>
+<br>
+x=i*0.1;<br>
+<br>
+y=Math.sin(x);<br>
+outX[i]=x*zoomx;<br>
+outY[i]=y*zoomy;<br>
+}<br>
+<br>
+out0.setValues(outX);<br>
+out1.setValues(outY);<br>
+<br>
+out0.setChanged(true);<br>
+out2.setChanged(true);</em></p>
+
+<p class="MsoNormal"
+style="margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal"><font
+size="5">¿Qué debo hacer?</font></p>
+
+<p class="MsoNormal"
+style="margin-bottom:12.0pt;line-height:normal">Cuando una salida
+sería enviada la información, así como el método setChanged
+(verdadero) debe ser llamado después de que el conjunto de
+valores.<br>
+Ej:</p>
+
+<p class="MsoNormal"
+style="margin-bottom:12.0pt;line-height:normal"><b>out.setvalue(&quot;Test&quot;);</b><br>
+<b>out.setChanged(true);</b><br>
+<br>
+El componente tiene 8 entradas y 8 salidas y conoce todos los
+tipos de datos MyOpenLab:<br>
+Una descripción de la interfaz de los tipos de datos se puede
+consultar en https://myopenlab.de/XXXXXXXXXXX in0, in1, ..... A7<br>
+out0, OUT1, ..... out7</p>
+
+<ul type="disc">
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_VARIANT
+    </li>
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_GROUP
+    </li>
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_BOOLEAN
+    </li>
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_INTEGER
+    </li>
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_DOUBLE
+    </li>
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_STRING
+    </li>
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_BYTE
+    </li>
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_ARRAY1D_BOOLEAN
+    </li>
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_ARRAY1D_INTEGER
+    </li>
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_ARRAY1D_DOUBLE
+    </li>
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_ARRAY1D_STRING
+    </li>
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_ARRAY2D_BYTE
+    </li>
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_ARRAY2D_BOOLEAN
+    </li>
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_ARRAY2D_INTEGER
+    </li>
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_ARRAY2D_DOUBLE
+    </li>
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_ARRAY2D_STRING
+    </li>
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_COLOR
+    </li>
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_IMAGE
+    </li>
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_ARRAY1D_BYTE
+    </li>
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_CANVAS
+    </li>
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_FONT
+    </li>
+    <li class="MsoNormal"
+    style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     line-height:normal;mso-list:l0 level1 lfo1;tab-stops:list 36.0pt">C_FLOWINFO
+    </li>
+</ul>
+
+<p><img src="doc_es1.jpg" width="910" height="659"></p>
+
+<p><img src="doc_es2.jpg" width="900" height="699"></p>
+</body>
+</html>

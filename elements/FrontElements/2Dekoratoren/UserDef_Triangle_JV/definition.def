@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Dreieck UserDef JV
+CAPTION_EN  = Triangle UserDef JV
+CAPTION_ES  = Triangulo DefUsuario JV
+ClassFront  = Triangle
+Icon        = bin/Triangle.gif

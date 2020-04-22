@@ -1,0 +1,8 @@
+ISDIRECTORY = FALSE
+CAPTION= ComboBox_JV (INT)
+CAPTION_EN= ComboBox_JV (INT)
+CAPTION_ES= Selector_JV (Entero)
+Jar = INTCombo
+ClassCircuit = INTCombo
+ClassFront = Panel
+Icon = bin/INTCombo.gif

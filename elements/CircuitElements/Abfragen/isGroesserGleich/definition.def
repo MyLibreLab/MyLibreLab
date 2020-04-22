@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= isGroesserGleich
+CAPTION_EN=isBiggerOrEqual
+CAPTION_ES=Mayor o igual que
+Jar= bin/isGroesserGleich.jar
+classCircuit  =isGroesserGleich
+Icon= bin/isGroesserGleich.gif

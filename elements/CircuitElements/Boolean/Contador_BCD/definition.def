@@ -1,0 +1,14 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+CAPTION         = BCD Zähler
+CAPTION_EN      = BCD Counter
+CAPTION_ES      = Contador BCD
+VM              = Contador_BCD.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon.gif
+CLASSPATH       = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

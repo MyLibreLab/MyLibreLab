@@ -1,0 +1,111 @@
+%{
+
+
+  package tools;
+
+  import java.io.InputStreamReader;
+  import java.io.IOException;
+  import java.io.Reader;
+  import java.io.ObjectOutputStream;
+  import java.io.StreamTokenizer;
+  import java.util.ArrayList;
+
+  public class Expression
+  {
+    public static ArrayList code = new ArrayList();
+
+    /*public static void main (String args []) throws Exception
+    {
+      Expression parser = new Expression();
+      Scanner scanner = new Scanner(new java.io.StringReader("10<20"));
+      while (scanner.ttype != scanner.TT_EOF)
+      try
+      {
+        parser.yyparse(scanner, null);
+
+        for (int i=0;i<liste.size();i++)
+        {
+          System.err.println(""+liste.get(i));
+        }
+        break;
+
+      }catch (Exception ye)
+      {
+        System.err.println(scanner+": "+ye);
+      }
+    } */
+
+
+%}
+%token  <String>        BYTE, WORD, Real, Variable, SIN, COS, TAN, ASIN, ACOS,
+                        ATAN, IF, THEN, DIM, RBYTE, RWORD, LCD_PRINT_NUM
+%type   <Number>        expr
+
+
+%left '+' '-'
+%left '&' '*' '/'
+
+%right  UNARY IF
+
+
+%start  prog
+
+%%  // public Object yyparse(yyInput yyLex) throws IOException, yyException
+
+expr  : expr '+' expr         { code.add("ADD_I");}
+      | expr '-' expr         { code.add("SUB_I");}
+      | expr '*' expr         { code.add("MUL_I");}
+      | expr '/' expr         { code.add("DIV_I");}
+      | expr '%' expr         { code.add("MOD_I");}
+
+      // Bitweise Verknüpfungen
+      | expr '&' expr         { code.add("AND");}
+      | expr '|' expr         { code.add("OR");}
+      | expr '^' expr         { code.add("XOR");}
+      | '!' expr              { code.add("LOGIC_NOT");} // Logisches NOT
+      | '~' expr              { code.add("NOT");}       // Bitweises NOT
+
+      //| SIN  '(' expr ')'     { code.add("SIN ");}
+      //| COS  '(' expr ')'     { code.add("COS ");}
+      //| TAN  '(' expr ')'     { code.add("TAN ");}
+      //| ASIN '(' expr ')'     { code.add("ASIN ");}
+      //| ACOS '(' expr ')'     { code.add("ACOS ");}
+      //| ATAN '(' expr ')'     { code.add("ATAN ");}
+      
+      | '+' expr %prec UNARY  //{ $$ = $<>2; }  // can suppress class
+      | '-' expr %prec UNARY  { code.add("MINUS ");}
+      | '(' expr ')'
+      
+      //| BYTE                  { code.add("PUSHB "+$1);}
+      | WORD                  { code.add("PUSH_SI_C "+$1);}
+      | Variable              { code.add("LOAD_I "+$1);}
+      
+      | expr '<' expr         { code.add("IF_A<B"); }
+      | expr '>' expr         { code.add("IF_A>B"); }
+      | expr '<''=' expr      { code.add("IF_A<=B");}
+      | expr '>''=' expr      { code.add("IF_A>=B");}
+      | expr '=''=' expr      { code.add("IF_A=B "); }
+      | expr '!''=' expr      { code.add("IF_A!=B "); }
+
+
+statement : Variable '=' condition
+          | Variable '=' expr     { code.add("STORE_I "+$1);}
+
+DataType : RBYTE
+         | RWORD
+
+prog : expr
+    // | '{' prog '}'                { code.add("BLOCK");}
+     | statement
+     | DIM Variable ',' DataType   { code.add("DIM "+$1+","+$2);}
+     //| LCD_PRINT_NUM '(' expr ')'  { code.add("LCD_PRINT_NUM ");}
+     //| IF '(' expr  ')'            { code.add("JMP_IF_FALSE");}
+     //| IF '(' expr  ')' '{' prog '}' { code.add("JMP_IF_FALSE"+$1+"-"+$2);}
+     //| THEN statement              { code.add("THEN "+$1);}
+
+
+
+
+%%
+
+}

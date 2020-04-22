@@ -1,0 +1,9 @@
+ISDIRECTORY     = FALSE
+CAPTION         = 
+CAPTION_EN      = 
+CAPTION_ES      = Multivibrador
+VM              = Multivibrador.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon.gif

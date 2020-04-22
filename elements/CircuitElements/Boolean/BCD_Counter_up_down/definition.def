@@ -1,0 +1,12 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+CAPTION         = 8 Bit BCD Counter up/down
+CAPTION_EN      = 8 Bit BCD Counter up/down
+CAPTION_ES      = 8 Bit BCD Counter up/down
+VM              = BCD_Counter_up_down.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon.gif
+ELEMENTIMAGE    = image.png
+SHOWINNERBORDER = TRUE

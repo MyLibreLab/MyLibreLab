@@ -1,0 +1,15 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+CAPTION         = Send Modbus RTU Command
+CAPTION_EN      = Send Modbus RTU Command
+CAPTION_ES      = Send Modbus RTU Command
+VM              = ModbusRTUCommand.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = TRUE
+ICON            = icon.gif
+CLASSPATH       = 
+CLASSPATH2      = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

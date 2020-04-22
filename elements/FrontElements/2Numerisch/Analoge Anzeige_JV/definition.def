@@ -1,0 +1,8 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Analoge Anzeige JV
+CAPTION_EN= Analog Display JV
+CAPTION_ES= Display Analógico JV
+Jar          = bin/AnalogAnzeige.jar
+ClassCircuit = AnalogAnzeige
+ClassFront   = AnalogAnzeigePanel
+Icon         = bin/icon.gif

@@ -1,0 +1,6 @@
+ISDIRECTORY = TRUE
+CAPTION   =FrontElements
+CAPTION_EN=FrontElements
+CAPTION_ES=FrontElements
+ICON=icon32.png
+VM_DIR_EDITABLE = TRUE

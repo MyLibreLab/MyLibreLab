@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Decrease
+CAPTION_EN   = Decrease
+CAPTION_ES   = Decrementar
+ClassCircuit = Dec
+Icon         = bin/icon.gif

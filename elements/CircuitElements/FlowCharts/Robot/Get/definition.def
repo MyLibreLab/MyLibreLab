@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Get
+CAPTION_EN   = Get
+CAPTION_ES   = Get
+ClassCircuit = Get
+Icon         = bin/icon.gif

@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= IDCT (Inverse Discrete Cosinus Transformation)
+CAPTION_EN=IDCT (Inverse Discrete Cosinus Transformation)
+CAPTION_ES=IDCT (Tranformada inversa discreta del coseno)
+Jar= bin/IDCT.jar
+classCircuit =IDCT
+Icon= bin/IDCT.gif

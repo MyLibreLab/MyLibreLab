@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Graustufen
+CAPTION_EN = Grayscale
+CAPTION_ES = Escala de Grises
+Jar= bin/Grayscale.jar
+ClassCircuit = Grayscale
+Icon= bin/Grayscale.gif

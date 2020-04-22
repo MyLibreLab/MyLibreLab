@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Setter Evaluator
+CAPTION_EN   = Setter Evaluator
+CAPTION_ES   = Evaluar Expresión
+classCircuit = SetterEval
+Icon         = bin/icon.png
