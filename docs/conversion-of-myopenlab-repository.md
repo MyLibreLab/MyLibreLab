@@ -17,8 +17,8 @@ Following steps were done to convert the SVN-based MyOpenLab repository to this 
 - Remove unwanted binary files from the code base using [git bfg-ish](https://github.com/newren/git-filter-repo/blob/master/contrib/filter-repo-demos/bfg-ish)
 
   - find out all extensions: `git log --name-only --oneline | grep -v  "........ " | sed "s/.*\.\(\[^.\]\)*/\1/" | grep -v "/" | sort | uniq > all-extensions`
-  - Remove backup files `*.~*`
-  - Remove binary files `*.{class,jar,bak,a,dll,o,so,jnilib,exe,zip}`
+  - Remove backup files `*.~*`, `*.{bak,BAK,javaX}`
+  - Remove binary files `*.{class,jar,a,dll,o,so,jnilib,exe,zip}` - they were all kept in the "elements" folder
   - Remove Mac OS X files `*DS_Store`
 
     ```terminal
