@@ -57,6 +57,7 @@ import VisualLogic.variables.VSObject;
 import VisualLogic.variables.VSProperties;
 import VisualLogic.variables.VSPropertyDialog;
 import VisualLogic.variables.VSString;
+import org.tinylog.Logger;
 
 interface PEIF {
 
@@ -96,7 +97,7 @@ class ComboBoxEditor extends JComboBox implements PEIF, ActionListener {
         try {
             setSelectedIndex(referenz.selectedIndex);
         } catch (Exception ex) {
-
+            Logger.error(ex);
         }
 
         addActionListener(this);
