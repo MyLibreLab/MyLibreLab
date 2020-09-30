@@ -50,10 +50,8 @@ public class frmCodeEditor extends javax.swing.JFrame {
      */
     public frmCodeEditor(FrameMain parent) {
         this.initComponents();
-        try {
-            setIconImage(parent.iconImage);
-        } catch (Exception ex) {
-        }
+        setIconImage(parent.iconImage);
+
     }
 
     /**
