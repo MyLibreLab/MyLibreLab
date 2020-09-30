@@ -231,33 +231,26 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
 
     public void mousePressed(MouseEvent e) {
         if (e != null) {
+            Point p = vmobject.getMousePosition();
+            if (modus == pinSelection) {
+                pan = vmobject.getNearstPin(p.x, p.y, 10);
+                if (pan != null) {
+                    JPin apin = pan;
 
-            try {
-                Point p = vmobject.getMousePosition();
-
-                if (modus == pinSelection) {
-                    pan = vmobject.getNearstPin(p.x, p.y, 10);
-                    if (pan != null) {
-
-                        JPin apin = pan;
-
-                        if ((sourceDataType == apin.dataType || sourceDataType == ExternalIF.C_VARIANT || apin.dataType == ExternalIF.C_VARIANT) && (apin.pinIO == JPin.PIN_INPUT || apin.pinIO == JPin.PIN_INPUT_OUTPUT) && apin.draht == null) {
-                            abschliessen(pan.element.getID(), pan.pinIndex);
-                        }
-                        return;
+                    if ((sourceDataType == apin.dataType || sourceDataType == ExternalIF.C_VARIANT || apin.dataType == ExternalIF.C_VARIANT) && (apin.pinIO == JPin.PIN_INPUT || apin.pinIO == JPin.PIN_INPUT_OUTPUT) && apin.draht == null) {
+                        abschliessen(pan.element.getID(), pan.pinIndex);
                     }
+                    return;
                 }
+            }
 
-                if (e.getButton() == e.BUTTON3) {
-                    vmobject.setModusIdle();
-                    vmobject.repaint();
-                } else {
-                    startPoint.x = p.x;
-                    startPoint.y = p.y;
-                    addStueck(startPoint, startPoint);
-                }
-            } catch (NullPointerException eV) {
-
+            if ( e.getButton() == MouseEvent.BUTTON3) {
+                vmobject.setModusIdle();
+                vmobject.repaint();
+            } else {
+                startPoint.x = p.x;
+                startPoint.y = p.y;
+                addStueck(startPoint, startPoint);
             }
         }
     }
