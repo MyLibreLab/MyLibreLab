@@ -6,7 +6,7 @@ The original sources were gathered from <https://sourceforge.net/p/myopenlab3/co
 ## Differences to MyOpenLab
 
 - Provides self-contained distribution. No need to install any Java distrubution any more.
-- Build using modern Java 14 technology
+- Built using modern Java 14 technology
 - Maintained on GitHub
 
 ## Manual installation:
