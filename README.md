@@ -11,17 +11,13 @@ The original sources were gathered from <https://sourceforge.net/p/myopenlab3/co
 
 ## Start it
 
-(Requries JDK14 - see below)
-
-1. Clone `elements` in a sister folder
+1. Clone MyLibreLab:
 
   ```terminal
-  cd ..
-  git clone https://github.com/MyLibreLab/elements.git
-  cd MyLibreLab
+  git clone https://github.com/MyLibreLab/MyLibreLab.git
   ```
 
-2. Start using gradle
+2. Run with gradle:
 
   ```terminal
   ./gradlew run --args="../elements
@@ -31,12 +27,12 @@ The original sources were gathered from <https://sourceforge.net/p/myopenlab3/co
 
 ### Java Development Kit 14
 
+Currently, MyLibreLab also works on Java 11.
+You can install it using `apt-get install openjdk-11-jdk` on Debian and Ubuntu linux.
+
 A working Java 14 installation is required. In the command line \(terminal in Linux, cmd in Windows\) run `javac -version` and make sure that the reported version is Java 14 \(e.g `javac 14`\). If `javac` is not found or a wrong version is reported, check your PATH environment variable, your `JAVA_HOME` environment variable or install the most recent JDK.
 
 Download the JDK from <https://jdk.java.net/>. On Windows, you can execute `choco install openjdk` (requires [installation of chocolatey - a package manager for Windows](https://chocolatey.org/install)).
-
-Currently, MyLibreLab also works on Java 11.
-You can install it using `apt-get install openjdk-11-jdk` on Debian and Ubuntu linux.
 
 ### IDE Setup
 
