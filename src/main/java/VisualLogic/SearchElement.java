@@ -6,6 +6,7 @@
 package VisualLogic;
 
 import VisualLogic.exception.VisualLogicIoException;
+import org.tinylog.Logger;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -21,6 +22,12 @@ public class SearchElement {
 
     private ArrayList<Search_found_item> items = new ArrayList<>();
 
+    /**
+     *
+     * @param filename
+     * @return
+     * @throws VisualLogicIoException Thrown if we can't read the specified file
+     */
     public Hashtable<String, String> load_definition_def(String filename) throws VisualLogicIoException {
 
         //TODO remove hashtable
@@ -103,8 +110,8 @@ public class SearchElement {
                                 //System.out.println("suchwort=" + suchwort + "   gefunden=" + gefunden + "  im Element: " + f.getAbsolutePath());
                             }
                         }
-                    } catch (ex) {
-
+                    }catch (VisualLogicIoException e) {
+                        Logger.error(e,"Error. Tried to load {}",definition);
                     }
                 }
 
