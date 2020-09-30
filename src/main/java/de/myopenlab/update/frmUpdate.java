@@ -5,60 +5,41 @@
  */
 package de.myopenlab.update;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.Authenticator;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.PasswordAuthentication;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JTable;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.table.TableColumn;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import VisualLogic.DFProperties;
-import VisualLogic.DialogSaveAsModul;
 import VisualLogic.FrameMain;
 import VisualLogic.Tools;
 import create_new_group.Dialog_create_new_group;
+import de.myopenlab.update.exception.PackageTransportationException;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.tinylog.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import projectfolder.MyNode;
 import ziputils.ZipFiles;
+
+import javax.annotation.Nonnull;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import javax.swing.*;
+import javax.swing.table.TableColumn;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.awt.*;
+import java.io.*;
+import java.net.*;
+import java.nio.file.Files;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.UUID;
 
 import static VisualLogic.Tools.settings;
 
@@ -67,6 +48,8 @@ import static VisualLogic.Tools.settings;
  */
 public class frmUpdate extends javax.swing.JFrame {
 
+    public static final String ICON_32_PNG = "/icon32.png";
+    public static final String STD_LIB_ICON_32_PNG = "/std_lib_icon_32.png";
     public VisualLogic.FrameMain owner;
     public static String myopenlabpath = "";
     private static String proxyHost = "";
@@ -77,37 +60,49 @@ public class frmUpdate extends javax.swing.JFrame {
     public List<MyTableRow> list2 = new ArrayList<>();
 
     // HTTP GET request
-    public String getStringFromUrl(String url) throws Exception {
+    public String getStringFromUrl(String url) throws PackageTransportationException {
 
-        URL obj = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        try {
+            URL obj = new URL(url);
 
-        String username = settings.getRepository_login_username();
-        String password = settings.getRepository_login_password();
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-        String userpass = username + ":" + password;
-        String basicAuth = "Basic " + javax.xml.bind.DatatypeConverter.printBase64Binary(userpass.getBytes());
+            String username = settings.getRepository_login_username();
+            String password = settings.getRepository_login_password();
 
-        con.setRequestProperty("Authorization", basicAuth);
+            String userpass = username + ":" + password;
+            String basicAuth = "Basic " + javax.xml.bind.DatatypeConverter.printBase64Binary(userpass.getBytes());
 
-        // optional default is GET
-        con.setRequestMethod("GET");
+            con.setRequestProperty("Authorization", basicAuth);
 
-        //con.setRequestProperty("User-Agent", USER_AGENT);
-        int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'GET' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
+            // optional default is GET
+            con.setRequestMethod("GET");
+            int responseCode = con.getResponseCode();
+            org.tinylog.Logger.info("Sending GET request to URL {}", url);
+            org.tinylog.Logger.info("Response Code: {}", responseCode);
 
+
+            StringBuilder response = readBufferToString(con);
+
+            return response.toString();
+        } catch (IOException urlException) {
+            throw new PackageTransportationException(urlException);
+        }
+    }
+
+    @Nonnull
+    private StringBuilder readBufferToString(HttpURLConnection con) throws PackageTransportationException {
         StringBuilder response;
         try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
             String inputLine;
             response = new StringBuilder();
             while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine + "\n");
+                response.append(inputLine).append("\n");
             }
+        } catch (IOException ioException) {
+            throw new PackageTransportationException(ioException);
         }
-
-        return response.toString();
+        return response;
     }
 
     private ArrayList<MyOpenLabRow> getMyOpenLabRepositoryData() {
@@ -115,21 +110,21 @@ public class frmUpdate extends javax.swing.JFrame {
         ArrayList<MyOpenLabRow> data = new ArrayList();
 
         String JSON_DATA = "";
+        String domain = settings.getRepository_domain();
+        if (domain.trim().equalsIgnoreCase("http://myopenlab.de")) {
+            domain = "https://myopenlab.de";
+        }
+        String url = domain + "/repository/index.php";
         try {
 
-            String domain = settings.getRepository_domain();
 
-            if (domain.trim().equalsIgnoreCase("http://myopenlab.de")) {
-                domain = "https://myopenlab.de";
-            }
-
-            JSON_DATA = getStringFromUrl(domain + "/repository/index.php");
-            System.out.println(JSON_DATA);
-        } catch (Exception ex) {
-            Logger.getLogger(frmUpdate.class.getName()).log(Level.SEVERE, null, ex);
+            JSON_DATA = getStringFromUrl(url);
+            org.tinylog.Logger.debug(JSON_DATA);
+        } catch (PackageTransportationException e) {
+            Logger.error(e, "Error. Tried  download JSON_DATA from {}", url);
         }
 
-        System.out.println("");
+
         JSONArray jsonMainArr = new JSONArray(JSON_DATA);
         for (int i = 0; i < jsonMainArr.length(); i++) {  // **line 2**
             JSONObject childJSONObject = jsonMainArr.getJSONObject(i);
@@ -151,8 +146,8 @@ public class frmUpdate extends javax.swing.JFrame {
             rowData.setCaption_en(caption_en);
             rowData.setCaption_es(caption_es);
             data.add(rowData);
+            org.tinylog.Logger.debug(">entry_name={}",entry_name);
 
-            System.out.println(">entry_name=" + entry_name);
 
             JSONObject content = childJSONObject.getJSONObject("content");
 
@@ -170,8 +165,8 @@ public class frmUpdate extends javax.swing.JFrame {
                                 String caption_de2 = item.getJSONObject("@attributes").getString("caption");
                                 String caption_en2 = item.getJSONObject("@attributes").getString("caption_en");
                                 String caption_es2 = item.getJSONObject("@attributes").getString("caption_es");
-                                //String dest_dir = item.getJSONObject("@attributes").getString("type");
-                                System.out.println("name=" + name + " type=" + type2);
+                                org.tinylog.Logger.debug("name={] type={}",name,type2);
+
 
                                 TestItem tItem = new TestItem(name, type, caption_de2, caption_en2, caption_es2);
                                 rowData.items.add(tItem);
@@ -189,8 +184,8 @@ public class frmUpdate extends javax.swing.JFrame {
                         String caption_de2 = item.getJSONObject("@attributes").getString("caption");
                         String caption_en2 = item.getJSONObject("@attributes").getString("caption_en");
                         String caption_es2 = item.getJSONObject("@attributes").getString("caption_es");
-                        //String dest_dir = item.getJSONObject("@attributes").getString("type");
-                        System.out.println("name=" + name + " type=" + type2);
+                        org.tinylog.Logger.debug("name={} type={}",name,type2);
+
 
                         TestItem tItem = new TestItem(name, type, caption_de2, caption_en2, caption_es2);
 
@@ -216,13 +211,13 @@ public class frmUpdate extends javax.swing.JFrame {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             SwingUtilities.updateComponentTreeUI(this);
         } catch (UnsupportedLookAndFeelException e) {
-            // handle exception
-        } catch (ClassNotFoundException e) {
-            // handle exception
-        } catch (InstantiationException e) {
-            // handle exception
+            Logger.error(e,"Error. Look and feel could not be set.");
         } catch (IllegalAccessException e) {
-            // handle exception
+            Logger.error(e,"Error. Look and feel not accessible");
+        } catch (InstantiationException e) {
+            Logger.error(e,"Error. Could not create a new class of Look and Feel.");
+        } catch (ClassNotFoundException e) {
+            Logger.error(e,"Error. Could not find the class to get look and feel data from.");
         }
     }
 
@@ -288,9 +283,9 @@ public class frmUpdate extends javax.swing.JFrame {
                     model.data.add(newRow);
                 }
             } catch (MalformedURLException ex) {
-                Logger.getLogger(frmUpdate.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception ex) {
-                Logger.getLogger(frmUpdate.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.error(ex, "Error. Url was mallformed ");
+            } catch (PackageTransportationException e) {
+                Logger.error(e,"Could not download data");
             }
         }
     }
@@ -439,34 +434,17 @@ public class frmUpdate extends javax.swing.JFrame {
                             newRow.setCaption_es(caption_es);
                             model.data.add(newRow);
                         } catch (ParserConfigurationException ex) {
-                            Logger.getLogger(frmUpdate.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.error(ex,"Error. Could not parse xml config to create Documentfactory");
                         } catch (SAXException ex) {
-                            Logger.getLogger(frmUpdate.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.error(ex,"Error. Saxparser exception. Probably the xml is not balanced or is broken");
                         } catch (IOException ex) {
-                            Logger.getLogger(frmUpdate.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.error(ex,"Error. Could not read the xml file");
                         }
                     }
                 }
             }
         }
 
-        /*File directory = new File(myopenlabpath + "/Elements/" + type);
-        ArrayList<String> files = new ArrayList<>();
-        // get all the files from a directory
-        File[] fList = directory.listFiles();
-        for (File file : fList) {
-
-            if (file.isDirectory()) {
-                File f = new File(file.getAbsoluteFile() + "/definition.def");
-                if (f.exists()) {
-                    files.add(file.getName());
-                }
-            }
-        }
-        for (String file : files) {
-            MyTableRow newRow = new MyTableRow(false, file, "", "", "", type);
-            model.data.add(newRow);
-        }*/
     }
 
     private void FillModelWithData_forDocumentations(MyTableModel model, String type) {
@@ -556,11 +534,11 @@ public class frmUpdate extends javax.swing.JFrame {
                             newRow.setCaption_es(caption_es);
                             model.data.add(newRow);
                         } catch (ParserConfigurationException ex) {
-                            Logger.getLogger(frmUpdate.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.error(ex,"Error. Could not parse xml config to create Documentfactory");
                         } catch (SAXException ex) {
-                            Logger.getLogger(frmUpdate.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.error(ex,"Error. Saxparser exception. Probably the xml is not balanced or is broken");
                         } catch (IOException ex) {
-                            Logger.getLogger(frmUpdate.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.error(ex,"Error. Could not read the xml file");
                         }
                     }
                 }
@@ -616,13 +594,14 @@ public class frmUpdate extends javax.swing.JFrame {
 
         if (settings.getProxy_host().trim().length() > 0) {
             System.setProperty("http.proxyHost", settings.getProxy_host().trim());
-            System.out.println("http.proxyHost=" + settings.getProxy_host().trim());
+            Logger.debug("http.proxyset={}",settings.getProxy_host().trim());
+
         } else {
             System.setProperty("http.proxyHost", "");
         }
         if (settings.getProxy_port().trim().length() > 0) {
             System.setProperty("http.proxyPort", settings.getProxy_port().trim());
-            System.out.println("http.proxyPort=" + settings.getProxy_port().trim());
+            Logger.debug("http.proxyPort={}",settings.getProxy_port().trim());
         } else {
             System.setProperty("http.proxyPort", "");
         }
@@ -655,7 +634,10 @@ public class frmUpdate extends javax.swing.JFrame {
             SSLContext sc = SSLContext.getInstance("SSL");
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-        } catch (Exception e) {
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.error(ex,"This jvm does not support the weak SSLv3");
+        }catch (KeyManagementException keyManagementException){
+            Logger.error(keyManagementException,"Could not initialize keymanagement for this jvm");
         }
 
         // Fenster mittig anzeigen!
@@ -1280,36 +1262,7 @@ public class frmUpdate extends javax.swing.JFrame {
                 URLConnection connection = new URL(url).openConnection();
                 connection.setDoOutput(true);
                 connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
-                try (
-                    OutputStream output = connection.getOutputStream();
-                    PrintWriter writer = new PrintWriter(new OutputStreamWriter(output, charset), true);) {
-
-                    // Send normal param.
-                    writer.append("--" + boundary).append(CRLF);
-                    writer.append("Content-Disposition: form-data; name=\"filename\"").append(CRLF);
-                    writer.append("Content-Type: text/plain; charset=" + charset).append(CRLF);
-                    writer.append(CRLF).append(entry_name).append(CRLF).flush();
-
-                    // Send normal param.
-                    writer.append("--" + boundary).append(CRLF);
-                    writer.append("Content-Disposition: form-data; name=\"type\"").append(CRLF);
-                    writer.append("Content-Type: text/plain; charset=" + charset).append(CRLF);
-                    writer.append(CRLF).append(type).append(CRLF).flush();
-
-                    // Send binary file.
-                    writer.append("--" + boundary).append(CRLF);
-                    writer.append("Content-Disposition: form-data; name=\"binaryFile\"; filename=\"" + binaryFile.getName() + "\"").append(CRLF);
-                    writer.append("Content-Type: " + URLConnection.guessContentTypeFromName(binaryFile.getName())).append(CRLF);
-                    writer.append("Content-Transfer-Encoding: binary").append(CRLF);
-                    writer.append(CRLF).flush();
-                    Files.copy(binaryFile.toPath(), output);
-                    output.flush(); // Important before continuing with writer!
-                    writer.append(CRLF).flush(); // CRLF is important! It indicates end of boundary.
-                    // End of multipart/form-data.
-                    writer.append("--" + boundary + "--").append(CRLF).flush();
-                } catch (UnsupportedEncodingException ex) {
-                    Logger.getLogger(frmUpdate.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                writeFile(entry_name, type, charset, binaryFile, boundary, CRLF, connection);
                 // Request is lazily fired whenever you need to obtain information about response.
                 int responseCode = ((HttpURLConnection) connection).getResponseCode();
                 Tools.showMessage(this, "" + responseCode);
@@ -1322,16 +1275,49 @@ public class frmUpdate extends javax.swing.JFrame {
                     while ((inputLine = in.readLine()) != null) {
                         str += inputLine + "\n";
                     }
+                }catch (IOException ex){
+                    Logger.error(ex,"Error. Tried to read from connection {}",connection);
                 }
-
-                System.out.println(str);
-
+                Logger.debug(str);
                 Tools.showMessage(this, "" + str);
             }
         } catch (IOException ex) {
-            Logger.getLogger(frmUpdate.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.error(ex,"Error. Tried to read or write");
         }
     }//GEN-LAST:event_jMenuItemUploadPackageActionPerformed
+
+    private void writeFile(String entry_name, String type, String charset, File binaryFile, String boundary, String CRLF, URLConnection connection) throws IOException {
+        try (
+            OutputStream output = connection.getOutputStream();
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(output, charset), true)) {
+
+            // Send normal param.
+            writer.append("--").append(boundary).append(CRLF);
+            writer.append("Content-Disposition: form-data; name=\"filename\"").append(CRLF);
+            writer.append("Content-Type: text/plain; charset=").append(charset).append(CRLF);
+            writer.append(CRLF).append(entry_name).append(CRLF).flush();
+
+            // Send normal param.
+            writer.append("--").append(boundary).append(CRLF);
+            writer.append("Content-Disposition: form-data; name=\"type\"").append(CRLF);
+            writer.append("Content-Type: text/plain; charset=").append(charset).append(CRLF);
+            writer.append(CRLF).append(type).append(CRLF).flush();
+
+            // Send binary file.
+            writer.append("--").append(boundary).append(CRLF);
+            writer.append("Content-Disposition: form-data; name=\"binaryFile\"; filename=\"").append(binaryFile.getName()).append("\"").append(CRLF);
+            writer.append("Content-Type: ").append(URLConnection.guessContentTypeFromName(binaryFile.getName())).append(CRLF);
+            writer.append("Content-Transfer-Encoding: binary").append(CRLF);
+            writer.append(CRLF).flush();
+            Files.copy(binaryFile.toPath(), output);
+            output.flush(); // Important before continuing with writer!
+            writer.append(CRLF).flush(); // CRLF is important! It indicates end of boundary.
+            // End of multipart/form-data.
+            writer.append("--").append(boundary).append("--").append(CRLF).flush();
+        } catch (UnsupportedEncodingException ex) {
+            Logger.error(ex,"Error. Encoding {} is not supported", charset);
+        }
+    }
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         String uuid = "fe-" + UUID.randomUUID().toString();
@@ -1341,12 +1327,13 @@ public class frmUpdate extends javax.swing.JFrame {
 
         //URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
 
-        String icon32 = new File(FrameMain.elementPath + "/std_lib_icon_32.png").getAbsolutePath();
+        String icon32 = new File(FrameMain.elementPath + STD_LIB_ICON_32_PNG).getAbsolutePath();
+        String tmpFilePath = tmp + ICON_32_PNG;
 
         try {
-            Tools.copyFileUsingStream(new File(icon32), new File(tmp + "/icon32.png"));
+            Tools.copyFileUsingStream(new File(icon32), new File(tmpFilePath));
         } catch (IOException ex) {
-            Logger.getLogger(Dialog_create_new_group.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.error(ex,"Error. Tried to copy file {} to {}",icon32,tmpFilePath);
         }
 
         String xml = createEmptyInfoXML(tmp.getName());
@@ -1371,12 +1358,13 @@ public class frmUpdate extends javax.swing.JFrame {
         tmp.mkdirs();
 
         //URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
-        String icon32 = new File(FrameMain.elementPath + "/std_lib_icon_32.png").getAbsolutePath();
+        String icon32 = new File(FrameMain.elementPath + STD_LIB_ICON_32_PNG).getAbsolutePath();
+        String tmpDestination = tmp + ICON_32_PNG;
 
         try {
-            Tools.copyFileUsingStream(new File(icon32), new File(tmp + "/icon32.png"));
+            Tools.copyFileUsingStream(new File(icon32), new File(tmpDestination));
         } catch (IOException ex) {
-            Logger.getLogger(Dialog_create_new_group.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.error(ex,"Error. Tried to copy file {} to {}",icon32,tmpDestination);
         }
 
         String xml = createEmptyInfoXML(tmp.getName());
@@ -1398,12 +1386,13 @@ public class frmUpdate extends javax.swing.JFrame {
 
         new File(FrameMain.elementPath + "/VirtualMachines").mkdirs();
 
-        if (!new File(FrameMain.elementPath + "/VirtualMachines/project.myopenlab").exists()) {
+        String projectFile = FrameMain.elementPath + "/VirtualMachines/project.myopenlab";
+        if (!new File(projectFile).exists()) {
 
-            try (PrintWriter out = new PrintWriter(FrameMain.elementPath + "/VirtualMachines/project.myopenlab")) {
+            try (PrintWriter out = new PrintWriter(projectFile)) {
                 out.println("");
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(DialogSaveAsModul.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.error(ex,"Error. File {} does not exists",projectFile);
             }
         }
 
@@ -1411,17 +1400,21 @@ public class frmUpdate extends javax.swing.JFrame {
         File tmp = new File(FrameMain.elementPath + "/VirtualMachines/" + uuid);
 
         if (!tmp.exists()) {
+            String emptyVlogicFile = FrameMain.elementPath + "/empty.vlogic";
+            String tmpEmptyVlogic = tmp.getAbsolutePath() + "/main.vlogic";
             try {
                 tmp.mkdirs();
 
                 // URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
 
-                String icon32 = new File(FrameMain.elementPath + "/std_lib_icon_32.png").getAbsolutePath();
+                String icon32 = new File(FrameMain.elementPath + STD_LIB_ICON_32_PNG).getAbsolutePath();
+                String tmpDestination = tmp + ICON_32_PNG;
+
 
                 try {
-                    Tools.copyFileUsingStream(new File(icon32), new File(tmp + "/icon32.png"));
+                    Tools.copyFileUsingStream(new File(icon32), new File(tmpDestination));
                 } catch (IOException ex) {
-                    Logger.getLogger(Dialog_create_new_group.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.error(ex,"Error. Tried to copy file {} to {}",icon32,tmpDestination);
                 }
 
                 String xml = createEmptyInfoXML(tmp.getName());
@@ -1430,7 +1423,8 @@ public class frmUpdate extends javax.swing.JFrame {
 
                 Tools.saveText(new File(tmp.getAbsolutePath() + "/project.myopenlab"), "MAINVM= Main.vlogic");
 
-                Tools.copy(new File(FrameMain.elementPath + "/empty.vlogic"), new File(tmp.getAbsolutePath() + "/main.vlogic"));
+
+                Tools.copy(new File(emptyVlogicFile), new File(tmpEmptyVlogic));
 
                 Dialog_create_new_group frm = new Dialog_create_new_group(this, true, "edit", tmp.getAbsolutePath());
                 frm.load(tmp.getAbsolutePath());
@@ -1449,7 +1443,7 @@ public class frmUpdate extends javax.swing.JFrame {
                     Tools.deleteDirectory(tmp);
                 }
             } catch (IOException ex) {
-                Logger.getLogger(frmUpdate.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.error(ex,"Error. Tried to copy file {} to {}",emptyVlogicFile,tmpEmptyVlogic);
             }
         } else {
             Tools.showMessage(this, java.util.ResourceBundle.getBundle("de/myopenlab/update/MainFrame").getString("VM PACKAGE ALREADY EXISTS"));
@@ -1460,12 +1454,13 @@ public class frmUpdate extends javax.swing.JFrame {
 
         new File(FrameMain.elementPath + "/Documentations").mkdirs();
 
-        if (!new File(FrameMain.elementPath + "/Documentations/project.myopenlab").exists()) {
+        String projectFile = FrameMain.elementPath + "/Documentations/project.myopenlab";
+        if (!new File(projectFile).exists()) {
 
-            try (PrintWriter out = new PrintWriter(FrameMain.elementPath + "/Documentations/project.myopenlab")) {
+            try (PrintWriter out = new PrintWriter(projectFile)) {
                 out.println("");
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(DialogSaveAsModul.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.error(ex,"Error. File {} not found",projectFile);
             }
         }
 
@@ -1475,15 +1470,16 @@ public class frmUpdate extends javax.swing.JFrame {
         if (!tmp.exists()) {
             tmp.mkdirs();
 
-            String icon32 = new File(FrameMain.elementPath + "/std_lib_icon_32.png").getAbsolutePath();
+            String icon32 = new File(FrameMain.elementPath + STD_LIB_ICON_32_PNG).getAbsolutePath();
             //URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
 
+            String tmpDestination = tmp + ICON_32_PNG;
             try {
                 //Tools.showMessage(icon32);
                 // Tools.showMessage(tmp + "/icon32.png");
-                Tools.copyFileUsingStream(new File(icon32), new File(tmp + "/icon32.png"));
+                Tools.copyFileUsingStream(new File(icon32), new File(tmpDestination));
             } catch (IOException ex) {
-                Logger.getLogger(Dialog_create_new_group.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.error(ex,"Error. Tried to copy file {} to {}",icon32,tmpDestination);
             }
 
             String xml = createEmptyInfoXML(tmp.getName());
