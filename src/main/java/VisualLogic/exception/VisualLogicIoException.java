@@ -2,6 +2,9 @@ package VisualLogic.exception;
 
 import java.io.IOException;
 
+/**
+ * Exceptions that are thrown while doing IO work such as copying or reading files
+ */
 public class VisualLogicIoException extends IOException {
 
     public VisualLogicIoException() {
