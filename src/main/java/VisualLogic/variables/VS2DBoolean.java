@@ -17,6 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package VisualLogic.variables;
 
+import org.tinylog.Logger;
+
+import java.io.IOException;
+
 public class VS2DBoolean extends VSObject {
     private boolean value[][] = null;
     private int columns = 0;
@@ -95,10 +99,10 @@ public class VS2DBoolean extends VSObject {
             this.rows = 0;
         }
     }
-
+    @Override
     public void saveToStream(java.io.FileOutputStream fos) {
-        try {
-            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
+        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)){
+
             dos.writeInt(columns);
             dos.writeInt(rows);
 
@@ -109,14 +113,14 @@ public class VS2DBoolean extends VSObject {
                     dos.writeBoolean(val);
                 }
             }
-        } catch (Exception ex) {
-            System.err.println("Fehler in VS2DString.saveToStream() : " + ex.toString());
+        } catch (IOException ex) {
+            Logger.error(ex,"Error. Tryed to save file.");
         }
     }
 
     public void loadFromStream(java.io.FileInputStream fis) {
-        try {
-            java.io.DataInputStream dis = new java.io.DataInputStream(fis);
+        try (java.io.DataInputStream dis = new java.io.DataInputStream(fis)){
+
 
             columns = dis.readInt();
             rows = dis.readInt();
@@ -128,7 +132,7 @@ public class VS2DBoolean extends VSObject {
                 }
             }
         } catch (Exception ex) {
-            System.err.println("Error in VS2DBoolean.loadFromStream() : " + ex.toString());
+            Logger.error(ex,"Error. Tryed to load values");
         }
     }
 }
