@@ -81,9 +81,8 @@ public class InstallPackages implements Runnable {
             UnzipFiles unzipper = new UnzipFiles();
 
             unzipper.unzip(zipFilePath, destDir);
-        } catch (IOException ex) {
-            // some errors occurred
-            org.tinylog.Logger.error(ex,"Error while trying to unzip package {} to {}",source,dest);
+        } catch (IOException | PackageTransportationException ex) {
+            Logger.error(ex,"Error while trying to unzip package {} to {}",source,dest);
         }
     }
 }
