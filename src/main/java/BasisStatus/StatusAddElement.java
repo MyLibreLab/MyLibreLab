@@ -230,7 +230,7 @@ public class StatusAddElement extends Object implements StatusBasisIF {
     }
 
     public void mouseMoved(MouseEvent e) {
-        try {
+
             int w = dummyWidth;
             int h = dummyHeight;
             int w2 = w / 2;
@@ -251,25 +251,18 @@ public class StatusAddElement extends Object implements StatusBasisIF {
             } else {
 
                 if (vmobject != null) {
-                    try {
-                        x = vmobject.getMousePosition().x;
-                        y = vmobject.getMousePosition().y;
-                    } catch (Exception ex) {
 
-                    }
+                    x = vmobject.getMousePosition().x;
+                    y = vmobject.getMousePosition().y;
+
                 }
             }
-
             int x1 = x - w2;
             int y1 = y - h2;
 
             Point p = vmobject.pointToRaster(dummyElement, x1, y1);
-
             dummyElement.setLocation(p.x, p.y);
-        } catch (Exception ex) {
-            vmobject.owner.showErrorMessage(ex.toString());
-            vmobject.setModusIdle();
-        }
+
     }
 
     public void mouseDblClick(MouseEvent e) {
