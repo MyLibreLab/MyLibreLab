@@ -19,6 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic.variables;
 
+import org.tinylog.Logger;
+
+import java.io.IOException;
+
 /**
  * @author Salafia
  */
@@ -106,8 +110,8 @@ public class VS2DByte extends VSObject {
     }
 
     public void saveToStream(java.io.FileOutputStream fos) {
-        try {
-            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
+        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)){
+
             dos.writeInt(columns);
             dos.writeInt(rows);
 
@@ -118,14 +122,14 @@ public class VS2DByte extends VSObject {
                     dos.writeByte(val);
                 }
             }
-        } catch (Exception ex) {
-            System.err.println("Fehler in VS2DByte.saveToStream() : " + ex.toString());
+        } catch (IOException ex) {
+            Logger.error(ex,"Error. Could not write to stream");
         }
     }
 
     public void loadFromStream(java.io.FileInputStream fis) {
-        try {
-            java.io.DataInputStream dis = new java.io.DataInputStream(fis);
+        try (java.io.DataInputStream dis = new java.io.DataInputStream(fis)){
+
 
             columns = dis.readInt();
             rows = dis.readInt();
@@ -136,8 +140,8 @@ public class VS2DByte extends VSObject {
                     value[i][j] = dis.readByte();
                 }
             }
-        } catch (Exception ex) {
-            System.err.println("Error in VS2DByte.loadFromStream() : " + ex.toString());
+        } catch (IOException ex) {
+            Logger.error(ex,"Error. Could not read from input");
         }
     }
 }
