@@ -17,6 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package VisualLogic.variables;
 
+import org.tinylog.Logger;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class VSFile extends VSObject {
@@ -76,27 +79,27 @@ public class VSFile extends VSObject {
     }
 
     public void loadFromStream(java.io.FileInputStream fis) {
-        try {
-            java.io.DataInputStream dis = new java.io.DataInputStream(fis);
 
-            value = dis.readUTF();
-        } catch (Exception ex) {
+            try(java.io.DataInputStream dis = new java.io.DataInputStream(fis)){
+                value = dis.readUTF();
+            } catch (IOException ioException) {
+                Logger.error(ioException,"Error. Could not reat UTF");
+            }
 
-        }
+
     }
 
     public void saveToStream(java.io.FileOutputStream fos) {
-        try {
-            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
+        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)){
+
             dos.writeUTF(value);
-        } catch (Exception ex) {
-            System.err.println("Fehler in VSFile.saveToStream() : " + ex.toString());
+        } catch (IOException ex) {
+            Logger.error(ex,"Error. Could not write utf");
         }
     }
 
     public void loadFromXML(String name, org.w3c.dom.Element nodeElement) {
-        String temp = nodeElement.getAttribute("VSFileName" + name);
-        value = temp;
+        value = nodeElement.getAttribute("VSFileName" + name);
     }
 
     public void saveToXML(String name, org.w3c.dom.Element nodeElement) {
