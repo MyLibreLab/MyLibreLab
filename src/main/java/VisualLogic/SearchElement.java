@@ -5,11 +5,13 @@
  */
 package VisualLogic;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import VisualLogic.exception.VisualLogicIoException;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
 
 /**
@@ -19,24 +21,26 @@ public class SearchElement {
 
     private ArrayList<Search_found_item> items = new ArrayList<>();
 
-    public Hashtable<String, String> load_definition_def(String filename) throws Exception {
-        FileInputStream fstream = null;
+    public Hashtable<String, String> load_definition_def(String filename) throws VisualLogicIoException {
 
+        //TODO remove hashtable
         Hashtable<String, String> res = new Hashtable<>();
-        // Open the file
-        fstream = new FileInputStream(filename);
-        BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-        String strLine;
-        //Read File Line By Line
-        while ((strLine = br.readLine()) != null) {
-            String[] cols = strLine.split("=");
-            if (cols.length == 2) {
-                res.put(cols[0].trim().toLowerCase(), cols[1].trim());
+        try (
+            BufferedReader br = Files.newBufferedReader(Path.of(filename))) {
+            String strLine;
+            //Read File Line By Line
+            while ((strLine = br.readLine()) != null) {
+                String[] cols = strLine.split("=");
+                if (cols.length == 2) {
+                    res.put(cols[0].trim().toLowerCase(), cols[1].trim());
+                }
             }
-        }
-        br.close();
-
         return res;
+        } catch (IOException e) {
+            throw  new VisualLogicIoException(e);
+        }
+
+
     }
 
     public ArrayList<Search_found_item> search(String path, String suchwort, String language) {
@@ -99,7 +103,7 @@ public class SearchElement {
                                 //System.out.println("suchwort=" + suchwort + "   gefunden=" + gefunden + "  im Element: " + f.getAbsolutePath());
                             }
                         }
-                    } catch (Exception ex) {
+                    } catch (ex) {
 
                     }
                 }
