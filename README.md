@@ -9,7 +9,7 @@ The original sources were gathered from <https://sourceforge.net/p/myopenlab3/co
 - Build using modern Java 14 technology
 - Maintained on GitHub
 
-## Start it
+## Manual installation:
 
 1. Clone MyLibreLab:
 
@@ -20,9 +20,12 @@ The original sources were gathered from <https://sourceforge.net/p/myopenlab3/co
 2. Run with gradle:
 
   ```terminal
-  ./gradlew run --args="../elements
+  cd MyLibreLab
+  ./gradlew run --args="./elements"
   ```
 
+## User documentation
+[User docs link](https://mylibrelab.github.io/user-documentation/)
 ## Code Setup
 
 ### Java Development Kit 14
