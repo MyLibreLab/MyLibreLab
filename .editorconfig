@@ -1,7 +1,6 @@
 root = true
 
 [*]
-end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 charset = utf-8
@@ -10,3 +9,22 @@ indent_size = 4
 
 [*.yml]
 indent_size = 2
+
+
+[*.md]
+trim_trailing_whitespace = false
+
+[{*.sh, gradlew}]
+end_of_line = lf
+
+[{*.bat, *.cmd}]
+end_of_line = crlf
+
+[{*.kts, *.kt}]
+ij_kotlin_code_style_defaults = KOTLIN_OFFICIAL
+ij_kotlin_name_count_to_use_star_import = 999
+ij_kotlin_name_count_to_use_star_import_for_members = 999
+
+[*.java]
+# Doc: https://youtrack.jetbrains.com/issue/IDEA-170643#focus=streamItem-27-3708697.0-0
+max_line_length = 120
