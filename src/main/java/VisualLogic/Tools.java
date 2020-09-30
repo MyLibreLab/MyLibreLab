@@ -151,7 +151,7 @@ public class Tools {
             return false;
         }
 
-        try {
+        try{
             File javaFile = new File(srcFile);
             // getJavaFileObjects' param is a vararg
             Iterable fileObjects = sjfm.getJavaFileObjects(javaFile);
@@ -166,17 +166,17 @@ public class Tools {
             jc.getTask(out, sjfm, null, options, null, fileObjects).call();
 
             if (!out.toString().trim().equals("")) {
-                org.tinylog.Logger
-                System.err.println(out.toString());
+                Logger.error(out);
             } else {
-                System.err.println("File \"" + new File(srcFile).getName() + "\" compiled.\n");
+                Logger.error("File {} compiled",new File(srcFile).getName());
             }
             out.close();
 
             // Add more compilation tasks
             sjfm.close();
         } catch (IOException ex) {
-            ex.printStackTrace();
+
+            Logger.error(ex);
         }
         return false;
     }
@@ -207,6 +207,7 @@ public class Tools {
             Runtime.getRuntime().exec(cmd);
         } catch (IOException bx) {
             Tools.showMessage(bx.toString());
+            Logger.error(bx,"Error. The following cmd throw an error {}",cmd);
         }
     }
 
@@ -250,8 +251,8 @@ public class Tools {
                  .collect(Collectors.toList());
         } catch (IOException e) {
             org.tinylog.Logger.error(e, "Could not list drivers");
-            return Collections.emptyList();
         }
+        return Collections.emptyList();
     }
 
     public static void showMessage(String message) {
