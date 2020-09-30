@@ -18,7 +18,7 @@ import java.net.URL;
  */
 public class Tools2 {
 
-    public static void deleteFolder(File folder) {
+    public static void deleteFolder(File folder)throws SecurityException {
         File[] files = folder.listFiles();
         if (files != null) { //some JVMs return null for empty dirs
             for (File f : files) {
