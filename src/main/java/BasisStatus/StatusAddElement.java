@@ -148,13 +148,11 @@ public class StatusAddElement extends Object implements StatusBasisIF {
         } else {
             vmobject.setModusIdle();
             dummyElement.processPropertyEditor();
-            try {
-                if (dummyElement.classRef != null) {
-                    dummyElement.classRef.checkPinDataType();
-                }
-            } catch (Exception ex) {
 
+            if (dummyElement.classRef != null) {
+                dummyElement.classRef.checkPinDataType();
             }
+
 
             // Ermittle ob es sich um ein MCU_FLOWCHART Element handelt und
             // ob die Koordinaten sich unterhalb eines Start Elements befinden
