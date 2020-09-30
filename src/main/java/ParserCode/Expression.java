@@ -22,31 +22,32 @@ package ParserCode;
 
 // line 2 "Expression.jay"
 
+import org.tinylog.Logger;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StreamTokenizer;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * recognizes, stores, and evaluates arithmetic expressions using a parser generated with jay.
  */
 public class Expression {
 
-    public static ArrayList liste = new ArrayList();
+    public static List<String> liste = new ArrayList<>();
 
     public static void main(String args[]) throws Exception {
         Expression parser = new Expression();
         Scanner scanner = new Scanner(new java.io.StringReader("1+2"));
-        while (scanner.ttype != scanner.TT_EOF)
+        while (scanner.ttype != StreamTokenizer.TT_EOF)
             try {
                 parser.yyparse(scanner, null);
-
-                for (int i = 0; i < liste.size(); i++) {
-                    System.err.println("" + liste.get(i));
-                }
+                Logger.error(()-> String.join(",", liste));
                 break;
-            } catch (Exception ye) {
-                System.err.println(scanner + ": " + ye);
+            } catch (IOException | yyException ioException) {
+                Logger.error(ioException);
             }
     }
 
@@ -368,12 +369,12 @@ public class Expression {
      */
     public void yyerror(String message, String[] expected) {
         if (expected != null && expected.length > 0) {
-            System.err.print(message + ", expecting");
-            for (int n = 0; n < expected.length; ++n)
-                System.err.print(" " + expected[n]);
-            System.err.println();
-        } else
-            System.err.println(message);
+            Logger.error("{}, expecting",message);
+            Logger.error(()-> String.join(",",expected));
+        } else{
+            Logger.error(message);
+        }
+
     }
 
     /**
@@ -757,20 +758,23 @@ public class Expression {
                     assert true;   // should not happen
                 case TT_WORD: {
                     value = sval;
+                        try{
 
-                    //System.out.println("VALUE="+sval);
+                            int c = Integer.parseInt(sval);
+                            if (c >= 0 && c <= 255) return BYTE;
+                            else if (c > 255 && c <= 65535) return WORD;
+                            else{
+                                Logger.error("Error: Byte or Word excepted ");
+                            }
+                        }catch (NumberFormatException ex){
+                            Logger.error(ex,"Value {} was not a number",ex);
+                        }
 
-                    try {
-                        int c = Integer.valueOf(sval);
 
-                        if (c >= 0 && c <= 255) return BYTE;
-                        else if (c > 255 && c <= 65535) return WORD;
-                        else
-                            System.out.println("Error: Byte or Word excepted ");
 
-                        //return sval.indexOf(".") < 0 ? Int : Real;
-                    } catch (Exception ex) {
-                    }
+
+
+
 
                     if (sval.equalsIgnoreCase("LCDPRINTNUM")) return LCD_PRINT_NUM;
 
