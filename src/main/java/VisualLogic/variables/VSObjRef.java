@@ -16,6 +16,10 @@
  */
 package VisualLogic.variables;
 
+import org.tinylog.Logger;
+
+import java.io.IOException;
+
 /**
  * @author velas
  */
@@ -78,22 +82,22 @@ public class VSObjRef extends VSObject {
 
     @Override
     public void loadFromStream(java.io.FileInputStream fis) {
-        try {
-            java.io.DataInputStream dis = new java.io.DataInputStream(fis);
+        try (java.io.DataInputStream dis = new java.io.DataInputStream(fis)){
+
 
             this.Obj = dis.readUTF();
-        } catch (Exception ex) {
-
+        } catch (IOException ex) {
+            Logger.error(ex,"Error. Tryed to read objref");
         }
     }
 
     @Override
     public void saveToStream(java.io.FileOutputStream fos) {
-        try {
-            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
+        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)){
+
             dos.writeUTF(this.Obj.toString());
         } catch (Exception ex) {
-            System.err.println("Fehler in VSDouble.saveToStream() : " + ex.toString());
+            Logger.error(ex,"Error. Tryed to save ObjRef");
         }
     }
 
