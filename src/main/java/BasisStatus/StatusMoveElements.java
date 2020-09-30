@@ -18,8 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package BasisStatus;
 
-import java.awt.Graphics;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
@@ -29,6 +28,7 @@ import VisualLogic.JPin;
 import VisualLogic.PolyPoint;
 import VisualLogic.SelectionPane;
 import VisualLogic.VMObject;
+import org.tinylog.Logger;
 
 public class StatusMoveElements extends Object implements StatusBasisIF {
     private VMObject vmobject;
@@ -67,12 +67,14 @@ public class StatusMoveElements extends Object implements StatusBasisIF {
             int eY = 0;
 
             if (vmobject != null) {
-                try {
+                try{
                     eX = vmobject.getMousePosition().x;
                     eY = vmobject.getMousePosition().y;
-                } catch (Exception ex) {
-                    return;
+
+                }catch (HeadlessException ex){
+                    Logger.error(ex,"Java is in headless mode. Could not get Mousepointer coordinates.");
                 }
+
             }
 
             int x = eX;
