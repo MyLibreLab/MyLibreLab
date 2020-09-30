@@ -30,11 +30,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -49,6 +45,7 @@ import Peditor.BasisProperty;
 import Peditor.PropertyEditor;
 import SimpleFileSystem.FileSystemOutput;
 import VisualLogic.variables.VSObject;
+import org.tinylog.Logger;
 
 /**
  * @author Carmelo Salafia
@@ -1133,9 +1130,9 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
 
     public void saveToStream(FileSystemOutput fsOut) {
 
-        try {
-            FileOutputStream fos = fsOut.addItem("Element");
-            DataOutputStream dos = new DataOutputStream(fos);
+        try (FileOutputStream fos = fsOut.addItem("Element");
+             DataOutputStream dos = new DataOutputStream(fos)){
+
 
             dos.writeUTF(classPath);
             dos.writeUTF(className);
@@ -1177,23 +1174,22 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
             dos.writeBoolean(isVisible());           // visible
 
             if (classRef != null) {
-                try {
-                    classRef.xSaveToStream(fos);
 
-                    if (owner == owner.owner.getFrontBasis()) {
-                        if (circuitElement != null) {
-                            ((Element) circuitElement).classRef.saveToStreamAfterXOnInit(fos);
-                        }
+                classRef.xSaveToStream(fos);
 
-                        classRef.saveToStreamAfterXOnInit(fos);
+                if (owner == owner.owner.getFrontBasis()) {
+                    if (circuitElement != null) {
+                        ((Element) circuitElement).classRef.saveToStreamAfterXOnInit(fos);
                     }
-                } catch (Exception ex) {
-                    owner.owner.showErrorMessage("Error in Method Element.saveToStream() : " + ex.toString());
+
+                    classRef.saveToStreamAfterXOnInit(fos);
                 }
+
             }
             fsOut.postItem();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             owner.owner.showErrorMessage("Error in Element.saveToStream() :" + ex.toString());
+            Logger.error(ex);
         }
     }
 
@@ -1208,41 +1204,39 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
 
     public JPin getPin(int index) {
         JPin ret = null;
-        try {
-            int c = 0;
-            for (int i = 0; i < getTopPins(); i++) {
+
+        int c = 0;
+        for (int i = 0; i < getTopPins(); i++) {
+            if (c == index) {
+                return (JPin) pinsLstTop.get(i);
+            }
+            c++;
+        }
+        if (ret == null) {
+            for (int i = 0; i < getRightPins(); i++) {
                 if (c == index) {
-                    return (JPin) pinsLstTop.get(i);
+                    return (JPin) pinsLstRight.get(i);
                 }
                 c++;
             }
-            if (ret == null) {
-                for (int i = 0; i < getRightPins(); i++) {
-                    if (c == index) {
-                        return (JPin) pinsLstRight.get(i);
-                    }
-                    c++;
-                }
-            }
-            if (ret == null) {
-                for (int i = 0; i < getBottomPins(); i++) {
-                    if (c == index) {
-                        return (JPin) pinsLstBottom.get(i);
-                    }
-                    c++;
-                }
-            }
-            if (ret == null) {
-                for (int i = 0; i < getLeftPins(); i++) {
-                    if (c == index) {
-                        return (JPin) pinsLstLeft.get(i);
-                    }
-                    c++;
-                }
-            }
-        } catch (Exception e) {
-            ret = null;
         }
+        if (ret == null) {
+            for (int i = 0; i < getBottomPins(); i++) {
+                if (c == index) {
+                    return (JPin) pinsLstBottom.get(i);
+                }
+                c++;
+            }
+        }
+        if (ret == null) {
+            for (int i = 0; i < getLeftPins(); i++) {
+                if (c == index) {
+                    return (JPin) pinsLstLeft.get(i);
+                }
+                c++;
+            }
+        }
+
         return ret;
     }
 
@@ -2178,6 +2172,8 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
                 mc.waitForID(0);
             } catch (InterruptedException ex) {
                 jException("Fehler in Methode Element.jLoadImage()" + ex.toString());
+                Logger.error(ex);
+                Thread.currentThread().interrupt();
             }
         }
         return image;
