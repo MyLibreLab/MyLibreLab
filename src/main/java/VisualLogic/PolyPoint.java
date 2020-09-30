@@ -23,6 +23,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 
 /**
  * @author Homer
@@ -58,8 +59,9 @@ public class PolyPoint extends VisualObject {
             int x = stream.readInt();
             int y = stream.readInt();
             setLocation(x, y);
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             basis.owner.showErrorMessage("" + ex.toString());
+
         }
     }
 
@@ -67,7 +69,7 @@ public class PolyPoint extends VisualObject {
         try {
             dos.writeInt(getX());
             dos.writeInt(getY());
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             basis.owner.showErrorMessage("" + ex.toString());
         }
     }
