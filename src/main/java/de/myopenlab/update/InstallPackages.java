@@ -1,6 +1,7 @@
 package de.myopenlab.update;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.logging.Level;
@@ -38,21 +39,7 @@ public class InstallPackages implements Runnable {
 
                         owner.log("download " + row.getName() + "/package.zip");
 
-                        try {
-                            Tools2.getPackageZip(source, dest, settings);
-
-                            String zipFilePath = dest;
-
-                            String destDir = owner.myopenlabpath + "/Elements/" + type + "/" + row.getName();
-
-                            owner.log("unzip " + row.getName());
-                            UnzipFiles unzipper = new UnzipFiles();
-
-                            unzipper.unzip(zipFilePath, destDir);
-                        } catch (Exception ex) {
-                            // some errors occurred
-                            ex.printStackTrace();
-                        }
+                        unzipPackageToDestination(row, type, source, dest);
                     }
                 }
 
@@ -68,6 +55,31 @@ public class InstallPackages implements Runnable {
             owner.owner.reinitPackage();
         } catch (InterruptedException ex) {
             Logger.getLogger(InstallPackages.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Unzip a package to a defined location
+     * @param row
+     * @param type
+     * @param source
+     * @param dest
+     */
+    private void unzipPackageToDestination(MyTableRow row, String type, String source, String dest) {
+        try {
+            Tools2.getPackageZip(source, dest, settings);
+
+            String zipFilePath = dest;
+
+            String destDir = owner.myopenlabpath + "/Elements/" + type + "/" + row.getName();
+
+            owner.log("unzip " + row.getName());
+            UnzipFiles unzipper = new UnzipFiles();
+
+            unzipper.unzip(zipFilePath, destDir);
+        } catch (IOException ex) {
+            // some errors occurred
+            org.tinylog.Logger.error(ex,"Error while trying to unzip package {} to {}",source,dest);
         }
     }
 }
