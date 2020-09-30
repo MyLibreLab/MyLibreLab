@@ -18,7 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic;
 
+import org.tinylog.Logger;
+
 import java.awt.Image;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
 
@@ -49,8 +52,8 @@ public class frmDTLengend extends javax.swing.JFrame {
             URL url = getClass().getResource("/legend/" + filename);
             jTextPane1.setContentType("text/html");
             jTextPane1.setPage(url);
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
+        } catch (IOException ioException) {
+            Logger.error(ioException);
         }
 
         java.awt.event.ActionListener actionListener = new java.awt.event.ActionListener() {
