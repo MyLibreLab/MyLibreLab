@@ -233,8 +233,8 @@ public class StatusMoveElements extends Object implements StatusBasisIF {
                 try {
                     eX = vmobject.getMousePosition().x;
                     eY = vmobject.getMousePosition().y;
-                } catch (Exception ex) {
-
+                } catch (HeadlessException ex) {
+                    Logger.error(ex,"Error. Jvm is in headless mode");
                 }
             }
 
