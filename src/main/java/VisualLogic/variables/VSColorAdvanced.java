@@ -22,8 +22,10 @@ import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.io.IOException;
 
 import CustomColorPicker.RoundGradientPaint;
+import org.tinylog.Logger;
 
 public class VSColorAdvanced extends VSObject {
 
@@ -105,42 +107,44 @@ public class VSColorAdvanced extends VSObject {
             g.setPaint(rgp);
         }
     }
-
+    @Override
     public void loadFromStream(java.io.FileInputStream fis) {
-        try {
-            java.io.DataInputStream dis = new java.io.DataInputStream(fis);
 
-            modus = dis.readInt();
+            try(java.io.DataInputStream dis = new java.io.DataInputStream(fis)){
+                modus = dis.readInt();
 
-            int r = dis.readInt();
-            int g = dis.readInt();
-            int b = dis.readInt();
-            this.color1Transparency = dis.readInt();
-            color1 = new Color(r, g, b, color1Transparency);
+                int r = dis.readInt();
+                int g = dis.readInt();
+                int b = dis.readInt();
+                this.color1Transparency = dis.readInt();
+                color1 = new Color(r, g, b, color1Transparency);
 
-            r = dis.readInt();
-            g = dis.readInt();
-            b = dis.readInt();
-            this.color2Transparency = dis.readInt();
-            color2 = new Color(r, g, b, color2Transparency);
+                r = dis.readInt();
+                g = dis.readInt();
+                b = dis.readInt();
+                this.color2Transparency = dis.readInt();
+                color2 = new Color(r, g, b, color2Transparency);
 
-            int x = dis.readInt();
-            int y = dis.readInt();
-            this.p1 = new Point(x, y);
+                int x = dis.readInt();
+                int y = dis.readInt();
+                this.p1 = new Point(x, y);
 
-            x = dis.readInt();
-            y = dis.readInt();
-            this.p2 = new Point(x, y);
+                x = dis.readInt();
+                y = dis.readInt();
+                this.p2 = new Point(x, y);
 
-            wiederholung = dis.readBoolean();
-        } catch (Exception ex) {
+                wiederholung = dis.readBoolean();
+            }catch (IOException ex){
+                Logger.error(ex,"Error. Could not read from input");
+            }
 
-        }
+
+
     }
-
+    @Override
     public void saveToStream(java.io.FileOutputStream fos) {
-        try {
-            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
+        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)){
+
 
             dos.writeInt(this.modus);
 
@@ -161,8 +165,8 @@ public class VSColorAdvanced extends VSObject {
             dos.writeInt(p2.y);
 
             dos.writeBoolean(this.wiederholung);
-        } catch (Exception ex) {
-            System.err.println("Fehler in VSColorAdvanced.saveToStream() : " + ex.toString());
+        } catch (IOException ex) {
+            Logger.error(ex,"Error. Could not read colors");
         }
     }
 
