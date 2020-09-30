@@ -1,11 +1,20 @@
+import com.github.autostyle.generic.DefaultCopyrightStyle
+import com.github.autostyle.gradle.BaseFormatExtension
+import com.github.vlsi.gradle.properties.dsl.props
+
 plugins {
     `java-library`
     application
+    id("com.github.autostyle")
+    id("com.github.vlsi.gradle-extensions")
     id("org.beryx.runtime")
 }
 
 val String.v: String get() = rootProject.extra["$this.version"] as String
 val projectVersion = "MyLibreLab".v
+
+val enableMavenLocal by props()
+val skipAutostyle by props(default = true)
 
 dependencies {
     implementation("com.google.guava:guava:28.2-jre")
@@ -56,11 +65,46 @@ runtime {
     )
 }
 
+fun BaseFormatExtension.license() {
+    licenseHeader(File("${project.rootDir}/config/LICENSE_HEADER.txt").readText()) {
+        copyrightStyle("bat", DefaultCopyrightStyle.REM)
+        copyrightStyle("cmd", DefaultCopyrightStyle.REM)
+        addBlankLineAfter.set(true)
+    }
+    trimTrailingWhitespace()
+    endWithNewline()
+}
+
+fun BaseFormatExtension.configFilter(init: PatternFilterable.() -> Unit) {
+    filter {
+        // Autostyle does not support gitignore yet https://github.com/autostyle/autostyle/issues/13
+        exclude("out/**")
+        if (project == rootProject) {
+            exclude("gradlew*", "gradle/**")
+        } else {
+            exclude("bin/**")
+        }
+        init()
+    }
+}
+
+
 allprojects {
     version = projectVersion
 
     repositories {
+        if (enableMavenLocal) {
+            mavenLocal()
+        }
         mavenCentral()
+    }
+
+    tasks.withType<AbstractArchiveTask>().configureEach {
+        // Ensure builds are reproducible
+        isPreserveFileTimestamps = false
+        isReproducibleFileOrder = true
+        dirMode = "775".toInt(8)
+        fileMode = "664".toInt(8)
     }
 
     plugins.withType<JavaLibraryPlugin> {
@@ -81,6 +125,43 @@ allprojects {
             withType<Test> {
                 // Use junit platform for unit tests
                 useJUnitPlatform()
+            }
+        }
+    }
+
+    if (!skipAutostyle) {
+        apply(plugin = "com.github.autostyle")
+        autostyle {
+            kotlinGradle {
+                ktlint()
+            }
+            format("properties") {
+                configFilter {
+                    include("**/*.properties")
+                    exclude("**/gradle.properties")
+                }
+                license()
+            }
+            format("configs") {
+                configFilter {
+                    include("**/*.sh", "**/*.bsh", "**/*.cmd", "**/*.bat")
+                    include("**/*.yml")
+                    include("**/*.xsd", "**/*.xsl", "**/*.xml")
+                    exclude("**/*.eclipseformat.xml")
+                }
+                license()
+            }
+            format("markdown") {
+                filter.include("**/*.md")
+                endWithNewline()
+            }
+            java {
+                importOrder("java", "javax", "org", "com", "")
+                removeUnusedImports()
+                eclipse {
+                    configFile("${project.rootDir}/config/style.eclipseformat.xml")
+                }
+                license()
             }
         }
     }
