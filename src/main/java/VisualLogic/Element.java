@@ -730,7 +730,7 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
         setOpaque(false);
 
         this.elementPath = elementPath;
-        this.classPath = mainPath + "/" + binPath;
+        this.classPath = mainPath + File.separator + binPath;
 
         this.mainPath = mainPath;
         this.binPath = binPath;
@@ -740,7 +740,7 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
 
         Loader loader = new Loader();
 
-        String path = mainPath + "/" + binPath;
+        String path = mainPath + File.separator + binPath;
         path = korrigiereFileSeparator(path);
 
         if (className.trim().equalsIgnoreCase("")) {

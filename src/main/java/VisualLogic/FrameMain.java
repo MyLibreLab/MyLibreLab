@@ -113,7 +113,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     //public MyImage doc_image = new MyImage();
     public PanelDokumentation panelDoc;
     //public static String elementPath = ""; //NOI18N
-    public static String elementPath = "C:\\Users\\velas\\Documents\\NetBeansProjects\\myoepnlab_source\\distribution\\Elements";
+    public static String elementPath = System.getProperty("user.dir") + File.separator + "elements";
     public String activeElement = ""; //NOI18N
     public static FrameMain frm;
     public javax.swing.Timer timer;
@@ -5833,17 +5833,25 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             //server.start();
 
             // ASM Datei ins MyOpenLab User Dir speichern
-            String fileNameDest_ASM = getUserURL().getFile() + "\\mcu_code.asm";
+            String fileNameDest_ASM = getUserURL().getFile() + File.separator + "mcu_code.asm";
             Tools.saveText(new File(fileNameDest_ASM), code);
 
             //String fileName = elementPath+"..\simulator";
-            String jarFileDir = elementPath + "\\..\\simulator";
+            String jarFileDir = System.getProperty("user.dir") + File.separator + "simulator";
 
-            String jarFile = new File(jarFileDir + "\\Simulator.jar").getAbsolutePath();
+            String jarFile = new File(jarFileDir + File.separator + "Simulator.jar").getAbsolutePath();
 
             //String jarFile="E:\\ASM_Simulation\\Simulator\\dist\\Simulator.jar";
             if (new File(jarFile).exists()) {
-                ProcessBuilder builder = new ProcessBuilder("cmd", "/c", "start", "javaw", "-jar", jarFile, fileNameDest_ASM);
+                ProcessBuilder builder;
+                String osName = System.getProperty("os.name");
+
+                if (osName.contains("Windows")) {
+                    builder = new ProcessBuilder("cmd", "/c", "start", "javaw", "-jar", jarFile, fileNameDest_ASM);
+                } else {
+                    // TODO check if always possible
+                    builder = new ProcessBuilder("/bin/bash", "-c", "start", "javaw", "-jar", jarFile, fileNameDest_ASM);
+                }
 
                 builder.directory(new File(jarFileDir));
                 try {
