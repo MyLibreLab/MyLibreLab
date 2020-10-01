@@ -376,8 +376,8 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
                         copyFiles(src1, dest1, javaFilter);
                     }
                 } else {
-                    String dest1 = dest.getAbsolutePath() + "\\" + list[i];
-                    String src1 = src.getAbsolutePath() + "\\" + list[i];
+                    String dest1 = dest.getAbsolutePath() + File.separator + list[i];
+                    String src1 = src.getAbsolutePath() + File.separator + list[i];
                     copyFiles(src1, dest1, javaFilter);
                 }
             }

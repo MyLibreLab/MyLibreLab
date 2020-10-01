@@ -19,6 +19,7 @@ package VisualLogic;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.UIManager;
@@ -67,7 +68,7 @@ public class Settings {
 
     private String javaEditor;
     private String HTMLEditor;
-    private String jdkBin = "C:\\Programme\\Java\\jdk1.5.0_09\\bin";
+    private String jdkBin = System.getProperty("java.home") + File.separator + "bin";
     private String graphicEditor = "mspaint.exe";
 
     private int elementSplitterHozPosition = 400;

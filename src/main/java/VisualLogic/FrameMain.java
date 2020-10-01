@@ -113,7 +113,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     //public MyImage doc_image = new MyImage();
     public PanelDokumentation panelDoc;
     //public static String elementPath = ""; //NOI18N
-    public static String elementPath = "C:\\Users\\velas\\Documents\\NetBeansProjects\\myoepnlab_source\\distribution\\Elements";
+    public static String elementPath = System.getProperty("user.dir") + File.separator + "elements";
     public String activeElement = ""; //NOI18N
     public static FrameMain frm;
     public javax.swing.Timer timer;
