@@ -800,9 +800,10 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
                     if (definition_def.classPath2.trim().length() > 0) {
                         classPaths = getKorrectClassPaths(elementPath, mainPath, definition_def.classPath2);
                         url4 = new File(classPaths).toURI().toURL();
+                        classRef = (ElementIF) loader.ladeClasseDriver(new URL[]{url1, url2, url3, url4}, this.className);
+                    } else {
+                        classRef = (ElementIF) loader.ladeClasseDriver(new URL[]{url1, url2, url3}, this.className);
                     }
-
-                    classRef = (ElementIF) loader.ladeClasseDriver(new URL[]{url1, url2, url3, url4}, this.className);
                 } else {
                     String pfad = Tools.mapFile(elementPath + myClassPath + "/bin");
                     //File file = new File(pfad);

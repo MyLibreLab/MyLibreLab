@@ -22,6 +22,8 @@ import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
 
+import org.tinylog.Logger;
+
 public class Loader {
     URLClassLoader cl;
 
@@ -41,9 +43,9 @@ public class Loader {
 
             o = c.newInstance();
         } catch (Exception ex) {
-            System.out.println("" + ex);
+            Logger.error(ex);
         } catch (UnsupportedClassVersionError ex) {
-            System.out.println("" + ex);
+            Logger.error(ex);
         }
         return o;
     }
@@ -57,9 +59,9 @@ public class Loader {
 
             o = c.newInstance();
         } catch (Exception ex) {
-            System.out.println("" + ex);
+            Logger.error(ex);
         } catch (UnsupportedClassVersionError ex) {
-            System.out.println("" + ex);
+            Logger.error(ex);
         }
         return o;
     }
