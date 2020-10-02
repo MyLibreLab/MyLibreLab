@@ -21,7 +21,7 @@ The original sources were gathered from <https://sourceforge.net/p/myopenlab3/co
 
   ```terminal
   cd MyLibreLab
-  ./gradlew run --args="./elements"
+  ./gradlew run
   ```
 
 ## User documentation
@@ -48,7 +48,3 @@ On Windows:
   - `netbeans_jdkhome="C:\Program Files\BellSoft\LibericaJDK-14"`
 
 Then "Apache Netbeans" can be started. Open the folder containing the project.
-
-## Notes
-
-We do not have CheckStyle in place as there are currently too many checkstyle errors.
