@@ -3,7 +3,6 @@ package de.myopenlab.update;
 import org.tinylog.Logger;
 
 import java.io.File;
-import java.util.logging.Level;
 
 
 public class DeletePackages implements Runnable {
@@ -26,7 +25,8 @@ public class DeletePackages implements Runnable {
             owner.initTable2();
             owner.owner.reinitPackage();
         } catch (InterruptedException ex) {
-            Logger.error(ex,"Exception while trying to sleep in thread");
+            Logger.error(ex, "Exception while trying to sleep in thread");
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -48,7 +48,7 @@ public class DeletePackages implements Runnable {
                 }
             }
         } catch (SecurityException ex) {
-            Logger.error(ex,"Error during deletion of packages");
+            Logger.error(ex, "Error during deletion of packages");
         }
     }
 }

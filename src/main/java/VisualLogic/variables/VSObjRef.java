@@ -82,22 +82,22 @@ public class VSObjRef extends VSObject {
 
     @Override
     public void loadFromStream(java.io.FileInputStream fis) {
-        try (java.io.DataInputStream dis = new java.io.DataInputStream(fis)){
+        try (java.io.DataInputStream dis = new java.io.DataInputStream(fis)) {
 
 
             this.Obj = dis.readUTF();
-        } catch (IOException ex) {
-            Logger.error(ex,"Error. Tryed to read objref");
+        } catch (IOException e) {
+            Logger.error(e, "Error. Tried to read objref");
         }
     }
 
     @Override
     public void saveToStream(java.io.FileOutputStream fos) {
-        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)){
+        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)) {
 
             dos.writeUTF(this.Obj.toString());
-        } catch (Exception ex) {
-            Logger.error(ex,"Error. Tryed to save ObjRef");
+        } catch (IOException e) {
+            Logger.error(e, "Error. Tried to save ObjRef");
         }
     }
 

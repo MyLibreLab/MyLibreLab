@@ -20,13 +20,12 @@ package VisualLogic;
 
 import org.tinylog.Logger;
 
-import java.awt.Component;
+import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-
-import javax.swing.JOptionPane;
 
 /**
  * @author Carmelo
@@ -130,8 +129,8 @@ public class DialogUpdate extends javax.swing.JDialog {
                 Tools.showMessage("No Connection!");
             }
             result = true;
-        } catch (Exception e) {
-            Logger.error(e,"Error. Tried to open connection to {}",address);
+        } catch (IOException e) {
+            Logger.error(e, "Error. Tried to open connection to {}", address);
             Tools.showMessage("No Connection!");
         }
         return result;
@@ -274,9 +273,9 @@ public class DialogUpdate extends javax.swing.JDialog {
     private double getUpdateVersion(String filename) {
         String str = Tools.loadTextFile(new File(filename));
         try {
-            return  Double.parseDouble(str);
+            return Double.parseDouble(str);
         } catch (NumberFormatException ex) {
-            Logger.error(ex,"Error. String {} is not a number",str);
+            Logger.error(ex, "Error. String {} is not a number", str);
         }
         return 0;
     }
@@ -292,7 +291,7 @@ public class DialogUpdate extends javax.swing.JDialog {
             try {
                 ver = Double.parseDouble(Version.strApplicationVersion);
             } catch (NumberFormatException ex) {
-                Logger.error(ex,"Error. String {} was not a number",Version.strApplicationVersion);
+                Logger.error(ex, "Error. String {} was not a number", Version.strApplicationVersion);
             }
             double verX = getUpdateVersion(supdateTXT);
 

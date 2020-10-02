@@ -192,17 +192,17 @@ public class VSserialPort extends VSObject {
 
     @Override
     public void loadFromStream(java.io.FileInputStream fis) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void saveToStream(java.io.FileOutputStream fos) {
-        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);){
+        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);) {
 
             //dos.writeUTF(serialPort.getName());
             dos.writeUTF("COM1");
         } catch (IOException ex) {
-            Logger.error(ex,"Error. Could not write utf to COM1");
+            Logger.error(ex, "Error. Could not write utf to COM1");
         }
     }
 

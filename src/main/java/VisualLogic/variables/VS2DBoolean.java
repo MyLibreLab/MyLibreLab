@@ -99,9 +99,10 @@ public class VS2DBoolean extends VSObject {
             this.rows = 0;
         }
     }
+
     @Override
     public void saveToStream(java.io.FileOutputStream fos) {
-        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)){
+        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)) {
 
             dos.writeInt(columns);
             dos.writeInt(rows);
@@ -114,12 +115,12 @@ public class VS2DBoolean extends VSObject {
                 }
             }
         } catch (IOException ex) {
-            Logger.error(ex,"Error. Tryed to save file.");
+            Logger.error(ex, "Error. Tried to save file.");
         }
     }
 
     public void loadFromStream(java.io.FileInputStream fis) {
-        try (java.io.DataInputStream dis = new java.io.DataInputStream(fis)){
+        try (java.io.DataInputStream dis = new java.io.DataInputStream(fis)) {
 
 
             columns = dis.readInt();
@@ -131,8 +132,8 @@ public class VS2DBoolean extends VSObject {
                     value[i][j] = dis.readBoolean();
                 }
             }
-        } catch (Exception ex) {
-            Logger.error(ex,"Error. Tryed to load values");
+        } catch (IOException e) {
+            Logger.error(e, "Error. Tried to load values");
         }
     }
 }
