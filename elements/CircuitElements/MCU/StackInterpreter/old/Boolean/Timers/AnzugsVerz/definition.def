@@ -1,6 +1,6 @@
 ISDIRECTORY = FALSE
-CAPTION     = Anzugsverzögerung
-CAPTION_EN  = Anzugsverzögerung
-CAPTION_ES  = Anzugsverzögerung
+CAPTION     = AnzugsverzÃ¶gerung
+CAPTION_EN  = AnzugsverzÃ¶gerung
+CAPTION_ES  = AnzugsverzÃ¶gerung
 classCircuit= AnzugsVerz
 Icon        = bin/icon.gif

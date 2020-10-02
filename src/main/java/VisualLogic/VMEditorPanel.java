@@ -1,20 +1,22 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package VisualLogic;
 
@@ -41,7 +43,7 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
 
     public Peditor.PropertyEditor propertyEditor;
     private Element oldElement = null;
-    //private FrameElementDoc dialog;
+    // private FrameElementDoc dialog;
 
     public JPanel panelCircuit = null;
     public JPanel panelFront = null;
@@ -84,7 +86,7 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
         getVMObject().newElement = params;
     }
 
-    //public VMObject getVMObject(){return basis.getCircuitBasis();}
+    // public VMObject getVMObject(){return basis.getCircuitBasis();}
 
     JPanel docPanel = new JPanel();
 
@@ -102,10 +104,12 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
                 basis.showErrorMessage(e.toString());
             }
         } else {
-            /*URL urlx = new File(elementPath).toURL();
-            String s=urlx.getFile();
-            s = s.substring(0,s.lastIndexOf("/"));
-            pane.setText(java.util.ResourceBundle.getBundle("VisualLogic/FrameCircuit").getString("Keine Beschreibung gefunden"));*/
+            /*
+             * URL urlx = new File(elementPath).toURL(); String s=urlx.getFile(); s =
+             * s.substring(0,s.lastIndexOf("/"));
+             * pane.setText(java.util.ResourceBundle.getBundle("VisualLogic/FrameCircuit").
+             * getString("Keine Beschreibung gefunden"));
+             */
         }
     }
 
@@ -142,19 +146,10 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
 
 
 
-
-
-    /*public void processModus()
-    {
-        if (basis.modus==basis.PROCESSFIRST)
-        {
-            cmbProcessing.setSelectedIndex(0);
-        }
-        else
-        {
-            cmbProcessing.setSelectedIndex(1);
-        }
-    }*/
+    /*
+     * public void processModus() { if (basis.modus==basis.PROCESSFIRST) {
+     * cmbProcessing.setSelectedIndex(0); } else { cmbProcessing.setSelectedIndex(1); } }
+     */
 
     /**
      * Creates new form FrameCircuitX
@@ -164,29 +159,29 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
 
         this.owner = owner;
 
-        //lupe=new DialogLupe(this,basis,false);
-        //lupe.setVisible(true);
+        // lupe=new DialogLupe(this,basis,false);
+        // lupe.setVisible(true);
 
-        //mnu.add(layedLabel);
+        // mnu.add(layedLabel);
 
-        //cmbProcessing.getModel();
-        //cmbProcessing.addItem(java.util.ResourceBundle.getBundle("VisualLogic/FrameCircuit").getString("topFirst"));
-        //cmbProcessing.addItem(java.util.ResourceBundle.getBundle("VisualLogic/FrameCircuit").getString("bottomFirst"));
+        // cmbProcessing.getModel();
+        // cmbProcessing.addItem(java.util.ResourceBundle.getBundle("VisualLogic/FrameCircuit").getString("topFirst"));
+        // cmbProcessing.addItem(java.util.ResourceBundle.getBundle("VisualLogic/FrameCircuit").getString("bottomFirst"));
 
         this.panelMode = panelMode;
 
-        //MeinPrintStream ausgabe=new MeinPrintStream(txtMessages);
-        //System.setErr(ausgabe);
-        //System.setOut(ausgabe);
+        // MeinPrintStream ausgabe=new MeinPrintStream(txtMessages);
+        // System.setErr(ausgabe);
+        // System.setOut(ausgabe);
 
-        //activate_DocFrame(null);
+        // activate_DocFrame(null);
 
         this.basis = basis;
 
         basis.ownerVMPanel = this;
         this.elementPath = elementPath;
 
-        //jSplitPane2.setDividerLocation(0);
+        // jSplitPane2.setDividerLocation(0);
 
         panelCircuit = new BasisPanel(basis.getCircuitBasis());
         panelCircuit.setVisible(!basis.vmProtected);
@@ -198,163 +193,99 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
 
         jScrollPaneFrontPanel.add(panelFront);
         jScrollPaneFrontPanel.setViewportView(panelFront);
-        //basis.getFrontBasis().panel=panelFront;
+        // basis.getFrontBasis().panel=panelFront;
 
         setVMObject(basis.getCircuitBasis());
 
-        //propertyEditor = new Peditor.PropertyEditor(this);
+        // propertyEditor = new Peditor.PropertyEditor(this);
 
-        //jTabPE.addTab(java.util.ResourceBundle.getBundle("VisualLogic/FrameCircuit").getString("Property-Editor"), propertyEditor);
+        // jTabPE.addTab(java.util.ResourceBundle.getBundle("VisualLogic/FrameCircuit").getString("Property-Editor"),
+        // propertyEditor);
 
-        //oldPanelDirectory=basis.getFrameMain().settings.panelDirectory;
-        //oldCircuitDirectory=basis.getFrameMain().settings.circuitDirectory;
+        // oldPanelDirectory=basis.getFrameMain().settings.panelDirectory;
+        // oldCircuitDirectory=basis.getFrameMain().settings.circuitDirectory;
 
         try {
-            //setIconImage(basis.getFrameMain().iconImage);
-            //iconImage= Toolkit.getDefaultToolkit().getImage();
-            //setIconImage(iconImage);
+            // setIconImage(basis.getFrameMain().iconImage);
+            // iconImage= Toolkit.getDefaultToolkit().getImage();
+            // setIconImage(iconImage);
             basis.vsIcon.loadImage(getClass().getResource("/Bilder/icon_16.png"));
         } catch (Exception ex) {
         }
 
-        /*timer = new javax.swing.Timer(500, new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
+        /*
+         * timer = new javax.swing.Timer(500, new ActionListener() { public void actionPerformed(ActionEvent
+         * evt) {
+         *
+         * if (getBasis().isLoading()) return;
+         *
+         *
+         * //System.out.println("XXX");
+         *
+         * getBasis().getFrontBasis().sortSubPanels();
+         *
+         * getBasis().getCircuitBasis().adjustAllElemnts(); getBasis().getFrontBasis().adjustAllElemnts();
+         *
+         * getBasis().getCircuitBasis().checkPins();
+         *
+         *
+         * Element element=getVMObject().getSelectedElement(); if (element!=null) { if (element!=oldElement)
+         * { comboIsEditing=true; jComboBox1.setSelectedItem(element); comboIsEditing=false; }
+         * oldElement=element; } if (getVMObject().getElementCount()!=oldElementCount) {
+         * oldElementCount=getVMObject().getElementCount(); }
+         *
+         * jButtonStart.setEnabled(true);
+         *
+         * jmiSave.setEnabled(true); jmiSaveAs.setEnabled(true); //jmiSaveAsModul.setEnabled(true);
+         * jmiSelectAny.setEnabled(true); jmiStart.setEnabled(true); jButtonDebug.setEnabled(true);
+         * jmiStop.setEnabled(true);
+         *
+         * jButtonRefreshVM.setEnabled(true);
+         *
+         * jButtonPause.setEnabled(true); jButtonResume.setEnabled(true); jmiPause.setEnabled(true);
+         * jmiResume.setEnabled(true); jmiStep.setEnabled(true);
+         *
+         * //jComboBox1.setEnabled(true); //jComboBox1.setSelectedItem(""+getVMObject().owner.getDelay());
+         *
+         * if (getVMObject().owner.getUndoPointer()>1) { jmiUndo.setEnabled(true); cmdUndo.setEnabled(true);
+         * } else { jmiUndo.setEnabled(false); cmdUndo.setEnabled(false); }
+         *
+         * if (getVMObject().owner.getUndoPointer()<getVMObject().owner.getUndoHistorySize()) {
+         * jmiRedo.setEnabled(true); cmdRedo.setEnabled(true); } else { jmiRedo.setEnabled(false);
+         * cmdRedo.setEnabled(false); }
+         *
+         *
+         *
+         * if (getVMObject().isRunning()) { jmiStart.setEnabled(false); jmiStop.setEnabled(true);
+         * jButtonStart.setEnabled(false); jButtonDebug.setEnabled(false); jButtonStop.setEnabled(true);
+         *
+         * jButtonStep.setEnabled(true); jmiStep.setEnabled(true); //setBarsEnabled(false);
+         *
+         * jButtonRefreshVM.setEnabled(false);
+         *
+         * if (getVMObject().isPaused()) { jButtonPause.setEnabled(false); jButtonResume.setEnabled(true);
+         * jmiPause.setEnabled(false); jmiResume.setEnabled(true);
+         *
+         * jButtonStep.setEnabled(true); jmiStep.setEnabled(true);
+         *
+         * } else { jmiPause.setEnabled(true); jmiResume.setEnabled(false);
+         *
+         * jButtonPause.setEnabled(true); jButtonResume.setEnabled(false);
+         *
+         * jButtonStep.setEnabled(false); jmiStep.setEnabled(false);
+         *
+         * }
+         *
+         * } else { jmiStart.setEnabled(true); jmiStop.setEnabled(false); jButtonStart.setEnabled(true);
+         * jButtonStop.setEnabled(false); jButtonPause.setEnabled(false); jButtonResume.setEnabled(false);
+         * jmiPause.setEnabled(false); jmiResume.setEnabled(false);
+         *
+         * jButtonStep.setEnabled(false); jmiStep.setEnabled(false); } } });
+         *
+         * timer.start();
+         */
 
-                if (getBasis().isLoading()) return;
-
-
-                //System.out.println("XXX");
-
-                getBasis().getFrontBasis().sortSubPanels();
-
-                getBasis().getCircuitBasis().adjustAllElemnts();
-                getBasis().getFrontBasis().adjustAllElemnts();
-
-                getBasis().getCircuitBasis().checkPins();
-
-
-                Element element=getVMObject().getSelectedElement();
-                if (element!=null)
-                {
-                    if (element!=oldElement)
-                    {
-                        comboIsEditing=true;
-                        jComboBox1.setSelectedItem(element);
-                        comboIsEditing=false;
-                    }
-                    oldElement=element;
-                }
-                if (getVMObject().getElementCount()!=oldElementCount)
-                {
-                    oldElementCount=getVMObject().getElementCount();
-                }
-
-                jButtonStart.setEnabled(true);
-
-                jmiSave.setEnabled(true);
-                jmiSaveAs.setEnabled(true);
-                //jmiSaveAsModul.setEnabled(true);
-                jmiSelectAny.setEnabled(true);
-                jmiStart.setEnabled(true);
-                jButtonDebug.setEnabled(true);
-                jmiStop.setEnabled(true);
-
-                jButtonRefreshVM.setEnabled(true);
-
-                jButtonPause.setEnabled(true);
-                jButtonResume.setEnabled(true);
-                jmiPause.setEnabled(true);
-                jmiResume.setEnabled(true);
-                jmiStep.setEnabled(true);
-
-                //jComboBox1.setEnabled(true);
-                //jComboBox1.setSelectedItem(""+getVMObject().owner.getDelay());
-
-                if (getVMObject().owner.getUndoPointer()>1)
-                {
-                    jmiUndo.setEnabled(true);
-                    cmdUndo.setEnabled(true);
-                }
-                else
-                {
-                    jmiUndo.setEnabled(false);
-                    cmdUndo.setEnabled(false);
-                }
-
-                if (getVMObject().owner.getUndoPointer()<getVMObject().owner.getUndoHistorySize())
-                {
-                    jmiRedo.setEnabled(true);
-                    cmdRedo.setEnabled(true);
-                }
-                else
-                {
-                    jmiRedo.setEnabled(false);
-                    cmdRedo.setEnabled(false);
-                }
-
-
-
-                if (getVMObject().isRunning())
-                {
-                    jmiStart.setEnabled(false);
-                    jmiStop.setEnabled(true);
-                    jButtonStart.setEnabled(false);
-                    jButtonDebug.setEnabled(false);
-                    jButtonStop.setEnabled(true);
-
-                    jButtonStep.setEnabled(true);
-                    jmiStep.setEnabled(true);
-                    //setBarsEnabled(false);
-
-                    jButtonRefreshVM.setEnabled(false);
-
-                    if (getVMObject().isPaused())
-                    {
-                        jButtonPause.setEnabled(false);
-                        jButtonResume.setEnabled(true);
-                        jmiPause.setEnabled(false);
-                        jmiResume.setEnabled(true);
-
-                        jButtonStep.setEnabled(true);
-                        jmiStep.setEnabled(true);
-
-                    }
-                    else
-                    {
-                        jmiPause.setEnabled(true);
-                        jmiResume.setEnabled(false);
-
-                        jButtonPause.setEnabled(true);
-                        jButtonResume.setEnabled(false);
-
-                        jButtonStep.setEnabled(false);
-                        jmiStep.setEnabled(false);
-
-                    }
-
-                }
-                else
-                {
-                    jmiStart.setEnabled(true);
-                    jmiStop.setEnabled(false);
-                    jButtonStart.setEnabled(true);
-                    jButtonStop.setEnabled(false);
-                    jButtonPause.setEnabled(false);
-                    jButtonResume.setEnabled(false);
-                    jmiPause.setEnabled(false);
-                    jmiResume.setEnabled(false);
-
-                    jButtonStep.setEnabled(false);
-                    jmiStep.setEnabled(false);
-                }
-            }
-        });
-
-        timer.start();*/
-
-        //listeAllElements();
+        // listeAllElements();
 
     }
 
@@ -369,9 +300,9 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
             for (int i = 0; i < list.length; i++) {
                 if (javaFilter) {
                     if (list[i].endsWith(".java") == false && list[i].endsWith(".bat") == false) {
-                        //String dest1 = dest.getAbsolutePath() + "\\" + list[i];
+                        // String dest1 = dest.getAbsolutePath() + "\\" + list[i];
                         String dest1 = dest.getAbsolutePath() + File.separator + list[i];
-                        //String src1 = src.getAbsolutePath() + "\\" + list[i];
+                        // String src1 = src.getAbsolutePath() + "\\" + list[i];
                         String src1 = src.getAbsolutePath() + File.separator + list[i];
                         copyFiles(src1, dest1, javaFilter);
                     }
@@ -404,7 +335,7 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
                     } else {
                         String sss = destDir + "/" + srcFile.getPath();
                         copyAllFiles(sss, destDir);
-                        //new File(destDir+"/"+srcFile.getPath()).mkdirs();
+                        // new File(destDir+"/"+srcFile.getPath()).mkdirs();
                     }
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -430,7 +361,7 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
         basis.addPublishingFiles(list);
 
         String elementPath = basis.getElementPath();
-        //String destPath="C:/Dokumente und Einstellungen/Salafia/Desktop/test1";
+        // String destPath="C:/Dokumente und Einstellungen/Salafia/Desktop/test1";
         new File(destPath).mkdir();
         String destElementPath = destPath + "/Elements";
         new File(destElementPath).mkdir();
@@ -439,7 +370,8 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
             copyFile(elementPath + "/../license.txt", destElementPath + "/../license.txt");
             copyFile(elementPath + "/../lgpl.txt", destElementPath + "/../lgpl.txt");
 
-            copyFiles(elementPath + "/CircuitElements/Extras/SubVM", destElementPath + "/CircuitElements/Extras/SubVM", true);
+            copyFiles(elementPath + "/CircuitElements/Extras/SubVM", destElementPath + "/CircuitElements/Extras/SubVM",
+                    true);
             copyFiles(elementPath + "/CircuitElements/SubVM", destElementPath + "/CircuitElements/SubVM", true);
 
             copyFiles(elementPath + "/tools", destElementPath + "/tools", true);
@@ -483,7 +415,7 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
                         if (str.endsWith(".vlogic")) {
                             String fn1 = new File(elementPath + "" + str).getParentFile().getPath();
                             String fn2 = new File(destElementPath + "" + str).getParentFile().getPath();
-                            //new File(fn2).mkdirs();
+                            // new File(fn2).mkdirs();
 
                             try {
                                 copyFiles(fn1, fn2, false);
@@ -502,7 +434,8 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
                     } else {
                         if (str.endsWith(".vlogic")) {
                             try {
-                                Tools.copyFile(new File(str), new File(destElementPath + "/../" + new File(str).getName()));
+                                Tools.copyFile(new File(str),
+                                        new File(destElementPath + "/../" + new File(str).getName()));
                             } catch (IOException ex) {
                                 ex.printStackTrace();
                             }
@@ -543,10 +476,12 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(new java.io.File(basis.letztesVerzeichniss));
 
-        chooser.setDialogTitle(java.util.ResourceBundle.getBundle("VisualLogic/FrameCircuit").getString("Exportieren_als_JPG"));
+        chooser.setDialogTitle(
+                java.util.ResourceBundle.getBundle("VisualLogic/FrameCircuit").getString("Exportieren_als_JPG"));
         chooser.setDialogType(JFileChooser.SAVE_DIALOG);
 
-        SimpleFilter filter = new SimpleFilter("jpg", java.util.ResourceBundle.getBundle("VisualLogic/FrameCircuit").getString("JPEG_Image_Files"));
+        SimpleFilter filter = new SimpleFilter("jpg",
+                java.util.ResourceBundle.getBundle("VisualLogic/FrameCircuit").getString("JPEG_Image_Files"));
         chooser.setFileFilter(filter);
 
         int value = chooser.showSaveDialog(this);
@@ -565,7 +500,8 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
             try {
                 getVMObject().saveAsJPEG(fileName);
             } catch (Exception ex) {
-                basis.showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/FrameCircuit").getString("error_save_JPG"));
+                basis.showErrorMessage(
+                        java.util.ResourceBundle.getBundle("VisualLogic/FrameCircuit").getString("error_save_JPG"));
             }
         }
     }
@@ -626,8 +562,8 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
     }
 
     /**
-     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
-     * content of this method is always regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify
+     * this code. The content of this method is always regenerated by the Form Editor.
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -645,7 +581,8 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
         });
 
         jScrollPaneCircuitPanel.setBackground(new java.awt.Color(102, 102, 102));
-        jScrollPaneCircuitPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPaneCircuitPanel
+                .setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPaneCircuitPanel.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPaneCircuitPanel.setMinimumSize(new java.awt.Dimension(60, 24));
         jScrollPaneCircuitPanel.setPreferredSize(new java.awt.Dimension(100, 20));
@@ -662,14 +599,10 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                         .add(0, 555, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                         .add(0, 248, Short.MAX_VALUE)
-        );
+        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(0, 555, Short.MAX_VALUE));
+        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(0,
+                248, Short.MAX_VALUE));
 
         jScrollPaneCircuitPanel.setViewportView(jPanel1);
 
@@ -679,38 +612,35 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                  .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                  .add(org.jdesktop.layout.GroupLayout.TRAILING, jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
-        );
+        layout.setHorizontalGroup(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(jTabbedPane1,
+                org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE));
+        layout.setVerticalGroup(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(
+                org.jdesktop.layout.GroupLayout.TRAILING, jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                293, Short.MAX_VALUE));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_jTabbedPane1StateChanged
-    {//GEN-HEADEREND:event_jTabbedPane1StateChanged
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt)// GEN-FIRST:event_jTabbedPane1StateChanged
+    {// GEN-HEADEREND:event_jTabbedPane1StateChanged
         if (basis != null) {
             if (jTabbedPane1.getSelectedIndex() == 0) {
                 setVMObject(basis.getCircuitBasis());
-                //listeAllElements();
+                // listeAllElements();
             } else if (jTabbedPane1.getSelectedIndex() == 1) {
                 setVMObject(basis.getFrontBasis());
-                //listeAllElements();
+                // listeAllElements();
             }
         }
-    }//GEN-LAST:event_jTabbedPane1StateChanged
+    }// GEN-LAST:event_jTabbedPane1StateChanged
 
-    private void jScrollPaneCircuitPanelPropertyChange(java.beans.PropertyChangeEvent evt)//GEN-FIRST:event_jScrollPaneCircuitPanelPropertyChange
-    {//GEN-HEADEREND:event_jScrollPaneCircuitPanelPropertyChange
+    private void jScrollPaneCircuitPanelPropertyChange(java.beans.PropertyChangeEvent evt)// GEN-FIRST:event_jScrollPaneCircuitPanelPropertyChange
+    {// GEN-HEADEREND:event_jScrollPaneCircuitPanelPropertyChange
 
-    }//GEN-LAST:event_jScrollPaneCircuitPanelPropertyChange
+    }// GEN-LAST:event_jScrollPaneCircuitPanelPropertyChange
 
-    private void jScrollPaneCircuitPanelComponentResized(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_jScrollPaneCircuitPanelComponentResized
-    {//GEN-HEADEREND:event_jScrollPaneCircuitPanelComponentResized
+    private void jScrollPaneCircuitPanelComponentResized(java.awt.event.ComponentEvent evt)// GEN-FIRST:event_jScrollPaneCircuitPanelComponentResized
+    {// GEN-HEADEREND:event_jScrollPaneCircuitPanelComponentResized
 
-    }//GEN-LAST:event_jScrollPaneCircuitPanelComponentResized
+    }// GEN-LAST:event_jScrollPaneCircuitPanelComponentResized
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;

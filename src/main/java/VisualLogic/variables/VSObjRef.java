@@ -1,5 +1,7 @@
 /*
- * Copyright (C) 2017 velas
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,12 +15,14 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
+
 package VisualLogic.variables;
 
-import org.tinylog.Logger;
-
 import java.io.IOException;
+
+import org.tinylog.Logger;
 
 /**
  * @author velas
@@ -66,8 +70,10 @@ public class VSObjRef extends VSObject {
 
     @Override
     public boolean equals(VSObject objIn) {
-        if (this.Obj.equals(objIn)) return true;
-        else return false;
+        if (this.Obj.equals(objIn))
+            return true;
+        else
+            return false;
     }
 
     @Override

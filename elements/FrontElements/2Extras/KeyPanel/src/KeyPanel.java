@@ -91,7 +91,7 @@ public class KeyPanel extends JPanel
         }
 
 
-        super.processKeyEvent(event); // diese Zeile nicht mehr hinzufügen!!!
+        super.processKeyEvent(event); // diese Zeile nicht mehr hinzufÃ¼gen!!!
     }
 
     protected void processFocusEvent(FocusEvent event)

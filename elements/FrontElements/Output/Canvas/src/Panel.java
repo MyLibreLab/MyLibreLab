@@ -119,7 +119,7 @@ public class Panel extends JVSMain implements PanelIF
 
   private void renderImage(Graphics2D g2, VSCanvas can)
   {
-    if (can.antialising)    // Interpolation für mages!
+    if (can.antialising)    // Interpolation fÃ¼r mages!
     {
       g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BICUBIC );
     } else
@@ -259,7 +259,7 @@ public class Panel extends JVSMain implements PanelIF
 
     language="es_ES";
 
-    element.jSetPEItemLocale(d+0,language,"Interpolación");*/
+    element.jSetPEItemLocale(d+0,language,"InterpolaciÃ³n");*/
   }
 
   public void propertyChanged(Object o)

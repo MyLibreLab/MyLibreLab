@@ -1,20 +1,22 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package VisualLogic.variables;
 
@@ -33,8 +35,7 @@ public class VSImage extends VSObject {
     private byte imageBytes[] = null;
     private ImageLoader il = new ImageLoader();
 
-    public VSImage() {
-    }
+    public VSImage() {}
 
     public void loadImage(String fileName) {
         try {
@@ -63,7 +64,7 @@ public class VSImage extends VSObject {
             System.out.println(ex.getMessage());
         }
 
-        //int fileSize = (int) f.length();
+        // int fileSize = (int) f.length();
         try {
             URLConnection myConnection = url.openConnection();
             int length = myConnection.getContentLength();
@@ -89,7 +90,8 @@ public class VSImage extends VSObject {
             image = temp.getImage();
             imageBytes = temp.imageBytes;
             setChanged(temp.isChanged());
-        } else image = null;
+        } else
+            image = null;
     }
 
     public void copyReferenceFrom(Object in) {
@@ -145,12 +147,11 @@ public class VSImage extends VSObject {
         }
     }
 
-    public void loadFromXML(String name, org.w3c.dom.Element nodeElement) {
-    }
+    public void loadFromXML(String name, org.w3c.dom.Element nodeElement) {}
 
-    public void saveToXML(String name, org.w3c.dom.Element nodeElement) {
-    }
+    public void saveToXML(String name, org.w3c.dom.Element nodeElement) {}
 }
+
 
 class ImageLoader extends Component {
 

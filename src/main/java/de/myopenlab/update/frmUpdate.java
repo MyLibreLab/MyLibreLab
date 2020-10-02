@@ -1,35 +1,27 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
+
 package de.myopenlab.update;
 
-import VisualLogic.DFProperties;
-import VisualLogic.FrameMain;
-import VisualLogic.Tools;
-import create_new_group.Dialog_create_new_group;
-import de.myopenlab.update.exception.PackageTransportationException;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.tinylog.Logger;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-import projectfolder.MyNode;
-import ziputils.ZipFiles;
+import static VisualLogic.Tools.settings;
 
-import javax.annotation.Nonnull;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-import javax.swing.*;
-import javax.swing.table.TableColumn;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.io.*;
 import java.net.*;
@@ -41,7 +33,32 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import static VisualLogic.Tools.settings;
+import javax.annotation.Nonnull;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import javax.swing.*;
+import javax.swing.table.TableColumn;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.tinylog.Logger;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import VisualLogic.DFProperties;
+import VisualLogic.FrameMain;
+import VisualLogic.Tools;
+import create_new_group.Dialog_create_new_group;
+import de.myopenlab.update.exception.PackageTransportationException;
+import projectfolder.MyNode;
+import ziputils.ZipFiles;
 
 /**
  * @author salafica
@@ -126,7 +143,7 @@ public class frmUpdate extends javax.swing.JFrame {
 
 
         JSONArray jsonMainArr = new JSONArray(JSON_DATA);
-        for (int i = 0; i < jsonMainArr.length(); i++) {  // **line 2**
+        for (int i = 0; i < jsonMainArr.length(); i++) { // **line 2**
             JSONObject childJSONObject = jsonMainArr.getJSONObject(i);
 
             String entry_name = childJSONObject.getString("entry_name");
@@ -141,12 +158,13 @@ public class frmUpdate extends javax.swing.JFrame {
             String type = childJSONObject.getString("type");
             String date = childJSONObject.getString("date");
 
-            MyOpenLabRow rowData = new MyOpenLabRow(entry_name, version, author, short_description, dest_path, categorie, type, date);
+            MyOpenLabRow rowData =
+                    new MyOpenLabRow(entry_name, version, author, short_description, dest_path, categorie, type, date);
             rowData.setCaption_de(caption_de);
             rowData.setCaption_en(caption_en);
             rowData.setCaption_es(caption_es);
             data.add(rowData);
-            org.tinylog.Logger.debug(">entry_name={}",entry_name);
+            org.tinylog.Logger.debug(">entry_name={}", entry_name);
 
 
             JSONObject content = childJSONObject.getJSONObject("content");
@@ -165,7 +183,7 @@ public class frmUpdate extends javax.swing.JFrame {
                                 String caption_de2 = item.getJSONObject("@attributes").getString("caption");
                                 String caption_en2 = item.getJSONObject("@attributes").getString("caption_en");
                                 String caption_es2 = item.getJSONObject("@attributes").getString("caption_es");
-                                org.tinylog.Logger.debug("name={] type={}",name,type2);
+                                org.tinylog.Logger.debug("name={] type={}", name, type2);
 
 
                                 TestItem tItem = new TestItem(name, type, caption_de2, caption_en2, caption_es2);
@@ -184,7 +202,7 @@ public class frmUpdate extends javax.swing.JFrame {
                         String caption_de2 = item.getJSONObject("@attributes").getString("caption");
                         String caption_en2 = item.getJSONObject("@attributes").getString("caption_en");
                         String caption_es2 = item.getJSONObject("@attributes").getString("caption_es");
-                        org.tinylog.Logger.debug("name={} type={}",name,type2);
+                        org.tinylog.Logger.debug("name={} type={}", name, type2);
 
 
                         TestItem tItem = new TestItem(name, type, caption_de2, caption_en2, caption_es2);
@@ -211,13 +229,13 @@ public class frmUpdate extends javax.swing.JFrame {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             SwingUtilities.updateComponentTreeUI(this);
         } catch (UnsupportedLookAndFeelException e) {
-            Logger.error(e,"Error. Look and feel could not be set.");
+            Logger.error(e, "Error. Look and feel could not be set.");
         } catch (IllegalAccessException e) {
-            Logger.error(e,"Error. Look and feel not accessible");
+            Logger.error(e, "Error. Look and feel not accessible");
         } catch (InstantiationException e) {
-            Logger.error(e,"Error. Could not create a new class of Look and Feel.");
+            Logger.error(e, "Error. Could not create a new class of Look and Feel.");
         } catch (ClassNotFoundException e) {
-            Logger.error(e,"Error. Could not find the class to get look and feel data from.");
+            Logger.error(e, "Error. Could not find the class to get look and feel data from.");
         }
     }
 
@@ -267,16 +285,19 @@ public class frmUpdate extends javax.swing.JFrame {
 
                 if (files.indexOf(row.getEntry_name()) == -1 && row.getType().equalsIgnoreCase(type)) {
 
-                    String url = settings.getRepository_domain() + "/repository/new/" + row.getType() + "/" + row.getEntry_name() + "/definition.def";
+                    String url = settings.getRepository_domain() + "/repository/new/" + row.getType() + "/"
+                            + row.getEntry_name() + "/definition.def";
 
                     url = url.replaceAll(" ", "%20");
                     String definition_def = getStringFromUrl(url);
                     DFProperties definition = Tools.getProertiesFromDefinitionString(definition_def);
 
-                    URL icon_url = new URL(settings.getRepository_domain() + "/repository/new/" + row.getType() + "/" + row.getEntry_name() + "/" + definition.iconFilename);
+                    URL icon_url = new URL(settings.getRepository_domain() + "/repository/new/" + row.getType() + "/"
+                            + row.getEntry_name() + "/" + definition.iconFilename);
                     ImageIcon icon = new ImageIcon(icon_url);
 
-                    MyTableRow newRow = new MyTableRow(false, icon, row.getEntry_name(), row.getCategorie(), row.getDate(), row.getAuthor(), row.getType());
+                    MyTableRow newRow = new MyTableRow(false, icon, row.getEntry_name(), row.getCategorie(),
+                            row.getDate(), row.getAuthor(), row.getType());
                     newRow.setCaption_de(row.getCaption_de());
                     newRow.setCaption_en(row.getCaption_en());
                     newRow.setCaption_es(row.getCaption_es());
@@ -285,7 +306,7 @@ public class frmUpdate extends javax.swing.JFrame {
             } catch (MalformedURLException ex) {
                 Logger.error(ex, "Error. Url was mallformed ");
             } catch (PackageTransportationException e) {
-                Logger.error(e,"Could not download data");
+                Logger.error(e, "Could not download data");
             }
         }
     }
@@ -315,7 +336,8 @@ public class frmUpdate extends javax.swing.JFrame {
                 break;
             }
             case "es": {
-                String[] HEADER = {"Instalar", "", "Nombre del paquete", "Subt�tulo", "Categor�a", "Fecha", "Autor", "Tipo"};
+                String[] HEADER =
+                        {"Instalar", "", "Nombre del paquete", "Subt�tulo", "Categor�a", "Fecha", "Autor", "Tipo"};
                 model1.HEADER = HEADER;
                 break;
             }
@@ -361,9 +383,9 @@ public class frmUpdate extends javax.swing.JFrame {
 
                     File f = new File(file.getAbsoluteFile() + "/info.xml");
                     if (f.exists()) {
-                        //files.add(file.getName());
+                        // files.add(file.getName());
 
-                        //String directory = myopenlabpath + "/Elements/" + type;
+                        // String directory = myopenlabpath + "/Elements/" + type;
                         try {
                             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -428,17 +450,19 @@ public class frmUpdate extends javax.swing.JFrame {
 
                             icon = new ImageIcon(file.getAbsolutePath() + "/" + definition_def.iconFilename);
 
-                            MyTableRow newRow = new MyTableRow(false, icon, file.getName(), categorie, date, author, type);
+                            MyTableRow newRow =
+                                    new MyTableRow(false, icon, file.getName(), categorie, date, author, type);
                             newRow.setCaption_de(caption_de);
                             newRow.setCaption_en(caption_en);
                             newRow.setCaption_es(caption_es);
                             model.data.add(newRow);
                         } catch (ParserConfigurationException ex) {
-                            Logger.error(ex,"Error. Could not parse xml config to create Documentfactory");
+                            Logger.error(ex, "Error. Could not parse xml config to create Documentfactory");
                         } catch (SAXException ex) {
-                            Logger.error(ex,"Error. Saxparser exception. Probably the xml is not balanced or is broken");
+                            Logger.error(ex,
+                                    "Error. Saxparser exception. Probably the xml is not balanced or is broken");
                         } catch (IOException ex) {
-                            Logger.error(ex,"Error. Could not read the xml file");
+                            Logger.error(ex, "Error. Could not read the xml file");
                         }
                     }
                 }
@@ -461,9 +485,9 @@ public class frmUpdate extends javax.swing.JFrame {
                     DFProperties definition_def = Tools.getProertiesFromDefinitionFile(file);
                     File f = new File(file.getAbsoluteFile() + "/info.xml");
                     if (f.exists()) {
-                        //files.add(file.getName());
+                        // files.add(file.getName());
 
-                        //String directory = myopenlabpath + "/Elements/" + type;
+                        // String directory = myopenlabpath + "/Elements/" + type;
                         try {
                             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -528,17 +552,19 @@ public class frmUpdate extends javax.swing.JFrame {
 
                             icon = new ImageIcon(file.getAbsolutePath() + "/" + definition_def.iconFilename);
 
-                            MyTableRow newRow = new MyTableRow(false, icon, file.getName(), categorie, date, author, type);
+                            MyTableRow newRow =
+                                    new MyTableRow(false, icon, file.getName(), categorie, date, author, type);
                             newRow.setCaption_de(caption_de);
                             newRow.setCaption_en(caption_en);
                             newRow.setCaption_es(caption_es);
                             model.data.add(newRow);
                         } catch (ParserConfigurationException ex) {
-                            Logger.error(ex,"Error. Could not parse xml config to create Documentfactory");
+                            Logger.error(ex, "Error. Could not parse xml config to create Documentfactory");
                         } catch (SAXException ex) {
-                            Logger.error(ex,"Error. Saxparser exception. Probably the xml is not balanced or is broken");
+                            Logger.error(ex,
+                                    "Error. Saxparser exception. Probably the xml is not balanced or is broken");
                         } catch (IOException ex) {
-                            Logger.error(ex,"Error. Could not read the xml file");
+                            Logger.error(ex, "Error. Could not read the xml file");
                         }
                     }
                 }
@@ -588,56 +614,52 @@ public class frmUpdate extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     public frmUpdate() {
-        //Locale.setDefault(new Locale("de", "DE"));
+        // Locale.setDefault(new Locale("de", "DE"));
 
         initComponents();
 
         if (settings.getProxy_host().trim().length() > 0) {
             System.setProperty("http.proxyHost", settings.getProxy_host().trim());
-            Logger.debug("http.proxyset={}",settings.getProxy_host().trim());
+            Logger.debug("http.proxyset={}", settings.getProxy_host().trim());
 
         } else {
             System.setProperty("http.proxyHost", "");
         }
         if (settings.getProxy_port().trim().length() > 0) {
             System.setProperty("http.proxyPort", settings.getProxy_port().trim());
-            Logger.debug("http.proxyPort={}",settings.getProxy_port().trim());
+            Logger.debug("http.proxyPort={}", settings.getProxy_port().trim());
         } else {
             System.setProperty("http.proxyPort", "");
         }
 
-        if (settings.getRepository_domain().trim().length() > 0 && settings.getRepository_login_username().trim().length() > 0 && settings.getRepository_login_password().trim().length() > 0) {
+        if (settings.getRepository_domain().trim().length() > 0
+                && settings.getRepository_login_username().trim().length() > 0
+                && settings.getRepository_login_password().trim().length() > 0) {
             jMenuItemUploadPackage.setEnabled(true);
         } else {
             jMenuItemUploadPackage.setEnabled(false);
         }
 
         // Create a new trust manager that trust all certificates
-        TrustManager[] trustAllCerts = new TrustManager[]{
-            new X509TrustManager() {
-                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                    return null;
-                }
-
-                public void checkClientTrusted(
-                    java.security.cert.X509Certificate[] certs, String authType) {
-                }
-
-                public void checkServerTrusted(
-                    java.security.cert.X509Certificate[] certs, String authType) {
-                }
+        TrustManager[] trustAllCerts = new TrustManager[] {new X509TrustManager() {
+            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                return null;
             }
-        };
 
-// Activate the new trust manager
+            public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType) {}
+
+            public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) {}
+        }};
+
+        // Activate the new trust manager
         try {
             SSLContext sc = SSLContext.getInstance("SSL");
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
         } catch (NoSuchAlgorithmException ex) {
-            Logger.error(ex,"This jvm does not support the weak SSLv3");
-        }catch (KeyManagementException keyManagementException){
-            Logger.error(keyManagementException,"Could not initialize keymanagement for this jvm");
+            Logger.error(ex, "This jvm does not support the weak SSLv3");
+        } catch (KeyManagementException keyManagementException) {
+            Logger.error(keyManagementException, "Could not initialize keymanagement for this jvm");
         }
 
         // Fenster mittig anzeigen!
@@ -649,7 +671,7 @@ public class frmUpdate extends javax.swing.JFrame {
         jTable1.setRowHeight(40);
         jTable2.setRowHeight(40);
 
-        //initTable1();
+        // initTable1();
         initTable2();
 
         ImageIcon icon = new ImageIcon(getClass().getResource("/Bilder/16x16/storage.png"));
@@ -657,8 +679,8 @@ public class frmUpdate extends javax.swing.JFrame {
     }
 
     /**
-     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
-     * content of this method is always regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify
+     * this code. The content of this method is always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -716,17 +738,9 @@ public class frmUpdate extends javax.swing.JFrame {
         setTitle(bundle.getString("title")); // NOI18N
 
         jTable2.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object[][]{
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String[]{
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {{null, null, null, null},
+                {null, null, null, null}, {null, null, null, null}, {null, null, null, null}},
+                new String[] {"Title 1", "Title 2", "Title 3", "Title 4"}));
         jTable2.setGridColor(new java.awt.Color(230, 230, 230));
         jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -811,73 +825,50 @@ public class frmUpdate extends javax.swing.JFrame {
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                       .addComponent(jScrollPane3)
-                                                                       .addGroup(jPanel3Layout.createSequentialGroup()
-                                                                                              .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                                                     .addComponent(jLabel4)
-                                                                                                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                                                                                                                            .addComponent(jButton9)
-                                                                                                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                                                                            .addComponent(jButton2)
-                                                                                                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                                                                            .addComponent(jButton4)
-                                                                                                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                                                                            .addComponent(jButton5)
-                                                                                                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                                                                            .addComponent(jButton11)
-                                                                                                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                                                                            .addComponent(jButton12)
-                                                                                                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                                                                            .addComponent(jButton13)
-                                                                                                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                                                                            .addComponent(jButton14))
-                                                                                                                     .addComponent(jButton3))
-                                                                                              .addGap(0, 0, Short.MAX_VALUE)))
-                                                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                                       .addComponent(jButton2)
-                                                                       .addComponent(jButton4)
-                                                                       .addComponent(jButton5)
-                                                                       .addComponent(jButton9)
-                                                                       .addComponent(jButton11)
-                                                                       .addComponent(jButton12)
-                                                                       .addComponent(jButton13)
-                                                                       .addComponent(jButton14))
+        jPanel3Layout.setHorizontalGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup().addContainerGap().addGroup(jPanel3Layout
+                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jScrollPane3)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4)
+                                        .addGroup(jPanel3Layout.createSequentialGroup().addComponent(jButton9)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel4)
+                                                .addComponent(jButton2)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+                                                .addComponent(jButton4)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jButton3)
-                                                .addContainerGap())
-        );
+                                                .addComponent(jButton5)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton11)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton12)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton13)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton14))
+                                        .addComponent(jButton3))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap()));
+        jPanel3Layout.setVerticalGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup().addContainerGap()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButton2).addComponent(jButton4).addComponent(jButton5)
+                                .addComponent(jButton9).addComponent(jButton11).addComponent(jButton12)
+                                .addComponent(jButton13).addComponent(jButton14))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jButton3)
+                        .addContainerGap()));
 
         jTabbedPane1.addTab(bundle.getString("DELETE PACKAGES"), jPanel3); // NOI18N
 
         jPanel1.setAutoscrolls(true);
         jPanel1.setPreferredSize(new java.awt.Dimension(590, 472));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object[][]{
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String[]{
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {{null, null, null, null},
+                {null, null, null, null}, {null, null, null, null}, {null, null, null, null}},
+                new String[] {"Title 1", "Title 2", "Title 3", "Title 4"}));
         jTable1.setGridColor(new java.awt.Color(230, 230, 230));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -930,45 +921,34 @@ public class frmUpdate extends javax.swing.JFrame {
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                       .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                                              .addComponent(jButton1)
-                                                                                              .addGap(0, 0, Short.MAX_VALUE))
-                                                                       .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                                              .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                                                     .addComponent(jScrollPane1)
-                                                                                                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                                                                                                                                                        .addComponent(jLabel3)
-                                                                                                                                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 279, Short.MAX_VALUE)
-                                                                                                                                                                                        .addComponent(jButton10)
-                                                                                                                                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                                                                                                                        .addComponent(jButton6)
-                                                                                                                                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                                                                                                                        .addComponent(jButton7)
-                                                                                                                                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                                                                                                                        .addComponent(jButton8)))
-                                                                                              .addContainerGap())))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                                       .addComponent(jButton6)
-                                                                       .addComponent(jButton7)
-                                                                       .addComponent(jButton8)
-                                                                       .addComponent(jButton10)
-                                                                       .addComponent(jLabel3))
+        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup().addContainerGap().addGroup(jPanel1Layout
+                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup().addComponent(jButton1).addGap(0, 0,
+                                Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createSequentialGroup().addGroup(jPanel1Layout
+                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane1).addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                        jPanel1Layout.createSequentialGroup().addComponent(jLabel3)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                        279, Short.MAX_VALUE)
+                                                .addComponent(jButton10)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+                                                .addComponent(jButton6)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jButton1)
-                                                .addContainerGap())
-        );
+                                                .addComponent(jButton7)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton8)))
+                                .addContainerGap()))));
+        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup().addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButton6).addComponent(jButton7).addComponent(jButton8)
+                                .addComponent(jButton10).addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jButton1)
+                        .addContainerGap()));
 
         jTabbedPane1.addTab(bundle.getString("INSTALL PACKAGES"), jPanel1); // NOI18N
 
@@ -981,43 +961,28 @@ public class frmUpdate extends javax.swing.JFrame {
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(jLabel1)
-                                                .addGap(0, 0, Short.MAX_VALUE))
-                         .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(jScrollPane6)
-                                                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(jLabel1)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
-        );
+        jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup().addComponent(jLabel1).addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createSequentialGroup().addComponent(jScrollPane6).addContainerGap()));
+        jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup().addContainerGap().addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addGroup(layout.createSequentialGroup()
-                                  .addContainerGap()
-                                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                  .addComponent(jTabbedPane1)
-                                                  .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                                              .addContainerGap()
-                                                                              .addComponent(jTabbedPane1)
-                                                                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                              .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                              .addContainerGap())
-        );
+        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup().addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTabbedPane1).addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))));
+        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
+                javax.swing.GroupLayout.Alignment.TRAILING,
+                layout.createSequentialGroup().addContainerGap().addComponent(jTabbedPane1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap()));
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Installed Packages");
 
@@ -1063,7 +1028,7 @@ public class frmUpdate extends javax.swing.JFrame {
         if (rowX != null) {
             for (int i = 0; i < rowX.items.size(); i++) {
                 TestItem subItem = rowX.items.get(i);
-                //str += subItem.name + "\n";
+                // str += subItem.name + "\n";
 
                 listModel.addElement(getTranslation(subItem));
             }
@@ -1121,49 +1086,49 @@ public class frmUpdate extends javax.swing.JFrame {
         jTextArea1.setCaretPosition(jTextArea1.getDocument().getLength());
     }
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton10ActionPerformed
         initTable1();
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }// GEN-LAST:event_jButton10ActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton8ActionPerformed
         for (MyTableRow row : list1) {
 
             row.setSelected(!row.isSelected());
         }
         jTable1.repaint();
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }// GEN-LAST:event_jButton8ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton7ActionPerformed
         for (MyTableRow row : list1) {
 
             row.setSelected(false);
         }
         jTable1.repaint();
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }// GEN-LAST:event_jButton7ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton6ActionPerformed
 
         for (MyTableRow row : list1) {
 
             row.setSelected(true);
         }
         jTable1.repaint();
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }// GEN-LAST:event_jButton6ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
 
         Thread tmp = new Thread(new InstallPackages(this));
         tmp.start();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }// GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTable1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyReleased
+    private void jTable1KeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTable1KeyReleased
         processTable1();
-    }//GEN-LAST:event_jTable1KeyReleased
+    }// GEN-LAST:event_jTable1KeyReleased
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable1MouseClicked
 
         processTable1();
-    }//GEN-LAST:event_jTable1MouseClicked
+    }// GEN-LAST:event_jTable1MouseClicked
 
     private String createEmptyInfoXML(String package_filename) {
         String xml = "";
@@ -1195,7 +1160,7 @@ public class frmUpdate extends javax.swing.JFrame {
         return xml;
     }
 
-    private void jMenuItemDownloadPAckageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDownloadPAckageActionPerformed
+    private void jMenuItemDownloadPAckageActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemDownloadPAckageActionPerformed
 
         int row_index = jTable2.getSelectedRow();
 
@@ -1225,15 +1190,15 @@ public class frmUpdate extends javax.swing.JFrame {
                 zipFiles.zipDirectory(dir, zipDirName);
             }
         }
-    }//GEN-LAST:event_jMenuItemDownloadPAckageActionPerformed
+    }// GEN-LAST:event_jMenuItemDownloadPAckageActionPerformed
 
-    private void jMenuItemUploadPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemUploadPackageActionPerformed
+    private void jMenuItemUploadPackageActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItemUploadPackageActionPerformed
         try {
 
             int row_index = jTable2.getSelectedRow();
 
             File temp = File.createTempFile("myopenlab", ".zip");
-            //temp.deleteOnExit();
+            // temp.deleteOnExit();
             if (row_index > -1) {
 
                 MyTableModel model2 = (MyTableModel) jTable2.getModel();
@@ -1257,7 +1222,8 @@ public class frmUpdate extends javax.swing.JFrame {
                 String charset = "UTF-8";
                 File binaryFile = temp;
 
-                String boundary = Long.toHexString(System.currentTimeMillis()); // Just generate some unique random value.
+                String boundary = Long.toHexString(System.currentTimeMillis()); // Just generate some unique random
+                                                                                // value.
                 String CRLF = "\r\n"; // Line separator required by multipart/form-data.
                 URLConnection connection = new URL(url).openConnection();
                 connection.setDoOutput(true);
@@ -1269,27 +1235,26 @@ public class frmUpdate extends javax.swing.JFrame {
 
                 String str = "";
 
-                try (BufferedReader in = new BufferedReader(
-                    new InputStreamReader(connection.getInputStream()))) {
+                try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
                     String inputLine;
                     while ((inputLine = in.readLine()) != null) {
                         str += inputLine + "\n";
                     }
-                }catch (IOException ex){
-                    Logger.error(ex,"Error. Tried to read from connection {}",connection);
+                } catch (IOException ex) {
+                    Logger.error(ex, "Error. Tried to read from connection {}", connection);
                 }
                 Logger.debug(str);
                 Tools.showMessage(this, "" + str);
             }
         } catch (IOException ex) {
-            Logger.error(ex,"Error. Tried to read or write");
+            Logger.error(ex, "Error. Tried to read or write");
         }
-    }//GEN-LAST:event_jMenuItemUploadPackageActionPerformed
+    }// GEN-LAST:event_jMenuItemUploadPackageActionPerformed
 
-    private void writeFile(String entry_name, String type, String charset, File binaryFile, String boundary, String CRLF, URLConnection connection) throws IOException {
-        try (
-            OutputStream output = connection.getOutputStream();
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(output, charset), true)) {
+    private void writeFile(String entry_name, String type, String charset, File binaryFile, String boundary,
+            String CRLF, URLConnection connection) throws IOException {
+        try (OutputStream output = connection.getOutputStream();
+                PrintWriter writer = new PrintWriter(new OutputStreamWriter(output, charset), true)) {
 
             // Send normal param.
             writer.append("--").append(boundary).append(CRLF);
@@ -1305,8 +1270,10 @@ public class frmUpdate extends javax.swing.JFrame {
 
             // Send binary file.
             writer.append("--").append(boundary).append(CRLF);
-            writer.append("Content-Disposition: form-data; name=\"binaryFile\"; filename=\"").append(binaryFile.getName()).append("\"").append(CRLF);
-            writer.append("Content-Type: ").append(URLConnection.guessContentTypeFromName(binaryFile.getName())).append(CRLF);
+            writer.append("Content-Disposition: form-data; name=\"binaryFile\"; filename=\"")
+                    .append(binaryFile.getName()).append("\"").append(CRLF);
+            writer.append("Content-Type: ").append(URLConnection.guessContentTypeFromName(binaryFile.getName()))
+                    .append(CRLF);
             writer.append("Content-Transfer-Encoding: binary").append(CRLF);
             writer.append(CRLF).flush();
             Files.copy(binaryFile.toPath(), output);
@@ -1315,17 +1282,18 @@ public class frmUpdate extends javax.swing.JFrame {
             // End of multipart/form-data.
             writer.append("--").append(boundary).append("--").append(CRLF).flush();
         } catch (UnsupportedEncodingException ex) {
-            Logger.error(ex,"Error. Encoding {} is not supported", charset);
+            Logger.error(ex, "Error. Encoding {} is not supported", charset);
         }
     }
 
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton14ActionPerformed
         String uuid = "fe-" + UUID.randomUUID().toString();
         File tmp = new File(FrameMain.elementPath + "/FrontElements/" + uuid);
 
         tmp.mkdirs();
 
-        //URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
+        // URL icon_url =
+        // this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
 
         String icon32 = new File(FrameMain.elementPath + STD_LIB_ICON_32_PNG).getAbsolutePath();
         String tmpFilePath = tmp + ICON_32_PNG;
@@ -1333,7 +1301,7 @@ public class frmUpdate extends javax.swing.JFrame {
         try {
             Tools.copyFileUsingStream(new File(icon32), new File(tmpFilePath));
         } catch (IOException ex) {
-            Logger.error(ex,"Error. Tried to copy file {} to {}",icon32,tmpFilePath);
+            Logger.error(ex, "Error. Tried to copy file {} to {}", icon32, tmpFilePath);
         }
 
         String xml = createEmptyInfoXML(tmp.getName());
@@ -1348,23 +1316,24 @@ public class frmUpdate extends javax.swing.JFrame {
         } else {
             Tools.deleteDirectory(tmp);
         }
-    }//GEN-LAST:event_jButton14ActionPerformed
+    }// GEN-LAST:event_jButton14ActionPerformed
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton13ActionPerformed
 
         String uuid = "ce-" + UUID.randomUUID().toString();
         File tmp = new File(FrameMain.elementPath + "/CircuitElements/" + uuid);
 
         tmp.mkdirs();
 
-        //URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
+        // URL icon_url =
+        // this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
         String icon32 = new File(FrameMain.elementPath + STD_LIB_ICON_32_PNG).getAbsolutePath();
         String tmpDestination = tmp + ICON_32_PNG;
 
         try {
             Tools.copyFileUsingStream(new File(icon32), new File(tmpDestination));
         } catch (IOException ex) {
-            Logger.error(ex,"Error. Tried to copy file {} to {}",icon32,tmpDestination);
+            Logger.error(ex, "Error. Tried to copy file {} to {}", icon32, tmpDestination);
         }
 
         String xml = createEmptyInfoXML(tmp.getName());
@@ -1380,9 +1349,9 @@ public class frmUpdate extends javax.swing.JFrame {
         } else {
             Tools.deleteDirectory(tmp);
         }
-    }//GEN-LAST:event_jButton13ActionPerformed
+    }// GEN-LAST:event_jButton13ActionPerformed
 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton12ActionPerformed
 
         new File(FrameMain.elementPath + "/VirtualMachines").mkdirs();
 
@@ -1392,7 +1361,7 @@ public class frmUpdate extends javax.swing.JFrame {
             try (PrintWriter out = new PrintWriter(projectFile)) {
                 out.println("");
             } catch (FileNotFoundException ex) {
-                Logger.error(ex,"Error. File {} does not exists",projectFile);
+                Logger.error(ex, "Error. File {} does not exists", projectFile);
             }
         }
 
@@ -1405,7 +1374,8 @@ public class frmUpdate extends javax.swing.JFrame {
             try {
                 tmp.mkdirs();
 
-                // URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
+                // URL icon_url =
+                // this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
 
                 String icon32 = new File(FrameMain.elementPath + STD_LIB_ICON_32_PNG).getAbsolutePath();
                 String tmpDestination = tmp + ICON_32_PNG;
@@ -1414,7 +1384,7 @@ public class frmUpdate extends javax.swing.JFrame {
                 try {
                     Tools.copyFileUsingStream(new File(icon32), new File(tmpDestination));
                 } catch (IOException ex) {
-                    Logger.error(ex,"Error. Tried to copy file {} to {}",icon32,tmpDestination);
+                    Logger.error(ex, "Error. Tried to copy file {} to {}", icon32, tmpDestination);
                 }
 
                 String xml = createEmptyInfoXML(tmp.getName());
@@ -1443,14 +1413,15 @@ public class frmUpdate extends javax.swing.JFrame {
                     Tools.deleteDirectory(tmp);
                 }
             } catch (IOException ex) {
-                Logger.error(ex,"Error. Tried to copy file {} to {}",emptyVlogicFile,tmpEmptyVlogic);
+                Logger.error(ex, "Error. Tried to copy file {} to {}", emptyVlogicFile, tmpEmptyVlogic);
             }
         } else {
-            Tools.showMessage(this, java.util.ResourceBundle.getBundle("de/myopenlab/update/MainFrame").getString("VM PACKAGE ALREADY EXISTS"));
+            Tools.showMessage(this, java.util.ResourceBundle.getBundle("de/myopenlab/update/MainFrame")
+                    .getString("VM PACKAGE ALREADY EXISTS"));
         }
-    }//GEN-LAST:event_jButton12ActionPerformed
+    }// GEN-LAST:event_jButton12ActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton11ActionPerformed
 
         new File(FrameMain.elementPath + "/Documentations").mkdirs();
 
@@ -1460,7 +1431,7 @@ public class frmUpdate extends javax.swing.JFrame {
             try (PrintWriter out = new PrintWriter(projectFile)) {
                 out.println("");
             } catch (FileNotFoundException ex) {
-                Logger.error(ex,"Error. File {} not found",projectFile);
+                Logger.error(ex, "Error. File {} not found", projectFile);
             }
         }
 
@@ -1471,15 +1442,16 @@ public class frmUpdate extends javax.swing.JFrame {
             tmp.mkdirs();
 
             String icon32 = new File(FrameMain.elementPath + STD_LIB_ICON_32_PNG).getAbsolutePath();
-            //URL icon_url = this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
+            // URL icon_url =
+            // this.getClass().getClassLoader().getResource("create_new_group/std_lib_icon_32.png");
 
             String tmpDestination = tmp + ICON_32_PNG;
             try {
-                //Tools.showMessage(icon32);
+                // Tools.showMessage(icon32);
                 // Tools.showMessage(tmp + "/icon32.png");
                 Tools.copyFileUsingStream(new File(icon32), new File(tmpDestination));
             } catch (IOException ex) {
-                Logger.error(ex,"Error. Tried to copy file {} to {}",icon32,tmpDestination);
+                Logger.error(ex, "Error. Tried to copy file {} to {}", icon32, tmpDestination);
             }
 
             String xml = createEmptyInfoXML(tmp.getName());
@@ -1488,7 +1460,8 @@ public class frmUpdate extends javax.swing.JFrame {
 
             Tools.saveText(new File(tmp.getAbsolutePath() + "/project.myopenlab"), "");
 
-            //Tools.copy(new File(FrameMain.elementPath + "/empty.vlogic"), new File(tmp.getAbsolutePath() + "/main.vlogic"));
+            // Tools.copy(new File(FrameMain.elementPath + "/empty.vlogic"), new File(tmp.getAbsolutePath() +
+            // "/main.vlogic"));
             Dialog_create_new_group frm = new Dialog_create_new_group(this, true, "edit", tmp.getAbsolutePath());
             frm.load(tmp.getAbsolutePath());
             frm.setVisible(true);
@@ -1507,25 +1480,26 @@ public class frmUpdate extends javax.swing.JFrame {
                 Tools.deleteDirectory(tmp);
             }
         } else {
-            Tools.showMessage(this, java.util.ResourceBundle.getBundle("de/myopenlab/update/MainFrame").getString("DOCUMENT PACKAGE ALREADY EXISTS"));
+            Tools.showMessage(this, java.util.ResourceBundle.getBundle("de/myopenlab/update/MainFrame")
+                    .getString("DOCUMENT PACKAGE ALREADY EXISTS"));
         }
-    }//GEN-LAST:event_jButton11ActionPerformed
+    }// GEN-LAST:event_jButton11ActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton9ActionPerformed
 
         initTable2();
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }// GEN-LAST:event_jButton9ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton5ActionPerformed
 
         for (MyTableRow row : list2) {
 
             row.setSelected(!row.isSelected());
         }
         jTable2.repaint();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }// GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
 
         for (MyTableRow row : list2) {
 
@@ -1533,41 +1507,41 @@ public class frmUpdate extends javax.swing.JFrame {
         }
 
         jTable2.repaint();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }// GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
 
         for (MyTableRow row : list2) {
 
             row.setSelected(true);
         }
         jTable2.repaint();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }// GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
 
         Thread temp = new Thread(new DeletePackages(this));
         temp.start();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }// GEN-LAST:event_jButton3ActionPerformed
 
-    private void jTable2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable2KeyReleased
+    private void jTable2KeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTable2KeyReleased
 
-    }//GEN-LAST:event_jTable2KeyReleased
+    }// GEN-LAST:event_jTable2KeyReleased
 
-    private void jTable2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MousePressed
+    private void jTable2MousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable2MousePressed
         int button = evt.getButton();
 
         if (button == 3) {
             jPopupMenu1.show(jTable2, evt.getX(), evt.getY());
         }
-    }//GEN-LAST:event_jTable2MousePressed
+    }// GEN-LAST:event_jTable2MousePressed
 
-    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable2MouseClicked
 
         if (evt.getClickCount() == 2) {
             processTable2();
         }
-    }//GEN-LAST:event_jTable2MouseClicked
+    }// GEN-LAST:event_jTable2MouseClicked
 
     /**
      * @param args the command line arguments

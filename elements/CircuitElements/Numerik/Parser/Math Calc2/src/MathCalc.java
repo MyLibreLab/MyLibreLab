@@ -99,7 +99,7 @@ public class MathCalc extends JVSMain
     {
       element.jSetPinDescription(0,"Valor");
       element.jSetPinDescription(1,"Error");
-      element.jSetPinDescription(2,"Expresión");
+      element.jSetPinDescription(2,"ExpresiÃ³n");
       element.jSetPinDescription(3,"Calcular");
     }
 

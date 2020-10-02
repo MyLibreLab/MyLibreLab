@@ -71,14 +71,14 @@ public class Oscilloscope extends JVSMain
     setSize(40,120);
     initPinVisibility(false,false,false,true);
 
-    // die Channel Eingänge
+    // die Channel EingÃ¤nge
     setPin(0,ExternalIF.C_GROUP,element.PIN_INPUT);
     setPin(1,ExternalIF.C_GROUP,element.PIN_INPUT);
     setPin(2,ExternalIF.C_GROUP,element.PIN_INPUT);
     setPin(3,ExternalIF.C_GROUP,element.PIN_INPUT);
     setPin(4,ExternalIF.C_GROUP,element.PIN_INPUT);
     
-    // Für die Farben (Channel Farben)
+    // FÃ¼r die Farben (Channel Farben)
     setPin(5,ExternalIF.C_COLOR,element.PIN_INPUT);
     setPin(6,ExternalIF.C_COLOR,element.PIN_INPUT);
     setPin(7,ExternalIF.C_COLOR,element.PIN_INPUT);

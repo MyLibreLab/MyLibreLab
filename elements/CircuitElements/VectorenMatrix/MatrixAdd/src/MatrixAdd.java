@@ -117,7 +117,7 @@ public class MatrixAdd extends JVSMain
     double val;
     
     // (m x n) - Ergebnismatrix c erzeugen
-    // und Addition durchführen
+    // und Addition durchfÃ¼hren
     VS2DDouble c = new VS2DDouble(n,m);
     for (int i = 0; i < m; i++)
     {

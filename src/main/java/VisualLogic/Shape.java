@@ -1,20 +1,22 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package VisualLogic;
 
@@ -73,9 +75,9 @@ public class Shape extends VisualObject {
         int h = fm.getHeight();
 
         lblName.setSize(w, h);
-        //getParent().remove(lblName);
-        //getParent().add(lblName);
-        //lblName.setVisible(false);
+        // getParent().remove(lblName);
+        // getParent().add(lblName);
+        // lblName.setVisible(false);
     }
 
     private boolean captionVisible = false;
@@ -147,11 +149,12 @@ public class Shape extends VisualObject {
     }
 
     public void setLocation(Point p) {
-       /*if (p.x<0) p.x=500;
-       if (p.y<0) p.y=0;*/
+        /*
+         * if (p.x<0) p.x=500; if (p.y<0) p.y=0;
+         */
 
-        //if (p.x+getWidth()/2> basis.getWidth()) p.x=basis.getWidth()-getWidth()/2;
-        //if (p.y+getHeight()/2> basis.getHeight()) p.y=basis.getHeight()-getHeight()/2;
+        // if (p.x+getWidth()/2> basis.getWidth()) p.x=basis.getWidth()-getWidth()/2;
+        // if (p.y+getHeight()/2> basis.getHeight()) p.y=basis.getHeight()-getHeight()/2;
         super.setLocation(p.x, p.y);
     }
 
@@ -176,14 +179,10 @@ public class Shape extends VisualObject {
         this.minHeight = height;
     }
 
-   /* public void setSize(Dimension d)
-    {
-        super.setSize(d);
-        if (wrapper!=null)
-        {
-            wrapper.setSize(120,120);
-        }
-    }*/
+    /*
+     * public void setSize(Dimension d) { super.setSize(d); if (wrapper!=null) {
+     * wrapper.setSize(120,120); } }
+     */
 
     public void setSize(int width, int height) {
         if (width < minWidth) width = minWidth;
@@ -242,65 +241,46 @@ public class Shape extends VisualObject {
 
 
 
-   /* public void repaint()
-    {
-        if (getVMObject().panel!=null )
-        {
-
-            int ax=getX();
-            int ay=getY();
-            int axx=getX()+getWidth();
-            int ayy=getY()+getHeight();
-
-            Rectangle rx=getSubElementsBounds();
-            rx.x+=getX();
-            rx.y+=getY();
-            rx.width+=getX();
-            rx.height+=getY();
-
-            if (rx.x<ax) ax=rx.x-5;
-            if (rx.y<ay) ay=rx.y-5;
-            if (rx.width>axx) axx=rx.width+5;
-            if (rx.height>ayy) ayy=rx.height+5;
-
-            if (rx.x<0) rx.x=0;
-            if (rx.y<0) rx.y=0;
-
-            getVMObject().panel.repaint(ax-5,ay-15,axx+15,ayy+30);
-
-            if (nameBounds!=null)
-            {
-                Rectangle r=nameBounds.getBounds();
-
-                int y2=0;
-                if (namePosition==NAME_POSITION_OBEN)  y2=getY()-(int)nameBounds.getHeight()+10;
-                if (namePosition==NAME_POSITION_UNTEN) y2=getY()+getHeight()+20+(int)nameBounds.getHeight()-10;
-
-                // ermittle MinXY und MaxXy Bounds von alles SubElementen
-
-
-                ax=-10+getX()+(int) ( ((getWidth()) /2-nameBounds.getWidth()/2) );
-                ay=y2;
-                axx=(int)r.getWidth()+20;
-                ayy=(int)r.getHeight();
-
-                if (rx.x<ax) ax=rx.x;
-                if (rx.y<ay) ay=rx.y;
-                if (rx.width>axx) axx=rx.width;
-                if (rx.height>ayy) ayy=rx.height;
-
-                if (rx.x<0) rx.x=0;
-                if (rx.y<0) rx.y=0;
-
-
-                //getVMObject().panel.repaint(ax-10,ay-10,axx+10,ayy+10);
-                getVMObject().panel.repaint(ax-5,ay-15,axx+15,ayy+30);
-
-                //getVMObject().panel.repaint(-10+getX()+(int) ( ((getWidth()) /2-nameBounds.getWidth()/2) ),y2,(int)r.getWidth()+20,(int)r.getHeight());
-            }
-        }
-
-    }*/
+    /*
+     * public void repaint() { if (getVMObject().panel!=null ) {
+     *
+     * int ax=getX(); int ay=getY(); int axx=getX()+getWidth(); int ayy=getY()+getHeight();
+     *
+     * Rectangle rx=getSubElementsBounds(); rx.x+=getX(); rx.y+=getY(); rx.width+=getX();
+     * rx.height+=getY();
+     *
+     * if (rx.x<ax) ax=rx.x-5; if (rx.y<ay) ay=rx.y-5; if (rx.width>axx) axx=rx.width+5; if
+     * (rx.height>ayy) ayy=rx.height+5;
+     *
+     * if (rx.x<0) rx.x=0; if (rx.y<0) rx.y=0;
+     *
+     * getVMObject().panel.repaint(ax-5,ay-15,axx+15,ayy+30);
+     *
+     * if (nameBounds!=null) { Rectangle r=nameBounds.getBounds();
+     *
+     * int y2=0; if (namePosition==NAME_POSITION_OBEN) y2=getY()-(int)nameBounds.getHeight()+10; if
+     * (namePosition==NAME_POSITION_UNTEN) y2=getY()+getHeight()+20+(int)nameBounds.getHeight()-10;
+     *
+     * // ermittle MinXY und MaxXy Bounds von alles SubElementen
+     *
+     *
+     * ax=-10+getX()+(int) ( ((getWidth()) /2-nameBounds.getWidth()/2) ); ay=y2;
+     * axx=(int)r.getWidth()+20; ayy=(int)r.getHeight();
+     *
+     * if (rx.x<ax) ax=rx.x; if (rx.y<ay) ay=rx.y; if (rx.width>axx) axx=rx.width; if (rx.height>ayy)
+     * ayy=rx.height;
+     *
+     * if (rx.x<0) rx.x=0; if (rx.y<0) rx.y=0;
+     *
+     *
+     * //getVMObject().panel.repaint(ax-10,ay-10,axx+10,ayy+10);
+     * getVMObject().panel.repaint(ax-5,ay-15,axx+15,ayy+30);
+     *
+     * //getVMObject().panel.repaint(-10+getX()+(int) ( ((getWidth()) /2-nameBounds.getWidth()/2)
+     * ),y2,(int)r.getWidth()+20,(int)r.getHeight()); } }
+     *
+     * }
+     */
 
     public void paintComponent(Graphics2D g) {
         super.paintComponent(g);

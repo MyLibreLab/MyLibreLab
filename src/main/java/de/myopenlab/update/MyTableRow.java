@@ -1,3 +1,23 @@
+/*
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package de.myopenlab.update;
 
 import javax.swing.ImageIcon;
@@ -19,7 +39,8 @@ public class MyTableRow {
         this(false, null, "", "", "", "", "");
     }
 
-    public MyTableRow(boolean selected, ImageIcon icon, String name, String categorie, String date, String author, String type) {
+    public MyTableRow(boolean selected, ImageIcon icon, String name, String categorie, String date, String author,
+            String type) {
         this.selected = selected;
         this.icon = icon;
         this.name = name;

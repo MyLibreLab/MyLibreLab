@@ -209,9 +209,9 @@ public class Verteiler extends JVSMain
     {
       anzPins.setValue(((VSInteger)outPins).getValue());
       
-      // 1. die Größe ändern
-      // 2. ändere die anzahl der Out-Pins
-      // 3. setze für die Out-Pins den Datentyp und den IO-Typ aud Output
+      // 1. die GrÃ¶ÃŸe Ã¤ndern
+      // 2. Ã¤ndere die anzahl der Out-Pins
+      // 3. setze fÃ¼r die Out-Pins den Datentyp und den IO-Typ aud Output
       element.jSetSize(element.jGetWidth(), 20+(anzPins.getValue())*10);
       
       

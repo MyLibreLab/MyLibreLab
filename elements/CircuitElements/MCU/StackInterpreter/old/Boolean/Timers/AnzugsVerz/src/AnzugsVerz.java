@@ -119,7 +119,7 @@ public class AnzugsVerz extends JVSMain
     element.jSetPinDescription(0,"out");
     element.jSetPinDescription(1,"in");
     
-    setName("AVR-AnzugsVerzögerung");
+    setName("AVR-AnzugsVerzÃ¶gerung");
     
     generateCode();
   }

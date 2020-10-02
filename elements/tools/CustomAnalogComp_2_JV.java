@@ -2,7 +2,7 @@
 //* Element of MyOpenLab Library                                              *
 //*                                                                           *
 //* Copyright (C) 2004  Carmelo Salafia  (cswi@gmx.de)                         *
-//* Copyright (C) 2017  Javier Vel·squez (javiervelasquez125@gmail.com)                         *
+//* Copyright (C) 2017  Javier Vel√°squez (javiervelasquez125@gmail.com)                         *
 //*                                                                           *
 //* This library is free software; you can redistribute it and/or modify      *
 //* it under the terms of the GNU Lesser General Public License as published  *
@@ -268,11 +268,11 @@ public class CustomAnalogComp_2_JV extends JVSMain
       
       int TempW=(int)((w-distance*2)-InsideGapW)+abstand.getValue();
       int TempH=(int)((h-distance*2)-InsideGapH)+abstand.getValue();
-      int Tam=((3*TempW/4)-15)+abstand.getValue(); // TamaÒo del circulo cuando se selecciona Texto Externo
+      int Tam=((3*TempW/4)-15)+abstand.getValue(); // Tama√±o del circulo cuando se selecciona Texto Externo
       if(textInside.getValue()){
       TempW=(int)((w-distance*2)-InsideGapW)-abstand.getValue();
       TempH=(int)((h-distance*2)-InsideGapH)-abstand.getValue();
-      Tam=((3*TempW/4)-15)+abstand.getValue(); // TamaÒo del circulo cuando se selecciona Texto Externo    
+      Tam=((3*TempW/4)-15)+abstand.getValue(); // Tama√±o del circulo cuando se selecciona Texto Externo    
       }
       if (transparent.getValue()==false)
       {
@@ -323,7 +323,7 @@ public class CustomAnalogComp_2_JV extends JVSMain
       
 
       g.setColor(lineColor.getValue());
-      if (showText.getValue()) // Dibujar Arco sobre el que van las lÌneas de divisiÛn
+      if (showText.getValue()) // Dibujar Arco sobre el que van las l√≠neas de divisi√≥n
       { 
         //g.setColor(Color.ORANGE);
         g.setStroke(new BasicStroke(lineStroke.getValue()));  
@@ -359,7 +359,7 @@ public class CustomAnalogComp_2_JV extends JVSMain
         int d2=w*5/100;
         
         
-        double vectorLaenge=((Math.sqrt((x1*x1)+(y1*y1))-(double)d2)-(InsideGapW/2)+3); // Vector sobre el que quedar·n las rayitas polares del gr·fico
+        double vectorLaenge=((Math.sqrt((x1*x1)+(y1*y1))-(double)d2)-(InsideGapW/2)+3); // Vector sobre el que quedar√°n las rayitas polares del gr√°fico
         //System.out.println("LenW="+w+"Vector Magnitude: "+vectorLaenge);
         
 
@@ -369,7 +369,7 @@ public class CustomAnalogComp_2_JV extends JVSMain
           int counter=0;
           
           double vectLen=(vectorLaenge+abstand.getValue()+(InsideGapW)+(double)d2); //(Distancia circulo + Distancia texto)
-          double vectLen1=vectorLaenge+(double)d2; // TamaÒo rayas indicadoras
+          double vectLen1=vectorLaenge+(double)d2; // Tama√±o rayas indicadoras
           
 
           if (textInside.getValue())
@@ -819,8 +819,8 @@ public class CustomAnalogComp_2_JV extends JVSMain
     element.jAddPEItem("Position",value0, 0,9999999);
     element.jAddPEItem("Text anzeigen",showText, 0,0);
     element.jAddPEItem("Anfangswert",initValue, 0,9999999);
-    element.jAddPEItem("ƒuﬂere Kante",SetKnobStroke, 0,0);
-    element.jAddPEItem("ƒuﬂere Breite",borderStroke, 0,50);
+    element.jAddPEItem("√Ñu√üere Kante",SetKnobStroke, 0,0);
+    element.jAddPEItem("√Ñu√üere Breite",borderStroke, 0,50);
     
     element.jAddPEItem("Knopf-Farbe 1",buttonColor, 0,0);
     element.jAddPEItem("Knopf-Farbe 2",StrokeColor, 0,0);
@@ -833,16 +833,16 @@ public class CustomAnalogComp_2_JV extends JVSMain
     element.jAddPEItem("Transparent",transparent, 0,0);
     element.jAddPEItem("Min Grad",minGrad, -360,360);
     element.jAddPEItem("Max Grad",maxGrad, -360,360);
-    element.jAddPEItem("Vollst‰ndiger Kreis",CircleComplete, 0,0);
+    element.jAddPEItem("Vollst√§ndiger Kreis",CircleComplete, 0,0);
     element.jAddPEItem("Formatierung",formatierung, 0,0);
     element.jAddPEItem("Texte",captions, 0,0);
     element.jAddPEItem("Text innen",textInside, 0,0);
     element.jAddPEItem("Zeige Hintergrund",showBackground, 0,0);
     element.jAddPEItem("Text Distanz",abstand, 0,500);
     element.jAddPEItem("Text Schriftart",font, 0,0);
-    element.jAddPEItem("Knopf-Grˆﬂe[%]",knobSizeInProzent, 0,100);
-    element.jAddPEItem("Nibble-Grˆﬂe[%]",nibbleLenInProzent, 0,100);
-    element.jAddPEItem("Nibble-Kreis-Grˆﬂe [%]",nibbleCircleSizeInProzent, 0,100);
+    element.jAddPEItem("Knopf-Gr√∂√üe[%]",knobSizeInProzent, 0,100);
+    element.jAddPEItem("Nibble-Gr√∂√üe[%]",nibbleLenInProzent, 0,100);
+    element.jAddPEItem("Nibble-Kreis-Gr√∂√üe [%]",nibbleCircleSizeInProzent, 0,100);
     element.jAddPEItem("Zeige Nibble als Kreis",showNibbleAsCircle, 0,0);
     element.jAddPEItem("Nur Nummern",onlyNumbers, 0,0);
     element.jAddPEItem("Nibble (Bitmap)",spitze, 0,0);
@@ -915,7 +915,7 @@ public class CustomAnalogComp_2_JV extends JVSMain
     element.jSetPEItemLocale(d+22,language,"Mostrar Fondo?");
     element.jSetPEItemLocale(d+23,language,"Distancia Texto");
     element.jSetPEItemLocale(d+24,language,"Fuente");
-    element.jSetPEItemLocale(d+25,language,"TamaÒo Perilla Central[%]");
+    element.jSetPEItemLocale(d+25,language,"Tama√±o Perilla Central[%]");
     element.jSetPEItemLocale(d+26,language,"Distancia Aguja-Circulo[%]");
     element.jSetPEItemLocale(d+27,language,"Diametro Aguja-Circulo [%]");
     element.jSetPEItemLocale(d+28,language,"Show Nibble As Circle");

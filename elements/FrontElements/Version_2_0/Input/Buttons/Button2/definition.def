@@ -1,7 +1,7 @@
 ISDIRECTORY = FALSE
 CAPTION= Knopf 2
 CAPTION_EN= Button 2
-CAPTION_ES= Botón 2
+CAPTION_ES= BotÃ³n 2
 Jar= bin/Taster.jar
 ClassCircuit = Taster
 ClassFront = TasterPanel

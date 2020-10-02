@@ -169,7 +169,7 @@ public class Datalogger extends JVSMain
 
   public void setPropertyEditor()
   {
-    //element.jAddPEItem("Buffer-Länge",buffLen, 1.0,20000.0);
+    //element.jAddPEItem("Buffer-LÃ¤nge",buffLen, 1.0,20000.0);
     //localize();
   }
 

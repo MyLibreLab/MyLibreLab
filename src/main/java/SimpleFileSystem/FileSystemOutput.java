@@ -1,21 +1,22 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package SimpleFileSystem;
 
@@ -25,8 +26,8 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 /**
- * @author Carmelo Salafia FileSystemOutput ist f�r das schreiben der Datensaetze und ihrer IndexListe verantwortlich.
- * erzeugt ein kuenstliches Dateisystem!
+ * @author Carmelo Salafia FileSystemOutput ist f�r das schreiben der Datensaetze und ihrer
+ *         IndexListe verantwortlich. erzeugt ein kuenstliches Dateisystem!
  */
 
 public class FileSystemOutput {
@@ -35,7 +36,8 @@ public class FileSystemOutput {
     private SFileDescriptor oldItem;
 
     /**
-     * Creates a new instance of SimpleFileSystem Erzeugt dabei ein eigenes Filesystem anhand des filename
+     * Creates a new instance of SimpleFileSystem Erzeugt dabei ein eigenes Filesystem anhand des
+     * filename
      */
     public FileSystemOutput(String filename) {
         try {
@@ -43,14 +45,14 @@ public class FileSystemOutput {
 
             DataOutputStream dos = new DataOutputStream(fos);
 
-            dos.writeLong(123479);  // platzhalter f�r die Position der IndexListe!
+            dos.writeLong(123479); // platzhalter f�r die Position der IndexListe!
         } catch (Exception ex) {
             System.out.println("Error in Methode createFile()" + ex.toString());
         }
     }
 
-    /* Fuegt einen Stream Datensatz hinzu
-     * und liefert den dazugeh�rigen Stream
+    /*
+     * Fuegt einen Stream Datensatz hinzu und liefert den dazugeh�rigen Stream
      */
     public FileOutputStream addItem(String filename) {
         try {
@@ -68,8 +70,9 @@ public class FileSystemOutput {
         return fos;
     }
 
-    /* postItem sorgt daf�r das der datensatz richtig abgeschlossen wird
-     * und muss nach jedem neuen Datensatz aufgerufen werden!
+    /*
+     * postItem sorgt daf�r das der datensatz richtig abgeschlossen wird und muss nach jedem neuen
+     * Datensatz aufgerufen werden!
      */
     public void postItem() {
         if (oldItem != null) {
@@ -82,8 +85,8 @@ public class FileSystemOutput {
         }
     }
 
-    /* --- nur f�r interne Zwecke ---
-     * schreibt die Liste der FileDiscriptoren am ende der datei!
+    /*
+     * --- nur f�r interne Zwecke --- schreibt die Liste der FileDiscriptoren am ende der datei!
      */
     public void addIndexList() {
         DataOutputStream dos = new DataOutputStream(fos);
@@ -96,7 +99,8 @@ public class FileSystemOutput {
                 SFileDescriptor dt = (SFileDescriptor) liste.get(i);
 
                 dos.writeByte(dt.filename.length());
-                for (int j = 0; j < dt.filename.length(); j++) dos.writeChar(dt.filename.charAt(j));
+                for (int j = 0; j < dt.filename.length(); j++)
+                    dos.writeChar(dt.filename.charAt(j));
 
                 dos.writeLong(dt.position);
                 dos.writeLong(dt.size);
@@ -109,9 +113,9 @@ public class FileSystemOutput {
         }
     }
 
-    /* sorgt daf�r das die datei erfolgreich abgeschlossen wird!
-     * und muss nachdem alle Datens�tze geschrieben worden sind
-     * aufgerufen werden!
+    /*
+     * sorgt daf�r das die datei erfolgreich abgeschlossen wird! und muss nachdem alle Datens�tze
+     * geschrieben worden sind aufgerufen werden!
      */
     public void close() {
         addIndexList();

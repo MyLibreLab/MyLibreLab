@@ -1,6 +1,6 @@
 ISDIRECTORY     = FALSE
 REDIRECT        = 
-CAPTION         = Zähler hoch/runter
+CAPTION         = ZÃ¤hler hoch/runter
 CAPTION_EN      = counter up/down
 CAPTION_ES      = Contador up/down
 VM              = Counter_up_down.vlogic

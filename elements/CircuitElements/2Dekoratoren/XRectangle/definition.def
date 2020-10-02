@@ -1,6 +1,6 @@
 ISDIRECTORY = FALSE
 CAPTION     = Rechteck
 CAPTION_EN  = Rectangle
-CAPTION_ES  = Rect·ngulo
+CAPTION_ES  = Rect√°ngulo
 Classcircuit= XRectangle
 Icon        = bin/Rectangle.gif

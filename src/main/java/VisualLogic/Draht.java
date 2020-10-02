@@ -1,21 +1,22 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package VisualLogic;
 
@@ -132,7 +133,7 @@ public class Draht extends Object implements Serializable {
         try {
             int size = stream.readInt();
             for (int i = 0; i < size; i++) {
-                //if (getVMObject()!=null)
+                // if (getVMObject()!=null)
                 {
                     PolyPoint p = new PolyPoint(getVMObject());
                     p.loadFromStream(stream);
@@ -147,14 +148,13 @@ public class Draht extends Object implements Serializable {
         this.sourcePin = sourcePin;
         this.destElementID = destElementID;
         this.destPin = destPin;
-      /*  VisualLogic.Element sourceElement = (Element)vmobject.getObjectWithID(sourceElementID);
-        JPin pin =sourceElement.getPin(sourcePin);
-        if (pin!=null) pin.draht=this;
-        VisualLogic.Element destElement = (Element)vmobject.getObjectWithID(destElementID);
-        pin=destElement.getPin(destPin);
-       */
+        /*
+         * VisualLogic.Element sourceElement = (Element)vmobject.getObjectWithID(sourceElementID); JPin pin
+         * =sourceElement.getPin(sourcePin); if (pin!=null) pin.draht=this; VisualLogic.Element destElement
+         * = (Element)vmobject.getObjectWithID(destElementID); pin=destElement.getPin(destPin);
+         */
 
-        //if (pin!=null) pin.draht=this;
+        // if (pin!=null) pin.draht=this;
     }
 
     public void saveToStream(DataOutputStream dos) {
@@ -188,7 +188,7 @@ public class Draht extends Object implements Serializable {
             nodeDraht.appendChild(nodePoint);
         }
 
-        //nodeDraht.appendChild(nodePoints);
+        // nodeDraht.appendChild(nodePoints);
     }
 
     public void loadFromXML(org.w3c.dom.Element nodeDraht) {
@@ -265,7 +265,8 @@ public class Draht extends Object implements Serializable {
         for (int i = 0; i < lineList.size(); i++) {
             Line line = (Line) lineList.get(i);
 
-            if (Line2D.linesIntersect(line.getStartPoint().x, line.getStartPoint().y, line.getEndPoint().x, line.getEndPoint().y, x1, y1, x2, y2)) {
+            if (Line2D.linesIntersect(line.getStartPoint().x, line.getStartPoint().y, line.getEndPoint().x,
+                    line.getEndPoint().y, x1, y1, x2, y2)) {
                 return line;
             }
         }
@@ -327,7 +328,7 @@ public class Draht extends Object implements Serializable {
 
     public void refresh() {
         Rectangle b = getBounds();
-        //vmobject.paintImmediately(b);
+        // vmobject.paintImmediately(b);
     }
 
     public void setSelected(boolean value) {
@@ -355,13 +356,13 @@ public class Draht extends Object implements Serializable {
     }
 
     public void setStopMode() {
-     /*   Element destElement = (Element)getVMObject().getObjectWithID(getDestElementID());
-        Element sourceElement = (Element)getVMObject().getObjectWithID(getSourceElementID());
-        int destPin = getDestPin();
-        int sourcePin = getSourcePin();
-
-         pinSouce = null;
-         pinDest = null;*/
+        /*
+         * Element destElement = (Element)getVMObject().getObjectWithID(getDestElementID()); Element
+         * sourceElement = (Element)getVMObject().getObjectWithID(getSourceElementID()); int destPin =
+         * getDestPin(); int sourcePin = getSourcePin();
+         *
+         * pinSouce = null; pinDest = null;
+         */
     }
 
     public void leiteInformation(double value) {
@@ -373,10 +374,10 @@ public class Draht extends Object implements Serializable {
         if (pinSouce != null) pinSouce.object = object;
         if (pinDest != null) pinDest.object = object;
 
-        /*if (object instanceof Boolean)
-        {
-            if (((Boolean)object).booleanValue()==true) setOn(); else  setOff();
-        }*/
+        /*
+         * if (object instanceof Boolean) { if (((Boolean)object).booleanValue()==true) setOn(); else
+         * setOff(); }
+         */
 
     }
 
@@ -396,18 +397,12 @@ public class Draht extends Object implements Serializable {
     }
 
 
-   /* public void leiteInformationII(double value)
-    {
-        for (int i=0;i<getPolySize();i++)
-        {
-            PolyPoint p= getPoint(i);
-            if (p.nodeID!=-1)
-            {
-                p.leiteInformationII(value);
-            }
-        }
-
-    }*/
+    /*
+     * public void leiteInformationII(double value) { for (int i=0;i<getPolySize();i++) { PolyPoint p=
+     * getPoint(i); if (p.nodeID!=-1) { p.leiteInformationII(value); } }
+     *
+     * }
+     */
 
     public boolean isSelected() {
         return selected;
@@ -449,8 +444,8 @@ public class Draht extends Object implements Serializable {
 
     public void setPoint(int index, int x, int y) {
         if (index >= 0 && index < getPolySize()) {
-            //getPoint(index).setLeft((int)((double)x/zoom));
-            //getPoint(index).setTop((int)((double)y/zoom));
+            // getPoint(index).setLeft((int)((double)x/zoom));
+            // getPoint(index).setTop((int)((double)y/zoom));
             getPoint(index).setLocation(x, y);
         }
     }
@@ -466,7 +461,7 @@ public class Draht extends Object implements Serializable {
     }
 
     /*
-     *  Liefert fuer null wenn der Index auserhalt des Bereiches liegt
+     * Liefert fuer null wenn der Index auserhalt des Bereiches liegt
      */
 
     public PolyPoint getFirstPoint() {
@@ -497,7 +492,7 @@ public class Draht extends Object implements Serializable {
     }
 
     /*
-     *  Liefert -1 wenn der Index auserhalt des Bereiches liegt
+     * Liefert -1 wenn der Index auserhalt des Bereiches liegt
      */
 
     public void mouseClicked(MouseEvent e) {
@@ -631,7 +626,7 @@ public class Draht extends Object implements Serializable {
         if (!vmobject.isGraphicLocked()) {
             Graphics2D g2 = (Graphics2D) g;
 
-            //if (vmobject.getGraphics()!=null)
+            // if (vmobject.getGraphics()!=null)
             {
                 reorganize();
 
@@ -656,17 +651,19 @@ public class Draht extends Object implements Serializable {
 
                 if (dataTypeSrc == -1)
                     dataType = dataTypeDest;
-                else dataType = dataTypeSrc;
+                else
+                    dataType = dataTypeSrc;
 
                 if (dataTypeSrc == ExternalIF.C_VARIANT) {
                     dataType = dataTypeDest;
-                } else dataType = dataTypeSrc;
+                } else
+                    dataType = dataTypeSrc;
 
                 VSDataType.setColorStrokeFromDataType(g2, dataType);
                 if (resursive) g.setColor(Color.lightGray);
 
                 if (highlighted) {
-                    //g2.setColor(Color.red);
+                    // g2.setColor(Color.red);
                     g2.setStroke(strockeExtraDick);
                 }
 
@@ -677,8 +674,8 @@ public class Draht extends Object implements Serializable {
                 if (bolOn) {
                     g2.setStroke(strockeExtraDick);
 
-                    //g2.setColor(Color.red);
-                    //g2.setStroke(strockeDick);
+                    // g2.setColor(Color.red);
+                    // g2.setStroke(strockeDick);
                 }
 
                 if (valid == false) {
@@ -694,36 +691,23 @@ public class Draht extends Object implements Serializable {
 
                     JPin bb = elementDst.getPin(getDestPin());
 
-                  /* if (dataType==ExternalIF.C_FLOWINFO)
-                   {
-                       if (bb!=null && bb.pinAlign==0 && i==lineList.size()-1)
-                       {
-                           g2.setStroke(strockeStandard);
-                           x=line.myEnd.x;
-                           y=line.myEnd.y-2;
-                           Polygon p = new Polygon();
-                           p.addPoint(x,y);
-                           p.addPoint(x-5,y-5);
-                           p.addPoint(x+5,y-5);
-                           g.setColor(Color.GREEN);
-                           g2.fillPolygon(p);
-                           g.setColor(Color.BLACK);
-                           g2.drawPolygon(p);
-                       }
-                   }*/
+                    /*
+                     * if (dataType==ExternalIF.C_FLOWINFO) { if (bb!=null && bb.pinAlign==0 && i==lineList.size()-1) {
+                     * g2.setStroke(strockeStandard); x=line.myEnd.x; y=line.myEnd.y-2; Polygon p = new Polygon();
+                     * p.addPoint(x,y); p.addPoint(x-5,y-5); p.addPoint(x+5,y-5); g.setColor(Color.GREEN);
+                     * g2.fillPolygon(p); g.setColor(Color.BLACK); g2.drawPolygon(p); } }
+                     */
 
                 }
 
 
-              /*  int id1=getSourceElementID();
-                int id2=getDestElementID();
-
-                g.setColor(Color.BLACK);
-                Font font = new Font("Courier",0,10);
-                g.setFont(font);
-
-                g.drawString("src="+id1+" dst="+id2,x,y);
-                g2.setStroke(strockeStandard);*/
+                /*
+                 * int id1=getSourceElementID(); int id2=getDestElementID();
+                 *
+                 * g.setColor(Color.BLACK); Font font = new Font("Courier",0,10); g.setFont(font);
+                 *
+                 * g.drawString("src="+id1+" dst="+id2,x,y); g2.setStroke(strockeStandard);
+                 */
 
             }
         }

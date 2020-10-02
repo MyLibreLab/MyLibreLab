@@ -53,6 +53,7 @@ dependencies {
         apiv("org.tinylog:tinylog-api", "tinylog")
         apiv("org.tinylog:tinylog-impl", "tinylog")
 
+        apiv("com.google.code.findbugs:jsr305", "findbugs")
         apiv("org.junit.jupiter:junit-jupiter-api", "junit")
         apiv("org.junit.jupiter:junit-jupiter-engine", "junit")
     }

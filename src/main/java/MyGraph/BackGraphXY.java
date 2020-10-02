@@ -1,21 +1,22 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-Copyright (C) 2017  Javier Vel�squez (javiervelasquez125@gmail.com)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package MyGraph;
 
@@ -66,20 +67,10 @@ public class BackGraphXY extends GraphBackground {
         setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
     }
 
-    /*private double getYValue(double x)
-    {
-        double d=0;
-        double min=99999999999999999099999.9;
-    for (int i=0;i<xValues.length;i++)p
-        {
-            d=Math.abs(xValues[i]-x);
-            if (d<min)
-            {
-                min=d;
-            }
-        }
-        return min;
-    }*/
+    /*
+     * private double getYValue(double x) { double d=0; double min=99999999999999999099999.9; for (int
+     * i=0;i<xValues.length;i++)p { d=Math.abs(xValues[i]-x); if (d<min) { min=d; } } return min; }
+     */
 
     public void formMouseMoved(java.awt.event.MouseEvent evt) {
         int x = evt.getX();
@@ -128,7 +119,7 @@ public class BackGraphXY extends GraphBackground {
             maxX = minX + this.AustoscaleInterval;
             this.maxX = maxX;
             this.minX = minX;
-            //this.maxX=minX+(Math.abs(maxY-minY);
+            // this.maxX=minX+(Math.abs(maxY-minY);
 
             owner.xaxis.setMin(minX);
             owner.xaxis.setMax(maxX);

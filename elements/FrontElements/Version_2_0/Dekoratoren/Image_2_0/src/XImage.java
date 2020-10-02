@@ -197,7 +197,7 @@ public class XImage extends JVSMain
     element.jAddPEItem("Keep Aspect",keepAcpect, 0,0);
     element.jAddPEItem("Gekachelt",tiled, 0,0);
     element.jAddPEItem("Kachel-Breite",tiledWidth, 10,1000);
-    element.jAddPEItem("Kachen-Höhe",tiledHeight, 10,1000);
+    element.jAddPEItem("Kachen-HÃ¶he",tiledHeight, 10,1000);
     localize();
   }
 
@@ -219,7 +219,7 @@ public class XImage extends JVSMain
     language="es_ES";
 
     element.jSetPEItemLocale(d+0,language,"Imagen");
-    element.jSetPEItemLocale(d+1,language,"Interpolación");
+    element.jSetPEItemLocale(d+1,language,"InterpolaciÃ³n");
     element.jSetPEItemLocale(d+2,language,"Mantiene Proporciones");
     element.jSetPEItemLocale(d+3,language,"Mosaico");
     element.jSetPEItemLocale(d+4,language,"Anchura Mosaico");

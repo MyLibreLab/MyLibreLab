@@ -1,5 +1,7 @@
 /*
- * Copyright (C) 2017 velas
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,15 +15,18 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
+
 package VisualLogic.variables;
+
+import java.io.IOException;
+
+import org.tinylog.Logger;
 
 import jssc.SerialPort;
 import jssc.SerialPortException;
 import jssc.SerialPortTimeoutException;
-import org.tinylog.Logger;
-
-import java.io.IOException;
 
 /**
  * @author velas
@@ -62,7 +67,8 @@ public class VSserialPort extends VSObject {
         this.enableLF = EnableIn;
     }
 
-    public void setDefaultParameters(Boolean ArduinoAutoReset, Thread ThreadIn) throws SerialPortException, InterruptedException {
+    public void setDefaultParameters(Boolean ArduinoAutoReset, Thread ThreadIn)
+            throws SerialPortException, InterruptedException {
         if (serialPort.isOpened()) {
             serialPort.setParams(9600, 8, 1, 0);
             if (ArduinoAutoReset) {
@@ -71,17 +77,15 @@ public class VSserialPort extends VSObject {
         }
     }
 
-    public void setParameters(boolean ArduinoAutoRESET,
-                              Thread ThreadIn, int AutoResetTimeIn, int BaudRateIn,
-                              int dataBitsIn, int stopBitsIn, int ParityIn, boolean RTSin, boolean DTRin) throws SerialPortException {
+    public void setParameters(boolean ArduinoAutoRESET, Thread ThreadIn, int AutoResetTimeIn, int BaudRateIn,
+            int dataBitsIn, int stopBitsIn, int ParityIn, boolean RTSin, boolean DTRin) throws SerialPortException {
         if (serialPort.isOpened()) {
             serialPort.setParams(BaudRateIn, dataBitsIn, stopBitsIn, ParityIn, RTSin, DTRin);
         }
     }
 
-    public void setParameters(boolean ArduinoAutoRESET,
-                              Thread ThreadIn, int AutoResetTimeIn, int BaudRateIn,
-                              int dataBitsIn, int stopBitsIn, int ParityIn) throws SerialPortException, InterruptedException {
+    public void setParameters(boolean ArduinoAutoRESET, Thread ThreadIn, int AutoResetTimeIn, int BaudRateIn,
+            int dataBitsIn, int stopBitsIn, int ParityIn) throws SerialPortException, InterruptedException {
         if (serialPort.isOpened()) {
             serialPort.setParams(BaudRateIn, dataBitsIn, stopBitsIn, ParityIn);
             if (ArduinoAutoRESET) {
@@ -125,7 +129,7 @@ public class VSserialPort extends VSObject {
                 InStr += "\n";
             }
             serialPort.writeString(InStr);
-            //System.out.println("BufferOut:"+InStr+"|");
+            // System.out.println("BufferOut:"+InStr+"|");
         }
     }
 
@@ -135,7 +139,8 @@ public class VSserialPort extends VSObject {
         return bufferTemp;
     }
 
-    public String ReadStrBuffer(Thread ThreadWait) throws SerialPortException, SerialPortTimeoutException, InterruptedException {
+    public String ReadStrBuffer(Thread ThreadWait)
+            throws SerialPortException, SerialPortTimeoutException, InterruptedException {
         String bufferTemp = "";
         ThreadWait.sleep(TimeBeforeRead);
         bufferTemp = serialPort.readString(serialPort.getInputBufferBytesCount(), MessageTimeOut);
@@ -164,7 +169,8 @@ public class VSserialPort extends VSObject {
             VSserialPort temp = (VSserialPort) in;
             serialPort = temp.serialPort;
             setChanged(temp.isChanged());
-        } else serialPort = null;
+        } else
+            serialPort = null;
     }
 
     @Override
@@ -175,8 +181,10 @@ public class VSserialPort extends VSObject {
     @Override
     public boolean equals(VSObject obj) {
         VSserialPort temp = (VSserialPort) obj;
-        if (temp.serialPort.getPortName().equalsIgnoreCase(serialPort.getPortName())) return true;
-        else return false;
+        if (temp.serialPort.getPortName().equalsIgnoreCase(serialPort.getPortName()))
+            return true;
+        else
+            return false;
     }
 
     @Override
@@ -199,7 +207,7 @@ public class VSserialPort extends VSObject {
     public void saveToStream(java.io.FileOutputStream fos) {
         try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);) {
 
-            //dos.writeUTF(serialPort.getName());
+            // dos.writeUTF(serialPort.getName());
             dos.writeUTF("COM1");
         } catch (IOException ex) {
             Logger.error(ex, "Error. Could not write utf to COM1");
@@ -207,11 +215,11 @@ public class VSserialPort extends VSObject {
     }
 
     public void loadFromXML(String name, org.w3c.dom.Element nodeElement) {
-        //serialPort.setName(nodeElement.getAttribute("VSserialPort"+name));
+        // serialPort.setName(nodeElement.getAttribute("VSserialPort"+name));
     }
 
     public void saveToXML(String name, org.w3c.dom.Element nodeElement) {
-        //nodeElement.setAttribute("VSserialPort"+name, serialPort.getName());
+        // nodeElement.setAttribute("VSserialPort"+name, serialPort.getName());
         nodeElement.setAttribute("VSserialPort" + name, "COM1");
     }
 }

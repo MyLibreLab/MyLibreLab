@@ -101,12 +101,12 @@ public class MatrixMul extends JVSMain
 
   /*
    * Multiplizieren der Matrix (m x n) mit einer
-   * zweiten Matrix b (n x l). Rückgabewert ist
+   * zweiten Matrix b (n x l). RÃ¼ckgabewert ist
    * das Ergebnis der Multiplikation
    * (eine (m x l) - Matrix) oder null, wenn die
    * Anzahl der Spalten dieser Matrix nicht mit
-   * der Anzahl der Zeilen in b übereinstimmt
-   * und daher eine Multiplikation nicht möglich
+   * der Anzahl der Zeilen in b Ã¼bereinstimmt
+   * und daher eine Multiplikation nicht mÃ¶glich
    * ist
    */
   VS2DDouble multipliziereMit(VS2DDouble a, VS2DDouble b)
@@ -123,7 +123,7 @@ public class MatrixMul extends JVSMain
     }
 
     // (m x nb) - Ergebnismatrix c erzeugen
-    // und Multiplikation durchführen
+    // und Multiplikation durchfÃ¼hren
     VS2DDouble c = new VS2DDouble(nb,m);
     for (int i = 0; i < m; i++)
     {

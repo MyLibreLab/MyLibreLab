@@ -1,20 +1,22 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package VisualLogic;
 
@@ -44,7 +46,7 @@ public class Line implements Serializable {
      * Construct a line
      *
      * @param start The starting point
-     * @param end   The end point
+     * @param end The end point
      **/
     public Line(Point start, Point end, Draht draht, int index) {
         this.index = index;
@@ -67,10 +69,8 @@ public class Line implements Serializable {
     }
 
     private void updateBoundingBox() {
-        myBoundingBox.setBounds(Math.min(myStart.x, myEnd.x),
-            Math.min(myStart.y, myEnd.y),
-            Math.abs(myEnd.x - myStart.x),
-            Math.abs(myEnd.y - myStart.y));
+        myBoundingBox.setBounds(Math.min(myStart.x, myEnd.x), Math.min(myStart.y, myEnd.y),
+                Math.abs(myEnd.x - myStart.x), Math.abs(myEnd.y - myStart.y));
     }
 
     public void draw(Graphics2D g) {
@@ -89,10 +89,9 @@ public class Line implements Serializable {
         updateBoundingBox();
     }
 
-    /*public boolean isPickedBy(Point p)
-    {
-        return Line.segmentIsPickedBy(myStart, myEnd, p);
-    }*/
+    /*
+     * public boolean isPickedBy(Point p) { return Line.segmentIsPickedBy(myStart, myEnd, p); }
+     */
 
     // Liefert 0 fuer Horizontal und 1 fuer Vertikal
     public int getDirection() {
@@ -102,8 +101,10 @@ public class Line implements Serializable {
         xx = myEnd.x;
         yy = myEnd.y;
 
-        if (x == xx) return VERTIKAL;
-        else return HORIZONTAL;
+        if (x == xx)
+            return VERTIKAL;
+        else
+            return HORIZONTAL;
     }
 
     public boolean isPointInLine(Point p) {
@@ -184,7 +185,7 @@ public class Line implements Serializable {
             }
 
             int d = p2.x - p.x;
-            if (d < distance) //&& p.y>=p1.y+1 && p.y<=p2.y-1)
+            if (d < distance) // && p.y>=p1.y+1 && p.y<=p2.y-1)
             {
                 return p2.x;
             }
@@ -194,69 +195,41 @@ public class Line implements Serializable {
     }
 
 
-/*    public boolean isPickedByNaehe(Point p)
-    {
-        return Line.segmentIsPickedByNaehe(myStart, myEnd, p);
-    }
- */
+    /*
+     * public boolean isPickedByNaehe(Point p) { return Line.segmentIsPickedByNaehe(myStart, myEnd, p);
+     * }
+     */
 
     /**
      * A Utility function that determines whether a point is in a segment.
-     * @param A     The starting point of the segment
-     * @param B     The end point of the segment
-     * @param C     The point to test
+     *
+     * @param A The starting point of the segment
+     * @param B The end point of the segment
+     * @param C The point to test
      * @return true if C in AB, false otherwise
      **/
- /*   public static boolean segmentIsPickedBy(Point A, Point B, Point C)
-    {
-        double a, b;
-        double distance; // Distance from C to Line AB
-        double dx, dy; // Coordinates of projection of C on AB
-        double lambda;
-
-        if (A.x != B.x)
-        {
-            // Calculate the equation y = ax + b of line AB
-            a = (B.y - A.y) / (double) (B.x - A.x);
-            b = (A.y * B.x - B.y * A.x) / (double) (B.x - A.x);
-            // D = Projection of C on AB
-            dx = (C.x - a * (b - C.y)) / (1 + a * a);
-            dy = (a * C.x + b + a * a * C.y) / (1 + a * a);
-            distance = C.distance(dx, dy);
-            // or : distance = Math.abs( b - C.y + a * C.x ) / Math.sqrt( 1 + a * a);
-            lambda = (dx - A.x) / (double) (B.x - A.x);
-        } else
-        {
-            distance = Math.abs(C.x - A.x);
-            lambda = (C.y - A.y) / (double) (B.y - A.y);
-        }
-        return (distance <= 5) && (lambda >= 0) && (lambda <= 1);
-      }
-
-    public static boolean segmentIsPickedByNaehe(Point A, Point B, Point C)
-    {
-        double a, b;
-        double distance; // Distance from C to Line AB
-        double dx, dy; // Coordinates of projection of C on AB
-        double lambda;
-
-        if (A.x != B.x)
-        {
-            // Calculate the equation y = ax + b of line AB
-            a = (B.y - A.y) / (double) (B.x - A.x);
-            b = (A.y * B.x - B.y * A.x) / (double) (B.x - A.x);
-            // D = Projection of C on AB
-            dx = (C.x - a * (b - C.y)) / (1 + a * a);
-            dy = (a * C.x + b + a * a * C.y) / (1 + a * a);
-            distance = C.distance(dx, dy);
-            // or : distance = Math.abs( b - C.y + a * C.x ) / Math.sqrt( 1 + a * a);
-            lambda = (dx - A.x) / (double) (B.x - A.x);
-        } else
-        {
-            distance = Math.abs(C.x - A.x);
-            lambda = (C.y - A.y) / (double) (B.y - A.y);
-        }
-        return (distance <= 10) && (lambda >= 0) && (lambda <= 1);
-      }
-  */
+    /*
+     * public static boolean segmentIsPickedBy(Point A, Point B, Point C) { double a, b; double
+     * distance; // Distance from C to Line AB double dx, dy; // Coordinates of projection of C on AB
+     * double lambda;
+     *
+     * if (A.x != B.x) { // Calculate the equation y = ax + b of line AB a = (B.y - A.y) / (double) (B.x
+     * - A.x); b = (A.y * B.x - B.y * A.x) / (double) (B.x - A.x); // D = Projection of C on AB dx =
+     * (C.x - a * (b - C.y)) / (1 + a * a); dy = (a * C.x + b + a * a * C.y) / (1 + a * a); distance =
+     * C.distance(dx, dy); // or : distance = Math.abs( b - C.y + a * C.x ) / Math.sqrt( 1 + a * a);
+     * lambda = (dx - A.x) / (double) (B.x - A.x); } else { distance = Math.abs(C.x - A.x); lambda =
+     * (C.y - A.y) / (double) (B.y - A.y); } return (distance <= 5) && (lambda >= 0) && (lambda <= 1); }
+     *
+     * public static boolean segmentIsPickedByNaehe(Point A, Point B, Point C) { double a, b; double
+     * distance; // Distance from C to Line AB double dx, dy; // Coordinates of projection of C on AB
+     * double lambda;
+     *
+     * if (A.x != B.x) { // Calculate the equation y = ax + b of line AB a = (B.y - A.y) / (double) (B.x
+     * - A.x); b = (A.y * B.x - B.y * A.x) / (double) (B.x - A.x); // D = Projection of C on AB dx =
+     * (C.x - a * (b - C.y)) / (1 + a * a); dy = (a * C.x + b + a * a * C.y) / (1 + a * a); distance =
+     * C.distance(dx, dy); // or : distance = Math.abs( b - C.y + a * C.x ) / Math.sqrt( 1 + a * a);
+     * lambda = (dx - A.x) / (double) (B.x - A.x); } else { distance = Math.abs(C.x - A.x); lambda =
+     * (C.y - A.y) / (double) (B.y - A.y); } return (distance <= 10) && (lambda >= 0) && (lambda <= 1);
+     * }
+     */
 }

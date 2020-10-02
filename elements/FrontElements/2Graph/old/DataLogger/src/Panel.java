@@ -192,7 +192,7 @@ public class Panel extends JVSMain implements PanelIF
          if (showGrid.getValue())
          {
 
-           // Linien und Beschriftung für die X-Achse
+           // Linien und Beschriftung fÃ¼r die X-Achse
            maxX=99999999;
            for (xx=miniX;xx<=maxX;xx+=stepX)
            {
@@ -231,7 +231,7 @@ public class Panel extends JVSMain implements PanelIF
 
            String strValue="";
 
-           // Linien und Beschriftung für die Y-Achse
+           // Linien und Beschriftung fÃ¼r die Y-Achse
            for (yy=minY;yy<=maxY;yy+=stepY)
            {
              double yy1=yy*fY;

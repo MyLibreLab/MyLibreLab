@@ -1,20 +1,22 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-Copyright (C) 2017  Javier Vel�squez (javiervelasquez125@gmail.com)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package MyGraph;
 
@@ -58,10 +60,10 @@ public class GraphRenderer extends JPanel {
     public static final int P_POINT_HIST_BIG_INV = 13;
 
     public int bufferLen = 600;
-    public int pointType = P_LINE_VBIG; //Default PointType for X/Y Graphs
+    public int pointType = P_LINE_VBIG; // Default PointType for X/Y Graphs
 
-    //private Color lineColor= Color.WHITE;
-    private Color lineColor = new Color(255, 153, 0); //Default Line Color for X/Y Graphs
+    // private Color lineColor= Color.WHITE;
+    private Color lineColor = new Color(255, 153, 0); // Default Line Color for X/Y Graphs
     private boolean FirstPoint = true;
 
     public void setbufferLen(int Interval) {
@@ -104,7 +106,7 @@ public class GraphRenderer extends JPanel {
             yValues[i] = y + yy;
             x += 0.1;
         }
-        //lineColor=Color.RED;
+        // lineColor=Color.RED;
         lineColor = new Color(255, 153, 0);
 
         pointType = P_LINE_VBIG;
@@ -118,13 +120,13 @@ public class GraphRenderer extends JPanel {
 
     public void init() {
 
-        //genTestValues();
+        // genTestValues();
 
-        //if (autoScaleX) scaleX();
-        //if (autoScaleY) scaleY();
+        // if (autoScaleX) scaleX();
+        // if (autoScaleY) scaleY();
 
-        //stepXX=(getWidth()/Math.abs(maxX-minX));
-        //stepYY=getHeight()/(Math.abs(maxY-minY));
+        // stepXX=(getWidth()/Math.abs(maxX-minX));
+        // stepYY=getHeight()/(Math.abs(maxY-minY));
     }
 
     protected void paintComponent(Graphics g) {
@@ -192,18 +194,19 @@ public class GraphRenderer extends JPanel {
                         back.positionX--;
                         back.owner.init();
                     }
-                    float RelPx = (refMaxX / xValues.length); //Pixel Relation MaxPixels/Buffer
-                    //System.out.println("PointType="+pointType+"X="+cx+"_Y"+cy+"_RefX"+refx+"_RefY"+refy+"_Rel="+RelPx);
+                    float RelPx = (refMaxX / xValues.length); // Pixel Relation MaxPixels/Buffer
+                    // System.out.println("PointType="+pointType+"X="+cx+"_Y"+cy+"_RefX"+refx+"_RefY"+refy+"_Rel="+RelPx);
                     if (pointType >= 14) {
                         pointType = P_LINE_VBIG;
                     }
-                    //if ((xValues.length/refMaxX)<0.0 && pointType==P_POINT_HIST_BIG) pointType=P_POINT_HIST;
+                    // if ((xValues.length/refMaxX)<0.0 && pointType==P_POINT_HIST_BIG) pointType=P_POINT_HIST;
 
-                    if (pointType == P_POINT) //Point Type = 0
+                    if (pointType == P_POINT) // Point Type = 0
                     {
                         g.fillRect(cx - 3, cy - 3, 6, 6);
                     } else {
-                        if (pointType == P_LINE || pointType == P_LINE_MED || pointType == P_LINE_BIG || pointType == P_LINE_VBIG) ////Point Type = 1
+                        if (pointType == P_LINE || pointType == P_LINE_MED || pointType == P_LINE_BIG
+                                || pointType == P_LINE_VBIG) //// Point Type = 1
                         {
                             if (firstTime) {
                                 firstTime = false;
@@ -246,18 +249,19 @@ public class GraphRenderer extends JPanel {
                                     }
                                     g.fillOval(cx - d, cy - d, d * 2, d * 2);
                                 } else {
-                                    if (pointType == P_POINT_HIST || pointType == P_POINT_HIST_MED || pointType == P_POINT_HIST_BIG) {
+                                    if (pointType == P_POINT_HIST || pointType == P_POINT_HIST_MED
+                                            || pointType == P_POINT_HIST_BIG) {
                                         if (firstTime) {
                                             firstTime = false;
                                             oldCX = (cx - (StepProm / 2));
-                                            //cx+=(StepProm/2);
+                                            // cx+=(StepProm/2);
                                             oldCY = refy;
                                         }
                                         int HistWidth = 0;
                                         int HistHeigh = 0;
                                         if (pointType == P_POINT_HIST) HistWidth = 2;
                                         if (pointType == P_POINT_HIST_MED) HistWidth = 4;
-                                        //if (pointType==P_POINT_HIST_BIG) HistWidth=((cx-oldCX)-2);
+                                        // if (pointType==P_POINT_HIST_BIG) HistWidth=((cx-oldCX)-2);
                                         if (pointType == P_POINT_HIST_BIG) {
                                             HistWidth = ((StepProm) - 2);
                                             if (HistWidth < 10) {
@@ -267,31 +271,32 @@ public class GraphRenderer extends JPanel {
                                         }
                                         HistHeigh = Math.abs(refy - cy);
                                         if (HistHeigh == 0) HistHeigh = 2;
-                                        //if (oldCX!=cx || oldCY!=cy || FirstPoint)
-                                        //{
-                                        if (cy < refy)
-                                            g.fillRect((cx - (HistWidth / 2)), (refy - HistHeigh), HistWidth, HistHeigh);
+                                        // if (oldCX!=cx || oldCY!=cy || FirstPoint)
+                                        // {
+                                        if (cy < refy) g.fillRect((cx - (HistWidth / 2)), (refy - HistHeigh), HistWidth,
+                                                HistHeigh);
                                         if (cy == refy) g.fillRect((cx - (HistWidth / 2)), refy, HistWidth, 2);
                                         if (cy > refy) g.fillRect((cx - (HistWidth / 2)), (refy), HistWidth, HistHeigh);
 
-                                        //System.out.println("Iteration"+i+"_Point"+pointType+"_Cx"+cx+"_OldCx="+oldCX+"refX"+refx+"_Cy"+cy+"_OldCy"+oldCY+"refy"+refy+"_Altura"+HistHeigh);
+                                        // System.out.println("Iteration"+i+"_Point"+pointType+"_Cx"+cx+"_OldCx="+oldCX+"refX"+refx+"_Cy"+cy+"_OldCy"+oldCY+"refy"+refy+"_Altura"+HistHeigh);
 
                                         oldCX = cx;
                                         oldCY = cy;
-                                        //}
+                                        // }
                                     } else {
-                                        if (pointType == P_POINT_HIST_INV || pointType == P_POINT_HIST_MED_INV || pointType == P_POINT_HIST_BIG_INV) {
+                                        if (pointType == P_POINT_HIST_INV || pointType == P_POINT_HIST_MED_INV
+                                                || pointType == P_POINT_HIST_BIG_INV) {
                                             if (firstTime) {
                                                 firstTime = false;
                                                 oldCX = (cx - (StepProm / 2));
-                                                //cx+=(StepProm/2);
+                                                // cx+=(StepProm/2);
                                                 oldCY = refy;
                                             }
                                             int HistWidth = 0;
 
                                             if (pointType == P_POINT_HIST_INV) HistWidth = 2;
                                             if (pointType == P_POINT_HIST_MED_INV) HistWidth = 4;
-                                            //if (pointType==P_POINT_HIST_BIG) HistWidth=((cx-oldCX)-2);
+                                            // if (pointType==P_POINT_HIST_BIG) HistWidth=((cx-oldCX)-2);
                                             if (pointType == P_POINT_HIST_BIG_INV) {
                                                 HistWidth = ((StepProm) - 2);
                                                 if (HistWidth < 10) {
@@ -300,19 +305,19 @@ public class GraphRenderer extends JPanel {
                                                 }
                                             }
 
-                                            //HistHeigh=Math.abs(refy-cy);
+                                            // HistHeigh=Math.abs(refy-cy);
                                             int HistHeighP = Math.abs(cy - 1);
                                             int HistHeighN = Math.abs(refMinY - cy);
-                                            //if(HistHeighP==0)HistHeighP=2;
-                                            //if(HistHeighN==0)HistHeighN=2;
-                                            //if (oldCX!=cx || oldCY!=cy || FirstPoint)
-                                            //{
+                                            // if(HistHeighP==0)HistHeighP=2;
+                                            // if(HistHeighN==0)HistHeighN=2;
+                                            // if (oldCX!=cx || oldCY!=cy || FirstPoint)
+                                            // {
                                             if (cy < refy) g.fillRect((cx - (HistWidth / 2)), 1, HistWidth, HistHeighP);
                                             if (cy == refy) g.fillRect((cx - (HistWidth / 2)), refy, HistWidth, 2);
                                             if (cy > refy)
                                                 g.fillRect((cx - (HistWidth / 2)), cy, HistWidth, HistHeighN);
 
-                                            //System.out.println("Iteration"+i+"_Point"+pointType+"_Cx"+cx+"_OldCx="+oldCX+"refX"+refx+"_Cy"+cy+"_OldCy"+oldCY+"refy"+refy+"_AlturaP"+HistHeighP+"_AlturaN"+HistHeighN);
+                                            // System.out.println("Iteration"+i+"_Point"+pointType+"_Cx"+cx+"_OldCx="+oldCX+"refX"+refx+"_Cy"+cy+"_OldCy"+oldCY+"refy"+refy+"_AlturaP"+HistHeighP+"_AlturaN"+HistHeighN);
 
                                             oldCX = cx;
                                             oldCY = cy;

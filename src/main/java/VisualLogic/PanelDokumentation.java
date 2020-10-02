@@ -1,21 +1,26 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
+
 package VisualLogic;
+
+import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -36,8 +41,6 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLFrameHyperlinkEvent;
-
-import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 /**
  * @author Homer
@@ -66,42 +69,33 @@ public class PanelDokumentation extends javax.swing.JPanel {
             public void hyperlinkUpdate(HyperlinkEvent e) {
                 // Das aendern des Mauszeigers geht ab
                 // Java 1.3 auch automatisch
-                if (e.getEventType()
-                    == HyperlinkEvent.EventType.ENTERED) {
-                    ((JEditorPane) e.getSource()).setCursor(
-                        Cursor.getPredefinedCursor(
-                            Cursor.HAND_CURSOR));
-                } else if (e.getEventType()
-                    == HyperlinkEvent.EventType.EXITED) {
-                    ((JEditorPane) e.getSource()).setCursor(
-                        Cursor.getPredefinedCursor(
-                            Cursor.DEFAULT_CURSOR));
+                if (e.getEventType() == HyperlinkEvent.EventType.ENTERED) {
+                    ((JEditorPane) e.getSource()).setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                } else if (e.getEventType() == HyperlinkEvent.EventType.EXITED) {
+                    ((JEditorPane) e.getSource()).setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                 } else // Hier wird auf ein Klick reagiert
-                    if (e.getEventType()
-                        == HyperlinkEvent.EventType.ACTIVATED) {
-                        JEditorPane pane = (JEditorPane) e.getSource();
-                        if (e instanceof HTMLFrameHyperlinkEvent) {
-                            HTMLFrameHyperlinkEvent evt
-                                = (HTMLFrameHyperlinkEvent) e;
-                            HTMLDocument doc
-                                = (HTMLDocument) pane.getDocument();
-                            doc.processHTMLFrameHyperlinkEvent(evt);
-                        } else {
-                            try {
-                                // Normaler Link
-                                pane.setPage(e.getURL());
-                            } catch (Throwable t) {
-                                t.printStackTrace();
-                            }
+                if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                    JEditorPane pane = (JEditorPane) e.getSource();
+                    if (e instanceof HTMLFrameHyperlinkEvent) {
+                        HTMLFrameHyperlinkEvent evt = (HTMLFrameHyperlinkEvent) e;
+                        HTMLDocument doc = (HTMLDocument) pane.getDocument();
+                        doc.processHTMLFrameHyperlinkEvent(evt);
+                    } else {
+                        try {
+                            // Normaler Link
+                            pane.setPage(e.getURL());
+                        } catch (Throwable t) {
+                            t.printStackTrace();
                         }
                     }
+                }
             }
         });
     }
 
     /**
-     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
-     * content of this method is always regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify
+     * this code. The content of this method is always regenerated by the Form Editor.
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -207,8 +201,8 @@ public class PanelDokumentation extends javax.swing.JPanel {
         selectedLanguage = language;
     }
 
-    private void jButtonESActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonESActionPerformed
-    {//GEN-HEADEREND:event_jButtonESActionPerformed
+    private void jButtonESActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jButtonESActionPerformed
+    {// GEN-HEADEREND:event_jButtonESActionPerformed
         try {
             processButtons();
             selectedLanguage = "es";
@@ -217,10 +211,10 @@ public class PanelDokumentation extends javax.swing.JPanel {
         } catch (Exception ex) {
             Logger.getLogger(PanelDokumentation.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButtonESActionPerformed
+    }// GEN-LAST:event_jButtonESActionPerformed
 
-    private void jButtonENActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonENActionPerformed
-    {//GEN-HEADEREND:event_jButtonENActionPerformed
+    private void jButtonENActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jButtonENActionPerformed
+    {// GEN-HEADEREND:event_jButtonENActionPerformed
         try {
             processButtons();
             selectedLanguage = "en";
@@ -229,7 +223,7 @@ public class PanelDokumentation extends javax.swing.JPanel {
         } catch (Exception ex) {
             Logger.getLogger(PanelDokumentation.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButtonENActionPerformed
+    }// GEN-LAST:event_jButtonENActionPerformed
 
     private void processButtons() {
 
@@ -251,8 +245,8 @@ public class PanelDokumentation extends javax.swing.JPanel {
         }
     }
 
-    private void jButtonDEActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonDEActionPerformed
-    {//GEN-HEADEREND:event_jButtonDEActionPerformed
+    private void jButtonDEActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jButtonDEActionPerformed
+    {// GEN-HEADEREND:event_jButtonDEActionPerformed
 
         try {
             processButtons();
@@ -262,7 +256,7 @@ public class PanelDokumentation extends javax.swing.JPanel {
         } catch (Exception ex) {
             Logger.getLogger(PanelDokumentation.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButtonDEActionPerformed
+    }// GEN-LAST:event_jButtonDEActionPerformed
 
     JPanel docPanel = new JPanel();
 

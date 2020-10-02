@@ -1,8 +1,8 @@
 ISDIRECTORY     = FALSE
 CAPTION         = 
 CAPTION_EN      = 
-CAPTION_ES      = Barrera Fotoeléctrica
-VM              = Fotocélula.vlogic
+CAPTION_ES      = Barrera FotoelÃ©ctrica
+VM              = FotocÃ©lula.vlogic
 VM_DIR_EDITABLE = false
 CLASSCIRCUIT    = 
 CLASSFRONT      = TRUE

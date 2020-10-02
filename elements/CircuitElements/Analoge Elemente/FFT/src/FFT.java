@@ -60,7 +60,7 @@ public class FFT extends JVSMain
   }
 
 
-  /* holt den nächst besten Wert
+  /* holt den nÃ¤chst besten Wert
    * der 2^1 2^2 2^3 2^4 .... entspricht */
   public int getNextValue(int value)
   {
@@ -93,7 +93,7 @@ public class FFT extends JVSMain
     element.jSetCaption("fft");
     setName("FFT");
     
-    // Für den Degruppierer (Nur für den Datentyp)
+    // FÃ¼r den Degruppierer (Nur fÃ¼r den Datentyp)
     out.list.clear();
     out.list.add(arrX);
     out.list.add(arrY);

@@ -301,7 +301,7 @@ public class FrameProperties extends javax.swing.JDialog {
     }//GEN-LAST:event_jCheckBox1ActionPerformed
     
     // Liefert TRUE wenn alles OK, 
-    // und FALSE wenn auf Cancel gedrückt worden ist
+    // und FALSE wenn auf Cancel gedrÃ¼ckt worden ist
     public static boolean execute()
     {
         FrameProperties frm = new FrameProperties(null, true);        

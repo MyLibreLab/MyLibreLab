@@ -1,21 +1,22 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package BasisStatus;
 
@@ -72,7 +73,7 @@ public class StatusResizeElement extends Object implements StatusBasisIF {
         dxx = x2 - p.x;
         dyy = y2 - p.y;
 
-        //setOriginalWidthHeight();
+        // setOriginalWidthHeight();
     }
 
     private Point setLocationX(Element element, int x, int y) {
@@ -90,10 +91,10 @@ public class StatusResizeElement extends Object implements StatusBasisIF {
         if ((e.getSource() instanceof SelectionPane)) {
 
             if (firstTime) {
-                //element.setXorMode();
+                // element.setXorMode();
                 firstTime = false;
             }
-            //element.repaint();
+            // element.repaint();
             int dist = 6;
             int x = e.getX() + oldP.x;
             int y = e.getY() + oldP.y;
@@ -156,7 +157,7 @@ public class StatusResizeElement extends Object implements StatusBasisIF {
                         break;
                     }
                     case 7: {
-                        //setSizeX(element,element.getWidth(), yy-element.getY()+dist);
+                        // setSizeX(element,element.getWidth(), yy-element.getY()+dist);
                         element.setSize(oWidth, yy - element.getY() + dist);
                         break;
                     }
@@ -167,7 +168,7 @@ public class StatusResizeElement extends Object implements StatusBasisIF {
                 }
             }
 
-            //resizeBasisElements();
+            // resizeBasisElements();
 
             element.updateUI();
         }
@@ -183,38 +184,25 @@ public class StatusResizeElement extends Object implements StatusBasisIF {
         vmobject.owner.saveForUndoRedo();
     }
 
-    public void elementPinMousePressed(MouseEvent e, int elementID, int pin) {
-    }
+    public void elementPinMousePressed(MouseEvent e, int elementID, int pin) {}
 
-    public void elementPinMouseReleased(MouseEvent e, int elementID, int pin) {
-    }
+    public void elementPinMouseReleased(MouseEvent e, int elementID, int pin) {}
 
-    public void elementPinMouseMoved(MouseEvent e, int elementID, int pin) {
-    }
+    public void elementPinMouseMoved(MouseEvent e, int elementID, int pin) {}
 
-    public void processKeyEvent(KeyEvent ke) {
-    }
+    public void processKeyEvent(KeyEvent ke) {}
 
-    public void mousePressed(MouseEvent e) {
-    }
+    public void mousePressed(MouseEvent e) {}
 
-    public void mouseDblClick(MouseEvent e) {
-    }
+    public void mouseDblClick(MouseEvent e) {}
 
-    public void mouseClicked(MouseEvent e) {
-    }
+    public void mouseClicked(MouseEvent e) {}
 
-    public void mouseEntered(MouseEvent e) {
-    }
+    public void mouseEntered(MouseEvent e) {}
 
-    public void mouseExited(MouseEvent e) {
-    }
+    public void mouseExited(MouseEvent e) {}
 
-    public void mouseMoved(MouseEvent e) {
-    }
+    public void mouseMoved(MouseEvent e) {}
 
-    public void draw(java.awt.Graphics g) {
-    }
+    public void draw(java.awt.Graphics g) {}
 }
-
-

@@ -256,9 +256,9 @@ public class CustomAnalogComp_1_JV extends JVSMain
         // Draw Linien
         x1=(w/2)+11; //(Punto Interno de las Rayas)
         y1=11;
-        int d2=w*5/100;  // Punto externo m·ximo (Final externo de las rayas)
+        int d2=w*5/100;  // Punto externo m√°ximo (Final externo de las rayas)
         //d2+=5;
-        double vectorLength=Math.sqrt((x1*x1)+(y1*y1))-(double)d2+1.0; // Magnitud m·xima de las Rayas
+        double vectorLength=Math.sqrt((x1*x1)+(y1*y1))-(double)d2+1.0; // Magnitud m√°xima de las Rayas
         
         if (textInside.getValue()){
         vectorLength-=(2*(double)d2)+1.0;
@@ -703,12 +703,12 @@ public class CustomAnalogComp_1_JV extends JVSMain
     element.jAddPEItem("Anfangswert",initValue, 0,9999999);
     
     element.jAddPEItem("Zeige Nibble als Kreis",showNibbleAsCircle, 0,0); // Nibble Settings
-    element.jAddPEItem("Nibble-Kreis-Grˆﬂe [%]",nibbleCircleSizeInProzent, 0,100);
+    element.jAddPEItem("Nibble-Kreis-Gr√∂√üe [%]",nibbleCircleSizeInProzent, 0,100);
     element.jAddPEItem("Nibble-Breite",nibbleStrokeValue, 0,50); 
     element.jAddPEItem("Nibble-Farbe",nibbleColor, 0,0);
-    element.jAddPEItem("Nibble-Grˆﬂe[%]",nibbleLenInProzent, 0,100);
+    element.jAddPEItem("Nibble-Gr√∂√üe[%]",nibbleLenInProzent, 0,100);
     element.jAddPEItem("Knopf-Farbe",buttonColor, 0,0); //KNOB Settings
-    element.jAddPEItem("Knopf-Grˆﬂe[%]",knobSizeInProzent, 0,100);
+    element.jAddPEItem("Knopf-Gr√∂√üe[%]",knobSizeInProzent, 0,100);
     element.jAddPEItem("Knopf-Breite",buttonStroke, 0,50);
     element.jAddPEItem("Knopf-Breite-Farbe",strokeColor, 0,0); 
     element.jAddPEItem("Knopf Sockel",showBackground, 0,0);
@@ -784,40 +784,40 @@ public class CustomAnalogComp_1_JV extends JVSMain
     element.jSetPEItemLocale(d+0,language,"Min");
     element.jSetPEItemLocale(d+1,language,"Max");
     element.jSetPEItemLocale(d+2,language,"Divisiones");
-    element.jSetPEItemLocale(d+3,language,"PosiciÛn Actual");
+    element.jSetPEItemLocale(d+3,language,"Posici√≥n Actual");
     
     element.jSetPEItemLocale(d+4,language,"Valor Inicial");
     
     
-    element.jSetPEItemLocale(d+5,language,"CÌrculo - Aguja");
-    element.jSetPEItemLocale(d+6,language,"TamaÒo cÌrculo [%]");
+    element.jSetPEItemLocale(d+5,language,"C√≠rculo - Aguja");
+    element.jSetPEItemLocale(d+6,language,"Tama√±o c√≠rculo [%]");
     element.jSetPEItemLocale(d+7,language,"Grosor de Aguja");
     element.jSetPEItemLocale(d+8,language,"Color de Aguja");
     element.jSetPEItemLocale(d+9,language,"Distancia de Aguja[%]");
-    element.jSetPEItemLocale(d+10,language,"Color ¡rea Central");
-    element.jSetPEItemLocale(d+11,language,"Di·metro del BotÛn[%]");
+    element.jSetPEItemLocale(d+10,language,"Color √Årea Central");
+    element.jSetPEItemLocale(d+11,language,"Di√°metro del Bot√≥n[%]");
     
-    element.jSetPEItemLocale(d+12,language,"Grosor Borde CÌrculo Central");
-    element.jSetPEItemLocale(d+13,language,"Color Borde CÌrculo Central");
+    element.jSetPEItemLocale(d+12,language,"Grosor Borde C√≠rculo Central");
+    element.jSetPEItemLocale(d+13,language,"Color Borde C√≠rculo Central");
     
-    element.jSetPEItemLocale(d+14,language,"Mostrar Base del BotÛn");
+    element.jSetPEItemLocale(d+14,language,"Mostrar Base del Bot√≥n");
     element.jSetPEItemLocale(d+15,language,"Transparente?");
-    element.jSetPEItemLocale(d+16,language,"Color ¡rea Media");
-    element.jSetPEItemLocale(d+17,language,"Color LÌneas del BotÛn");
-    element.jSetPEItemLocale(d+18,language,"Grosor LÌneas del BotÛn");
-    element.jSetPEItemLocale(d+19,language,"Color ¡rea Externa del BotÛn");
+    element.jSetPEItemLocale(d+16,language,"Color √Årea Media");
+    element.jSetPEItemLocale(d+17,language,"Color L√≠neas del Bot√≥n");
+    element.jSetPEItemLocale(d+18,language,"Grosor L√≠neas del Bot√≥n");
+    element.jSetPEItemLocale(d+19,language,"Color √Årea Externa del Bot√≥n");
     
     element.jSetPEItemLocale(d+20,language,"Mostrar Textos"); // Show Text? Or Only Knob Button
     element.jSetPEItemLocale(d+21,language,"Texto Interno/Externo");
-    element.jSetPEItemLocale(d+22,language,"Solo N˙meros");
+    element.jSetPEItemLocale(d+22,language,"Solo N√∫meros");
     element.jSetPEItemLocale(d+23,language,"Etiquetas");
     element.jSetPEItemLocale(d+24,language,"Formato (#0)");
     element.jSetPEItemLocale(d+25,language,"Distancia Texto");
     element.jSetPEItemLocale(d+26,language,"Fuente");
     element.jSetPEItemLocale(d+27,language,"Color Textos");
     
-    element.jSetPEItemLocale(d+28,language,"Grado MÌnimo");
-    element.jSetPEItemLocale(d+29,language,"Grado M·ximo");    
+    element.jSetPEItemLocale(d+28,language,"Grado M√≠nimo");
+    element.jSetPEItemLocale(d+29,language,"Grado M√°ximo");    
 }
 
 

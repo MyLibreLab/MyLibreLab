@@ -1,7 +1,7 @@
 ISDIRECTORY     = FALSE
 CAPTION         = 
 CAPTION_EN      = 
-CAPTION_ES      = Inerruptor Botón
+CAPTION_ES      = Inerruptor BotÃ³n
 VM              = Interruptor3.vlogic
 VM_DIR_EDITABLE = false
 CLASSCIRCUIT    = 

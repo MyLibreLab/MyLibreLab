@@ -1,20 +1,22 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package BasisStatus;
 
@@ -22,13 +24,14 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import org.tinylog.Logger;
+
 import VisualLogic.Draht;
 import VisualLogic.Element;
 import VisualLogic.JPin;
 import VisualLogic.PolyPoint;
 import VisualLogic.SelectionPane;
 import VisualLogic.VMObject;
-import org.tinylog.Logger;
 
 public class StatusMoveElements extends Object implements StatusBasisIF {
     private VMObject vmobject;
@@ -42,8 +45,7 @@ public class StatusMoveElements extends Object implements StatusBasisIF {
         mouseDragged(e);
     }
 
-    public void processKeyEvent(KeyEvent ke) {
-    }
+    public void processKeyEvent(KeyEvent ke) {}
 
     public void elementPinMousePressed(MouseEvent e, int elementID, int pin) {
 
@@ -53,11 +55,9 @@ public class StatusMoveElements extends Object implements StatusBasisIF {
         mouseReleased(e);
     }
 
-    public void elementPinMouseMoved(MouseEvent e, int elementID, int pin) {
-    }
+    public void elementPinMouseMoved(MouseEvent e, int elementID, int pin) {}
 
-    public void mouseDblClick(MouseEvent e) {
-    }
+    public void mouseDblClick(MouseEvent e) {}
 
     public void mouseDragged(MouseEvent e) {
         if (e.getSource() instanceof SelectionPane) {
@@ -67,12 +67,12 @@ public class StatusMoveElements extends Object implements StatusBasisIF {
             int eY = 0;
 
             if (vmobject != null) {
-                try{
+                try {
                     eX = vmobject.getMousePosition().x;
                     eY = vmobject.getMousePosition().y;
 
-                }catch (HeadlessException ex){
-                    Logger.error(ex,"Java is in headless mode. Could not get Mousepointer coordinates.");
+                } catch (HeadlessException ex) {
+                    Logger.error(ex, "Java is in headless mode. Could not get Mousepointer coordinates.");
                 }
 
             }
@@ -111,11 +111,11 @@ public class StatusMoveElements extends Object implements StatusBasisIF {
                                 el.setLocation(el.getLocation().x, nY);
                                 vmobject.orderNodesL(el, el.getLocation().y);
                                 vmobject.orderNodesR(el, el.getLocation().y);
-                                //vmobject.reorderWireFrames();
-                                //oki=true;
+                                // vmobject.reorderWireFrames();
+                                // oki=true;
                             } else {
                                 // also nicht in Vertikaler Richtung verschiebbar!
-                                //el.setLocation(nX, el.getLocation().y);
+                                // el.setLocation(nX, el.getLocation().y);
 
                                 onlyHoz = true;
                             }
@@ -129,13 +129,13 @@ public class StatusMoveElements extends Object implements StatusBasisIF {
 
                                 vmobject.orderNodesT(el, el.getLocation().x);
                                 vmobject.orderNodesB(el, el.getLocation().x);
-                                //vmobject.reorderWireFrames();
-                                //oki=true;
+                                // vmobject.reorderWireFrames();
+                                // oki=true;
                             } else {
                                 onlyVert = true;
                             }
 
-                            //if (oki==false)
+                            // if (oki==false)
                             {
                                 if (onlyHoz && el.getPin(0).draht == null && el.getPin(2).draht == null) {
                                     el.setLocation(nX, el.getLocation().y);
@@ -187,7 +187,7 @@ public class StatusMoveElements extends Object implements StatusBasisIF {
                                             vmobject.orderNodesT(node, xx);
                                             vmobject.orderNodesB(node, xx);
                                         }
-                                        //vmobject.reorderWireFrames();
+                                        // vmobject.reorderWireFrames();
                                     }
                                 }
                             }
@@ -220,8 +220,9 @@ public class StatusMoveElements extends Object implements StatusBasisIF {
     }
 
     public void mousePressed(MouseEvent e) {
-        /*x = e.getX();
-        y = e.getY();         */
+        /*
+         * x = e.getX(); y = e.getY();
+         */
 
         if (e.getSource() instanceof SelectionPane) {
             SelectionPane pane = (SelectionPane) e.getSource();
@@ -234,7 +235,7 @@ public class StatusMoveElements extends Object implements StatusBasisIF {
                     eX = vmobject.getMousePosition().x;
                     eY = vmobject.getMousePosition().y;
                 } catch (HeadlessException ex) {
-                    Logger.error(ex,"Error. Jvm is in headless mode");
+                    Logger.error(ex, "Error. Jvm is in headless mode");
                 }
             }
 
@@ -299,19 +300,13 @@ public class StatusMoveElements extends Object implements StatusBasisIF {
         vmobject.setModusIdle();
     }
 
-    public void mouseClicked(MouseEvent e) {
-    }
+    public void mouseClicked(MouseEvent e) {}
 
-    public void mouseEntered(MouseEvent e) {
-    }
+    public void mouseEntered(MouseEvent e) {}
 
-    public void mouseExited(MouseEvent e) {
-    }
+    public void mouseExited(MouseEvent e) {}
 
-    public void mouseMoved(MouseEvent e) {
-    }
+    public void mouseMoved(MouseEvent e) {}
 
-    public void draw(Graphics g) {
-    }
+    public void draw(Graphics g) {}
 }
-

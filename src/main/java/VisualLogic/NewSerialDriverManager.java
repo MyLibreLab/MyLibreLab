@@ -1,5 +1,7 @@
 /*
- * Copyright (C) 2017 Javier Velasquez (javiervelasquez125@gmail.com)
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,7 +15,9 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
+
 package VisualLogic;
 
 import java.util.ArrayList;
@@ -81,11 +85,11 @@ public class NewSerialDriverManager {
 
     public static VSserialPort FindSerialPortByPortName(String PortNameIN) {
         VSserialPort vsSerialTemp = new VSserialPort();
-        //System.out.println("Searching Port:"+PortNameIN);
+        // System.out.println("Searching Port:"+PortNameIN);
         for (VSserialPort vsTemp : serialPortsArray) {
             if (vsTemp.getValue().getPortName().equalsIgnoreCase(PortNameIN)) {
                 vsSerialTemp = vsTemp;
-                //System.out.println("Port "+PortNameIN+" Found!");
+                // System.out.println("Port "+PortNameIN+" Found!");
                 return vsSerialTemp;
             }
         }
@@ -111,7 +115,7 @@ public class NewSerialDriverManager {
                     try {
                         vsTemp.getSerialPort().closePort();
                     } catch (SerialPortException ex) {
-                        //Logger.getLogger(NewSerialDriverManager.class.getName()).log(Level.SEVERE, null, ex);
+                        // Logger.getLogger(NewSerialDriverManager.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
                 serialPortsArray.remove(vsTemp);
@@ -119,7 +123,7 @@ public class NewSerialDriverManager {
         }
     }
 
-//______________________________________________________________________________________________
+    // ______________________________________________________________________________________________
 
     private SerialPort OpenPort(String PortName) throws SerialPortException, InterruptedException, Exception {
 

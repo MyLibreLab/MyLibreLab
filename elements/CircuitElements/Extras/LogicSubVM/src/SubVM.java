@@ -66,7 +66,7 @@ public class SubVM extends JVSMain
     if (image!=null) drawImageCentred(g,image);
   }
 
-  // Notwendig für die doc.html & ect...
+  // Notwendig fÃ¼r die doc.html & ect...
   public String getBinDir()
   {
     return element.jGetSourcePath();

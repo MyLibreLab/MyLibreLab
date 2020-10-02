@@ -1,6 +1,6 @@
 ISDIRECTORY     = FALSE
 REDIRECT        = 
-CAPTION         = BCD Zähler
+CAPTION         = BCD ZÃ¤hler
 CAPTION_EN      = BCD Counter
 CAPTION_ES      = Contador BCD
 VM              = Contador_BCD.vlogic

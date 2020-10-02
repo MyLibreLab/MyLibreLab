@@ -1,20 +1,23 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 package codeeditor;
 
 import java.awt.Color;
@@ -116,8 +119,7 @@ class JavaSyntaxDocument extends DefaultStyledDocument {
      * Override to apply syntax highlighting after the document has been updated
      */
     public void insertString(int offset, String str, AttributeSet a) throws BadLocationException {
-        if (str.equals("{"))
-            str = addMatchingBrace(offset);
+        if (str.equals("{")) str = addMatchingBrace(offset);
         super.insertString(offset, str, a);
         processChangedLines(offset, str.length());
     }
@@ -131,8 +133,7 @@ class JavaSyntaxDocument extends DefaultStyledDocument {
     }
 
     /*
-     * Determine how many lines have been changed,
-     * then apply highlighting to each line
+     * Determine how many lines have been changed, then apply highlighting to each line
      */
     private void processChangedLines(int offset, int length) throws BadLocationException {
         String content = doc.getText(0, doc.getLength());
@@ -143,15 +144,18 @@ class JavaSyntaxDocument extends DefaultStyledDocument {
         // and determine if the start line is still in a multi line comment
         setMultiLineComment(commentLinesBefore(content, startLine));
         // Do the actual highlighting
-        for (int i = startLine; i <= endLine; i++) applyHighlighting(content, i);
+        for (int i = startLine; i <= endLine; i++)
+            applyHighlighting(content, i);
         // Resolve highlighting to the next end multi line delimiter
-        if (isMultiLineComment()) commentLinesAfter(content, endLine);
-        else highlightLinesAfter(content, endLine);
+        if (isMultiLineComment())
+            commentLinesAfter(content, endLine);
+        else
+            highlightLinesAfter(content, endLine);
     }
 
     /*
-     * Highlight lines when a multi line comment is still 'open'
-     * (ie. matching end delimiter has not yet been encountered)
+     * Highlight lines when a multi line comment is still 'open' (ie. matching end delimiter has not yet
+     * been encountered)
      */
     private boolean commentLinesBefore(String content, int line) {
         int offset = rootElement.getElement(line).getStartOffset();
@@ -214,8 +218,8 @@ class JavaSyntaxDocument extends DefaultStyledDocument {
         if (endOffset >= contentLength) endOffset = contentLength - 1;
         // check for multi line comments
         // (always set the comment attribute for the entire line)
-        if (endingMultiLineComment(content, startOffset, endOffset)
-            || isMultiLineComment() || startingMultiLineComment(content, startOffset, endOffset)) {
+        if (endingMultiLineComment(content, startOffset, endOffset) || isMultiLineComment()
+                || startingMultiLineComment(content, startOffset, endOffset)) {
             doc.setCharacterAttributes(startOffset, endOffset - startOffset + 1, comment, false);
             return;
         }
@@ -234,9 +238,11 @@ class JavaSyntaxDocument extends DefaultStyledDocument {
     /*
      * Does this line contain the start delimiter
      */
-    private boolean startingMultiLineComment(String content, int startOffset, int endOffset) throws BadLocationException {
+    private boolean startingMultiLineComment(String content, int startOffset, int endOffset)
+            throws BadLocationException {
         int index = indexOf(content, getStartDelimiter(), startOffset);
-        if ((index < 0) || (index > endOffset)) return false;
+        if ((index < 0) || (index > endOffset))
+            return false;
         else {
             setMultiLineComment(true);
             return true;
@@ -248,7 +254,8 @@ class JavaSyntaxDocument extends DefaultStyledDocument {
      */
     private boolean endingMultiLineComment(String content, int startOffset, int endOffset) throws BadLocationException {
         int index = indexOf(content, getEndDelimiter(), startOffset);
-        if ((index < 0) || (index > endOffset)) return false;
+        if ((index < 0) || (index > endOffset))
+            return false;
         else {
             setMultiLineComment(false);
             return true;
@@ -256,8 +263,7 @@ class JavaSyntaxDocument extends DefaultStyledDocument {
     }
 
     /*
-     * We have found a start delimiter
-     * and are still searching for the end delimiter
+     * We have found a start delimiter and are still searching for the end delimiter
      */
     private boolean isMultiLineComment() {
         return multiLineComment;
@@ -274,13 +280,16 @@ class JavaSyntaxDocument extends DefaultStyledDocument {
         while (startOffset <= endOffset) {
             // skip the delimiters to find the start of a new token
             while (isDelimiter(content.substring(startOffset, startOffset + 1))) {
-                if (startOffset < endOffset) startOffset++;
-                else return;
+                if (startOffset < endOffset)
+                    startOffset++;
+                else
+                    return;
             }
             // Extract and process the entire token
             if (isQuoteDelimiter(content.substring(startOffset, startOffset + 1)))
                 startOffset = getQuoteToken(content, startOffset, endOffset);
-            else startOffset = getOtherToken(content, startOffset, endOffset);
+            else
+                startOffset = getOtherToken(content, startOffset, endOffset);
         }
     }
 
@@ -300,8 +309,10 @@ class JavaSyntaxDocument extends DefaultStyledDocument {
         }
         // now find the matching delimiter
         index = content.indexOf(quoteDelimiter, endOfQuote + 1);
-        if ((index < 0) || (index > endOffset)) endOfQuote = endOffset;
-        else endOfQuote = index;
+        if ((index < 0) || (index > endOffset))
+            endOfQuote = endOffset;
+        else
+            endOfQuote = index;
         doc.setCharacterAttributes(startOffset, endOfQuote - startOffset + 1, quote, false);
         return endOfQuote + 1;
     }
@@ -328,8 +339,10 @@ class JavaSyntaxDocument extends DefaultStyledDocument {
         int index;
         while ((index = content.indexOf(needle, offset)) != -1) {
             String text = getLine(content, index).trim();
-            if (text.startsWith(needle) || text.endsWith(needle)) break;
-            else offset = index + 1;
+            if (text.startsWith(needle) || text.endsWith(needle))
+                break;
+            else
+                offset = index + 1;
         }
         return index;
     }
@@ -341,8 +354,10 @@ class JavaSyntaxDocument extends DefaultStyledDocument {
         int index;
         while ((index = content.lastIndexOf(needle, offset)) != -1) {
             String text = getLine(content, index).trim();
-            if (text.startsWith(needle) || text.endsWith(needle)) break;
-            else offset = index - 1;
+            if (text.startsWith(needle) || text.endsWith(needle))
+                break;
+            else
+                offset = index - 1;
         }
         return index;
     }
@@ -362,7 +377,8 @@ class JavaSyntaxDocument extends DefaultStyledDocument {
         String operands = ";:{}()[]+-/%<=>!&|^~*";
         if (Character.isWhitespace(character.charAt(0)) || operands.indexOf(character) != -1)
             return true;
-        else return false;
+        else
+            return false;
     }
 
     /*
@@ -370,8 +386,10 @@ class JavaSyntaxDocument extends DefaultStyledDocument {
      */
     protected boolean isQuoteDelimiter(String character) {
         String quoteDelimiters = "\"'";
-        if (quoteDelimiters.indexOf(character) < 0) return false;
-        else return true;
+        if (quoteDelimiters.indexOf(character) < 0)
+            return false;
+        else
+            return true;
     }
 
     /*
@@ -422,9 +440,9 @@ class JavaSyntaxDocument extends DefaultStyledDocument {
             if (temp.equals(" ") || temp.equals("\t")) {
                 whiteSpace.append(temp);
                 i++;
-            } else break;
+            } else
+                break;
         }
         return "{\n" + whiteSpace.toString() + whiteSpace.toString() + "\n" + whiteSpace.toString() + "}";
     }
 }
-

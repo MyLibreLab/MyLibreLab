@@ -106,7 +106,7 @@ public class Decision extends MCUMainFlow
     
 
 
-    // Überprüfe ob die Variablen oder Konstanten korrekt sind
+    // ÃœberprÃ¼fe ob die Variablen oder Konstanten korrekt sind
     /*String errors="";
     errors+=checkProperty("var", _var.getValue(), MCUMainFlow.ONLY_VAR);
     errors+=checkProperty("var/const", _varConst.getValue(), MCUMainFlow.VAR_OR_CONST);

@@ -1,21 +1,22 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package SimpleFileSystem;
 
@@ -25,8 +26,8 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 
 /**
- * @author Carmelo Salafia FileSystemInput ist f�r das einlesen der Datensaetze und ihrer IndexListe verantwortlich
- * liest aus dem kuenstliches Dateisystem!
+ * @author Carmelo Salafia FileSystemInput ist f�r das einlesen der Datensaetze und ihrer IndexListe
+ *         verantwortlich liest aus dem kuenstliches Dateisystem!
  */
 public class FileSystemInput {
 
@@ -38,12 +39,12 @@ public class FileSystemInput {
      */
     public FileSystemInput(String filename) {
         try {
-            //System.out.println("FileInput-Received: "+filename);
-            //filename = filename.replace("\\", File.separator);
-            //filename = filename.replace("/", File.separator);
-            //filename = filename.replace("/\\", File.separator);
-            //filename = filename.replace("//", File.separator);
-            //System.out.println("Modified: "+filename);
+            // System.out.println("FileInput-Received: "+filename);
+            // filename = filename.replace("\\", File.separator);
+            // filename = filename.replace("/", File.separator);
+            // filename = filename.replace("/\\", File.separator);
+            // filename = filename.replace("//", File.separator);
+            // System.out.println("Modified: "+filename);
 
             fis = new FileInputStream(new File(filename));
             DataInputStream dis = new DataInputStream(fis);
@@ -72,7 +73,8 @@ public class FileSystemInput {
         }
     }
 
-    /* liefert die groesse der IndexListe
+    /*
+     * liefert die groesse der IndexListe
      */
     public long indexListSize() {
         return liste.size();
@@ -96,8 +98,8 @@ public class FileSystemInput {
         return descriptoren;
     }
 
-    /* Springt anhand des FileDescriptor-Index innerhalb
-     * der Datei auf den jeweiligen Datensatz
+    /*
+     * Springt anhand des FileDescriptor-Index innerhalb der Datei auf den jeweiligen Datensatz
      */
     public FileInputStream gotoItem(int index) {
         SFileDescriptor dt = getFileDescriptor(index);
@@ -109,13 +111,15 @@ public class FileSystemInput {
         return fis;
     }
 
-    /* liefert anhand des index den dazugehoerenden FileDescriptor
+    /*
+     * liefert anhand des index den dazugehoerenden FileDescriptor
      */
     public SFileDescriptor getFileDescriptor(int index) {
         return (SFileDescriptor) liste.get(index);
     }
 
-    /* sorgt daf�r das die Streams geschlossen werden
+    /*
+     * sorgt daf�r das die Streams geschlossen werden
      */
     public void close() {
         try {

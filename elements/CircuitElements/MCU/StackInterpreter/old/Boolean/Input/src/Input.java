@@ -93,7 +93,7 @@ public class Input extends JVSMain
     code+="E "+value.getValue()+" \n";
     code+="POPB R0 \n";
     code+="NOTIFY_ON_CHANGED %pin0%,R0, %nextElement0% \n";
-    //code+="  %notify0%   // Bei änderung von pin0 und E1 GOTO nextElement\n";
+    //code+="  %notify0%   // Bei Ã¤nderung von pin0 und E1 GOTO nextElement\n";
     //code+="ELEMENT"+id+"_EXIT: \n";
     
     element.jSetTag(2, code);

@@ -1,6 +1,6 @@
 ISDIRECTORY = FALSE
 CAPTION     = Static Image
 CAPTION_EN  = Static Image
-CAPTION_ES  = Im·gen Est·tica
+CAPTION_ES  = Im√°gen Est√°tica
 Classcircuit  = StaticImage
 Icon        = bin/icon.png

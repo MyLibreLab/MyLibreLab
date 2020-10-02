@@ -152,7 +152,7 @@ public class K8047 extends JVSMain implements MyOpenLabDriverOwnerIF
     gainCH4=(VSInteger)element.getPinInputReference(7);
     abtastIntervall=(VSInteger)element.getPinInputReference(8);
 
-    // Verst‰rkungsfaktor auf 10 also 10*3V = 30V
+    // Verst√§rkungsfaktor auf 10 also 10*3V = 30V
     if (gainCH1==null) gainCH1= new VSInteger(1);  // 1 = Faktor 10!
     if (gainCH2==null) gainCH2= new VSInteger(1);
     if (gainCH3==null) gainCH3= new VSInteger(1);

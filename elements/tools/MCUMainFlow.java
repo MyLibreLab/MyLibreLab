@@ -171,7 +171,7 @@ public class MCUMainFlow extends JVSMain
     return "";
   }
 
-  //Überprüft ob der String eine Zahl von -32... + 32... (16 Bit)
+  //ÃœberprÃ¼ft ob der String eine Zahl von -32... + 32... (16 Bit)
   public boolean isConst(String value)
   {
     try
@@ -185,7 +185,7 @@ public class MCUMainFlow extends JVSMain
     return false;
   }
 
-  // Überprüft ob der String als Variable definiert worden ist
+  // ÃœberprÃ¼ft ob der String als Variable definiert worden ist
   public boolean isVariable(String value)
   {
     VSBasisIF basis=element.jGetBasis();

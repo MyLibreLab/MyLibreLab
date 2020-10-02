@@ -1,20 +1,23 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 package VisualLogic.variables;
 
 import java.awt.Color;
@@ -24,8 +27,9 @@ import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.io.IOException;
 
-import CustomColorPicker.RoundGradientPaint;
 import org.tinylog.Logger;
+
+import CustomColorPicker.RoundGradientPaint;
 
 public class VSColorAdvanced extends VSObject {
 
@@ -46,7 +50,8 @@ public class VSColorAdvanced extends VSObject {
 
     }
 
-    public void setValue(int modus, Point p1, Point p2, Color color1, Color color2, int color1Transparency, int color2Transparency, boolean wiederholung) {
+    public void setValue(int modus, Point p1, Point p2, Color color1, Color color2, int color1Transparency,
+            int color2Transparency, boolean wiederholung) {
         this.modus = modus;
         this.p1 = p1;
         this.p2 = p2;
@@ -95,55 +100,55 @@ public class VSColorAdvanced extends VSObject {
         if (modus == MODE_FLAT) {
             g.setColor(withTransparency(color1, color1Transparency));
         } else if (modus == MODE_LINEAR) {
-            GradientPaint gp = new GradientPaint
-                (p1.x, p1.y, withTransparency(color1, color1Transparency),
-                    p2.x, p2.y, withTransparency(color2, color2Transparency),
-                    wiederholung);
+            GradientPaint gp = new GradientPaint(p1.x, p1.y, withTransparency(color1, color1Transparency), p2.x, p2.y,
+                    withTransparency(color2, color2Transparency), wiederholung);
 
             g.setPaint(gp);
         } else if (modus == MODE_RADIAL) {
             RoundGradientPaint rgp = new RoundGradientPaint(p1.x, p1.y, withTransparency(color1, color1Transparency),
-                new Point2D.Double(p2.x, p2.y), withTransparency(color2, color2Transparency));
+                    new Point2D.Double(p2.x, p2.y), withTransparency(color2, color2Transparency));
             g.setPaint(rgp);
         }
     }
+
     @Override
     public void loadFromStream(java.io.FileInputStream fis) {
 
-            try(java.io.DataInputStream dis = new java.io.DataInputStream(fis)){
-                modus = dis.readInt();
+        try (java.io.DataInputStream dis = new java.io.DataInputStream(fis)) {
+            modus = dis.readInt();
 
-                int r = dis.readInt();
-                int g = dis.readInt();
-                int b = dis.readInt();
-                this.color1Transparency = dis.readInt();
-                color1 = new Color(r, g, b, color1Transparency);
+            int r = dis.readInt();
+            int g = dis.readInt();
+            int b = dis.readInt();
+            this.color1Transparency = dis.readInt();
+            color1 = new Color(r, g, b, color1Transparency);
 
-                r = dis.readInt();
-                g = dis.readInt();
-                b = dis.readInt();
-                this.color2Transparency = dis.readInt();
-                color2 = new Color(r, g, b, color2Transparency);
+            r = dis.readInt();
+            g = dis.readInt();
+            b = dis.readInt();
+            this.color2Transparency = dis.readInt();
+            color2 = new Color(r, g, b, color2Transparency);
 
-                int x = dis.readInt();
-                int y = dis.readInt();
-                this.p1 = new Point(x, y);
+            int x = dis.readInt();
+            int y = dis.readInt();
+            this.p1 = new Point(x, y);
 
-                x = dis.readInt();
-                y = dis.readInt();
-                this.p2 = new Point(x, y);
+            x = dis.readInt();
+            y = dis.readInt();
+            this.p2 = new Point(x, y);
 
-                wiederholung = dis.readBoolean();
-            }catch (IOException ex){
-                Logger.error(ex,"Error. Could not read from input");
-            }
+            wiederholung = dis.readBoolean();
+        } catch (IOException ex) {
+            Logger.error(ex, "Error. Could not read from input");
+        }
 
 
 
     }
+
     @Override
     public void saveToStream(java.io.FileOutputStream fos) {
-        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)){
+        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)) {
 
 
             dos.writeInt(this.modus);
@@ -166,7 +171,7 @@ public class VSColorAdvanced extends VSObject {
 
             dos.writeBoolean(this.wiederholung);
         } catch (IOException ex) {
-            Logger.error(ex,"Error. Could not read colors");
+            Logger.error(ex, "Error. Could not read colors");
         }
     }
 

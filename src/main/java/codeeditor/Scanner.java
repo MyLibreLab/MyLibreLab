@@ -1,20 +1,23 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 package codeeditor;
 
 import java.util.Hashtable;
@@ -42,8 +45,7 @@ public class Scanner {
          */
         public int end = -1;
 
-        public Token() {
-        }
+        public Token() {}
 
         public Token(int id, int start, int end) {
             this.id = id;
@@ -80,8 +82,8 @@ public class Scanner {
     public static final int TOKEN_COUNT = 8;
 
     /**
-     * Active states (states where tokens starts). Technical trick: have the same values as TOKEN_* constants if
-     * defined.
+     * Active states (states where tokens starts). Technical trick: have the same values as TOKEN_*
+     * constants if defined.
      */
     private static final int STATE_STRING = TOKEN_STRING;
     private static final int STATE_WORD = TOKEN_WORD;
@@ -161,7 +163,7 @@ public class Scanner {
     /**
      * Sets scanner's state.
      *
-     * @param tokenId    The token currently being scanned.
+     * @param tokenId The token currently being scanned.
      * @param tokenStart Offset of the first char of that token.
      */
     public void setState(int tokenId, int tokenStart) {
@@ -225,10 +227,10 @@ public class Scanner {
     }
 
     /**
-     * Scans the string until some token is found. Whitespace tokens are not multi-line so they ends before the line
-     * breaks. Line break can be found only in multi-line token or one character after a single-line token. If
-     * multi-line token overlaps the interval being scanned, scanning will continue until the line break after its end
-     * is reached.
+     * Scans the string until some token is found. Whitespace tokens are not multi-line so they ends
+     * before the line breaks. Line break can be found only in multi-line token or one character after a
+     * single-line token. If multi-line token overlaps the interval being scanned, scanning will
+     * continue until the line break after its end is reached.
      */
     public boolean nextToken() {
         if (pos >= textLength) return false;
@@ -245,7 +247,7 @@ public class Scanner {
         } else
             this.initState = false;
 
-        for (; ; ) {
+        for (;;) {
             if (pos == endPos && !token.isMultiline()) lookahead = '\0';
 
             switch (state) {
@@ -263,8 +265,8 @@ public class Scanner {
                             token.id = TOKEN_QUOTED_ID;
                             next();
                             break;
-                        //case '/':state = STATE_COMMENT_ML_START_HINT;next();break;
-                        //case '-':state = STATE_COMMENT_SL_START_HINT;next();break;
+                        // case '/':state = STATE_COMMENT_ML_START_HINT;next();break;
+                        // case '-':state = STATE_COMMENT_SL_START_HINT;next();break;
                         case '\0':
                             return false;
                         default:
@@ -282,9 +284,9 @@ public class Scanner {
                     break;
 
                 case STATE_WHITESPACE:
-                    if (lookahead == '\'' || lookahead == '"' || lookahead == '/' || lookahead == '-' ||
-                        lookahead == '\n' || lookahead == '\0' ||
-                        lookahead >= 'A' && lookahead <= 'Z' || lookahead >= 'a' && lookahead <= 'z') {
+                    if (lookahead == '\'' || lookahead == '"' || lookahead == '/' || lookahead == '-'
+                            || lookahead == '\n' || lookahead == '\0' || lookahead >= 'A' && lookahead <= 'Z'
+                            || lookahead >= 'a' && lookahead <= 'z') {
                         token.end = pos - 1;
                         state = STATE_INIT;
                         return true;
@@ -293,9 +295,9 @@ public class Scanner {
                     break;
 
                 case STATE_WORD:
-                    if (lookahead >= 'A' && lookahead <= 'Z' ||
-                        lookahead >= 'a' && lookahead <= 'z' ||
-                        lookahead >= '0' && lookahead <= '9' || lookahead == '_' || lookahead == '$' || lookahead == '#')
+                    if (lookahead >= 'A' && lookahead <= 'Z' || lookahead >= 'a' && lookahead <= 'z'
+                            || lookahead >= '0' && lookahead <= '9' || lookahead == '_' || lookahead == '$'
+                            || lookahead == '#')
                         next();
                     else {
                         String word = str.substring(token.start, pos); // substring from start to pos-1
@@ -348,55 +350,27 @@ public class Scanner {
                     }
                     break;
 
-        /*case STATE_COMMENT_ML_START_HINT:
-          switch (lookahead)
-          {
-            case '*':state = STATE_COMMENT_ML; token.start = pos-1; token.id = TOKEN_COMMENT_ML; next(); break;
-            case '/':state = STATE_COMMENT_ML; token.start = pos-1; token.id = TOKEN_COMMENT_ML; next(); break;
-            default:
-              state = STATE_WHITESPACE;
-              token.start = pos-1;
-              token.id = TOKEN_WHITESPACE;
-          }
-          break;
-
-        case STATE_COMMENT_ML:
-          switch (lookahead)
-          {
-            case '*':state = STATE_COMMENT_ML_END_HINT; next(); break;
-            case '\0':state = STATE_INIT;token.end = pos-1; return true;
-            default: next();
-          }
-          break;
-
-        case STATE_COMMENT_ML_END_HINT:
-          switch (lookahead)
-          {
-            case '/':state = STATE_INIT; token.end = pos; next(); return true;
-            case '\0':state = STATE_INIT;token.end = pos-1; return true;
-            default: state = STATE_COMMENT_ML;
-          }
-          break;
-
-        case STATE_COMMENT_SL_START_HINT:
-          switch (lookahead)
-          {
-            case '-':state = STATE_COMMENT_SL; token.start = pos-1; token.id = TOKEN_COMMENT_SL; next(); break;
-            default:
-              state = STATE_WHITESPACE;
-              token.start = pos-1;
-              token.id = TOKEN_WHITESPACE;
-          }
-          break;
-
-        case STATE_COMMENT_SL:
-          switch (lookahead)
-          {
-            case '\n':state = STATE_INIT;token.end = pos-1; next(); return true;
-            case '\0':state = STATE_INIT;token.end = pos-1; return true;
-            default: next();
-          }
-          break;*/
+                /*
+                 * case STATE_COMMENT_ML_START_HINT: switch (lookahead) { case '*':state = STATE_COMMENT_ML;
+                 * token.start = pos-1; token.id = TOKEN_COMMENT_ML; next(); break; case '/':state =
+                 * STATE_COMMENT_ML; token.start = pos-1; token.id = TOKEN_COMMENT_ML; next(); break; default: state
+                 * = STATE_WHITESPACE; token.start = pos-1; token.id = TOKEN_WHITESPACE; } break;
+                 *
+                 * case STATE_COMMENT_ML: switch (lookahead) { case '*':state = STATE_COMMENT_ML_END_HINT; next();
+                 * break; case '\0':state = STATE_INIT;token.end = pos-1; return true; default: next(); } break;
+                 *
+                 * case STATE_COMMENT_ML_END_HINT: switch (lookahead) { case '/':state = STATE_INIT; token.end =
+                 * pos; next(); return true; case '\0':state = STATE_INIT;token.end = pos-1; return true; default:
+                 * state = STATE_COMMENT_ML; } break;
+                 *
+                 * case STATE_COMMENT_SL_START_HINT: switch (lookahead) { case '-':state = STATE_COMMENT_SL;
+                 * token.start = pos-1; token.id = TOKEN_COMMENT_SL; next(); break; default: state =
+                 * STATE_WHITESPACE; token.start = pos-1; token.id = TOKEN_WHITESPACE; } break;
+                 *
+                 * case STATE_COMMENT_SL: switch (lookahead) { case '\n':state = STATE_INIT;token.end = pos-1;
+                 * next(); return true; case '\0':state = STATE_INIT;token.end = pos-1; return true; default:
+                 * next(); } break;
+                 */
             }
         }
     }

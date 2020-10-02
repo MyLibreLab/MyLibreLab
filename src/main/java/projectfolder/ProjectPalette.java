@@ -1,20 +1,23 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
+
 package projectfolder;
 
 import java.awt.Component;
@@ -43,7 +46,8 @@ class MyRenderer extends DefaultTreeCellRenderer {
         return ext;
     }
 
-    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf,
+            int row, boolean hasFocus) {
         super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
         MyNode node = (MyNode) value;
 
@@ -80,45 +84,57 @@ class MyRenderer extends DefaultTreeCellRenderer {
             setText(new File(node.projectPath + node.relativePath).getName());
         }
 
-        /*Object o=node.getUserObject();
-        if (o instanceof File)
-        {
-            File f=(File)o;
-
-            //String extension = getExtension(f);
-            //String fn=f.getName().substring(0,f.getName().length()-extension.length()-1);
-
-            setText(f.getName());
-        }*/
+        /*
+         * Object o=node.getUserObject(); if (o instanceof File) { File f=(File)o;
+         *
+         * //String extension = getExtension(f); //String
+         * fn=f.getName().substring(0,f.getName().length()-extension.length()-1);
+         *
+         * setText(f.getName()); }
+         */
         return this;
     }
 }
+
 
 /**
  * @author Carmelo
  */
 public class ProjectPalette extends javax.swing.JPanel {
 
-    private MyNode projects = new MyNode(java.util.ResourceBundle.getBundle("projectfolder/ProjectPalette").getString("Projects"));
+    private MyNode projects =
+            new MyNode(java.util.ResourceBundle.getBundle("projectfolder/ProjectPalette").getString("Projects"));
     private ProjectPaletteIF owner;
-    private final ImageIcon iconVM = new javax.swing.ImageIcon(getClass().getResource("/projectfolder/text-x-script.png"));
+    private final ImageIcon iconVM =
+            new javax.swing.ImageIcon(getClass().getResource("/projectfolder/text-x-script.png"));
 
-    private final ImageIcon iconDirCollapsed = new javax.swing.ImageIcon(getClass().getResource("/projectfolder/folder.png"));
-    private final ImageIcon iconDirExpanded = new javax.swing.ImageIcon(getClass().getResource("/projectfolder/folder-open.png"));
+    private final ImageIcon iconDirCollapsed =
+            new javax.swing.ImageIcon(getClass().getResource("/projectfolder/folder.png"));
+    private final ImageIcon iconDirExpanded =
+            new javax.swing.ImageIcon(getClass().getResource("/projectfolder/folder-open.png"));
 
-    private final ImageIcon iconExecCollapsed = new javax.swing.ImageIcon(getClass().getResource("/projectfolder/execfolder.png"));
-    private final ImageIcon iconExecExpanded = new javax.swing.ImageIcon(getClass().getResource("/projectfolder/execfolder.png"));
+    private final ImageIcon iconExecCollapsed =
+            new javax.swing.ImageIcon(getClass().getResource("/projectfolder/execfolder.png"));
+    private final ImageIcon iconExecExpanded =
+            new javax.swing.ImageIcon(getClass().getResource("/projectfolder/execfolder.png"));
 
-    private final ImageIcon rootCollapsed = new javax.swing.ImageIcon(getClass().getResource("/projectfolder/user-home.png"));
-    private final ImageIcon rootExpanded = new javax.swing.ImageIcon(getClass().getResource("/projectfolder/user-home.png"));
+    private final ImageIcon rootCollapsed =
+            new javax.swing.ImageIcon(getClass().getResource("/projectfolder/user-home.png"));
+    private final ImageIcon rootExpanded =
+            new javax.swing.ImageIcon(getClass().getResource("/projectfolder/user-home.png"));
 
-    private final ImageIcon iconProjectCollapsed = new javax.swing.ImageIcon(getClass().getResource("/projectfolder/package-x-generic.png"));
-    private final ImageIcon iconProjectExpanded = new javax.swing.ImageIcon(getClass().getResource("/projectfolder/package-x-generic.png"));
+    private final ImageIcon iconProjectCollapsed =
+            new javax.swing.ImageIcon(getClass().getResource("/projectfolder/package-x-generic.png"));
+    private final ImageIcon iconProjectExpanded =
+            new javax.swing.ImageIcon(getClass().getResource("/projectfolder/package-x-generic.png"));
 
-    private final ImageIcon iconImage = new javax.swing.ImageIcon(getClass().getResource("/projectfolder/image-x-generic.png"));
-    private final ImageIcon iconHTML = new javax.swing.ImageIcon(getClass().getResource("/projectfolder/text-html.png"));
+    private final ImageIcon iconImage =
+            new javax.swing.ImageIcon(getClass().getResource("/projectfolder/image-x-generic.png"));
+    private final ImageIcon iconHTML =
+            new javax.swing.ImageIcon(getClass().getResource("/projectfolder/text-html.png"));
 
-    private final ImageIcon iconOther = new javax.swing.ImageIcon(getClass().getResource("/projectfolder/page_deny.gif"));
+    private final ImageIcon iconOther =
+            new javax.swing.ImageIcon(getClass().getResource("/projectfolder/page_deny.gif"));
 
     public static String getExtension(File f) {
         String ext = null;
@@ -243,17 +259,19 @@ public class ProjectPalette extends javax.swing.JPanel {
                     if (extension != null && extension.equalsIgnoreCase("vlogic")) {
                         node.iconCollapsed = iconVM;
                         node.iconExpanded = iconVM;
-                    } else if (extension != null && (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("gif") || extension.equalsIgnoreCase("png"))) {
+                    } else if (extension != null && (extension.equalsIgnoreCase("jpg")
+                            || extension.equalsIgnoreCase("gif") || extension.equalsIgnoreCase("png"))) {
                         node.iconCollapsed = iconImage;
                         node.iconExpanded = iconImage;
-                    } else if (extension != null && (extension.equalsIgnoreCase("html") || extension.equalsIgnoreCase("htm") || extension.equalsIgnoreCase("txt"))) {
+                    } else if (extension != null && (extension.equalsIgnoreCase("html")
+                            || extension.equalsIgnoreCase("htm") || extension.equalsIgnoreCase("txt"))) {
                         node.iconCollapsed = iconHTML;
                         node.iconExpanded = iconHTML;
                     } else {
                         root.remove(node);
 
-                        //node.iconCollapsed=iconOther;
-                        //node.iconExpanded=iconOther;
+                        // node.iconCollapsed=iconOther;
+                        // node.iconExpanded=iconOther;
                     }
                 }
             }
@@ -281,19 +299,19 @@ public class ProjectPalette extends javax.swing.JPanel {
         this.owner = owner;
 
         MyRenderer renderer = new MyRenderer();
-        /*renderer.setOpenIcon(null);
-        renderer.setClosedIcon(null);
-        renderer.setLeafIcon(null);*/
+        /*
+         * renderer.setOpenIcon(null); renderer.setClosedIcon(null); renderer.setLeafIcon(null);
+         */
         jTree1.setCellRenderer(renderer);
 
-        //listAllFiles("C:/Dokumente und Einstellungen/Carmelo/Desktop/test");
-        //listAllFiles("C:/Dokumente und Einstellungen/Carmelo/Desktop/Carmelo");
-        //jTree1.expandRow(0);
+        // listAllFiles("C:/Dokumente und Einstellungen/Carmelo/Desktop/test");
+        // listAllFiles("C:/Dokumente und Einstellungen/Carmelo/Desktop/Carmelo");
+        // jTree1.expandRow(0);
     }
 
     /**
-     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
-     * content of this method is always regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify
+     * this code. The content of this method is always regenerated by the Form Editor.
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -650,186 +668,182 @@ public class ProjectPalette extends javax.swing.JPanel {
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                  .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                  .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
-        );
+        layout.setHorizontalGroup(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(jScrollPane1,
+                org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE));
+        layout.setVerticalGroup(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(jScrollPane1,
+                org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jmniOpenFileActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmniOpenFileActionPerformed
-    {//GEN-HEADEREND:event_jmniOpenFileActionPerformed
+    private void jmniOpenFileActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jmniOpenFileActionPerformed
+    {// GEN-HEADEREND:event_jmniOpenFileActionPerformed
         if (selectedNode != null) {
             owner.projectPaletteAction("OPENFILE", selectedNode);
         }
-    }//GEN-LAST:event_jmniOpenFileActionPerformed
+    }// GEN-LAST:event_jmniOpenFileActionPerformed
 
-    private void jmniEditFileActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmniEditFileActionPerformed
-    {//GEN-HEADEREND:event_jmniEditFileActionPerformed
+    private void jmniEditFileActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jmniEditFileActionPerformed
+    {// GEN-HEADEREND:event_jmniEditFileActionPerformed
         if (selectedNode != null) {
             owner.projectPaletteAction("EDITFILE", selectedNode);
         }
-    }//GEN-LAST:event_jmniEditFileActionPerformed
+    }// GEN-LAST:event_jmniEditFileActionPerformed
 
-    private void jmniCopyFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniCopyFileActionPerformed
+    private void jmniCopyFileActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniCopyFileActionPerformed
         if (selectedNode != null) {
             owner.projectPaletteAction("FILE_COPY", selectedNode);
         }
-    }//GEN-LAST:event_jmniCopyFileActionPerformed
+    }// GEN-LAST:event_jmniCopyFileActionPerformed
 
-    private void jmniCutFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniCutFileActionPerformed
+    private void jmniCutFileActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniCutFileActionPerformed
         if (selectedNode != null) {
             owner.projectPaletteAction("FILE_CUT", selectedNode);
         }
-    }//GEN-LAST:event_jmniCutFileActionPerformed
+    }// GEN-LAST:event_jmniCutFileActionPerformed
 
-    private void jmniCopyDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniCopyDirActionPerformed
+    private void jmniCopyDirActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniCopyDirActionPerformed
         jmniCopyActionPerformed(evt);
-    }//GEN-LAST:event_jmniCopyDirActionPerformed
+    }// GEN-LAST:event_jmniCopyDirActionPerformed
 
-    private void jmniPasteDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniPasteDirActionPerformed
+    private void jmniPasteDirActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniPasteDirActionPerformed
         jmniPasteActionPerformed(evt);
-    }//GEN-LAST:event_jmniPasteDirActionPerformed
+    }// GEN-LAST:event_jmniPasteDirActionPerformed
 
-    private void jmniCutDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniCutDirActionPerformed
+    private void jmniCutDirActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniCutDirActionPerformed
         jmniCutActionPerformed(evt);
-    }//GEN-LAST:event_jmniCutDirActionPerformed
+    }// GEN-LAST:event_jmniCutDirActionPerformed
 
-    private void jmniPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniPasteActionPerformed
+    private void jmniPasteActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniPasteActionPerformed
         if (selectedNode != null) {
             owner.projectPaletteAction("PASTE", selectedNode);
         }
-    }//GEN-LAST:event_jmniPasteActionPerformed
+    }// GEN-LAST:event_jmniPasteActionPerformed
 
-    private void jmniCutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniCutActionPerformed
+    private void jmniCutActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniCutActionPerformed
         if (selectedNode != null) {
             owner.projectPaletteAction("DIR_CUT", selectedNode);
         }
-    }//GEN-LAST:event_jmniCutActionPerformed
+    }// GEN-LAST:event_jmniCutActionPerformed
 
-    private void jmniCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniCopyActionPerformed
+    private void jmniCopyActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniCopyActionPerformed
         if (selectedNode != null) {
             owner.projectPaletteAction("DIR_COPY", selectedNode);
         }
-    }//GEN-LAST:event_jmniCopyActionPerformed
+    }// GEN-LAST:event_jmniCopyActionPerformed
 
-    private void jmniReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniReloadActionPerformed
+    private void jmniReloadActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniReloadActionPerformed
 
         if (selectedNode != null) {
             owner.projectPaletteAction("RELOAD", selectedNode);
         }
-    }//GEN-LAST:event_jmniReloadActionPerformed
+    }// GEN-LAST:event_jmniReloadActionPerformed
 
-    private void jmniRenameDirectoryDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniRenameDirectoryDirActionPerformed
+    private void jmniRenameDirectoryDirActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniRenameDirectoryDirActionPerformed
         jmniRenameDirectoryActionPerformed(evt);
-    }//GEN-LAST:event_jmniRenameDirectoryDirActionPerformed
+    }// GEN-LAST:event_jmniRenameDirectoryDirActionPerformed
 
-    private void jmniDeleteDirectoryDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniDeleteDirectoryDirActionPerformed
+    private void jmniDeleteDirectoryDirActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniDeleteDirectoryDirActionPerformed
         jmniDeleteDirectoryActionPerformed(evt);
-    }//GEN-LAST:event_jmniDeleteDirectoryDirActionPerformed
+    }// GEN-LAST:event_jmniDeleteDirectoryDirActionPerformed
 
-    private void jmniAddDirectoryDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniAddDirectoryDirActionPerformed
+    private void jmniAddDirectoryDirActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniAddDirectoryDirActionPerformed
         jmniAddDirectoryActionPerformed(evt);
-    }//GEN-LAST:event_jmniAddDirectoryDirActionPerformed
+    }// GEN-LAST:event_jmniAddDirectoryDirActionPerformed
 
-    private void jmniRenameDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniRenameDirectoryActionPerformed
+    private void jmniRenameDirectoryActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniRenameDirectoryActionPerformed
 
         if (selectedNode != null) {
             owner.projectPaletteAction("DIR_RENAME", selectedNode);
         }
-    }//GEN-LAST:event_jmniRenameDirectoryActionPerformed
+    }// GEN-LAST:event_jmniRenameDirectoryActionPerformed
 
-    private void jmniDeleteDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniDeleteDirectoryActionPerformed
+    private void jmniDeleteDirectoryActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniDeleteDirectoryActionPerformed
         if (selectedNode != null) {
             owner.projectPaletteAction("DIR_DELETE", selectedNode);
         }
-    }//GEN-LAST:event_jmniDeleteDirectoryActionPerformed
+    }// GEN-LAST:event_jmniDeleteDirectoryActionPerformed
 
-    private void jmniAddDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniAddDirectoryActionPerformed
+    private void jmniAddDirectoryActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniAddDirectoryActionPerformed
         if (selectedNode != null) {
             owner.projectPaletteAction("DIR_ADD", selectedNode);
         }
-    }//GEN-LAST:event_jmniAddDirectoryActionPerformed
+    }// GEN-LAST:event_jmniAddDirectoryActionPerformed
 
-    private void jmniMakeDistributionActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmniMakeDistributionActionPerformed
-    {//GEN-HEADEREND:event_jmniMakeDistributionActionPerformed
+    private void jmniMakeDistributionActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jmniMakeDistributionActionPerformed
+    {// GEN-HEADEREND:event_jmniMakeDistributionActionPerformed
         if (selectedNode != null) {
             owner.projectPaletteAction("DISTRIBUTION", selectedNode);
         }
-    }//GEN-LAST:event_jmniMakeDistributionActionPerformed
+    }// GEN-LAST:event_jmniMakeDistributionActionPerformed
 
-    private void jmniAddSubVMActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmniAddSubVMActionPerformed
-    {//GEN-HEADEREND:event_jmniAddSubVMActionPerformed
+    private void jmniAddSubVMActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jmniAddSubVMActionPerformed
+    {// GEN-HEADEREND:event_jmniAddSubVMActionPerformed
 
         if (selectedNode != null) {
             owner.projectPaletteNewSubVM(selectedNode);
         }
-    }//GEN-LAST:event_jmniAddSubVMActionPerformed
+    }// GEN-LAST:event_jmniAddSubVMActionPerformed
 
-    private void jmniRenameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmniRenameActionPerformed
-    {//GEN-HEADEREND:event_jmniRenameActionPerformed
+    private void jmniRenameActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jmniRenameActionPerformed
+    {// GEN-HEADEREND:event_jmniRenameActionPerformed
         if (selectedNode != null) {
             owner.projectPaletteRenameVM(selectedNode);
         }
-    }//GEN-LAST:event_jmniRenameActionPerformed
+    }// GEN-LAST:event_jmniRenameActionPerformed
 
-    private void jmniCloseprojectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmniCloseprojectActionPerformed
-    {//GEN-HEADEREND:event_jmniCloseprojectActionPerformed
+    private void jmniCloseprojectActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jmniCloseprojectActionPerformed
+    {// GEN-HEADEREND:event_jmniCloseprojectActionPerformed
         if (selectedNode != null) {
             owner.projectPaletteProjectClose(selectedNode);
         }
-    }//GEN-LAST:event_jmniCloseprojectActionPerformed
+    }// GEN-LAST:event_jmniCloseprojectActionPerformed
 
-    private void jmniProjectPropertiesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmniProjectPropertiesActionPerformed
-    {//GEN-HEADEREND:event_jmniProjectPropertiesActionPerformed
+    private void jmniProjectPropertiesActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jmniProjectPropertiesActionPerformed
+    {// GEN-HEADEREND:event_jmniProjectPropertiesActionPerformed
         if (selectedNode != null) {
             owner.projectPaletteProjectProperties(selectedNode);
         }
-    }//GEN-LAST:event_jmniProjectPropertiesActionPerformed
+    }// GEN-LAST:event_jmniProjectPropertiesActionPerformed
 
-    private void jmniOpenrojectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmniOpenrojectActionPerformed
-    {//GEN-HEADEREND:event_jmniOpenrojectActionPerformed
+    private void jmniOpenrojectActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jmniOpenrojectActionPerformed
+    {// GEN-HEADEREND:event_jmniOpenrojectActionPerformed
         if (selectedNode != null) {
             owner.projectPaletteOpenProject(selectedNode);
         }
-    }//GEN-LAST:event_jmniOpenrojectActionPerformed
+    }// GEN-LAST:event_jmniOpenrojectActionPerformed
 
-    private void jmniAddNewProjectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmniAddNewProjectActionPerformed
-    {//GEN-HEADEREND:event_jmniAddNewProjectActionPerformed
+    private void jmniAddNewProjectActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jmniAddNewProjectActionPerformed
+    {// GEN-HEADEREND:event_jmniAddNewProjectActionPerformed
         if (selectedNode != null) {
             owner.projectPaletteAddNewProject(selectedNode);
         }
-    }//GEN-LAST:event_jmniAddNewProjectActionPerformed
+    }// GEN-LAST:event_jmniAddNewProjectActionPerformed
 
-    private void jmniDelVMActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmniDelVMActionPerformed
-    {//GEN-HEADEREND:event_jmniDelVMActionPerformed
+    private void jmniDelVMActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jmniDelVMActionPerformed
+    {// GEN-HEADEREND:event_jmniDelVMActionPerformed
         if (selectedNode != null) {
             owner.projectPaletteDeleteVM(selectedNode);
         }
-    }//GEN-LAST:event_jmniDelVMActionPerformed
+    }// GEN-LAST:event_jmniDelVMActionPerformed
 
-    private void jmniDelProjectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmniDelProjectActionPerformed
-    {//GEN-HEADEREND:event_jmniDelProjectActionPerformed
+    private void jmniDelProjectActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jmniDelProjectActionPerformed
+    {// GEN-HEADEREND:event_jmniDelProjectActionPerformed
         if (selectedNode != null) {
             owner.projectPaletteDeleteProject(selectedNode);
         }
-    }//GEN-LAST:event_jmniDelProjectActionPerformed
+    }// GEN-LAST:event_jmniDelProjectActionPerformed
 
-    private void jmniAddVMActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmniAddVMActionPerformed
-    {//GEN-HEADEREND:event_jmniAddVMActionPerformed
+    private void jmniAddVMActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jmniAddVMActionPerformed
+    {// GEN-HEADEREND:event_jmniAddVMActionPerformed
 
         if (selectedNode != null) {
             owner.projectPaletteAction("ADDVM", selectedNode);
         }
-    }//GEN-LAST:event_jmniAddVMActionPerformed
+    }// GEN-LAST:event_jmniAddVMActionPerformed
 
     MyNode selectedNode = null;
 
-    private void jTree1MousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTree1MousePressed
-    {//GEN-HEADEREND:event_jTree1MousePressed
+    private void jTree1MousePressed(java.awt.event.MouseEvent evt)// GEN-FIRST:event_jTree1MousePressed
+    {// GEN-HEADEREND:event_jTree1MousePressed
 
         int button = evt.getButton();
 
@@ -864,39 +878,39 @@ public class ProjectPalette extends javax.swing.JPanel {
                 owner.projectPaletteAction("ITEMSELECTED", (MyNode) o);
             }
         }
-    }//GEN-LAST:event_jTree1MousePressed
+    }// GEN-LAST:event_jTree1MousePressed
 
-    private void jmniAddVM1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniAddVM1ActionPerformed
+    private void jmniAddVM1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniAddVM1ActionPerformed
         jmniAddVMActionPerformed(evt);
-    }//GEN-LAST:event_jmniAddVM1ActionPerformed
+    }// GEN-LAST:event_jmniAddVM1ActionPerformed
 
-    private void jmniAddSubVM1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniAddSubVM1ActionPerformed
+    private void jmniAddSubVM1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniAddSubVM1ActionPerformed
         jmniAddSubVMActionPerformed(evt);
-    }//GEN-LAST:event_jmniAddSubVM1ActionPerformed
+    }// GEN-LAST:event_jmniAddSubVM1ActionPerformed
 
-    private void jmniAddDirectory1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniAddDirectory1ActionPerformed
+    private void jmniAddDirectory1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniAddDirectory1ActionPerformed
         jmniAddDirectoryActionPerformed(evt);
-    }//GEN-LAST:event_jmniAddDirectory1ActionPerformed
+    }// GEN-LAST:event_jmniAddDirectory1ActionPerformed
 
-    private void jmniDeleteDirectory1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniDeleteDirectory1ActionPerformed
+    private void jmniDeleteDirectory1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniDeleteDirectory1ActionPerformed
         jmniDeleteDirectoryActionPerformed(evt);
-    }//GEN-LAST:event_jmniDeleteDirectory1ActionPerformed
+    }// GEN-LAST:event_jmniDeleteDirectory1ActionPerformed
 
-    private void jmniRenameDirectory1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniRenameDirectory1ActionPerformed
+    private void jmniRenameDirectory1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniRenameDirectory1ActionPerformed
         jmniRenameDirectoryActionPerformed(evt);
-    }//GEN-LAST:event_jmniRenameDirectory1ActionPerformed
+    }// GEN-LAST:event_jmniRenameDirectory1ActionPerformed
 
-    private void jmniCopyDir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniCopyDir1ActionPerformed
+    private void jmniCopyDir1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniCopyDir1ActionPerformed
         jmniCopyDirActionPerformed(evt);
-    }//GEN-LAST:event_jmniCopyDir1ActionPerformed
+    }// GEN-LAST:event_jmniCopyDir1ActionPerformed
 
-    private void jmniCutDir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniCutDir1ActionPerformed
+    private void jmniCutDir1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniCutDir1ActionPerformed
         jmniCutDirActionPerformed(evt);
-    }//GEN-LAST:event_jmniCutDir1ActionPerformed
+    }// GEN-LAST:event_jmniCutDir1ActionPerformed
 
-    private void jmniPasteDir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmniPasteDir1ActionPerformed
+    private void jmniPasteDir1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmniPasteDir1ActionPerformed
         jmniPasteDirActionPerformed(evt);
-    }//GEN-LAST:event_jmniPasteDir1ActionPerformed
+    }// GEN-LAST:event_jmniPasteDir1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;

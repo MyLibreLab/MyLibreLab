@@ -83,7 +83,7 @@ public class Vector extends JVSMain
     VS1DByte ref= new VS1DByte(0);
     ref.copyValueFrom(vector);
     element.setPinOutputReference(0,ref);
-    // Sp‰ter nur noch mit Referenzen Arbeiten!
+    // Sp√§ter nur noch mit Referenzen Arbeiten!
   }
 
   public void setPropertyEditor()

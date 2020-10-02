@@ -1,20 +1,23 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
+
 package BasisStatus;
 
 import java.awt.Cursor;
@@ -73,8 +76,10 @@ public class StatusIdle extends Object implements StatusBasisIF {
         this.vmObject = basis;
 
         // PopupMenu Draht
-        JMenuItem jmiAddNode = new JMenuItem(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("AddNode"));
-        JMenuItem jmiAddTestpoint = new JMenuItem(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("AddTestpoint"));
+        JMenuItem jmiAddNode =
+                new JMenuItem(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("AddNode"));
+        JMenuItem jmiAddTestpoint =
+                new JMenuItem(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("AddTestpoint"));
         popDraht.add(jmiAddNode);
         popDraht.add(jmiAddTestpoint);
 
@@ -93,21 +98,32 @@ public class StatusIdle extends Object implements StatusBasisIF {
         });
 
         // PopupMenu Element
-        JMenuItem menuitem1 = new JMenuItem(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("Loeschen"));
-        JMenuItem menuitem3 = new JMenuItem(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("am_Raster_ausrichten"));
-        JMenuItem menuitem4 = new JMenuItem(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("Code-Editor"));
-        //menuitem4.setEnabled(false);
-        JMenuItem menuitemElementProperties = new JMenuItem(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("ElementProperties"));
-        JMenuItem menuitemDocEditor = new JMenuItem(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("DocEditor"));
-        //menuitemDocEditor.setEnabled(false);
-        JMenuItem menuitem5 = new JMenuItem(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("Element_Info"));
+        JMenuItem menuitem1 =
+                new JMenuItem(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("Loeschen"));
+        JMenuItem menuitem3 = new JMenuItem(
+                java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("am_Raster_ausrichten"));
+        JMenuItem menuitem4 =
+                new JMenuItem(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("Code-Editor"));
+        // menuitem4.setEnabled(false);
+        JMenuItem menuitemElementProperties = new JMenuItem(
+                java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("ElementProperties"));
+        JMenuItem menuitemDocEditor =
+                new JMenuItem(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("DocEditor"));
+        // menuitemDocEditor.setEnabled(false);
+        JMenuItem menuitem5 =
+                new JMenuItem(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("Element_Info"));
 
-        mnuReihenfolge = new JMenu(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("Reihenfolge"));
+        mnuReihenfolge =
+                new JMenu(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("Reihenfolge"));
 
-        JMenuItem jmiReienfolge1 = new JMenuItem(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("In_den_Vordergrund"));
-        JMenuItem jmiReienfolge2 = new JMenuItem(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("In_den_Hintergrund"));
-        JMenuItem jmiReienfolge3 = new JMenuItem(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("Eine_Ebene_nach_vorne"));
-        JMenuItem jmiReienfolge4 = new JMenuItem(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("Eine_Ebene_nach_hinten"));
+        JMenuItem jmiReienfolge1 = new JMenuItem(
+                java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("In_den_Vordergrund"));
+        JMenuItem jmiReienfolge2 = new JMenuItem(
+                java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("In_den_Hintergrund"));
+        JMenuItem jmiReienfolge3 = new JMenuItem(
+                java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("Eine_Ebene_nach_vorne"));
+        JMenuItem jmiReienfolge4 = new JMenuItem(
+                java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("Eine_Ebene_nach_hinten"));
 
         mnuReihenfolge.add(jmiReienfolge1);
         mnuReihenfolge.add(jmiReienfolge2);
@@ -166,25 +182,26 @@ public class StatusIdle extends Object implements StatusBasisIF {
                         if (element.isSelected()) {
                             String htmlEditor = getBasis().owner.getFrameMain().settings.getHTMLEditor();
 
-                            if (htmlEditor == null || htmlEditor.equalsIgnoreCase("") || new File(htmlEditor).exists() == false) {
-                                Tools.showMessage(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("HTML-Editor_not_found!"));
+                            if (htmlEditor == null || htmlEditor.equalsIgnoreCase("")
+                                    || new File(htmlEditor).exists() == false) {
+                                Tools.showMessage(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle")
+                                        .getString("HTML-Editor_not_found!"));
                             } else {
-                                //String binPath = element.elementPath + element.mainPath + "/bin/";
+                                // String binPath = element.elementPath + element.mainPath + "/bin/";
 
                                 String docFileName = "";
 
                                 String mainPath = element.docPath;
 
-                                //Custom button text
+                                // Custom button text
                                 Object[] options = {"DE", "EN", "ES"};
                                 int n = JOptionPane.showOptionDialog(null,
-                                    java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("LANGUAGE"),
-                                    java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle").getString("QUESTION"),
-                                    JOptionPane.YES_NO_CANCEL_OPTION,
-                                    JOptionPane.QUESTION_MESSAGE,
-                                    null,
-                                    options,
-                                    options[2]);
+                                        java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle")
+                                                .getString("LANGUAGE"),
+                                        java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle")
+                                                .getString("QUESTION"),
+                                        JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,
+                                        options[2]);
 
                                 if (n == 0) {
                                     docFileName = mainPath + "doc.html";
@@ -245,7 +262,8 @@ public class StatusIdle extends Object implements StatusBasisIF {
                     for (int i = 0; i < getBasis().getElementCount(); i++) {
                         Element element = getBasis().getElement(i);
                         if (element.isSelected()) {
-                            codeeditor.frmDefinitonDefEditor frm = new codeeditor.frmDefinitonDefEditor(getBasis().owner.frameCircuit, true);
+                            codeeditor.frmDefinitonDefEditor frm =
+                                    new codeeditor.frmDefinitonDefEditor(getBasis().owner.frameCircuit, true);
                             frm.execute(element.elementPath + element.mainPath);
                             break;
                         }
@@ -368,7 +386,10 @@ public class StatusIdle extends Object implements StatusBasisIF {
         }
         // wenn auf Pin die Maustaste losgelassen wurde, dann Wireframe ziehen
         JPin xpin = ((Element) vmObject.getObjectWithID(elementID)).getPin(pin);
-        if (xpin != null && xpin.draht == null && (xpin.pinIO == JPin.PIN_OUTPUT || xpin.pinIO == JPin.PIN_INPUT_OUTPUT)) //if (xpin!=null && xpin.draht==null && xpin.pinIO==JPin.PIN_OUTPUT)
+        if (xpin != null && xpin.draht == null
+                && (xpin.pinIO == JPin.PIN_OUTPUT || xpin.pinIO == JPin.PIN_INPUT_OUTPUT)) // if (xpin!=null &&
+                                                                                           // xpin.draht==null &&
+                                                                                           // xpin.pinIO==JPin.PIN_OUTPUT)
         {
             vmObject.setModusAddWireFrame(elementID, pin);
         } else {
@@ -388,18 +409,12 @@ public class StatusIdle extends Object implements StatusBasisIF {
     }
 
     public void finalize(Element destElement, int destPin) {
-        /*Point p = destElement.getPinPosition(destPin);
-    xPoints[nPoints]=p.x;
-    yPoints[nPoints]=p.y;
-    nPoints++;
-    Draht draht = basis.addNode(sourceElement,sourcePin,destElement,destPin);
-    for (int i=0;i<nPoints;i++)
-    {
-    int x = xPoints[i];
-    int y = yPoints[i];
-    draht.setPoint(x,y);
-    }
-    basis.repaint();*/
+        /*
+         * Point p = destElement.getPinPosition(destPin); xPoints[nPoints]=p.x; yPoints[nPoints]=p.y;
+         * nPoints++; Draht draht = basis.addNode(sourceElement,sourcePin,destElement,destPin); for (int
+         * i=0;i<nPoints;i++) { int x = xPoints[i]; int y = yPoints[i]; draht.setPoint(x,y); }
+         * basis.repaint();
+         */
     }
 
     public void vergroesereAllSelectedElements(int x, int y) {
@@ -411,25 +426,12 @@ public class StatusIdle extends Object implements StatusBasisIF {
                 element.setSize(xx + x, yy + y);
             }
         }
-        /*if (vmObject==vmObject.owner.getCircuitBasis())
-    {
-    // Move All Selected Draehte
-    Draht draht;
-    for (int i=0;i<vmObject.getDrahtCount();i++)
-    {
-    draht = vmObject.getDraht(i);
-    for (int j=0;j<draht.getPolySize();j++)
-    {
-    PolyPoint p = draht.getPoint(j);
-    if (p.isSelected()==true)
-    {
-    int nX,nY;
-    draht.setPoint(j,p.getX()+x,p.getY()+y);
-    }
-    }
-    }
-    }
-    vmObject.reorderWireFrames();*/
+        /*
+         * if (vmObject==vmObject.owner.getCircuitBasis()) { // Move All Selected Draehte Draht draht; for
+         * (int i=0;i<vmObject.getDrahtCount();i++) { draht = vmObject.getDraht(i); for (int
+         * j=0;j<draht.getPolySize();j++) { PolyPoint p = draht.getPoint(j); if (p.isSelected()==true) { int
+         * nX,nY; draht.setPoint(j,p.getX()+x,p.getY()+y); } } } } vmObject.reorderWireFrames();
+         */
     }
 
     public void verschiebeAllSelectedElements(int x, int y) {
@@ -487,14 +489,11 @@ public class StatusIdle extends Object implements StatusBasisIF {
             }
 
 
-            /*if (code==ke.VK_F1)
-            {
-            aktuellesElement=vmObject.getSelectedElement();
-            if (aktuellesElement!=null)
-            {
-            vmObject.owner.frameCircuit.openElementDocFile(aktuellesElement.docFileName,aktuellesElement);
-            }
-            }*/
+            /*
+             * if (code==ke.VK_F1) { aktuellesElement=vmObject.getSelectedElement(); if (aktuellesElement!=null)
+             * { vmObject.owner.frameCircuit.openElementDocFile(aktuellesElement.docFileName,aktuellesElement);
+             * } }
+             */
             if (code == KeyEvent.VK_DELETE) {
                 vmObject.owner.deleteAnythingSelected();
                 getBasis().owner.saveForUndoRedo();
@@ -548,10 +547,10 @@ public class StatusIdle extends Object implements StatusBasisIF {
                     px2.setLocation(p.x, px2.getY());
                 }
             } else // Horizontal
-                if (px1 != null && px2 != null) {
-                    px1.setLocation(px1.getX(), p.y);
-                    px2.setLocation(px2.getX(), p.y);
-                }
+            if (px1 != null && px2 != null) {
+                px1.setLocation(px1.getX(), p.y);
+                px2.setLocation(px2.getX(), p.y);
+            }
             vmObject.reorderWireFrames();
 
             return;
@@ -565,7 +564,8 @@ public class StatusIdle extends Object implements StatusBasisIF {
             }
 
             vmObject.setModusMoveElements(e);
-        } else if (e.getX() >= vmObject.getWidth() - 10 && e.getY() >= vmObject.getHeight() - 10 && e.getX() <= vmObject.getWidth() && e.getY() <= vmObject.getHeight()) {
+        } else if (e.getX() >= vmObject.getWidth() - 10 && e.getY() >= vmObject.getHeight() - 10
+                && e.getX() <= vmObject.getWidth() && e.getY() <= vmObject.getHeight()) {
             vmObject.setModusResizeBasis(e.getX(), e.getY());
         } else {
             vmObject.setModusGummiband(e.getX(), e.getY());
@@ -590,15 +590,18 @@ public class StatusIdle extends Object implements StatusBasisIF {
                         return 3;
                     } else // Left
                     {
-                        if (x > 0 && y > element.getHeight() / 2 - dist / 2 && x < dist && y < element.getHeight() / 2 + dist / 2) {
+                        if (x > 0 && y > element.getHeight() / 2 - dist / 2 && x < dist
+                                && y < element.getHeight() / 2 + dist / 2) {
                             return 4;
                         } else // Width
                         {
-                            if (x > element.getWidth() - dist && y > element.getHeight() / 2 - dist / 2 && x < element.getWidth() + dist && y < element.getHeight() / 2 + dist / 2) {
+                            if (x > element.getWidth() - dist && y > element.getHeight() / 2 - dist / 2
+                                    && x < element.getWidth() + dist && y < element.getHeight() / 2 + dist / 2) {
                                 return 5;
-                            } else //Left-Height
+                            } else // Left-Height
                             {
-                                if (x > 0 && y > element.getHeight() - dist && x < dist && y < element.getHeight() + dist) {
+                                if (x > 0 && y > element.getHeight() - dist && x < dist
+                                        && y < element.getHeight() + dist) {
                                     return 6;
                                 }
                             }
@@ -607,11 +610,13 @@ public class StatusIdle extends Object implements StatusBasisIF {
                 }
             }
             // Height
-            if (x > element.getWidth() / 2 - dist / 2 && y > element.getHeight() - dist && x < element.getWidth() / 2 + dist / 2 && y < element.getHeight() + dist) {
+            if (x > element.getWidth() / 2 - dist / 2 && y > element.getHeight() - dist
+                    && x < element.getWidth() / 2 + dist / 2 && y < element.getHeight() + dist) {
                 return 7;
             } else // Width-Height
             {
-                if (x > element.getWidth() - 10 && y > element.getHeight() - 10 && x < element.getWidth() && y < element.getHeight()) {
+                if (x > element.getWidth() - 10 && y > element.getHeight() - 10 && x < element.getWidth()
+                        && y < element.getHeight()) {
                     return 8;
                 } else {
                     return 0;
@@ -670,7 +675,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
         }
 
         myLine = line;
-        //myLine = vmObject.getLineInNaehe(p);
+        // myLine = vmObject.getLineInNaehe(p);
         if (myLine != null && !(e.getSource() instanceof SelectionPane)) {
             vmObject.owner.disableAllElements();
             px1 = myLine.p1;
@@ -743,8 +748,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
 
                     popupmenu.addPopupMenuListener(new PopupMenuListener() {
 
-                        public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-                        }
+                        public void popupMenuWillBecomeVisible(PopupMenuEvent e) {}
 
                         public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
                             removeElementPopupMenuItems();
@@ -778,9 +782,9 @@ public class StatusIdle extends Object implements StatusBasisIF {
 
                     polyLineIndex = Tools.isPointInDrahtPoint(draht, e.getX(), e.getY());
                     if (polyLineIndex > -1) {
-                        //System.out.println("Punkt befindet sich in PolyLine Punkt:"+polyLineIndex);
+                        // System.out.println("Punkt befindet sich in PolyLine Punkt:"+polyLineIndex);
 
-                        //System.out.println("");
+                        // System.out.println("");
                         break;
                     }
                 }
@@ -821,7 +825,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
 
             vmObject.reorderWireFrames();
 
-            //basis.getCommandProcessor().submit(cmdWire);
+            // basis.getCommandProcessor().submit(cmdWire);
             if (e.getModifiers() == InputEvent.CTRL_MASK + InputEvent.BUTTON1_MASK) {
                 // ermittle die zwei PolyPoints der Linie implements Draht
                 Point p1 = line.getStartPoint();
@@ -868,7 +872,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
         }
         Point p = new Point(e.getX(), e.getY());
 
-        //JLabel lbl = getBasis().owner.frameCircuit.layedLabel;
+        // JLabel lbl = getBasis().owner.frameCircuit.layedLabel;
         if (vmObject.newElement != null) {
             String[] params = vmObject.newElement;
 
@@ -907,7 +911,8 @@ public class StatusIdle extends Object implements StatusBasisIF {
             }
         }
 
-        if (e.getX() >= vmObject.getWidth() - 10 && e.getY() >= vmObject.getHeight() - 10 && e.getX() <= vmObject.getWidth() && e.getY() <= vmObject.getHeight()) {
+        if (e.getX() >= vmObject.getWidth() - 10 && e.getY() >= vmObject.getHeight() - 10
+                && e.getX() <= vmObject.getWidth() && e.getY() <= vmObject.getHeight()) {
             vmObject.setCursor(Cursor.getPredefinedCursor(Cursor.NW_RESIZE_CURSOR));
             return;
         }
@@ -919,7 +924,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
             JPin pin = lastOverPin;
 
             Element element = (Element) pin.pinIF;
-            //lastOverPin.paint(element.getX(),element.getY(), g2, false);
+            // lastOverPin.paint(element.getX(),element.getY(), g2, false);
             lastOverPin.setHighlighted(false);
 
             lastOverPin = null;
@@ -933,9 +938,9 @@ public class StatusIdle extends Object implements StatusBasisIF {
             if (pin.draht == null) {
                 Element element = (Element) pin.pinIF;
 
-                //Graphics2D g2 = (Graphics2D)vmObject.getGraphics();
+                // Graphics2D g2 = (Graphics2D)vmObject.getGraphics();
                 pin.setHighlighted(true);
-                //g2.drawOval(element.getX()+pin.getX()+1,element.getY()+pin.getY()+1,7,7);
+                // g2.drawOval(element.getX()+pin.getX()+1,element.getY()+pin.getY()+1,7,7);
 
                 lastOverPin = pin;
 
@@ -944,7 +949,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
                 }
                 return;
             } else {
-                //basis.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                // basis.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             }
         } else {
             getBasis().owner.frameCircuit.removePinDescription();
@@ -1002,41 +1007,16 @@ public class StatusIdle extends Object implements StatusBasisIF {
         }
 
 
-        /*if (vmObject==vmObject.owner.getCircuitBasis())
-        {
-        if (e.getSource() instanceof Element )
-        {
-        elx=(Element)e.getSource();
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
-        public void run()
-        {
-        if (elx!=null)
-        {
-        elx.highlighted=false;
-        elx.repaint();
-        elx=null;
-        }
-        if (elx!=null)
-        {
-        elx.highlighted=true;
-        elx.repaint();
-        }
-        }
-        });
-        }else
-        {
-        if (elx!=null)
-        {
-        elx.highlighted=false;
-        elx.repaint();
-        elx=null;
-        }
-        }
-        }*/
+        /*
+         * if (vmObject==vmObject.owner.getCircuitBasis()) { if (e.getSource() instanceof Element ) {
+         * elx=(Element)e.getSource(); java.awt.EventQueue.invokeLater(new Runnable() { public void run() {
+         * if (elx!=null) { elx.highlighted=false; elx.repaint(); elx=null; } if (elx!=null) {
+         * elx.highlighted=true; elx.repaint(); } } }); }else { if (elx!=null) { elx.highlighted=false;
+         * elx.repaint(); elx=null; } } }
+         */
         if (e.getSource() instanceof VMObject) {
 
-            //Point p=new Point(e.getX(),e.getY());
+            // Point p=new Point(e.getX(),e.getY());
             Line line = vmObject.getLineInNaehe(p);
 
             if (lastLine != null) {
@@ -1050,7 +1030,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
             }
 
             if (line != null && !(e.getSource() instanceof Element)) {
-                //line.
+                // line.
                 int direction = line.getDirection();
                 if (direction == 1) {
                     // Vertikal
