@@ -95,8 +95,8 @@ public class frmUpdate extends javax.swing.JFrame {
 
         //con.setRequestProperty("User-Agent", USER_AGENT);
         int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'GET' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
+        org.tinylog.Logger.info("\nSending 'GET' request to URL : " + url);
+        org.tinylog.Logger.info("Response Code : " + responseCode);
 
         StringBuilder response;
         try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
@@ -124,12 +124,12 @@ public class frmUpdate extends javax.swing.JFrame {
             }
 
             JSON_DATA = getStringFromUrl(domain + "/repository/index.php");
-            System.out.println(JSON_DATA);
+            org.tinylog.Logger.info(JSON_DATA);
         } catch (Exception ex) {
             Logger.getLogger(frmUpdate.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        System.out.println("");
+        org.tinylog.Logger.info("\n");
         JSONArray jsonMainArr = new JSONArray(JSON_DATA);
         for (int i = 0; i < jsonMainArr.length(); i++) {  // **line 2**
             JSONObject childJSONObject = jsonMainArr.getJSONObject(i);
@@ -152,7 +152,7 @@ public class frmUpdate extends javax.swing.JFrame {
             rowData.setCaption_es(caption_es);
             data.add(rowData);
 
-            System.out.println(">entry_name=" + entry_name);
+            org.tinylog.Logger.info(">entry_name=" + entry_name);
 
             JSONObject content = childJSONObject.getJSONObject("content");
 
@@ -171,7 +171,7 @@ public class frmUpdate extends javax.swing.JFrame {
                                 String caption_en2 = item.getJSONObject("@attributes").getString("caption_en");
                                 String caption_es2 = item.getJSONObject("@attributes").getString("caption_es");
                                 //String dest_dir = item.getJSONObject("@attributes").getString("type");
-                                System.out.println("name=" + name + " type=" + type2);
+                                org.tinylog.Logger.info("name=" + name + " type=" + type2);
 
                                 TestItem tItem = new TestItem(name, type, caption_de2, caption_en2, caption_es2);
                                 rowData.items.add(tItem);
@@ -190,7 +190,7 @@ public class frmUpdate extends javax.swing.JFrame {
                         String caption_en2 = item.getJSONObject("@attributes").getString("caption_en");
                         String caption_es2 = item.getJSONObject("@attributes").getString("caption_es");
                         //String dest_dir = item.getJSONObject("@attributes").getString("type");
-                        System.out.println("name=" + name + " type=" + type2);
+                        org.tinylog.Logger.info("name=" + name + " type=" + type2);
 
                         TestItem tItem = new TestItem(name, type, caption_de2, caption_en2, caption_es2);
 
@@ -616,13 +616,13 @@ public class frmUpdate extends javax.swing.JFrame {
 
         if (settings.getProxy_host().trim().length() > 0) {
             System.setProperty("http.proxyHost", settings.getProxy_host().trim());
-            System.out.println("http.proxyHost=" + settings.getProxy_host().trim());
+            org.tinylog.Logger.info("http.proxyHost=" + settings.getProxy_host().trim());
         } else {
             System.setProperty("http.proxyHost", "");
         }
         if (settings.getProxy_port().trim().length() > 0) {
             System.setProperty("http.proxyPort", settings.getProxy_port().trim());
-            System.out.println("http.proxyPort=" + settings.getProxy_port().trim());
+            org.tinylog.Logger.info("http.proxyPort=" + settings.getProxy_port().trim());
         } else {
             System.setProperty("http.proxyPort", "");
         }
@@ -1324,7 +1324,7 @@ public class frmUpdate extends javax.swing.JFrame {
                     }
                 }
 
-                System.out.println(str);
+                org.tinylog.Logger.info(str);
 
                 Tools.showMessage(this, "" + str);
             }

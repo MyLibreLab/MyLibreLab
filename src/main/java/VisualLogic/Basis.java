@@ -619,7 +619,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
             } else if (o.value instanceof String && value instanceof String) {
                 o.value = value;
             } else {
-                System.out.println("Error setting Variable");
+                org.tinylog.Logger.info("Error setting Variable");
             }
         } else {
             Tools.showMessage("Variable \"" + varname + "\" not definied! \nPlease define the variable");
@@ -1504,7 +1504,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
         String passwd = generatePassword();
         vmPassword = passwd;
-        System.out.println("" + vmPassword);
+        org.tinylog.Logger.info("" + vmPassword);
         vmProtected = true;
         saveFile(filename, false);
     }

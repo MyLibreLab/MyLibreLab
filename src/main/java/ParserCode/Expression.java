@@ -22,6 +22,8 @@ package ParserCode;
 
 // line 2 "Expression.jay"
 
+import org.tinylog.Logger;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StreamTokenizer;
@@ -752,7 +754,7 @@ public class Expression {
         public int token() {
             switch (ttype) {
                 case TT_EOL:
-                    System.out.println("EOL ");
+                    Logger.info("EOL ");
                 case TT_EOF:
                     assert true;   // should not happen
                 case TT_WORD: {

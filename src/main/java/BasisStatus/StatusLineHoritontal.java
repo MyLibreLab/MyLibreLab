@@ -30,6 +30,7 @@ import java.awt.Polygon;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import org.tinylog.Logger;
 
 import VisualLogic.Draht;
 import VisualLogic.Element;
@@ -185,9 +186,9 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
         int[] xvalues = poly.xpoints;
         int[] yvalues = poly.ypoints;
 
-        System.out.println("Size=" + poly.npoints);
+        Logger.info("Size=" + poly.npoints);
         for (int i = 0; i < poly.npoints; i++) {
-            System.out.println("(" + xvalues[i] + "," + yvalues[i] + ")");
+            Logger.info("(" + xvalues[i] + "," + yvalues[i] + ")");
         }
     }
 

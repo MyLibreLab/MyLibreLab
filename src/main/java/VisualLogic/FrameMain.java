@@ -366,7 +366,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     }
 
     public String searchElement(File file) {
-        System.out.println("Element not found : " + file.getName());
+        org.tinylog.Logger.info("Element not found : " + file.getName());
         //boolean res = setQuestionDialogYES_NO_CANCEL(this, "Element not found : " + file.getName() + "\n" + "do you want to search the Element?");
         boolean res = false;
         if (res) {
@@ -634,7 +634,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         for (int i = 0; i < jPaneVMPanels.getComponentCount(); i++) {
             Component comp = jPaneVMPanels.getComponent(i);
 
-            System.out.println("" + comp.toString());
+            org.tinylog.Logger.info("" + comp.toString());
             if (comp instanceof VMEditorPanel) {
                 VMEditorPanel pnl = (VMEditorPanel) comp;
                 if (pnl.basis.fileName.equalsIgnoreCase(vmFileName)) {
@@ -891,7 +891,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                     if (button.panel != null) {
                         closeVM(button.panel);
                     } else {
-                        System.out.println("Null Button - VisualLogic.FrameMain$2.actionPerformed(FrameMain.java:898)");
+                        org.tinylog.Logger.info("Null Button - VisualLogic.FrameMain$2.actionPerformed(FrameMain.java:898)");
                     }
                     //button.panel = null; //If user Cancel this button will be null when try to close, It must not be setted null
                 }
@@ -1421,7 +1421,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             Tools.saveText(new File(fileName), myopenlabX);
         }
 
-        System.out.println("myopenlab Path=" + myopenlabX);
+        org.tinylog.Logger.info("myopenlab Path=" + myopenlabX);
 
         try {
             String OS_arch = System.getProperty("os.arch"); // arm Raspberry PI
@@ -1849,7 +1849,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 String path = file.getPath();
 
                 selectedPaths.add(path);
-                System.out.println("" + path);
+                org.tinylog.Logger.info("" + path);
             }
             recursionSaveProjectStatus((MyNode) nodex.getNextNode());
         }
@@ -1908,7 +1908,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
             //UIManager.setLookAndFeel(nativeLF);
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                System.out.println(info.getName());
+                org.tinylog.Logger.info(info.getName());
                 //UIManager.setLookAndFeel( "com.seaglasslookandfeel.SeaGlassLookAndFeel" );
 
                 //System.out.println("SYSTEM_laf:"+UIManager.getSystemLookAndFeelClassName()); //SYSTEM
@@ -2109,7 +2109,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         errorWarnings = new FrameErrorWarnings();
 
-        System.out.println("Locale=" + settings.getLanguage());
+        org.tinylog.Logger.info("Locale=" + settings.getLanguage());
     }
 
     public static String arg1;
@@ -2195,7 +2195,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         if (args.length > 0) {
             for (int i = 0; i < args.length; i++) {
-                System.out.println("Arg[" + i + "]=" + args[i]);
+                org.tinylog.Logger.info("Arg[" + i + "]=" + args[i]);
             }
             FrameMain.elementPath = args[0];
 
@@ -2206,7 +2206,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         frm = new FrameMain(args);
 
         if (args.length >= 2) {
-            System.out.println("Arg[1]=" + args[1]);
+            org.tinylog.Logger.info("Arg[1]=" + args[1]);
 
             arg1 = args[1];
             java.awt.EventQueue.invokeLater(new Runnable() {
@@ -3439,7 +3439,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             if (index > -1) {
                 int idx = str.indexOf("\n", index);
 
-                System.out.println("idx=" + idx);
+                org.tinylog.Logger.info("idx=" + idx);
                 String aa = "%eval-property%";
                 String str2 = str.substring(index + aa.length(), idx);
                 str2 = str2.trim();
@@ -3458,7 +3458,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 String strUnten = str.substring(idx, str.length());
 
                 str = strOben + strMitte + strUnten;
-                System.out.println("" + str);
+                org.tinylog.Logger.info("" + str);
             }
             if (index == -1) {
                 break;
@@ -3480,7 +3480,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                     idx = idx3;
                 }
 
-                System.out.println("idx=" + idx);
+                org.tinylog.Logger.info("idx=" + idx);
                 String aa = "%get-property%";
                 String str2 = str.substring(index + aa.length(), idx);
                 str2 = str2.trim();
@@ -3499,7 +3499,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 String strUnten = str.substring(idx, str.length());
 
                 str = strOben + strMitte + strUnten;
-                System.out.println("" + str);
+                org.tinylog.Logger.info("" + str);
             }
             if (index == -1) {
                 break;
@@ -4340,7 +4340,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         JPin dstPinX = dstElement.getPin(dstPin);
 
         if (info.pin != null && info.pin.pinIO == JPin.PIN_INPUT) {
-            System.out.println("X INPUT");
+            org.tinylog.Logger.info("X INPUT");
 
             BackupDrahtInput tmp = new BackupDrahtInput();
             tmp.sourceElementID = draht.sourceElementID;
@@ -4366,7 +4366,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             inputPin.setSelected(true);
             yx1 += 50;
         } else if (info.pin != null && info.pin.pinIO == JPin.PIN_OUTPUT) {
-            System.out.println("X OUTPUT");
+            org.tinylog.Logger.info("X OUTPUT");
 
             BackupDrahtOutut tmp = new BackupDrahtOutut();
             tmp.destElementID = draht.destElementID;
@@ -5332,11 +5332,11 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
 
         if (getExtendedState() == this.MAXIMIZED_BOTH) {
-            System.out.println("MAX");
+            org.tinylog.Logger.info("MAX");
         }
 
         if (getExtendedState() == this.NORMAL) {
-            System.out.println("NORMAL");
+            org.tinylog.Logger.info("NORMAL");
 
             java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
             //setLocation((screenSize.width-getWidth())/2, (screenSize.height-getHeight())/2);
@@ -5813,7 +5813,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     // MyOpenLabIF
     public void ownerMessage(String message) {
         //Tools.showMessage(this, message);
-        System.out.println("Message=" + message);
+        org.tinylog.Logger.info("Message=" + message);
     }
 
     private void runPLCSimulator(String code) {
@@ -5992,7 +5992,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             if (ch.trim().length() == 0) {
                 // ende des Labe erkannt
                 String label = code.substring(beginIndex, index);
-                System.out.println("" + label);
+                org.tinylog.Logger.info("" + label);
 
                 // ist untendrunter das Label vorhanden?
                 int lastIndex = index;
@@ -6043,7 +6043,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             }
 
             index += 4;
-            System.out.println("" + code.length());
+            org.tinylog.Logger.info("" + code.length());
             if (index >= code.length()) {
                 break;
             }

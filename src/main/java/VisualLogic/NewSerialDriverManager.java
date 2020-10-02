@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import VisualLogic.variables.VSserialPort;
 import jssc.SerialPort;
 import jssc.SerialPortException;
+import org.tinylog.Logger;
 
 /**
  * @author Javier Velasquez
@@ -40,7 +41,7 @@ public class NewSerialDriverManager {
         PortsOpened = serialPortsArray.size();
         for (VSserialPort vsTemp : serialPortsArray) {
             int i = 0;
-            System.out.println(i + " Element: " + vsTemp.getValue().getPortName());
+            Logger.info(i + " Element: " + vsTemp.getValue().getPortName());
         }
 
         return PortsOpened;
@@ -89,7 +90,7 @@ public class NewSerialDriverManager {
                 return vsSerialTemp;
             }
         }
-        System.out.println("NewSerialDriverManager.java Line-94 - Port " + PortNameIN + " Not Found!");
+        Logger.info("NewSerialDriverManager.java Line-94 - Port " + PortNameIN + " Not Found!");
         return null;
     }
 

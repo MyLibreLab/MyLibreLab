@@ -21,6 +21,7 @@ package SimpleFileSystem;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import org.tinylog.Logger;
 
 /**
  * @author Carmelo Salafia
@@ -66,10 +67,10 @@ public class Main {
 
         for (int i = 0; i < fsIn.indexListSize(); i++) {
             SFileDescriptor dt = fsIn.getFileDescriptor(i);
-
-            System.out.println("FName =" + dt.filename);
-            System.out.println("Pos   =" + dt.position);
-            System.out.println("Size   =" + dt.size);
+            Logger.info("FName =" + dt.filename);
+            Logger.info("Pos   =" + dt.position);
+            Logger.info("FName =" + dt.filename);
+            Logger.info("Size   =" + dt.size);
         }
 
         FileInputStream fis = fsIn.gotoItem(0);

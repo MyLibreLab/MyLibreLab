@@ -19,6 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic.variables;
 
+import org.tinylog.Logger;
+
 public class VSByte extends VSObject {
     private byte value;
 
@@ -75,11 +77,11 @@ public class VSByte extends VSObject {
                 converted |= comp;
             }
             if (logging) {
-                System.out.print((comp & value) != 0 ? "1" : "0");
+                Logger.info((comp & value) != 0 ? "1" : "0");
             }
         }
         if (logging) {
-            System.out.println();
+            Logger.info("\n");
         }
         return converted;
     }
