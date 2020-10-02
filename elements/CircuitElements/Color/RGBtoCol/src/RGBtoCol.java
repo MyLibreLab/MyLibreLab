@@ -72,7 +72,7 @@ public class RGBtoCol extends JVSMain
     {
       element.jSetPinDescription(0,"Out Color");
       element.jSetPinDescription(1,"In Rot");
-      element.jSetPinDescription(2,"In Grün");
+      element.jSetPinDescription(2,"In GrÃ¼n");
       element.jSetPinDescription(3,"In Blau");
     }
     if (strLocale.equalsIgnoreCase("en_US"))

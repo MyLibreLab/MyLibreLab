@@ -111,7 +111,7 @@ public class Panel extends JVSMain implements PanelIF
 
     language="es_ES";
 
-    element.jSetPEItemLocale(d+0,language,"Interpolación");
+    element.jSetPEItemLocale(d+0,language,"InterpolaciÃ³n");
   }
 
   public void propertyChanged(Object o)

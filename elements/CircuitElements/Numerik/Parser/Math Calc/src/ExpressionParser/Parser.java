@@ -111,7 +111,7 @@ public class Parser
 
         if (count>0)
         {
-          setErrorMessage("Fehler in String : zuviel geöffnete klammern!");
+          setErrorMessage("Fehler in String : zuviel geÃ¶ffnete klammern!");
         }
 
         if (count<0)
@@ -256,9 +256,9 @@ public class Parser
     
     
     /* liefert die anzahl der zuviele oder zu wenige Klammern
-     * zb: wenn eine Klammer nicht geschlossen oder nicht geöffnet
+     * zb: wenn eine Klammer nicht geschlossen oder nicht geÃ¶ffnet
      * worden ist
-     * Liefert bei zu viel geöffneten Klammern > 0
+     * Liefert bei zu viel geÃ¶ffneten Klammern > 0
      * Liefert bei zu viel geschlossenen Klammern < 0
      */
     private int getKlammerPlus(ArrayList tokenListe)

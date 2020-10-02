@@ -125,7 +125,7 @@ public class VMElement extends JVSMain
        JOptionPane.showMessageDialog(null,message,"Attention!",JOptionPane.ERROR_MESSAGE);
     }
 
-  // Notwendig für die doc.html & ect...
+  // Notwendig fÃ¼r die doc.html & ect...
   public String getBinDir()
   {
     return element.jGetSourcePath();

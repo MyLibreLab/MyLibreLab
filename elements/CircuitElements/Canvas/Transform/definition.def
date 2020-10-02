@@ -1,6 +1,6 @@
 ISDIRECTORY  = FALSE
 CAPTION      = Transformation
 CAPTION_EN   = Transformation
-CAPTION_ES   = Transformación
+CAPTION_ES   = TransformaciÃ³n
 ClassCircuit = Transformation
 Icon         = bin/icon.gif

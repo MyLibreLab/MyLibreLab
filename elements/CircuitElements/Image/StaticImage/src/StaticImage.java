@@ -77,7 +77,7 @@ public class StaticImage extends JVSMain
     {
       element.jSetPinDescription(0,"Out Color");
       element.jSetPinDescription(1,"In Rot");
-      element.jSetPinDescription(2,"In Grün");
+      element.jSetPinDescription(2,"In GrÃ¼n");
     }
     if (strLocale.equalsIgnoreCase("en_US"))
     {

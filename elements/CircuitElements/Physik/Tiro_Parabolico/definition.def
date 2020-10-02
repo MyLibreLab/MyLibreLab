@@ -1,7 +1,7 @@
 ISDIRECTORY     = FALSE
 CAPTION         = Senkrechter Wurf
 CAPTION_EN      = Senkrechter Wurf
-CAPTION_ES      = Tiro Parabólico
+CAPTION_ES      = Tiro ParabÃ³lico
 VM              = Senkrechter_Wurf.vlogic
 VM_DIR_EDITABLE = false
 CLASSCIRCUIT    = 

@@ -134,7 +134,7 @@ public class Panel extends JVSMain implements PanelIF
 
     language="es_ES";
 
-    element.jSetPEItemLocale(d+0,language,"Multiselectionón");
+    element.jSetPEItemLocale(d+0,language,"MultiselectionÃ³n");
   }
   
   public void propertyChanged(Object o)

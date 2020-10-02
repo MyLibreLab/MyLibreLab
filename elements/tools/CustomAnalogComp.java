@@ -631,9 +631,9 @@ public class CustomAnalogComp extends JVSMain
     element.jAddPEItem("Zeige Hintergrund",showBackground, 0,0);
     element.jAddPEItem("Text Distanz",abstand, 0,500);
     element.jAddPEItem("Text Schriftart",font, 0,0);
-    element.jAddPEItem("Knopf-Größe[%]",knobSizeInProzent, 0,100);
-    element.jAddPEItem("Nibble-Größe[%]",nibbleLenInProzent, 0,100);
-    element.jAddPEItem("Nibble-Kreis-Größe [%]",nibbleCircleSizeInProzent, 0,100);
+    element.jAddPEItem("Knopf-GrÃ¶ÃŸe[%]",knobSizeInProzent, 0,100);
+    element.jAddPEItem("Nibble-GrÃ¶ÃŸe[%]",nibbleLenInProzent, 0,100);
+    element.jAddPEItem("Nibble-Kreis-GrÃ¶ÃŸe [%]",nibbleCircleSizeInProzent, 0,100);
     element.jAddPEItem("Zeige Nibble als Kreis",showNibbleAsCircle, 0,0);
     element.jAddPEItem("Nur Nummern",onlyNumbers, 0,0);
 

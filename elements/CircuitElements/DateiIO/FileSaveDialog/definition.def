@@ -1,6 +1,6 @@
 ISDIRECTORY  = FALSE
 CAPTION      = FileSave Dialog
 CAPTION_EN   = FileSave Dialog
-CAPTION_ES   = Di·logo GuardarFichero
+CAPTION_ES   = Di√°logo GuardarFichero
 ClassCircuit = SaveFile
 Icon         = bin/icon.gif

@@ -225,7 +225,7 @@ class ListenThread extends Thread{
     element.jSetCaptionVisible(true);
     element.jSetCaption("tone generator");
 
-    // Für den Degruppierer (Nur für den Datentyp)
+    // FÃ¼r den Degruppierer (Nur fÃ¼r den Datentyp)
     /*out.list.clear();
     out.list.add(outX);
     out.list.add(outY);

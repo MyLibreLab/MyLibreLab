@@ -1,7 +1,7 @@
 ISDIRECTORY = FALSE
 CAPTION= ComboBox (INT)
 CAPTION_EN= ComboBox (INT)
-CAPTION_ES= Entrada (numérica)
+CAPTION_ES= Entrada (numÃ©rica)
 Jar = INTCombo
 ClassCircuit = INTCombo
 ClassFront = Panel

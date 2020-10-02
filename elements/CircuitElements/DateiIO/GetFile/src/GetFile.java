@@ -117,7 +117,7 @@ public class GetFile extends JVSMain
 
     language="es_ES";
 
-    element.jSetPEItemLocale(d+0,language,"Extensión Fichero");
+    element.jSetPEItemLocale(d+0,language,"ExtensiÃ³n Fichero");
   }
   public void propertyChanged(Object o)
   {

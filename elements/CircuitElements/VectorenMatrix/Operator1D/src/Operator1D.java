@@ -204,7 +204,7 @@ public class Operator1D extends JVSMain
   
   public void INTArrayWithINTX(VS1DInteger out,VS1DInteger array1,VS1DInteger array2)
   {
-     // das kürzere Array als Output benutzen!
+     // das kÃ¼rzere Array als Output benutzen!
      
      int a1=array1.getLength();
      int a2=array2.getLength();
@@ -232,7 +232,7 @@ public class Operator1D extends JVSMain
 
   public void DBLArrayWithDBLX(VS1DDouble out,VS1DDouble array1,VS1DDouble array2)
   {
-     // das kürzere Array als Output benutzen!
+     // das kÃ¼rzere Array als Output benutzen!
      
      int a1=array1.getLength();
      int a2=array2.getLength();

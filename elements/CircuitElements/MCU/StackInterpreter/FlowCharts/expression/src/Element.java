@@ -86,7 +86,7 @@ public class Element extends MCUMainFlow
 
     int id=element.jGetID();
 
-    // Überprüfe ob die Variablen oder Konstanten korrekt sind
+    // ÃœberprÃ¼fe ob die Variablen oder Konstanten korrekt sind
     //String errors="";
     /*if (item.paramCount>=1) errors+=checkProperty("paramA", paramA.getValue(), item.paramAType);
     if (item.paramCount>=2) errors+=checkProperty("paramB", paramB.getValue(), item.paramBType);*/

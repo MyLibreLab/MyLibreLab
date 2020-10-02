@@ -1,6 +1,6 @@
 ISDIRECTORY = FALSE
 CAPTION     = Dreieck
 CAPTION_EN  = Triangle
-CAPTION_ES  = el tri·ngulo
+CAPTION_ES  = el tri√°ngulo
 ClassFront  = Triangle
 Icon        = bin/Triangle.gif

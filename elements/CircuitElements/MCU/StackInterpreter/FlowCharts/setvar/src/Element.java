@@ -73,7 +73,7 @@ public class Element extends MCUMainFlow
 
     String code="";
 
-    // Überprüfe ob die Variablen oder Konstanten korrekt sind
+    // ÃœberprÃ¼fe ob die Variablen oder Konstanten korrekt sind
     String errors="";
     errors+=checkProperty("var", paramVar.getValue(), MCUMainFlow.ONLY_VAR);
     errors+=checkProperty("var/const", paramConst.getValue(), MCUMainFlow.VAR_OR_CONST);

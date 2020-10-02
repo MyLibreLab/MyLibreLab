@@ -143,7 +143,7 @@ public class Generator extends JVSMain
 
   public void setPropertyEditor()
   {
-    element.jAddPEItem("Buffer-Länge",buffLen, 1.0,20000.0);
+    element.jAddPEItem("Buffer-LÃ¤nge",buffLen, 1.0,20000.0);
     element.jAddPEItem("Schritt",step, 0.000000001,10.0);
     element.jAddPEItem("Genauigkeit",precision, 0.000001,100);
     localize();

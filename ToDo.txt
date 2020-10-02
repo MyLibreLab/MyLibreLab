@@ -1,14 +1,14 @@
 Fix Setter y Getter for Array Type
-Poner en la Ayuda la ubicación del componente dentro de la paleta de elementos
+Poner en la Ayuda la ubicaciÃ³n del componente dentro de la paleta de elementos
 Nodo splitter notifica en proccess error
-Blink Automático? booleans
+Blink AutomÃ¡tico? booleans
 Bombas de Agua
 Display Analogico media aguja
 Teclado 
 Display 7S
 Clima
 Resistencia y quemadores
-Cilindro Neumático
+Cilindro NeumÃ¡tico
 Banda Transportadora
 Arreglar ejemplos VectorAndMatrix AppendToFile
 y Server TCP
@@ -31,14 +31,14 @@ MATRIX
 ARCHIVOS
 PERSISTENCIA
 
-Indicador Láser e Infrarrojo
+Indicador LÃ¡ser e Infrarrojo
 Ultrasonido - Parlante - Buzzer
 Grafica Polar
-Gráfica digital
+GrÃ¡fica digital
 
 Antena Dipolo o satelital
-Anemometro - Turbina eólica
-Panel solar - sol - iluminación
+Anemometro - Turbina eÃ³lica
+Panel solar - sol - iluminaciÃ³n
 Cama caliente de impresora
 Start Proccess
 Campo Magnetico

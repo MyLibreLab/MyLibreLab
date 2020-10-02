@@ -1,6 +1,6 @@
 ISDIRECTORY  = FALSE
 CAPTION      = Knoten
 CAPTION_EN   = Node
-CAPTION_ES   = Nudo Unión
+CAPTION_ES   = Nudo UniÃ³n
 classCircuit = Node
 Icon         = bin/icon.gif

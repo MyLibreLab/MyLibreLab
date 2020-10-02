@@ -118,7 +118,7 @@ public class AbzugsVerz extends JVSMain
     element.jSetPinDescription(0,"out");
     element.jSetPinDescription(1,"in");
     
-    setName("AVR-AbzugsVerzögerung");
+    setName("AVR-AbzugsVerzÃ¶gerung");
     
     generateCode();
   }

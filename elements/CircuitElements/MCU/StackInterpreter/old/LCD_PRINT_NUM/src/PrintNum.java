@@ -71,7 +71,7 @@ public class PrintNum extends MCUMainFlow
 
     int id=element.jGetID();
     
-    // Überprüfe ob die Variablen oder Konstanten korrekt sind
+    // ÃœberprÃ¼fe ob die Variablen oder Konstanten korrekt sind
     String errors="";
     errors+=checkProperty("var/cons", param.getValue(), MCUMainFlow.VAR_OR_CONST);
 

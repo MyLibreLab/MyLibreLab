@@ -100,9 +100,9 @@ public class MathGraphGenerator extends JVSMain
     }
     if (strLocale.equalsIgnoreCase("es_ES"))
     {
-      element.jSetPinDescription(0,"Gr·fico");
+      element.jSetPinDescription(0,"Gr√°fico");
       element.jSetPinDescription(1,"Error");
-      element.jSetPinDescription(2,"ExpresiÛn");
+      element.jSetPinDescription(2,"Expresi√≥n");
       element.jSetPinDescription(3,"Calcular");
     }
 

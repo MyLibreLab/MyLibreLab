@@ -152,8 +152,8 @@ public class XLabel extends JVSMain
     element.jSetPEItemLocale(d+0,language,"Fuente");
     element.jSetPEItemLocale(d+1,language,"Nombre");
     element.jSetPEItemLocale(d+2,language,"Color");
-    element.jSetPEItemLocale(d+3,language,"Alineación Hoz");
-    element.jSetPEItemLocale(d+4,language,"Alineación Vert");
+    element.jSetPEItemLocale(d+3,language,"AlineaciÃ³n Hoz");
+    element.jSetPEItemLocale(d+4,language,"AlineaciÃ³n Vert");
 
   }
   public void propertyChanged(Object o)

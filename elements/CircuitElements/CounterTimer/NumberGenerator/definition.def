@@ -1,6 +1,6 @@
 ISDIRECTORY = FALSE
 CAPTION     = Number Generator
 CAPTION_EN  = Number Generator
-CAPTION_ES  = Generador Numérico
+CAPTION_ES  = Generador NumÃ©rico
 classCircuit= NumberGenerator
 Icon        = bin/icon.gif

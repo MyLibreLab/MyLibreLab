@@ -135,7 +135,7 @@ public class RobotCanvas extends JVSMain
     
     element.jSetPinDescription(12,"Rotate Left");
     element.jSetPinDescription(13,"Rotate Right");
-    element.jSetPinDescription(14,"Rotate Step (default =10)°");
+    element.jSetPinDescription(14,"Rotate Step (default =10)Â°");
     
     element.jSetPinDescription(15,"X-In");
     element.jSetPinDescription(16,"Y-In");

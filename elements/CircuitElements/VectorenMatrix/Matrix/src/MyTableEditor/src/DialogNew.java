@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
 /*
  * DialogNew.java
  *
- * Created on 8. März 2007, 12:27
+ * Created on 8. MÃ¤rz 2007, 12:27
  */
 
 /**

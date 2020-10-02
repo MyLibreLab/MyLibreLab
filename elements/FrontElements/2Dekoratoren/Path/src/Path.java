@@ -126,10 +126,10 @@ public class Path extends JVSMain
   
   public void setPropertyEditor()
   {
-    element.jAddPEItem("Füll-Farbe",fillColor, 0,0);
+    element.jAddPEItem("FÃ¼ll-Farbe",fillColor, 0,0);
     element.jAddPEItem("Linien-Farbe",strokeColor, 0,0);
     element.jAddPEItem("Linien-Breite",strokeWidth, 0,100);
-    element.jAddPEItem("Füllen",fill, 0,0);
+    element.jAddPEItem("FÃ¼llen",fill, 0,0);
     element.jAddPEItem("ClosePath",closePath, 0,0);
     localize();
   }

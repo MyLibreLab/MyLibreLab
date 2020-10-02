@@ -84,7 +84,7 @@ public class MatrixNXM extends JVSMain
     VS2DDouble ref= new VS2DDouble(0,0);
     ref.copyValueFrom(matrix);
     element.setPinOutputReference(0,ref);
-    // Sp‰ter nur noch mit Referenzen Arbeiten!
+    // Sp√§ter nur noch mit Referenzen Arbeiten!
   }
 
   public void setPropertyEditor()

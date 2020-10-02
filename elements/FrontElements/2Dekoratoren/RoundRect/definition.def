@@ -1,6 +1,6 @@
 ISDIRECTORY = FALSE
 CAPTION     = Rundes Rechteck
 CAPTION_EN  = Round Rectangle
-CAPTION_ES  = rect·ngulo rotundo
+CAPTION_ES  = rect√°ngulo rotundo
 ClassFront  = RoundRect
 Icon        = bin/RoundRect.gif

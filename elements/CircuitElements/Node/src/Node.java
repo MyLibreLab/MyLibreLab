@@ -170,7 +170,7 @@ public class Node extends JVSMain
     
     if (nodeDT==ExternalIF.C_BOOLEAN)
     {
-      // Wenn ein Pin True ist müssen alle Ausgänge True sein!
+      // Wenn ein Pin True ist mÃ¼ssen alle AusgÃ¤nge True sein!
       // 1. Analyse ob ein anderer Pin true hat
 
       boolean ok=isOnePinTrue();
