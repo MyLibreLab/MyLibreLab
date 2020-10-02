@@ -100,6 +100,10 @@ public class frmUpdate extends javax.swing.JFrame {
 
 
             StringBuilder response = readBufferToString(con);
+            //con.setRequestProperty("User-Agent", USER_AGENT);
+            int responseCode = con.getResponseCode();
+            org.tinylog.Logger.info("\nSending 'GET' request to URL : " + url);
+            org.tinylog.Logger.info("Response Code : " + responseCode);
 
             return response.toString();
         } catch (IOException urlException) {
@@ -166,6 +170,10 @@ public class frmUpdate extends javax.swing.JFrame {
             data.add(rowData);
             org.tinylog.Logger.debug(">entry_name={}", entry_name);
 
+<<<<<<< HEAD
+=======
+            org.tinylog.Logger.info(">entry_name=" + entry_name);
+>>>>>>> replaced printlns with tinylog.Logger.info. Excluding println and java Logger that are within a try-catch block
 
             JSONObject content = childJSONObject.getJSONObject("content");
 

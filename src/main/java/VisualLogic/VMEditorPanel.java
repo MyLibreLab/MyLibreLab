@@ -20,6 +20,8 @@
 
 package VisualLogic;
 
+import org.tinylog.Logger;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -404,7 +406,7 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
                 String res[] = str.split("&");
 
                 if (res.length != 2) {
-                    System.out.println("Error!");
+                    Logger.info("Error!");
                 }
                 if (res.length == 2) {
                     strName = res[0];
@@ -464,7 +466,7 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
                             }
                         }
                     }
-                    System.out.println("" + i + ": Name,Path = " + strName + "   |   " + str);
+                    Logger.info("" + i + ": Name,Path = " + strName + "   |   " + str);
                 }
             }
         }

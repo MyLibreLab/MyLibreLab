@@ -27,6 +27,7 @@ import javax.script.Bindings;
 
 import MyParser.OpenVariable;
 import VisualLogic.ExternalIF;
+import org.tinylog.Logger;
 
 public class VSFlowInfo extends VSObject {
     public ArrayList<OpenVariable> parameterDefinitions = new ArrayList<>(); // enth�lt OpenVariable
@@ -166,7 +167,7 @@ public class VSFlowInfo extends VSObject {
             } else if (o.value instanceof String && value instanceof String) {
                 o.value = value;
             } else {
-                System.out.println("Error setting Variable");
+                Logger.info("Error setting Variable");
             }
         } else {
             // Tools.showMessage("Variable \""+varname+"\" not definied! \nPlease define the variable");

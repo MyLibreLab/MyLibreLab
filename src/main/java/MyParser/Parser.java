@@ -26,6 +26,7 @@ import java.util.StringTokenizer;
 
 import VisualLogic.Basis;
 import VisualLogic.variables.VSFlowInfo;
+import org.tinylog.Logger;
 
 class Token {
     public boolean isNum = false;
@@ -485,14 +486,14 @@ public class Parser {
 
     public void print() {
         int i = 0;
-        System.out.println("--------------------------");
+        Logger.info("--------------------------");
         while (i < mainVector.size()) {
             String str = (String) mainVector.get(i);
-            System.out.print(str + ",");
+            Logger.info(str + ",");
             i++;
         }
-        System.out.println();
-        System.out.println("--------------------------");
+        Logger.info("\n");
+        Logger.info("--------------------------");
     }
 
     private void klammere(List<String> tokenListe, int ops) {
