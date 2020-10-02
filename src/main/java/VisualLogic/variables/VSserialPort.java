@@ -19,6 +19,9 @@ package VisualLogic.variables;
 import jssc.SerialPort;
 import jssc.SerialPortException;
 import jssc.SerialPortTimeoutException;
+import org.tinylog.Logger;
+
+import java.io.IOException;
 
 /**
  * @author velas
@@ -189,23 +192,17 @@ public class VSserialPort extends VSObject {
 
     @Override
     public void loadFromStream(java.io.FileInputStream fis) {
-        try {
-            java.io.DataInputStream dis = new java.io.DataInputStream(fis);
-
-            //serialPort.setName(dis.readUTF());
-        } catch (Exception ex) {
-
-        }
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void saveToStream(java.io.FileOutputStream fos) {
-        try {
-            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
+        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);) {
+
             //dos.writeUTF(serialPort.getName());
             dos.writeUTF("COM1");
-        } catch (Exception ex) {
-            System.err.println("Fehler in VSDouble.saveToStream() : " + ex.toString());
+        } catch (IOException ex) {
+            Logger.error(ex, "Error. Could not write utf to COM1");
         }
     }
 

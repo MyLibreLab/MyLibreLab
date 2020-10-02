@@ -18,11 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Point;
+import org.tinylog.Logger;
+
+import java.awt.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 
 /**
  * @author Homer
@@ -58,8 +59,10 @@ public class PolyPoint extends VisualObject {
             int x = stream.readInt();
             int y = stream.readInt();
             setLocation(x, y);
-        } catch (Exception ex) {
-            basis.owner.showErrorMessage("" + ex.toString());
+        } catch (IOException e) {
+            basis.owner.showErrorMessage("" + e.toString());
+            Logger.error(e);
+
         }
     }
 
@@ -67,8 +70,9 @@ public class PolyPoint extends VisualObject {
         try {
             dos.writeInt(getX());
             dos.writeInt(getY());
-        } catch (Exception ex) {
-            basis.owner.showErrorMessage("" + ex.toString());
+        } catch (IOException e) {
+            basis.owner.showErrorMessage("" + e.toString());
+            Logger.error(e);
         }
     }
 

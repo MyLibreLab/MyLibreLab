@@ -57,6 +57,7 @@ import VisualLogic.variables.VSObject;
 import VisualLogic.variables.VSProperties;
 import VisualLogic.variables.VSPropertyDialog;
 import VisualLogic.variables.VSString;
+import org.tinylog.Logger;
 
 interface PEIF {
 
@@ -93,11 +94,9 @@ class ComboBoxEditor extends JComboBox implements PEIF, ActionListener {
         for (int i = 0; i < referenz.getSize(); i++) {
             this.addItem(referenz.getItem(i));
         }
-        try {
-            setSelectedIndex(referenz.selectedIndex);
-        } catch (Exception ex) {
 
-        }
+        setSelectedIndex(referenz.selectedIndex);
+
 
         addActionListener(this);
     }
@@ -618,10 +617,10 @@ class DoubleEditor extends JTextField implements PEIF {
 
     @Override
     public void changed() {
+        String txt = getText();
         try {
-            String txt = getText();
 
-            double value = Double.valueOf(txt);
+            double value = Double.parseDouble(txt);
 
             if (value < min) {
                 value = min;
@@ -633,6 +632,7 @@ class DoubleEditor extends JTextField implements PEIF {
             referenz.setValue(value);
         } catch (NumberFormatException nfe) {
             setText("");
+            Logger.error(nfe,"Error. {} is not a number",txt);
         }
     }
 }
@@ -673,9 +673,10 @@ class IntegerEditor extends JTextField implements PEIF {
 
     @Override
     public void changed() {
+        final String text = getText();
         try {
 
-            referenz.setValue(Integer.valueOf(getText()));
+            referenz.setValue(Integer.parseInt(text));
 
             if (referenz.getValue() < min) {
                 referenz.setValue(min);
@@ -685,6 +686,7 @@ class IntegerEditor extends JTextField implements PEIF {
             }
         } catch (NumberFormatException nfe) {
             setText("0");
+            Logger.error(nfe,"Error. {} is not a number",text);
         }
     }
 }
@@ -725,8 +727,9 @@ class ByteEditor extends JTextField implements PEIF {
 
     @Override
     public void changed() {
+        String text = getText();
         try {
-            short val = (short) (Integer.parseInt(getText()));
+            short val = (short) (Integer.parseInt(text));
             referenz.setValue(VSByte.toUnsigned(val));
 
             if (VSByte.toSigned(referenz.getValue()) < min) {
@@ -737,6 +740,7 @@ class ByteEditor extends JTextField implements PEIF {
             }
         } catch (NumberFormatException nfe) {
             setText("0");
+            Logger.error(nfe,"Error. {} was not a number",text);
         }
     }
 }

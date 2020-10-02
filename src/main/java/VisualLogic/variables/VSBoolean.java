@@ -19,6 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic.variables;
 
+import org.tinylog.Logger;
+
+import java.io.IOException;
+
 public class VSBoolean extends VSObject {
     private boolean value;
 
@@ -76,30 +80,24 @@ public class VSBoolean extends VSObject {
     }
 
     public void loadFromStream(java.io.FileInputStream fis) {
-        try {
-            java.io.DataInputStream dis = new java.io.DataInputStream(fis);
-
+        try (java.io.DataInputStream dis = new java.io.DataInputStream(fis)){
             value = dis.readBoolean();
-        } catch (Exception ex) {
-
+        } catch (IOException ex) {
+            Logger.error(ex,"Erros. Tried to read boolean");
         }
     }
 
     public void saveToStream(java.io.FileOutputStream fos) {
-        try {
-            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
+        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)){
+
             dos.writeBoolean(value);
-        } catch (Exception ex) {
-            //System.err.println("Fehler in VSBoolean.saveToStream() : "+ex.toString());
+        } catch (IOException ex) {
+            Logger.error(ex,"Error. Tried to read boolean.");
         }
     }
 
     public void loadFromXML(String name, org.w3c.dom.Element nodeElement) {
-        try {
-            value = Boolean.parseBoolean(nodeElement.getAttribute("VSBoolean" + name));
-        } catch (Exception ex) {
-
-        }
+        value = Boolean.parseBoolean(nodeElement.getAttribute("VSBoolean" + name));
     }
 
     public void saveToXML(String name, org.w3c.dom.Element nodeElement) {

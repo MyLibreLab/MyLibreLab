@@ -18,7 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package VisualLogic;
 //import com.sun.org.omg.CORBA.ExcDescriptionSeqHelper;
 
+import org.tinylog.Logger;
+
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.net.URLClassLoader;
 
@@ -48,18 +52,13 @@ public class Loader {
         return o;
     }
 
-    public Object ladeClasseDriver(URL[] urls, String klassename) throws Exception {
+    public Object ladeClasseDriver(URL[] urls, String klassename) {
         Object o = null;
-        try {
-            URLClassLoader cl = new URLClassLoader(urls, Thread.currentThread().getContextClassLoader());
-
+        try (URLClassLoader cl = new URLClassLoader(urls, Thread.currentThread().getContextClassLoader())) {
             Class<?> c = cl.loadClass(klassename);
-
-            o = c.newInstance();
-        } catch (Exception ex) {
-            System.out.println("" + ex);
-        } catch (UnsupportedClassVersionError ex) {
-            System.out.println("" + ex);
+            o = c.getDeclaredConstructor().newInstance();
+        } catch (UnsupportedClassVersionError | NoSuchMethodException | ClassNotFoundException | InstantiationException | InvocationTargetException | IllegalAccessException | IOException e) {
+            Logger.error(e);
         }
         return o;
     }

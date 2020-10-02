@@ -18,22 +18,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic;
 
-import java.awt.Component;
-import java.awt.Desktop;
-import java.awt.Point;
-import java.awt.Polygon;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StringWriter;
+import org.tinylog.Logger;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import javax.swing.*;
+import javax.tools.JavaCompiler;
+import javax.tools.StandardJavaFileManager;
+import javax.tools.ToolProvider;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.awt.*;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.MappedByteBuffer;
@@ -44,25 +43,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.tools.JavaCompiler;
-import javax.tools.StandardJavaFileManager;
-import javax.tools.ToolProvider;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import de.myopenlab.update.frmUpdate;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+import java.util.stream.Stream;
 
 /**
  * @author Homer
@@ -89,23 +71,10 @@ public class Tools {
     public static String readFile(String filename) {
         String content = null;
         File file = new File(filename); //for ex foo.txt
-        FileReader reader = null;
         try {
-            reader = new FileReader(file);
-            char[] chars = new char[(int) file.length()];
-            reader.read(chars);
-            content = new String(chars);
-            reader.close();
+            content = Files.readString(file.toPath());
         } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(DialogSaveAsModul.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+            org.tinylog.Logger.error(e, "Error. Could not read from file {}", file);
         }
         return content;
     }
@@ -195,16 +164,17 @@ public class Tools {
             jc.getTask(out, sjfm, null, options, null, fileObjects).call();
 
             if (!out.toString().trim().equals("")) {
-                System.err.println(out.toString());
+                Logger.error(out);
             } else {
-                System.err.println("File \"" + new File(srcFile).getName() + "\" compiled.\n");
+                Logger.error("File {} compiled", new File(srcFile).getName());
             }
             out.close();
 
             // Add more compilation tasks
             sjfm.close();
         } catch (IOException ex) {
-            ex.printStackTrace();
+
+            Logger.error(ex);
         }
         return false;
     }
@@ -235,6 +205,7 @@ public class Tools {
             Runtime.getRuntime().exec(cmd);
         } catch (IOException bx) {
             Tools.showMessage(bx.toString());
+            Logger.error(bx, "Error. The following cmd throw an error {}", cmd);
         }
     }
 
@@ -260,38 +231,26 @@ public class Tools {
         return false;
     }
 
-    public static ArrayList<String> readListFromFile(String filename) {
-        ArrayList<String> result = new ArrayList<String>();
-        BufferedReader br;
+    public static List<String> readListFromFile(String filename) {
         try {
-            br = new BufferedReader(new FileReader(filename));
-
-            String line = null;
-            try {
-                while ((line = br.readLine()) != null) {
-                    result.add(line);
-                }
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
+            return Files.readAllLines(Path.of(filename));
+        } catch (IOException e) {
+            Logger.error(e);
         }
-
-        return result;
+        return Collections.emptyList();
     }
 
     public static List<Path> listDrivers(String driverPath) {
-        try {
-            return Files.list(Path.of(driverPath))
-                 .filter(path -> Files.isDirectory(path))
-                 .filter(path -> Tools.openDriverInfo(path.toFile()) != null)
-                 .map(path -> path.toAbsolutePath())
-                 .collect(Collectors.toList());
+        try (Stream<Path> pathStream = Files.list(Path.of(driverPath))) {
+            return pathStream
+                .filter(Files::isDirectory)
+                .filter(path -> Tools.openDriverInfo(path.toFile()) != null)
+                .map(Path::toAbsolutePath)
+                .collect(Collectors.toList());
         } catch (IOException e) {
             org.tinylog.Logger.error(e, "Could not list drivers");
-            return Collections.emptyList();
         }
+        return Collections.emptyList();
     }
 
     public static void showMessage(String message) {
@@ -318,8 +277,10 @@ public class Tools {
             Desktop.getDesktop().browse(new URI(strURL));
         } catch (URISyntaxException ex) {
             showMessage(parent, ex.toString());
+            Logger.error(ex, "Error. Uri has not the correct syntax {}", strURL);
         } catch (IOException ex) {
             showMessage(parent, ex.toString());
+            Logger.error(ex, "Error. Could not open the specified url");
         }
     }
 
@@ -330,6 +291,7 @@ public class Tools {
             return true;
         } catch (IOException ex) {
             showMessage("Operation System not Support edit for this Type of File");
+            Logger.error(ex, "Error. Could not edit file {}", file);
             return false;
         }
     }
@@ -375,30 +337,23 @@ public class Tools {
     }
 
     public static void copyFile(File source, File dest) throws IOException {
-        FileChannel in = null, out = null;
-        try {
-            in = new FileInputStream(source).getChannel();
-            out = new FileOutputStream(dest).getChannel();
 
+        try (FileChannel in = new FileInputStream(source).getChannel();
+             FileChannel out = new FileOutputStream(dest).getChannel()) {
             long size = in.size();
             MappedByteBuffer buf = in.map(FileChannel.MapMode.READ_ONLY, 0, size);
 
             out.write(buf);
-        } finally {
-            if (in != null) {
-                in.close();
-            }
-            if (out != null) {
-                out.close();
-            }
+        } catch (IOException ex) {
+            Logger.error(ex, "Error. Could not copy file {} to {}", source, dest);
         }
     }
 
     public static ProjectProperties openProjectFile(File file) {
         ProjectProperties tmp = new ProjectProperties();
 
-        try {
-            BufferedReader input = new BufferedReader(new FileReader(file.getAbsolutePath() + File.separator + "project.myopenlab"));
+        try (BufferedReader input = new BufferedReader(new FileReader(file.getAbsolutePath() + File.separator + "project.myopenlab"))) {
+
             String inputString;
             while ((inputString = input.readLine()) != null) {
 
@@ -422,24 +377,24 @@ public class Tools {
             }
 
             input.close();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             Tools.showMessage(ex.toString());
+            Logger.error(ex, "Error. Could not read from {}", file);
         }
         return tmp;
     }
 
     public static void saveProjectFile(File file, ProjectProperties props) {
-        try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(file.getAbsolutePath() + File.separator + "project.myopenlab"));
+        try (BufferedWriter out = new BufferedWriter(new FileWriter(file.getAbsolutePath() + File.separator + "project.myopenlab"))) {
+
 
             out.write("MAINVM          = " + props.mainVM);
             out.newLine();
             out.write("PROJECTTYPE     = " + props.projectType);
             out.newLine();
-
-            out.close();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             Tools.showMessage(ex.toString());
+            Logger.error(ex, "Error. Could not write to {}", file);
         }
     }
 
@@ -448,8 +403,8 @@ public class Tools {
 
         String str;
 
-        try {
-            BufferedReader input = new BufferedReader(new FileReader(file.getAbsolutePath() + File.separator + "driver.info"));
+        try (BufferedReader input = new BufferedReader(new FileReader(file.getAbsolutePath() + File.separator + "driver.info"))) {
+
             String inputString;
             while ((inputString = input.readLine()) != null) {
                 if (!inputString.equalsIgnoreCase("")) {
@@ -484,17 +439,16 @@ public class Tools {
                     }
                 }
             }
-
-            input.close();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             Tools.showMessage(ex.toString());
+            Logger.error(ex, "Error. Could not read from {}", file);
         }
         return tmp;
     }
 
     public static void saveDefinitionFile(File file, DFProperties definition_def) {
-        try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(file.getAbsolutePath() + File.separator + "definition.def"));
+        try (BufferedWriter out = new BufferedWriter(new FileWriter(file.getAbsolutePath() + File.separator + "definition.def"))) {
+
 
             String value = "";
             String full = "";
@@ -546,9 +500,10 @@ public class Tools {
                 value = "FALSE";
             }
             out.write("SHOWINNERBORDER = " + value);
-            out.close();
-        } catch (Exception ex) {
+
+        } catch (IOException ex) {
             Tools.showMessage(ex.toString());
+            Logger.error(ex, "Error. Could not write to {}", file);
         }
     }
 
@@ -557,8 +512,8 @@ public class Tools {
 
         String str;
 
-        try {
-            BufferedReader input = new BufferedReader(new FileReader(file.getAbsolutePath() + File.separator + "definition.def"));
+        try (BufferedReader input = new BufferedReader(new FileReader(file.getAbsolutePath() + File.separator + "definition.def"))) {
+
             String inputString;
             while ((inputString = input.readLine()) != null) {
                 String elementClass = extractClassName(inputString);
@@ -634,8 +589,9 @@ public class Tools {
             }
 
             input.close();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             //Tools.showMessage(ex.toString());
+            Logger.error(ex, "Error. Could not read from {}", file);
         }
         return tmp;
     }
@@ -643,86 +599,83 @@ public class Tools {
     public static DFProperties getProertiesFromDefinitionString(String definition_def) {
         DFProperties tmp = new DFProperties();
 
-        try {
 
-            String[] lines = definition_def.split("\n");
+        String[] lines = definition_def.split("\n");
 
-            for (String inputString : lines) {
+        for (String inputString : lines) {
 
-                String elementClass = extractClassName(inputString);
-                String elementName = inputString.substring(elementClass.length());
+            String elementClass = extractClassName(inputString);
+            String elementName = inputString.substring(elementClass.length());
 
+            elementName = elementName.trim();
+            if (elementClass.trim().length() > 0) {
+
+                elementName = elementName.substring(1);
+                elementClass = elementClass.trim();
                 elementName = elementName.trim();
-                if (elementClass.trim().length() > 0) {
 
-                    elementName = elementName.substring(1);
-                    elementClass = elementClass.trim();
-                    elementName = elementName.trim();
-
-                    if (elementClass.equalsIgnoreCase("LOADER")) {
-                        tmp.loader = elementName;
-                    } else if (elementClass.equalsIgnoreCase("RESIZESYNCHRON")) {
-                        if (elementName.equalsIgnoreCase("true")) {
-                            tmp.resizeSynchron = true;
-                        } else {
-                            tmp.resizeSynchron = false;
-                        }
-                    } else if (elementClass.equalsIgnoreCase("SHOWINNERBORDER")) {
-                        if (elementName.equalsIgnoreCase("true")) {
-                            tmp.showInnerborder = true;
-                        } else {
-                            tmp.showInnerborder = false;
-                        }
-                    } else if (elementClass.equalsIgnoreCase("isdirectory")) {
-                        if (elementName.equalsIgnoreCase("true")) {
-                            tmp.isDirectory = true;
-                        } else {
-                            tmp.isDirectory = false;
-                        }
-                    } else if (elementClass.equalsIgnoreCase("vm")) {
-                        tmp.vm = elementName;
-                    } else if (elementClass.equalsIgnoreCase("vm_dir_editable")) {
-                        tmp.vm_dir_editable = elementName;
-                    } else if (elementClass.equalsIgnoreCase("classcircuit")) {
-                        tmp.classcircuit = elementName;
-                    } else if (elementClass.equalsIgnoreCase("REDIRECT")) {
-                        tmp.redirect = elementName;
-                    } else if (elementClass.equalsIgnoreCase("classfront")) {
-                        tmp.classfront = elementName;
-                    } else if (elementClass.equalsIgnoreCase("caption")) {
-                        tmp.captionDE = elementName;
-                    } else if (elementClass.equalsIgnoreCase("caption_en")) {
-                        tmp.captionEN = elementName;
-                    } else if (elementClass.equalsIgnoreCase("caption_es")) {
-                        tmp.captionES = elementName;
-                    } else if (elementClass.equalsIgnoreCase("icon")) {
-                        tmp.iconFilename = elementName;
+                if (elementClass.equalsIgnoreCase("LOADER")) {
+                    tmp.loader = elementName;
+                } else if (elementClass.equalsIgnoreCase("RESIZESYNCHRON")) {
+                    if (elementName.equalsIgnoreCase("true")) {
+                        tmp.resizeSynchron = true;
+                    } else {
+                        tmp.resizeSynchron = false;
                     }
-                    if (elementClass.equalsIgnoreCase("CLASSPATH")) {
-                        tmp.classPath = elementName;
-                    } else if (elementClass.equalsIgnoreCase("CLASSPATH2")) {
-                        tmp.classPath2 = elementName;
-                    } else if (elementClass.equalsIgnoreCase("ELEMENTIMAGE")) {
-                        tmp.elementImage = elementName;
+                } else if (elementClass.equalsIgnoreCase("SHOWINNERBORDER")) {
+                    if (elementName.equalsIgnoreCase("true")) {
+                        tmp.showInnerborder = true;
+                    } else {
+                        tmp.showInnerborder = false;
                     }
+                } else if (elementClass.equalsIgnoreCase("isdirectory")) {
+                    if (elementName.equalsIgnoreCase("true")) {
+                        tmp.isDirectory = true;
+                    } else {
+                        tmp.isDirectory = false;
+                    }
+                } else if (elementClass.equalsIgnoreCase("vm")) {
+                    tmp.vm = elementName;
+                } else if (elementClass.equalsIgnoreCase("vm_dir_editable")) {
+                    tmp.vm_dir_editable = elementName;
+                } else if (elementClass.equalsIgnoreCase("classcircuit")) {
+                    tmp.classcircuit = elementName;
+                } else if (elementClass.equalsIgnoreCase("REDIRECT")) {
+                    tmp.redirect = elementName;
+                } else if (elementClass.equalsIgnoreCase("classfront")) {
+                    tmp.classfront = elementName;
+                } else if (elementClass.equalsIgnoreCase("caption")) {
+                    tmp.captionDE = elementName;
+                } else if (elementClass.equalsIgnoreCase("caption_en")) {
+                    tmp.captionEN = elementName;
+                } else if (elementClass.equalsIgnoreCase("caption_es")) {
+                    tmp.captionES = elementName;
+                } else if (elementClass.equalsIgnoreCase("icon")) {
+                    tmp.iconFilename = elementName;
+                }
+                if (elementClass.equalsIgnoreCase("CLASSPATH")) {
+                    tmp.classPath = elementName;
+                } else if (elementClass.equalsIgnoreCase("CLASSPATH2")) {
+                    tmp.classPath2 = elementName;
+                } else if (elementClass.equalsIgnoreCase("ELEMENTIMAGE")) {
+                    tmp.elementImage = elementName;
                 }
             }
-
-            Locale loc = Locale.getDefault();
-            String strLocale = loc.toString();
-
-            tmp.captionInternationalized = tmp.captionDE; // Standard is German
-
-            if (strLocale.equalsIgnoreCase("en_US")) {
-                tmp.captionInternationalized = tmp.captionEN;
-            }
-
-            if (strLocale.equalsIgnoreCase("es_ES")) {
-                tmp.captionInternationalized = tmp.captionES;
-            }
-        } catch (Exception ex) {
-            //Tools.showMessage(ex.toString());
         }
+
+        Locale loc = Locale.getDefault();
+        String strLocale = loc.toString();
+
+        tmp.captionInternationalized = tmp.captionDE; // Standard is German
+
+        if (strLocale.equalsIgnoreCase("en_US")) {
+            tmp.captionInternationalized = tmp.captionEN;
+        }
+
+        if (strLocale.equalsIgnoreCase("es_ES")) {
+            tmp.captionInternationalized = tmp.captionES;
+        }
+
         return tmp;
     }
 
@@ -785,11 +738,15 @@ public class Tools {
     }
 
     public static void copyHighSpeed(File source, File target) throws IOException {
-        FileChannel sourceChannel = new FileInputStream(source).getChannel();
-        FileChannel targetChannel = new FileOutputStream(target).getChannel();
-        sourceChannel.transferTo(0, sourceChannel.size(), targetChannel);
-        sourceChannel.close();
-        targetChannel.close();
+        try (FileChannel sourceChannel = new FileInputStream(source).getChannel();
+             FileChannel targetChannel = new FileOutputStream(target).getChannel()) {
+
+            sourceChannel.transferTo(0, sourceChannel.size(), targetChannel);
+
+        } catch (IOException ex) {
+            Logger.error(ex, "Error. Could not copy channel from {} to {}", source, target);
+        }
+
     }
 
     /**
@@ -801,8 +758,7 @@ public class Tools {
      */
     public static void copy(File src, File dest) throws IOException {
 
-        FileInputStream source = null;
-        FileOutputStream destination = null;
+
         byte[] buffer;
         int bytes_read;
 
@@ -843,9 +799,10 @@ public class Tools {
 
         // If we've gotten this far everything is OK and we can copy.
         if (src.isFile()) {
-            try {
-                source = new FileInputStream(src);
-                destination = new FileOutputStream(dest);
+            try (var source = new FileInputStream(src);
+                 var destination = new FileOutputStream(dest)) {
+
+
                 buffer = new byte[1024];
                 while (true) {
                     bytes_read = source.read(buffer);
@@ -854,21 +811,8 @@ public class Tools {
                     }
                     destination.write(buffer, 0, bytes_read);
                 }
-            } finally {
-                if (source != null) {
-                    try {
-                        source.close();
-                    } catch (IOException e) {
-                        ;
-                    }
-                }
-                if (destination != null) {
-                    try {
-                        destination.close();
-                    } catch (IOException e) {
-                        ;
-                    }
-                }
+            } catch (IOException ex) {
+                Logger.error(ex, "Error.");
             }
         } else if (src.isDirectory()) {
             String targetfile, target, targetdest;
@@ -883,9 +827,7 @@ public class Tools {
                     copy(new File(target), new File(targetdest));
                 } else {
 
-                    try {
-                        source = new FileInputStream(target);
-                        destination = new FileOutputStream(targetdest);
+                    try (var source = new FileInputStream(target); var destination = new FileOutputStream(dest)) {
                         buffer = new byte[1024];
 
                         while (true) {
@@ -895,21 +837,8 @@ public class Tools {
                             }
                             destination.write(buffer, 0, bytes_read);
                         }
-                    } finally {
-                        if (source != null) {
-                            try {
-                                source.close();
-                            } catch (IOException e) {
-                                ;
-                            }
-                        }
-                        if (destination != null) {
-                            try {
-                                destination.close();
-                            } catch (IOException e) {
-                                ;
-                            }
-                        }
+                    } catch (IOException ex) {
+                        Logger.error(ex, "Could not copy from {} to {}", target, dest);
                     }
                 }
             }
@@ -1223,17 +1152,18 @@ public class Tools {
     }
 
     public static void saveProjectsFile(File file, ArrayList<String> liste) {
-        try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(file));
+        try (BufferedWriter out = new BufferedWriter(new FileWriter(file))) {
 
-            for (int i = 0; i < liste.size(); i++) {
-                out.write(liste.get(i));
+
+            for (String s : liste) {
+                out.write(s);
                 out.newLine();
             }
 
             out.close();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             Tools.showMessage(ex.toString());
+            Logger.error(ex, "Error. Could not write to File {}", file);
         }
     }
 
@@ -1241,24 +1171,25 @@ public class Tools {
         String result = "";
 
         if (file.exists()) {
-            try {
-                BufferedReader input = new BufferedReader(new FileReader(file));
+            try (BufferedReader input = new BufferedReader(new FileReader(file))) {
+
                 String inputString;
                 while ((inputString = input.readLine()) != null) {
                     result = inputString;
                     break;
                 }
-                input.close();
-            } catch (Exception ex) {
+
+            } catch (IOException ex) {
                 Tools.showMessage(ex.toString());
+                Logger.error(ex, "Error. could not read file {}", file);
             }
         }
         return result;
     }
 
     public static void saveText(File file, String text) {
-        try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(file));
+        try (BufferedWriter out = new BufferedWriter(new FileWriter(file))) {
+
 
             for (int i = 0; i < text.length(); i++) {
                 String ch = text.substring(i, i + 1);
@@ -1269,9 +1200,10 @@ public class Tools {
                 }
             }
 
-            out.close();
-        } catch (Exception ex) {
+
+        } catch (IOException ex) {
             Tools.showMessage(ex.toString());
+            Logger.error(ex, "Error. Could not write to file {}", file);
         }
     }
 
@@ -1280,15 +1212,16 @@ public class Tools {
 
         String str;
 
-        try {
-            BufferedReader input = new BufferedReader(new FileReader(file));
+        try (BufferedReader input = new BufferedReader(new FileReader(file))) {
+
             String inputString;
             while ((inputString = input.readLine()) != null) {
                 liste.add(inputString);
             }
-            input.close();
-        } catch (Exception ex) {
+
+        } catch (IOException ex) {
             Tools.showMessage(ex.toString());
+            Logger.error(ex, "Error. Could not read file {}", file);
         }
         return liste;
     }
@@ -1345,11 +1278,11 @@ public class Tools {
 
                 return caption;
             } catch (ParserConfigurationException ex) {
-                Logger.getLogger(frmUpdate.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.error(ex, "Error. Could not parse xml config to create Documentfactory");
             } catch (SAXException ex) {
-                Logger.getLogger(frmUpdate.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.error(ex, "Error. Saxparser exception. Probably the xml is not balanced or is broken");
             } catch (IOException ex) {
-                Logger.getLogger(frmUpdate.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.error(ex, "Error. Could not read the xml file");
             }
         }
 
@@ -1357,19 +1290,17 @@ public class Tools {
     }
 
     public static void copyFileUsingStream(File source, File dest) throws IOException {
-        InputStream is = null;
-        OutputStream os = null;
-        try {
-            is = new FileInputStream(source);
-            os = new FileOutputStream(dest);
+
+        try (var is = new FileInputStream(source);
+             var os = new FileOutputStream(dest)) {
+
             byte[] buffer = new byte[1024];
             int length;
             while ((length = is.read(buffer)) > 0) {
                 os.write(buffer, 0, length);
             }
-        } finally {
-            is.close();
-            os.close();
+        } catch (IOException ioException) {
+            Logger.error(ioException, "Error. Could not copy from {} to {}", source, dest);
         }
     }
 }

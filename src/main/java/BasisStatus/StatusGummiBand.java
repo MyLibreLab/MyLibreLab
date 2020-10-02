@@ -111,13 +111,11 @@ public class StatusGummiBand extends Object implements StatusBasisIF {
             drawRectangle(g2, startX, startY, oldX, oldY);
         }
         first = false;
-        try {
-            p = drawRectangle(g2, startX, startY, x, y);
-            oldX = p.x;
-            oldY = p.y;
-        } catch (java.lang.InternalError ex) {
 
-        }
+        p = drawRectangle(g2, startX, startY, x, y);
+        oldX = p.x;
+        oldY = p.y;
+
     }
 
     /*

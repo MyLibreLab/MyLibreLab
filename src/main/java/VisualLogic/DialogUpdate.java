@@ -18,16 +18,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package VisualLogic;
 
-import java.awt.Component;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import org.tinylog.Logger;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-
-import javax.swing.JOptionPane;
 
 /**
  * @author Carmelo
@@ -56,58 +54,47 @@ public class DialogUpdate extends javax.swing.JDialog {
 
         new Thread() {
             public void run() {
-                InputStream inputStream = null;
-                OutputStream outputStream = null;
+
+
                 try {
                     String urlText = addressX;
                     URL url = new URL(urlText);
                     URLConnection urlConnection = url.openConnection();
                     jProgressBar1.setMaximum(urlConnection.getContentLength());
+                    try (InputStream inputStream = urlConnection.getInputStream();
+                         OutputStream outputStream = new FileOutputStream(new File(localFileNameX))) {
+                        byte[] buffer = new byte[16384];
+                        int bytesRead = -1;
+                        int bytesWritten = 0;
 
-                    inputStream = urlConnection.getInputStream();
+                        long deltaTime = 0;
+                        while ((bytesRead = inputStream.read(buffer)) > 0) {
+                            if (!downloadInProgress) {
+                                return;
+                            }
 
-                    outputStream = new FileOutputStream(new File(localFileNameX));
-
-                    byte[] buffer = new byte[16384];
-                    int bytesRead = -1;
-                    int bytesWritten = 0;
-
-                    long deltaTime = 0;
-                    while ((bytesRead = inputStream.read(buffer)) > 0) {
-                        if (!downloadInProgress) {
-                            return;
+                            outputStream.write(buffer, 0, bytesRead);
+                            bytesWritten += bytesRead;
+                            outputStream.flush();
+                            jProgressBar1.setValue(bytesWritten);
                         }
-
-                        outputStream.write(buffer, 0, bytesRead);
-                        bytesWritten += bytesRead;
-                        outputStream.flush();
-                        jProgressBar1.setValue(bytesWritten);
+                    } catch (IOException ex) {
+                        Logger.error(ex, "Error. Could not write to local file {}", localFileNameX);
+                        Tools.showMessage("No Connection!");
                     }
-
                     jLabel1.setText(java.util.ResourceBundle.getBundle("VisualLogic/DialogUpdate").getString("Download_completed!"));
                     jButton2.setText(java.util.ResourceBundle.getBundle("VisualLogic/DialogUpdate").getString("Close"));
 
                     Tools.showMessage(DialogUpdate.this, java.util.ResourceBundle.getBundle("VisualLogic/DialogUpdate").getString("Please_restart_the_Application!"), JOptionPane.INFORMATION_MESSAGE);
                     Tools.appResult = 10;
                     dispose();
-                } catch (Exception e) {
+                } catch (MalformedURLException urlException) {
+                    Logger.error(urlException, "Error. URL {} was mallformed", addressX);
+                    Tools.showMessage("No Connection!");
+                } catch (IOException e) {
+                    Logger.error(e, "Error. Problem open connection");
                     Tools.showMessage("No Connection!");
                 } finally {
-                    if (outputStream != null) {
-                        try {
-                            outputStream.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    if (inputStream != null) {
-                        try {
-                            inputStream.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
                     downloadInProgress = false;
                 }
             }
@@ -117,50 +104,35 @@ public class DialogUpdate extends javax.swing.JDialog {
     public boolean downloadVersionFile(String address, String localFileName) {
 
         boolean result = false;
-        InputStream inputStream = null;
-        OutputStream outputStream = null;
+
         try {
             String urlText = address;
             URL url = new URL(urlText);
             URLConnection urlConnection = url.openConnection();
             jProgressBar1.setMaximum(urlConnection.getContentLength());
 
-            inputStream = urlConnection.getInputStream();
+            try (var inputStream = urlConnection.getInputStream();
 
-            outputStream = new FileOutputStream(new File(localFileName));
+                 var outputStream = new FileOutputStream(new File(localFileName))) {
+                byte[] buffer = new byte[16384];
+                int bytesRead = -1;
+                int bytesWritten = 0;
 
-            byte[] buffer = new byte[16384];
-            int bytesRead = -1;
-            int bytesWritten = 0;
-
-            long deltaTime = 0;
-            while ((bytesRead = inputStream.read(buffer)) > 0) {
-                outputStream.write(buffer, 0, bytesRead);
-                bytesWritten += bytesRead;
-                outputStream.flush();
+                long deltaTime = 0;
+                while ((bytesRead = inputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, bytesRead);
+                    bytesWritten += bytesRead;
+                    outputStream.flush();
+                }
+            } catch (IOException ex) {
+                Logger.error(ex, "Error. Could not write to {}", localFileName);
+                Tools.showMessage("No Connection!");
             }
-
             result = true;
-        } catch (Exception e) {
+        } catch (IOException e) {
+            Logger.error(e, "Error. Tried to open connection to {}", address);
             Tools.showMessage("No Connection!");
-            result = false;
-        } finally {
-            if (outputStream != null) {
-                try {
-                    outputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
-
         return result;
     }
 
@@ -234,50 +206,50 @@ public class DialogUpdate extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addGroup(layout.createSequentialGroup()
-                                  .addContainerGap()
-                                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                  .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                                                                              .addComponent(jButton1)
-                                                                                                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                                              .addComponent(jButton2)
-                                                                                                              .addContainerGap())
-                                                  .addGroup(layout.createSequentialGroup()
-                                                                  .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                  .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                  .addGroup(layout.createSequentialGroup()
-                                                                  .addComponent(jLabel1)
-                                                                  .addContainerGap(230, Short.MAX_VALUE))
-                                                  .addGroup(layout.createSequentialGroup()
-                                                                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                                  .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                                  .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                  .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-                                                                                  .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
-                                                                  .addGap(163, 163, 163))))
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jButton1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButton2)
+                            .addContainerGap())
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addContainerGap(230, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
+                            .addGap(163, 163, 163))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addGroup(layout.createSequentialGroup()
-                                  .addContainerGap()
-                                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                  .addComponent(jLabel2)
-                                                  .addComponent(jLabel4))
-                                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                  .addComponent(jLabel5)
-                                                  .addComponent(jLabel3))
-                                  .addGap(14, 14, 14)
-                                  .addComponent(jLabel1)
-                                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                  .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                  .addComponent(jButton2)
-                                                  .addComponent(jButton1))
-                                  .addContainerGap())
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel4))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel3))
+                    .addGap(14, 14, 14)
+                    .addComponent(jLabel1)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton2)
+                        .addComponent(jButton1))
+                    .addContainerGap())
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -300,12 +272,10 @@ public class DialogUpdate extends javax.swing.JDialog {
 
     private double getUpdateVersion(String filename) {
         String str = Tools.loadTextFile(new File(filename));
-
         try {
-            double cc = Double.valueOf(str);
-            return cc;
-        } catch (Exception ex) {
-
+            return Double.parseDouble(str);
+        } catch (NumberFormatException ex) {
+            Logger.error(ex, "Error. String {} is not a number", str);
         }
         return 0;
     }
@@ -319,9 +289,9 @@ public class DialogUpdate extends javax.swing.JDialog {
 
             double ver = 0;
             try {
-                ver = Double.valueOf(Version.strApplicationVersion);
-            } catch (Exception ex) {
-
+                ver = Double.parseDouble(Version.strApplicationVersion);
+            } catch (NumberFormatException ex) {
+                Logger.error(ex, "Error. String {} was not a number", Version.strApplicationVersion);
             }
             double verX = getUpdateVersion(supdateTXT);
 

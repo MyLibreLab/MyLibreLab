@@ -1,12 +1,14 @@
 package de.myopenlab.update;
 
+import org.tinylog.Logger;
+
 import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class DeletePackages implements Runnable {
 
     public frmUpdate owner;
+
 
     DeletePackages(frmUpdate aThis) {
         this.owner = aThis;
@@ -15,22 +17,7 @@ public class DeletePackages implements Runnable {
     @Override
     public void run() {
         try {
-            try {
-
-                for (MyTableRow row : owner.list2) {
-
-                    if (row.isSelected()) {
-
-                        String type = row.getType();
-                        String folder = frmUpdate.myopenlabpath + "/Elements/" + type + "/" + row.getName();
-
-                        owner.log("delete=" + folder);
-                        Tools2.deleteFolder(new File(folder));
-                    }
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(frmUpdate.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            deleteEveryFolderFromList();
 
             Thread.sleep(1000);
             owner.log("finished");
@@ -38,7 +25,30 @@ public class DeletePackages implements Runnable {
             owner.initTable2();
             owner.owner.reinitPackage();
         } catch (InterruptedException ex) {
-            Logger.getLogger(DeletePackages.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.error(ex, "Exception while trying to sleep in thread");
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    /**
+     * Trys to delete every folder in owner#list2
+     */
+    private void deleteEveryFolderFromList() {
+        try {
+
+            for (MyTableRow row : owner.list2) {
+
+                if (row.isSelected()) {
+
+                    String type = row.getType();
+                    String folder = frmUpdate.myopenlabpath + "/Elements/" + type + "/" + row.getName();
+
+                    owner.log("delete=" + folder);
+                    Tools2.deleteFolder(new File(folder));
+                }
+            }
+        } catch (SecurityException ex) {
+            Logger.error(ex, "Error during deletion of packages");
         }
     }
 }

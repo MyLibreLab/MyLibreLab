@@ -231,81 +231,26 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
 
     public void mousePressed(MouseEvent e) {
         if (e != null) {
+            Point p = vmobject.getMousePosition();
+            if (modus == pinSelection) {
+                pan = vmobject.getNearstPin(p.x, p.y, 10);
+                if (pan != null) {
+                    JPin apin = pan;
 
-            try {
-                Point p = vmobject.getMousePosition();
-
-        /*Line line=vmobject.getLineInNaehe(p);
-        if (line!=null)
-        {
-            Polygon aktuellesPoly=getDrahtPoints();
-            Draht drahtX;
-
-            Draht draht=line.getDraht();
-            Element node=addNodeIntoLine(p,line);
-
-            if (line.getDirection()==Line.HORIZONTAL)
-            {
-                Point lastpoint=getDrahtPoint(drahtPoints.size()-2);
-                if(line.myStart.y>lastpoint.y)
-                {
-                    drahtX=vmobject.addDrahtIntoCanvas(sourceElementID,sourcePin, node.getID(),0);
-                    copyPoints(aktuellesPoly,drahtX);
-                    node.getPin(0).draht=drahtX;
-                }else
-                {
-                    drahtX=vmobject.addDrahtIntoCanvas(sourceElementID,sourcePin, node.getID(),2);
-                    copyPoints(aktuellesPoly,drahtX);
-                    node.getPin(2).draht=drahtX;
-                }
-            }else
-            {
-                Point lastpoint=getDrahtPoint(drahtPoints.size()-2);
-                if(line.myStart.x>lastpoint.x)
-                {
-                    drahtX=vmobject.addDrahtIntoCanvas(sourceElementID,sourcePin, node.getID(),3);
-                    copyPoints(aktuellesPoly,drahtX);
-                    node.getPin(3).draht=drahtX;
-                }else
-                {
-                    drahtX=vmobject.addDrahtIntoCanvas(sourceElementID,sourcePin, node.getID(),1);
-                    copyPoints(aktuellesPoly,drahtX);
-                    node.getPin(1).draht=drahtX;
+                    if ((sourceDataType == apin.dataType || sourceDataType == ExternalIF.C_VARIANT || apin.dataType == ExternalIF.C_VARIANT) && (apin.pinIO == JPin.PIN_INPUT || apin.pinIO == JPin.PIN_INPUT_OUTPUT) && apin.draht == null) {
+                        abschliessen(pan.element.getID(), pan.pinIndex);
+                    }
+                    return;
                 }
             }
 
-
-            vmobject.setCursor(Cursor.getDefaultCursor());
-            vmobject.setModusIdle();
-            vmobject.reorderWireFrames();
-            vmobject.owner.saveForUndoRedo();
-        }*/
-
-                if (modus == pinSelection) {
-                    pan = vmobject.getNearstPin(p.x, p.y, 10);
-                    if (pan != null) {
-
-                        JPin apin = pan;
-                        //int xx=pan.element.getX();
-                        //int yy=pan.element.getY();
-
-                        if ((sourceDataType == apin.dataType || sourceDataType == ExternalIF.C_VARIANT || apin.dataType == ExternalIF.C_VARIANT) && (apin.pinIO == JPin.PIN_INPUT || apin.pinIO == JPin.PIN_INPUT_OUTPUT) && apin.draht == null) {
-                            abschliessen(pan.element.getID(), pan.pinIndex);
-                        }
-                        return;
-                    }
-                }
-
-                if (e.getButton() == e.BUTTON3) {
-                    vmobject.setModusIdle();
-                    vmobject.repaint();
-                } else {
-                    startPoint.x = p.x;
-                    startPoint.y = p.y;
-                    addStueck(startPoint, startPoint);
-                }
-            } catch (NullPointerException eV) {
-
+            if ( e.getButton() == MouseEvent.BUTTON3) {
+                vmobject.setModusIdle();
+                vmobject.repaint();
+            } else {
+                startPoint.x = p.x;
+                startPoint.y = p.y;
+                addStueck(startPoint, startPoint);
             }
         }
     }
