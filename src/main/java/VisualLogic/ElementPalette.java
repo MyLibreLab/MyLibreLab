@@ -1,20 +1,23 @@
 /*
- MyOpenLab by Carmelo Salafia www.myopenlab.de
- Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
- This program is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
+
 package VisualLogic;
 
 import java.awt.Color;
@@ -56,6 +59,7 @@ class MyButton extends JButton {
     public String caption;
 }
 
+
 class CommandAction extends AbstractAction {
 
     String[] params;
@@ -72,6 +76,7 @@ class CommandAction extends AbstractAction {
         elementPalette.onButtonClicken(params);
     }
 }
+
 
 public class ElementPalette extends javax.swing.JPanel {
 
@@ -161,7 +166,7 @@ public class ElementPalette extends javax.swing.JPanel {
             }
             input.close();
         } catch (Exception ex) {
-            //System.out.println("FEHLER : "+ex.getMessage());
+            // System.out.println("FEHLER : "+ex.getMessage());
         }
         return list;
     }
@@ -253,27 +258,23 @@ public class ElementPalette extends javax.swing.JPanel {
         for (int i = 0; i < jPanelButtons.getComponentCount(); i++) {
             c = jPanelButtons.getComponent(i);
 
-            //((JButton)c).setBorderPainted(false);
-            /*if (x + w > jPanelButtons.getWidth()) {
-                x = 0;
-                y += h;
-            }*/
+            // ((JButton)c).setBorderPainted(false);
+            /*
+             * if (x + w > jPanelButtons.getWidth()) { x = 0; y += h; }
+             */
             c.setLocation(x, y);
             c.setSize(w, h);
             x += w;
         }
 
-        /*if (x + w > jPanelButtons.getWidth()) {
-
-            if (getParent()!=null){
-            getParent().getParent().setPreferredSize(new Dimension(x, h+40));
-            }
-
-        }else {
-            if (getParent()!=null){
-            getParent().getParent().setPreferredSize(new Dimension(x, 20));
-            }
-        }*/
+        /*
+         * if (x + w > jPanelButtons.getWidth()) {
+         *
+         * if (getParent()!=null){ getParent().getParent().setPreferredSize(new Dimension(x, h+40)); }
+         *
+         * }else { if (getParent()!=null){ getParent().getParent().setPreferredSize(new Dimension(x, 20)); }
+         * }
+         */
         jPanelButtons.setPreferredSize(new Dimension(x, h));
     }
 
@@ -318,7 +319,7 @@ public class ElementPalette extends javax.swing.JPanel {
         MyButton backbtn = createBackButton();
         backbtn.setBackground(new Color(255, 255, 255));
         addButton(backbtn);
-        //jPanelButtons.add(backbtn);
+        // jPanelButtons.add(backbtn);
 
         if (f.exists()) {
             File files[];
@@ -370,17 +371,16 @@ public class ElementPalette extends javax.swing.JPanel {
             }
 
             jLabel1.setText(xxx);
-            //jLabel1.setToolTipText(path);
+            // jLabel1.setToolTipText(path);
 
             reihenfolgeSortieren(f, files);
 
             DFProperties thisDirProps = Tools.getProertiesFromDefinitionFile(f);
 
 
-            /*if (thisDirProps.redirect.trim().length()>0)
-             {
-             f = new File(thisDirProps.redirect.trim());
-             }*/
+            /*
+             * if (thisDirProps.redirect.trim().length()>0) { f = new File(thisDirProps.redirect.trim()); }
+             */
             if (thisDirProps.vm_dir_editable.length() > 0) {
                 areVMsEditable = Boolean.valueOf(thisDirProps.vm_dir_editable);
             } else {
@@ -394,7 +394,8 @@ public class ElementPalette extends javax.swing.JPanel {
                     // Oeffne die Datei und interpretiere diese
                     DFProperties props = Tools.getProertiesFromDefinitionFile(file);
 
-                    if (!gruppenAuswahlMode && !props.isDirectory && (props.classcircuit.length() > 0 || props.classfront.length() > 0 || props.vm.length() > 0 || props.loader.length() > 0)) {
+                    if (!gruppenAuswahlMode && !props.isDirectory && (props.classcircuit.length() > 0
+                            || props.classfront.length() > 0 || props.vm.length() > 0 || props.loader.length() > 0)) {
                         MyButton btn = new MyButton();
 
                         btn.setPreferredSize(new Dimension(38, 38));
@@ -454,7 +455,7 @@ public class ElementPalette extends javax.swing.JPanel {
                         }
 
                         addButton(btn);
-                        //jPanelButtons.add(btn);
+                        // jPanelButtons.add(btn);
 
                         btn.addMouseListener(new java.awt.event.MouseAdapter() {
                             public void mousePressed(java.awt.event.MouseEvent e) {
@@ -484,18 +485,18 @@ public class ElementPalette extends javax.swing.JPanel {
                         BufferedImage folder = loadTransparentImage(elementPath + "/" + "arrow.png");
 
                         // Folder und Icon verkn�pfen!
-                        //folder.getGraphics().drawImage(image,4,7,null);
+                        // folder.getGraphics().drawImage(image,4,7,null);
                         image.getGraphics().drawImage(folder, 0, 0, null);
 
                         // setzen des Icons zum Button
                         Image img = createImage(image.getSource());
-                        //Image img = createImage(image.getSource());
+                        // Image img = createImage(image.getSource());
                         ImageIcon icon = new ImageIcon(img);
                         btn.setIcon(icon);
 
                         btn.setToolTipText(props.captionInternationalized);
                         btn.setActionCommand(file.getName());
-                        //jPanelButtons.add(btn);
+                        // jPanelButtons.add(btn);
                         if (jToggleButton1.isSelected()) {
                             btn.setText(props.captionInternationalized);
                         }
@@ -509,9 +510,9 @@ public class ElementPalette extends javax.swing.JPanel {
                                     MyButton button = (MyButton) e.getSource();
                                     aktiveButton = button;
 
-                                    //if (areVMsEditable) {
+                                    // if (areVMsEditable) {
                                     jPopupMenu3.show(button, e.getX(), getY() + e.getY());
-                                    //}
+                                    // }
 
                                 }
                             }
@@ -528,32 +529,30 @@ public class ElementPalette extends javax.swing.JPanel {
                         });
                     }
                 }
-                /* synchronized (getTreeLock()) {
-                    validateTree();
-                }*/
+                /*
+                 * synchronized (getTreeLock()) { validateTree(); }
+                 */
 
             }
         } else {
-            //Tools.showMessage("Elements Directory not found!");
+            // Tools.showMessage("Elements Directory not found!");
         }
 
         reorderButtons();
-        //jPanelButtons.setPreferredSize(new Dimension(0,600));
-        /*if (jPanelButtons.getComponentCount()>0)
-         {
-         int index=jPanelButtons.getComponentCount()-1;
-         System.out.println("index="+index);
-
-         Component c = jPanelButtons.getComponent(index);
-         Point p=c.getLocation();
-         System.out.println("y="+p.y);
-         jPanelButtons.setPreferredSize(new Dimension(jPanelButtons.getWidth(),p.y));
-         }*/
+        // jPanelButtons.setPreferredSize(new Dimension(0,600));
+        /*
+         * if (jPanelButtons.getComponentCount()>0) { int index=jPanelButtons.getComponentCount()-1;
+         * System.out.println("index="+index);
+         *
+         * Component c = jPanelButtons.getComponent(index); Point p=c.getLocation();
+         * System.out.println("y="+p.y); jPanelButtons.setPreferredSize(new
+         * Dimension(jPanelButtons.getWidth(),p.y)); }
+         */
     }
 
     /**
-     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
-     * content of this method is always regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify
+     * this code. The content of this method is always regenerated by the Form Editor.
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -676,16 +675,12 @@ public class ElementPalette extends javax.swing.JPanel {
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                         .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                         .add(jPanel2Layout.createSequentialGroup()
-                                           .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                           .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
-        );
+        jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE));
+        jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)));
 
         jScrollPane1.setBorder(null);
         jScrollPane1.setFocusable(false);
@@ -767,122 +762,115 @@ public class ElementPalette extends javax.swing.JPanel {
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                         .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 802, Short.MAX_VALUE)
-                         .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                                                     .add(jToggleButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                                                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                                                                     .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                                                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                                                                     .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                         .add(jPanel1Layout.createSequentialGroup()
-                                           .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                                             .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                             .add(jToggleButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                             .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                           .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                           .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                                           .addContainerGap())
-        );
+        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 802, Short.MAX_VALUE)
+                .add(org.jdesktop.layout.GroupLayout.TRAILING,
+                        jPanel1Layout.createSequentialGroup()
+                                .add(jToggleButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+                                        org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                                        org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+                                        org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                                        org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)));
+        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jPanel1Layout.createSequentialGroup()
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 34,
+                                        org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jToggleButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+                                        org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                                        org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+                                        org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                                        org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                        .addContainerGap()));
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                  .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 802, Short.MAX_VALUE)
-        );
+        layout.setHorizontalGroup(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(jPanel1,
+                org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 802, Short.MAX_VALUE));
         layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                  .add(layout.createSequentialGroup()
-                             .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 109, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                             .add(0, 63, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(layout
+                                .createSequentialGroup().add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+                                        109, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(0, 63, Short.MAX_VALUE)));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jmiEditVMActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmiEditVMActionPerformed
-    {//GEN-HEADEREND:event_jmiEditVMActionPerformed
+    private void jmiEditVMActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jmiEditVMActionPerformed
+    {// GEN-HEADEREND:event_jmiEditVMActionPerformed
 
         if (aktiveButton != null) {
             String str = Tools.mapFile(aktiveButton.filePath);
             frameCircuit.openElement(str);
 
-            //frameCircuit.getActualBasis().openVLogicFileAsFrontPanel(aktiveButton.filePath+"/"+definition_def.vm);
+            // frameCircuit.getActualBasis().openVLogicFileAsFrontPanel(aktiveButton.filePath+"/"+definition_def.vm);
         }
-    }//GEN-LAST:event_jmiEditVMActionPerformed
+    }// GEN-LAST:event_jmiEditVMActionPerformed
 
-    private void jmiEditDirActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmiEditDirActionPerformed
-    {//GEN-HEADEREND:event_jmiEditDirActionPerformed
+    private void jmiEditDirActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jmiEditDirActionPerformed
+    {// GEN-HEADEREND:event_jmiEditDirActionPerformed
 
-        /*Dialog_create_new_group frm = new Dialog_create_new_group(frameCircuit, true, "edit", elementPath + aktuellesVerzeichniss);
-
-
-        if (frm.load(aktiveButton.filePath)) {
-            frm.setVisible(true);
-
-            loadFolder(aktuellesVerzeichniss);
-        } else {
-            String msg = java.util.ResourceBundle.getBundle("VisualLogic/ElementPalette").getString("This Group is not editable");
-            Tools.showMessage(msg);
-        }*/
+        /*
+         * Dialog_create_new_group frm = new Dialog_create_new_group(frameCircuit, true, "edit", elementPath
+         * + aktuellesVerzeichniss);
+         *
+         *
+         * if (frm.load(aktiveButton.filePath)) { frm.setVisible(true);
+         *
+         * loadFolder(aktuellesVerzeichniss); } else { String msg =
+         * java.util.ResourceBundle.getBundle("VisualLogic/ElementPalette").
+         * getString("This Group is not editable"); Tools.showMessage(msg); }
+         */
         Dialog_create_new_group frm2 = new Dialog_create_new_group(this.owner, true, "edit", aktiveButton.filePath);
         frm2.setVisible(true);
 
-        /*DialogSaveAsModul frmSave = new DialogSaveAsModul(frameCircuit, frameCircuit, true);
-
-        frmSave.executeEdit(aktiveButton.filePath);*/
+        /*
+         * DialogSaveAsModul frmSave = new DialogSaveAsModul(frameCircuit, frameCircuit, true);
+         *
+         * frmSave.executeEdit(aktiveButton.filePath);
+         */
         loadFolder(aktuellesVerzeichniss);
 
-        /*DialogSaveAsModul frm2 = new DialogSaveAsModul(frameCircuit, frameCircuit, true);
+        /*
+         * DialogSaveAsModul frm2 = new DialogSaveAsModul(frameCircuit, frameCircuit, true);
+         *
+         * String oldPath = aktiveButton.filePath; frm2.executeEdit(oldPath);
+         */
+        /*
+         * if (frm2.result) { String newPath = elementPath + aktuellesVerzeichniss + "/" + frm2.xname;
+         *
+         * //File file=new File(newPath);
+         *
+         * //if (new File(oldPath).getAbsolutePath().equalsIgnoreCase(new File(newPath).getAbsolutePath()))
+         * { String ext = Tools.getExtension(new File(frm2.xicon));
+         *
+         * String newIcon = oldPath + "/icon." + ext; File f1 = new File(frm2.xicon); File f2 = new
+         * File(newIcon); String ff1 = f1.getAbsolutePath(); String ff2 = f2.getAbsolutePath(); if
+         * (!ff1.equalsIgnoreCase(ff2)) { //new File(oldXIcon).delete(); try { Tools.copyFile(new
+         * File(frm2.xicon), new File(newIcon)); } catch (Exception ex) {
+         * //Tools.showMessage("Error: copying icon file!"); } }
+         *
+         * DFProperties props = new DFProperties(); props.isDirectory = true; props.captionDE =
+         * frm2.caption_DE; props.captionEN = frm2.caption_EN; props.captionES = frm2.caption_ES;
+         * props.iconFilename = "icon." + ext; props.vm_dir_editable = "TRUE"; Tools.saveDefinitionFile(new
+         * File(newPath), props); loadFolder(aktuellesVerzeichniss); } }
+         */
 
-        String oldPath = aktiveButton.filePath;
-        frm2.executeEdit(oldPath);*/
- /*if (frm2.result) {
-            String newPath = elementPath + aktuellesVerzeichniss + "/" + frm2.xname;
+    }// GEN-LAST:event_jmiEditDirActionPerformed
 
-            //File file=new File(newPath);
+    private void jmiNewDirActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jmiNewDirActionPerformed
+    {// GEN-HEADEREND:event_jmiNewDirActionPerformed
 
-            //if (new File(oldPath).getAbsolutePath().equalsIgnoreCase(new File(newPath).getAbsolutePath()))
-            {
-                String ext = Tools.getExtension(new File(frm2.xicon));
-
-                String newIcon = oldPath + "/icon." + ext;
-                File f1 = new File(frm2.xicon);
-                File f2 = new File(newIcon);
-                String ff1 = f1.getAbsolutePath();
-                String ff2 = f2.getAbsolutePath();
-                if (!ff1.equalsIgnoreCase(ff2)) {
-                    //new File(oldXIcon).delete();
-                    try {
-                        Tools.copyFile(new File(frm2.xicon), new File(newIcon));
-                    } catch (Exception ex) {
-                        //Tools.showMessage("Error: copying icon file!");
-                    }
-                }
-
-                DFProperties props = new DFProperties();
-                props.isDirectory = true;
-                props.captionDE = frm2.caption_DE;
-                props.captionEN = frm2.caption_EN;
-                props.captionES = frm2.caption_ES;
-                props.iconFilename = "icon." + ext;
-                props.vm_dir_editable = "TRUE";
-                Tools.saveDefinitionFile(new File(newPath), props);
-                loadFolder(aktuellesVerzeichniss);
-            }
-        }*/
-
-    }//GEN-LAST:event_jmiEditDirActionPerformed
-
-    private void jmiNewDirActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmiNewDirActionPerformed
-    {//GEN-HEADEREND:event_jmiNewDirActionPerformed
-
-        //Dialog_create_new_group frm = new Dialog_create_new_group(frameCircuit, true, "add", elementPath + aktuellesVerzeichniss);
-        //frm.setVisible(true);
-        //loadFolder(aktuellesVerzeichniss);
+        // Dialog_create_new_group frm = new Dialog_create_new_group(frameCircuit, true, "add", elementPath
+        // + aktuellesVerzeichniss);
+        // frm.setVisible(true);
+        // loadFolder(aktuellesVerzeichniss);
         DialogSaveAsModul frm = new DialogSaveAsModul(frameCircuit, frameCircuit, true);
 
         frm.executeNewDirectory();
@@ -920,21 +908,25 @@ public class ElementPalette extends javax.swing.JPanel {
             }
             loadFolder(aktuellesVerzeichniss);
         }
-    }//GEN-LAST:event_jmiNewDirActionPerformed
+    }// GEN-LAST:event_jmiNewDirActionPerformed
 
-    private void jmiDeleteDirActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmiDeleteDirActionPerformed
-    {//GEN-HEADEREND:event_jmiDeleteDirActionPerformed
-        int result = JOptionPane.showConfirmDialog((Component) null, java.util.ResourceBundle.getBundle("VisualLogic/ElementPalette").getString("really_delete") + " : " + aktiveButton.caption, java.util.ResourceBundle.getBundle("VisualLogic/ElementPalette").getString("Attention"), JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+    private void jmiDeleteDirActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jmiDeleteDirActionPerformed
+    {// GEN-HEADEREND:event_jmiDeleteDirActionPerformed
+        int result = JOptionPane.showConfirmDialog((Component) null,
+                java.util.ResourceBundle.getBundle("VisualLogic/ElementPalette").getString("really_delete") + " : "
+                        + aktiveButton.caption,
+                java.util.ResourceBundle.getBundle("VisualLogic/ElementPalette").getString("Attention"),
+                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
         if (result == JOptionPane.YES_OPTION) {
             String path = aktiveButton.filePath;
             Tools.deleteDirectory(new File(path));
             loadFolder(aktuellesVerzeichniss);
         }
-    }//GEN-LAST:event_jmiDeleteDirActionPerformed
+    }// GEN-LAST:event_jmiDeleteDirActionPerformed
 
-    private void jmiEditVMDefinitionActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jmiEditVMDefinitionActionPerformed
-    {//GEN-HEADEREND:event_jmiEditVMDefinitionActionPerformed
+    private void jmiEditVMDefinitionActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jmiEditVMDefinitionActionPerformed
+    {// GEN-HEADEREND:event_jmiEditVMDefinitionActionPerformed
 
         DFProperties props = Tools.getProertiesFromDefinitionFile(new File(aktiveButton.filePath));
 
@@ -948,26 +940,30 @@ public class ElementPalette extends javax.swing.JPanel {
             frm2.execute(aktiveButton.filePath);
             loadFolder(aktuellesVerzeichniss);
         }
-    }//GEN-LAST:event_jmiEditVMDefinitionActionPerformed
+    }// GEN-LAST:event_jmiEditVMDefinitionActionPerformed
 
-    private void jmiCutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCutActionPerformed
+    private void jmiCutActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiCutActionPerformed
         modus = MODE_COPY;
         modusCut = true;
         toCopyPath = aktiveButton.filePath;
-    }//GEN-LAST:event_jmiCutActionPerformed
+    }// GEN-LAST:event_jmiCutActionPerformed
 
-    private void jmiDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDeleteActionPerformed
+    private void jmiDeleteActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiDeleteActionPerformed
 
-        int result = JOptionPane.showConfirmDialog((Component) null, java.util.ResourceBundle.getBundle("VisualLogic/ElementPalette").getString("really_delete") + " : " + aktiveButton.caption, java.util.ResourceBundle.getBundle("VisualLogic/ElementPalette").getString("Attention"), JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        int result = JOptionPane.showConfirmDialog((Component) null,
+                java.util.ResourceBundle.getBundle("VisualLogic/ElementPalette").getString("really_delete") + " : "
+                        + aktiveButton.caption,
+                java.util.ResourceBundle.getBundle("VisualLogic/ElementPalette").getString("Attention"),
+                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
         if (result == JOptionPane.YES_OPTION) {
             String path = aktiveButton.filePath;
             Tools.deleteDirectory(new File(path));
             loadFolder(aktuellesVerzeichniss);
         }
-    }//GEN-LAST:event_jmiDeleteActionPerformed
+    }// GEN-LAST:event_jmiDeleteActionPerformed
 
-    private void jmiPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPasteActionPerformed
+    private void jmiPasteActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiPasteActionPerformed
 
         if (modus == MODE_COPY) {
             String str = toCopyPath.substring(toCopyPath.lastIndexOf("\\"), toCopyPath.length());
@@ -980,7 +976,8 @@ public class ElementPalette extends javax.swing.JPanel {
                     Tools.showMessage(ex.toString());
                 }
             } else {
-                Tools.showMessage(java.util.ResourceBundle.getBundle("VisualLogic/ElementPalette").getString("Element ist bereits vorhanden"));
+                Tools.showMessage(java.util.ResourceBundle.getBundle("VisualLogic/ElementPalette")
+                        .getString("Element ist bereits vorhanden"));
             }
 
             if (modusCut) {
@@ -989,25 +986,25 @@ public class ElementPalette extends javax.swing.JPanel {
             modusCut = false;
             modus = MODE_NONE;
         }
-    }//GEN-LAST:event_jmiPasteActionPerformed
+    }// GEN-LAST:event_jmiPasteActionPerformed
 
-    private void jmiCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCopyActionPerformed
+    private void jmiCopyActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiCopyActionPerformed
         toCopyPath = aktiveButton.filePath;
         modus = MODE_COPY;
         modusCut = false;
-    }//GEN-LAST:event_jmiCopyActionPerformed
+    }// GEN-LAST:event_jmiCopyActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
         loadFolder(aktuellesVerzeichniss);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }// GEN-LAST:event_jButton1ActionPerformed
 
-    private void jToggleButton1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jToggleButton1StateChanged
+    private void jToggleButton1StateChanged(javax.swing.event.ChangeEvent evt) {// GEN-FIRST:event_jToggleButton1StateChanged
 
-    }//GEN-LAST:event_jToggleButton1StateChanged
+    }// GEN-LAST:event_jToggleButton1StateChanged
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jToggleButton1ActionPerformed
         loadFolder(aktuellesVerzeichniss);
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+    }// GEN-LAST:event_jToggleButton1ActionPerformed
 
     private static void copyFileUsingStream(File source, File dest) throws IOException {
         InputStream is = null;
@@ -1026,16 +1023,16 @@ public class ElementPalette extends javax.swing.JPanel {
         }
     }
 
-    private void jmiAddVMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAddVMActionPerformed
+    private void jmiAddVMActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmiAddVMActionPerformed
 
         String name = JOptionPane.showInputDialog("Please enter Element Name");
 
         if (name != null) {
             name = Tools.bereinigeDateiname(name);
 
-            //String name="test";
+            // String name="test";
             new File(elementPath + aktuellesVerzeichniss + "/" + name).mkdir();
-            String filename = elementPath + aktuellesVerzeichniss + "/" + name + "/" + name + ".vlogic"; //NOI18N
+            String filename = elementPath + aktuellesVerzeichniss + "/" + name + "/" + name + ".vlogic"; // NOI18N
 
             if (!new File(filename).exists()) {
 
@@ -1075,18 +1072,20 @@ public class ElementPalette extends javax.swing.JPanel {
 
                 frmx.executeEdit(elementPath + aktuellesVerzeichniss + "/" + name);
             } else {
-                Tools.showMessage(this, java.util.ResourceBundle.getBundle("VisualLogic/Messages").getString("VM already exist") + " : " + new File(filename).getName());
+                Tools.showMessage(this,
+                        java.util.ResourceBundle.getBundle("VisualLogic/Messages").getString("VM already exist") + " : "
+                                + new File(filename).getName());
             }
 
             loadFolder(aktuellesVerzeichniss);
         }
-    }//GEN-LAST:event_jmiAddVMActionPerformed
+    }// GEN-LAST:event_jmiAddVMActionPerformed
 
-    private void jPanelButtonsComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanelButtonsComponentResized
+    private void jPanelButtonsComponentResized(java.awt.event.ComponentEvent evt) {// GEN-FIRST:event_jPanelButtonsComponentResized
         reorderButtons();
-    }//GEN-LAST:event_jPanelButtonsComponentResized
+    }// GEN-LAST:event_jPanelButtonsComponentResized
 
-    private void jPanelButtonsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelButtonsMousePressed
+    private void jPanelButtonsMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jPanelButtonsMousePressed
 
         if (!aktuellesVerzeichniss.equalsIgnoreCase(rootPath)) {
 
@@ -1099,19 +1098,19 @@ public class ElementPalette extends javax.swing.JPanel {
                 jPopupMenu2.show(jPanelButtons, evt.getX(), evt.getY());
             }
         }
-    }//GEN-LAST:event_jPanelButtonsMousePressed
+    }// GEN-LAST:event_jPanelButtonsMousePressed
 
-    private void jButton10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MousePressed
+    private void jButton10MousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jButton10MousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10MousePressed
+    }// GEN-LAST:event_jButton10MousePressed
 
-    private void jButton8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MousePressed
+    private void jButton8MousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jButton8MousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8MousePressed
+    }// GEN-LAST:event_jButton8MousePressed
 
-    private void jButton7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MousePressed
+    private void jButton7MousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jButton7MousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7MousePressed
+    }// GEN-LAST:event_jButton7MousePressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

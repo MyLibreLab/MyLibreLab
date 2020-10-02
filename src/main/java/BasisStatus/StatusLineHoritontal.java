@@ -1,21 +1,22 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package BasisStatus;
 
@@ -61,14 +62,15 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
     /**
      * Creates a new instance of StatusHoritontalLine
      */
-    public StatusLineHoritontal(VMObject vmobject, ArrayList drahtPoints, int sourceElementID, int sourcePin, Point start) {
+    public StatusLineHoritontal(VMObject vmobject, ArrayList drahtPoints, int sourceElementID, int sourcePin,
+            Point start) {
         this.vmobject = vmobject;
         this.drahtPoints = drahtPoints;
 
         this.sourcePin = sourcePin;
 
         this.sourceElementID = sourceElementID;
-        //createCursors();
+        // createCursors();
         vmobject.disableAllElements();
 
         Element sourceElement = vmobject.getElementWithID(sourceElementID);
@@ -100,7 +102,7 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
             JPin pinA = sourceElement.getPin(sourcePin);
 
             VSDataType.setColorStrokeFromDataType((Graphics2D) g, pinA.dataType);
-            //g.setColor(Color.BLACK);
+            // g.setColor(Color.BLACK);
             g.drawPolyline(xx, yy, drahtPoints.size());
 
             if (vmobject != null && Tools.settings != null) {
@@ -139,8 +141,7 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
         addDrahtPoint(ende.x, ende.y);
     }
 
-    public void mouseDragged(MouseEvent e) {
-    }
+    public void mouseDragged(MouseEvent e) {}
 
     public void abschliessen(int destElementID, int destPin) {
         Draht draht = vmobject.addDrahtIntoCanvas(sourceElementID, sourcePin, destElementID, destPin);
@@ -157,15 +158,11 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
         if (pinA.pinIO == JPin.PIN_INPUT_OUTPUT) pinA.pinIO = JPin.PIN_OUTPUT;
         if (pinB.pinIO == JPin.PIN_INPUT_OUTPUT) pinB.pinIO = JPin.PIN_INPUT;
 
-        /*if (sourceElement.getInternName().equalsIgnoreCase("###NODE###"))
-        {
-            pinA.pinIO=JPin.PIN_OUTPUT;
-        }
-
-        if (destElement.getInternName().equalsIgnoreCase("###NODE###"))
-        {
-            pinB.pinIO=JPin.PIN_INPUT;
-        }*/
+        /*
+         * if (sourceElement.getInternName().equalsIgnoreCase("###NODE###")) { pinA.pinIO=JPin.PIN_OUTPUT; }
+         *
+         * if (destElement.getInternName().equalsIgnoreCase("###NODE###")) { pinB.pinIO=JPin.PIN_INPUT; }
+         */
 
         int x;
         int y;
@@ -237,14 +234,17 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
                 if (pan != null) {
                     JPin apin = pan;
 
-                    if ((sourceDataType == apin.dataType || sourceDataType == ExternalIF.C_VARIANT || apin.dataType == ExternalIF.C_VARIANT) && (apin.pinIO == JPin.PIN_INPUT || apin.pinIO == JPin.PIN_INPUT_OUTPUT) && apin.draht == null) {
+                    if ((sourceDataType == apin.dataType || sourceDataType == ExternalIF.C_VARIANT
+                            || apin.dataType == ExternalIF.C_VARIANT)
+                            && (apin.pinIO == JPin.PIN_INPUT || apin.pinIO == JPin.PIN_INPUT_OUTPUT)
+                            && apin.draht == null) {
                         abschliessen(pan.element.getID(), pan.pinIndex);
                     }
                     return;
                 }
             }
 
-            if ( e.getButton() == MouseEvent.BUTTON3) {
+            if (e.getButton() == MouseEvent.BUTTON3) {
                 vmobject.setModusIdle();
                 vmobject.repaint();
             } else {
@@ -255,20 +255,15 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
         }
     }
 
-    public void mouseReleased(MouseEvent e) {
-    }
+    public void mouseReleased(MouseEvent e) {}
 
-    public void mouseDblClick(MouseEvent e) {
-    }
+    public void mouseDblClick(MouseEvent e) {}
 
-    public void mouseClicked(MouseEvent e) {
-    }
+    public void mouseClicked(MouseEvent e) {}
 
-    public void mouseEntered(MouseEvent e) {
-    }
+    public void mouseEntered(MouseEvent e) {}
 
-    public void mouseExited(MouseEvent e) {
-    }
+    public void mouseExited(MouseEvent e) {}
 
     // Result = -1 wenn keine Vertikale Linie in der N�he
     private int getDistanceToNearstVerticalLine(Point p) {
@@ -300,13 +295,11 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
         int x = mouseKo.x;
         int y = mouseKo.y;
 
-       /* int dis=getDistanceToNearstVerticalLine(new Point(x,y));
-
-        if (dis>-1)
-        {
-            x=dis-10;
-            //System.out.println("dis="+dis);
-        }*/
+        /*
+         * int dis=getDistanceToNearstVerticalLine(new Point(x,y));
+         *
+         * if (dis>-1) { x=dis-10; //System.out.println("dis="+dis); }
+         */
 
         pan = vmobject.getNearstPin(x, y, 10);
 
@@ -321,7 +314,7 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
         }
 
         if (hasLastPoint == false)
-        //if (aktuellesPinType==HOZ )
+        // if (aktuellesPinType==HOZ )
         {
             Point p = getDrahtPoint(drahtPoints.size() - 1);
             p.x = x;
@@ -369,10 +362,9 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
         if (pan != null) {
             vmobject.owner.frameCircuit.showPinDescription(pan);
 
-            if ((sourceDataType == pan.dataType ||
-                sourceDataType == ExternalIF.C_VARIANT ||
-                pan.dataType == ExternalIF.C_VARIANT) &&
-                ((pan.pinIO == JPin.PIN_INPUT || pan.pinIO == JPin.PIN_INPUT_OUTPUT) && pan.draht == null)) {
+            if ((sourceDataType == pan.dataType || sourceDataType == ExternalIF.C_VARIANT
+                    || pan.dataType == ExternalIF.C_VARIANT)
+                    && ((pan.pinIO == JPin.PIN_INPUT || pan.pinIO == JPin.PIN_INPUT_OUTPUT) && pan.draht == null)) {
                 vmobject.setCursor(CheckCursor);
             } else {
                 vmobject.setCursor(CrossCursor);
@@ -426,16 +418,15 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
 
     }
 
-    public void elementPinMouseReleased(MouseEvent e, int elementID, int pin) {
-    }
+    public void elementPinMouseReleased(MouseEvent e, int elementID, int pin) {}
 
     public void elementPinMousePressed(MouseEvent e, int elementID, int pin) {
         Element sourceElement = (Element) vmobject.getObjectWithID(elementID);
         JPin apin = sourceElement.getPin(pin);
         try {
-            if ((sourceDataType == apin.dataType ||
-                sourceDataType == ExternalIF.C_VARIANT ||
-                apin.dataType == ExternalIF.C_VARIANT) && ((apin.pinIO == JPin.PIN_INPUT || pan.pinIO == JPin.PIN_INPUT_OUTPUT) && apin.draht == null)) {
+            if ((sourceDataType == apin.dataType || sourceDataType == ExternalIF.C_VARIANT
+                    || apin.dataType == ExternalIF.C_VARIANT)
+                    && ((apin.pinIO == JPin.PIN_INPUT || pan.pinIO == JPin.PIN_INPUT_OUTPUT) && apin.draht == null)) {
                 abschliessen(elementID, pin);
             }
         } catch (Exception er) {
@@ -443,16 +434,13 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
         }
     }
 
-    public void elementPinMouseMoved(MouseEvent e, int elementID, int pin) {
-    }
+    public void elementPinMouseMoved(MouseEvent e, int elementID, int pin) {}
 
     public void draw(Graphics g) {
         drawPoints(g);
     }
 
-    public void elementMouseEntered(MouseEvent e) {
-    }
+    public void elementMouseEntered(MouseEvent e) {}
 
-    public void elementMouseExited(MouseEvent e) {
-    }
+    public void elementMouseExited(MouseEvent e) {}
 }

@@ -1,17 +1,23 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
+
 package BasisStatus;
 
 import java.awt.Cursor;
@@ -74,7 +80,7 @@ public class StatusAddElement extends Object implements StatusBasisIF {
                 Draht altDraht = element.getPin(pinBottomNr).draht;
 
                 Element elementUnten = vmobject.getElementWithID(altDraht.getDestElementID());
-                //JPin pinUnten=elementUnten.getPin(altDraht.getDestPin());
+                // JPin pinUnten=elementUnten.getPin(altDraht.getDestPin());
 
                 vmobject.deleteDraht(altDraht);
 
@@ -88,10 +94,12 @@ public class StatusAddElement extends Object implements StatusBasisIF {
                 draht1.addPoint(0, element.getY() + element.getHeight() + 10);
                 draht1.addPoint(0, 0);
 
-                int pinBottomNrDummyElement = dummyElement.getPinsTop() + dummyElement.getPinsRight() + dummyElement.getPinsBottom() - 1;
+                int pinBottomNrDummyElement =
+                        dummyElement.getPinsTop() + dummyElement.getPinsRight() + dummyElement.getPinsBottom() - 1;
                 int pinTopNrelementUnten = elementUnten.getPinsTop() - 1;
 
-                Draht draht2 = vmobject.addDrahtIntoCanvas(dummyElement.getID(), pinBottomNrDummyElement, elementUnten.getID(), pinTopNrelementUnten);
+                Draht draht2 = vmobject.addDrahtIntoCanvas(dummyElement.getID(), pinBottomNrDummyElement,
+                        elementUnten.getID(), pinTopNrelementUnten);
 
                 dummyElement.getPin(pinBottomNrDummyElement).draht = draht2;
                 elementUnten.getPin(pinTopNrelementUnten).draht = draht2;
@@ -115,12 +123,13 @@ public class StatusAddElement extends Object implements StatusBasisIF {
 
 
 
-    /*leftDraht = vmobject.addDrahtIntoCanvas(draht.getSourceElementID(), draht.getSourcePin(), node.getID(), 1);
-    rightDraht = vmobject.addDrahtIntoCanvas(node.getID(), 3, draht.getDestElementID(), draht.getDestPin());
-    node.getPin(3).draht = rightDraht;
-    node.getPin(1).draht = leftDraht;
-    node.getPin(1).pinIO = JPin.PIN_INPUT;
-    node.getPin(3).pinIO = JPin.PIN_OUTPUT;*/
+        /*
+         * leftDraht = vmobject.addDrahtIntoCanvas(draht.getSourceElementID(), draht.getSourcePin(),
+         * node.getID(), 1); rightDraht = vmobject.addDrahtIntoCanvas(node.getID(), 3,
+         * draht.getDestElementID(), draht.getDestPin()); node.getPin(3).draht = rightDraht;
+         * node.getPin(1).draht = leftDraht; node.getPin(1).pinIO = JPin.PIN_INPUT; node.getPin(3).pinIO =
+         * JPin.PIN_OUTPUT;
+         */
 
     }
 
@@ -158,36 +167,23 @@ public class StatusAddElement extends Object implements StatusBasisIF {
             // ob die Koordinaten sich unterhalb eines Start Elements befinden
 
             // Ist es ein MCU-FLOWCHART Element?
-            /*if (dummyElement.getInternName().indexOf("#MCU-FLOWCHART") > -1)
-            {
-                // Ist das dummyElement unter ein MCU_FLOWCHART-START ELment?
-                VMObject vm = vmobject;
-                for (int i = 0; i < vm.getElementCount(); i++)
-                {
-                    Element startElement = vm.getElement(i);
-
-                    if (startElement.getInternName().indexOf("#MCU-FLOWCHART-START#") > -1)
-                    {
-                        int x1 = dummyElement.getX() + (dummyElement.getWidth() / 2);
-                        int x2 = startElement.getX();
-                        int x3 = startElement.getX() + startElement.getWidth();
-
-                        int y1 = dummyElement.getY();
-                        int y2 = startElement.getY() - 10;
-
-                        if (x1 >= x2 && y1 > y2 && x1 <= x3)
-                        {
-                            Element elementOben = getNearstElementInMouseExcludeElement(x, y, 100, y1,dummyElement);
-
-                            if (elementOben != null)
-                            {
-                                appendMCUFlowChartElementTo(elementOben, dummyElement);
-                                vm.reorderWireFrames();
-                            }
-                        }
-                    }
-                }
-            }*/
+            /*
+             * if (dummyElement.getInternName().indexOf("#MCU-FLOWCHART") > -1) { // Ist das dummyElement unter
+             * ein MCU_FLOWCHART-START ELment? VMObject vm = vmobject; for (int i = 0; i < vm.getElementCount();
+             * i++) { Element startElement = vm.getElement(i);
+             *
+             * if (startElement.getInternName().indexOf("#MCU-FLOWCHART-START#") > -1) { int x1 =
+             * dummyElement.getX() + (dummyElement.getWidth() / 2); int x2 = startElement.getX(); int x3 =
+             * startElement.getX() + startElement.getWidth();
+             *
+             * int y1 = dummyElement.getY(); int y2 = startElement.getY() - 10;
+             *
+             * if (x1 >= x2 && y1 > y2 && x1 <= x3) { Element elementOben =
+             * getNearstElementInMouseExcludeElement(x, y, 100, y1,dummyElement);
+             *
+             * if (elementOben != null) { appendMCUFlowChartElementTo(elementOben, dummyElement);
+             * vm.reorderWireFrames(); } } } } }
+             */
             vmobject.owner.disableAllElements();
             vmobject.owner.saveForUndoRedo();
             dummyElement.setSelected(true);
@@ -231,71 +227,59 @@ public class StatusAddElement extends Object implements StatusBasisIF {
 
     public void mouseMoved(MouseEvent e) {
 
-            int w = dummyWidth;
-            int h = dummyHeight;
-            int w2 = w / 2;
-            int h2 = h / 2;
+        int w = dummyWidth;
+        int h = dummyHeight;
+        int w2 = w / 2;
+        int h2 = h / 2;
 
-            int x = 0;
-            int y = 0;
+        int x = 0;
+        int y = 0;
 
-            if (e.getSource() instanceof SelectionPane) {
-                x = e.getX();
-                y = e.getY();
+        if (e.getSource() instanceof SelectionPane) {
+            x = e.getX();
+            y = e.getY();
 
-                SelectionPane pane = (SelectionPane) e.getSource();
-                Element element = pane.getElement();
+            SelectionPane pane = (SelectionPane) e.getSource();
+            Element element = pane.getElement();
 
-                x = element.getX() + e.getX();
-                y = element.getY() + e.getY();
-            } else {
+            x = element.getX() + e.getX();
+            y = element.getY() + e.getY();
+        } else {
 
-                if (vmobject != null) {
+            if (vmobject != null) {
 
-                    x = vmobject.getMousePosition().x;
-                    y = vmobject.getMousePosition().y;
+                x = vmobject.getMousePosition().x;
+                y = vmobject.getMousePosition().y;
 
-                }
             }
-            int x1 = x - w2;
-            int y1 = y - h2;
+        }
+        int x1 = x - w2;
+        int y1 = y - h2;
 
-            Point p = vmobject.pointToRaster(dummyElement, x1, y1);
-            dummyElement.setLocation(p.x, p.y);
+        Point p = vmobject.pointToRaster(dummyElement, x1, y1);
+        dummyElement.setLocation(p.x, p.y);
 
     }
 
-    public void mouseDblClick(MouseEvent e) {
-    }
+    public void mouseDblClick(MouseEvent e) {}
 
-    public void elementPinMousePressed(MouseEvent e, int elementID, int pin) {
-    }
+    public void elementPinMousePressed(MouseEvent e, int elementID, int pin) {}
 
-    public void elementPinMouseMoved(MouseEvent e, int elementID, int pin) {
-    }
+    public void elementPinMouseMoved(MouseEvent e, int elementID, int pin) {}
 
-    public void elementPinMouseReleased(MouseEvent e, int elementID, int pin) {
-    }
+    public void elementPinMouseReleased(MouseEvent e, int elementID, int pin) {}
 
-    public void processKeyEvent(KeyEvent ke) {
-    }
+    public void processKeyEvent(KeyEvent ke) {}
 
-    public void mouseDragged(MouseEvent e) {
-    }
+    public void mouseDragged(MouseEvent e) {}
 
-    public void mouseReleased(MouseEvent e) {
-    }
+    public void mouseReleased(MouseEvent e) {}
 
-    public void mouseClicked(MouseEvent e) {
-    }
+    public void mouseClicked(MouseEvent e) {}
 
-    public void mouseEntered(MouseEvent e) {
-    }
+    public void mouseEntered(MouseEvent e) {}
 
-    public void mouseExited(MouseEvent e) {
-    }
+    public void mouseExited(MouseEvent e) {}
 
-    public void draw(java.awt.Graphics g) {
-    }
+    public void draw(java.awt.Graphics g) {}
 }
-

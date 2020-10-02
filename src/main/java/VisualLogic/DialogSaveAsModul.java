@@ -1,20 +1,23 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
+
 package VisualLogic;
 
 import java.awt.Color;
@@ -58,8 +61,8 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
         elementPalette = new ElementPalette(frameCircuit);
         elementPalette.setGruppenAuswahlMode(true);
 
-        //elementPalette.rootCircuitPath+="/2user-defined/";
-        //elementPalette.rootFrontPath+="/2user-defined/";
+        // elementPalette.rootCircuitPath+="/2user-defined/";
+        // elementPalette.rootFrontPath+="/2user-defined/";
         jPanel2.add(image, java.awt.BorderLayout.CENTER);
         image.setBackground(Color.WHITE);
 
@@ -96,12 +99,12 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
             pane.setContentType("text/html");
             pane.setCaretPosition(0);
         } catch (Exception e) {
-            //VisualLogic.Tools.showMessage(e.toString());
+            // VisualLogic.Tools.showMessage(e.toString());
         }
     }
 
     public void executeNewDirectory() {
-        //jPanel1.setVisible(false);
+        // jPanel1.setVisible(false);
         setTitle(java.util.ResourceBundle.getBundle("VisualLogic/ElementPalette").getString("New_Directory"));
         jPanel9.setVisible(false);
 
@@ -109,7 +112,7 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
     }
 
     public void executeEditDirectory(String directory) {
-        //jPanel1.setVisible(false);
+        // jPanel1.setVisible(false);
         editBaseDir = directory;
         txtName.setEnabled(false);
         setTitle(java.util.ResourceBundle.getBundle("VisualLogic/ElementPalette").getString("edit_dir"));
@@ -126,7 +129,7 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
 
         String n = directory.substring(index + 1, directory.length());
 
-        //Basis basis=frameCircuit.basis;
+        // Basis basis=frameCircuit.basis;
         txtIcon.setText(directory + "/" + definition_def.iconFilename);
 
         openImage(txtIcon.getText());
@@ -232,11 +235,11 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
         modeEdit = true;
         execute();
         // 1. aus dem Verzeichniss die definition.def auslesen
-        //    Icon und Hilfe auch!
+        // Icon und Hilfe auch!
         // 2. aus der definition.def die Daten anzeigen
-        //    Icon und Hilfe auch!
+        // Icon und Hilfe auch!
         // 3. definition.def anhand der neuen Daten neu generieren
-        //    Icon und Hilfe auch!
+        // Icon und Hilfe auch!
 
         DFProperties definition_def = Tools.getProertiesFromDefinitionFile(new File(baseDir));
 
@@ -277,9 +280,9 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
         setVisible(true);
 
         if (result) {
-            //    savedocFile(editorDE, baseDir + "/doc.html");
-            //  savedocFile(editorEN, baseDir + "/doc_en.html");
-            //  savedocFile(editorES, baseDir + "/doc_es.html");
+            // savedocFile(editorDE, baseDir + "/doc.html");
+            // savedocFile(editorEN, baseDir + "/doc_en.html");
+            // savedocFile(editorES, baseDir + "/doc_es.html");
 
             try (PrintWriter out = new PrintWriter(baseDir + "/description_de.html")) {
 
@@ -313,7 +316,8 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
                 try {
                     Tools.copyFile(new File(xicon), new File(baseDir + "/icon." + ext));
                 } catch (Exception ex) {
-                    Tools.showMessage(java.util.ResourceBundle.getBundle("VisualLogic/DialogSaveAsModul").getString("ERROR: COPYING ICON FILE!"));
+                    Tools.showMessage(java.util.ResourceBundle.getBundle("VisualLogic/DialogSaveAsModul")
+                            .getString("ERROR: COPYING ICON FILE!"));
                 }
             }
 
@@ -327,15 +331,14 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
             definition_def2.classfront = definition_def.classfront;
             System.out.println("definition_def.classfront=" + definition_def2.classfront);
 
-            /*if (circuitElement==true) {
-                definition_def2.classfront="";
-            }else {
-                definition_def2.classfront="TRUE";
-            }*/
+            /*
+             * if (circuitElement==true) { definition_def2.classfront=""; }else {
+             * definition_def2.classfront="TRUE"; }
+             */
             definition_def2.vm = xname + ".vlogic";
 
             Tools.saveDefinitionFile(new File(baseDir), definition_def2);
-            //frameCircuit.elementPalette.loadFolder(frameCircuit.elementPalette.aktuellesVerzeichniss);
+            // frameCircuit.elementPalette.loadFolder(frameCircuit.elementPalette.aktuellesVerzeichniss);
         }
     }
 
@@ -370,9 +373,9 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
 
             frameCircuit.getActualBasis().saveToFile(vmFile + "/" + xname + ".vlogic", false);
 
-            //savedocFile(editorDE, baseDir + "/doc.html");
-            //savedocFile(editorEN, baseDir + "/doc_en.html");
-            //savedocFile(editorES, baseDir + "/doc_es.html");
+            // savedocFile(editorDE, baseDir + "/doc.html");
+            // savedocFile(editorEN, baseDir + "/doc_en.html");
+            // savedocFile(editorES, baseDir + "/doc_es.html");
             String ext = Tools.getExtension(new File(xicon));
 
             try {
@@ -425,8 +428,8 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
     }
 
     /**
-     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
-     * content of this method is always regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify
+     * this code. The content of this method is always regenerated by the Form Editor.
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -556,96 +559,87 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
 
         org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                         .add(jPanel4Layout.createSequentialGroup()
-                                           .addContainerGap()
-                                           .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                             .add(jScrollPane4)
-                                                             .add(jPanel4Layout.createSequentialGroup()
-                                                                               .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                                                                 .add(jLabel5)
-                                                                                                 .add(jLabel2)
-                                                                                                 .add(jLabel1)
-                                                                                                 .add(jLabel3)
-                                                                                                 .add(jLabel4))
-                                                                               .add(22, 22, 22)
-                                                                               .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                                                                 .add(jCheckBox1)
-                                                                                                 .add(jPanel4Layout.createSequentialGroup()
-                                                                                                                   .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                                                                                   .add(18, 18, 18)
-                                                                                                                   .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                                                                                                     .add(jPanel4Layout.createSequentialGroup()
-                                                                                                                                                       .add(jButton4)
-                                                                                                                                                       .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                                                                                                                                       .add(jButton5)
-                                                                                                                                                       .add(0, 281, Short.MAX_VALUE))
-                                                                                                                                     .add(jPanel4Layout.createSequentialGroup()
-                                                                                                                                                       .add(txtIcon)
-                                                                                                                                                       .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                                                                                                                                       .add(jButton3))))
-                                                                                                 .add(txtName)
-                                                                                                 .add(txtDE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                                                 .add(txtEN)
-                                                                                                 .add(txtES)))
-                                                             .add(jPanel4Layout.createSequentialGroup()
-                                                                               .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                                                                 .add(jLabel6)
-                                                                                                 .add(jLabel7)
-                                                                                                 .add(jLabel9))
-                                                                               .add(0, 0, Short.MAX_VALUE))
-                                                             .add(jScrollPane5)
-                                                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane6))
-                                           .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                         .add(jPanel4Layout.createSequentialGroup()
-                                           .addContainerGap()
-                                           .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                                                             .add(jLabel5)
-                                                             .add(txtName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                           .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                           .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                                             .add(jLabel2)
-                                                             .add(jPanel4Layout.createSequentialGroup()
-                                                                               .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                                                                                                 .add(txtIcon, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                                                                 .add(jButton3))
-                                                                               .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                                                               .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                                                                                                 .add(jButton4)
-                                                                                                 .add(jButton5)))
-                                                             .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 52, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                           .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                           .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                                                             .add(jLabel1)
-                                                             .add(txtDE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                           .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                           .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                                                             .add(jLabel3)
-                                                             .add(txtEN, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                           .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                           .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                                                             .add(jLabel4)
-                                                             .add(txtES, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                           .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                           .add(jCheckBox1)
-                                           .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                           .add(jLabel6)
-                                           .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                           .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 74, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                           .add(13, 13, 13)
-                                           .add(jLabel7)
-                                           .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                           .add(jScrollPane6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 74, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                           .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                           .add(jLabel9)
-                                           .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                           .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 74, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                           .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jPanel4Layout.setHorizontalGroup(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jPanel4Layout.createSequentialGroup().addContainerGap().add(jPanel4Layout
+                        .createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(jScrollPane4)
+                        .add(jPanel4Layout.createSequentialGroup()
+                                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                        .add(jLabel5).add(jLabel2).add(jLabel1).add(jLabel3).add(jLabel4))
+                                .add(22, 22, 22)
+                                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                        .add(jCheckBox1)
+                                        .add(jPanel4Layout.createSequentialGroup()
+                                                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50,
+                                                        org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                                .add(18, 18, 18)
+                                                .add(jPanel4Layout
+                                                        .createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                                        .add(jPanel4Layout.createSequentialGroup().add(jButton4)
+                                                                .addPreferredGap(
+                                                                        org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                                                .add(jButton5).add(0, 281, Short.MAX_VALUE))
+                                                        .add(jPanel4Layout.createSequentialGroup().add(txtIcon)
+                                                                .addPreferredGap(
+                                                                        org.jdesktop.layout.LayoutStyle.RELATED)
+                                                                .add(jButton3))))
+                                        .add(txtName)
+                                        .add(txtDE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                                                org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .add(txtEN).add(txtES)))
+                        .add(jPanel4Layout.createSequentialGroup()
+                                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                        .add(jLabel6).add(jLabel7).add(jLabel9))
+                                .add(0, 0, Short.MAX_VALUE))
+                        .add(jScrollPane5).add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane6))
+                        .addContainerGap()));
+        jPanel4Layout.setVerticalGroup(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jPanel4Layout.createSequentialGroup().addContainerGap()
+                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE).add(jLabel5)
+                                .add(txtName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+                                        org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                                        org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                .add(jLabel2)
+                                .add(jPanel4Layout.createSequentialGroup()
+                                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                                .add(txtIcon, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+                                                        org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                                                        org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                                .add(jButton3))
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                                .add(jButton4).add(jButton5)))
+                                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 52,
+                                        org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE).add(jLabel1)
+                                .add(txtDE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+                                        org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                                        org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE).add(jLabel3)
+                                .add(txtEN, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+                                        org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                                        org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE).add(jLabel4)
+                                .add(txtES, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE,
+                                        org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                                        org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED).add(jCheckBox1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED).add(jLabel6)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 74,
+                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(13, 13, 13).add(jLabel7).addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jScrollPane6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 74,
+                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(jLabel9)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 74,
+                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
         jTabbedPane1.addTab(bundle1.getString("Settings"), jPanel4); // NOI18N
 
@@ -674,87 +668,70 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
 
         org.jdesktop.layout.GroupLayout jPanel9Layout = new org.jdesktop.layout.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                         .add(jPanel9Layout.createSequentialGroup()
-                                           .addContainerGap()
-                                           .add(jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                             .add(jLabel8)
-                                                             .add(jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                                                               .add(org.jdesktop.layout.GroupLayout.LEADING, jButton8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                               .add(org.jdesktop.layout.GroupLayout.LEADING, jButton6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                               .add(org.jdesktop.layout.GroupLayout.LEADING, jButton7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                           .addContainerGap(140, Short.MAX_VALUE))
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                         .add(jPanel9Layout.createSequentialGroup()
-                                           .addContainerGap()
-                                           .add(jLabel8)
-                                           .add(13, 13, 13)
-                                           .add(jButton6)
-                                           .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                           .add(jButton7)
-                                           .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                           .add(jButton8)
-                                           .addContainerGap(402, Short.MAX_VALUE))
-        );
+        jPanel9Layout.setHorizontalGroup(jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jPanel9Layout.createSequentialGroup().addContainerGap()
+                        .add(jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(jLabel8)
+                                .add(jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                        .add(org.jdesktop.layout.GroupLayout.LEADING, jButton8,
+                                                org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                                                org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .add(org.jdesktop.layout.GroupLayout.LEADING, jButton6,
+                                                org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                                                org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .add(org.jdesktop.layout.GroupLayout.LEADING, jButton7,
+                                                org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
+                                                org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap(140, Short.MAX_VALUE)));
+        jPanel9Layout.setVerticalGroup(jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jPanel9Layout.createSequentialGroup().addContainerGap().add(jLabel8).add(13, 13, 13).add(jButton6)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(jButton7)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(jButton8)
+                        .addContainerGap(402, Short.MAX_VALUE)));
 
         jTabbedPane1.addTab(bundle1.getString("Dokumentation"), jPanel9); // NOI18N
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                  .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                                                                       .addContainerGap()
-                                                                       .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                                                                  .add(jTabbedPane1)
-                                                                                  .add(layout.createSequentialGroup()
-                                                                                             .add(0, 0, Short.MAX_VALUE)
-                                                                                             .add(jButton2)
-                                                                                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                                                                             .add(jButton1)))
-                                                                       .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                  .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                                                                       .addContainerGap()
-                                                                       .add(jTabbedPane1)
-                                                                       .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                                                       .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                                                                                  .add(jButton1)
-                                                                                  .add(jButton2))
-                                                                       .addContainerGap())
-        );
+        layout.setHorizontalGroup(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup().addContainerGap()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING).add(jTabbedPane1)
+                                .add(layout.createSequentialGroup().add(0, 0, Short.MAX_VALUE).add(jButton2)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED).add(jButton1)))
+                        .addContainerGap()));
+        layout.setVerticalGroup(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(
+                org.jdesktop.layout.GroupLayout.TRAILING,
+                layout.createSequentialGroup().addContainerGap().add(jTabbedPane1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE).add(jButton1)
+                                .add(jButton2))
+                        .addContainerGap()));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowActivated(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowActivated
-    {//GEN-HEADEREND:event_formWindowActivated
-// TODO add your handling code here:
-    }//GEN-LAST:event_formWindowActivated
+    private void formWindowActivated(java.awt.event.WindowEvent evt)// GEN-FIRST:event_formWindowActivated
+    {// GEN-HEADEREND:event_formWindowActivated
+     // TODO add your handling code here:
+    }// GEN-LAST:event_formWindowActivated
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosed
-    {//GEN-HEADEREND:event_formWindowClosed
+    private void formWindowClosed(java.awt.event.WindowEvent evt)// GEN-FIRST:event_formWindowClosed
+    {// GEN-HEADEREND:event_formWindowClosed
 
-    }//GEN-LAST:event_formWindowClosed
+    }// GEN-LAST:event_formWindowClosed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
 
         String param = new File(txtIcon.getText()).getPath();
 
         Tools.openPaint(new File(param));
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }// GEN-LAST:event_jButton4ActionPerformed
 
-    private void txtIconKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_txtIconKeyPressed
-    {//GEN-HEADEREND:event_txtIconKeyPressed
+    private void txtIconKeyPressed(java.awt.event.KeyEvent evt)// GEN-FIRST:event_txtIconKeyPressed
+    {// GEN-HEADEREND:event_txtIconKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             openImage(txtIcon.getText());
         }
-    }//GEN-LAST:event_txtIconKeyPressed
+    }// GEN-LAST:event_txtIconKeyPressed
 
     private void openImage(String filename) {
 
@@ -762,7 +739,7 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
         image.setImage(img);
     }
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(new java.io.File(letztesVerzeichniss));
 
@@ -787,9 +764,9 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
             txtIcon.setText(fileName);
             openImage(fileName);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }// GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
 
         txtName.setText(Tools.bereinigeDateiname(txtName.getText()));
 
@@ -806,9 +783,9 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
 
                     xicon = txtIcon.getText();
 
-                    //doc_DE = editorDE.getText();
-                    //doc_EN = editorEN.getText();
-                    //doc_ES = editorES.getText();
+                    // doc_DE = editorDE.getText();
+                    // doc_EN = editorEN.getText();
+                    // doc_ES = editorES.getText();
                     result = true;
                     dispose();
                 } else {
@@ -831,8 +808,8 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
 
                     xicon = txtIcon.getText();
 
-                    //doc_DE = editorDE.getText();
-                    //doc_EN = editorEN.getText();
+                    // doc_DE = editorDE.getText();
+                    // doc_EN = editorEN.getText();
                     // doc_ES = editorES.getText();
                     result = true;
                     dispose();
@@ -847,7 +824,7 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
                 xicon = txtIcon.getText();
 
                 // doc_DE = editorDE.getText();
-                //doc_EN = editorEN.getText();
+                // doc_EN = editorEN.getText();
                 // doc_ES = editorES.getText();
                 result = true;
                 dispose();
@@ -855,16 +832,16 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
                 Tools.showMessage("Name is invalid!");
             }
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }// GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
         result = false;
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }// GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton5ActionPerformed
         openImage(txtIcon.getText());
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }// GEN-LAST:event_jButton5ActionPerformed
 
     private void openDocDir(String lang) {
         Desktop desktop = Desktop.getDesktop();
@@ -880,21 +857,20 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
         }
     }
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton6ActionPerformed
 
         openDocDir("de");
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }// GEN-LAST:event_jButton6ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton7ActionPerformed
         openDocDir("en");
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }// GEN-LAST:event_jButton7ActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton8ActionPerformed
         openDocDir("es");
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }// GEN-LAST:event_jButton8ActionPerformed
 
-    public void onButtonClicken(String[] params) {
-    }
+    public void onButtonClicken(String[] params) {}
 
     public static String xicon = "";
     public static String xname = "";

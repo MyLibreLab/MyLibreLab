@@ -1,20 +1,22 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package BasisStatus;
 
@@ -105,7 +107,7 @@ public class StatusEditPathEditMode implements StatusBasisIF {
 
         popupmenu.add(jmiSynchAsynch);
 
-        //popupBeginEndNode.add(jmiOpenClosePath);
+        // popupBeginEndNode.add(jmiOpenClosePath);
 
         createEvent();
     }
@@ -175,8 +177,7 @@ public class StatusEditPathEditMode implements StatusBasisIF {
         });
     }
 
-    public void elementPinMouseMoved(MouseEvent e, int elementID, int pin) {
-    }
+    public void elementPinMouseMoved(MouseEvent e, int elementID, int pin) {}
 
     public void mouseDragged(MouseEvent e) {
         if (status != null) {
@@ -200,7 +201,7 @@ public class StatusEditPathEditMode implements StatusBasisIF {
 
                 element.updateUI();
 
-                //return;
+                // return;
             }
 
             if (path.commando.equalsIgnoreCase("CURVETO")) {
@@ -221,8 +222,10 @@ public class StatusEditPathEditMode implements StatusBasisIF {
                         path.p2.y = path.p.y - y2;
                     } else {
                         Point p = new Point(0, 0);
-                        if (selectedParam == 0) p = path.p;
-                        else if (selectedParam == 1) p = path.p1;
+                        if (selectedParam == 0)
+                            p = path.p;
+                        else if (selectedParam == 1)
+                            p = path.p1;
                         else if (selectedParam == 2) p = path.p2;
                         p.x = x;
                         p.y = y;
@@ -275,8 +278,10 @@ public class StatusEditPathEditMode implements StatusBasisIF {
                 }
             } else {
                 Point p = new Point(0, 0);
-                if (selectedParam == 0) p = path.p;
-                else if (selectedParam == 1) p = path.p1;
+                if (selectedParam == 0)
+                    p = path.p;
+                else if (selectedParam == 1)
+                    p = path.p1;
                 else if (selectedParam == 2) p = path.p2;
                 p.x = x;
                 p.y = y;
@@ -299,8 +304,9 @@ public class StatusEditPathEditMode implements StatusBasisIF {
         double zx = element.zoomX;
         double zy = element.zoomY;
 
-        /*x=(int)(xzx);
-        y=(int)(y*zy);*/
+        /*
+         * x=(int)(xzx); y=(int)(y*zy);
+         */
 
         for (int i = 0; i < element.points.size(); i++) {
             aktuellerPunkt = -1;
@@ -310,24 +316,27 @@ public class StatusEditPathEditMode implements StatusBasisIF {
             String cmd = path.commando;
 
             if (cmd.equalsIgnoreCase("CURVETO")) {
-                if (x >= (int) (path.p1.x * zx) - d && x <= (int) (path.p1.x * zx) + d && y >= (int) (path.p1.y * zy) - d && y <= (int) (path.p1.y * zy) + d) {
+                if (x >= (int) (path.p1.x * zx) - d && x <= (int) (path.p1.x * zx) + d
+                        && y >= (int) (path.p1.y * zy) - d && y <= (int) (path.p1.y * zy) + d) {
                     selectedParam = 1;
                     return i;
                 }
-                if (x >= (int) (path.p2.x * zx) - d && x <= (int) (path.p2.x * zx) + d && y >= (int) (path.p2.y * zy) - d && y <= (int) (path.p2.y * zy) + d) {
+                if (x >= (int) (path.p2.x * zx) - d && x <= (int) (path.p2.x * zx) + d
+                        && y >= (int) (path.p2.y * zy) - d && y <= (int) (path.p2.y * zy) + d) {
                     selectedParam = 2;
                     return i;
                 }
-                if (x >= (int) (p.x * zx) - d && x <= (int) (p.x * zx) + d && y >= (int) (p.y * zy) - d && y <= (int) (p.y * zy) + d)
-                //if (x>=p.x-d && x<=p.x+d && y>=p.y-d && y<=p.y+d)
+                if (x >= (int) (p.x * zx) - d && x <= (int) (p.x * zx) + d && y >= (int) (p.y * zy) - d
+                        && y <= (int) (p.y * zy) + d)
+                // if (x>=p.x-d && x<=p.x+d && y>=p.y-d && y<=p.y+d)
                 {
                     selectedParam = 0;
                     return i;
                 }
 
-                //path.curveTo(x,y, p.p1.x,p.p1.y, p.p2.x,p.p2.y);
+                // path.curveTo(x,y, p.p1.x,p.p1.y, p.p2.x,p.p2.y);
             } else if (cmd.equalsIgnoreCase("QUADTO")) {
-                //path.quadTo(x,y, p.p1.x,p.p1.y);
+                // path.quadTo(x,y, p.p1.x,p.p1.y);
                 if (x >= path.p1.x - d && x <= path.p1.x + d && y >= path.p1.y - d && y <= path.p1.y + d) {
                     selectedParam = 1;
                     return i;
@@ -336,8 +345,9 @@ public class StatusEditPathEditMode implements StatusBasisIF {
                     selectedParam = 0;
                     return i;
                 }
-            } else if (x >= (int) (p.x * zx) - d && x <= (int) (p.x * zx) + d && y >= (int) (p.y * zy) - d && y <= (int) (p.y * zy) + d)
-            //if (x>=p.x-d && x<=p.x+d && y>=p.y-d && y<=p.y+d)
+            } else if (x >= (int) (p.x * zx) - d && x <= (int) (p.x * zx) + d && y >= (int) (p.y * zy) - d
+                    && y <= (int) (p.y * zy) + d)
+            // if (x>=p.x-d && x<=p.x+d && y>=p.y-d && y<=p.y+d)
             {
                 selectedParam = 0;
                 return i;
@@ -360,7 +370,8 @@ public class StatusEditPathEditMode implements StatusBasisIF {
             if (e.getButton() == e.BUTTON3 && selectedParam == 0) {
                 popupmenu.show(element.owner, e.getX(), e.getY());
                 return;
-            } else return;
+            } else
+                return;
         }
         if (e.getButton() == e.BUTTON3) {
             GeneralPath pathX = element.jParsePath();
@@ -450,28 +461,22 @@ public class StatusEditPathEditMode implements StatusBasisIF {
         }
     }
 
-    public void elementPinMouseReleased(MouseEvent e, int elementID, int pin) {
-    }
+    public void elementPinMouseReleased(MouseEvent e, int elementID, int pin) {}
 
-    public void elementPinMousePressed(MouseEvent e, int elementID, int pin) {
-    }
+    public void elementPinMousePressed(MouseEvent e, int elementID, int pin) {}
 
-    public void mouseDblClick(MouseEvent e) {
-    }
+    public void mouseDblClick(MouseEvent e) {}
 
     public void processKeyEvent(KeyEvent ke) {
-        //System.out.println("KEY");
-        //element.points.add(new Point(100,100));
+        // System.out.println("KEY");
+        // element.points.add(new Point(100,100));
     }
 
-    public void mouseClicked(MouseEvent e) {
-    }
+    public void mouseClicked(MouseEvent e) {}
 
-    public void mouseEntered(MouseEvent e) {
-    }
+    public void mouseEntered(MouseEvent e) {}
 
-    public void mouseExited(MouseEvent e) {
-    }
+    public void mouseExited(MouseEvent e) {}
 
     Element lastOverElement = null;
 
@@ -483,4 +488,3 @@ public class StatusEditPathEditMode implements StatusBasisIF {
 
     }
 }
-

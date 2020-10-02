@@ -1,26 +1,28 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package VisualLogic;
 
 // FontChooser.java
 // A font chooser that allows users to pick a font by name, size, style, and
-// color.  The color selection will be provided by a JColorChooser pane.  This
+// color. The color selection will be provided by a JColorChooser pane. This
 // dialog builds an AttributeSet suitable for use with JTextPane.
 //
 
@@ -79,8 +81,7 @@ public class FontChooser extends JDialog implements ActionListener {
         Container c = getContentPane();
 
         JPanel fontPanel = new JPanel();
-        fontName = new JComboBox(new String[]{"TimesRoman",
-            "Helvetica", "Courier"});
+        fontName = new JComboBox(new String[] {"TimesRoman", "Helvetica", "Courier"});
         fontName.setSelectedIndex(1);
         fontName.addActionListener(this);
         fontSize = new JTextField("12", 4);
@@ -140,16 +141,12 @@ public class FontChooser extends JDialog implements ActionListener {
     // new font for the preview label
     public void actionPerformed(ActionEvent ae) {
         // Check the name of the font
-        if (!StyleConstants.getFontFamily(attributes)
-                           .equals(fontName.getSelectedItem())) {
-            StyleConstants.setFontFamily(attributes,
-                (String) fontName.getSelectedItem());
+        if (!StyleConstants.getFontFamily(attributes).equals(fontName.getSelectedItem())) {
+            StyleConstants.setFontFamily(attributes, (String) fontName.getSelectedItem());
         }
         // Check the font size (no error checking yet)
-        if (StyleConstants.getFontSize(attributes) !=
-            Integer.parseInt(fontSize.getText())) {
-            StyleConstants.setFontSize(attributes,
-                Integer.parseInt(fontSize.getText()));
+        if (StyleConstants.getFontSize(attributes) != Integer.parseInt(fontSize.getText())) {
+            StyleConstants.setFontSize(attributes, Integer.parseInt(fontSize.getText()));
         }
         // Check to see if the font should be bold
         if (StyleConstants.isBold(attributes) != fontBold.isSelected()) {
@@ -171,9 +168,8 @@ public class FontChooser extends JDialog implements ActionListener {
         boolean ital = StyleConstants.isItalic(attributes);
         int size = StyleConstants.getFontSize(attributes);
 
-        //Bold and italic don't work properly in beta 4.
-        Font f = new Font(name, (bold ? Font.BOLD : 0) +
-            (ital ? Font.ITALIC : 0), size);
+        // Bold and italic don't work properly in beta 4.
+        Font f = new Font(name, (bold ? Font.BOLD : 0) + (ital ? Font.ITALIC : 0), size);
         previewLabel.setFont(f);
     }
 
@@ -211,4 +207,3 @@ public class FontChooser extends JDialog implements ActionListener {
         setVisible(false);
     }
 }
-

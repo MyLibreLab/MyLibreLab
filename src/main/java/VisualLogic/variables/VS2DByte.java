@@ -1,27 +1,28 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package VisualLogic.variables;
 
-import org.tinylog.Logger;
-
 import java.io.IOException;
+
+import org.tinylog.Logger;
 
 /**
  * @author Salafia
@@ -100,7 +101,7 @@ public class VS2DByte extends VSObject {
             VS2DByte temp = (VS2DByte) in;
             this.columns = temp.columns;
             this.rows = temp.rows;
-            //value=temp.value.clone();
+            // value=temp.value.clone();
             value = copyFrom(temp.value, temp.columns, temp.rows);
         } else {
             value = new byte[0][0];
@@ -110,7 +111,7 @@ public class VS2DByte extends VSObject {
     }
 
     public void saveToStream(java.io.FileOutputStream fos) {
-        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)){
+        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)) {
 
             dos.writeInt(columns);
             dos.writeInt(rows);
@@ -123,12 +124,12 @@ public class VS2DByte extends VSObject {
                 }
             }
         } catch (IOException ex) {
-            Logger.error(ex,"Error. Could not write to stream");
+            Logger.error(ex, "Error. Could not write to stream");
         }
     }
 
     public void loadFromStream(java.io.FileInputStream fis) {
-        try (java.io.DataInputStream dis = new java.io.DataInputStream(fis)){
+        try (java.io.DataInputStream dis = new java.io.DataInputStream(fis)) {
 
 
             columns = dis.readInt();
@@ -141,8 +142,7 @@ public class VS2DByte extends VSObject {
                 }
             }
         } catch (IOException ex) {
-            Logger.error(ex,"Error. Could not read from input");
+            Logger.error(ex, "Error. Could not read from input");
         }
     }
 }
-

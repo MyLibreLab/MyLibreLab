@@ -1,20 +1,22 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package BasisStatus;
 
@@ -61,7 +63,8 @@ public class StatusLineVertikal extends Object implements StatusBasisIF {
     /**
      * Creates a new instance of StatusHoritontalLine
      */
-    public StatusLineVertikal(VMObject vmobject, ArrayList drahtPoints, int sourceElementID, int sourcePin, Point start) {
+    public StatusLineVertikal(VMObject vmobject, ArrayList drahtPoints, int sourceElementID, int sourcePin,
+            Point start) {
         this.vmobject = vmobject;
         this.drahtPoints = drahtPoints;
 
@@ -69,7 +72,7 @@ public class StatusLineVertikal extends Object implements StatusBasisIF {
 
         this.sourcePin = sourcePin;
 
-        //createCursors();
+        // createCursors();
         vmobject.disableAllElements();
 
         Element sourceElement = vmobject.getElementWithID(sourceElementID);
@@ -137,8 +140,7 @@ public class StatusLineVertikal extends Object implements StatusBasisIF {
         addDrahtPoint(ende.x, ende.y);
     }
 
-    public void mouseDragged(MouseEvent e) {
-    }
+    public void mouseDragged(MouseEvent e) {}
 
     public void abschliessen(int destElementID, int destPin) {
 
@@ -157,15 +159,12 @@ public class StatusLineVertikal extends Object implements StatusBasisIF {
         if (pinB.pinIO == JPin.PIN_INPUT_OUTPUT) pinB.pinIO = JPin.PIN_INPUT;
 
 
-        /*if (sourceElement.getInternName().equalsIgnoreCase("###NODE###"))
-        {
-            pinA.dataType=JPin.PIN_OUTPUT;
-        }
-
-        if (destElement.getInternName().equalsIgnoreCase("###NODE###"))
-        {
-            pinB.dataType=JPin.PIN_INPUT;
-        }*/
+        /*
+         * if (sourceElement.getInternName().equalsIgnoreCase("###NODE###")) {
+         * pinA.dataType=JPin.PIN_OUTPUT; }
+         *
+         * if (destElement.getInternName().equalsIgnoreCase("###NODE###")) { pinB.dataType=JPin.PIN_INPUT; }
+         */
 
         int x;
         int y;
@@ -216,9 +215,9 @@ public class StatusLineVertikal extends Object implements StatusBasisIF {
         leftLine.addPoint(p.x, line.getStartPoint().y);
 
         rightLine = new Polygon(xvalues, yvalues, xvalues.length);
-        /*myOut(poly);
-        myOut(leftLine);
-        myOut(rightLine);*/
+        /*
+         * myOut(poly); myOut(leftLine); myOut(rightLine);
+         */
 
         Polygon[] result = new Polygon[2];
         result[0] = leftLine;
@@ -250,9 +249,9 @@ public class StatusLineVertikal extends Object implements StatusBasisIF {
         leftLine.addPoint(line.getStartPoint().x, p.y);
 
         rightLine = new Polygon(xvalues, yvalues, xvalues.length);
-        /*myOut(poly);
-        myOut(leftLine);
-        myOut(rightLine);*/
+        /*
+         * myOut(poly); myOut(leftLine); myOut(rightLine);
+         */
 
         Polygon[] result = new Polygon[2];
         result[0] = leftLine;
@@ -297,12 +296,14 @@ public class StatusLineVertikal extends Object implements StatusBasisIF {
             Draht rightDraht;
 
             if (line.myStart.x < line.myEnd.x) {
-                leftDraht = vmobject.addDrahtIntoCanvas(draht.getSourceElementID(), draht.getSourcePin(), node.getID(), 3);
+                leftDraht =
+                        vmobject.addDrahtIntoCanvas(draht.getSourceElementID(), draht.getSourcePin(), node.getID(), 3);
                 rightDraht = vmobject.addDrahtIntoCanvas(node.getID(), 1, draht.getDestElementID(), draht.getDestPin());
                 node.getPin(1).draht = rightDraht;
                 node.getPin(3).draht = leftDraht;
             } else {
-                leftDraht = vmobject.addDrahtIntoCanvas(draht.getSourceElementID(), draht.getSourcePin(), node.getID(), 1);
+                leftDraht =
+                        vmobject.addDrahtIntoCanvas(draht.getSourceElementID(), draht.getSourcePin(), node.getID(), 1);
                 rightDraht = vmobject.addDrahtIntoCanvas(node.getID(), 3, draht.getDestElementID(), draht.getDestPin());
                 node.getPin(3).draht = rightDraht;
                 node.getPin(1).draht = leftDraht;
@@ -343,38 +344,27 @@ public class StatusLineVertikal extends Object implements StatusBasisIF {
 
 
             /*
-            // 1. Delete old Draht
-            // 2. verbinde LDraht mit Source und Node
-            // 3. verbinde RDraht mit Node und Dest
-            vmobject.deleteDraht(draht);
-
-
-            Draht leftDraht=vmobject.addDrahtIntoCanvas(draht.getSourceElementID(),draht.getSourcePin(), node.getID(),3);
-            Draht rightDraht=vmobject.addDrahtIntoCanvas(node.getID(),1, draht.getDestElementID(),draht.getDestPin());
-            Draht upDraht=null;
-            Draht bottonDraht=null;
-
-            Polygon aktuellesPoly=getDrahtPoints();
-
-            copyPoints(leftPoly,leftDraht);
-            copyPoints(rightPoly,rightDraht);
-
-            Point lastpoint=getDrahtPoint(drahtPoints.size()-2);
-            if(line.myStart.y>lastpoint.y)
-            {
-                upDraht=vmobject.addDrahtIntoCanvas(sourceElementID,sourcePin, node.getID(),0);
-                copyPoints(aktuellesPoly,upDraht);
-            }else
-            {
-                bottonDraht=vmobject.addDrahtIntoCanvas(sourceElementID,sourcePin, node.getID(),2);
-                copyPoints(aktuellesPoly,bottonDraht);
-            }
-
-            node.getPin(0).draht=upDraht;
-            node.getPin(1).draht=rightDraht;
-            node.getPin(2).draht=bottonDraht;
-            node.getPin(3).draht=leftDraht;
-        */
+             * // 1. Delete old Draht // 2. verbinde LDraht mit Source und Node // 3. verbinde RDraht mit Node
+             * und Dest vmobject.deleteDraht(draht);
+             *
+             *
+             * Draht leftDraht=vmobject.addDrahtIntoCanvas(draht.getSourceElementID(),draht.getSourcePin(),
+             * node.getID(),3); Draht rightDraht=vmobject.addDrahtIntoCanvas(node.getID(),1,
+             * draht.getDestElementID(),draht.getDestPin()); Draht upDraht=null; Draht bottonDraht=null;
+             *
+             * Polygon aktuellesPoly=getDrahtPoints();
+             *
+             * copyPoints(leftPoly,leftDraht); copyPoints(rightPoly,rightDraht);
+             *
+             * Point lastpoint=getDrahtPoint(drahtPoints.size()-2); if(line.myStart.y>lastpoint.y) {
+             * upDraht=vmobject.addDrahtIntoCanvas(sourceElementID,sourcePin, node.getID(),0);
+             * copyPoints(aktuellesPoly,upDraht); }else {
+             * bottonDraht=vmobject.addDrahtIntoCanvas(sourceElementID,sourcePin, node.getID(),2);
+             * copyPoints(aktuellesPoly,bottonDraht); }
+             *
+             * node.getPin(0).draht=upDraht; node.getPin(1).draht=rightDraht; node.getPin(2).draht=bottonDraht;
+             * node.getPin(3).draht=leftDraht;
+             */
         }
         return node;
     }
@@ -385,60 +375,38 @@ public class StatusLineVertikal extends Object implements StatusBasisIF {
                 Point p = vmobject.getMousePosition();
 
                 Line line = vmobject.getLineInNaehe(p);
-        /*if (line!=null)
-        {
-            Polygon aktuellesPoly=getDrahtPoints();
-            Draht drahtX;
-
-            Draht draht=line.getDraht();
-            Element node=addNodeIntoLine(p,line);
-
-            if (line.getDirection()==Line.HORIZONTAL)
-            {
-                Point lastpoint=getDrahtPoint(drahtPoints.size()-2);
-                if(line.myStart.y>lastpoint.y)
-                {
-                    drahtX=vmobject.addDrahtIntoCanvas(sourceElementID,sourcePin, node.getID(),0);
-                    copyPoints(aktuellesPoly,drahtX);
-                    node.getPin(0).draht=drahtX;
-                }else
-                {
-                    drahtX=vmobject.addDrahtIntoCanvas(sourceElementID,sourcePin, node.getID(),2);
-                    copyPoints(aktuellesPoly,drahtX);
-                    node.getPin(2).draht=drahtX;
-                }
-            }else
-            {
-                Point lastpoint=getDrahtPoint(drahtPoints.size()-2);
-                if(line.myStart.x>lastpoint.x)
-                {
-                    drahtX=vmobject.addDrahtIntoCanvas(sourceElementID,sourcePin, node.getID(),3);
-                    copyPoints(aktuellesPoly,drahtX);
-                    node.getPin(3).draht=drahtX;
-                }else
-                {
-                    drahtX=vmobject.addDrahtIntoCanvas(sourceElementID,sourcePin, node.getID(),1);
-                    copyPoints(aktuellesPoly,drahtX);
-                    node.getPin(1).draht=drahtX;
-                }
-            }
-
-
-            vmobject.setCursor(Cursor.getDefaultCursor());
-            vmobject.setModusIdle();
-            vmobject.reorderWireFrames();
-            vmobject.owner.saveForUndoRedo();
-        }*/
+                /*
+                 * if (line!=null) { Polygon aktuellesPoly=getDrahtPoints(); Draht drahtX;
+                 *
+                 * Draht draht=line.getDraht(); Element node=addNodeIntoLine(p,line);
+                 *
+                 * if (line.getDirection()==Line.HORIZONTAL) { Point lastpoint=getDrahtPoint(drahtPoints.size()-2);
+                 * if(line.myStart.y>lastpoint.y) { drahtX=vmobject.addDrahtIntoCanvas(sourceElementID,sourcePin,
+                 * node.getID(),0); copyPoints(aktuellesPoly,drahtX); node.getPin(0).draht=drahtX; }else {
+                 * drahtX=vmobject.addDrahtIntoCanvas(sourceElementID,sourcePin, node.getID(),2);
+                 * copyPoints(aktuellesPoly,drahtX); node.getPin(2).draht=drahtX; } }else { Point
+                 * lastpoint=getDrahtPoint(drahtPoints.size()-2); if(line.myStart.x>lastpoint.x) {
+                 * drahtX=vmobject.addDrahtIntoCanvas(sourceElementID,sourcePin, node.getID(),3);
+                 * copyPoints(aktuellesPoly,drahtX); node.getPin(3).draht=drahtX; }else {
+                 * drahtX=vmobject.addDrahtIntoCanvas(sourceElementID,sourcePin, node.getID(),1);
+                 * copyPoints(aktuellesPoly,drahtX); node.getPin(1).draht=drahtX; } }
+                 *
+                 *
+                 * vmobject.setCursor(Cursor.getDefaultCursor()); vmobject.setModusIdle();
+                 * vmobject.reorderWireFrames(); vmobject.owner.saveForUndoRedo(); }
+                 */
 
                 if (modus == pinSelection) {
                     pan = vmobject.getNearstPin(p.x, p.y, 10);
                     if (pan != null) {
 
                         JPin apin = pan;
-                        //int xx=pan.element.getX();
-                        //int yy=pan.element.getY();
+                        // int xx=pan.element.getX();
+                        // int yy=pan.element.getY();
 
-                        if ((sourceDataType == apin.dataType || sourceDataType == ExternalIF.C_VARIANT || apin.dataType == ExternalIF.C_VARIANT) && apin.pinIO == JPin.PIN_INPUT && apin.draht == null) {
+                        if ((sourceDataType == apin.dataType || sourceDataType == ExternalIF.C_VARIANT
+                                || apin.dataType == ExternalIF.C_VARIANT) && apin.pinIO == JPin.PIN_INPUT
+                                && apin.draht == null) {
                             abschliessen(pan.element.getID(), pan.pinIndex);
                         }
                         return;
@@ -459,20 +427,15 @@ public class StatusLineVertikal extends Object implements StatusBasisIF {
         }
     }
 
-    public void mouseReleased(MouseEvent e) {
-    }
+    public void mouseReleased(MouseEvent e) {}
 
-    public void mouseDblClick(MouseEvent e) {
-    }
+    public void mouseDblClick(MouseEvent e) {}
 
-    public void mouseClicked(MouseEvent e) {
-    }
+    public void mouseClicked(MouseEvent e) {}
 
-    public void mouseEntered(MouseEvent e) {
-    }
+    public void mouseEntered(MouseEvent e) {}
 
-    public void mouseExited(MouseEvent e) {
-    }
+    public void mouseExited(MouseEvent e) {}
 
     // Result = -1 wenn keine Vertikale Linie in der N�he
     private int getDistanceToNearstVerticalLine(Point p) {
@@ -534,10 +497,9 @@ public class StatusLineVertikal extends Object implements StatusBasisIF {
         pan = vmobject.getNearstPin(x, y, 10);
         if (pan != null) {
             vmobject.owner.frameCircuit.showPinDescription(pan);
-            if ((sourceDataType == pan.dataType ||
-                sourceDataType == ExternalIF.C_VARIANT ||
-                pan.dataType == ExternalIF.C_VARIANT) &&
-                ((pan.pinIO == JPin.PIN_INPUT || pan.pinIO == JPin.PIN_INPUT_OUTPUT) && pan.draht == null)) {
+            if ((sourceDataType == pan.dataType || sourceDataType == ExternalIF.C_VARIANT
+                    || pan.dataType == ExternalIF.C_VARIANT)
+                    && ((pan.pinIO == JPin.PIN_INPUT || pan.pinIO == JPin.PIN_INPUT_OUTPUT) && pan.draht == null)) {
                 vmobject.setCursor(CheckCursor);
             } else {
                 vmobject.setCursor(CrossCursor);
@@ -561,11 +523,11 @@ public class StatusLineVertikal extends Object implements StatusBasisIF {
                 int x1 = pan.element.getX() + pan.getX();
                 int y1 = pan.element.getY() + pan.getY() + 5;
                 if (hasLastPoint == false) {
-                    /*hasLastPoint=true;
-                    addDrahtPoint(x,y);
-
-                    getDrahtPoint(drahtPoints.size()-2).x+=20;
-                    getDrahtPoint(drahtPoints.size()-3).x+=20;                    */
+                    /*
+                     * hasLastPoint=true; addDrahtPoint(x,y);
+                     *
+                     * getDrahtPoint(drahtPoints.size()-2).x+=20; getDrahtPoint(drahtPoints.size()-3).x+=20;
+                     */
                 }
             }
             if (pan.pinAlign == 2) // Unten
@@ -587,10 +549,10 @@ public class StatusLineVertikal extends Object implements StatusBasisIF {
                 int y1 = pan.element.getY() + pan.getY() + 5;
                 if (hasLastPoint == false) {
                     // hasLastPoint=true;
-                    //addDrahtPoint(x1,y);
+                    // addDrahtPoint(x1,y);
 
-                    //getDrahtPoint(drahtPoints.size()-2).x-=20;
-                    //getDrahtPoint(drahtPoints.size()-3).x-=20;
+                    // getDrahtPoint(drahtPoints.size()-2).x-=20;
+                    // getDrahtPoint(drahtPoints.size()-3).x-=20;
                 }
             }
         } else {
@@ -609,21 +571,18 @@ public class StatusLineVertikal extends Object implements StatusBasisIF {
         return (Point) drahtPoints.get(index);
     }
 
-    public void processKeyEvent(KeyEvent ke) {
-    }
+    public void processKeyEvent(KeyEvent ke) {}
 
-    public void elementPinMouseReleased(MouseEvent e, int elementID, int pin) {
-    }
+    public void elementPinMouseReleased(MouseEvent e, int elementID, int pin) {}
 
     public void elementPinMousePressed(MouseEvent e, int elementID, int pin) {
         Element sourceElement = (Element) vmobject.getObjectWithID(elementID);
         JPin apin = sourceElement.getPin(pin);
         try {
 
-            if ((sourceDataType == apin.dataType ||
-                sourceDataType == ExternalIF.C_VARIANT ||
-                apin.dataType == ExternalIF.C_VARIANT) &&
-                ((apin.pinIO == JPin.PIN_INPUT || apin.pinIO == JPin.PIN_INPUT_OUTPUT) && apin.draht == null)) {
+            if ((sourceDataType == apin.dataType || sourceDataType == ExternalIF.C_VARIANT
+                    || apin.dataType == ExternalIF.C_VARIANT)
+                    && ((apin.pinIO == JPin.PIN_INPUT || apin.pinIO == JPin.PIN_INPUT_OUTPUT) && apin.draht == null)) {
                 abschliessen(elementID, pin);
             }
         } catch (Exception er) {
@@ -631,16 +590,13 @@ public class StatusLineVertikal extends Object implements StatusBasisIF {
         }
     }
 
-    public void elementPinMouseMoved(MouseEvent e, int elementID, int pin) {
-    }
+    public void elementPinMouseMoved(MouseEvent e, int elementID, int pin) {}
 
     public void draw(Graphics g) {
         drawPoints(g);
     }
 
-    public void elementMouseEntered(MouseEvent e) {
-    }
+    public void elementMouseEntered(MouseEvent e) {}
 
-    public void elementMouseExited(MouseEvent e) {
-    }
+    public void elementMouseExited(MouseEvent e) {}
 }

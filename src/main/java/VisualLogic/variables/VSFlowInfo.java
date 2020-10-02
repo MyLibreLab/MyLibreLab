@@ -1,20 +1,23 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 package VisualLogic.variables;
 
 import java.util.ArrayList;
@@ -27,15 +30,15 @@ import VisualLogic.ExternalIF;
 
 public class VSFlowInfo extends VSObject {
     public ArrayList parameterDefinitions = new ArrayList(); // enth�lt OpenVariable
-    public ArrayList variablenListe = new ArrayList();       // enth�lt OpenVariable
-    public Hashtable tags = new Hashtable();       // F�r irgendwelche Parameter die durch die ganze Linie laufen
+    public ArrayList variablenListe = new ArrayList(); // enth�lt OpenVariable
+    public Hashtable tags = new Hashtable(); // F�r irgendwelche Parameter die durch die ganze Linie laufen
     public Object returnValue = null;
     public ExternalIF source = null;
 
     public Bindings bindings; // Das einzige wirklich wichtige! NEU! 17.08.2016
 
     public VSFlowInfo() {
-        //value=new String[columns][rows];
+        // value=new String[columns][rows];
     }
 
     @Override
@@ -61,8 +64,7 @@ public class VSFlowInfo extends VSObject {
     }
 
     @Override
-    public void saveToStream(java.io.FileOutputStream fos) {
-    }
+    public void saveToStream(java.io.FileOutputStream fos) {}
 
     @Override
     public void loadFromStream(java.io.FileInputStream fis) {
@@ -76,7 +78,8 @@ public class VSFlowInfo extends VSObject {
             return OpenVariable.C_STRING;
         } else if (datatype instanceof Boolean) {
             return OpenVariable.C_BOOLEAN;
-        } else return -1;
+        } else
+            return -1;
     }
 
     public int getDataType(String datatype) {
@@ -88,7 +91,8 @@ public class VSFlowInfo extends VSObject {
             return OpenVariable.C_STRING;
         } else if (datatype.equalsIgnoreCase("BOOLEAN")) {
             return OpenVariable.C_BOOLEAN;
-        } else return -1;
+        } else
+            return -1;
     }
 
     public OpenVariable addVariable(String varName, int datatype) {
@@ -110,21 +114,18 @@ public class VSFlowInfo extends VSObject {
     }
 
 
-    /*public OpenVariable addVariable()
-    {
-        OpenVariable result = new OpenVariable();
-        result.name=varName;
-        result.datatype=datatype;
-        variablenListe.add(result);
-
-        return result;
-    }*/
+    /*
+     * public OpenVariable addVariable() { OpenVariable result = new OpenVariable();
+     * result.name=varName; result.datatype=datatype; variablenListe.add(result);
+     *
+     * return result; }
+     */
 
     public void generateVariable(OpenVariable node) {
-        //OpenVariable node;
-        //for (int i=0;i<variablenListe.size();i++)
+        // OpenVariable node;
+        // for (int i=0;i<variablenListe.size();i++)
         {
-            //node= (OpenVariable)variablenListe.get(i);
+            // node= (OpenVariable)variablenListe.get(i);
 
             if (node.datatype == 0) {
                 node.value = new Double(0);
@@ -139,16 +140,16 @@ public class VSFlowInfo extends VSObject {
     }
 
     public OpenVariable getVariable(String varname) {
-        //System.out.println("XXXXXXX Suche nach:"+varname);
+        // System.out.println("XXXXXXX Suche nach:"+varname);
         varname = varname.trim();
         OpenVariable node;
         for (Object variablenListe1 : variablenListe) {
             node = (OpenVariable) variablenListe1;
 
-            //System.out.println("XXXXXXX var item:"+node.name);
+            // System.out.println("XXXXXXX var item:"+node.name);
 
             if (varname.equals(node.name.trim())) {
-                //System.out.println("XXXXXXX:"+node.name);
+                // System.out.println("XXXXXXX:"+node.name);
                 return node;
             }
         }
@@ -168,7 +169,7 @@ public class VSFlowInfo extends VSObject {
                 System.out.println("Error setting Variable");
             }
         } else {
-            //   Tools.showMessage("Variable \""+varname+"\" not definied! \nPlease define the variable");
+            // Tools.showMessage("Variable \""+varname+"\" not definied! \nPlease define the variable");
         }
     }
 }

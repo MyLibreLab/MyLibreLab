@@ -1,21 +1,22 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-Copyright (C) 2017  Javier Vel�squez (javiervelasquez125@gmail.com)
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package MyGraph;
 
@@ -55,8 +56,8 @@ public class YAxis {
         textOrientation = value;
     }
 
-    //private Color fontColor=Color.BLACK;
-    private Color fontColor = new Color(0, 0, 51); //Dark Blue Default
+    // private Color fontColor=Color.BLACK;
+    private Color fontColor = new Color(0, 0, 51); // Dark Blue Default
 
     public void setFontColor(Color color) {
         fontColor = color;
@@ -193,7 +194,8 @@ public class YAxis {
         if (value != null) {
             fm = owner.getFontMetrics(stdFont);
             return fm.stringWidth(value);
-        } else return 0;
+        } else
+            return 0;
     }
 
     private int getHeight(Graphics g, String value) {
@@ -202,7 +204,8 @@ public class YAxis {
             Rectangle2D r = fm.getStringBounds(value, g);
 
             return (int) r.getHeight();
-        } else return 0;
+        } else
+            return 0;
     }
 
     private void drawString(Graphics g, int index) {

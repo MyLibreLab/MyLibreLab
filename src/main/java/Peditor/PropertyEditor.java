@@ -1,20 +1,23 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
+
 package Peditor;
 
 import java.awt.BorderLayout;
@@ -38,6 +41,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.tinylog.Logger;
+
 import CustomColorPicker.CustomColorPicker;
 import VisualLogic.DialogFontChooser;
 import VisualLogic.Element;
@@ -57,7 +62,6 @@ import VisualLogic.variables.VSObject;
 import VisualLogic.variables.VSProperties;
 import VisualLogic.variables.VSPropertyDialog;
 import VisualLogic.variables.VSString;
-import org.tinylog.Logger;
 
 interface PEIF {
 
@@ -66,9 +70,11 @@ interface PEIF {
     public Object getReference();
 }
 
+
 class VSNope extends VSObject {
 
 }
+
 
 class ComboBoxEditor extends JComboBox implements PEIF, ActionListener {
 
@@ -109,9 +115,9 @@ class ComboBoxEditor extends JComboBox implements PEIF, ActionListener {
     }
 
     @Override
-    public void changed() {
-    }
+    public void changed() {}
 }
+
 
 class NopeEditor extends JPanel implements PEIF {
 
@@ -125,6 +131,7 @@ class NopeEditor extends JPanel implements PEIF {
         return null;
     }
 }
+
 
 class BooleanEditor extends JCheckBox implements PEIF {
 
@@ -170,6 +177,7 @@ class BooleanEditor extends JCheckBox implements PEIF {
     }
 }
 
+
 class AdvancedColorEditor extends JPanel implements PEIF {
 
     private VSColorAdvanced referenz;
@@ -184,7 +192,8 @@ class AdvancedColorEditor extends JPanel implements PEIF {
 
     ;
 
-    public void setValue(int modus, Point p1, Point p2, Color color1, Color color2, int color1Transparency, int color2Transparency, boolean wiederholung) {
+    public void setValue(int modus, Point p1, Point p2, Color color1, Color color2, int color1Transparency,
+            int color2Transparency, boolean wiederholung) {
         referenz.setValue(modus, p1, p2, color1, color2, color1Transparency, color2Transparency, wiederholung);
         item.processChanged();
     }
@@ -201,7 +210,8 @@ class AdvancedColorEditor extends JPanel implements PEIF {
         return frame;
     }
 
-    public AdvancedColorEditor(PropertyEditorItem item, JFrame frame, VSColorAdvanced referenz, double min, double max) {
+    public AdvancedColorEditor(PropertyEditorItem item, JFrame frame, VSColorAdvanced referenz, double min,
+            double max) {
         super();
         this.referenz = referenz;
         this.item = item;
@@ -209,7 +219,7 @@ class AdvancedColorEditor extends JPanel implements PEIF {
         this.frame = frame;
 
         button.setPreferredSize(new Dimension(20, 10));
-        //button.setBackground(referenz.getValue());
+        // button.setBackground(referenz.getValue());
         this.setLayout(new BorderLayout());
         this.add(button, BorderLayout.CENTER);
         button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -228,20 +238,24 @@ class AdvancedColorEditor extends JPanel implements PEIF {
                 frm.init();
                 frm.setVisible(true);
                 if (frm.result) {
-                    setValue(frm.modus, frm.p1, frm.p2, frm.color1, frm.color2, frm.color1Transparency, frm.color2Transparency, frm.wiederholung);
+                    setValue(frm.modus, frm.p1, frm.p2, frm.color1, frm.color2, frm.color1Transparency,
+                            frm.color2Transparency, frm.wiederholung);
                 }
-                //Color bgColor = JColorChooser.showDialog(getFrame(),java.util.ResourceBundle.getBundle("Peditor/PropertyEditor").getString("Choose Background Color"),getColor());
-                //if (bgColor != null)  setColor(bgColor);
-                //jChanged();
+                // Color bgColor =
+                // JColorChooser.showDialog(getFrame(),java.util.ResourceBundle.getBundle("Peditor/PropertyEditor").getString("Choose
+                // Background Color"),getColor());
+                // if (bgColor != null) setColor(bgColor);
+                // jChanged();
             }
         });
     }
 
     @Override
     public void changed() {
-        //referenz.setValue(button.getBackground());
+        // referenz.setValue(button.getBackground());
     }
 }
+
 
 class ColorEditor extends JPanel implements PEIF {
 
@@ -289,7 +303,8 @@ class ColorEditor extends JPanel implements PEIF {
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Color bgColor = JColorChooser.showDialog(getFrame(), java.util.ResourceBundle.getBundle("Peditor/PropertyEditor").getString("Choose Background Color"), getColor());
+                Color bgColor = JColorChooser.showDialog(getFrame(), java.util.ResourceBundle
+                        .getBundle("Peditor/PropertyEditor").getString("Choose Background Color"), getColor());
                 if (bgColor != null) {
                     setColor(bgColor);
                 }
@@ -303,6 +318,7 @@ class ColorEditor extends JPanel implements PEIF {
         referenz.setValue(button.getBackground());
     }
 }
+
 
 class ReadonlySelector extends JButton implements PEIF {
 
@@ -329,7 +345,7 @@ class ReadonlySelector extends JButton implements PEIF {
 
         setText("...");
 
-        //System.out.println("ref="+referenz.class.ge());
+        // System.out.println("ref="+referenz.class.ge());
         this.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -340,9 +356,9 @@ class ReadonlySelector extends JButton implements PEIF {
     }
 
     @Override
-    public void changed() {
-    }
+    public void changed() {}
 }
+
 
 class OpenPropertyDialogEditor extends JPanel implements PEIF {
 
@@ -394,9 +410,9 @@ class OpenPropertyDialogEditor extends JPanel implements PEIF {
     }
 
     @Override
-    public void changed() {
-    }
+    public void changed() {}
 }
+
 
 class FileEditor extends JPanel implements PEIF {
 
@@ -501,6 +517,7 @@ class FileEditor extends JPanel implements PEIF {
     }
 }
 
+
 class FontEditor extends JPanel implements PEIF {
 
     public VSFont referenz;
@@ -518,7 +535,7 @@ class FontEditor extends JPanel implements PEIF {
 
     private void mySetFont(Font font) {
         referenz.setValue(font);
-        //setFont(font);
+        // setFont(font);
         label.setText(font.getName());
         if (item.element != null) {
             item.element.classRef.propertyChanged(referenz);
@@ -582,6 +599,7 @@ class FontEditor extends JPanel implements PEIF {
     }
 }
 
+
 class DoubleEditor extends JTextField implements PEIF {
 
     private VSDouble referenz;
@@ -632,10 +650,11 @@ class DoubleEditor extends JTextField implements PEIF {
             referenz.setValue(value);
         } catch (NumberFormatException nfe) {
             setText("");
-            Logger.error(nfe,"Error. {} is not a number",txt);
+            Logger.error(nfe, "Error. {} is not a number", txt);
         }
     }
 }
+
 
 class IntegerEditor extends JTextField implements PEIF {
 
@@ -686,10 +705,11 @@ class IntegerEditor extends JTextField implements PEIF {
             }
         } catch (NumberFormatException nfe) {
             setText("0");
-            Logger.error(nfe,"Error. {} is not a number",text);
+            Logger.error(nfe, "Error. {} is not a number", text);
         }
     }
 }
+
 
 class ByteEditor extends JTextField implements PEIF {
 
@@ -740,10 +760,11 @@ class ByteEditor extends JTextField implements PEIF {
             }
         } catch (NumberFormatException nfe) {
             setText("0");
-            Logger.error(nfe,"Error. {} was not a number",text);
+            Logger.error(nfe, "Error. {} was not a number", text);
         }
     }
 }
+
 
 class ImageEditor extends JPanel implements PEIF {
 
@@ -817,7 +838,7 @@ class ImageEditor extends JPanel implements PEIF {
                 filter.addExtension("gif");
                 filter.addExtension("png");
                 filter.addExtension("jpg");
-                //filter.setDescription(ref.getDescription());
+                // filter.setDescription(ref.getDescription());
 
                 chooser.addChoosableFileFilter(filter);
 
@@ -837,6 +858,7 @@ class ImageEditor extends JPanel implements PEIF {
         referenz.loadImage(path);
     }
 }
+
 
 class PropertiesEditor extends JButton implements PEIF, ActionListener {
 
@@ -885,9 +907,10 @@ class PropertiesEditor extends JButton implements PEIF, ActionListener {
 
     @Override
     public void changed() {
-        //referenz.setValue(getText());
+        // referenz.setValue(getText());
     }
 }
+
 
 class StringEditor extends JTextField implements PEIF {
 
@@ -927,6 +950,7 @@ class StringEditor extends JTextField implements PEIF {
     }
 }
 
+
 /**
  * @author Homer
  */
@@ -947,19 +971,26 @@ public class PropertyEditor extends javax.swing.JPanel {
         this.vmobject = element.owner;
         element.initVars();
 
-        addItem(java.util.ResourceBundle.getBundle("Peditor/PropertyEditor").getString("caption"), element.vCaption, 0, 0, true);
-        addItem(java.util.ResourceBundle.getBundle("Peditor/PropertyEditor").getString("Show_Caption"), element.vShowCaption, 0, 0, true);
-        addItem(java.util.ResourceBundle.getBundle("Peditor/PropertyEditor").getString("Left"), element.vLeft, 0, 999999, true);
-        addItem(java.util.ResourceBundle.getBundle("Peditor/PropertyEditor").getString("Top"), element.vTop, 0, 999999, true);
+        addItem(java.util.ResourceBundle.getBundle("Peditor/PropertyEditor").getString("caption"), element.vCaption, 0,
+                0, true);
+        addItem(java.util.ResourceBundle.getBundle("Peditor/PropertyEditor").getString("Show_Caption"),
+                element.vShowCaption, 0, 0, true);
+        addItem(java.util.ResourceBundle.getBundle("Peditor/PropertyEditor").getString("Left"), element.vLeft, 0,
+                999999, true);
+        addItem(java.util.ResourceBundle.getBundle("Peditor/PropertyEditor").getString("Top"), element.vTop, 0, 999999,
+                true);
 
         if (element.owner == element.owner.owner.getFrontBasis()) {
-            addItem(java.util.ResourceBundle.getBundle("Peditor/PropertyEditor").getString("Visible"), element.vVisible, 0, 0, true);
+            addItem(java.util.ResourceBundle.getBundle("Peditor/PropertyEditor").getString("Visible"), element.vVisible,
+                    0, 0, true);
         }
 
         boolean editable = element.isResizable();
-        addItem(java.util.ResourceBundle.getBundle("Peditor/PropertyEditor").getString("Width"), element.vWidth, 0, 99999, editable);
-        addItem(java.util.ResourceBundle.getBundle("Peditor/PropertyEditor").getString("Height"), element.vHeight, 0, 99999, editable);
-        //addItem("", new VSNope(), 0, 0);
+        addItem(java.util.ResourceBundle.getBundle("Peditor/PropertyEditor").getString("Width"), element.vWidth, 0,
+                99999, editable);
+        addItem(java.util.ResourceBundle.getBundle("Peditor/PropertyEditor").getString("Height"), element.vHeight, 0,
+                99999, editable);
+        // addItem("", new VSNope(), 0, 0);
     }
 
     public void setVMObject(VMObject vmobject) {
@@ -978,8 +1009,8 @@ public class PropertyEditor extends javax.swing.JPanel {
     }
 
     /**
-     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
-     * content of this method is always regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify
+     * this code. The content of this method is always regenerated by the Form Editor.
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1105,50 +1136,50 @@ public class PropertyEditor extends javax.swing.JPanel {
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {// GEN-FIRST:event_formComponentResized
         reorderItems();
-    }//GEN-LAST:event_formComponentResized
+    }// GEN-LAST:event_formComponentResized
 
-    private void jSplitPane1VetoableChange(java.beans.PropertyChangeEvent evt) throws java.beans.PropertyVetoException {//GEN-FIRST:event_jSplitPane1VetoableChange
+    private void jSplitPane1VetoableChange(java.beans.PropertyChangeEvent evt) throws java.beans.PropertyVetoException {// GEN-FIRST:event_jSplitPane1VetoableChange
 
-    }//GEN-LAST:event_jSplitPane1VetoableChange
+    }// GEN-LAST:event_jSplitPane1VetoableChange
 
-    private void jSplitPane1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jSplitPane1PropertyChange
+    private void jSplitPane1PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jSplitPane1PropertyChange
 
-    }//GEN-LAST:event_jSplitPane1PropertyChange
+    }// GEN-LAST:event_jSplitPane1PropertyChange
 
-    private void jSplitPane1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSplitPane1MouseReleased
+    private void jSplitPane1MouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jSplitPane1MouseReleased
 
-    }//GEN-LAST:event_jSplitPane1MouseReleased
+    }// GEN-LAST:event_jSplitPane1MouseReleased
 
-    private void leftPanelComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_leftPanelComponentResized
+    private void leftPanelComponentResized(java.awt.event.ComponentEvent evt) {// GEN-FIRST:event_leftPanelComponentResized
 
         reorderItems();
-    }//GEN-LAST:event_leftPanelComponentResized
+    }// GEN-LAST:event_leftPanelComponentResized
 
-    private void rightPanelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rightPanelKeyPressed
+    private void rightPanelKeyPressed(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_rightPanelKeyPressed
 
-    }//GEN-LAST:event_rightPanelKeyPressed
+    }// GEN-LAST:event_rightPanelKeyPressed
 
-    private void rightPanelComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_rightPanelComponentResized
+    private void rightPanelComponentResized(java.awt.event.ComponentEvent evt) {// GEN-FIRST:event_rightPanelComponentResized
         reorderItems();
-    }//GEN-LAST:event_rightPanelComponentResized
+    }// GEN-LAST:event_rightPanelComponentResized
 
-    private void jComboBox1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboBox1FocusLost
+    private void jComboBox1FocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jComboBox1FocusLost
 
-    }//GEN-LAST:event_jComboBox1FocusLost
+    }// GEN-LAST:event_jComboBox1FocusLost
 
-    private void jTextField1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTextField1PropertyChange
+    private void jTextField1PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jTextField1PropertyChange
 
-    }//GEN-LAST:event_jTextField1PropertyChange
+    }// GEN-LAST:event_jTextField1PropertyChange
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }// GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jScrollPane1ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jScrollPane1ComponentResized
+    private void jScrollPane1ComponentResized(java.awt.event.ComponentEvent evt) {// GEN-FIRST:event_jScrollPane1ComponentResized
         reorderItems();
-    }//GEN-LAST:event_jScrollPane1ComponentResized
+    }// GEN-LAST:event_jScrollPane1ComponentResized
 
     public void reorderItems() {
         if (vmobject != null && vmobject.owner.isLoading() == false) {
@@ -1190,7 +1221,8 @@ public class PropertyEditor extends javax.swing.JPanel {
     public void addItem(String label, Object value, double min, double max, boolean editable) {
         boolean loading = vmobject.owner.isLoading();
         if (!loading && vmobject.owner.frameCircuit != null && locked == false) {
-            PropertyEditorItem item = new PropertyEditorItem(this.mode, vmobject, element, frame, leftPanel, rightPanel, label, value, min, max, editable);
+            PropertyEditorItem item = new PropertyEditorItem(this.mode, vmobject, element, frame, leftPanel, rightPanel,
+                    label, value, min, max, editable);
             liste.add(item);
         }
     }

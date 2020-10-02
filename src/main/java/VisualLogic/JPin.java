@@ -1,20 +1,22 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package VisualLogic;
 
@@ -43,9 +45,9 @@ public class JPin extends VisualObject implements MouseListener, MouseMotionList
     public Element element;
     public byte pinIO = PIN_UNDEFINIED;
 
-    public PinIF pinIF;    // enthaelt das Element andem die Events/Steuerbefehle gehen -> fuer die Events
-    public int pinIndex;   // jeder Pin hat einen Index
-    public Draht draht;    // liefert die Draht Referenz das mit einem anderen Pin verbunden ist
+    public PinIF pinIF; // enthaelt das Element andem die Events/Steuerbefehle gehen -> fuer die Events
+    public int pinIndex; // jeder Pin hat einen Index
+    public Draht draht; // liefert die Draht Referenz das mit einem anderen Pin verbunden ist
     public int pinAlign;
 
     private boolean highlighted = false;
@@ -58,7 +60,7 @@ public class JPin extends VisualObject implements MouseListener, MouseMotionList
     // enthaelt der Wert fuer den I/O
     public double value;
 
-    public int dataType = -1;  // nur in Verbindung zu object
+    public int dataType = -1; // nur in Verbindung zu object
     public Object object = null;
 
     private Stroke strockeStandard = new BasicStroke(1);
@@ -98,7 +100,7 @@ public class JPin extends VisualObject implements MouseListener, MouseMotionList
         value = 0;
     }
 
-    //private Color selectedColor = new Color(255,0,0,200);
+    // private Color selectedColor = new Color(255,0,0,200);
     private Color nonSelectedColor = new Color(150, 0, 0, 0);
 
     public boolean isHighlighted() {
@@ -108,14 +110,10 @@ public class JPin extends VisualObject implements MouseListener, MouseMotionList
     public void setHighlighted(boolean value) {
         highlighted = value;
 
-        /*if (isHighlighted())
-        {
-            Color color =VSDataType.getCoorFromDataType(this.dataType);
-            setBackground(color);
-        } else
-        {
-            setBackground(nonSelectedColor);
-        }*/
+        /*
+         * if (isHighlighted()) { Color color =VSDataType.getCoorFromDataType(this.dataType);
+         * setBackground(color); } else { setBackground(nonSelectedColor); }
+         */
         repaint();
     }
 
@@ -158,61 +156,35 @@ public class JPin extends VisualObject implements MouseListener, MouseMotionList
     }
 
 
-    /*public void paint(int x,int y,Graphics2D g, boolean drawFrame)
-    {
-        int mitteX=getWidth()/2;
-        int mitteY=getHeight()/2;
-        int x1=x+getX();
-        int y1=y+getY();
-
-        g.setColor(Color.white);
-        g.fillRect(x1+1,y1+1, getWidth()-2,getHeight()-1);
-
-        g.setFont(fnt);
-        FontMetrics fm = g.getFontMetrics();
-        Rectangle2D r = fm.getStringBounds(getDescription(),g);
-
-
-        int dis=1;
-        if (!visible) return;
-
-            //description=""+value;
-            if (pinAlign==1 || pinAlign==3) // Horizontal
-            {
-
-               VSDataType.setColorStrokeFromDataType(g,this.dataType);
-               g.drawLine(x+getX()+1, y+getY()+mitteY, x+getX()+getWidth()-1,y+getY()+mitteY);
-               g.setColor(Color.black);
-               if (pinAlign==1)
-               {
-                   // Pins Rechts
-                   int py=4;
-                   //g.drawString(description,x+getX()-(int)r.getWidth()-dis,y+getY()+(int)r.getHeight()-getHeight()/2 +py);
-               } else
-               {
-                   // Pins links
-                   int py=4;
-                   //g.drawString(description,x+getX()+getWidth()+dis,y+getY()+(int)r.getHeight()-getHeight()/2+py);
-               }
-            } else
-            {
-                VSDataType.setColorStrokeFromDataType(g,this.dataType);
-                g.drawLine(x+getX()+mitteX, y+getY()+1, x+getX()+mitteY, y+getY()+getHeight()-1);
-                g.setColor(Color.black);
-
-               int py=6;
-               if (pinAlign==0)
-               {
-                   // Pins Oben
-                   //g.drawString(description,x+getX()+2,y+getY()+(int)r.getHeight()-getHeight()/2+py);
-               } else
-               {
-                   // Pins Unten
-                   //g.drawString(description,x+getX()+2,y+getY()+(int)r.getHeight()-getHeight()/2-py);
-               }
-
-            }
-    }*/
+    /*
+     * public void paint(int x,int y,Graphics2D g, boolean drawFrame) { int mitteX=getWidth()/2; int
+     * mitteY=getHeight()/2; int x1=x+getX(); int y1=y+getY();
+     *
+     * g.setColor(Color.white); g.fillRect(x1+1,y1+1, getWidth()-2,getHeight()-1);
+     *
+     * g.setFont(fnt); FontMetrics fm = g.getFontMetrics(); Rectangle2D r =
+     * fm.getStringBounds(getDescription(),g);
+     *
+     *
+     * int dis=1; if (!visible) return;
+     *
+     * //description=""+value; if (pinAlign==1 || pinAlign==3) // Horizontal {
+     *
+     * VSDataType.setColorStrokeFromDataType(g,this.dataType); g.drawLine(x+getX()+1, y+getY()+mitteY,
+     * x+getX()+getWidth()-1,y+getY()+mitteY); g.setColor(Color.black); if (pinAlign==1) { // Pins
+     * Rechts int py=4;
+     * //g.drawString(description,x+getX()-(int)r.getWidth()-dis,y+getY()+(int)r.getHeight()-getHeight()
+     * /2 +py); } else { // Pins links int py=4;
+     * //g.drawString(description,x+getX()+getWidth()+dis,y+getY()+(int)r.getHeight()-getHeight()/2+py);
+     * } } else { VSDataType.setColorStrokeFromDataType(g,this.dataType); g.drawLine(x+getX()+mitteX,
+     * y+getY()+1, x+getX()+mitteY, y+getY()+getHeight()-1); g.setColor(Color.black);
+     *
+     * int py=6; if (pinAlign==0) { // Pins Oben
+     * //g.drawString(description,x+getX()+2,y+getY()+(int)r.getHeight()-getHeight()/2+py); } else { //
+     * Pins Unten //g.drawString(description,x+getX()+2,y+getY()+(int)r.getHeight()-getHeight()/2-py); }
+     *
+     * } }
+     */
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -244,23 +216,23 @@ public class JPin extends VisualObject implements MouseListener, MouseMotionList
             g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
         }
 
-        //g.setColor(Color.RED);
-        //g.drawRect(0,0,getWidth()-1,getHeight()-1);
+        // g.setColor(Color.RED);
+        // g.drawRect(0,0,getWidth()-1,getHeight()-1);
 
         int dis = 1;
         if (!visible) return;
 
-        //description=""+value;
+        // description=""+value;
         if (pinAlign == 1 || pinAlign == 3) // Horizontal
         {
 
             VSDataType.setColorStrokeFromDataType(g2, this.dataType);
             g.drawLine(1, mitteY, getWidth() - 1, mitteY);
-            //g.setColor(Color.black);
+            // g.setColor(Color.black);
         } else {
             VSDataType.setColorStrokeFromDataType(g2, this.dataType);
             g.drawLine(mitteX, 1, mitteX, getHeight() - 1);
-            //g.setColor(Color.black);
+            // g.setColor(Color.black);
         }
 
         g2.setStroke(strockeStandard);
@@ -269,7 +241,7 @@ public class JPin extends VisualObject implements MouseListener, MouseMotionList
         int x, y;
         if (bb.pinIO == JPin.PIN_INPUT) {
             int d = 2;
-            if (bb.pinAlign == 0)  // TOP PIN
+            if (bb.pinAlign == 0) // TOP PIN
             {
                 x = getWidth() / 2;
                 y = getHeight() - d;
@@ -278,7 +250,7 @@ public class JPin extends VisualObject implements MouseListener, MouseMotionList
                 p.addPoint(x - d, y - d);
                 p.addPoint(x + d, y - d);
 
-                //g2.setColor(Color.BLACK);
+                // g2.setColor(Color.BLACK);
                 g2.drawPolygon(p);
                 g2.fillPolygon(p);
             } else if (bb.pinAlign == 1) // RIGHT PIN
@@ -290,7 +262,7 @@ public class JPin extends VisualObject implements MouseListener, MouseMotionList
                 p.addPoint(x + d, y - d);
                 p.addPoint(x + d, y + d);
 
-                //g2.setColor(Color.BLACK);
+                // g2.setColor(Color.BLACK);
                 g2.drawPolygon(p);
                 g2.fillPolygon(p);
             } else if (bb.pinAlign == 2) // BOTTOM PIN
@@ -302,7 +274,7 @@ public class JPin extends VisualObject implements MouseListener, MouseMotionList
                 p.addPoint(x + d, y + d);
                 p.addPoint(x - d, y + d);
 
-                //g2.setColor(Color.BLACK);
+                // g2.setColor(Color.BLACK);
                 g2.drawPolygon(p);
                 g2.fillPolygon(p);
             } else if (bb.pinAlign == 3) // LEFT PIN
@@ -313,11 +285,10 @@ public class JPin extends VisualObject implements MouseListener, MouseMotionList
                 p.addPoint(x, y);
                 p.addPoint(x - d, y - d);
                 p.addPoint(x - d, y + d);
-                //g2.setColor(Color.BLACK);
+                // g2.setColor(Color.BLACK);
                 g2.drawPolygon(p);
                 g2.fillPolygon(p);
             }
         }
     }
 }
-

@@ -1,21 +1,22 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package VisualLogic;
 
@@ -55,10 +56,13 @@ import VisualLogic.variables.VSString;
 public class VSDataType {
 
     private static float dash1[] = {2.0f, 1.0f};
-    private static BasicStroke dashed1D = new BasicStroke(2.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 2.0f, dash1, 1.0f);
+    private static BasicStroke dashed1D =
+            new BasicStroke(2.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 2.0f, dash1, 1.0f);
     private static float dash2[] = {2.0f, 1.0f};
-    private static BasicStroke dashed2D = new BasicStroke(3.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1.0f, dash2, 1.0f);
-    private static BasicStroke dashedGrp = new BasicStroke(2.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 2.0f, dash2, 1.0f);
+    private static BasicStroke dashed2D =
+            new BasicStroke(3.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1.0f, dash2, 1.0f);
+    private static BasicStroke dashedGrp =
+            new BasicStroke(2.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 2.0f, dash2, 1.0f);
     private static Stroke standard = new BasicStroke(2);
     private static Stroke lineStyle = standard;
 
@@ -308,29 +312,52 @@ public class VSDataType {
     }
 
     public static int getDataType(VSObject obj) {
-        if (obj instanceof VSGroup) return ExternalIF.C_GROUP;
-        else if (obj instanceof VSBoolean) return ExternalIF.C_BOOLEAN;
-        else if (obj instanceof VSInteger) return ExternalIF.C_INTEGER;
-        else if (obj instanceof VSDouble) return ExternalIF.C_DOUBLE;
-        else if (obj instanceof VSString) return ExternalIF.C_STRING;
-        else if (obj instanceof VSByte) return ExternalIF.C_BYTE;
-        else if (obj instanceof VS1DBoolean) return ExternalIF.C_ARRAY1D_BOOLEAN;
-        else if (obj instanceof VS1DInteger) return ExternalIF.C_ARRAY1D_INTEGER;
-        else if (obj instanceof VS1DDouble) return ExternalIF.C_ARRAY1D_DOUBLE;
-        else if (obj instanceof VS1DString) return ExternalIF.C_ARRAY1D_STRING;
-        else if (obj instanceof VS2DByte) return ExternalIF.C_ARRAY2D_BYTE;
-        else if (obj instanceof VS2DBoolean) return ExternalIF.C_ARRAY2D_BOOLEAN;
-        else if (obj instanceof VS2DInteger) return ExternalIF.C_ARRAY2D_INTEGER;
-        else if (obj instanceof VS2DDouble) return ExternalIF.C_ARRAY2D_DOUBLE;
-        else if (obj instanceof VS2DString) return ExternalIF.C_ARRAY2D_STRING;
-        else if (obj instanceof VSColor) return ExternalIF.C_COLOR;
-        else if (obj instanceof VSImage24) return ExternalIF.C_IMAGE;
-        else if (obj instanceof VS1DByte) return ExternalIF.C_ARRAY1D_BYTE;
-        else if (obj instanceof VSCanvas) return ExternalIF.C_CANVAS;
-        else if (obj instanceof VSFont) return ExternalIF.C_FONT;
-        else if (obj instanceof VSObjRef) return ExternalIF.C_OBJECT;
-        else if (obj instanceof VSFlowInfo) return ExternalIF.C_FLOWINFO;
-        else return -1;
+        if (obj instanceof VSGroup)
+            return ExternalIF.C_GROUP;
+        else if (obj instanceof VSBoolean)
+            return ExternalIF.C_BOOLEAN;
+        else if (obj instanceof VSInteger)
+            return ExternalIF.C_INTEGER;
+        else if (obj instanceof VSDouble)
+            return ExternalIF.C_DOUBLE;
+        else if (obj instanceof VSString)
+            return ExternalIF.C_STRING;
+        else if (obj instanceof VSByte)
+            return ExternalIF.C_BYTE;
+        else if (obj instanceof VS1DBoolean)
+            return ExternalIF.C_ARRAY1D_BOOLEAN;
+        else if (obj instanceof VS1DInteger)
+            return ExternalIF.C_ARRAY1D_INTEGER;
+        else if (obj instanceof VS1DDouble)
+            return ExternalIF.C_ARRAY1D_DOUBLE;
+        else if (obj instanceof VS1DString)
+            return ExternalIF.C_ARRAY1D_STRING;
+        else if (obj instanceof VS2DByte)
+            return ExternalIF.C_ARRAY2D_BYTE;
+        else if (obj instanceof VS2DBoolean)
+            return ExternalIF.C_ARRAY2D_BOOLEAN;
+        else if (obj instanceof VS2DInteger)
+            return ExternalIF.C_ARRAY2D_INTEGER;
+        else if (obj instanceof VS2DDouble)
+            return ExternalIF.C_ARRAY2D_DOUBLE;
+        else if (obj instanceof VS2DString)
+            return ExternalIF.C_ARRAY2D_STRING;
+        else if (obj instanceof VSColor)
+            return ExternalIF.C_COLOR;
+        else if (obj instanceof VSImage24)
+            return ExternalIF.C_IMAGE;
+        else if (obj instanceof VS1DByte)
+            return ExternalIF.C_ARRAY1D_BYTE;
+        else if (obj instanceof VSCanvas)
+            return ExternalIF.C_CANVAS;
+        else if (obj instanceof VSFont)
+            return ExternalIF.C_FONT;
+        else if (obj instanceof VSObjRef)
+            return ExternalIF.C_OBJECT;
+        else if (obj instanceof VSFlowInfo)
+            return ExternalIF.C_FLOWINFO;
+        else
+            return -1;
     }
 
     public static void setColorStrokeFromDataType(java.awt.Graphics2D g, int dataType) {

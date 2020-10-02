@@ -14,7 +14,7 @@ val String.v: String get() = rootProject.extra["$this.version"] as String
 val projectVersion = "MyLibreLab".v
 
 val enableMavenLocal by props()
-val skipAutostyle by props(default = true)
+val skipAutostyle by props()
 
 dependencies {
     implementation("org.json:json")
@@ -92,7 +92,6 @@ fun BaseFormatExtension.configFilter(init: PatternFilterable.() -> Unit) {
     }
 }
 
-
 allprojects {
     version = projectVersion
 
@@ -101,6 +100,35 @@ allprojects {
             mavenLocal()
         }
         mavenCentral()
+    }
+
+    if (!skipAutostyle) {
+        apply(plugin = "com.github.autostyle")
+        autostyle {
+            kotlinGradle {
+                ktlint()
+            }
+            format("properties") {
+                configFilter {
+                    include("**/*.properties")
+                    exclude("**/gradle.properties")
+                }
+                license()
+            }
+            format("configs") {
+                configFilter {
+                    include("**/*.sh", "**/*.bsh", "**/*.cmd", "**/*.bat")
+                    exclude("**/*.xsd", "**/*.xsl", "**/*.xml")
+                    exclude("**/*.yml")
+                    exclude("**/*.eclipseformat.xml")
+                }
+                license()
+            }
+            format("markdown") {
+                filter.include("**/*.md")
+                endWithNewline()
+            }
+        }
     }
 
     tasks.withType<AbstractArchiveTask>().configureEach {
@@ -131,41 +159,16 @@ allprojects {
                 useJUnitPlatform()
             }
         }
-    }
-
-    if (!skipAutostyle) {
-        apply(plugin = "com.github.autostyle")
-        autostyle {
-            kotlinGradle {
-                ktlint()
-            }
-            format("properties") {
-                configFilter {
-                    include("**/*.properties")
-                    exclude("**/gradle.properties")
+        if (!skipAutostyle) {
+            autostyle {
+                java {
+                    importOrder("java", "javax", "org", "com", "")
+                    removeUnusedImports()
+                    eclipse {
+                        configFile("${project.rootDir}/config/style.eclipseformat.xml")
+                    }
+                    license()
                 }
-                license()
-            }
-            format("configs") {
-                configFilter {
-                    include("**/*.sh", "**/*.bsh", "**/*.cmd", "**/*.bat")
-                    include("**/*.yml")
-                    include("**/*.xsd", "**/*.xsl", "**/*.xml")
-                    exclude("**/*.eclipseformat.xml")
-                }
-                license()
-            }
-            format("markdown") {
-                filter.include("**/*.md")
-                endWithNewline()
-            }
-            java {
-                importOrder("java", "javax", "org", "com", "")
-                removeUnusedImports()
-                eclipse {
-                    configFile("${project.rootDir}/config/style.eclipseformat.xml")
-                }
-                license()
             }
         }
     }

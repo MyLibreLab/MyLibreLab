@@ -1,21 +1,22 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package Peditor;
 
@@ -78,7 +79,8 @@ public class PropertyEditorItem {
         return vmobject;
     }
 
-    public PropertyEditorItem(int modus, VMObject vmobject, Element element, JFrame frame, JPanel leftPanel, JPanel rightPanel, String strLabel, Object value, double min, double max, boolean editable) {
+    public PropertyEditorItem(int modus, VMObject vmobject, Element element, JFrame frame, JPanel leftPanel,
+            JPanel rightPanel, String strLabel, Object value, double min, double max, boolean editable) {
         this.leftPanel = leftPanel;
         this.rightPanel = rightPanel;
         this.strLabel = strLabel;
@@ -87,7 +89,7 @@ public class PropertyEditorItem {
         this.vmobject = vmobject;
 
         label = new JLabel(strLabel);
-        //label.setBorder(new LineBorder(Color.lightGray));
+        // label.setBorder(new LineBorder(Color.lightGray));
 
         EmptyBorder eBorder = new EmptyBorder(2, 5, 2, 5); // oben, rechts, unten, links
         LineBorder lBorder = new LineBorder(new Color(180, 180, 180));
@@ -133,13 +135,14 @@ public class PropertyEditorItem {
         }
 
         component.addFocusListener(new java.awt.event.FocusAdapter() {
-            /*public void focusGained(java.awt.event.FocusEvent evt) {
-              //getVMObject().properyItemFocusGained();
-            }*/
+            /*
+             * public void focusGained(java.awt.event.FocusEvent evt) {
+             * //getVMObject().properyItemFocusGained(); }
+             */
 
             @Override
             public void focusLost(java.awt.event.FocusEvent evt) {
-                //        processChanged();
+                // processChanged();
             }
         });
 

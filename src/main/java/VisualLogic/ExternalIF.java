@@ -1,20 +1,22 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package VisualLogic;
 
@@ -36,7 +38,7 @@ import VisualLogic.variables.VSObject;
  * @version 3.0
  */
 public interface ExternalIF {
-    public static final int C_VARIANT = 0;     // kann an alle anderen Pins gestoepselt werden!
+    public static final int C_VARIANT = 0; // kann an alle anderen Pins gestoepselt werden!
     public static final int C_GROUP = 1;
     public static final int C_BOOLEAN = 2;
     public static final int C_INTEGER = 3;
@@ -163,7 +165,8 @@ public interface ExternalIF {
 
     public abstract JPanel getFrontPanel();
 
-    /* Setzt den Pin implements Eingabe/Ausgabe-Modus
+    /*
+     * Setzt den Pin implements Eingabe/Ausgabe-Modus
      **/
     public abstract void jSetPinIO(int pinIndex, byte io);
 
@@ -204,10 +207,9 @@ public interface ExternalIF {
 
     public abstract void jRefreshVM();
 
-    /* Setzt die Anzahl der Pins fuer die jeweilige Region
-     * Top-Right-Bottom-Left
-     * Die Pins werden in dieser reihenfolge erzeugt
-     * und bekommen ein entsprechendes index
+    /*
+     * Setzt die Anzahl der Pins fuer die jeweilige Region Top-Right-Bottom-Left Die Pins werden in
+     * dieser reihenfolge erzeugt und bekommen ein entsprechendes index
      */
     public abstract void jSetTopPins(int value);
 
@@ -308,7 +310,8 @@ public interface ExternalIF {
 
     public abstract void jSetMinimumSize(int width, int height);
 
-    /* liefert die aktuelle Breite des Elements
+    /*
+     * liefert die aktuelle Breite des Elements
      */
     public abstract int jGetWidth();
 
@@ -316,7 +319,8 @@ public interface ExternalIF {
 
     public abstract void jSetInfo(String programmer, String copyrights, String other);
 
-    /* liefert die aktuelle Hoehe des Elements
+    /*
+     * liefert die aktuelle Hoehe des Elements
      */
     public abstract int jGetHeight();
 
@@ -341,8 +345,8 @@ public interface ExternalIF {
     // Loescht alle Sub Elemente
     public abstract void jClearSubElements();
 
-    /* wenn auf True wird die Breite und die Hoehe gleich beim Resizing
-     * des Elements
+    /*
+     * wenn auf True wird die Breite und die Hoehe gleich beim Resizing des Elements
      */
     public abstract void jSetResizeSynchron(boolean value);
 
@@ -353,11 +357,11 @@ public interface ExternalIF {
      */
     public abstract void jSetInnerBorderVisibility(boolean visible);
 
-    /* Events fuer die Processverarbeitung
-     * Liefert das Pin das die Information versenden moechte
-     * Dieser Event wird intern vom Object aufgerufen!
+    /*
+     * Events fuer die Processverarbeitung Liefert das Pin das die Information versenden moechte Dieser
+     * Event wird intern vom Object aufgerufen!
      */
-    //public abstract void onEventProceded(int pin);
+    // public abstract void onEventProceded(int pin);
 
     public abstract void Change(int pinIndex, Object value);
 
@@ -389,11 +393,13 @@ public interface ExternalIF {
 
     public abstract void writePinString(int index, String value);
 
-    /* liefert eine Referenz auf das Object des jeweiligen Pin
+    /*
+     * liefert eine Referenz auf das Object des jeweiligen Pin
      */
     public abstract Object getPinInputReference(int pinIndex);
 
-    /* setzt eine Referenz im jeweiligen Pin
+    /*
+     * setzt eine Referenz im jeweiligen Pin
      */
     public abstract void setPinOutputReference(int pinIndex, Object referenz);
 

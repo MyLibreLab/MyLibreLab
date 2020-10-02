@@ -1,20 +1,23 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 package BasisStatus;
 
 import java.awt.Cursor;
@@ -44,8 +47,9 @@ public class StatusRun extends Object implements StatusBasisIF {
                 try {
                     element.classRef.xonStart();
                 } catch (Exception ex) {
-                    //basis.owner.stop();
-                    String err = "Error in Method xonStart() : \"" + ex + "\" in Element : \"" + element.getInternName() + "\". Application interrupted!";
+                    // basis.owner.stop();
+                    String err = "Error in Method xonStart() : \"" + ex + "\" in Element : \"" + element.getInternName()
+                            + "\". Application interrupted!";
                     basis.owner.showErrorMessage(err);
 
                     if (basis.owner.frameCircuit != null) {
@@ -57,7 +61,7 @@ public class StatusRun extends Object implements StatusBasisIF {
             }
         }
 
-        //basis.processAllElements();
+        // basis.processAllElements();
 
     }
 
@@ -74,7 +78,8 @@ public class StatusRun extends Object implements StatusBasisIF {
                     element.mouseEventsTo = null;
                 } catch (Exception ex) {
                     basis.owner.stop();
-                    basis.owner.showErrorMessage("Error in Method xonStop() :\n" + ex + "\n im Element : " + element.getName() + "\napplication interrupted abgebrochen!");
+                    basis.owner.showErrorMessage("Error in Method xonStop() :\n" + ex + "\n im Element : "
+                            + element.getName() + "\napplication interrupted abgebrochen!");
                 }
 
                 element.setBorderVisibility(element.oldBorderVisibility);
@@ -129,8 +134,7 @@ public class StatusRun extends Object implements StatusBasisIF {
         }
     }
 
-    public void elementPinMousePressed(MouseEvent e, int elementID, int pin) {
-    }
+    public void elementPinMousePressed(MouseEvent e, int elementID, int pin) {}
 
     public void elementPinMouseReleased(MouseEvent e, int elementID, int pin) {
 
@@ -189,4 +193,3 @@ public class StatusRun extends Object implements StatusBasisIF {
 
     }
 }
-

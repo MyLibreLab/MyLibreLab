@@ -1,36 +1,25 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package VisualLogic;
 
-import org.tinylog.Logger;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
-import javax.swing.*;
-import javax.tools.JavaCompiler;
-import javax.tools.StandardJavaFileManager;
-import javax.tools.ToolProvider;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.io.*;
 import java.net.URI;
@@ -46,6 +35,20 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.swing.*;
+import javax.tools.JavaCompiler;
+import javax.tools.StandardJavaFileManager;
+import javax.tools.ToolProvider;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.tinylog.Logger;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
 /**
  * @author Homer
  */
@@ -60,8 +63,7 @@ public class Tools {
     /**
      * Creates a new instance of Tools
      */
-    public Tools() {
-    }
+    public Tools() {}
 
     public static String bereinigeDateiname(String name) {
 
@@ -70,7 +72,7 @@ public class Tools {
 
     public static String readFile(String filename) {
         String content = null;
-        File file = new File(filename); //for ex foo.txt
+        File file = new File(filename); // for ex foo.txt
         try {
             content = Files.readString(file.toPath());
         } catch (IOException e) {
@@ -85,7 +87,8 @@ public class Tools {
         int index1 = fileName.indexOf("CircuitElements" + File.separator + "2user-defined");
         if (index1 > 0) {
 
-            String f1 = new File(elementPath + File.separator + "CircuitElements" + File.separator + "2user-defined").getAbsolutePath();
+            String f1 = new File(elementPath + File.separator + "CircuitElements" + File.separator + "2user-defined")
+                    .getAbsolutePath();
             String f2 = new File(fileName).getAbsolutePath();
 
             String str = f2.substring(f1.length());
@@ -95,11 +98,12 @@ public class Tools {
         int index2 = fileName.indexOf("FrontElements" + File.separator + "2user-defined");
         if (index2 > 0) {
 
-            String f1 = new File(elementPath + File.separator + "FrontElements" + File.separator +"2user-defined").getAbsolutePath();
+            String f1 = new File(elementPath + File.separator + "FrontElements" + File.separator + "2user-defined")
+                    .getAbsolutePath();
             String f2 = new File(fileName).getAbsolutePath();
 
             String str = f2.substring(f1.length());
-            fileName = userElementPath +  File.separator + "FrontElements" + File.separator + str;
+            fileName = userElementPath + File.separator + "FrontElements" + File.separator + str;
         }
 
         return fileName;
@@ -108,7 +112,9 @@ public class Tools {
     public static Settings settings;
 
     public static boolean setQuestionDialog(JFrame parent, String s) {
-        int res = JOptionPane.showOptionDialog(parent, s, java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("attention"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+        int res = JOptionPane.showOptionDialog(parent, s,
+                java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("attention"),
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
         if (res == JOptionPane.NO_OPTION) {
             return false;
         }
@@ -242,11 +248,8 @@ public class Tools {
 
     public static List<Path> listDrivers(String driverPath) {
         try (Stream<Path> pathStream = Files.list(Path.of(driverPath))) {
-            return pathStream
-                .filter(Files::isDirectory)
-                .filter(path -> Tools.openDriverInfo(path.toFile()) != null)
-                .map(Path::toAbsolutePath)
-                .collect(Collectors.toList());
+            return pathStream.filter(Files::isDirectory).filter(path -> Tools.openDriverInfo(path.toFile()) != null)
+                    .map(Path::toAbsolutePath).collect(Collectors.toList());
         } catch (IOException e) {
             org.tinylog.Logger.error(e, "Could not list drivers");
         }
@@ -254,15 +257,20 @@ public class Tools {
     }
 
     public static void showMessage(String message) {
-        JOptionPane.showMessageDialog(null, message, java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("attention"), JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, message,
+                java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("attention"),
+                JOptionPane.ERROR_MESSAGE);
     }
 
     public static void showMessage(Component parent, String message) {
-        JOptionPane.showMessageDialog(parent, message, java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("attention"), JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(parent, message,
+                java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("attention"),
+                JOptionPane.ERROR_MESSAGE);
     }
 
     public static void showMessage(Component parent, String message, int messageType) {
-        JOptionPane.showMessageDialog(parent, message, java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("attention"), messageType);
+        JOptionPane.showMessageDialog(parent, message,
+                java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("attention"), messageType);
     }
 
     public static void jException(Basis basis, String text) {
@@ -302,20 +310,12 @@ public class Tools {
         frm.setVisible(true);
     }
 
-    /* public static void openFile(JFrame parent,File file) {
-    // Bug in Java 6-> nicht nutzen!
-    if (Desktop.getDesktop().isDesktopSupported())
-    {
-    try
-    {
-    Desktop.getDesktop().open(file);
-    } catch (IOException ex) {
-    showMessage(parent,ex.toString());
-    } catch (java.lang.IllegalArgumentException ex) {
-    showMessage(parent,ex.toString());
-    }
-    }
-    }*/
+    /*
+     * public static void openFile(JFrame parent,File file) { // Bug in Java 6-> nicht nutzen! if
+     * (Desktop.getDesktop().isDesktopSupported()) { try { Desktop.getDesktop().open(file); } catch
+     * (IOException ex) { showMessage(parent,ex.toString()); } catch (java.lang.IllegalArgumentException
+     * ex) { showMessage(parent,ex.toString()); } } }
+     */
     public static String extractClassName(String line) {
         String ch;
         // gehe bis zum "=" Zeichen
@@ -339,7 +339,7 @@ public class Tools {
     public static void copyFile(File source, File dest) throws IOException {
 
         try (FileChannel in = new FileInputStream(source).getChannel();
-             FileChannel out = new FileOutputStream(dest).getChannel()) {
+                FileChannel out = new FileOutputStream(dest).getChannel()) {
             long size = in.size();
             MappedByteBuffer buf = in.map(FileChannel.MapMode.READ_ONLY, 0, size);
 
@@ -352,7 +352,8 @@ public class Tools {
     public static ProjectProperties openProjectFile(File file) {
         ProjectProperties tmp = new ProjectProperties();
 
-        try (BufferedReader input = new BufferedReader(new FileReader(file.getAbsolutePath() + File.separator + "project.myopenlab"))) {
+        try (BufferedReader input =
+                new BufferedReader(new FileReader(file.getAbsolutePath() + File.separator + "project.myopenlab"))) {
 
             String inputString;
             while ((inputString = input.readLine()) != null) {
@@ -385,7 +386,8 @@ public class Tools {
     }
 
     public static void saveProjectFile(File file, ProjectProperties props) {
-        try (BufferedWriter out = new BufferedWriter(new FileWriter(file.getAbsolutePath() + File.separator + "project.myopenlab"))) {
+        try (BufferedWriter out =
+                new BufferedWriter(new FileWriter(file.getAbsolutePath() + File.separator + "project.myopenlab"))) {
 
 
             out.write("MAINVM          = " + props.mainVM);
@@ -403,7 +405,8 @@ public class Tools {
 
         String str;
 
-        try (BufferedReader input = new BufferedReader(new FileReader(file.getAbsolutePath() + File.separator + "driver.info"))) {
+        try (BufferedReader input =
+                new BufferedReader(new FileReader(file.getAbsolutePath() + File.separator + "driver.info"))) {
 
             String inputString;
             while ((inputString = input.readLine()) != null) {
@@ -447,7 +450,8 @@ public class Tools {
     }
 
     public static void saveDefinitionFile(File file, DFProperties definition_def) {
-        try (BufferedWriter out = new BufferedWriter(new FileWriter(file.getAbsolutePath() + File.separator + "definition.def"))) {
+        try (BufferedWriter out =
+                new BufferedWriter(new FileWriter(file.getAbsolutePath() + File.separator + "definition.def"))) {
 
 
             String value = "";
@@ -512,7 +516,8 @@ public class Tools {
 
         String str;
 
-        try (BufferedReader input = new BufferedReader(new FileReader(file.getAbsolutePath() + File.separator + "definition.def"))) {
+        try (BufferedReader input =
+                new BufferedReader(new FileReader(file.getAbsolutePath() + File.separator + "definition.def"))) {
 
             String inputString;
             while ((inputString = input.readLine()) != null) {
@@ -590,7 +595,7 @@ public class Tools {
 
             input.close();
         } catch (IOException ex) {
-            //Tools.showMessage(ex.toString());
+            // Tools.showMessage(ex.toString());
             Logger.error(ex, "Error. Could not read from {}", file);
         }
         return tmp;
@@ -739,7 +744,7 @@ public class Tools {
 
     public static void copyHighSpeed(File source, File target) throws IOException {
         try (FileChannel sourceChannel = new FileInputStream(source).getChannel();
-             FileChannel targetChannel = new FileOutputStream(target).getChannel()) {
+                FileChannel targetChannel = new FileOutputStream(target).getChannel()) {
 
             sourceChannel.transferTo(0, sourceChannel.size(), targetChannel);
 
@@ -752,7 +757,7 @@ public class Tools {
     /**
      * Copy files and/or directories.
      *
-     * @param src  source file or directory
+     * @param src source file or directory
      * @param dest destination file or directory
      * @throws IOException if operation fails
      */
@@ -790,17 +795,16 @@ public class Tools {
         }
 
         // The following line requires that the file already
-        // exists!!  Thanks to Scott Downey (downey@telestream.com)
-        // for pointing this out.  Someday, maybe I'll find out
-        // why java.io.File.canWrite() behaves like this.  Is it
+        // exists!! Thanks to Scott Downey (downey@telestream.com)
+        // for pointing this out. Someday, maybe I'll find out
+        // why java.io.File.canWrite() behaves like this. Is it
         // intentional for some odd reason?
-        //if (!dest.canWrite())
-        //throw new IOException("destination is unwriteable: " + dest);
+        // if (!dest.canWrite())
+        // throw new IOException("destination is unwriteable: " + dest);
 
         // If we've gotten this far everything is OK and we can copy.
         if (src.isFile()) {
-            try (var source = new FileInputStream(src);
-                 var destination = new FileOutputStream(dest)) {
+            try (var source = new FileInputStream(src); var destination = new FileOutputStream(dest)) {
 
 
                 buffer = new byte[1024];
@@ -846,8 +850,8 @@ public class Tools {
     }
 
     /**
-     * File.getParent() can return null when the file is specified without a directory or is in the root directory. This
-     * method handles those cases.
+     * File.getParent() can return null when the file is specified without a directory or is in the root
+     * directory. This method handles those cases.
      *
      * @param f the target File to analyze
      * @return the parent directory as a File
@@ -887,9 +891,9 @@ public class Tools {
         leftLine.addPoint(p.x, line.getStartPoint().y);
 
         rightLine = new Polygon(xvalues, yvalues, xvalues.length);
-        /*myOut(poly);
-        myOut(leftLine);
-        myOut(rightLine);*/
+        /*
+         * myOut(poly); myOut(leftLine); myOut(rightLine);
+         */
 
         Polygon[] result = new Polygon[2];
         result[0] = leftLine;
@@ -921,9 +925,9 @@ public class Tools {
         leftLine.addPoint(line.getStartPoint().x, p.y);
 
         rightLine = new Polygon(xvalues, yvalues, xvalues.length);
-        /*myOut(poly);
-        myOut(leftLine);
-        myOut(rightLine);*/
+        /*
+         * myOut(poly); myOut(leftLine); myOut(rightLine);
+         */
 
         Polygon[] result = new Polygon[2];
         result[0] = leftLine;
@@ -934,19 +938,19 @@ public class Tools {
 
     public static Element addSubVM(VMObject vmobject, String frontClass, String args[]) {
         Element element;
-        //VMElement
+        // VMElement
 
-        element = vmobject.AddDualElement("/FrontElements/Version_2_0/VMElementUniversal", "bin", "VMElement", frontClass, args);
+        element = vmobject.AddDualElement("/FrontElements/Version_2_0/VMElementUniversal", "bin", "VMElement",
+                frontClass, args);
 
         return element;
     }
 
-    /*public static Element addS(VMObject vmobject)
-    {
-    Element element;
-    element=vmobject.AddDualElement("/CircuitElements/Extras/SubVM","bin", "SubVM", "", null);
-    return element;
-    }*/
+    /*
+     * public static Element addS(VMObject vmobject) { Element element;
+     * element=vmobject.AddDualElement("/CircuitElements/Extras/SubVM","bin", "SubVM", "", null); return
+     * element; }
+     */
     public static Element addNode(VMObject vmobject) {
         Element element;
         element = vmobject.AddDualElement("/CircuitElements/Node", "bin", "Node", "", null);
@@ -1014,7 +1018,8 @@ public class Tools {
             vmobject.deleteDraht(drahtX);
 
             if (line.myStart.x < line.myEnd.x) {
-                leftDraht = vmobject.addDrahtIntoCanvas(draht.getSourceElementID(), draht.getSourcePin(), node.getID(), 3);
+                leftDraht =
+                        vmobject.addDrahtIntoCanvas(draht.getSourceElementID(), draht.getSourcePin(), node.getID(), 3);
                 rightDraht = vmobject.addDrahtIntoCanvas(node.getID(), 1, draht.getDestElementID(), draht.getDestPin());
 
                 node.getPin(1).draht = rightDraht;
@@ -1023,7 +1028,8 @@ public class Tools {
                 node.getPin(3).pinIO = JPin.PIN_INPUT;
                 node.getPin(1).pinIO = JPin.PIN_OUTPUT;
             } else {
-                leftDraht = vmobject.addDrahtIntoCanvas(draht.getSourceElementID(), draht.getSourcePin(), node.getID(), 1);
+                leftDraht =
+                        vmobject.addDrahtIntoCanvas(draht.getSourceElementID(), draht.getSourcePin(), node.getID(), 1);
                 rightDraht = vmobject.addDrahtIntoCanvas(node.getID(), 3, draht.getDestElementID(), draht.getDestPin());
                 node.getPin(3).draht = rightDraht;
                 node.getPin(1).draht = leftDraht;
@@ -1039,10 +1045,10 @@ public class Tools {
 
             srcPin.draht = leftDraht;
             dstPin.draht = rightDraht;
-            //Element destElement = vmobject.getElementWithID(draht.getDestElementID());
-            //if (dstElement.getInternName().equalsIgnoreCase("###NODE###"))
+            // Element destElement = vmobject.getElementWithID(draht.getDestElementID());
+            // if (dstElement.getInternName().equalsIgnoreCase("###NODE###"))
             {
-                //JPin destPin=destElement.getPin(rightDraht.destPin);
+                // JPin destPin=destElement.getPin(rightDraht.destPin);
                 dstPin.pinIO = JPin.PIN_INPUT;
                 srcPin.pinIO = JPin.PIN_OUTPUT;
             }
@@ -1057,7 +1063,7 @@ public class Tools {
 
             vmobject.owner.loading = false;
 
-            //vmobject.reorderWireFrames();
+            // vmobject.reorderWireFrames();
 
         } else {
             vmobject.owner.loading = true;
@@ -1103,9 +1109,9 @@ public class Tools {
 
             srcPin.draht = draht1;
             dstPin.draht = draht2;
-            //if (dstElement.getInternName().equalsIgnoreCase("###NODE###"))
+            // if (dstElement.getInternName().equalsIgnoreCase("###NODE###"))
             {
-                //JPin destPin=destElement.getPin(rightDraht.destPin);
+                // JPin destPin=destElement.getPin(rightDraht.destPin);
                 dstPin.pinIO = JPin.PIN_INPUT;
                 srcPin.pinIO = JPin.PIN_OUTPUT;
             }
@@ -1119,7 +1125,7 @@ public class Tools {
             copyPoints(poly2, draht2);
 
             vmobject.owner.loading = false;
-            //vmobject.deleteDraht(draht);
+            // vmobject.deleteDraht(draht);
 
         }
         vmobject.owner.loading = false;
@@ -1229,9 +1235,9 @@ public class Tools {
     public static String getInfoXMLCaption(File file) {
         File f = new File(file.getAbsoluteFile() + "/info.xml");
         if (f.exists()) {
-            //files.add(file.getName());
+            // files.add(file.getName());
 
-            //String directory = myopenlabpath + "/Elements/" + type;
+            // String directory = myopenlabpath + "/Elements/" + type;
             try {
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder builder = factory.newDocumentBuilder();
@@ -1291,8 +1297,7 @@ public class Tools {
 
     public static void copyFileUsingStream(File source, File dest) throws IOException {
 
-        try (var is = new FileInputStream(source);
-             var os = new FileOutputStream(dest)) {
+        try (var is = new FileInputStream(source); var os = new FileOutputStream(dest)) {
 
             byte[] buffer = new byte[1024];
             int length;

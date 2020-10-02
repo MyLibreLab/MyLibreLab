@@ -1,21 +1,22 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 package VisualLogic.variables;
 
@@ -55,9 +56,9 @@ public class VSCanvas extends VSObject {
     public double shearX = 0.0;
     public double shearY = 0.0;
 
-    //public AffineTransform transform;
+    // public AffineTransform transform;
 
-    //public int stroke;
+    // public int stroke;
     public Color strokeColor;
     public int strokeWidth = 0;
     public Color fillColor;
@@ -103,7 +104,8 @@ public class VSCanvas extends VSObject {
 
         if (obj.font != null) {
             font = new Font(obj.font.getFontName(), obj.font.getStyle(), obj.font.getSize());
-        } else font = null;
+        } else
+            font = null;
 
         type = obj.type;
 
@@ -122,12 +124,12 @@ public class VSCanvas extends VSObject {
         shearX = obj.shearX;
         shearY = obj.shearY;
 
-        //transform=obj.transform;
+        // transform=obj.transform;
 
         // stroke=obj.stroke;
         strokeColor = obj.strokeColor;
         strokeWidth = obj.strokeWidth;
-        //fillColor=new Color(obj.fillColor.getRGB());
+        // fillColor=new Color(obj.fillColor.getRGB());
         fillColor = obj.fillColor;
         antialising = obj.antialising;
     }

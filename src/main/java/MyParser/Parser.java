@@ -1,20 +1,23 @@
 /*
-MyOpenLab by Carmelo Salafia www.myopenlab.de
-Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 package MyParser;
 
 import java.util.ArrayList;
@@ -59,6 +62,7 @@ class Token {
     }
 }
 
+
 public class Parser {
     private static final String ALPHA = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String OPERATOREN = "<>+-*/^%=&|!";
@@ -92,16 +96,10 @@ public class Parser {
         return false;
     }
 
-    /*private boolean isVariable(String val)
-    {
-      String ch;
-      for(int i=0;i<val.length();i++)
-      {
-         ch=val.substring(i,i+1);
-         if (isIn(ch,ALPHA)==false) return false;
-      }
-      return true;
-    } */
+    /*
+     * private boolean isVariable(String val) { String ch; for(int i=0;i<val.length();i++) {
+     * ch=val.substring(i,i+1); if (isIn(ch,ALPHA)==false) return false; } return true; }
+     */
 
     private boolean isNum(String val) {
         try {
@@ -122,7 +120,8 @@ public class Parser {
             ch = val.substring(i, i + 1);
             if (ch.equalsIgnoreCase("\"")) {
                 return true;
-            } else return false;
+            } else
+                return false;
         } else
             return false;
     }
@@ -174,7 +173,7 @@ public class Parser {
 
     public void setExpression(String expression) {
         expression = entfernealleleerzeichen(expression);
-        //tokenizer = new StringTokenizer( expression ,"=<>+-*/()%^&|!",true);
+        // tokenizer = new StringTokenizer( expression ,"=<>+-*/()%^&|!",true);
         pointer = 0;
         mainVector.clear();
         tokensToVector(expression, mainVector);
@@ -195,7 +194,7 @@ public class Parser {
 
     public Parser(Basis basis) {
         this.basis = basis;
-        //setExpression(expression);
+        // setExpression(expression);
     }
 
     private static double fakultaet(double a) {
@@ -223,8 +222,10 @@ public class Parser {
             } else if (isNum(str)) {
                 double x = Double.parseDouble(str);
                 token.setValue(new Double(x));
-            } else if (isOP(str)) token.setOp(str);
-            else if (isFunc(str)) token.setFunc(str);
+            } else if (isOP(str))
+                token.setOp(str);
+            else if (isFunc(str))
+                token.setFunc(str);
             else if (isString(str)) {
                 Object o = getVarValue(str);
                 if (o != null) {
@@ -234,8 +235,9 @@ public class Parser {
                 } else {
                     setErrorMessage("Variable " + str + " is unknown!");
                 }
-                //token.setVar(str);
-            } else if (isKLAMMER(str)) token.setKlammer(str);
+                // token.setVar(str);
+            } else if (isKLAMMER(str))
+                token.setKlammer(str);
             else {
                 setErrorMessage("There is an unknown datatype : " + str);
             }
@@ -259,7 +261,8 @@ public class Parser {
                     lastVar = token.varName;
                 }
             } else if (token.isKlammer) {
-                if (token.klammer.equals("(")) value = calcString(vector);
+                if (token.klammer.equals("("))
+                    value = calcString(vector);
                 else if (token.klammer.equals(")")) return value;
             } else if (token.isOp) {
                 if (token.op.equals("=")) {
@@ -273,7 +276,8 @@ public class Parser {
                     } else {
                         setErrorMessage("Variable " + lastVar + " not exist!");
                     }
-                } else if (token.op.equals("+")) return value + calcString(vector);
+                } else if (token.op.equals("+"))
+                    return value + calcString(vector);
                 else {
                     setErrorMessage("Operator " + token.op + " not found!");
                 }
@@ -297,7 +301,8 @@ public class Parser {
                     lastVar = token.varName;
                 }
             } else if (token.isKlammer) {
-                if (token.klammer.equals("(")) value = calcBoolean(vector);
+                if (token.klammer.equals("("))
+                    value = calcBoolean(vector);
                 else if (token.klammer.equals(")")) return value;
             } else if (token.isOp) {
                 if (token.op.equals("=")) {
@@ -312,11 +317,14 @@ public class Parser {
                     } else {
                         setErrorMessage("Variable " + lastVar + " not exist!");
                     }
-                } else if (token.op.equals("&")) return value && calcBoolean(vector);
+                } else if (token.op.equals("&"))
+                    return value && calcBoolean(vector);
                 else if (token.op.equals("=")) {
                     return (value == calcBoolean(vector));
-                } else if (token.op.equals("|")) return value || calcBoolean(vector);
-                else if (token.op.equals("!")) return !calcBoolean(vector);
+                } else if (token.op.equals("|"))
+                    return value || calcBoolean(vector);
+                else if (token.op.equals("!"))
+                    return !calcBoolean(vector);
                 else {
                     setErrorMessage("Operator " + token.varName + " not found!");
                 }
@@ -342,7 +350,8 @@ public class Parser {
                     }
                 }
             } else if (token.isKlammer) {
-                if (token.klammer.equals("(")) num = calcDouble(vector);
+                if (token.klammer.equals("("))
+                    num = calcDouble(vector);
                 else if (token.klammer.equals(")")) return num;
             } else if (token.isOp) {
                 if (token.op.equals("=")) {
@@ -356,32 +365,54 @@ public class Parser {
                     } else {
                         setErrorMessage("Variable " + lastVar + " not exist!");
                     }
-                } else if (token.op.equals("%")) return num % calcDouble(vector);
-                else if (token.op.equals("^")) return Math.pow(num, calcDouble(vector));
-                else if (token.op.equals("+")) return num + calcDouble(vector);
-                else if (token.op.equals("-")) return num - calcDouble(vector);
-                else if (token.op.equals("/")) return num / calcDouble(vector);
+                } else if (token.op.equals("%"))
+                    return num % calcDouble(vector);
+                else if (token.op.equals("^"))
+                    return Math.pow(num, calcDouble(vector));
+                else if (token.op.equals("+"))
+                    return num + calcDouble(vector);
+                else if (token.op.equals("-"))
+                    return num - calcDouble(vector);
+                else if (token.op.equals("/"))
+                    return num / calcDouble(vector);
                 else if (token.op.equals("*")) return num * calcDouble(vector);
             } else if (token.isFunc) {
-                if (token.func.equalsIgnoreCase("sin")) return Math.sin(calcDouble(vector));
-                else if (token.func.equalsIgnoreCase("cos")) return Math.cos(calcDouble(vector));
-                else if (token.func.equalsIgnoreCase("tan")) return Math.tan(calcDouble(vector));
-                else if (token.func.equalsIgnoreCase("asin")) return Math.asin(calcDouble(vector));
-                else if (token.func.equalsIgnoreCase("acos")) return Math.acos(calcDouble(vector));
+                if (token.func.equalsIgnoreCase("sin"))
+                    return Math.sin(calcDouble(vector));
+                else if (token.func.equalsIgnoreCase("cos"))
+                    return Math.cos(calcDouble(vector));
+                else if (token.func.equalsIgnoreCase("tan"))
+                    return Math.tan(calcDouble(vector));
+                else if (token.func.equalsIgnoreCase("asin"))
+                    return Math.asin(calcDouble(vector));
+                else if (token.func.equalsIgnoreCase("acos"))
+                    return Math.acos(calcDouble(vector));
                 else if (token.func.equalsIgnoreCase("atan")) return Math.atan(calcDouble(vector));
 
-                if (token.func.equalsIgnoreCase("sinh")) return Math.sinh(calcDouble(vector));
-                else if (token.func.equalsIgnoreCase("cosh")) return Math.cosh(calcDouble(vector));
-                else if (token.func.equalsIgnoreCase("tanh")) return Math.tanh(calcDouble(vector));
-                else if (token.func.equalsIgnoreCase("abs")) return Math.abs(calcDouble(vector));
-                else if (token.func.equalsIgnoreCase("log")) return Math.log10(calcDouble(vector));
-                else if (token.func.equalsIgnoreCase("ln")) return Math.log(calcDouble(vector));
-                else if (token.func.equalsIgnoreCase("exp")) return Math.exp(calcDouble(vector));
-                else if (token.func.equalsIgnoreCase("sqrt")) return Math.sqrt(calcDouble(vector));
-                else if (token.func.equalsIgnoreCase("round")) return Math.round(calcDouble(vector));
-                else if (token.func.equalsIgnoreCase("fak")) return fakultaet(calcDouble(vector));
-                else if (token.func.equalsIgnoreCase("toDeg")) return Math.toDegrees(calcDouble(vector));
-                else if (token.func.equalsIgnoreCase("toRad")) return Math.toRadians(calcDouble(vector));
+                if (token.func.equalsIgnoreCase("sinh"))
+                    return Math.sinh(calcDouble(vector));
+                else if (token.func.equalsIgnoreCase("cosh"))
+                    return Math.cosh(calcDouble(vector));
+                else if (token.func.equalsIgnoreCase("tanh"))
+                    return Math.tanh(calcDouble(vector));
+                else if (token.func.equalsIgnoreCase("abs"))
+                    return Math.abs(calcDouble(vector));
+                else if (token.func.equalsIgnoreCase("log"))
+                    return Math.log10(calcDouble(vector));
+                else if (token.func.equalsIgnoreCase("ln"))
+                    return Math.log(calcDouble(vector));
+                else if (token.func.equalsIgnoreCase("exp"))
+                    return Math.exp(calcDouble(vector));
+                else if (token.func.equalsIgnoreCase("sqrt"))
+                    return Math.sqrt(calcDouble(vector));
+                else if (token.func.equalsIgnoreCase("round"))
+                    return Math.round(calcDouble(vector));
+                else if (token.func.equalsIgnoreCase("fak"))
+                    return fakultaet(calcDouble(vector));
+                else if (token.func.equalsIgnoreCase("toDeg"))
+                    return Math.toDegrees(calcDouble(vector));
+                else if (token.func.equalsIgnoreCase("toRad"))
+                    return Math.toRadians(calcDouble(vector));
                 else {
                     setErrorMessage("Function " + token.varName + " not found!");
                 }
@@ -421,11 +452,10 @@ public class Parser {
         return -1;
     }
 
-    /* liefert die anzahl der zuviele oder zu wenige Klammern
-     * zb: wenn eine Klammer nicht geschlossen oder nicht ge�ffnet
-     * worden ist
-     * Liefert bei zu viel ge�ffneten Klammern > 0
-     * Liefert bei zu viel geschlossenen Klammern < 0
+    /*
+     * liefert die anzahl der zuviele oder zu wenige Klammern zb: wenn eine Klammer nicht geschlossen
+     * oder nicht ge�ffnet worden ist Liefert bei zu viel ge�ffneten Klammern > 0 Liefert bei zu viel
+     * geschlossenen Klammern < 0
      */
     private int getKlammerPlus(ArrayList tokenListe) {
         int c = 0;
@@ -438,8 +468,8 @@ public class Parser {
         return c;
     }
 
-    // bei -5+1     -> 0-5+1
-    // bei -5+(-1)  -> 0-5+(0-1)
+    // bei -5+1 -> 0-5+1
+    // bei -5+(-1) -> 0-5+(0-1)
     private void handleMinusOperator(ArrayList tokenListe) {
 
         int i = 0;
@@ -481,7 +511,8 @@ public class Parser {
         while (i < tokenListe.size()) {
             String str = (String) tokenListe.get(i);
 
-            if (inKlammer == false && str.equalsIgnoreCase("\"")) inKlammer = true;
+            if (inKlammer == false && str.equalsIgnoreCase("\""))
+                inKlammer = true;
             else if (inKlammer == true && str.equalsIgnoreCase("\"")) inKlammer = false;
 
             if (!inKlammer) {
@@ -508,7 +539,8 @@ public class Parser {
                                 int resR = 0;
                                 if (isFunc(strB)) {
                                     resR = sucheRechtsNachKlammer(tokenListe, i + 2);
-                                } else resR = sucheRechtsNachKlammer(tokenListe, i + 1);
+                                } else
+                                    resR = sucheRechtsNachKlammer(tokenListe, i + 1);
 
                                 if (resR > -1) {
                                     tokenListe.add(resL, "(");
@@ -539,7 +571,8 @@ public class Parser {
                     token.value = value;
                     OpenVariable v = getVarByName(token.varName);
                     v.global = true;
-                } else setErrorMessage("Variable " + token.varName + " not found!");
+                } else
+                    setErrorMessage("Variable " + token.varName + " not found!");
             }
         }
     }
@@ -574,7 +607,7 @@ public class Parser {
                         counter++;
                         return expr.substring(start, counter);
                     } else {
-                        //counter--;
+                        // counter--;
                         return expr.substring(start, counter);
                     }
                 }
@@ -597,8 +630,9 @@ public class Parser {
         while (counter < len) {
             String str = nextToken();
 
-            /*if (str.equalsIgnoreCase("E")) str=""+Math.E;
-            if (str.equalsIgnoreCase("PI")) str=""+Math.PI; */
+            /*
+             * if (str.equalsIgnoreCase("E")) str=""+Math.E; if (str.equalsIgnoreCase("PI")) str=""+Math.PI;
+             */
 
             if (str != " ") vector.add(str);
         }
@@ -649,7 +683,8 @@ public class Parser {
         OpenVariable v = getVarByName(name);
         if (v != null) {
             return v.value;
-        } else return null;
+        } else
+            return null;
     }
 
     public boolean varExistGlobal(String name) {
@@ -682,14 +717,20 @@ public class Parser {
             Token token = (Token) vector.get(i);
 
             if (token.value instanceof Double) {
-                if (result == 0 || result == -1) result = 0;
-                else return -1;
+                if (result == 0 || result == -1)
+                    result = 0;
+                else
+                    return -1;
             } else if (token.value instanceof Boolean) {
-                if (result == 1 || result == -1) result = 1;
-                else return -1;
+                if (result == 1 || result == -1)
+                    result = 1;
+                else
+                    return -1;
             } else if (token.value instanceof String) {
-                if (result == 2 || result == -1) result = 2;
-                else return -1;
+                if (result == 2 || result == -1)
+                    result = 2;
+                else
+                    return -1;
             }
         }
 
@@ -737,26 +778,15 @@ public class Parser {
     }
 
     private boolean isFunc(String val) {
-        if (val.equalsIgnoreCase("sin") ||
-            val.equalsIgnoreCase("cos") ||
-            val.equalsIgnoreCase("tan") ||
-            val.equalsIgnoreCase("asin") ||
-            val.equalsIgnoreCase("acos") ||
-            val.equalsIgnoreCase("atan") ||
-            val.equalsIgnoreCase("sinh") ||
-            val.equalsIgnoreCase("cosh") ||
-            val.equalsIgnoreCase("tanh") ||
-            val.equalsIgnoreCase("abs") ||
-            val.equalsIgnoreCase("log") ||
-            val.equalsIgnoreCase("ln") ||
-            val.equalsIgnoreCase("exp") ||
-            val.equalsIgnoreCase("sqrt") ||
-            val.equalsIgnoreCase("round") ||
-            val.equalsIgnoreCase("fak") ||
-            val.equalsIgnoreCase("toDeg") ||
-            val.equalsIgnoreCase("toRad")) {
+        if (val.equalsIgnoreCase("sin") || val.equalsIgnoreCase("cos") || val.equalsIgnoreCase("tan")
+                || val.equalsIgnoreCase("asin") || val.equalsIgnoreCase("acos") || val.equalsIgnoreCase("atan")
+                || val.equalsIgnoreCase("sinh") || val.equalsIgnoreCase("cosh") || val.equalsIgnoreCase("tanh")
+                || val.equalsIgnoreCase("abs") || val.equalsIgnoreCase("log") || val.equalsIgnoreCase("ln")
+                || val.equalsIgnoreCase("exp") || val.equalsIgnoreCase("sqrt") || val.equalsIgnoreCase("round")
+                || val.equalsIgnoreCase("fak") || val.equalsIgnoreCase("toDeg") || val.equalsIgnoreCase("toRad")) {
             return true;
-        } else return false;
+        } else
+            return false;
     }
 
     private boolean isOP(String val) {
