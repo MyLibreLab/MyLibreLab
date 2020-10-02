@@ -60,7 +60,7 @@ public class PolyPoint extends VisualObject {
             int y = stream.readInt();
             setLocation(x, y);
         } catch (IOException e) {
-            basis.owner.showErrorMessage("" + ex.toString());
+            basis.owner.showErrorMessage("" + e.toString());
             Logger.error(e);
 
         }
@@ -71,7 +71,7 @@ public class PolyPoint extends VisualObject {
             dos.writeInt(getX());
             dos.writeInt(getY());
         } catch (IOException e) {
-            basis.owner.showErrorMessage("" + ex.toString());
+            basis.owner.showErrorMessage("" + e.toString());
             Logger.error(e);
         }
     }
