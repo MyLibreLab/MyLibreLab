@@ -3,7 +3,7 @@
 Following steps were done to convert the SVN-based MyOpenLab repository to this repository
 
 - git to svn conversion of <https://sourceforge.net/p/myopenlab3/code/HEAD/tree/>
-  - using availble information (in the code) of the authors Carmelo Salafia and Javier Velásquez. Put it into `authors.txt`:  
+  - using available information (in the code) of the authors Carmelo Salafia and Javier Velásquez. Put it into `authors.txt`:  
    ```properties
    rjvelasquez40 = Javier Velásquez <javiervelasquez125@gmail.com>
    carmelosalafia = Carmelo Salafia <cswi@gmx.de>
@@ -21,4 +21,4 @@ Following steps were done to convert the SVN-based MyOpenLab repository to this 
     ```
   - `distribution/elements` folder moved to separate repository <https://github.com/MyLibreLab/elements>
     - Preparation: `git filter-branch --prune-empty --subdirectory-filter distribution/elements`
-- Restructore repository to follow typical maven-project structure
+- Restructure repository to follow typical maven-project structure
