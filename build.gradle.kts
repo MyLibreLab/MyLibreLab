@@ -17,26 +17,15 @@ val enableMavenLocal by props()
 val skipAutostyle by props(default = true)
 
 dependencies {
-    implementation("com.google.guava:guava:28.2-jre")
-    implementation("javax.vecmath:vecmath")
-    implementation("eu.hansolo:SteelSeries")
-    implementation("org.pushing-pixels:trident")
     implementation("org.json:json")
-    implementation("net.java.dev.jna:jna-platform")
     implementation("org.scream3r:jssc")
-    implementation("org.bidib.jbidib:bidib-rxtx-binaries")
-
-    implementation("com.pi4j:pi4j-core")
-    implementation("com.pi4j:pi4j-device")
-    implementation("com.pi4j:pi4j-gpio-extension")
-    implementation("com.pi4j:pi4j-service")
 
     implementation("javax.xml.bind:jaxb-api")
-    implementation("com.sun.xml.bind:jaxb-core")
-    implementation("com.sun.xml.bind:jaxb-impl")
+    runtimeOnly("com.sun.xml.bind:jaxb-core")
+    runtimeOnly("com.sun.xml.bind:jaxb-impl")
 
     implementation("org.tinylog:tinylog-api")
-    implementation("org.tinylog:tinylog-impl")
+    runtimeOnly("org.tinylog:tinylog-impl")
 
     implementation("org.netbeans.external:AbsoluteLayout")
     implementation("org.swinglabs:swing-layout")
@@ -44,12 +33,27 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
+    /* Currently unused dependencies. Those need further investigation whether they are needed for the elements
+     * at runtime.
+    implementation("com.google.guava:guava:28.2-jre")
+    implementation("javax.vecmath:vecmath")
+    implementation("eu.hansolo:SteelSeries")
+    implementation("org.pushing-pixels:trident")
+    implementation("net.java.dev.jna:jna-platform")
+    implementation("org.bidib.jbidib:bidib-rxtx-binaries")
 
-    // implementation("org.netbeans.external:swing-layout-1.0.4:RELEASE68")
-    // implementation fileTree(dir: "distribution/lib", include: ["*.jar])
-    // implementation fileTree(dir: "distribution/lib_win_64", include: ["*.jar"])
-    // implementation fileTree(dir: "jssc", include: ["*.jar"])
-    // implementation fileTree(dir: "pi4j-1.0", include: ["*.jar"])
+    runtimeOnly("com.pi4j:pi4j-core")
+    runtimeOnly("com.pi4j:pi4j-device")
+    runtimeOnly("com.pi4j:pi4j-gpio-extension")
+    runtimeOnly("com.pi4j:pi4j-service")
+    */
+
+    /*
+    implementation fileTree(dir: "distribution/lib", include: ["*.jar])
+    implementation fileTree(dir: "distribution/lib_win_64", include: ["*.jar"])
+    implementation fileTree(dir: "jssc", include: ["*.jar"])
+    implementation fileTree(dir: "pi4j-1.0", include: ["*.jar"])
+    */
 }
 
 application {
