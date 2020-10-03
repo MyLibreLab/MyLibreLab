@@ -762,11 +762,11 @@ public class Parser {
 
     private boolean isFunc(String val) {
         return val.equalsIgnoreCase("sin") || val.equalsIgnoreCase("cos") || val.equalsIgnoreCase("tan")
-            || val.equalsIgnoreCase("asin") || val.equalsIgnoreCase("acos") || val.equalsIgnoreCase("atan")
-            || val.equalsIgnoreCase("sinh") || val.equalsIgnoreCase("cosh") || val.equalsIgnoreCase("tanh")
-            || val.equalsIgnoreCase("abs") || val.equalsIgnoreCase("log") || val.equalsIgnoreCase("ln")
-            || val.equalsIgnoreCase("exp") || val.equalsIgnoreCase("sqrt") || val.equalsIgnoreCase("round")
-            || val.equalsIgnoreCase("fak") || val.equalsIgnoreCase("toDeg") || val.equalsIgnoreCase("toRad");
+                || val.equalsIgnoreCase("asin") || val.equalsIgnoreCase("acos") || val.equalsIgnoreCase("atan")
+                || val.equalsIgnoreCase("sinh") || val.equalsIgnoreCase("cosh") || val.equalsIgnoreCase("tanh")
+                || val.equalsIgnoreCase("abs") || val.equalsIgnoreCase("log") || val.equalsIgnoreCase("ln")
+                || val.equalsIgnoreCase("exp") || val.equalsIgnoreCase("sqrt") || val.equalsIgnoreCase("round")
+                || val.equalsIgnoreCase("fak") || val.equalsIgnoreCase("toDeg") || val.equalsIgnoreCase("toRad");
     }
 
     private boolean isOP(String val) {

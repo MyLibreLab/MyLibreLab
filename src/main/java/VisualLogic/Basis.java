@@ -1950,7 +1950,7 @@ public class Basis implements ElementIF, VSBasisIF {
             // speichereNunAlleBasisElemente(frontBasis,fsOut,onlySelected);
         } catch (IOException e) {
             showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/Basic")
-                .getString("Fehler_in_Basis.saveToStream()_:") + e.toString());
+                    .getString("Fehler_in_Basis.saveToStream()_:") + e.toString());
         }
     }
 

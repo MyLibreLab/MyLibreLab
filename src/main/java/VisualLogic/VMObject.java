@@ -1311,7 +1311,7 @@ public class VMObject extends JPanel
         for (Draht value : drahtLst) {
             draht = value;
             if (draht.getSourceElementID() == sourceElementID && draht.getSourcePin() == sourcePin
-                || draht.getDestElementID() == destElementID && draht.getDestPin() == destPin) {
+                    || draht.getDestElementID() == destElementID && draht.getDestPin() == destPin) {
                 return draht;
             }
         }
@@ -2154,8 +2154,8 @@ public class VMObject extends JPanel
     public void markAllinRect(int x, int y, int xx, int yy) {
         // Markiere alle Elemente
         for (Element value : elList) {
-            if (value.isVisible() && value.getX() > x && value.getY() > y
-                && (value.getX() + value.getWidth()) < xx && (value.getY() + value.getHeight()) < yy) {
+            if (value.isVisible() && value.getX() > x && value.getY() > y && (value.getX() + value.getWidth()) < xx
+                    && (value.getY() + value.getHeight()) < yy) {
                 value.setSelected(true);
             }
         }
@@ -2173,7 +2173,7 @@ public class VMObject extends JPanel
                 Element src = getElementWithID(value.sourceElementID);
                 Element dst = getElementWithID(value.destElementID);
                 if (src.isSelected() && dst.isSelected() && p.getX() > x && p.getY() > y && p.getX() < xx
-                    && p.getY() < yy) {
+                        && p.getY() < yy) {
                     p.setSelected(true);
                     value.setSelected(true);
                     c++;
@@ -2730,8 +2730,7 @@ public class VMObject extends JPanel
                             ax = element.getX() + pin.getX() + pin.getWidth() / 2;
                             ay = element.getY() + pin.getY() + pin.getHeight();
                             if (draht.getPolySize() > 2) {
-                                PolyPoint pp = draht.getLastPoint();
-                                ;
+                                PolyPoint pp = draht.getLastPoint();;
                                 pp.setLeft(ax);
                             }
 

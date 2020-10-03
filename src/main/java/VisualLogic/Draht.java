@@ -260,7 +260,7 @@ public class Draht implements Serializable {
     public Line pruefeLinie(int x1, int y1, int x2, int y2) {
         for (Line line : lineList) {
             if (Line2D.linesIntersect(line.getStartPoint().x, line.getStartPoint().y, line.getEndPoint().x,
-                line.getEndPoint().y, x1, y1, x2, y2)) {
+                    line.getEndPoint().y, x1, y1, x2, y2)) {
                 return line;
             }
         }

@@ -393,7 +393,7 @@ public class ElementPalette extends javax.swing.JPanel {
                     DFProperties props = Tools.getProertiesFromDefinitionFile(file);
 
                     if (!gruppenAuswahlMode && !props.isDirectory && (props.classcircuit.length() > 0
-                        || props.classfront.length() > 0 || props.vm.length() > 0 || props.loader.length() > 0)) {
+                            || props.classfront.length() > 0 || props.vm.length() > 0 || props.loader.length() > 0)) {
                         MyButton btn = new MyButton();
 
                         btn.setPreferredSize(new Dimension(38, 38));

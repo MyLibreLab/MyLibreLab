@@ -1618,7 +1618,8 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
                 if (vm != null) {
                     for (ElementProperty elementProperty : propertyList) {
                         // System.out.println(""+prop.label+" XX");
-                        jAddPEItem(elementProperty.label, elementProperty.referenz, elementProperty.min, elementProperty.max, elementProperty.editable);
+                        jAddPEItem(elementProperty.label, elementProperty.referenz, elementProperty.min,
+                                elementProperty.max, elementProperty.editable);
                     }
 
                     /*
