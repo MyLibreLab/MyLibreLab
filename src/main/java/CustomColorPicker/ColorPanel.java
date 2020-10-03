@@ -170,7 +170,7 @@ public class ColorPanel extends javax.swing.JPanel {
         Graphics2D g2 = (Graphics2D) g;
 
         if (image != null) {
-            Rectangle2D tr = new Rectangle2D.Double(0, 0, image.getWidth() / 5, image.getHeight() / 5);
+            Rectangle2D tr = new Rectangle2D.Double(0, 0, image.getWidth() / 5.0, image.getHeight() / 5.0);
             TexturePaint tp = new TexturePaint(image, tr);
             g2.setPaint(tp);
             g2.fillRect(0, 0, getWidth() - 1, getHeight() - 1);

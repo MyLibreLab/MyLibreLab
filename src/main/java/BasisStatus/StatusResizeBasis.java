@@ -30,7 +30,7 @@ import VisualLogic.VMObject;
 /**
  * @author Homer
  */
-public class StatusResizeBasis extends Object implements StatusBasisIF {
+public class StatusResizeBasis implements StatusBasisIF {
     private VMObject vmObject;
     private int startX, startY;
     private int oldX, oldY;

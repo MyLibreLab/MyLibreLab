@@ -39,7 +39,7 @@ class ImageComponent extends JPanel {
             File image2 = new File(filename);
             image = ImageIO.read(image2);
         } catch (IOException e) {
-            e.printStackTrace();
+            org.tinylog.Logger.error(e);
         }
     }
 

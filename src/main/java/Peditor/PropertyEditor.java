@@ -30,6 +30,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -897,11 +899,12 @@ class PropertiesEditor extends JButton implements PEIF, ActionListener {
             try {
                 newVersion = Integer.parseInt(vmobject.owner.basisVersion);
             } catch (Exception ex) {
+                org.tinylog.Logger.error(ex);
             }
             newVersion++;
             vmobject.owner.basisVersion = "" + newVersion;
 
-            vmobject.propertyList = (ArrayList) frm.props.clone();
+            Collections.copy(vmobject.propertyList, frm.props);
         }
     }
 
@@ -955,8 +958,7 @@ class StringEditor extends JTextField implements PEIF {
  * @author Homer
  */
 public class PropertyEditor extends javax.swing.JPanel {
-
-    ArrayList liste = new ArrayList();
+    List<PropertyEditorItem> liste = new ArrayList<>();
     private final int itemHeight = 25;
     public Element element;
     public VMObject vmobject;
@@ -1182,11 +1184,11 @@ public class PropertyEditor extends javax.swing.JPanel {
     }// GEN-LAST:event_jScrollPane1ComponentResized
 
     public void reorderItems() {
-        if (vmobject != null && vmobject.owner.isLoading() == false) {
+        if (vmobject != null && !vmobject.owner.isLoading()) {
             PropertyEditorItem item = null;
             int y = -1;
-            for (int i = 0; i < liste.size(); i++) {
-                item = (PropertyEditorItem) liste.get(i);
+            for (PropertyEditorItem propertyEditorItem : liste) {
+                item = propertyEditorItem;
 
                 item.label.setSize(new Dimension(leftPanel.getWidth() + 2, itemHeight));
                 item.label.setFont(Font.getFont("Tahoma"));
@@ -1212,7 +1214,7 @@ public class PropertyEditor extends javax.swing.JPanel {
 
     public PropertyEditorItem getItem(int index) {
         if (index < liste.size()) {
-            return (PropertyEditorItem) liste.get(index);
+            return liste.get(index);
         } else {
             return null;
         }
@@ -1220,7 +1222,7 @@ public class PropertyEditor extends javax.swing.JPanel {
 
     public void addItem(String label, Object value, double min, double max, boolean editable) {
         boolean loading = vmobject.owner.isLoading();
-        if (!loading && vmobject.owner.frameCircuit != null && locked == false) {
+        if (!loading && vmobject.owner.frameCircuit != null && !locked) {
             PropertyEditorItem item = new PropertyEditorItem(this.mode, vmobject, element, frame, leftPanel, rightPanel,
                     label, value, min, max, editable);
             liste.add(item);

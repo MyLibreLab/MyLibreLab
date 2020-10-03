@@ -156,6 +156,7 @@ public class PanelEditor extends javax.swing.JPanel implements CommandIF {
                 out.close();
                 changed = false;
             } catch (IOException ioe) {
+                org.tinylog.Logger.error(ioe);
                 VisualLogic.Tools.showMessage(ioe.toString());
             }
         }
@@ -179,6 +180,7 @@ public class PanelEditor extends javax.swing.JPanel implements CommandIF {
                 undomanager.undo();
             }
         } catch (CannotUndoException e) {
+            org.tinylog.Logger.error(e);
         }
     }
 
@@ -188,6 +190,7 @@ public class PanelEditor extends javax.swing.JPanel implements CommandIF {
                 undomanager.redo();
             }
         } catch (CannotUndoException e) {
+            org.tinylog.Logger.error(e);
         }
     }
 
@@ -208,6 +211,7 @@ public class PanelEditor extends javax.swing.JPanel implements CommandIF {
             changed = false;
             pane.setCaretPosition(0);
         } catch (Exception e) {
+            org.tinylog.Logger.error(e);
             VisualLogic.Tools.showMessage(e.toString());
         }
 

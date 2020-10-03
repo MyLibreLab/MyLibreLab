@@ -35,7 +35,7 @@ import VisualLogic.VMObject;
 /**
  * @author Homer
  */
-public class StatusGummiBandX extends Object implements StatusBasisIF {
+public class StatusGummiBandX implements StatusBasisIF {
     private VMObject vmObject;
     private int startX, startY;
     private int oldX, oldY;

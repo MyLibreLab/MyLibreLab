@@ -58,6 +58,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -98,8 +99,8 @@ public class VMObject extends JPanel
 
     private ExternalIF element;
     private final int maxElements = 2000;
-    public ArrayList propertyList = new ArrayList();
-    public ArrayList clockList = new ArrayList();
+    public List<BasisProperty> propertyList = new ArrayList<>();
+    public List<Element> clockList = new ArrayList<>();
     /*
      * public ArrayList subRoutineList = new ArrayList(); public SubRoutine searchSubRoutine(String
      * name) { name=name.trim(); for (int i=0;i<subRoutineList.size();i++) { SubRoutine
@@ -113,7 +114,7 @@ public class VMObject extends JPanel
         return isThreadFertig;
     }
 
-    private Object elementReferences[] = new Object[maxElements];
+    private final Object[] elementReferences = new Object[maxElements];
     // fuer Basis als Element!
     private Image elementImage = null;
     private Element elTopBar = null;
@@ -134,9 +135,9 @@ public class VMObject extends JPanel
     private VSInteger vsCustomYwindowPos = new VSInteger(0);
 
     private int elementsCount = 0;
-    private ArrayList elList;
+    private List<Element> elList;
     private boolean borderVisible = true;
-    public ArrayList drahtLst;
+    public List<Draht> drahtLst;
     private String elementPath;
     private ArrayList elementListe;
     private boolean aktuellIstBasis = false;
@@ -156,10 +157,10 @@ public class VMObject extends JPanel
         borderVisible = value;
     }
 
-    public ArrayList processList = new ArrayList();
+    public List<Draht> processList = new ArrayList<>();
 
     // public ArrayList processList = new ArrayList();
-    public ArrayList getElementList() {
+    public List<Element> getElementList() {
         return elList;
     }
 
@@ -324,10 +325,10 @@ public class VMObject extends JPanel
     // werden nur genutzt, wenn die Basis als Element benutzt wird!
     private Font stdFont = new Font("Courier", 0, 8);
     public String settingsTitel = "";
-    private ArrayList topPins = new ArrayList();
-    private ArrayList rightPins = new ArrayList();
-    private ArrayList bottomPins = new ArrayList();
-    private ArrayList leftPins = new ArrayList();
+    private List<Element> topPins = new ArrayList<>();
+    private List<Element> rightPins = new ArrayList<>();
+    private List<Element> bottomPins = new ArrayList<>();
+    private List<Element> leftPins = new ArrayList<>();
     private static long time1;
     private static long time2;
     private static int counter = 0;
@@ -380,7 +381,7 @@ public class VMObject extends JPanel
     }
 
     public ExternalIF[] getElementList(VSBasisIF basis, String elementName) {
-        ArrayList liste = new ArrayList();
+        List<Element> liste = new ArrayList<>();
 
         VMObject vm = ((Basis) basis).getCircuitBasis();
         int c = 0;
@@ -409,7 +410,7 @@ public class VMObject extends JPanel
         for (int i = 0; i < drahtLst.size(); i++) {
             draht = getDraht(i);
 
-            if (draht.isValid() == false) {
+            if (!draht.isValid()) {
                 return true;
             }
         }
@@ -436,10 +437,8 @@ public class VMObject extends JPanel
 
                         if (sdt == ExternalIF.C_VARIANT || ddt == ExternalIF.C_VARIANT) {
                             draht.setValid(true);
-                        } else if (sdt == ddt) {
-                            draht.setValid(true);
                         } else {
-                            draht.setValid(false);
+                            draht.setValid(sdt == ddt);
                         }
                     } else {
                         draht.setValid(false);
@@ -451,7 +450,7 @@ public class VMObject extends JPanel
         }
     }
 
-    public void addPublishingFiles(ArrayList list) {
+    public void addPublishingFiles(List<String> list) {
         Element el;
         for (int i = 0; i < getElementCount(); i++) {
             el = getElement(i);
@@ -531,11 +530,8 @@ public class VMObject extends JPanel
 
             owner.propertyEditor.addItem("Properties", vsProperties, 0, 0, true);
             boolean EditableTemp = false;
-            if (owner.WindowsPosition.selectedIndex == 5) { // IF user select "CUSTOM" enable editable X and Y Loation
-                EditableTemp = true;
-            } else {
-                EditableTemp = false;
-            }
+            // IF user select "CUSTOM" enable editable X and Y Loation
+            EditableTemp = owner.WindowsPosition.selectedIndex == 5;
 
             if (this == owner.getFrontBasis()) {
                 owner.propertyEditor.addItem(
@@ -612,11 +608,11 @@ public class VMObject extends JPanel
     public VMObject(Basis owner, String elementPath) {
 
         this.owner = owner;
-        elList = new ArrayList();
-        drahtLst = new ArrayList();
+        elList = new ArrayList<>();
+        drahtLst = new ArrayList<>();
         leerLauf = new StatusIdle(this);
         status = leerLauf;
-        elementListe = new ArrayList();
+        elementListe = new ArrayList<>();
         this.elementPath = elementPath;
         initElementReferences(); // alle Referenzen auf null setzen!
         time1 = System.currentTimeMillis();
@@ -753,9 +749,8 @@ public class VMObject extends JPanel
     }
 
     protected void processMouseEvent(MouseEvent me) {
-        switch (me.getID()) {
-            case MouseEvent.MOUSE_PRESSED:
-                requestFocus();
+        if (me.getID() == MouseEvent.MOUSE_PRESSED) {
+            requestFocus();
         }
         super.processMouseEvent(me);
     }
@@ -893,11 +888,7 @@ public class VMObject extends JPanel
     }
 
     public boolean isRunning() {
-        if (status != null && status.equals(modusRun)) {
-            return true;
-        } else {
-            return false;
-        }
+        return status != null && status.equals(modusRun);
     }
 
     public void openVlogicFile(String fileName) {
@@ -996,8 +987,7 @@ public class VMObject extends JPanel
             Element elx = (Element) leftPins.get(i);
             JPin pinIntern = elx.getPin(0);
 
-            Object reference = element.getPinInputReference(rightPins.size() + i);
-            pinIntern.object = reference;
+            pinIntern.object = element.getPinInputReference(rightPins.size() + i);
         }
     }
 
@@ -1165,7 +1155,7 @@ public class VMObject extends JPanel
     }
 
     public Element addElement(String mainPath, String binPath, String klassenName, String[] args) {
-        if ((getStatus() instanceof StatusRun) == false) {
+        if (!(getStatus() instanceof StatusRun)) {
             owner.setChanged(true);
 
             Element element = addElementIntoCanvas(mainPath, binPath, klassenName, args);
@@ -1197,7 +1187,7 @@ public class VMObject extends JPanel
     public int getElementCaptionNumber(Element element) {
         for (int j = 1; j < maxElements; j++) {
             int num = j;
-            if (existInternalID(element.getNameLocalized(), num) == false) {
+            if (!existInternalID(element.getNameLocalized(), num)) {
                 return num;
             }
         }
@@ -1222,7 +1212,7 @@ public class VMObject extends JPanel
                         einerIstDrin = true;
                     }
                 }
-                if (einerIstDrin == false) {
+                if (!einerIstDrin) {
                     return new Point(x, y);
                 }
             }
@@ -1319,8 +1309,8 @@ public class VMObject extends JPanel
 
     public Draht getDraht(int sourceElementID, int sourcePin, int destElementID, int destPin) {
         Draht draht;
-        for (int i = 0; i < drahtLst.size(); i++) {
-            draht = (Draht) drahtLst.get(i);
+        for (Draht value : drahtLst) {
+            draht = value;
             if (draht.getSourceElementID() == sourceElementID && draht.getSourcePin() == sourcePin
                     || draht.getDestElementID() == destElementID && draht.getDestPin() == destPin) {
                 return draht;
@@ -1415,8 +1405,8 @@ public class VMObject extends JPanel
     public Line isPointOverLine(Point p) {
         Draht draht = null;
         Line line = null;
-        for (int i = 0; i < drahtLst.size(); i++) {
-            draht = (Draht) drahtLst.get(i);
+        for (Draht value : drahtLst) {
+            draht = value;
 
             line = draht.isOverLine(p);
             if (line != null) {
@@ -1624,17 +1614,16 @@ public class VMObject extends JPanel
         owner.setChanged(true);
 
         // Alle Markierten Elemente loeschen
-        ArrayList deletedList = new ArrayList();
+        List<Element> deletedList = new ArrayList<>();
 
-        for (int i = 0; i < elList.size(); i++) {
-            Element el = (Element) elList.get(i);
-            if (el.isSelected() == true) {
+        for (Element el : elList) {
+            if (el.isSelected()) {
                 deletedList.add(el);
             }
         }
 
         while (deletedList.size() > 0) {
-            Element el = (Element) deletedList.get(0);
+            Element el = deletedList.get(0);
             deleteElement(el);
             deletedList.remove(0);
         }
@@ -1649,7 +1638,7 @@ public class VMObject extends JPanel
                 break;
             }
             Draht draht = (Draht) drahtLst.get(i);
-            if (draht.isSelected() == true) {
+            if (draht.isSelected()) {
                 // Delete Draht und die Referenzen implements Element
                 deleteDraht(draht);
 
@@ -1682,9 +1671,8 @@ public class VMObject extends JPanel
     }
 
     public Element getSelectedElement() {
-        for (int i = 0; i < elList.size(); i++) {
-            Element el = (Element) elList.get(i);
-            if (el.isSelected() == true) {
+        for (Element el : elList) {
+            if (el.isSelected()) {
                 return el;
             }
         }
@@ -1693,9 +1681,8 @@ public class VMObject extends JPanel
 
     public int getSelectedCount() {
         int c = 0;
-        for (int i = 0; i < elList.size(); i++) {
-            Element el = (Element) elList.get(i);
-            if (el.isSelected() == true) {
+        for (Element el : elList) {
+            if (el.isSelected()) {
                 c++;
             }
         }
@@ -1703,13 +1690,12 @@ public class VMObject extends JPanel
         return c;
     }
 
-    public ArrayList<Element> getSelectedElements() {
-        ArrayList<Element> result = new ArrayList<Element>();
+    public List<Element> getSelectedElements() {
+        List<Element> result = new ArrayList<Element>();
 
         int c = 0;
-        for (int i = 0; i < elList.size(); i++) {
-            Element el = (Element) elList.get(i);
-            if (el.isSelected() == true) {
+        for (Element el : elList) {
+            if (el.isSelected()) {
                 result.add(el);
             }
         }
@@ -1717,12 +1703,10 @@ public class VMObject extends JPanel
     }
 
     public void selectAny(boolean value) {
-        for (int i = 0; i < elList.size(); i++) {
-            Element element = (Element) elList.get(i);
+        for (Element element : elList) {
             element.setSelected(value);
         }
-        for (int i = 0; i < drahtLst.size(); i++) {
-            Draht draht = (Draht) drahtLst.get(i);
+        for (Draht draht : drahtLst) {
             draht.setSelected(value);
 
             draht.selectAnyPoints(value);
@@ -1854,9 +1838,7 @@ public class VMObject extends JPanel
 
     public void processClock() {
         // System.out.println("clockList.size()="+clockList.size());
-        for (int i = 0; i < clockList.size(); i++) {
-            Element element = (Element) clockList.get(i);
-
+        for (Element element : clockList) {
             if (element != null && element.classRef != null) {
                 try {
                     element.classRef.xonClock();
@@ -1906,7 +1888,7 @@ public class VMObject extends JPanel
 
             if (o instanceof Element) {
                 element = (Element) o;
-                if (el.equals(element) && oki == false) {
+                if (el.equals(element) && !oki) {
                     oki = true;
                 } else if (oki) {
                     return element;
@@ -1924,7 +1906,7 @@ public class VMObject extends JPanel
 
             if (o instanceof Element) {
                 element = (Element) o;
-                if (el.equals(element) && oki == false) {
+                if (el.equals(element) && !oki) {
                     oki = true;
                 } else if (oki) {
                     return element;
@@ -1935,7 +1917,7 @@ public class VMObject extends JPanel
     }
 
     public void processAllElements() {
-        if (pause == false) {
+        if (!pause) {
             processClock();
 
             processMyAll();
@@ -2014,17 +1996,13 @@ public class VMObject extends JPanel
             if (elementDest != null && elementDest.classRef != null) {
                 try {
                     elementDest.classRef.xonProcess();
-                } catch (java.lang.AbstractMethodError ex) {
-                    Tools.jException(owner, "Error in xonProcess : " + ex + ", " + elementDest.getNameLocalized());
-                } catch (Exception ex) {
+                } catch (AbstractMethodError | Exception ex) {
                     Tools.jException(owner, "Error in xonProcess : " + ex + ", " + elementDest.getNameLocalized());
                 }
 
                 try {
                     elementDest.classRef.elementActionPerformed(new ElementActionEvent(draht.destPin, element));
-                } catch (java.lang.AbstractMethodError ex) {
-                    System.out.println("elementActionPerformed : " + ex);
-                } catch (Exception ex) {
+                } catch (AbstractMethodError | Exception ex) {
                     System.out.println("elementActionPerformed : " + ex);
                 }
 
@@ -2039,9 +2017,7 @@ public class VMObject extends JPanel
                             }
                         }
                     }
-                } catch (java.lang.AbstractMethodError ex) {
-                    System.out.println("destElementCalled : " + ex);
-                } catch (Exception ex) {
+                } catch (AbstractMethodError | Exception ex) {
                     System.out.println("destElementCalled : " + ex);
                 }
             }
@@ -2053,22 +2029,19 @@ public class VMObject extends JPanel
     }
 
     public void disableAllElements() {
-        for (int i = 0; i < elList.size(); i++) {
-            Element el = (Element) elList.get(i);
+        for (Element el : elList) {
             if (el.isSelected()) {
                 el.setSelected(false);
             }
         }
 
-        Draht draht;
-        for (int i = 0; i < drahtLst.size(); i++) {
-            draht = (Draht) drahtLst.get(i);
-            if (draht.isSelected()) {
-                draht.setSelected(false);
+        for (Draht value : drahtLst) {
+            if (value.isSelected()) {
+                value.setSelected(false);
 
-                for (int j = 0; j < draht.getPolySize(); j++) {
-                    PolyPoint p = draht.getPoint(j);
-                    draht.deselectAllPoints();
+                for (int j = 0; j < value.getPolySize(); j++) {
+                    PolyPoint p = value.getPoint(j);
+                    value.deselectAllPoints();
                 }
             }
         }
@@ -2154,13 +2127,9 @@ public class VMObject extends JPanel
     }
 
     public PolyPoint getPolyPointOverPoint(int x, int y) {
-        Draht draht;
-
-        for (int i = 0; i < drahtLst.size(); i++) {
-            draht = (Draht) drahtLst.get(i);
-
-            for (int j = 0; j < draht.getPolySize(); j++) {
-                PolyPoint p = draht.getPoint(j);
+        for (Draht value : drahtLst) {
+            for (int j = 0; j < value.getPolySize(); j++) {
+                PolyPoint p = value.getPoint(j);
 
                 if (p.getX() > x - 10 && p.getY() > y - 10 && p.getX() < x + 10 && p.getY() < y + 10) {
                     return p;
@@ -2171,13 +2140,9 @@ public class VMObject extends JPanel
     }
 
     public boolean isPointOverPolyPoint(int x, int y) {
-        Draht draht;
-
-        for (int i = 0; i < drahtLst.size(); i++) {
-            draht = (Draht) drahtLst.get(i);
-
-            for (int j = 0; j < draht.getPolySize(); j++) {
-                PolyPoint p = draht.getPoint(j);
+        for (Draht value : drahtLst) {
+            for (int j = 0; j < value.getPolySize(); j++) {
+                PolyPoint p = value.getPoint(j);
 
                 if (p.getX() > x - 10 && p.getY() > y - 10 && p.getX() < x + 10 && p.getY() < y + 10) {
                     return true;
@@ -2189,13 +2154,10 @@ public class VMObject extends JPanel
 
     public void markAllinRect(int x, int y, int xx, int yy) {
         // Markiere alle Elemente
-        Element element;
-        for (int i = 0; i < elList.size(); i++) {
-            element = (Element) elList.get(i);
-
-            if (element.isVisible() && element.getX() > x && element.getY() > y
-                    && (element.getX() + element.getWidth()) < xx && (element.getY() + element.getHeight()) < yy) {
-                element.setSelected(true);
+        for (Element value : elList) {
+            if (value.isVisible() && value.getX() > x && value.getY() > y && (value.getX() + value.getWidth()) < xx
+                    && (value.getY() + value.getHeight()) < yy) {
+                value.setSelected(true);
             }
         }
 
@@ -2204,29 +2166,26 @@ public class VMObject extends JPanel
         // Markiere alle PolyPoints
         // Merke : Sind alle Punkte des Drahtes markiert worden,
         // dann Markiere sie alle, ansonsten markiere keine davon
-        Draht draht;
-        for (int i = 0; i < drahtLst.size(); i++) {
-            draht = (Draht) drahtLst.get(i);
-
+        for (Draht value : drahtLst) {
             int c = 0;
-            for (int j = 0; j < draht.getPolySize(); j++) {
-                PolyPoint p = draht.getPoint(j);
+            for (int j = 0; j < value.getPolySize(); j++) {
+                PolyPoint p = value.getPoint(j);
 
-                Element src = getElementWithID(draht.sourceElementID);
-                Element dst = getElementWithID(draht.destElementID);
+                Element src = getElementWithID(value.sourceElementID);
+                Element dst = getElementWithID(value.destElementID);
                 if (src.isSelected() && dst.isSelected() && p.getX() > x && p.getY() > y && p.getX() < xx
                         && p.getY() < yy) {
                     p.setSelected(true);
-                    draht.setSelected(true);
+                    value.setSelected(true);
                     c++;
                 }
             }
 
-            if (c != draht.getPolySize()) {
-                for (int j = 0; j < draht.getPolySize(); j++) {
-                    PolyPoint p = draht.getPoint(j);
+            if (c != value.getPolySize()) {
+                for (int j = 0; j < value.getPolySize(); j++) {
+                    PolyPoint p = value.getPoint(j);
                     p.setSelected(false);
-                    draht.setSelected(false);
+                    value.setSelected(false);
                 }
             }
         }
@@ -2290,16 +2249,16 @@ public class VMObject extends JPanel
 
     public Element[] getAllTestpointElementsDouble() {
         Element[] nodes = getAllTestpointElements();
-        ArrayList liste = new ArrayList();
+        List<Element> liste = new ArrayList<>();
 
-        for (int i = 0; i < nodes.length; i++) {
-            if (nodes[i].getPin(0).dataType == ExternalIF.C_DOUBLE) {
-                liste.add(nodes[i]);
+        for (Element node : nodes) {
+            if (node.getPin(0).dataType == ExternalIF.C_DOUBLE) {
+                liste.add(node);
             }
         }
         Element[] result = new Element[liste.size()];
         for (int i = 0; i < liste.size(); i++) {
-            result[i] = (Element) liste.get(i);
+            result[i] = liste.get(i);
         }
 
         return result;
@@ -2307,23 +2266,23 @@ public class VMObject extends JPanel
 
     public Element[] getAllTestpointElementsBoolean() {
         Element[] nodes = getAllTestpointElements();
-        ArrayList liste = new ArrayList();
+        List<Element> liste = new ArrayList<>();
 
-        for (int i = 0; i < nodes.length; i++) {
-            if (nodes[i].getPin(0).dataType == ExternalIF.C_BOOLEAN) {
-                liste.add(nodes[i]);
+        for (Element node : nodes) {
+            if (node.getPin(0).dataType == ExternalIF.C_BOOLEAN) {
+                liste.add(node);
             }
         }
         Element[] result = new Element[liste.size()];
         for (int i = 0; i < liste.size(); i++) {
-            result[i] = (Element) liste.get(i);
+            result[i] = liste.get(i);
         }
 
         return result;
     }
 
     public Element[] getAllTestpointElements() {
-        ArrayList temp = new ArrayList();
+        List<Element> temp = new ArrayList<>();
         Element element;
         for (int i = 0; i < getElementCount(); i++) {
             element = getElement(i);
@@ -2579,7 +2538,7 @@ public class VMObject extends JPanel
     }
 
     private void FlowChartElementRekursivAbsteigenUndElementeInDerMitteAnordnen(Element elementX) {
-        if (elementX == null | elementX.isAlreadyCompiled) {
+        if (elementX == null || elementX.isAlreadyCompiled) {
             return;
         }
 
@@ -2595,7 +2554,7 @@ public class VMObject extends JPanel
 
             if (draht != null) {
                 Element elementUnten = getElementWithID(draht.getDestElementID());
-                if (elementUnten != null && elementUnten.isAlreadyCompiled == false) {
+                if (elementUnten != null && !elementUnten.isAlreadyCompiled) {
                     int mx1 = elementX.getX() + (elementX.getWidth() / 2);
                     int mx2 = elementUnten.getWidth() / 2;
 
@@ -2673,8 +2632,8 @@ public class VMObject extends JPanel
             }
         }
 
-        for (int i = 0; i < drahtLst.size(); i++) {
-            draht = (Draht) drahtLst.get(i);
+        for (Draht value : drahtLst) {
+            draht = value;
 
             element = (Element) getObjectWithID(draht.getSourceElementID());
             if (element == null) {
@@ -2802,8 +2761,8 @@ public class VMObject extends JPanel
     public Point ermittleMitteXY(ArrayList pins) {
         int mittelX = 0;
         int mittelY = 0;
-        for (int i = 0; i < pins.size(); i++) {
-            Element el = (Element) pins.get(i);
+        for (Object pin : pins) {
+            Element el = (Element) pin;
             mittelX += el.getLocation().x;
             mittelY += el.getLocation().y;
         }
@@ -3125,9 +3084,7 @@ public class VMObject extends JPanel
                     fsOut.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("Element"));
             DataOutputStream dos = new DataOutputStream(fos);
 
-            for (int i = 0; i < drahtLst.size(); i++) {
-                Draht draht = (Draht) drahtLst.get(i);
-
+            for (Draht draht : drahtLst) {
                 if (onlySelected) {
                     if (draht.isSelected()) {
                         dos.writeInt(draht.sourceElementID);
@@ -3191,9 +3148,7 @@ public class VMObject extends JPanel
             dos.writeInt(b);
 
             dos.writeInt(propertyList.size());
-            for (int i = 0; i < propertyList.size(); i++) {
-                BasisProperty prop = (BasisProperty) propertyList.get(i);
-
+            for (BasisProperty prop : propertyList) {
                 dos.writeInt(prop.elementID);
                 dos.writeInt(prop.propertyIndex);
             }
@@ -3218,7 +3173,7 @@ public class VMObject extends JPanel
         }
     }
 
-    public void readElements(int size, FileSystemInput fsIn, boolean fromAblage, ArrayList ElemetTabelle) {
+    public void readElements(int size, FileSystemInput fsIn, boolean fromAblage, List<Integer> ElemetTabelle) {
         int id = -1;
 
         for (int i = 0; i < size; i++) {
@@ -3250,8 +3205,8 @@ public class VMObject extends JPanel
                 if (fromAblage) {
                     id = getObjectID();
 
-                    oldElementID = new Integer(oldid);
-                    newElementID = new Integer(id);
+                    oldElementID = oldid;
+                    newElementID = id;
 
                     ElemetTabelle.add(oldElementID);
                     ElemetTabelle.add(newElementID);
@@ -3316,14 +3271,10 @@ public class VMObject extends JPanel
     public boolean pinExist(int destElementID, int destPin) {
         Element element = getElementWithID(destElementID);
 
-        if (destPin < element.getPinCount()) {
-            return true;
-        } else {
-            return false;
-        }
+        return destPin < element.getPinCount();
     }
 
-    public void readDrahts(int size, FileSystemInput fsIn, boolean fromAblage, ArrayList ElemetTabelle) {
+    public void readDrahts(int size, FileSystemInput fsIn, boolean fromAblage, List<Integer> ElemetTabelle) {
         FileInputStream fis = fsIn.gotoItem(owner.fileCount++);
         DataInputStream stream = new DataInputStream(fis);
         try {
@@ -3353,15 +3304,15 @@ public class VMObject extends JPanel
                     boolean srcOK = false;
                     boolean dstOK = false;
                     for (int k = 0; k < ElemetTabelle.size();) {
-                        Integer oldElementID = (Integer) ElemetTabelle.get(k++);
-                        Integer newElementID = (Integer) ElemetTabelle.get(k++);
+                        Integer oldElementID = ElemetTabelle.get(k++);
+                        Integer newElementID = ElemetTabelle.get(k++);
 
-                        if (srcOK == false && sourceElementID == oldElementID.intValue()) {
-                            sourceElementID = newElementID.intValue();
+                        if (!srcOK && sourceElementID == oldElementID) {
+                            sourceElementID = newElementID;
                             srcOK = true;
                         }
-                        if (dstOK == false && destElementID == oldElementID.intValue()) {
-                            destElementID = newElementID.intValue();
+                        if (!dstOK && destElementID == oldElementID) {
+                            destElementID = newElementID;
                             dstOK = true;
                         }
                         if (srcOK && dstOK) {
@@ -3439,7 +3390,7 @@ public class VMObject extends JPanel
             progress = 0;
         }
 
-        ArrayList ElemetTabelle = new ArrayList();
+        List<Integer> ElemetTabelle = new ArrayList<>();
         try {
             FileInputStream fis = fsIn.gotoItem(owner.fileCount++);
             DataInputStream stream = new DataInputStream(fis);
@@ -3463,7 +3414,7 @@ public class VMObject extends JPanel
                 }
             }
 
-            if (fromAblage == false) {
+            if (!fromAblage) {
                 setSize(w, h);
                 setBackground(new Color(r, g, b));
             }
@@ -3486,10 +3437,10 @@ public class VMObject extends JPanel
 
         if (fromAblage) {
             for (int k = 0; k < ElemetTabelle.size();) {
-                Integer elementOldid = (Integer) ElemetTabelle.get(k);
-                Integer elementId = (Integer) ElemetTabelle.get(k + 1);
+                Integer elementOldid = ElemetTabelle.get(k);
+                Integer elementId = ElemetTabelle.get(k + 1);
 
-                SelectElement(elementId.intValue());
+                SelectElement(elementId);
                 k += 2;
             }
         }
@@ -3747,7 +3698,7 @@ public class VMObject extends JPanel
             }
 
             for (int i = 0; i < drahtLst.size(); i++) {
-                Draht draht = (Draht) drahtLst.get(i);
+                Draht draht = drahtLst.get(i);
                 if (draht != null) {
                     draht.draw(g);
                 }
@@ -3818,7 +3769,7 @@ public class VMObject extends JPanel
                     dy = Math.abs(y - mp.y);
 
                     vectorDistance = (int) Math.sqrt((dx * dx) + (dy * dy));
-                    double w2 = element.getWidth() / 2;
+                    double w2 = element.getWidth() / 2.0;
                     int radius = (int) Math.sqrt(w2 * w2 + w2 * w2);
                     radius = 0;
 
@@ -3830,10 +3781,7 @@ public class VMObject extends JPanel
             }
         }
 
-        if (minPin != null) {
-            return minPin;
-        }
-        return null;
+        return minPin;
     }
 
     public Element getNearstElementInMouse(int x, int y, int d) {
@@ -3853,7 +3801,7 @@ public class VMObject extends JPanel
             dy = Math.abs(y - mp.y);
 
             vectorDistance = (int) Math.sqrt((dx * dx) + (dy * dy));
-            double w2 = element.getWidth() / 2;
+            double w2 = element.getWidth() / 2.0;
             int radius = (int) Math.sqrt(w2 * w2 + w2 * w2);
 
             if (vectorDistance < (d + radius) && vectorDistance < minDitance) {
@@ -3862,10 +3810,7 @@ public class VMObject extends JPanel
             }
         }
 
-        if (minElement != null) {
-            return minElement;
-        }
-        return null;
+        return minElement;
     }
 
     public Element getNearstElementInMouseExcludeElement(int x, int y, int d, Element elementToExclude) {
@@ -3886,7 +3831,7 @@ public class VMObject extends JPanel
                 dy = Math.abs(y - mp.y);
 
                 vectorDistance = (int) Math.sqrt((dx * dx) + (dy * dy));
-                double w2 = element.getWidth() / 2;
+                double w2 = element.getWidth() / 2.0;
                 int radius = (int) Math.sqrt(w2 * w2 + w2 * w2);
 
                 if (vectorDistance < (d + radius) && vectorDistance < minDitance) {
@@ -3896,10 +3841,7 @@ public class VMObject extends JPanel
             }
         }
 
-        if (minElement != null) {
-            return minElement;
-        }
-        return null;
+        return minElement;
     }
 
     public Point getMittenPunktOfPin(JPin pin) {

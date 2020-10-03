@@ -392,7 +392,7 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
             definition_def.classcircuit = "";
             definition_def.resizeSynchron = resizeProportional;
 
-            if (circuitElement == true) {
+            if (circuitElement) {
                 definition_def.classfront = "";
             } else {
                 definition_def.classfront = "TRUE";
@@ -405,7 +405,7 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
     }
 
     public void execute() {
-        if (modeEdit == false) {
+        if (!modeEdit) {
             Basis basis = frameCircuit.getActualBasis();
 
             int c = basis.getFrontBasis().getElementCount();
@@ -816,7 +816,7 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
                 } else {
                     Tools.showMessage("Name is invalid!");
                 }
-            } else if (!xname.equalsIgnoreCase("") && new File(baseDir).exists() == false) {
+            } else if (!xname.equalsIgnoreCase("") && !new File(baseDir).exists()) {
                 caption_DE = txtDE.getText();
                 caption_EN = txtEN.getText();
                 caption_ES = txtES.getText();

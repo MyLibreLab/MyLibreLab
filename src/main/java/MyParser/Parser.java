@@ -21,6 +21,7 @@
 package MyParser;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import VisualLogic.Basis;
@@ -68,11 +69,11 @@ public class Parser {
     private static final String OPERATOREN = "<>+-*/^%=&|!";
     private static final String KLAMMER = "()";
     private StringTokenizer tokenizer;
-    private ArrayList mainVector = new ArrayList();
-    private ArrayList optVector;
+    private List<String> mainVector = new ArrayList<>();
+    private List<Token> optVector;
     private int pointer = 0;
-    private ArrayList varsGlobal = new ArrayList();
-    private ArrayList varsLocal = new ArrayList();
+    private List<OpenVariable> varsGlobal = new ArrayList<>();
+    private List<OpenVariable> varsLocal = new ArrayList<>();
     private String errorMessage = "";
     public String resultVariable = "";
     private static final int C_DOUBLE = 1;
@@ -118,10 +119,7 @@ public class Parser {
         if (ch.equalsIgnoreCase("\"")) {
             i = val.length() - 1;
             ch = val.substring(i, i + 1);
-            if (ch.equalsIgnoreCase("\"")) {
-                return true;
-            } else
-                return false;
+            return ch.equalsIgnoreCase("\"");
         } else
             return false;
     }
@@ -129,10 +127,7 @@ public class Parser {
     public boolean isBoolean(String val) {
         val = val.trim();
 
-        if (val.equalsIgnoreCase("TRUE") || val.equalsIgnoreCase("FALSE")) {
-            return true;
-        }
-        return false;
+        return val.equalsIgnoreCase("TRUE") || val.equalsIgnoreCase("FALSE");
     }
 
     public String getErrorMessage() {
@@ -149,26 +144,26 @@ public class Parser {
 
     private String entfernealleleerzeichen(String str) {
         String ch = "";
-        String result = "";
+        StringBuilder result = new StringBuilder();
         boolean inString = false;
 
         for (int i = 0; i < str.length(); i++) {
             ch = str.substring(i, i + 1);
 
-            if (inString == false && ch.equalsIgnoreCase("\"")) {
+            if (!inString && ch.equalsIgnoreCase("\"")) {
                 inString = true;
-            } else if (inString == true && ch.equalsIgnoreCase("\"")) {
+            } else if (inString && ch.equalsIgnoreCase("\"")) {
                 inString = false;
             }
 
             if (inString) {
-                result += ch;
+                result.append(ch);
             } else if (!ch.equalsIgnoreCase(" ")) {
-                result += ch;
+                result.append(ch);
             }
         }
 
-        return result;
+        return result.toString();
     }
 
     public void setExpression(String expression) {
@@ -206,40 +201,39 @@ public class Parser {
         return r;
     }
 
-    private ArrayList optimize(ArrayList vector) {
-        ArrayList result = new ArrayList();
+    private List<Token> optimize(List<String> vector) {
+        List<Token> result = new ArrayList<>();
 
-        for (int i = 0; i < vector.size(); i++) {
-            String str = (String) vector.get(i);
+        for (String value : vector) {
 
             Token token = new Token();
-            if (isMyString(str)) {
+            if (isMyString(value)) {
                 token.isString = true;
-                token.setValue(new String(str.substring(1, str.length() - 1)));
-            } else if (isBoolean(str)) {
-                boolean x = Boolean.valueOf(str);
-                token.setValue(new Boolean(x));
-            } else if (isNum(str)) {
-                double x = Double.parseDouble(str);
-                token.setValue(new Double(x));
-            } else if (isOP(str))
-                token.setOp(str);
-            else if (isFunc(str))
-                token.setFunc(str);
-            else if (isString(str)) {
-                Object o = getVarValue(str);
+                token.setValue(value.substring(1, value.length() - 1));
+            } else if (isBoolean(value)) {
+                boolean x = Boolean.parseBoolean(value);
+                token.setValue(x);
+            } else if (isNum(value)) {
+                double x = Double.parseDouble(value);
+                token.setValue(x);
+            } else if (isOP(value))
+                token.setOp(value);
+            else if (isFunc(value))
+                token.setFunc(value);
+            else if (isString(value)) {
+                Object o = getVarValue(value);
                 if (o != null) {
                     token.setValue(o);
                     token.isVar = true;
-                    token.varName = str;
+                    token.varName = value;
                 } else {
-                    setErrorMessage("Variable " + str + " is unknown!");
+                    setErrorMessage("Variable " + value + " is unknown!");
                 }
                 // token.setVar(str);
-            } else if (isKLAMMER(str))
-                token.setKlammer(str);
+            } else if (isKLAMMER(value))
+                token.setKlammer(value);
             else {
-                setErrorMessage("There is an unknown datatype : " + str);
+                setErrorMessage("There is an unknown datatype : " + value);
             }
 
             result.add(token);
@@ -249,11 +243,11 @@ public class Parser {
 
     String lastVar = "";
 
-    private String calcString(ArrayList vector) {
+    private String calcString(List<Token> vector) {
         String value = "";
 
         while (pointer < vector.size()) {
-            Token token = (Token) vector.get(pointer++);
+            Token token = vector.get(pointer++);
 
             if (token.value instanceof String) {
                 value = (String) token.value;
@@ -268,7 +262,7 @@ public class Parser {
                 if (token.op.equals("=")) {
                     OpenVariable v = getVarByName(lastVar);
                     if (v != null) {
-                        if (v.global == false) {
+                        if (!v.global) {
                             flowInfo.setVariable(lastVar, calcString(vector));
                         } else {
                             basis.vsSetVar(lastVar, calcString(vector));
@@ -289,14 +283,14 @@ public class Parser {
         return value;
     }
 
-    private boolean calcBoolean(ArrayList vector) {
+    private boolean calcBoolean(List<Token> vector) {
         boolean value = false;
 
         while (pointer < vector.size()) {
-            Token token = (Token) vector.get(pointer++);
+            Token token = vector.get(pointer++);
 
             if (token.value instanceof Boolean) {
-                value = ((Boolean) token.value).booleanValue();
+                value = (Boolean) token.value;
                 if (token.isVar) {
                     lastVar = token.varName;
                 }
@@ -306,10 +300,9 @@ public class Parser {
                 else if (token.klammer.equals(")")) return value;
             } else if (token.isOp) {
                 if (token.op.equals("=")) {
-
                     OpenVariable v = getVarByName(lastVar);
                     if (v != null) {
-                        if (v.global == false) {
+                        if (!v.global) {
                             flowInfo.setVariable(lastVar, calcBoolean(vector));
                         } else {
                             basis.vsSetVar(lastVar, calcBoolean(vector));
@@ -336,15 +329,15 @@ public class Parser {
         return value;
     }
 
-    private double calcDouble(ArrayList vector) {
+    private double calcDouble(List<Token> vector) {
         double num = 0.0;
 
         while (pointer < vector.size()) {
-            Token token = (Token) vector.get(pointer++);
+            Token token = vector.get(pointer++);
 
             if (token.isNum) {
                 if (token.value instanceof Double) {
-                    num = ((Double) token.value).doubleValue();
+                    num = (Double) token.value;
                     if (token.isVar) {
                         lastVar = token.varName;
                     }
@@ -357,7 +350,7 @@ public class Parser {
                 if (token.op.equals("=")) {
                     OpenVariable v = getVarByName(lastVar);
                     if (v != null) {
-                        if (v.global == false) {
+                        if (!v.global) {
                             flowInfo.setVariable(lastVar, calcDouble(vector));
                         } else {
                             basis.vsSetVar(lastVar, calcDouble(vector));
@@ -422,10 +415,10 @@ public class Parser {
         return num;
     }
 
-    private int sucheRechtsNachKlammer(ArrayList tokenListe, int pos) {
+    private int sucheRechtsNachKlammer(List<String> tokenListe, int pos) {
         int c = 0;
         for (int i = pos; i < tokenListe.size(); i++) {
-            String str = (String) tokenListe.get(i);
+            String str = tokenListe.get(i);
 
             if (str.equals("(")) c++;
             if (str.equals(")")) c--;
@@ -437,10 +430,10 @@ public class Parser {
         return -1;
     }
 
-    private int sucheLinksNachKlammer(ArrayList tokenListe, int pos) {
+    private int sucheLinksNachKlammer(List<String> tokenListe, int pos) {
         int c = 0;
         for (int i = pos; i >= 0; i--) {
-            String str = (String) tokenListe.get(i);
+            String str = tokenListe.get(i);
 
             if (str.equals(")")) c++;
             if (str.equals("(")) c--;
@@ -457,26 +450,24 @@ public class Parser {
      * oder nicht ge�ffnet worden ist Liefert bei zu viel ge�ffneten Klammern > 0 Liefert bei zu viel
      * geschlossenen Klammern < 0
      */
-    private int getKlammerPlus(ArrayList tokenListe) {
+    private int getKlammerPlus(List<String> tokenListe) {
         int c = 0;
-        for (int i = 0; i < tokenListe.size(); i++) {
-            String str = (String) tokenListe.get(i);
-
-            if (str.equals("(")) c++;
-            if (str.equals(")")) c--;
+        for (String s : tokenListe) {
+            if (s.equals("(")) c++;
+            if (s.equals(")")) c--;
         }
         return c;
     }
 
     // bei -5+1 -> 0-5+1
     // bei -5+(-1) -> 0-5+(0-1)
-    private void handleMinusOperator(ArrayList tokenListe) {
+    private void handleMinusOperator(List<String> tokenListe) {
 
         int i = 0;
 
         while (i < tokenListe.size() - 1) {
-            String str = (String) tokenListe.get(i);
-            String str2 = (String) tokenListe.get(i + 1);
+            String str = tokenListe.get(i);
+            String str2 = tokenListe.get(i + 1);
 
             if (str.equals("(") && str2.equals("-")) {
                 tokenListe.add(i + 1, "0");
@@ -504,16 +495,16 @@ public class Parser {
         System.out.println("--------------------------");
     }
 
-    private void klammere(ArrayList tokenListe, int ops) {
+    private void klammere(List<String> tokenListe, int ops) {
         boolean inKlammer = false;
         int i = 0;
 
         while (i < tokenListe.size()) {
-            String str = (String) tokenListe.get(i);
+            String str = tokenListe.get(i);
 
-            if (inKlammer == false && str.equalsIgnoreCase("\""))
+            if (!inKlammer && str.equalsIgnoreCase("\""))
                 inKlammer = true;
-            else if (inKlammer == true && str.equalsIgnoreCase("\"")) inKlammer = false;
+            else if (inKlammer && str.equalsIgnoreCase("\"")) inKlammer = false;
 
             if (!inKlammer) {
                 if (isFunc(str)) {
@@ -529,9 +520,9 @@ public class Parser {
                         oki = true;
                     if (ops == 1 && (str.equals("+") || str.equals("-"))) oki = true;
 
-                    if (oki == true && i >= 1) {
-                        String strA = (String) tokenListe.get(i - 1);
-                        String strB = (String) tokenListe.get(i + 1);
+                    if (oki && i >= 1) {
+                        String strA = tokenListe.get(i - 1);
+                        String strB = tokenListe.get(i + 1);
 
                         if (isNum(strA) || strA.equals(")") || isString(strA)) {
                             int resL = sucheLinksNachKlammer(tokenListe, i - 1);
@@ -556,23 +547,19 @@ public class Parser {
         }
     }
 
-    private void setVariablen(ArrayList tokenListe) {
-        for (int i = 0; i < tokenListe.size(); i++) {
-            Token token = (Token) tokenListe.get(i);
-
-            if (token.isVar) {
-                if (varExistLocal(token.varName)) {
-                    Object value = getVarValue(token.varName);
-                    token.value = value;
-                    OpenVariable v = getVarByName(token.varName);
+    private void setVariablen(List<Token> tokenListe) {
+        for (Token value : tokenListe) {
+            if (value.isVar) {
+                if (varExistLocal(value.varName)) {
+                    value.value = getVarValue(value.varName);
+                    OpenVariable v = getVarByName(value.varName);
                     v.global = false;
-                } else if (varExistGlobal(token.varName)) {
-                    Object value = getVarValue(token.varName);
-                    token.value = value;
-                    OpenVariable v = getVarByName(token.varName);
+                } else if (varExistGlobal(value.varName)) {
+                    value.value = getVarValue(value.varName);
+                    OpenVariable v = getVarByName(value.varName);
                     v.global = true;
                 } else
-                    setErrorMessage("Variable " + token.varName + " not found!");
+                    setErrorMessage("Variable " + value.varName + " not found!");
             }
         }
     }
@@ -592,16 +579,16 @@ public class Parser {
         while (counter < expr.length()) {
             ch = expr.substring(counter, counter + 1);
 
-            if (inString == false && ch.equalsIgnoreCase("\"")) {
+            if (!inString && ch.equalsIgnoreCase("\"")) {
                 inString = true;
                 start = counter;
-            } else if (inString == true && ch.equalsIgnoreCase("\"")) {
+            } else if (inString && ch.equalsIgnoreCase("\"")) {
                 inString = false;
                 counter++;
                 return expr.substring(start, counter);
             }
 
-            if (inString == false) {
+            if (!inString) {
                 if (isOP(ch) || isKLAMMER(ch)) {
                     if (counter - start == 0) {
                         counter++;
@@ -621,7 +608,7 @@ public class Parser {
         return expr.substring(start, counter);
     }
 
-    private void tokensToVector(String expression, ArrayList vector) {
+    private void tokensToVector(String expression, List<String> vector) {
 
         counter = 0;
         expr = expression;
@@ -660,7 +647,7 @@ public class Parser {
     }
 
     public OpenVariable getGlobaVar(int index) {
-        return (OpenVariable) varsGlobal.get(index);
+        return varsGlobal.get(index);
     }
 
     public OpenVariable getVarByName(String name) {
@@ -711,11 +698,9 @@ public class Parser {
     // liefert 1 f�r Boolean
     // liefert 2 f�r String
     // liefert -1 f�r unbekannt oder gemixt!
-    private int getToParseType(ArrayList vector) {
+    private int getToParseType(List<Token> vector) {
         int result = -1;
-        for (int i = 0; i < vector.size(); i++) {
-            Token token = (Token) vector.get(i);
-
+        for (Token token : vector) {
             if (token.value instanceof Double) {
                 if (result == 0 || result == -1)
                     result = 0;
@@ -740,7 +725,7 @@ public class Parser {
     public Object parseString(String expr) {
         setExpression(expr);
         lastVar = "";
-        ArrayList vector = new ArrayList(optVector);
+        List<Token> vector = new ArrayList<>(optVector);
         setVariablen(vector);
         pointer = 0;
 
@@ -748,11 +733,11 @@ public class Parser {
         if (type > -1) {
             switch (type) {
                 case 0:
-                    return new Double(calcDouble(vector));
+                    return Double.valueOf(calcDouble(vector));
                 case 1:
-                    return new Boolean(calcBoolean(vector));
+                    return Boolean.valueOf(calcBoolean(vector));
                 case 2:
-                    return new String(calcString(vector));
+                    return calcString(vector);
             }
         } else {
             setErrorMessage("you cannot mix Double, Boolean and String");
@@ -762,31 +747,27 @@ public class Parser {
     }
 
     public boolean parseBoolean() {
-        ArrayList vector = new ArrayList(optVector);
+        List<Token> vector = new ArrayList<>(optVector);
         setVariablen(vector);
         pointer = 0;
         return calcBoolean(vector);
     }
 
     public String getTokens() {
-        String res = "";
-        for (int i = 0; i < mainVector.size(); i++) {
-            String str = (String) mainVector.get(i);
-            res += str;
+        StringBuilder res = new StringBuilder();
+        for (String s : mainVector) {
+            res.append(s);
         }
-        return res;
+        return res.toString();
     }
 
     private boolean isFunc(String val) {
-        if (val.equalsIgnoreCase("sin") || val.equalsIgnoreCase("cos") || val.equalsIgnoreCase("tan")
+        return val.equalsIgnoreCase("sin") || val.equalsIgnoreCase("cos") || val.equalsIgnoreCase("tan")
                 || val.equalsIgnoreCase("asin") || val.equalsIgnoreCase("acos") || val.equalsIgnoreCase("atan")
                 || val.equalsIgnoreCase("sinh") || val.equalsIgnoreCase("cosh") || val.equalsIgnoreCase("tanh")
                 || val.equalsIgnoreCase("abs") || val.equalsIgnoreCase("log") || val.equalsIgnoreCase("ln")
                 || val.equalsIgnoreCase("exp") || val.equalsIgnoreCase("sqrt") || val.equalsIgnoreCase("round")
-                || val.equalsIgnoreCase("fak") || val.equalsIgnoreCase("toDeg") || val.equalsIgnoreCase("toRad")) {
-            return true;
-        } else
-            return false;
+                || val.equalsIgnoreCase("fak") || val.equalsIgnoreCase("toDeg") || val.equalsIgnoreCase("toRad");
     }
 
     private boolean isOP(String val) {
@@ -801,7 +782,7 @@ public class Parser {
         String ch = "";
         for (int i = 0; i < val.length(); i++) {
             ch = val.substring(i, i + 1);
-            if (isIn(ch, ALPHA) == false) return false;
+            if (!isIn(ch, ALPHA)) return false;
         }
         return true;
     }

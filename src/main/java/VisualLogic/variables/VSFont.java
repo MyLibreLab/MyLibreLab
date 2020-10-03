@@ -59,7 +59,7 @@ public class VSFont extends VSObject {
 
             value = new Font(fnt_Name, fnt_Style, fnt_Size);
         } catch (Exception ex) {
-
+            org.tinylog.Logger.error(ex);
         }
     }
 
@@ -74,6 +74,7 @@ public class VSFont extends VSObject {
             dos.writeInt(value.getStyle());
             dos.writeInt(value.getSize());
         } catch (Exception ex) {
+            org.tinylog.Logger.error(ex);
             System.err.println("Fehler in VSFont.saveToStream() : " + ex.toString());
         }
     }
@@ -87,7 +88,7 @@ public class VSFont extends VSObject {
 
             value = new Font(fnt_Name, fnt_Style, fnt_Size);
         } catch (Exception ex) {
-
+            org.tinylog.Logger.error(ex);
         }
     }
 

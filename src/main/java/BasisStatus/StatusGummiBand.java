@@ -32,7 +32,7 @@ import VisualLogic.VMObject;
 /**
  * @author Homer
  */
-public class StatusGummiBand extends Object implements StatusBasisIF {
+public class StatusGummiBand implements StatusBasisIF {
 
     private VMObject vmObject;
     private int startX, startY;
@@ -108,7 +108,7 @@ public class StatusGummiBand extends Object implements StatusBasisIF {
         int y = e.getY();
 
         Point p;
-        if (first == false) {
+        if (!first) {
             drawRectangle(g2, startX, startY, oldX, oldY);
         }
         first = false;

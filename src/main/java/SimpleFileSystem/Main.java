@@ -47,7 +47,7 @@ public class Main {
             fos.write(2);
             fos.write(31);
         } catch (Exception ex) {
-            System.out.println(ex);
+            org.tinylog.Logger.error(ex);
         }
         fso.postItem();
 
@@ -56,7 +56,7 @@ public class Main {
             fos.write(21);
             fos.write(239);
         } catch (Exception ex) {
-            System.out.println(ex);
+            org.tinylog.Logger.error(ex);
         }
         fso.postItem();
 
@@ -80,7 +80,7 @@ public class Main {
             System.out.println("Value1=" + fis.read());
             System.out.println("Value2=" + fis.read());
         } catch (Exception ex) {
-
+            org.tinylog.Logger.error(ex);
         }
     }
 }

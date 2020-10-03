@@ -135,10 +135,7 @@ public class DialogTranslateForm extends javax.swing.JDialog {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jComboBox1ActionPerformed
     {// GEN-HEADEREND:event_jComboBox1ActionPerformed
-        if (jComboBox1.getSelectedIndex() == 3) {
-            jTextField1.setEnabled(true);
-        } else
-            jTextField1.setEnabled(false);
+        jTextField1.setEnabled(jComboBox1.getSelectedIndex() == 3);
     }// GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jComboBox1PropertyChange(java.beans.PropertyChangeEvent evt)// GEN-FIRST:event_jComboBox1PropertyChange
@@ -166,21 +163,17 @@ public class DialogTranslateForm extends javax.swing.JDialog {
     public void durchforsteJMenu(JMenu menu) {
         Component[] elements = menu.getMenuComponents();
 
-        for (int i = 0; i < elements.length; i++) {
-            Component comp = elements[i];
+        for (Component comp : elements) {
             if (comp instanceof JMenuItem) {
                 JMenuItem mni = (JMenuItem) comp;
 
                 String[] row = new String[5];
-                row[0] = new String("");
-                row[1] = new String("");
-                row[2] = new String("");
-                row[3] = new String("");
-                row[4] = new String("");
-
                 row[0] = comp.getClass().getName();
                 row[1] = mni.getText();
                 row[2] = mni.getToolTipText();
+                row[3] = "";
+                row[4] = "";
+
 
                 model.addRow(row);
             }
@@ -191,9 +184,7 @@ public class DialogTranslateForm extends javax.swing.JDialog {
         boolean oki;
         String str = "";
         Component[] comps = container.getComponents();
-        for (int i = 0; i < comps.length; i++) {
-            Component comp = comps[i];
-
+        for (Component comp : comps) {
             if (comp != null) {
 
                 String compName = comp.getClass().getName();
@@ -202,11 +193,11 @@ public class DialogTranslateForm extends javax.swing.JDialog {
                     oki = false;
 
                     String[] row = new String[5];
-                    row[0] = new String("");
-                    row[1] = new String("");
-                    row[2] = new String("");
-                    row[3] = new String("");
-                    row[4] = new String("");
+                    row[0] = "";
+                    row[1] = "";
+                    row[2] = "";
+                    row[3] = "";
+                    row[4] = "";
 
                     if (comp instanceof JMenuItem) {
                         String text = ((JMenuItem) comp).getText();

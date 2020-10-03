@@ -236,7 +236,7 @@ public class DialogFontChooser extends javax.swing.JDialog {
     }// GEN-LAST:event_fontNameActionPerformed
 
     private void process() {
-        if (init == false) {
+        if (!init) {
             if (!StyleConstants.getFontFamily(attributes).equals(fontName.getSelectedItem())) {
                 StyleConstants.setFontFamily(attributes, (String) fontName.getSelectedItem());
             }

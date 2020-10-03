@@ -40,7 +40,7 @@ class JavaSyntaxDocument extends DefaultStyledDocument {
     private MutableAttributeSet keyword;
     private MutableAttributeSet comment;
     private MutableAttributeSet quote;
-    private Hashtable keywords;
+    private Hashtable<String, Object> keywords;
     private PanelEditor panel;
 
     public JavaSyntaxDocument(PanelEditor panel) {
@@ -63,7 +63,7 @@ class JavaSyntaxDocument extends DefaultStyledDocument {
         StyleConstants.setForeground(quote, red);
         Object dummyObject = new Object();
 
-        keywords = new Hashtable();
+        keywords = new Hashtable<>();
         keywords.put("abstract", dummyObject);
         keywords.put("boolean", dummyObject);
         keywords.put("break", dummyObject);
@@ -375,10 +375,7 @@ class JavaSyntaxDocument extends DefaultStyledDocument {
      */
     protected boolean isDelimiter(String character) {
         String operands = ";:{}()[]+-/%<=>!&|^~*";
-        if (Character.isWhitespace(character.charAt(0)) || operands.indexOf(character) != -1)
-            return true;
-        else
-            return false;
+        return Character.isWhitespace(character.charAt(0)) || operands.contains(character);
     }
 
     /*
@@ -386,10 +383,7 @@ class JavaSyntaxDocument extends DefaultStyledDocument {
      */
     protected boolean isQuoteDelimiter(String character) {
         String quoteDelimiters = "\"'";
-        if (quoteDelimiters.indexOf(character) < 0)
-            return false;
-        else
-            return true;
+        return quoteDelimiters.contains(character);
     }
 
     /*
@@ -397,7 +391,7 @@ class JavaSyntaxDocument extends DefaultStyledDocument {
      */
     protected boolean isKeyword(String token) {
         Object o = keywords.get(token);
-        return o == null ? false : true;
+        return o != null;
     }
 
     /*

@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -88,7 +89,7 @@ class VariableNotifyRecord {
 /**
  * @author Homer
  */
-public class Basis extends Object implements ElementIF, VSBasisIF {
+public class Basis implements ElementIF, VSBasisIF {
 
     public VSColor backDisabledColor = new VSColor(Color.yellow);
     public DataHistory dataHistory = new DataHistory();
@@ -113,8 +114,8 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     public boolean unDecorated = false;
     public boolean showFrontPanelWhenStart = true;
     // private Hashtable variablen = new Hashtable();
-    private ArrayList variableNotifyList = new ArrayList();
-    public ArrayList variablenListe = new ArrayList();
+    private List<VariableNotifyRecord> variableNotifyList = new ArrayList<>();
+    public List<OpenVariable> variablenListe = new ArrayList<>();
     public boolean showToolBar = false;
     public Parser parser = new Parser(this);
     public BufferedImage selectionImage = null;
@@ -147,11 +148,8 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     public boolean varNameExist(String varname) {
 
         varname = varname.trim();
-        OpenVariable node;
-        for (int i = 0; i < variablenListe.size(); i++) {
-            node = (OpenVariable) variablenListe.get(i);
-
-            if (varname.equals(node.name)) {
+        for (OpenVariable openVariable : variablenListe) {
+            if (varname.equals(openVariable.name)) {
                 return true;
             }
         }
@@ -162,12 +160,10 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         // NOP
     }
 
-    private ArrayList liste = new ArrayList();
+    private List<String> liste = new ArrayList<>();
 
     private boolean istEintragsBereitsVorhanden(String eintrag) {
-        for (int i = 0; i < liste.size(); i++) {
-            String val = (String) liste.get(i);
-
+        for (String val : liste) {
             if (val.equalsIgnoreCase(eintrag)) {
                 return true;
             }
@@ -181,8 +177,8 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         Element[] tpNodes = getCircuitBasis().getAllTestpointElements();
 
         String strName = "";
-        for (int i = 0; i < tpNodes.length; i++) {
-            strName = tpNodes[i].jGetCaption();
+        for (Element tpNode : tpNodes) {
+            strName = tpNode.jGetCaption();
             if (!istEintragsBereitsVorhanden(strName)) {
                 liste.add(strName);
             } else {
@@ -196,7 +192,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     public void vsAddTestpointValue(ExternalIF element, VSObject in) {
         // System.out.println("element="+element.jGetCaption()+" "+in.toString());
 
-        if (frameCircuit != null && isLoading() == false) {
+        if (frameCircuit != null && !isLoading()) {
 
             if (existierenDoppelteNodeTitles()) {
                 Tools.jException(this, "There are Testpoint Nodes with same name!");
@@ -237,7 +233,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         return result;
     }
 
-    public ButtonGroup buttonGroups[] = new ButtonGroup[20];
+    public ButtonGroup[] buttonGroups = new ButtonGroup[20];
 
     public void initButtonGroups() {
         for (int i = 0; i < buttonGroups.length; i++) {
@@ -254,7 +250,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         ExternalIF[] result = new ExternalIF[count];
 
         for (int i = 0; i < count; i++) {
-            result[i] = (ExternalIF) getFrontBasis().getElement(i);
+            result[i] = getFrontBasis().getElement(i);
         }
 
         return result;
@@ -304,11 +300,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         if (ch.equalsIgnoreCase("\"")) {
             i = val.length() - 1;
             ch = val.substring(i, i + 1);
-            if (ch.equalsIgnoreCase("\"")) {
-                return true;
-            } else {
-                return false;
-            }
+            return ch.equalsIgnoreCase("\"");
         } else {
             return false;
         }
@@ -327,7 +319,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         String[] result = new String[variablenListe.size()];
         OpenVariable node;
         for (int i = 0; i < variablenListe.size(); i++) {
-            node = (OpenVariable) variablenListe.get(i);
+            node = variablenListe.get(i);
 
             result[i] = node.name;
         }
@@ -339,7 +331,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         Object[] result = new Object[variablenListe.size()];
         OpenVariable node;
         for (int i = 0; i < variablenListe.size(); i++) {
-            node = (OpenVariable) variablenListe.get(i);
+            node = variablenListe.get(i);
 
             result[i] = node.value;
         }
@@ -360,19 +352,19 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         if (node != null) {
             if (vsobject instanceof VSDouble && node.value instanceof Double) {
                 VSDouble v = (VSDouble) vsobject;
-                node.value = new Double(v.getValue());
+                node.value = Double.valueOf(v.getValue());
                 result = true;
             } else if (vsobject instanceof VSString && node.value instanceof String) {
                 VSString v = (VSString) vsobject;
-                node.value = new String(v.getValue());
+                node.value = v.getValue();
                 result = true;
             } else if (vsobject instanceof VSBoolean && node.value instanceof Boolean) {
                 VSBoolean v = (VSBoolean) vsobject;
-                node.value = new Boolean(v.getValue());
+                node.value = Boolean.valueOf(v.getValue());
                 result = true;
             } else if (vsobject instanceof VSInteger && node.value instanceof Integer) {
                 VSInteger v = (VSInteger) vsobject;
-                node.value = new Integer(v.getValue());
+                node.value = Integer.valueOf(v.getValue());
                 result = true;
             }
         }
@@ -547,10 +539,10 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                 result[1] += ch;
                 oki = true;
             } else {
-                if (oki == false) {
+                if (!oki) {
                     c = 0;
                 }
-                if (oki == true) {
+                if (oki) {
                     c = 2;
                 }
                 result[c] += ch;
@@ -562,12 +554,9 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
     public OpenVariable getVariable(String varname) {
         varname = varname.trim();
-        OpenVariable node;
-        for (int i = 0; i < variablenListe.size(); i++) {
-            node = (OpenVariable) variablenListe.get(i);
-
-            if (varname.equals(node.name.trim())) {
-                return node;
+        for (OpenVariable openVariable : variablenListe) {
+            if (varname.equals(openVariable.name.trim())) {
+                return openVariable;
             }
         }
         return null;
@@ -578,15 +567,15 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         OpenVariable node;
 
         for (int i = 0; i < info.variablenListe.size(); i++) {
-            node = (OpenVariable) info.variablenListe.get(i);
+            node = info.variablenListe.get(i);
 
             if (varname.equals(node.name.trim())) {
                 return node;
             }
         }
 
-        for (int i = 0; i < variablenListe.size(); i++) {
-            node = (OpenVariable) variablenListe.get(i);
+        for (OpenVariable openVariable : variablenListe) {
+            node = openVariable;
 
             if (varname.equals(node.name.trim())) {
                 return node;
@@ -616,19 +605,17 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     }
 
     public void notifyAllElements(String varname) {
-        for (int i = 0; i < variableNotifyList.size(); i++) {
-            VariableNotifyRecord rec = (VariableNotifyRecord) variableNotifyList.get(i);
-
-            if (rec.varName.equalsIgnoreCase(varname)) {
-                rec.element.jProcess();
+        for (VariableNotifyRecord variableNotifyRecord : variableNotifyList) {
+            if (variableNotifyRecord.varName.equalsIgnoreCase(varname)) {
+                variableNotifyRecord.element.jProcess();
             }
         }
     }
 
     public void generateAllVariabled() {
         OpenVariable node;
-        for (int i = 0; i < variablenListe.size(); i++) {
-            node = (OpenVariable) variablenListe.get(i);
+        for (OpenVariable openVariable : variablenListe) {
+            node = openVariable;
 
             node.createVariableByDt();
         }
@@ -653,11 +640,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         }
 
         o = vsGetVar(varName);
-        if (o != null) {
-            return o;
-        }
-
-        return null;
+        return o;
     }
 
     @Override
@@ -685,7 +668,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
     public PropertyEditor propertyEditor = null;
     public boolean isFileLoaded = false;
-    public ArrayList undoHistory = new ArrayList();
+    public List<String> undoHistory = new ArrayList<>();
     private String elementPath = "";
 
     public String getElementPath() {
@@ -939,12 +922,12 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
             for (int i = 0; i < circuitBasis.getElementCount(); i++) {
                 Element circuitElement = circuitBasis.getElement(i);
 
-                if (circuitElement.loadedFromAblageFlag == true) {
+                if (circuitElement.loadedFromAblageFlag) {
                     circuitElement.loadedFromAblageFlag = false;
                     for (int j = 0; j < frontBasis.getElementCount(); j++) {
                         Element frontElement = frontBasis.getElement(j);
 
-                        if (frontElement.loadedFromAblageFlag == true) {
+                        if (frontElement.loadedFromAblageFlag) {
                             if (circuitElement.panelElementID == frontElement.oldID) {
                                 frontElement.loadedFromAblageFlag = false;
                                 circuitElement.panelElementID = frontElement.getID();
@@ -1022,7 +1005,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         if (vmProtected) {
             return;
         }
-        if (isFileLoaded == true) {
+        if (isFileLoaded) {
             saveToFile(fileName, false);
         } else {
             saveAs();
@@ -1032,8 +1015,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     }
 
     public void deleteHistoryFiles() {
-        for (int i = 0; i < undoHistory.size(); i++) {
-            String filename = (String) undoHistory.get(i);
+        for (String filename : undoHistory) {
             File file = new File(filename);
             file.delete();
         }
@@ -1120,11 +1102,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     }
 
     public boolean isRunning() {
-        if (circuitBasis.isRunning()) {
-            return true;
-        } else {
-            return false;
-        }
+        return circuitBasis.isRunning();
     }
 
     public void stop() {
@@ -1314,8 +1292,8 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         engine.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
 
         OpenVariable node;
-        for (int i = 0; i < variablenListe.size(); i++) {
-            node = (OpenVariable) variablenListe.get(i);
+        for (OpenVariable openVariable : variablenListe) {
+            node = openVariable;
 
             bindings.put(node.name, node.value);
         }
@@ -1343,8 +1321,8 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
             oldRasterOn = frontBasis.isRasterOn();
             frontBasis.setRasterOn(false);
 
-            if (ownerVMPanel != null && frameCircuit != null && showFrontPanelWhenStart == true) {
-                if (debugmode == false) {
+            if (ownerVMPanel != null && frameCircuit != null && showFrontPanelWhenStart) {
+                if (!debugmode) {
                     // frameCircuit.timer.stop();
                 }
                 // oldPanelFront=getFrontBasis().panel;
@@ -1456,8 +1434,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         }
         double time = System.currentTimeMillis() / c;
 
-        String result = "" + time;
-        return result;
+        return "" + time;
     }
 
     public void saveAsExecutable(String filename) {
@@ -1467,16 +1444,14 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
         scrambleElementAndWires();
 
-        String passwd = generatePassword();
-        vmPassword = passwd;
+        vmPassword = generatePassword();
         System.out.println("" + vmPassword);
         vmProtected = true;
         saveFile(filename, false);
     }
 
     public void loadFromFile(String fileName, boolean fromAblage) {
-
-        if (fromAblage == false) {
+        if (!fromAblage) {
             this.fileName = fileName;
             clear();
         }
@@ -1590,7 +1565,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
         }
     }
 
-    public void addPublishingFiles(ArrayList list) {
+    public void addPublishingFiles(List<String> list) {
         getCircuitBasis().addPublishingFiles(list);
         getFrontBasis().addPublishingFiles(list);
     }
@@ -1617,12 +1592,12 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     }
 
     private String bytesToHex(byte[] val) {
-        String result = "";
-        for (int i = 0; i < val.length; ++i) {
-            result += toHexString(val[i]);
+        StringBuilder result = new StringBuilder();
+        for (byte b : val) {
+            result.append(toHexString(b));
         }
 
-        return result;
+        return result.toString();
     }
 
     private byte[] calcDigest(String str) {
@@ -1631,10 +1606,10 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
             md = MessageDigest.getInstance("SHA");
             md.update(str.getBytes());
             // MessageDigest berechnen und ausgeben
-            byte[] result = md.digest();
 
-            return result;
+            return md.digest();
         } catch (NoSuchAlgorithmException ex) {
+            org.tinylog.Logger.error(ex);
         }
 
         return null;
@@ -1676,7 +1651,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                 System.out.println("LoadFomStream_BasisVersion:" + ver + "|");
                 tmpPassword = stream.readUTF(); // Password einlesen
                 if (tmpPassword.length() > 0) {
-                    if (frameCircuit != null && frameCircuit.frontMode == false) {
+                    if (frameCircuit != null && !frameCircuit.frontMode) {
                         DialogPassword dialog = new DialogPassword(null, true);
 
                         dialog.setVisible(true);
@@ -1684,14 +1659,9 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                         vmPassword = tmpPassword;
 
                         String res = bytesToHex(calcDigest(refPassword));
-                        String res1 = tmpPassword;
 
-                        if (res.equals(res1)) {
-                            vmProtected = false;
-                        } else {
-                            // Tools.showMessage("Password incorrect!\nVM is now readonly.");
-                            vmProtected = true;
-                        }
+                        // Tools.showMessage("Password incorrect!\nVM is now readonly.");
+                        vmProtected = !res.equals(tmpPassword);
                     } else {
                         vmProtected = true;
                     }
@@ -1716,7 +1686,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                 strAutorName = stream.readUTF();
                 strAutorMail = stream.readUTF();
                 strAutorWWW = stream.readUTF();
-                if (fromAblage == false) {
+                if (!fromAblage) {
                     variablenListe.clear();
                     int count = stream.readInt();
                     for (int i = 0; i < count; i++) {
@@ -1807,7 +1777,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                 strAutorWWW = stream.readUTF();
 
                 if (Double.parseDouble(ver) >= 3.07) {
-                    if (fromAblage == false) {
+                    if (!fromAblage) {
                         variablenListe.clear();
                         int count = stream.readInt();
 
@@ -1826,7 +1796,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
                 }
             }
 
-            if (fromAblage == false) {
+            if (!fromAblage) {
                 caption = strCaption;
                 circuitPanelTitel = strCircuitPanelTitel;
                 frontPanelTitel = strFrontPanelTitel;
@@ -1915,114 +1885,72 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
     }
 
     public void setPassword(String pass) {
-        String encPassword = bytesToHex(calcDigest(pass));
-        vmPassword = encPassword;
+        vmPassword = bytesToHex(calcDigest(pass));
     }
 
     public void saveToStream(FileSystemOutput fsOut, boolean onlySelected) {
-        if (Double.parseDouble(Version.strFileVersion) >= 3.12) {
-            try {
-                FileOutputStream fos = fsOut.addItem("Properties");
-                DataOutputStream dos = new DataOutputStream(fos);
+        try (FileOutputStream fos = fsOut.addItem("Properties"); DataOutputStream dos = new DataOutputStream(fos)) {
+            dos.writeUTF(Version.strFileVersion); // Version
+
+            // System.out.println("SavetoStream_BasisVersion:"+Version.strFileVersion+"|");
+            if (vmPassword.length() == 0) {
+                vmPassword = "";
+            }
+
+            dos.writeUTF(vmPassword); // Password
+            int modusx = 0;
+            dos.writeInt(modusx); // NOPE!
+            dos.writeUTF(caption); // Caption
+            vsIcon.saveToStream(fos);
+            dos.writeUTF(circuitPanelTitel);
+            dos.writeUTF(frontPanelTitel);
+            dos.writeInt(elementWidth);
+            dos.writeInt(elementHeight);
+            dos.writeUTF(elementName);
+            dos.writeBoolean(showToolBar);
+
+            if (Double.parseDouble(Version.strFileVersion) >= 3.12) {
                 // dos.writeUTF(Version.strFileVersion); // Version
-                dos.writeUTF(Version.strFileVersion); // Version
                 System.out.println("SavetoStream_BasisVersion:" + Version.strFileVersion + "|");
-                if (vmPassword.length() == 0) {
-                    vmPassword = "";
-                }
-                dos.writeUTF(vmPassword); // Password
-                int modusx = 0;
-                dos.writeInt(modusx); // NOPE!
-                dos.writeUTF(caption); // Caption
-                vsIcon.saveToStream(fos);
-                dos.writeUTF(circuitPanelTitel);
-                dos.writeUTF(frontPanelTitel);
-                dos.writeInt(elementWidth);
-                dos.writeInt(elementHeight);
-                dos.writeUTF(elementName);
+
                 dos.writeBoolean(showToolBar);
                 dos.writeBoolean(unDecorated);
                 dos.writeBoolean(AlwaysOnTop);
                 WindowsPosition.saveToStream(fos);
                 dos.writeInt(CustomXwindowPos);
                 dos.writeInt(CustomYwindowPos);
-                dos.writeUTF(basisTitel);
-                dos.writeUTF(basisVersion);
-                dos.writeUTF(autorName);
-                dos.writeUTF(autorMail);
-                dos.writeUTF(autorWWW);
-                if (onlySelected == false) {
-                    dos.writeInt(variablenListe.size());
-                    OpenVariable node;
-                    for (int i = 0; i < variablenListe.size(); i++) {
-                        node = (OpenVariable) variablenListe.get(i);
-                        dos.writeUTF(node.name);
-                        dos.writeInt(node.datatype);
-                        dos.writeInt(node.size1);
-                        dos.writeInt(node.size2);
-                    }
-                }
-                fsOut.postItem();
-                circuitBasis.saveToStream(fsOut, "CircuitPanel", onlySelected);
-                frontBasis.saveToStream(fsOut, "FrontPanel", onlySelected);
-                // speichereNunAlleBasisElemente(circuitBasis,fsOut,onlySelected);
-                // speichereNunAlleBasisElemente(frontBasis,fsOut,onlySelected);
-            } catch (Exception ex) {
-                showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/Basic")
-                        .getString("Fehler_in_Basis.saveToStream()_:") + ex.toString());
             }
-        } else {
-            try {
-                FileOutputStream fos = fsOut.addItem("Properties");
-                DataOutputStream dos = new DataOutputStream(fos);
 
-                dos.writeUTF(Version.strFileVersion); // Version
-                // System.out.println("SavetoStream_BasisVersion:"+Version.strFileVersion+"|");
-                if (vmPassword.length() == 0) {
-                    vmPassword = "";
+
+            dos.writeUTF(basisTitel);
+            dos.writeUTF(basisVersion);
+            dos.writeUTF(autorName);
+            dos.writeUTF(autorMail);
+            dos.writeUTF(autorWWW);
+
+            if (!onlySelected) {
+                dos.writeInt(variablenListe.size());
+                OpenVariable node;
+                for (OpenVariable openVariable : variablenListe) {
+                    node = openVariable;
+                    dos.writeUTF(node.name);
+                    dos.writeInt(node.datatype);
+                    dos.writeInt(node.size1);
+                    dos.writeInt(node.size2);
                 }
-
-                dos.writeUTF(vmPassword); // Password
-                int modusx = 0;
-                dos.writeInt(modusx); // NOPE!
-                dos.writeUTF(caption); // Caption
-                vsIcon.saveToStream(fos);
-                dos.writeUTF(circuitPanelTitel);
-                dos.writeUTF(frontPanelTitel);
-                dos.writeInt(elementWidth);
-                dos.writeInt(elementHeight);
-                dos.writeUTF(elementName);
-                dos.writeBoolean(showToolBar);
-
-                dos.writeUTF(basisTitel);
-                dos.writeUTF(basisVersion);
-                dos.writeUTF(autorName);
-                dos.writeUTF(autorMail);
-                dos.writeUTF(autorWWW);
-
-                if (onlySelected == false) {
-                    dos.writeInt(variablenListe.size());
-                    OpenVariable node;
-                    for (int i = 0; i < variablenListe.size(); i++) {
-                        node = (OpenVariable) variablenListe.get(i);
-                        dos.writeUTF(node.name);
-                        dos.writeInt(node.datatype);
-                        dos.writeInt(node.size1);
-                        dos.writeInt(node.size2);
-                    }
-                }
-
-                fsOut.postItem();
-
-                circuitBasis.saveToStream(fsOut, "CircuitPanel", onlySelected);
-                frontBasis.saveToStream(fsOut, "FrontPanel", onlySelected);
-
-                // speichereNunAlleBasisElemente(circuitBasis,fsOut,onlySelected);
-                // speichereNunAlleBasisElemente(frontBasis,fsOut,onlySelected);
-            } catch (Exception ex) {
-                showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/Basic")
-                        .getString("Fehler_in_Basis.saveToStream()_:") + ex.toString());
             }
+
+            fsOut.postItem();
+
+            circuitBasis.saveToStream(fsOut, "CircuitPanel", onlySelected);
+            frontBasis.saveToStream(fsOut, "FrontPanel", onlySelected);
+
+            // speichereNunAlleBasisElemente(circuitBasis,fsOut,onlySelected);
+            // speichereNunAlleBasisElemente(frontBasis,fsOut,onlySelected);
+        } catch (IOException e) {
+            org.tinylog.Logger.error(e);
+            showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/Basic")
+                    .getString("Fehler_in_Basis.saveToStream()_:") + e.toString());
         }
     }
 
@@ -2301,7 +2229,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
                     if (flowInfo.parameterDefinitions.size() == paramList.size()) {
                         for (int j = 0; j < flowInfo.parameterDefinitions.size(); j++) {
-                            OpenVariable var = (OpenVariable) flowInfo.parameterDefinitions.get(j);
+                            OpenVariable var = flowInfo.parameterDefinitions.get(j);
 
                             Object obj = paramList.get(j);
 
@@ -2361,7 +2289,7 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
             Object o1;
 
             Bindings b = bindings;
-            ArrayList vars = variablenListe;
+            List<OpenVariable> vars = variablenListe;
 
             if (flowInfo.bindings != null) {
                 b = flowInfo.bindings;
@@ -2370,8 +2298,8 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
             o1 = engine.eval(expression, b);
 
-            for (int i = 0; i < vars.size(); i++) {
-                node = (OpenVariable) vars.get(i);
+            for (OpenVariable var : vars) {
+                node = var;
 
                 if (b.get(node.name) instanceof Double && node.value instanceof Integer) {
                     node.value = ((Double) b.get(node.name)).intValue();
@@ -2600,8 +2528,8 @@ public class Basis extends Object implements ElementIF, VSBasisIF {
 
     private void bindVars() {
         OpenVariable node;
-        for (int i = 0; i < variablenListe.size(); i++) {
-            node = (OpenVariable) variablenListe.get(i);
+        for (OpenVariable openVariable : variablenListe) {
+            node = openVariable;
 
             bindings.put(node.name, node.value);
         }

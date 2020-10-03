@@ -66,6 +66,7 @@ public class Client extends Thread {
                 dos.close();
                 client.close();
             } catch (IOException e) {
+                org.tinylog.Logger.error(e);
             }
         }
     }

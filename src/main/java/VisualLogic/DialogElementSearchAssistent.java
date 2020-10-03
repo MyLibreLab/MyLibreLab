@@ -30,7 +30,7 @@ import javax.swing.DefaultListModel;
  */
 public class DialogElementSearchAssistent extends javax.swing.JDialog {
 
-    private DefaultListModel model = new DefaultListModel();
+    private DefaultListModel<String> model = new DefaultListModel<>();
 
     /**
      * Creates new form DialogElementSearchAssistent
@@ -49,8 +49,7 @@ public class DialogElementSearchAssistent extends javax.swing.JDialog {
 
         File[] files = file.listFiles();
 
-        for (int i = 0; i < files.length; i++) {
-            File f = files[i];
+        for (File f : files) {
             if (f.isDirectory()) {
                 String nm = f.getName();
                 if (nm.equalsIgnoreCase(strName)) {

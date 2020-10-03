@@ -218,6 +218,7 @@ public class Dialog_create_new_group extends javax.swing.JDialog {
                     }
                 }
             } catch (SAXException | IOException | ParserConfigurationException ex) {
+                org.tinylog.Logger.error(ex);
                 Logger.getLogger(Dialog_create_new_group.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -861,7 +862,7 @@ public class Dialog_create_new_group extends javax.swing.JDialog {
             SwingUtilities.updateComponentTreeUI(this);
         } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException
                 | IllegalAccessException e) {
-
+            org.tinylog.Logger.error(e);
         }
     }
 

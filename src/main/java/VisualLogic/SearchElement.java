@@ -25,6 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 import org.tinylog.Logger;
 
@@ -35,7 +36,7 @@ import VisualLogic.exception.VisualLogicIoException;
  */
 public class SearchElement {
 
-    private ArrayList<Search_found_item> items = new ArrayList<>();
+    private List<Search_found_item> items = new ArrayList<>();
 
     /**
      *
@@ -64,7 +65,7 @@ public class SearchElement {
 
     }
 
-    public ArrayList<Search_found_item> search(String path, String suchwort, String language) {
+    public List<Search_found_item> search(String path, String suchwort, String language) {
         items.clear();
         walk(path, suchwort, language);
         return items;

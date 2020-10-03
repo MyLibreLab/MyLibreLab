@@ -44,7 +44,7 @@ public class BackGraphXY extends GraphBackground {
     public Color nullLineColor = new Color(0, 0, 254);
     public boolean nullLineVisible = true;
 
-    public Integer AustoscaleInterval = new Integer(600);
+    public Integer AustoscaleInterval = Integer.valueOf(600);
 
     public void setAutoScaleInterval(Integer Interval) {
         this.AustoscaleInterval = Interval;
@@ -103,8 +103,8 @@ public class BackGraphXY extends GraphBackground {
 
                 if (xValues != null) {
                     double value = 0;
-                    for (int i = 0; i < xValues.length; i++) {
-                        value = xValues[i];
+                    for (double xValue : xValues) {
+                        value = xValue;
                         if (value < minX) minX = value;
                         if (value > maxX) maxX = value;
                     }
@@ -137,8 +137,8 @@ public class BackGraphXY extends GraphBackground {
 
                 if (yValues != null) {
                     double value = 0;
-                    for (int i = 0; i < yValues.length; i++) {
-                        value = yValues[i];
+                    for (double yValue : yValues) {
+                        value = yValue;
                         if (value < minY) minY = value;
                         if (value > maxY) maxY = value;
                     }

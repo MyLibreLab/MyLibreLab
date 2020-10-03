@@ -31,7 +31,7 @@ import VisualLogic.VMObject;
 /**
  * @author Carmelo
  */
-public class StatusResizeElement extends Object implements StatusBasisIF {
+public class StatusResizeElement implements StatusBasisIF {
     private VMObject vmobject;
     private Element element;
     private boolean firstTime = true;

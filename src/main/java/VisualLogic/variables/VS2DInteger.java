@@ -117,6 +117,7 @@ public class VS2DInteger extends VSObject {
                 }
             }
         } catch (Exception ex) {
+            org.tinylog.Logger.error(ex);
             System.err.println("Fehler in VS2DInteger.saveToStream() : " + ex.toString());
         }
     }
@@ -135,6 +136,7 @@ public class VS2DInteger extends VSObject {
                 }
             }
         } catch (Exception ex) {
+            org.tinylog.Logger.error(ex);
             System.err.println("Error in VS2DInteger.loadFromStream() : " + ex.toString());
         }
     }

@@ -29,8 +29,8 @@ import MyParser.OpenVariable;
 import VisualLogic.ExternalIF;
 
 public class VSFlowInfo extends VSObject {
-    public ArrayList parameterDefinitions = new ArrayList(); // enth�lt OpenVariable
-    public ArrayList variablenListe = new ArrayList(); // enth�lt OpenVariable
+    public ArrayList<OpenVariable> parameterDefinitions = new ArrayList<>(); // enth�lt OpenVariable
+    public ArrayList<OpenVariable> variablenListe = new ArrayList<>(); // enth�lt OpenVariable
     public Hashtable tags = new Hashtable(); // F�r irgendwelche Parameter die durch die ganze Linie laufen
     public Object returnValue = null;
     public ExternalIF source = null;
@@ -128,13 +128,13 @@ public class VSFlowInfo extends VSObject {
             // node= (OpenVariable)variablenListe.get(i);
 
             if (node.datatype == 0) {
-                node.value = new Double(0);
+                node.value = (double) 0;
             }
             if (node.datatype == 1) {
                 node.value = new String("");
             }
             if (node.datatype == 2) {
-                node.value = new Boolean(false);
+                node.value = Boolean.FALSE;
             }
         }
     }
@@ -143,8 +143,8 @@ public class VSFlowInfo extends VSObject {
         // System.out.println("XXXXXXX Suche nach:"+varname);
         varname = varname.trim();
         OpenVariable node;
-        for (Object variablenListe1 : variablenListe) {
-            node = (OpenVariable) variablenListe1;
+        for (OpenVariable variablenListe1 : variablenListe) {
+            node = variablenListe1;
 
             // System.out.println("XXXXXXX var item:"+node.name);
 

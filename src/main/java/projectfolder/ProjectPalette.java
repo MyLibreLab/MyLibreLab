@@ -168,11 +168,7 @@ public class ProjectPalette extends javax.swing.JPanel {
             root.isProject = true;
             root.projectPath = file.getPath();
 
-            if (file.isDirectory()) {
-                root.isFolder = true;
-            } else {
-                root.isFolder = false;
-            }
+            root.isFolder = file.isDirectory();
 
             root.iconExpanded = iconProjectExpanded;
             root.iconCollapsed = iconProjectCollapsed;

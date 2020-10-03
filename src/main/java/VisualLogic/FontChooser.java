@@ -51,7 +51,7 @@ import javax.swing.text.StyleConstants;
 
 public class FontChooser extends JDialog implements ActionListener {
 
-    JComboBox fontName;
+    JComboBox<String> fontName;
     JCheckBox fontBold, fontItalic;
     JTextField fontSize;
     JLabel previewLabel;
@@ -81,7 +81,7 @@ public class FontChooser extends JDialog implements ActionListener {
         Container c = getContentPane();
 
         JPanel fontPanel = new JPanel();
-        fontName = new JComboBox(new String[] {"TimesRoman", "Helvetica", "Courier"});
+        fontName = new JComboBox<>(new String[] {"TimesRoman", "Helvetica", "Courier"});
         fontName.setSelectedIndex(1);
         fontName.addActionListener(this);
         fontSize = new JTextField("12", 4);

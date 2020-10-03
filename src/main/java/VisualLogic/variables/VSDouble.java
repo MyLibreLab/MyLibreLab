@@ -88,7 +88,7 @@ public class VSDouble extends VSObject {
             java.io.DataInputStream dis = new java.io.DataInputStream(fis);
             value = dis.readDouble();
         } catch (Exception ex) {
-
+            org.tinylog.Logger.error(ex);
         }
     }
 
@@ -97,6 +97,7 @@ public class VSDouble extends VSObject {
             java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
             dos.writeDouble(value);
         } catch (Exception ex) {
+            org.tinylog.Logger.error(ex);
             System.err.println("Fehler in VSDouble.saveToStream() : " + ex.toString());
         }
     }
@@ -105,6 +106,7 @@ public class VSDouble extends VSObject {
         try {
             value = Double.parseDouble(nodeElement.getAttribute("VSDouble" + name));
         } catch (Exception ex) {
+            org.tinylog.Logger.error(ex);
         }
     }
 

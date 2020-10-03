@@ -25,6 +25,7 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 import VisualLogic.Element;
 import VisualLogic.JPin;
@@ -41,9 +42,9 @@ class MyLine {
 }
 
 
-public class StatusAddWire extends Object implements StatusBasisIF {
+public class StatusAddWire implements StatusBasisIF {
     public VMObject vmobject;
-    private ArrayList drahtPoints = new ArrayList();
+    private List<Point> drahtPoints = new ArrayList<>();
     private static final int HOZ = 0;
     private static final int VERT = 1;
     private int aktuellesPinType = HOZ;

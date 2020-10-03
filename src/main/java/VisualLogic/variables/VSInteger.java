@@ -88,7 +88,7 @@ public class VSInteger extends VSObject {
 
             value = dis.readInt();
         } catch (Exception ex) {
-
+            org.tinylog.Logger.error(ex);
         }
     }
 
@@ -97,6 +97,7 @@ public class VSInteger extends VSObject {
             java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
             dos.writeInt(value);
         } catch (Exception ex) {
+            org.tinylog.Logger.error(ex);
             VisualLogic.Tools.showMessage("Fehler in VSInteger.saveToStream() : " + ex.toString());
         }
     }
@@ -105,7 +106,7 @@ public class VSInteger extends VSObject {
         try {
             value = Integer.parseInt(nodeElement.getAttribute("VSInteger" + name));
         } catch (Exception ex) {
-
+            org.tinylog.Logger.error(ex);
         }
     }
 

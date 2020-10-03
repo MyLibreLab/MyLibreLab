@@ -27,6 +27,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.GeneralPath;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -37,7 +38,7 @@ import VisualLogic.VMObject;
 
 public class StatusEditPathEditMode implements StatusBasisIF {
     public VMObject vmobject;
-    private ArrayList drahtPoints = new ArrayList();
+    private List<Point> drahtPoints = new ArrayList<>();
     private static final int HOZ = 0;
     private static final int VERT = 1;
     private int aktuellesPinType = HOZ;
@@ -294,7 +295,6 @@ public class StatusEditPathEditMode implements StatusBasisIF {
     public void mouseMoved(MouseEvent e) {
         if (status != null) {
             status.mouseMoved(e);
-            return;
         }
     }
 
@@ -450,14 +450,12 @@ public class StatusEditPathEditMode implements StatusBasisIF {
     public void mouseReleased(MouseEvent e) {
         if (status != null) {
             status.mouseReleased(e);
-            return;
         }
     }
 
     public void draw(Graphics g) {
         if (status != null) {
             status.draw(g);
-            return;
         }
     }
 
