@@ -64,7 +64,6 @@ import Peditor.BasisProperty;
 import Peditor.PropertyEditor;
 import SimpleFileSystem.FileSystemOutput;
 import VisualLogic.variables.VSObject;
-import org.tinylog.Logger;
 
 /**
  * @author Carmelo Salafia

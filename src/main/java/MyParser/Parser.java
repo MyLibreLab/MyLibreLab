@@ -28,7 +28,6 @@ import org.tinylog.Logger;
 
 import VisualLogic.Basis;
 import VisualLogic.variables.VSFlowInfo;
-import org.tinylog.Logger;
 
 class Token {
     public boolean isNum = false;
