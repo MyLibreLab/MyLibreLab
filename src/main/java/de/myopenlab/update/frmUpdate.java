@@ -97,13 +97,7 @@ public class frmUpdate extends javax.swing.JFrame {
             int responseCode = con.getResponseCode();
             org.tinylog.Logger.info("Sending GET request to URL {}", url);
             org.tinylog.Logger.info("Response Code: {}", responseCode);
-
-
             StringBuilder response = readBufferToString(con);
-            // con.setRequestProperty("User-Agent", USER_AGENT);
-            int responseCode = con.getResponseCode();
-            org.tinylog.Logger.info("\nSending 'GET' request to URL : " + url);
-            org.tinylog.Logger.info("Response Code : " + responseCode);
 
             return response.toString();
         } catch (IOException urlException) {
