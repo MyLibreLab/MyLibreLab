@@ -37,7 +37,7 @@ public class XMLSerializer {
     public static Object read(String filename) throws Exception {
         Object o;
         try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(filename)))) {
-            o = (Object) decoder.readObject();
+            o = decoder.readObject();
         }
         return o;
     }

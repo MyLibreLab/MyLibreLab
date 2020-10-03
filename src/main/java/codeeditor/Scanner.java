@@ -115,9 +115,10 @@ public class Scanner {
      * @param keywords The array of keywords.
      */
     public void setKeywords(String[] keywords) {
-        keywordHashtable = new Hashtable(keywords.length);
-        for (int i = 0; i < keywords.length; i++)
-            keywordHashtable.put(keywords[i], True);
+        keywordHashtable = new Hashtable<>(keywords.length);
+        for (String keyword : keywords) {
+            keywordHashtable.put(keyword, Boolean.TRUE);
+        }
     }
 
     /**
@@ -157,6 +158,7 @@ public class Scanner {
         try {
             str = value.getText(0, textLength);
         } catch (BadLocationException e) {
+            org.tinylog.Logger.error(e);
         }
     }
 
@@ -181,9 +183,6 @@ public class Scanner {
         return this.token;
     }
 
-    // auxiliary constant:
-    private final Boolean True = new Boolean(true);
-
     // the scanned string:
     private String str;
 
@@ -206,7 +205,7 @@ public class Scanner {
     private char lookahead;
 
     // the list of keywords:
-    private Hashtable keywordHashtable;
+    private Hashtable<String, Boolean> keywordHashtable;
 
     // the list of built-in functions:
 

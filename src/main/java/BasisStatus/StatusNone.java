@@ -27,7 +27,7 @@ import java.awt.event.MouseEvent;
 import VisualLogic.Element;
 import VisualLogic.VMObject;
 
-public class StatusNone extends Object implements StatusBasisIF {
+public class StatusNone implements StatusBasisIF {
     private VMObject vmObject;
     public Element element;
 

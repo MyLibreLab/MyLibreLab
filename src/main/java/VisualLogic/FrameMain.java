@@ -135,10 +135,10 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     public JLabel layedLabel = new JLabel(""); // NOI18N
     public FrameErrorWarnings errorWarnings = new FrameErrorWarnings();
     public boolean frontMode = false;
-    public ArrayList<String> projects = new ArrayList<>();
+    public List<String> projects = new ArrayList<>();
     String driverPath;
     // public Console console= new Console();
-    public ArrayList<Basis> desktop = new ArrayList<>();
+    public List<Basis> desktop = new ArrayList<>();
     public boolean modePanel = false;
     public Settings settings = new Settings();
     // private FrameMain frameMain;
@@ -464,6 +464,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                     java.awt.Desktop.getDesktop().open(myFile);
                 }
             } catch (IOException ex) {
+                org.tinylog.Logger.error(ex);
             }
         } else if (command.equalsIgnoreCase("EDITFILE")) {
 
@@ -482,9 +483,10 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
                 if (htmlEditor != null && htmlEditor.length() > 0 && new File(htmlEditor).exists()) {
                     try {
-                        Runtime.getRuntime().exec(settings.getHTMLEditor() + " \"" + str + "\"");
+                        Runtime.getRuntime().exec(new String[] {settings.getHTMLEditor(), " \"", str, "\""});
                         return;
                     } catch (IOException ex) {
+                        org.tinylog.Logger.error(ex);
                     }
                 }
             }
@@ -493,9 +495,10 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 if (settings.getGraphicEditor() != null && settings.getGraphicEditor().length() > 0
                         && new File(settings.getGraphicEditor()).exists()) {
                     try {
-                        Runtime.getRuntime().exec(settings.getGraphicEditor() + " \"" + str + "\"");
+                        Runtime.getRuntime().exec(new String[] {settings.getGraphicEditor(), " \"", str, "\""});
                         return;
                     } catch (IOException ex) {
+                        org.tinylog.Logger.error(ex);
                     }
                 }
             }
@@ -512,8 +515,6 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             fileCopy(node);
         } else if (command.equalsIgnoreCase("FILE_CUT")) {
             fileCut(node);
-        } else if (command.equalsIgnoreCase("OPENFILE")) {
-            reloadProjectPanel();
         } else if (command.equalsIgnoreCase("RELOAD")) {
             reloadProjectPanel();
         } else if (command.equalsIgnoreCase("DIR_ADD")) {
@@ -803,7 +804,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         String fileName = getUserURL().getFile() + File.separator + "projects.file";
         Tools.saveProjectsFile(new File(fileName), projects);
 
-        if (closeAllVms() == true) {
+        if (closeAllVms()) {
             System.exit(Tools.appResult);
         }
     }
@@ -846,9 +847,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     }
 
     public Basis isBasisInDesktop(String path) {
-        for (int i = 0; i < desktop.size(); i++) {
-            Basis basis = desktop.get(i);
-
+        for (Basis basis : desktop) {
             File f1 = new File(basis.fileName);
             File f2 = new File(path);
 
@@ -1089,14 +1088,14 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         if (verzeichniss.exists()) {
             File[] files = verzeichniss.listFiles();
 
-            for (int i = 0; i < files.length; i++) {
-                String filename = files[i].getName();
+            for (File file : files) {
+                String filename = file.getName();
 
                 if (filename.endsWith(".tmp")) {
-                    files[i].delete();
+                    file.delete();
                 }
                 if (filename.endsWith(".vlogic")) {
-                    files[i].delete();
+                    file.delete();
                 }
             }
         }
@@ -1222,20 +1221,20 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
     private void copyUserdefElementsRecursive(String elPath, String actualPath) {
         File elFile = new File(elPath);
-        File files[] = elFile.listFiles();
+        File[] files = elFile.listFiles();
 
         if (!(new File(actualPath).exists())) {
             new File(actualPath).mkdir();
         }
         if (files != null) {
-            for (int i = 0; i < files.length; i++) {
+            for (File file : files) {
                 // Always override old Elements!!!
                 // It doesn't matter if there exist or not!
-                if (files[i].isDirectory()) {
+                if (file.isDirectory()) {
                     try {
-                        String name = files[i].getName();
+                        String name = file.getName();
                         // Tools.copy(files[i], new File(actualPath + "\\" + name));
-                        Tools.copy(files[i], new File(actualPath + File.separator + name));
+                        Tools.copy(file, new File(actualPath + File.separator + name));
                     } catch (IOException ex) {
                         // Logger.getLogger(FrameMain.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -1272,9 +1271,9 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         }
     }
 
-    private ArrayList<String> listDirectory(String dir) {
+    private List<String> listDirectory(String dir) {
         File directory = new File(dir);
-        ArrayList<String> files = new ArrayList<>();
+        List<String> files = new ArrayList<>();
         // get all the files from a directory
         File[] fList = directory.listFiles();
         if (fList != null) {
@@ -1300,7 +1299,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         // List all Documents in their DIrectories
         File directory = new File(elementPath + "/Documentations");
 
-        ArrayList<String> files = new ArrayList<>();
+        List<String> files = new ArrayList<>();
         // get all the files from a directory
         File[] fList = directory.listFiles();
         if (fList != null) {
@@ -1314,7 +1313,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                     jmnuDocs.add(menu);
 
                     menu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Bilder/16x16/book.png"))); // NOI18N
-                    ArrayList<String> files2 = listDirectory(file.getAbsolutePath());
+                    List<String> files2 = listDirectory(file.getAbsolutePath());
 
                     for (String file2 : files2) {
                         MyMenuItem item = new MyMenuItem();
@@ -1391,7 +1390,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             Image iconImage32 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Bilder/icon_32.png"));
             Image iconImage64 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Bilder/icon_64.png"));
 
-            ArrayList<Image> images = new ArrayList<>();
+            List<Image> images = new ArrayList<>();
             images.add(iconImage);
             images.add(iconImage32);
             images.add(iconImage64);
@@ -1424,7 +1423,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             }
         }
 
-        ArrayList<String> projectsX = Tools.loadProjectsFile(new File(fileName));
+        List<String> projectsX = Tools.loadProjectsFile(new File(fileName));
 
         // ArrayList<String> projects = new ArrayList<>();
         projects = new ArrayList<>();
@@ -1896,7 +1895,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         }
     }
 
-    private ArrayList<String> selectedPaths = new ArrayList<String>();
+    private List<String> selectedPaths = new ArrayList<String>();
 
     public void recursionSaveProjectStatus(MyNode node) {
         if (node instanceof MyNode) {
@@ -4312,9 +4311,9 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         int pinIndex;
     }
 
-    public ArrayList<LineInfo> selectAllDrahtsWhereIntersectWithRectaqngle(ArrayList<Element> elements, int x1, int y1,
-            int x2, int y2, int align) {
-        ArrayList<LineInfo> result = new ArrayList<LineInfo>();
+    public List<LineInfo> selectAllDrahtsWhereIntersectWithRectaqngle(List<Element> elements, int x1, int y1, int x2,
+            int y2, int align) {
+        List<LineInfo> result = new ArrayList<>();
 
         Element element;
         JPin pin;
@@ -4496,7 +4495,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             int x2 = rect.width;
             int y2 = rect.height;
 
-            ArrayList<Element> elements = vm.getSelectedElements();
+            List<Element> elements = vm.getSelectedElements();
 
             Basis basis = createNewVM();
 
@@ -4517,8 +4516,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             backupDrahtsOutputs = new ArrayList<BackupDrahtOutut>();
 
             for (i = 0; i < 4; i++) {
-                ArrayList<LineInfo> lineInfos =
-                        selectAllDrahtsWhereIntersectWithRectaqngle(elements, x1, y1, x2, y2, i);
+                List<LineInfo> lineInfos = selectAllDrahtsWhereIntersectWithRectaqngle(elements, x1, y1, x2, y2, i);
 
                 for (j = 0; j < lineInfos.size(); j++) {
                     info = lineInfos.get(j);
@@ -4757,7 +4755,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 }
 
                 try {
-                    Runtime.getRuntime().exec(javaeditor + " " + strFileA + " " + strFileB);
+                    Runtime.getRuntime().exec(new String[] {javaeditor, " ", strFileA, " ", strFileB});
                 } catch (IOException ex) {
                     Tools.showMessage(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle")
                             .getString("Javaeditor_not_found!"));

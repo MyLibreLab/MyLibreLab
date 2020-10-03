@@ -24,6 +24,7 @@ package VisualLogic;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 
@@ -32,7 +33,7 @@ import org.tinylog.Logger;
 public class Loader {
     URLClassLoader cl;
 
-    public Object ladeClasse(String elementPath, String pfad, String klassename) throws Exception {
+    public Object ladeClasse(String elementPath, String pfad, String klassename) {
         URL url;
         Object o = null;
 
@@ -48,10 +49,9 @@ public class Loader {
             Class<?> c = cl.loadClass(klassename);
 
             o = c.newInstance();
-        } catch (Exception ex) {
-            System.out.println("" + ex);
-        } catch (UnsupportedClassVersionError ex) {
-            System.out.println("" + ex);
+        } catch (UnsupportedClassVersionError | InstantiationException | MalformedURLException | IllegalAccessException
+                | ClassNotFoundException ex) {
+            org.tinylog.Logger.error(ex);
         }
         return o;
     }

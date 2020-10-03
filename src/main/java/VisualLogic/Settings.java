@@ -24,6 +24,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.UIManager;
 
@@ -48,7 +49,7 @@ public class Settings {
     private Point docWindowLocation = new Point(100, 100);
     private Dimension docWindowDimension = new Dimension(100, 100);
     private boolean isDocWindowsVisible = true;
-    private ArrayList<String> projects = new ArrayList<>(); // Obsolete!
+    private List<String> projects = new ArrayList<>(); // Obsolete!
 
     private boolean frontAlignToGrid = true;
     private boolean frontRasterOn = true;
@@ -301,14 +302,14 @@ public class Settings {
     /**
      * @return the projects
      */
-    public ArrayList<String> getProjects() {
+    public List<String> getProjects() {
         return projects;
     }
 
     /**
      * @param projects the projects to set
      */
-    public void setProjects(ArrayList<String> projects) {
+    public void setProjects(List<String> projects) {
         this.projects = projects;
     }
 

@@ -215,7 +215,7 @@ public class SelectionPane extends JPanel implements MouseListener, MouseMotionL
          * getHeight()-strokeWidth*2); }
          */
 
-        if (element.isSelected() && element.owner.owner.debugMode == false) {
+        if (element.isSelected() && !element.owner.owner.debugMode) {
 
             if (element.isResizeSynchron()) {
                 drawSelectionPin(g, w - d, h - d, d); // Right-Bottom

@@ -20,7 +20,7 @@
 
 package VisualLogic;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 
@@ -30,9 +30,9 @@ import MyParser.OpenVariable;
  * @author Salafia
  */
 public class DialogVariables extends javax.swing.JDialog {
-    private DefaultListModel model = new DefaultListModel();
+    private DefaultListModel<OpenVariable> model = new DefaultListModel<>();
     private Basis basis;
-    private ArrayList liste;
+    private List<OpenVariable> liste;
 
     /**
      * Creates new form DialogVariables
@@ -61,8 +61,8 @@ public class DialogVariables extends javax.swing.JDialog {
         model.clear();
 
         OpenVariable node;
-        for (int i = 0; i < liste.size(); i++) {
-            node = (OpenVariable) liste.get(i);
+        for (OpenVariable openVariable : liste) {
+            node = openVariable;
             model.addElement(node);
         }
     }
@@ -217,7 +217,7 @@ public class DialogVariables extends javax.swing.JDialog {
         DialogAddEditvariable.executeAdd(basis.getFrameMain());
 
         if (DialogAddEditvariable.result) {
-            if (basis.varNameExist(DialogAddEditvariable.varName) == false) {
+            if (!basis.varNameExist(DialogAddEditvariable.varName)) {
                 OpenVariable newNode = new OpenVariable();
                 newNode.name = DialogAddEditvariable.varName;
                 newNode.datatype = DialogAddEditvariable.datatype;

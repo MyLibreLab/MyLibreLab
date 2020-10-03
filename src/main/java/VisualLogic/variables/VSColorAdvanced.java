@@ -141,9 +141,6 @@ public class VSColorAdvanced extends VSObject {
         } catch (IOException ex) {
             Logger.error(ex, "Error. Could not read from input");
         }
-
-
-
     }
 
     @Override

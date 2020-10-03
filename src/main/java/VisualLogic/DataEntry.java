@@ -21,6 +21,7 @@
 package VisualLogic;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import VisualLogic.variables.VSObject;
 
@@ -29,7 +30,7 @@ import VisualLogic.variables.VSObject;
  */
 public class DataEntry {
     public String name;
-    public ArrayList<VSObject> values = new ArrayList<VSObject>();
+    public List<VSObject> values = new ArrayList<VSObject>();
 
     /**
      * Creates a new instance of DataPacket

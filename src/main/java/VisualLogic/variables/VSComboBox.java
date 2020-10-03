@@ -56,7 +56,7 @@ public class VSComboBox extends VSObject {
 
             selectedIndex = dis.readInt();
         } catch (Exception ex) {
-
+            org.tinylog.Logger.error(ex);
         }
     }
 
@@ -65,6 +65,7 @@ public class VSComboBox extends VSObject {
             java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
             dos.writeInt(selectedIndex);
         } catch (Exception ex) {
+            org.tinylog.Logger.error(ex);
             System.err.println("Fehler in VSComboBox.saveToStream() : " + ex.toString());
         }
     }
@@ -82,7 +83,7 @@ public class VSComboBox extends VSObject {
              * addItem(str); }
              */
         } catch (Exception ex) {
-
+            org.tinylog.Logger.error(ex);
         }
     }
 

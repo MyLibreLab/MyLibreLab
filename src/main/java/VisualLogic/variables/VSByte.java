@@ -127,7 +127,7 @@ public class VSByte extends VSObject {
 
             value = dis.readByte();
         } catch (Exception ex) {
-
+            org.tinylog.Logger.error(ex);
         }
     }
 
@@ -136,6 +136,7 @@ public class VSByte extends VSObject {
             java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
             dos.writeByte(value);
         } catch (Exception ex) {
+            org.tinylog.Logger.error(ex);
             VisualLogic.Tools.showMessage("Fehler in VSByte.saveToStream() : " + ex.toString());
         }
     }
@@ -144,7 +145,7 @@ public class VSByte extends VSObject {
         try {
             value = Byte.parseByte(nodeElement.getAttribute("VSByte" + name));
         } catch (Exception ex) {
-
+            org.tinylog.Logger.error(ex);
         }
     }
 

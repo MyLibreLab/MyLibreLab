@@ -41,7 +41,7 @@ public class VSImage extends VSObject {
         try {
             image = il.loadImage(Toolkit.getDefaultToolkit().getImage(fileName));
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            org.tinylog.Logger.error(ex);
         }
         File f = new File(fileName);
         int fileSize = (int) f.length();
@@ -53,7 +53,7 @@ public class VSImage extends VSObject {
             input.close();
             input = null;
         } catch (Exception ex) {
-            System.out.println(ex);
+            org.tinylog.Logger.error(ex);
         }
     }
 
@@ -61,7 +61,7 @@ public class VSImage extends VSObject {
         try {
             image = il.loadImage(Toolkit.getDefaultToolkit().getImage(url));
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            org.tinylog.Logger.error(ex);
         }
 
         // int fileSize = (int) f.length();
@@ -76,7 +76,7 @@ public class VSImage extends VSObject {
             input.close();
             input = null;
         } catch (Exception ex) {
-            System.out.println(ex);
+            org.tinylog.Logger.error(ex);
         }
     }
 
@@ -123,7 +123,7 @@ public class VSImage extends VSObject {
                 image = null;
             }
         } catch (Exception ex) {
-            System.out.println(ex);
+            org.tinylog.Logger.error(ex);
         }
 
         il.loadImage(image);
@@ -143,6 +143,7 @@ public class VSImage extends VSObject {
                 dos.writeInt(0);
             }
         } catch (Exception ex) {
+            org.tinylog.Logger.error(ex);
             System.err.println("Error in VSImage.saveToStream() : " + ex.toString());
         }
     }
@@ -166,6 +167,7 @@ class ImageLoader extends Component {
         try {
             mc.waitForID(0);
         } catch (InterruptedException ex) {
+            org.tinylog.Logger.error(ex);
         }
         return img;
     }

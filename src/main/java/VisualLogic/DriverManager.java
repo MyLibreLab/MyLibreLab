@@ -47,7 +47,7 @@ class MyOpenLabDriver {
                 driver = (MyOpenLabDriverIF) loader.ladeClasseDriver(new URL[] {url1, url2}, info.Classe);
                 System.out.println("Driver loaded : " + driverName);
             } catch (Exception ex) {
-                ex.printStackTrace();
+                org.tinylog.Logger.error(ex);
                 return;
             }
         }
@@ -95,6 +95,7 @@ public class DriverManager {
                  */
             }
         } catch (Exception ex) {
+            org.tinylog.Logger.error(ex);
             System.out.println("Errorin openDriver: " + ex);
             return null;
         }

@@ -314,7 +314,7 @@ public class frmCodeEditor extends javax.swing.JFrame {
 
             if (comp instanceof PanelEditor) {
                 PanelEditor editor = (PanelEditor) comp;
-                if (editor.onClose() == false) return;
+                if (!editor.onClose()) return;
             }
         }
         dispose();

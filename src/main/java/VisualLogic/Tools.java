@@ -512,12 +512,24 @@ public class Tools {
     }
 
     public static DFProperties getProertiesFromDefinitionFile(File file) {
+        String str = file.getAbsolutePath() + File.separator;
+        File definitionFile = new File(str + "definition.def");
+
+        if (!definitionFile.exists()) {
+            definitionFile = new File(str + "xdefinition.def");
+
+            if (!definitionFile.exists()) {
+                return new DFProperties();
+            }
+        }
+
+        return loadProperties(definitionFile);
+    }
+
+    private static DFProperties loadProperties(File definitionFile) {
         DFProperties tmp = new DFProperties();
 
-        String str;
-
-        try (BufferedReader input =
-                new BufferedReader(new FileReader(file.getAbsolutePath() + File.separator + "definition.def"))) {
+        try (BufferedReader input = new BufferedReader(new FileReader(definitionFile))) {
 
             String inputString;
             while ((inputString = input.readLine()) != null) {
@@ -596,7 +608,7 @@ public class Tools {
             input.close();
         } catch (IOException ex) {
             // Tools.showMessage(ex.toString());
-            Logger.error(ex, "Error. Could not read from {}", file);
+            Logger.error(ex, "Error. Could not read from {}", definitionFile);
         }
         return tmp;
     }
@@ -1149,7 +1161,7 @@ public class Tools {
             if (started) {
                 result.addPoint(x, y);
             }
-            if (started == true && endPoint.x == x && endPoint.y == y) {
+            if (started && endPoint.x == x && endPoint.y == y) {
                 return result;
             }
         }
@@ -1157,7 +1169,7 @@ public class Tools {
         return result;
     }
 
-    public static void saveProjectsFile(File file, ArrayList<String> liste) {
+    public static void saveProjectsFile(File file, List<String> liste) {
         try (BufferedWriter out = new BufferedWriter(new FileWriter(file))) {
 
 

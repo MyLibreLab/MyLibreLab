@@ -25,6 +25,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.geom.GeneralPath;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.JFrame;
@@ -95,7 +96,7 @@ public interface ExternalIF {
 
     public abstract Object jGetTag(int index);
 
-    public abstract ArrayList<PathPoint> jGetPointList();
+    public abstract List<PathPoint> jGetPointList();
 
     public abstract String jIfPathNotFoundThenSearch(String path);
 

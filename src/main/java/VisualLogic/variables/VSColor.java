@@ -63,7 +63,7 @@ public class VSColor extends VSObject {
             int b = dis.readInt();
             value = new Color(r, g, b);
         } catch (Exception ex) {
-
+            org.tinylog.Logger.error(ex);
         }
     }
 
@@ -74,6 +74,7 @@ public class VSColor extends VSObject {
             dos.writeInt(value.getGreen());
             dos.writeInt(value.getBlue());
         } catch (Exception ex) {
+            org.tinylog.Logger.error(ex);
             System.err.println("Fehler in VSColor.saveToStream() : " + ex.toString());
         }
     }
@@ -85,7 +86,7 @@ public class VSColor extends VSObject {
             int b = Integer.parseInt(nodeElement.getAttribute("VSColorB" + name));
             value = new Color(r, g, b);
         } catch (Exception ex) {
-
+            org.tinylog.Logger.error(ex);
         }
     }
 

@@ -29,7 +29,7 @@ import java.awt.BorderLayout;
 public class FrameMain extends javax.swing.JFrame {
 
     public MyGraph graph;
-    public int AustoscaleInterval = new Integer(600);
+    public Integer AustoscaleInterval = Integer.valueOf(600);
 
     /**
      * Creates new form FrameMain
@@ -77,7 +77,7 @@ public class FrameMain extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrameMain().setVisible(true);

@@ -28,7 +28,7 @@ import VisualLogic.Element;
 import VisualLogic.PathPoint;
 import VisualLogic.VMObject;
 
-public class StatusEditPath_ADD_CurveTo extends Object implements StatusBasisIF {
+public class StatusEditPath_ADD_CurveTo implements StatusBasisIF {
     public VMObject vmobject;
     public Element element;
     public PathPoint path;

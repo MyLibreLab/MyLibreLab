@@ -30,7 +30,7 @@ import VisualLogic.Element;
 import VisualLogic.SelectionPane;
 import VisualLogic.VMObject;
 
-public class StatusAddElement extends Object implements StatusBasisIF {
+public class StatusAddElement implements StatusBasisIF {
 
     private VMObject vmobject;
     private String mainPath;
@@ -209,7 +209,7 @@ public class StatusAddElement extends Object implements StatusBasisIF {
                 dy = Math.abs(y - mp.y);
 
                 vectorDistance = (int) Math.sqrt((dx * dx) + (dy * dy));
-                double w2 = elementX.getWidth() / 2;
+                double w2 = elementX.getWidth() / 2.0;
                 int radius = (int) Math.sqrt(w2 * w2 + w2 * w2);
 
                 if (vectorDistance < (d + radius) && vectorDistance < minDitance) {
@@ -219,10 +219,7 @@ public class StatusAddElement extends Object implements StatusBasisIF {
             }
         }
 
-        if (minElement != null) {
-            return minElement;
-        }
-        return null;
+        return minElement;
     }
 
     public void mouseMoved(MouseEvent e) {

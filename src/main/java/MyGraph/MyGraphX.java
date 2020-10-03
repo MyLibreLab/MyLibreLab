@@ -51,7 +51,7 @@ public class MyGraphX extends javax.swing.JPanel {
     public boolean yAxisVisible = true;
 
     public boolean xyAxisVisible = true;
-    public int bufferLen = new Integer(600);
+    public Integer bufferLen = Integer.valueOf(600);
 
     public void setbufferLen(Integer Interval) {
         this.bufferLen = Interval;
@@ -94,8 +94,8 @@ public class MyGraphX extends javax.swing.JPanel {
 
     public void generateGraphs(int size) {
         if (graphRenderer != null) {
-            for (int i = 0; i < graphRenderer.length; i++) {
-                remove(graphRenderer[i]);
+            for (GraphRenderer renderer : graphRenderer) {
+                remove(renderer);
             }
         }
 
@@ -157,15 +157,11 @@ public class MyGraphX extends javax.swing.JPanel {
         // back.pointType=back.P_LINE;
         back.init();
 
-        if (graphRenderer != null) {
-            for (int i = 0; i < graphRenderer.length; i++) {
-                if (graphRenderer[i] != null) {
-                    graphRenderer[i].setLocation(p1.x, p1.y);
-                    graphRenderer[i].setSize(p2.x, p2.y - p1.y + 1);
+        for (GraphRenderer renderer : graphRenderer) {
+            renderer.setLocation(p1.x, p1.y);
+            renderer.setSize(p2.x, p2.y - p1.y + 1);
 
-                    graphRenderer[i].init();
-                }
-            }
+            renderer.init();
         }
     }
 
