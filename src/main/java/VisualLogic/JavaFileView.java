@@ -51,7 +51,7 @@ public class JavaFileView extends FileView {
     public Icon getIcon(File file) {
         // default icons for all directories
 
-        if (file.isDirectory() && FileSystemView.getFileSystemView().isDrive(file) == false) {
+        if (file.isDirectory() && !FileSystemView.getFileSystemView().isDrive(file)) {
             if (new File(file.getPath() + "/myopenlab.executable").exists()) {
                 return executableIcon;
             }

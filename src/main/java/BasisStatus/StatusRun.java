@@ -29,7 +29,7 @@ import VisualLogic.Element;
 import VisualLogic.SelectionPane;
 import VisualLogic.VMObject;
 
-public class StatusRun extends Object implements StatusBasisIF {
+public class StatusRun implements StatusBasisIF {
     private VMObject basis;
 
     public StatusRun(VMObject basis) {

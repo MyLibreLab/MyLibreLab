@@ -97,10 +97,8 @@ public class MyTableModel extends AbstractTableModel {
 
         MyTableRow rowData = data.get(rowIndex);
 
-        switch (columnIndex) {
-            case 0:
-                rowData.setSelected((Boolean) aValue);
-                break;
+        if (columnIndex == 0) {
+            rowData.setSelected((Boolean) aValue);
         }
     }
 

@@ -27,7 +27,7 @@ import java.awt.event.MouseEvent;
 import VisualLogic.Element;
 import VisualLogic.VMObject;
 
-public class StatusEditPath extends Object implements StatusBasisIF {
+public class StatusEditPath implements StatusBasisIF {
 
     StatusBasisIF status = null;
     public Element element;

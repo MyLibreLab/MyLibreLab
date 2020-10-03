@@ -121,7 +121,7 @@ public class Line implements Serializable {
                 p2.y = temp.y;
             }
 
-            if (p.x >= p1.x + 1 && p.y >= p1.y - 2 && p.x <= p2.x - 1 && p.y <= p2.y + 2) return true;
+            return p.x >= p1.x + 1 && p.y >= p1.y - 2 && p.x <= p2.x - 1 && p.y <= p2.y + 2;
         } else {
             if (p1.y > p2.y) {
                 Point temp = new Point(p1.x, p1.y);
@@ -131,9 +131,8 @@ public class Line implements Serializable {
                 p2.x = temp.x;
                 p2.y = temp.y;
             }
-            if (p.x >= p1.x - 2 && p.y >= p1.y + 1 && p.x <= p2.x + 2 && p.y <= p2.y - 1) return true;
+            return p.x >= p1.x - 2 && p.y >= p1.y + 1 && p.x <= p2.x + 2 && p.y <= p2.y - 1;
         }
-        return false;
     }
 
     public boolean isPointInNaehe(Point p) {
@@ -151,7 +150,7 @@ public class Line implements Serializable {
                 p2.y = temp.y;
             }
 
-            if (p.x >= p1.x + 1 && p.y >= p1.y - distance && p.x <= p2.x - 1 && p.y <= p2.y + distance) return true;
+            return p.x >= p1.x + 1 && p.y >= p1.y - distance && p.x <= p2.x - 1 && p.y <= p2.y + distance;
         } else {
             if (p1.y > p2.y) {
                 Point temp = new Point(p1.x, p1.y);
@@ -161,9 +160,8 @@ public class Line implements Serializable {
                 p2.x = temp.x;
                 p2.y = temp.y;
             }
-            if (p.x >= p1.x - distance && p.y >= p1.y + 1 && p.x <= p2.x + distance && p.y <= p2.y - 1) return true;
+            return p.x >= p1.x - distance && p.y >= p1.y + 1 && p.x <= p2.x + distance && p.y <= p2.y - 1;
         }
-        return false;
     }
 
     // Liefert >0 wenn eine vertikale Linie in der N�he ist

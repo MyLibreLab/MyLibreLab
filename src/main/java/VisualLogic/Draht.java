@@ -40,7 +40,7 @@ import org.w3c.dom.NodeList;
 /**
  * @author Homer
  */
-public class Draht extends Object implements Serializable {
+public class Draht implements Serializable {
     private boolean bolOn = false;
     private VMObject vmobject;
 
@@ -54,8 +54,8 @@ public class Draht extends Object implements Serializable {
     public boolean resursive = false;
     public int sourceElementID;
     public int destElementID;
-    public ArrayList polyList = new ArrayList();
-    public ArrayList lineList = new ArrayList();
+    public ArrayList<PolyPoint> polyList = new ArrayList<>();
+    public ArrayList<Line> lineList = new ArrayList<>();
     private Stroke strockeStandard = new BasicStroke(1);
     private Stroke strockeDick = new BasicStroke(3);
     private Stroke strockeExtraDick = new BasicStroke(4);
@@ -108,9 +108,7 @@ public class Draht extends Object implements Serializable {
         Polygon result = new Polygon();
         int x = 0;
         int y = 0;
-        for (int i = 0; i < polyList.size(); i++) {
-            PolyPoint p = (PolyPoint) polyList.get(i);
-
+        for (PolyPoint p : polyList) {
             result.addPoint(p.getX(), p.getY());
         }
 
@@ -118,9 +116,7 @@ public class Draht extends Object implements Serializable {
     }
 
     public PolyPoint getPointsWhereInLine(Point p1) {
-        for (int i = 0; i < polyList.size(); i++) {
-            PolyPoint p = (PolyPoint) polyList.get(i);
-
+        for (PolyPoint p : polyList) {
             if (p1.x == p.getX() && p1.y == p.getY()) {
                 return p;
             }
@@ -236,7 +232,7 @@ public class Draht extends Object implements Serializable {
     }
 
     public void setOn() {
-        if (bolOn != true) {
+        if (!bolOn) {
             bolOn = true;
 
             repaint();
@@ -254,7 +250,7 @@ public class Draht extends Object implements Serializable {
     }
 
     public synchronized void setOff() {
-        if (bolOn != false) {
+        if (bolOn) {
             bolOn = false;
 
             repaint();
@@ -262,9 +258,7 @@ public class Draht extends Object implements Serializable {
     }
 
     public Line pruefeLinie(int x1, int y1, int x2, int y2) {
-        for (int i = 0; i < lineList.size(); i++) {
-            Line line = (Line) lineList.get(i);
-
+        for (Line line : lineList) {
             if (Line2D.linesIntersect(line.getStartPoint().x, line.getStartPoint().y, line.getEndPoint().x,
                     line.getEndPoint().y, x1, y1, x2, y2)) {
                 return line;
@@ -308,8 +302,7 @@ public class Draht extends Object implements Serializable {
         int minY = 19999999;
         int maxX = 0;
         int maxY = 0;
-        for (int i = 0; i < lineList.size(); i++) {
-            Line line = (Line) lineList.get(i);
+        for (Line line : lineList) {
             if (line.getStartPoint().x < minX) minX = line.getStartPoint().x;
             if (line.getStartPoint().y < minY) minY = line.getStartPoint().y;
 
@@ -465,28 +458,18 @@ public class Draht extends Object implements Serializable {
      */
 
     public PolyPoint getFirstPoint() {
-        for (int i = 1; i < getPolySize(); i++) {
-            PolyPoint p = getPoint(i);
-            return p;
-        }
-
-        return null;
+        return getPoint(1);
     }
 
     public PolyPoint getLastPoint() {
-        for (int i = getPolySize() - 2; i > 0; i--) {
-            PolyPoint p = getPoint(i);
-            return p;
-        }
-
-        return null;
+        return getPoint(getPolySize() - 2);
     }
 
     public PolyPoint getPoint(int index) {
         PolyPoint res = null;
 
         if (index >= 0 && index < getPolySize()) {
-            res = (PolyPoint) polyList.get(index);
+            res = polyList.get(index);
         }
         return res;
     }
@@ -572,8 +555,7 @@ public class Draht extends Object implements Serializable {
 
     // liefert null bei nicht gelingen!
     public Line isOverLine(Point p) {
-        for (int i = 0; i < lineList.size(); i++) {
-            Line line = (Line) lineList.get(i);
+        for (Line line : lineList) {
             if (line.isPointInLine(p)) {
                 return line;
             }
@@ -586,8 +568,7 @@ public class Draht extends Object implements Serializable {
     public int isVertikalLineNearPoint(Point p) {
         int minX = 99999;
 
-        for (int i = 0; i < lineList.size(); i++) {
-            Line line = (Line) lineList.get(i);
+        for (Line line : lineList) {
             int res = line.isVertikalLineNearPoint(p, 20);
 
             if (res > -1 && res < minX) {
@@ -601,8 +582,7 @@ public class Draht extends Object implements Serializable {
     }
 
     public Line getLineInDerNaehe(Point p) {
-        for (int i = 0; i < lineList.size(); i++) {
-            Line line = (Line) lineList.get(i);
+        for (Line line : lineList) {
             if (line.isPointInNaehe(p)) {
                 return line;
             }
@@ -678,15 +658,14 @@ public class Draht extends Object implements Serializable {
                     // g2.setStroke(strockeDick);
                 }
 
-                if (valid == false) {
+                if (!valid) {
                     g2.setStroke(strockeDick);
                     g2.setColor(Color.RED);
                 }
 
                 int x = 0;
                 int y = 0;
-                for (int i = 0; i < lineList.size(); i++) {
-                    Line line = (Line) lineList.get(i);
+                for (Line line : lineList) {
                     line.draw(g2);
 
                     JPin bb = elementDst.getPin(getDestPin());

@@ -27,7 +27,7 @@ import java.awt.event.MouseEvent;
 /**
  * @author Carmelo
  */
-public class StatusNOP extends Object implements StatusBasisIF {
+public class StatusNOP implements StatusBasisIF {
 
     /**
      * Creates a new instance of StatusNOP

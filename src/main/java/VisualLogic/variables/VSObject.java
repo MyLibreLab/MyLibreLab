@@ -22,7 +22,7 @@ package VisualLogic.variables;
 
 import java.io.Serializable;
 
-public class VSObject extends Object implements Serializable {
+public class VSObject implements Serializable {
     private boolean changed = false;
     private int pinIndex = 0;// nur f�r SocketServer und SocketClient Elemente!
     private int pin = -1;

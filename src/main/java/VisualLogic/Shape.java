@@ -46,7 +46,7 @@ public class Shape extends VisualObject {
     private int minWidth = 10;
     private int minHeight = 10;
 
-    public ArrayList subElemente = new ArrayList();
+    public ArrayList<Object> subElemente = new ArrayList<>();
 
     private String internalCaption = "";
 
@@ -226,8 +226,8 @@ public class Shape extends VisualObject {
         int maxX = -99999;
         int maxY = -99999;
 
-        for (int i = 0; i < subElemente.size(); i++) {
-            SubElement el = (SubElement) subElemente.get(i);
+        for (Object o : subElemente) {
+            SubElement el = (SubElement) o;
 
             if (el.x < minX) minX = el.x;
             if (el.y < minY) minY = el.y;

@@ -37,7 +37,7 @@ import VisualLogic.VMObject;
 
 public class StatusEditPathAddMode implements StatusBasisIF {
     public VMObject vmobject;
-    private ArrayList drahtPoints = new ArrayList();
+    private ArrayList<Point> drahtPoints = new ArrayList<>();
     private static final int HOZ = 0;
     private static final int VERT = 1;
     private int aktuellesPinType = HOZ;
@@ -157,7 +157,6 @@ public class StatusEditPathAddMode implements StatusBasisIF {
     public void mouseMoved(MouseEvent e) {
         if (status != null) {
             status.mouseMoved(e);
-            return;
         }
     }
 
@@ -271,7 +270,6 @@ public class StatusEditPathAddMode implements StatusBasisIF {
     public void draw(Graphics g) {
         if (status != null) {
             status.draw(g);
-            return;
         }
     }
 

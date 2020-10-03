@@ -31,7 +31,7 @@ import java.util.ArrayList;
  */
 
 public class FileSystemOutput {
-    private ArrayList liste = new ArrayList();
+    private ArrayList<SFileDescriptor> liste = new ArrayList<>();
     private FileOutputStream fos = null;
     private SFileDescriptor oldItem;
 
@@ -95,9 +95,7 @@ public class FileSystemOutput {
 
             long pos = fos.getChannel().position();
             dos.writeLong(liste.size()); // IndexSize!
-            for (int i = 0; i < liste.size(); i++) {
-                SFileDescriptor dt = (SFileDescriptor) liste.get(i);
-
+            for (SFileDescriptor dt : liste) {
                 dos.writeByte(dt.filename.length());
                 for (int j = 0; j < dt.filename.length(); j++)
                     dos.writeChar(dt.filename.charAt(j));

@@ -512,8 +512,6 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             fileCopy(node);
         } else if (command.equalsIgnoreCase("FILE_CUT")) {
             fileCut(node);
-        } else if (command.equalsIgnoreCase("OPENFILE")) {
-            reloadProjectPanel();
         } else if (command.equalsIgnoreCase("RELOAD")) {
             reloadProjectPanel();
         } else if (command.equalsIgnoreCase("DIR_ADD")) {
@@ -803,7 +801,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         String fileName = getUserURL().getFile() + File.separator + "projects.file";
         Tools.saveProjectsFile(new File(fileName), projects);
 
-        if (closeAllVms() == true) {
+        if (closeAllVms()) {
             System.exit(Tools.appResult);
         }
     }
@@ -846,9 +844,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     }
 
     public Basis isBasisInDesktop(String path) {
-        for (int i = 0; i < desktop.size(); i++) {
-            Basis basis = desktop.get(i);
-
+        for (Basis basis : desktop) {
             File f1 = new File(basis.fileName);
             File f2 = new File(path);
 
@@ -1089,14 +1085,14 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         if (verzeichniss.exists()) {
             File[] files = verzeichniss.listFiles();
 
-            for (int i = 0; i < files.length; i++) {
-                String filename = files[i].getName();
+            for (File file : files) {
+                String filename = file.getName();
 
                 if (filename.endsWith(".tmp")) {
-                    files[i].delete();
+                    file.delete();
                 }
                 if (filename.endsWith(".vlogic")) {
-                    files[i].delete();
+                    file.delete();
                 }
             }
         }
@@ -1222,20 +1218,20 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
     private void copyUserdefElementsRecursive(String elPath, String actualPath) {
         File elFile = new File(elPath);
-        File files[] = elFile.listFiles();
+        File[] files = elFile.listFiles();
 
         if (!(new File(actualPath).exists())) {
             new File(actualPath).mkdir();
         }
         if (files != null) {
-            for (int i = 0; i < files.length; i++) {
+            for (File file : files) {
                 // Always override old Elements!!!
                 // It doesn't matter if there exist or not!
-                if (files[i].isDirectory()) {
+                if (file.isDirectory()) {
                     try {
-                        String name = files[i].getName();
+                        String name = file.getName();
                         // Tools.copy(files[i], new File(actualPath + "\\" + name));
-                        Tools.copy(files[i], new File(actualPath + File.separator + name));
+                        Tools.copy(file, new File(actualPath + File.separator + name));
                     } catch (IOException ex) {
                         // Logger.getLogger(FrameMain.class.getName()).log(Level.SEVERE, null, ex);
                     }

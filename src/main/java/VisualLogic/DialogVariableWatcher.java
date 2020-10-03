@@ -31,8 +31,8 @@ import MyParser.OpenVariable;
  */
 public class DialogVariableWatcher extends javax.swing.JDialog {
 
-    public ArrayList variablenListe = new ArrayList();
-    private DefaultListModel model = new DefaultListModel();
+    public ArrayList<OpenVariable> variablenListe = new ArrayList<>();
+    private DefaultListModel<String> model = new DefaultListModel<>();
 
     /**
      * Creates new form DialogVariableWatcher
@@ -49,14 +49,14 @@ public class DialogVariableWatcher extends javax.swing.JDialog {
         OpenVariable node;
 
         model.clear();
-        for (int i = 0; i < variablenListe.size(); i++) {
-            node = (OpenVariable) variablenListe.get(i);
+        for (OpenVariable openVariable : variablenListe) {
+            node = openVariable;
 
             model.addElement(node.name + "=" + node.value);
         }
     }
 
-    public void execute(ArrayList variablenListe) {
+    public void execute(ArrayList<OpenVariable> variablenListe) {
         this.variablenListe = variablenListe;
     }
 

@@ -151,9 +151,9 @@ public class DialogProjectProperties extends javax.swing.JDialog {
         String[] files = f.list();
 
         jComboBox1.addItem("");
-        for (int i = 0; i < files.length; i++) {
-            if (files[i].endsWith("vlogic")) {
-                jComboBox1.addItem(files[i]);
+        for (String file : files) {
+            if (file.endsWith("vlogic")) {
+                jComboBox1.addItem(file);
             }
         }
     }

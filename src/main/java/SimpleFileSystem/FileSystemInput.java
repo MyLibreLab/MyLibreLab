@@ -31,7 +31,7 @@ import java.util.ArrayList;
  */
 public class FileSystemInput {
 
-    private ArrayList liste = new ArrayList();
+    private ArrayList<SFileDescriptor> liste = new ArrayList<>();
     private FileInputStream fis = null;
 
     /**
@@ -58,11 +58,12 @@ public class FileSystemInput {
                 SFileDescriptor dt = new SFileDescriptor();
 
                 byte strLen = dis.readByte();
-                dt.filename = "";
+                StringBuilder stringBuilder = new StringBuilder();
                 for (int j = 0; j < strLen; j++) {
-                    dt.filename += dis.readChar();
+                    stringBuilder.append(dis.readChar());
                 }
 
+                dt.filename = stringBuilder.toString();
                 dt.position = dis.readLong();
                 dt.size = dis.readLong();
 
@@ -81,10 +82,10 @@ public class FileSystemInput {
     }
 
     public SFileDescriptor[] getAllBeginsWith(String str) {
-        ArrayList lst = new ArrayList();
+        ArrayList<SFileDescriptor> lst = new ArrayList<>();
         for (int i = 0; i < liste.size(); i++) {
             SFileDescriptor dt = getFileDescriptor(i);
-            if (dt.filename.indexOf(str) != -1) {
+            if (dt.filename.contains(str)) {
                 lst.add(dt);
             }
         }

@@ -33,7 +33,7 @@ import VisualLogic.PolyPoint;
 import VisualLogic.SelectionPane;
 import VisualLogic.VMObject;
 
-public class StatusMoveElements extends Object implements StatusBasisIF {
+public class StatusMoveElements implements StatusBasisIF {
     private VMObject vmobject;
     private int oldX, oldY;
     private int x = 0;
@@ -83,7 +83,7 @@ public class StatusMoveElements extends Object implements StatusBasisIF {
             // Move All Selected Elements
             for (int i = 0; i < vmobject.getElementCount(); i++) {
                 el = vmobject.getElement(i);
-                if (el.isSelected() == true) {
+                if (el.isSelected()) {
                     int nX, nY;
 
                     nX = x + el.oldX - oldX;
@@ -205,7 +205,7 @@ public class StatusMoveElements extends Object implements StatusBasisIF {
                     for (int j = 0; j < draht.getPolySize(); j++) {
 
                         PolyPoint p = draht.getPoint(j);
-                        if (p.isSelected() == true) {
+                        if (p.isSelected()) {
                             int nX, nY;
 
                             nX = x + p.oldX - oldX;
@@ -250,7 +250,7 @@ public class StatusMoveElements extends Object implements StatusBasisIF {
 
             for (int i = 0; i < vmobject.getElementCount(); i++) {
                 el = vmobject.getElement(i);
-                if (el.isSelected() == true) {
+                if (el.isSelected()) {
                     el.oldX = el.getX();
                     el.oldY = el.getY();
 
@@ -268,7 +268,7 @@ public class StatusMoveElements extends Object implements StatusBasisIF {
 
                 for (int j = 0; j < draht.getPolySize(); j++) {
                     PolyPoint p = draht.getPoint(j);
-                    if (p.isSelected() == true) {
+                    if (p.isSelected()) {
                         p.oldX = p.getX();
                         p.oldY = p.getY();
                     }
@@ -287,7 +287,7 @@ public class StatusMoveElements extends Object implements StatusBasisIF {
         Element el;
         for (int i = 0; i < vmobject.getElementCount(); i++) {
             el = vmobject.getElement(i);
-            if (el.isSelected() == true) {
+            if (el.isSelected()) {
                 el.setSimplePaintModus(false);
                 if (firstTime) {
                     firstTime = false;

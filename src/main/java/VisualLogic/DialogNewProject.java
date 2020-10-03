@@ -279,7 +279,6 @@ public class DialogNewProject extends javax.swing.JDialog {
                     // beep
                     super.approveSelection();
                 }
-                return;
             }
         };
 

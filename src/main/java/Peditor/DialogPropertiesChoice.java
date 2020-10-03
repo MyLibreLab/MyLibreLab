@@ -53,8 +53,8 @@ public class DialogPropertiesChoice extends javax.swing.JDialog implements ListS
     private PropertyEditor propertyEditor;
     private VMObject vmobject;
     private boolean loading = false;
-    public static ArrayList props = new ArrayList();
-    private DefaultListModel model = new DefaultListModel();
+    public static ArrayList<BasisProperty> props = new ArrayList<>();
+    private DefaultListModel<BasisProperty> model = new DefaultListModel<>();
 
     public static boolean result = false;
 
@@ -220,6 +220,7 @@ public class DialogPropertiesChoice extends javax.swing.JDialog implements ListS
 
                 if (p.elementID != prop.elementID || p.propertyIndex != prop.propertyIndex) {
                     result = true;
+                    break;
                 }
             }
         } else {
@@ -263,7 +264,7 @@ public class DialogPropertiesChoice extends javax.swing.JDialog implements ListS
 
         Element element = (Element) jComboBox1.getSelectedItem();
 
-        if (element != null && loading == false) {
+        if (element != null && !loading) {
             listElementProperties(element);
         }
     }// GEN-LAST:event_jComboBox1ActionPerformed
@@ -295,8 +296,7 @@ public class DialogPropertiesChoice extends javax.swing.JDialog implements ListS
         // jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_OFF);
 
         model.clear();
-        for (int i = 0; i < props.size(); i++) {
-            BasisProperty p = (BasisProperty) props.get(i);
+        for (BasisProperty p : props) {
             model.addElement(p);
 
             Object[] data = new Object[2];

@@ -182,11 +182,11 @@ public class DialogAddEditvariable extends javax.swing.JDialog {
 
         String item = (String) jComboBox1.getSelectedItem();
 
-        if (item.indexOf("1D_") > -1) {
+        if (item.contains("1D_")) {
             arr_size1 = Integer.parseInt(jTextField2.getText());
         }
 
-        if (item.indexOf("2D_") > -1) {
+        if (item.contains("2D_")) {
             arr_size1 = Integer.parseInt(jTextField2.getText());
             arr_size2 = Integer.parseInt(jTextField3.getText());
         }
@@ -211,12 +211,12 @@ public class DialogAddEditvariable extends javax.swing.JDialog {
         String size1 = jTextField2.getText();
         String size2 = jTextField3.getText();
 
-        if (item.indexOf("1D_") > -1 && !isNumeric(size1)) {
+        if (item.contains("1D_") && !isNumeric(size1)) {
             Tools.showMessage("Please Fill Size 1");
             return;
         }
 
-        if (item.indexOf("2D_") > -1 && (!isNumeric(size1) || !isNumeric(size2))) {
+        if (item.contains("2D_") && (!isNumeric(size1) || !isNumeric(size2))) {
             Tools.showMessage("Please Fill Size 1 and Size 2");
             return;
         }
@@ -239,12 +239,12 @@ public class DialogAddEditvariable extends javax.swing.JDialog {
         jTextField3.setVisible(false);
         jLabel4.setVisible(false);
 
-        if (item.indexOf("1D_") > -1) {
+        if (item.contains("1D_")) {
             jTextField2.setVisible(true);
             jLabel3.setVisible(true);
         }
 
-        if (item.indexOf("2D_") > -1) {
+        if (item.contains("2D_")) {
             jTextField2.setVisible(true);
             jLabel3.setVisible(true);
 

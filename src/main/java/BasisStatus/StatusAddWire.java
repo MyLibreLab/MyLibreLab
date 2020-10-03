@@ -41,9 +41,9 @@ class MyLine {
 }
 
 
-public class StatusAddWire extends Object implements StatusBasisIF {
+public class StatusAddWire implements StatusBasisIF {
     public VMObject vmobject;
-    private ArrayList drahtPoints = new ArrayList();
+    private ArrayList<Point> drahtPoints = new ArrayList<Point>();
     private static final int HOZ = 0;
     private static final int VERT = 1;
     private int aktuellesPinType = HOZ;

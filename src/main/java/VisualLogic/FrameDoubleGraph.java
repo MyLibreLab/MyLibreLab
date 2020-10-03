@@ -53,7 +53,7 @@ public class FrameDoubleGraph extends javax.swing.JFrame {
     private int internalC = 0;
     private int refreshC = 0;
     private boolean dontRefresh = false;
-    private DefaultListModel model = new DefaultListModel();
+    private DefaultListModel<ColoredListCell> model = new DefaultListModel<>();
 
     private int bufflen = 100;
     private int newbufflen = bufflen;
@@ -232,7 +232,7 @@ public class FrameDoubleGraph extends javax.swing.JFrame {
 
     private void jSpinner3StateChanged(javax.swing.event.ChangeEvent evt)// GEN-FIRST:event_jSpinner3StateChanged
     {// GEN-HEADEREND:event_jSpinner3StateChanged
-        newbufflen = ((Integer) jSpinner3.getValue()).intValue();
+        newbufflen = (Integer) jSpinner3.getValue();
     }// GEN-LAST:event_jSpinner3StateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jButton1ActionPerformed
@@ -242,12 +242,12 @@ public class FrameDoubleGraph extends javax.swing.JFrame {
 
     private void jSpinner2StateChanged(javax.swing.event.ChangeEvent evt)// GEN-FIRST:event_jSpinner2StateChanged
     {// GEN-HEADEREND:event_jSpinner2StateChanged
-        refreshFreq = ((Integer) jSpinner2.getValue()).intValue();
+        refreshFreq = (Integer) jSpinner2.getValue();
     }// GEN-LAST:event_jSpinner2StateChanged
 
     private void jSpinner1StateChanged(javax.swing.event.ChangeEvent evt)// GEN-FIRST:event_jSpinner1StateChanged
     {// GEN-HEADEREND:event_jSpinner1StateChanged
-        abtastFreq = ((Integer) jSpinner1.getValue()).intValue();
+        abtastFreq = (Integer) jSpinner1.getValue();
     }// GEN-LAST:event_jSpinner1StateChanged
 
     // Returns the Columns Index
@@ -423,13 +423,13 @@ public class FrameDoubleGraph extends javax.swing.JFrame {
 
             if (counter < bufflen) {
                 fillBuffer(xValues, counter, counter);
-                for (int i = 0; i < graphs.length; i++) {
-                    fillBuffer(graphs[i].yValues, counter, graphs[i].value);
+                for (TheGraphDouble graph : graphs) {
+                    fillBuffer(graph.yValues, counter, graph.value);
                 }
             } else {
                 scrollBuffer(xValues, counter, counter);
-                for (int i = 0; i < graphs.length; i++) {
-                    scrollBuffer(graphs[i].yValues, counter, graphs[i].value);
+                for (TheGraphDouble graph : graphs) {
+                    scrollBuffer(graph.yValues, counter, graph.value);
                 }
             }
 

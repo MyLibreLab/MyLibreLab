@@ -48,9 +48,7 @@ public class Loader {
             Class<?> c = cl.loadClass(klassename);
 
             o = c.newInstance();
-        } catch (Exception ex) {
-            System.out.println("" + ex);
-        } catch (UnsupportedClassVersionError ex) {
+        } catch (Exception | UnsupportedClassVersionError ex) {
             System.out.println("" + ex);
         }
         return o;
