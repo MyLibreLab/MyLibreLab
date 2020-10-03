@@ -25,9 +25,10 @@ import java.util.Hashtable;
 
 import javax.script.Bindings;
 
+import org.tinylog.Logger;
+
 import MyParser.OpenVariable;
 import VisualLogic.ExternalIF;
-import org.tinylog.Logger;
 
 public class VSFlowInfo extends VSObject {
     public ArrayList<OpenVariable> parameterDefinitions = new ArrayList<>(); // enth�lt OpenVariable

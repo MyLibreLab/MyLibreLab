@@ -20,8 +20,6 @@
 
 package ziputils;
 
-import org.tinylog.Logger;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -30,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
+import org.tinylog.Logger;
 
 public class ZipFiles {
 
@@ -63,7 +63,7 @@ public class ZipFiles {
             ZipOutputStream zos = new ZipOutputStream(fos);
             for (String filePath : filesListInDir) {
                 Logger.info("Zipping " + filePath);
-                //for ZipEntry we need to keep only relative file path, so we used substring on absolute path
+                // for ZipEntry we need to keep only relative file path, so we used substring on absolute path
                 ZipEntry ze = new ZipEntry(filePath.substring(dir.getAbsolutePath().length() + 1, filePath.length()));
                 zos.putNextEntry(ze);
                 // read the file and write to ZipOutputStream

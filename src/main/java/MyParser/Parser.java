@@ -24,9 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.tinylog.Logger;
+
 import VisualLogic.Basis;
 import VisualLogic.variables.VSFlowInfo;
-import org.tinylog.Logger;
 
 class Token {
     public boolean isNum = false;

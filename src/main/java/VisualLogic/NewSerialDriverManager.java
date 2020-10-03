@@ -22,10 +22,11 @@ package VisualLogic;
 
 import java.util.ArrayList;
 
+import org.tinylog.Logger;
+
 import VisualLogic.variables.VSserialPort;
 import jssc.SerialPort;
 import jssc.SerialPortException;
-import org.tinylog.Logger;
 
 /**
  * @author Javier Velasquez

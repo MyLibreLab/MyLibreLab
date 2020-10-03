@@ -20,8 +20,6 @@
 
 package VisualLogic;
 
-import org.tinylog.Logger;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -34,6 +32,8 @@ import java.util.ArrayList;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+
+import org.tinylog.Logger;
 
 /**
  * @author Carmelo

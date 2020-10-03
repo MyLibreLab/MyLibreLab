@@ -25,8 +25,6 @@ package ParserCode;
 
 // line 2 "Expression.jay"
 
-import org.tinylog.Logger;
-
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StreamTokenizer;

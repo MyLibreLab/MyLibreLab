@@ -385,7 +385,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
     public String searchElement(File file) {
         org.tinylog.Logger.info("Element not found : " + file.getName());
-        //boolean res = setQuestionDialogYES_NO_CANCEL(this, "Element not found : " + file.getName() + "\n" + "do you want to search the Element?");
+        // boolean res = setQuestionDialogYES_NO_CANCEL(this, "Element not found : " + file.getName() + "\n"
+        // + "do you want to search the Element?");
         boolean res = false;
         if (res) {
             DialogElementSearchAssistent frm = new DialogElementSearchAssistent(this, true);
@@ -922,7 +923,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                     if (button.panel != null) {
                         closeVM(button.panel);
                     } else {
-                        org.tinylog.Logger.info("Null Button - VisualLogic.FrameMain$2.actionPerformed(FrameMain.java:898)");
+                        org.tinylog.Logger
+                                .info("Null Button - VisualLogic.FrameMain$2.actionPerformed(FrameMain.java:898)");
                     }
                     // button.panel = null; //If user Cancel this button will be null when try to close, It must not be
                     // setted null
@@ -1965,7 +1967,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             // UIManager.setLookAndFeel(nativeLF);
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 org.tinylog.Logger.info(info.getName());
-                //UIManager.setLookAndFeel( "com.seaglasslookandfeel.SeaGlassLookAndFeel" );
+                // UIManager.setLookAndFeel( "com.seaglasslookandfeel.SeaGlassLookAndFeel" );
 
                 // System.out.println("SYSTEM_laf:"+UIManager.getSystemLookAndFeelClassName()); //SYSTEM
 
@@ -5875,7 +5877,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
     // MyOpenLabIF
     public void ownerMessage(String message) {
-        //Tools.showMessage(this, message);
+        // Tools.showMessage(this, message);
         org.tinylog.Logger.info("Message=" + message);
     }
 

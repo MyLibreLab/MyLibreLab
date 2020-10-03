@@ -66,6 +66,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
+import org.tinylog.Logger;
+
 import BasisStatus.StatusAddElement;
 import BasisStatus.StatusAddWire;
 import BasisStatus.StatusBasisIF;
@@ -88,7 +90,6 @@ import VisualLogic.variables.VSFlowInfo;
 import VisualLogic.variables.VSInteger;
 import VisualLogic.variables.VSProperties;
 import VisualLogic.variables.VSString;
-import org.tinylog.Logger;
 
 // import com.sun.image.codec.jpeg.*;
 
