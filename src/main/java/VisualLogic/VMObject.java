@@ -90,6 +90,7 @@ import VisualLogic.variables.VSFlowInfo;
 import VisualLogic.variables.VSInteger;
 import VisualLogic.variables.VSProperties;
 import VisualLogic.variables.VSString;
+import org.tinylog.Logger;
 
 // import com.sun.image.codec.jpeg.*;
 

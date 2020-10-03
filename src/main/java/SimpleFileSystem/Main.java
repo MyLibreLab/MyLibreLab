@@ -22,6 +22,7 @@ package SimpleFileSystem;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import org.tinylog.Logger;
 
 import org.tinylog.Logger;
 
