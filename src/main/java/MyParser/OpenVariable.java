@@ -102,9 +102,9 @@ public class OpenVariable {
     public String toString() {
         String dt = dtToString(datatype);
 
-        if (dt.indexOf("1D_") > -1) {
+        if (dt.contains("1D_")) {
             return name + " (" + dt + "[" + size1 + "])";
-        } else if (dt.indexOf("2D_") > -1) {
+        } else if (dt.contains("2D_")) {
             return name + " (" + dt + "[" + size1 + "][" + size2 + "])";
         } else {
             return name + " (" + dt + ")";
@@ -116,16 +116,16 @@ public class OpenVariable {
         switch (datatype) {
             case C_DOUBLE:
 
-                value = new Double(0);
+                value = (double) 0;
                 break;
             case C_STRING:
                 value = "";
                 break;
             case C_BOOLEAN:
-                value = new Boolean(false);
+                value = Boolean.FALSE;
                 break;
             case C_INTEGER:
-                value = new Integer(0);
+                value = 0;
                 break;
             case C_DOUBLE_1D:
                 value = new VS1DDouble(size1);

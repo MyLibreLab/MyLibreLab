@@ -194,7 +194,7 @@ public class FrameRunning extends javax.swing.JFrame {
     private void jSpinnerDebugDelayStateChanged(javax.swing.event.ChangeEvent evt)// GEN-FIRST:event_jSpinnerDebugDelayStateChanged
     {// GEN-HEADEREND:event_jSpinnerDebugDelayStateChanged
 
-        basis.delay = ((Integer) jSpinnerDebugDelay.getValue()).intValue();
+        basis.delay = (Integer) jSpinnerDebugDelay.getValue();
     }// GEN-LAST:event_jSpinnerDebugDelayStateChanged
 
     private void jButtonAnalogWindowActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jButtonAnalogWindowActionPerformed

@@ -130,7 +130,7 @@ public class FrmTestpoints extends javax.swing.JFrame {
     }
 
     public void addValue(String columnTitle, String value) {
-        if (gesperrt == false) {
+        if (!gesperrt) {
             int colIndex = columnExist(columnTitle);
             if (colIndex > -1) {
                 addValueToColumn(colIndex, value);

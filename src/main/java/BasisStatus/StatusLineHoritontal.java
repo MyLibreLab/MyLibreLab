@@ -44,8 +44,8 @@ import VisualLogic.VSDataType;
 /**
  * @author Carmelo
  */
-public class StatusLineHoritontal extends Object implements StatusBasisIF {
-    private ArrayList drahtPoints;
+public class StatusLineHoritontal implements StatusBasisIF {
+    private ArrayList<Point> drahtPoints;
     private VMObject vmobject;
     private Point startPoint = new Point(0, 0);
     private Cursor CheckCursor;
@@ -62,7 +62,7 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
     /**
      * Creates a new instance of StatusHoritontalLine
      */
-    public StatusLineHoritontal(VMObject vmobject, ArrayList drahtPoints, int sourceElementID, int sourcePin,
+    public StatusLineHoritontal(VMObject vmobject, ArrayList<Point> drahtPoints, int sourceElementID, int sourcePin,
             Point start) {
         this.vmobject = vmobject;
         this.drahtPoints = drahtPoints;
@@ -82,7 +82,7 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
         sourceDataType = pin.dataType;
     }
 
-    private void copyPoints(ArrayList source, ArrayList dest) {
+    private void copyPoints(ArrayList<Point> source, ArrayList<Point> dest) {
         dest.clear();
         dest.addAll(source);
     }
@@ -166,9 +166,9 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
 
         int x;
         int y;
-        for (int i = 0; i < drahtPoints.size(); i++) {
-            x = ((Point) drahtPoints.get(i)).x;
-            y = ((Point) drahtPoints.get(i)).y;
+        for (Point drahtPoint : drahtPoints) {
+            x = drahtPoint.x;
+            y = drahtPoint.y;
             draht.addPoint(x, y);
         }
 
@@ -202,9 +202,9 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
 
         int x;
         int y;
-        for (int i = 0; i < drahtPoints.size(); i++) {
-            x = ((Point) drahtPoints.get(i)).x;
-            y = ((Point) drahtPoints.get(i)).y;
+        for (Point drahtPoint : drahtPoints) {
+            x = drahtPoint.x;
+            y = drahtPoint.y;
             draht.addPoint(x, y);
         }
         vmobject.setCursor(Cursor.getDefaultCursor());
@@ -217,9 +217,9 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
         Polygon result = new Polygon();
         int x;
         int y;
-        for (int i = 0; i < drahtPoints.size(); i++) {
-            x = ((Point) drahtPoints.get(i)).x;
-            y = ((Point) drahtPoints.get(i)).y;
+        for (Point drahtPoint : drahtPoints) {
+            x = drahtPoint.x;
+            y = drahtPoint.y;
             result.addPoint(x, y);
         }
 
@@ -313,7 +313,7 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
             modus = NOPE;
         }
 
-        if (hasLastPoint == false)
+        if (!hasLastPoint)
         // if (aktuellesPinType==HOZ )
         {
             Point p = getDrahtPoint(drahtPoints.size() - 1);
@@ -339,7 +339,7 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
 
             if (line.getDirection() == Line.VERTIKAL) // Vertikal
             {
-                if (hasLastPoint == false) {
+                if (!hasLastPoint) {
                     hasLastPoint = true;
                     int x1 = line.myStart.x;
                     hasLastPoint = true;
@@ -374,7 +374,7 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
             {
                 int x1 = pan.element.getX() + pan.getX();
                 int y1 = pan.element.getY() + pan.getY() + 5;
-                if (hasLastPoint == false) {
+                if (!hasLastPoint) {
                     hasLastPoint = true;
                     addDrahtPoint(x1, y);
 
@@ -386,7 +386,7 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
             {
                 int x1 = pan.element.getX() + pan.getX();
                 int y1 = pan.element.getY() + pan.getY() + 5;
-                if (hasLastPoint == false) {
+                if (!hasLastPoint) {
                     hasLastPoint = true;
                     addDrahtPoint(x1, y);
 
@@ -398,10 +398,10 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
             isIn = true;
         }
 
-        if (isIn == false) {
+        if (!isIn) {
 
             vmobject.owner.frameCircuit.removePinDescription();
-            if (hasLastPoint == true) {
+            if (hasLastPoint) {
                 hasLastPoint = false;
                 drahtPoints.remove(drahtPoints.size() - 1);
             }
@@ -411,7 +411,7 @@ public class StatusLineHoritontal extends Object implements StatusBasisIF {
     }
 
     private Point getDrahtPoint(int index) {
-        return (Point) drahtPoints.get(index);
+        return drahtPoints.get(index);
     }
 
     public void processKeyEvent(KeyEvent ke) {

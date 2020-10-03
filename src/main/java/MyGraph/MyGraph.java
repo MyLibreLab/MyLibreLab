@@ -80,7 +80,7 @@ public class MyGraph extends javax.swing.JPanel {
 
     // ----------- SETTER ---------
     public void setBackgroundTransparent(Boolean value) {
-        graph.back.setBackgroundTransparent(value.booleanValue());
+        graph.back.setBackgroundTransparent(value);
     }
 
     public void setGridBackgroundColor(Color color) {
@@ -100,7 +100,7 @@ public class MyGraph extends javax.swing.JPanel {
     }
 
     public void setNullLineVisible(Boolean value) {
-        graph.back.nullLineVisible = value.booleanValue();
+        graph.back.nullLineVisible = value;
     }
 
     public void setXYAxisFont(Font font) {
@@ -114,21 +114,21 @@ public class MyGraph extends javax.swing.JPanel {
     }
 
     public void setXYAxisVisible(Boolean value) {
-        graph.setXYAxisVisible(value.booleanValue());
-        jLabel1.setVisible(value.booleanValue());
-        labelLeft.setVisible(value.booleanValue());
+        graph.setXYAxisVisible(value);
+        jLabel1.setVisible(value);
+        labelLeft.setVisible(value);
     }
 
     public void setMinX(Double value) {
-        graph.xaxis.setMin(value.doubleValue());
+        graph.xaxis.setMin(value);
     }
 
     public void setMaxX(Double value) {
-        graph.xaxis.setMax(value.doubleValue());
+        graph.xaxis.setMax(value);
     }
 
     public void setAutoZoomX(Boolean value) {
-        graph.setAutoZoomX(value.booleanValue());
+        graph.setAutoZoomX(value);
     }
 
     public void setXAxisFormatString(String value) {
@@ -148,15 +148,15 @@ public class MyGraph extends javax.swing.JPanel {
     }
 
     public void setMinY(Double value) {
-        graph.yaxis.setMin(value.doubleValue());
+        graph.yaxis.setMin(value);
     }
 
     public void setMaxY(Double value) {
-        graph.yaxis.setMax(value.doubleValue());
+        graph.yaxis.setMax(value);
     }
 
     public void setAutoZoomY(Boolean value) {
-        graph.setAutoZoomY(value.booleanValue());
+        graph.setAutoZoomY(value);
     }
 
     public void setYAxisFormatString(String value) {
@@ -176,15 +176,15 @@ public class MyGraph extends javax.swing.JPanel {
     }
 
     public void setCoordinatesVisible(Boolean value) {
-        graph.back.jLabel1.setVisible(value.booleanValue());
+        graph.back.jLabel1.setVisible(value);
     }
 
     public void setPointType(Integer value) {
-        if (graph.graphRenderer.length > 0) graph.graphRenderer[0].pointType = value.intValue();
+        if (graph.graphRenderer.length > 0) graph.graphRenderer[0].pointType = value;
     } // Dummy!
 
     public void setbufferLen(Integer value) {
-        if (graph.graphRenderer.length > 0) graph.graphRenderer[0].bufferLen = value.intValue();
+        if (graph.graphRenderer.length > 0) graph.graphRenderer[0].bufferLen = value;
     } // Dummy!
 
     public void setLineColor(Color color) {
@@ -192,12 +192,12 @@ public class MyGraph extends javax.swing.JPanel {
     } // Dummy!
 
     public void setAutoScroll(Boolean value) {
-        graph.autoscroll = value.booleanValue();
+        graph.autoscroll = value;
     }
 
     // ----------- GETTER ---------
     public Boolean getBackgroundTransparent() {
-        return new Boolean(graph.back.getBackgroundTransparent());
+        return graph.back.getBackgroundTransparent();
     }
 
     public Color getGridBackgroundColor() {
@@ -213,7 +213,7 @@ public class MyGraph extends javax.swing.JPanel {
     }
 
     public Boolean getNullLineVisible() {
-        return new Boolean(graph.back.nullLineVisible);
+        return graph.back.nullLineVisible;
     }
 
     public Color getNullLineColor() {
@@ -229,19 +229,19 @@ public class MyGraph extends javax.swing.JPanel {
     }
 
     public Boolean getXYAxisVisible() {
-        return new Boolean(graph.xyAxisVisible);
+        return graph.xyAxisVisible;
     }
 
     public Double getMinX() {
-        return new Double(graph.xaxis.getMin());
+        return graph.xaxis.getMin();
     }
 
     public Double getMaxX() {
-        return new Double(graph.xaxis.getMax());
+        return graph.xaxis.getMax();
     }
 
     public Boolean getAutoZoomX() {
-        return new Boolean(graph.back.autoScaleX);
+        return graph.back.autoScaleX;
     }
 
     public Font getXAxisTextFont() {
@@ -261,15 +261,15 @@ public class MyGraph extends javax.swing.JPanel {
     }
 
     public Double getMinY() {
-        return new Double(graph.yaxis.getMin());
+        return graph.yaxis.getMin();
     }
 
     public Double getMaxY() {
-        return new Double(graph.yaxis.getMax());
+        return graph.yaxis.getMax();
     }
 
     public Boolean getAutoZoomY() {
-        return new Boolean(graph.back.autoScaleY);
+        return graph.back.autoScaleY;
     }
 
     public String getYAxisFormatString() {
@@ -289,25 +289,25 @@ public class MyGraph extends javax.swing.JPanel {
     }
 
     public Boolean getAutoScroll() {
-        return new Boolean(graph.autoscroll);
+        return graph.autoscroll;
     }
 
     public Boolean getCoordinatesVisible() {
-        return new Boolean(graph.back.jLabel1.isVisible());
+        return graph.back.jLabel1.isVisible();
     }
 
     public Integer getPointType() {
         if (graph.graphRenderer.length > 0)
-            return new Integer(graph.graphRenderer[0].pointType);
+            return graph.graphRenderer[0].pointType;
         else
-            return new Integer(GraphRenderer.P_LINE_VBIG);
+            return GraphRenderer.P_LINE_VBIG;
     }
 
     public Integer getbufferLen() {
         if (graph.graphRenderer.length > 0)
-            return new Integer(graph.graphRenderer[0].bufferLen);
+            return graph.graphRenderer[0].bufferLen;
         else
-            return new Integer(600);
+            return 600;
     }
 
     public Color getLineColor() {

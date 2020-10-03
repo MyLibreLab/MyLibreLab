@@ -46,17 +46,17 @@ public class FrameInfo extends javax.swing.JDialog {
     private String elementPath;
 
     private String addPoints(String str) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < str.length(); i++) {
             char ch = str.charAt(i);
 
             if (ch != '.') {
-                result += ch + ".";
+                result.append(ch).append(".");
             } else {
                 // result+=ch;
             }
         }
-        return result;
+        return result.toString();
     }
 
     private void fillTable() {
@@ -185,8 +185,7 @@ public class FrameInfo extends javax.swing.JDialog {
 
         File[] files = new File(driverPath).listFiles();
 
-        for (int i = 0; i < files.length; i++) {
-            File f = files[i];
+        for (File f : files) {
             if (f.isDirectory()) {
                 DriverInfo info = Tools.openDriverInfo(f);
 

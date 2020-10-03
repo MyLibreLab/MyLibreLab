@@ -156,8 +156,8 @@ public class ElementPalette extends javax.swing.JPanel {
         return null;
     }
 
-    public Vector getSortDefinitionFile(File file) {
-        Vector list = new Vector();
+    public Vector<String> getSortDefinitionFile(File file) {
+        Vector<String> list = new Vector<>();
         try {
             BufferedReader input = new BufferedReader(new FileReader(file.getAbsolutePath() + "/" + "sort.def"));
             String inputString;
@@ -173,7 +173,7 @@ public class ElementPalette extends javax.swing.JPanel {
 
     public BufferedImage loadTransparentImage(String fileName) {
         Image image = Toolkit.getDefaultToolkit().getImage(fileName);
-        image = Transparency.makeColorTransparent(image, new Color(0).white);
+        image = Transparency.makeColorTransparent(image, Color.WHITE);
 
         MediaTracker mc = new MediaTracker(this);
         mc.addImage(image, 0);
@@ -229,11 +229,11 @@ public class ElementPalette extends javax.swing.JPanel {
     }
 
     private void reihenfolgeSortieren(File f, File files[]) {
-        Vector lstReihenfolge = getSortDefinitionFile(f);
+        Vector<String> lstReihenfolge = getSortDefinitionFile(f);
 
         // Sortiere die Files nach der lstReihenfolge!
         for (int i = 0; i < lstReihenfolge.size(); i++) {
-            String str = (String) lstReihenfolge.get(i);
+            String str = lstReihenfolge.get(i);
             int oldidx = SucheStringInFiles_ResultIDX(str, files);
 
             if (oldidx > -1) {
@@ -322,8 +322,8 @@ public class ElementPalette extends javax.swing.JPanel {
         // jPanelButtons.add(backbtn);
 
         if (f.exists()) {
-            File files[];
-            if (listOnlyUUIDs == true) {
+            File[] files;
+            if (listOnlyUUIDs) {
                 files = f.listFiles(new FilenameFilter() {
                     @Override
                     public boolean accept(File dir, String name) {
@@ -343,10 +343,10 @@ public class ElementPalette extends javax.swing.JPanel {
 
             String[] slipttedPath = path.split("/");
 
-            String xxx = "";
-            String ppp = "";
+            StringBuilder xxx = new StringBuilder();
+            StringBuilder ppp = new StringBuilder();
             for (String slipttedPath1 : slipttedPath) {
-                ppp += "/" + slipttedPath1;
+                ppp.append("/").append(slipttedPath1);
                 String strx = Tools.mapFile(elementPath + ppp);
                 File fx = new File(strx);
                 DFProperties thisDirProps = Tools.getProertiesFromDefinitionFile(fx);
@@ -367,10 +367,10 @@ public class ElementPalette extends javax.swing.JPanel {
                         break;
                     }
                 }
-                xxx += caption + "/";
+                xxx.append(caption).append("/");
             }
 
-            jLabel1.setText(xxx);
+            jLabel1.setText(xxx.toString());
             // jLabel1.setToolTipText(path);
 
             reihenfolgeSortieren(f, files);
@@ -382,20 +382,18 @@ public class ElementPalette extends javax.swing.JPanel {
              * if (thisDirProps.redirect.trim().length()>0) { f = new File(thisDirProps.redirect.trim()); }
              */
             if (thisDirProps.vm_dir_editable.length() > 0) {
-                areVMsEditable = Boolean.valueOf(thisDirProps.vm_dir_editable);
+                areVMsEditable = Boolean.parseBoolean(thisDirProps.vm_dir_editable);
             } else {
                 areVMsEditable = false;
             }
 
-            for (int i = 0; i < files.length; i++) {
-                File file = files[i];
-
+            for (File file : files) {
                 if (file.isDirectory()) {
                     // Oeffne die Datei und interpretiere diese
                     DFProperties props = Tools.getProertiesFromDefinitionFile(file);
 
                     if (!gruppenAuswahlMode && !props.isDirectory && (props.classcircuit.length() > 0
-                            || props.classfront.length() > 0 || props.vm.length() > 0 || props.loader.length() > 0)) {
+                        || props.classfront.length() > 0 || props.vm.length() > 0 || props.loader.length() > 0)) {
                         MyButton btn = new MyButton();
 
                         btn.setPreferredSize(new Dimension(38, 38));
@@ -458,7 +456,7 @@ public class ElementPalette extends javax.swing.JPanel {
                         // jPanelButtons.add(btn);
 
                         btn.addMouseListener(new java.awt.event.MouseAdapter() {
-                            public void mousePressed(java.awt.event.MouseEvent e) {
+                            public void mousePressed(MouseEvent e) {
                                 if (e.getButton() == e.BUTTON3) {
                                     MyButton button = (MyButton) e.getSource();
                                     aktiveButton = button;
@@ -505,7 +503,7 @@ public class ElementPalette extends javax.swing.JPanel {
                         btn.caption = props.captionInternationalized;
                         btn.addMouseListener(new java.awt.event.MouseAdapter() {
                             @Override
-                            public void mousePressed(java.awt.event.MouseEvent e) {
+                            public void mousePressed(MouseEvent e) {
                                 if (e.getButton() == MouseEvent.BUTTON3) {
                                     MyButton button = (MyButton) e.getSource();
                                     aktiveButton = button;
@@ -520,7 +518,7 @@ public class ElementPalette extends javax.swing.JPanel {
 
                         btn.addActionListener(new java.awt.event.ActionListener() {
                             @Override
-                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            public void actionPerformed(ActionEvent evt) {
                                 String cmd = evt.getActionCommand();
 
                                 MyButton button = (MyButton) evt.getSource();
@@ -968,7 +966,7 @@ public class ElementPalette extends javax.swing.JPanel {
         if (modus == MODE_COPY) {
             String str = toCopyPath.substring(toCopyPath.lastIndexOf("\\"), toCopyPath.length());
             String path = elementPath + aktuellesVerzeichniss + str;
-            if (new File(path).exists() == false) {
+            if (!new File(path).exists()) {
                 try {
                     Tools.copy(new File(toCopyPath), new File(path));
                     loadFolder(aktuellesVerzeichniss);
@@ -1090,11 +1088,7 @@ public class ElementPalette extends javax.swing.JPanel {
         if (!aktuellesVerzeichniss.equalsIgnoreCase(rootPath)) {
 
             if (evt.getButton() == 3) {
-                if (modus == MODE_COPY) {
-                    jmiPaste.setEnabled(true);
-                } else {
-                    jmiPaste.setEnabled(false);
-                }
+                jmiPaste.setEnabled(modus == MODE_COPY);
                 jPopupMenu2.show(jPanelButtons, evt.getX(), evt.getY());
             }
         }

@@ -214,7 +214,7 @@ public class FrameBooleanGraph extends javax.swing.JFrame {
     private void jSpinner3StateChanged(javax.swing.event.ChangeEvent evt)// GEN-FIRST:event_jSpinner3StateChanged
     {// GEN-HEADEREND:event_jSpinner3StateChanged
 
-        newbufflen = ((Integer) jSpinner3.getValue()).intValue();
+        newbufflen = (Integer) jSpinner3.getValue();
     }// GEN-LAST:event_jSpinner3StateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jButton1ActionPerformed
@@ -224,12 +224,12 @@ public class FrameBooleanGraph extends javax.swing.JFrame {
 
     private void jSpinner2StateChanged(javax.swing.event.ChangeEvent evt)// GEN-FIRST:event_jSpinner2StateChanged
     {// GEN-HEADEREND:event_jSpinner2StateChanged
-        refreshFreq = ((Integer) jSpinner2.getValue()).intValue();
+        refreshFreq = (Integer) jSpinner2.getValue();
     }// GEN-LAST:event_jSpinner2StateChanged
 
     private void jSpinner1StateChanged(javax.swing.event.ChangeEvent evt)// GEN-FIRST:event_jSpinner1StateChanged
     {// GEN-HEADEREND:event_jSpinner1StateChanged
-        abtastFreq = ((Integer) jSpinner1.getValue()).intValue();
+        abtastFreq = (Integer) jSpinner1.getValue();
     }// GEN-LAST:event_jSpinner1StateChanged
 
     // Returns the Columns Index
@@ -301,7 +301,8 @@ public class FrameBooleanGraph extends javax.swing.JFrame {
         int column = getColumnIndex(colTitle);
 
         if (column > -1) {
-            if (value == true)
+            if (value)
+                // TODO ?
                 val = 1 * faktor;
             else
                 val = 0;

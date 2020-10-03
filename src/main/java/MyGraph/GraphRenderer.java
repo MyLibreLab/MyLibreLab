@@ -181,7 +181,7 @@ public class GraphRenderer extends JPanel {
                     StepProm = (int) back.stepXX;
                 }
 
-                if (x != oldX || y != oldY || FirstPoint == true) {
+                if (x != oldX || y != oldY || FirstPoint) {
                     FirstPoint = false;
                     back.convertPoint(x, y, p);
                     cx = p.x;
@@ -190,11 +190,11 @@ public class GraphRenderer extends JPanel {
                         cy = refy;
                     }
 
-                    if (cx > back.getWidth() && back.owner.autoscroll == true) {
+                    if (cx > back.getWidth() && back.owner.autoscroll) {
                         back.positionX--;
                         back.owner.init();
                     }
-                    float RelPx = (refMaxX / xValues.length); // Pixel Relation MaxPixels/Buffer
+                    float RelPx = (refMaxX / (float) xValues.length); // Pixel Relation MaxPixels/Buffer
                     // System.out.println("PointType="+pointType+"X="+cx+"_Y"+cy+"_RefX"+refx+"_RefY"+refy+"_Rel="+RelPx);
                     if (pointType >= 14) {
                         pointType = P_LINE_VBIG;

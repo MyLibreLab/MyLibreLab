@@ -34,11 +34,7 @@ public class DataHistory {
     public DataHistory() {}
 
     public boolean entryExist(String name) {
-        if (getEntry(name) == null) {
-            return false;
-        } else {
-            return true;
-        }
+        return getEntry(name) != null;
     }
 
     public DataEntry addEntry(String name) {
@@ -56,8 +52,8 @@ public class DataHistory {
         name = name.trim();
 
         DataEntry entry;
-        for (int i = 0; i < list.size(); i++) {
-            entry = list.get(i);
+        for (DataEntry dataEntry : list) {
+            entry = dataEntry;
             if (entry.name.trim().equalsIgnoreCase(name)) {
                 return entry;
             }

@@ -40,7 +40,7 @@ public class Expression {
 
     public static List<String> liste = new ArrayList<>();
 
-    public static void main(String args[]) throws Exception {
+    public static void main(String[] args) throws Exception {
         Expression parser = new Expression();
         Scanner scanner = new Scanner(new java.io.StringReader("1+2"));
         while (scanner.ttype != StreamTokenizer.TT_EOF)

@@ -48,7 +48,7 @@ import VisualLogic.SelectionPane;
 import VisualLogic.Tools;
 import VisualLogic.VMObject;
 
-public class StatusIdle extends Object implements StatusBasisIF {
+public class StatusIdle implements StatusBasisIF {
 
     private VMObject vmObject;
     private Line myLine = null;
@@ -183,7 +183,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
                             String htmlEditor = getBasis().owner.getFrameMain().settings.getHTMLEditor();
 
                             if (htmlEditor == null || htmlEditor.equalsIgnoreCase("")
-                                    || new File(htmlEditor).exists() == false) {
+                                    || !new File(htmlEditor).exists()) {
                                 Tools.showMessage(java.util.ResourceBundle.getBundle("BasisStatus/StatusIdle")
                                         .getString("HTML-Editor_not_found!"));
                             } else {
@@ -233,7 +233,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
                                         f.delete();
                                     }
 
-                                    if (f.exists() == false) {
+                                    if (!f.exists()) {
                                         try {
                                             f.createNewFile();
                                         } catch (IOException ex) {
@@ -452,7 +452,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
                 for (int j = 0; j < draht.getPolySize(); j++) {
 
                     PolyPoint p = draht.getPoint(j);
-                    if (p.isSelected() == true) {
+                    if (p.isSelected()) {
                         int nX, nY;
 
                         draht.setPoint(j, p.getX() + x, p.getY() + y);
@@ -686,7 +686,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
             SelectionPane pane = (SelectionPane) e.getSource();
             Element element = pane.getElement();
 
-            if (element.isSelected() == false) {
+            if (!element.isSelected()) {
                 vmObject.owner.disableAllElements();
             }
 
@@ -729,11 +729,7 @@ public class StatusIdle extends Object implements StatusBasisIF {
                 aktuellesElement = element;
 
                 if (e.getButton() == e.BUTTON3) {
-                    if (vmObject.owner.getFrontBasis() == vmObject) {
-                        mnuReihenfolge.setEnabled(true);
-                    } else {
-                        mnuReihenfolge.setEnabled(false);
-                    }
+                    mnuReihenfolge.setEnabled(vmObject.owner.getFrontBasis() == vmObject);
 
                     Element el = getAktuellesElement();
                     if (el != null) {

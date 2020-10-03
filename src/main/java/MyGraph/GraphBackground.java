@@ -112,7 +112,7 @@ public class GraphBackground extends javax.swing.JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        if (backgroundTransparent == false) {
+        if (!backgroundTransparent) {
             g.setColor(getBackground());
             g.fillRect(0, 0, getWidth(), getHeight());
 

@@ -35,11 +35,7 @@ public class vlogicFilter extends FileFilter {
 
         if (i > 0) {
             String extension = s.substring(i + 1).toLowerCase();
-            if (fileExtension.indexOf(extension) > -1) {
-                return true;
-            } else {
-                return false;
-            }
+            return fileExtension.contains(extension);
         }
         return false;
     }
