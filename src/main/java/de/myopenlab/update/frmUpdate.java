@@ -97,8 +97,6 @@ public class frmUpdate extends javax.swing.JFrame {
             int responseCode = con.getResponseCode();
             org.tinylog.Logger.info("Sending GET request to URL {}", url);
             org.tinylog.Logger.info("Response Code: {}", responseCode);
-
-
             StringBuilder response = readBufferToString(con);
 
             return response.toString();
@@ -165,7 +163,6 @@ public class frmUpdate extends javax.swing.JFrame {
             rowData.setCaption_es(caption_es);
             data.add(rowData);
             org.tinylog.Logger.debug(">entry_name={}", entry_name);
-
 
             JSONObject content = childJSONObject.getJSONObject("content");
 

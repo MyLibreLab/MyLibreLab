@@ -666,7 +666,7 @@ public class Expression {
         public int token() {
             switch (ttype) {
                 case TT_EOL:
-                    System.out.println("EOL ");
+                    Logger.info("EOL ");
                 case TT_EOF:
                     assert true; // should not happen
                 case TT_WORD: {

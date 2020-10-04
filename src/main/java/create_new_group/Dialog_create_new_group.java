@@ -762,9 +762,9 @@ public class Dialog_create_new_group extends javax.swing.JDialog {
             success = true;
         }
 
-        System.out.println("Erstellen von " + newPath);
+        org.tinylog.Logger.info("Erstellen von " + newPath);
         if (!success) {
-            System.out.println("Fehler beim erstellen von " + newPath);
+            org.tinylog.Logger.info("Fehler beim erstellen von " + newPath);
         } else {
             PrintWriter writer = null;
             try {

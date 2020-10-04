@@ -33,6 +33,8 @@ import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
+import org.tinylog.Logger;
+
 /**
  * @author Carmelo
  */
@@ -404,7 +406,7 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
                 String res[] = str.split("&");
 
                 if (res.length != 2) {
-                    System.out.println("Error!");
+                    Logger.info("Error!");
                 }
                 if (res.length == 2) {
                     strName = res[0];
@@ -464,7 +466,7 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
                             }
                         }
                     }
-                    System.out.println("" + i + ": Name,Path = " + strName + "   |   " + str);
+                    Logger.info("" + i + ": Name,Path = " + strName + "   |   " + str);
                 }
             }
         }

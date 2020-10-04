@@ -1886,7 +1886,7 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
         if (io == 0 || io == 1 || io == 2 || io == 3) {
             pin.pinIO = io;
         } else {
-            System.out.println("PinIO ist auserhalb von 0 - 3");
+            Logger.info("PinIO ist auserhalb von 0 - 3");
         }
     }
 

@@ -66,6 +66,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
+import org.tinylog.Logger;
+
 import BasisStatus.StatusAddElement;
 import BasisStatus.StatusAddWire;
 import BasisStatus.StatusBasisIF;
@@ -1575,7 +1577,7 @@ public class VMObject extends JPanel
             aktiveElement = addElementIntoCanvas(mainPath, binPath, circuitClass, args);
             aktiveElement.circuitElementID = aktiveElement.getID();
 
-            System.out.println(aktiveElement.owner.owner.getFrontBasis().getElementCount());
+            Logger.info(aktiveElement.owner.owner.getFrontBasis().getElementCount());
 
             if (!panelClass.trim().equalsIgnoreCase("")) {
                 element = frontvmobject.addElementIntoCanvas(mainPath, binPath, panelClass, args);

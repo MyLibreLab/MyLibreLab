@@ -329,7 +329,7 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
 
             definition_def2.iconFilename = new File(xicon).getName();
             definition_def2.classfront = definition_def.classfront;
-            System.out.println("definition_def.classfront=" + definition_def2.classfront);
+            org.tinylog.Logger.info("definition_def.classfront=" + definition_def2.classfront);
 
             /*
              * if (circuitElement==true) { definition_def2.classfront=""; }else {
