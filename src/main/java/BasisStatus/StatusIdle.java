@@ -564,7 +564,7 @@ public class StatusIdle implements StatusBasisIF {
                 e.setSource(element.layeredPane);
             }
 
-            if(SwingUtilities.isLeftMouseButton(e)) {
+            if (SwingUtilities.isLeftMouseButton(e)) {
                 vmObject.setModusMoveElements(e);
             }
         } else if (e.getX() >= vmObject.getWidth() - 10 && e.getY() >= vmObject.getHeight() - 10
