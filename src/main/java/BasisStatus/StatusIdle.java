@@ -34,6 +34,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
@@ -563,7 +564,9 @@ public class StatusIdle implements StatusBasisIF {
                 e.setSource(element.layeredPane);
             }
 
-            vmObject.setModusMoveElements(e);
+            if (SwingUtilities.isLeftMouseButton(e)) {
+                vmObject.setModusMoveElements(e);
+            }
         } else if (e.getX() >= vmObject.getWidth() - 10 && e.getY() >= vmObject.getHeight() - 10
                 && e.getX() <= vmObject.getWidth() && e.getY() <= vmObject.getHeight()) {
             vmObject.setModusResizeBasis(e.getX(), e.getY());
