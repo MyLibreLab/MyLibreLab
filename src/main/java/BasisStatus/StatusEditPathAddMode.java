@@ -31,6 +31,7 @@ import java.util.List;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 
 import VisualLogic.Element;
 import VisualLogic.PathPoint;
@@ -211,7 +212,7 @@ public class StatusEditPathAddMode implements StatusBasisIF {
         int x = e.getX();
         int y = e.getY();
 
-        if (e.getButton() == e.BUTTON3) {
+        if (SwingUtilities.isRightMouseButton(e)) {
             GeneralPath pathX = element.jParsePath();
             Rectangle2D rec = pathX.getBounds2D();
 
@@ -257,7 +258,7 @@ public class StatusEditPathAddMode implements StatusBasisIF {
         }
         int x = e.getX();
         int y = e.getY();
-        if (e.getButton() != e.BUTTON3) {
+        if (!SwingUtilities.isRightMouseButton(e)) {
             PathPoint newPath = new PathPoint();
             newPath.commando = "LINETO";
 

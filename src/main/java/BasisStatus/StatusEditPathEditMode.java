@@ -31,6 +31,7 @@ import java.util.List;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 
 import VisualLogic.Element;
 import VisualLogic.PathPoint;
@@ -367,13 +368,13 @@ public class StatusEditPathEditMode implements StatusBasisIF {
         aktuellerPunkt = getPoint(x, y);
 
         if (aktuellerPunkt > -1) {
-            if (e.getButton() == e.BUTTON3 && selectedParam == 0) {
+            if (SwingUtilities.isRightMouseButton(e) && selectedParam == 0) {
                 popupmenu.show(element.owner, e.getX(), e.getY());
                 return;
             } else
                 return;
         }
-        if (e.getButton() == e.BUTTON3) {
+        if (SwingUtilities.isRightMouseButton(e)) {
             GeneralPath pathX = element.jParsePath();
             Rectangle rec = pathX.getBounds();
 

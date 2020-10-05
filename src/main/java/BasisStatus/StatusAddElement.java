@@ -25,6 +25,8 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import javax.swing.SwingUtilities;
+
 import VisualLogic.Draht;
 import VisualLogic.Element;
 import VisualLogic.SelectionPane;
@@ -148,7 +150,7 @@ public class StatusAddElement implements StatusBasisIF {
         }
 
         vmobject.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-        if (e.getButton() == MouseEvent.BUTTON3) {
+        if (SwingUtilities.isRightMouseButton(e)) {
 
             vmobject.deleteElement(dummyElement);
             vmobject.setModusIdle();

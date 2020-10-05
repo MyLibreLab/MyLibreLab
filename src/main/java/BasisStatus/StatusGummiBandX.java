@@ -30,6 +30,8 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import javax.swing.SwingUtilities;
+
 import VisualLogic.VMObject;
 
 /**
@@ -148,7 +150,7 @@ public class StatusGummiBandX implements StatusBasisIF {
 
         vmObject.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
-        if (e.getButton() == 3) {
+        if (SwingUtilities.isRightMouseButton(e)) {
             vmObject.setModusIdle();
         } else {
             vmObject.markAllinRect(x, y, xx, yy);

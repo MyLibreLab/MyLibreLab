@@ -32,6 +32,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 import org.tinylog.Logger;
 
 import VisualLogic.Draht;
@@ -246,7 +248,7 @@ public class StatusLineHoritontal implements StatusBasisIF {
                 }
             }
 
-            if (e.getButton() == MouseEvent.BUTTON3) {
+            if (SwingUtilities.isRightMouseButton(e)) {
                 vmobject.setModusIdle();
                 vmobject.repaint();
             } else {

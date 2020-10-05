@@ -32,6 +32,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 import VisualLogic.Draht;
 import VisualLogic.Element;
 import VisualLogic.ExternalIF;
@@ -413,7 +415,7 @@ public class StatusLineVertikal implements StatusBasisIF {
                     }
                 }
 
-                if (e.getButton() == e.BUTTON3) {
+                if (SwingUtilities.isRightMouseButton(e)) {
                     vmobject.setModusIdle();
                     vmobject.repaint();
                 } else {
