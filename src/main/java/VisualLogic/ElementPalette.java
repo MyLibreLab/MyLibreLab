@@ -51,6 +51,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import create_new_group.Dialog_create_new_group;
 
@@ -458,7 +459,7 @@ public class ElementPalette extends javax.swing.JPanel {
 
                         btn.addMouseListener(new java.awt.event.MouseAdapter() {
                             public void mousePressed(MouseEvent e) {
-                                if (e.getButton() == e.BUTTON3) {
+                                if (SwingUtilities.isRightMouseButton(e)) {
                                     MyButton button = (MyButton) e.getSource();
                                     aktiveButton = button;
                                     if (areVMsEditable) {
@@ -505,7 +506,7 @@ public class ElementPalette extends javax.swing.JPanel {
                         btn.addMouseListener(new java.awt.event.MouseAdapter() {
                             @Override
                             public void mousePressed(MouseEvent e) {
-                                if (e.getButton() == MouseEvent.BUTTON3) {
+                                if (SwingUtilities.isRightMouseButton(e)) {
                                     MyButton button = (MyButton) e.getSource();
                                     aktiveButton = button;
 
@@ -1088,7 +1089,7 @@ public class ElementPalette extends javax.swing.JPanel {
 
         if (!aktuellesVerzeichniss.equalsIgnoreCase(rootPath)) {
 
-            if (evt.getButton() == 3) {
+            if (SwingUtilities.isRightMouseButton(evt)) {
                 jmiPaste.setEnabled(modus == MODE_COPY);
                 jPopupMenu2.show(jPanelButtons, evt.getX(), evt.getY());
             }

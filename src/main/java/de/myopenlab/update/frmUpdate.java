@@ -1526,9 +1526,7 @@ public class frmUpdate extends javax.swing.JFrame {
     }// GEN-LAST:event_jTable2KeyReleased
 
     private void jTable2MousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable2MousePressed
-        int button = evt.getButton();
-
-        if (button == 3) {
+        if (SwingUtilities.isRightMouseButton(evt)) {
             jPopupMenu1.show(jTable2, evt.getX(), evt.getY());
         }
     }// GEN-LAST:event_jTable2MousePressed

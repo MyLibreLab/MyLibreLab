@@ -27,6 +27,7 @@ import java.util.Comparator;
 
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -841,12 +842,10 @@ public class ProjectPalette extends javax.swing.JPanel {
     private void jTree1MousePressed(java.awt.event.MouseEvent evt)// GEN-FIRST:event_jTree1MousePressed
     {// GEN-HEADEREND:event_jTree1MousePressed
 
-        int button = evt.getButton();
-
         int selRow = jTree1.getRowForLocation(evt.getX(), evt.getY());
         TreePath selPath = jTree1.getPathForLocation(evt.getX(), evt.getY());
 
-        if (button == 3) {
+        if (SwingUtilities.isRightMouseButton(evt)) {
             if (selRow != -1) {
                 jTree1.setSelectionPath(selPath);
 

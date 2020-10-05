@@ -672,7 +672,7 @@ public class StatusIdle implements StatusBasisIF {
             return;
         }
 
-        if (line != null && e.getButton() == 3) {
+        if (line != null && SwingUtilities.isRightMouseButton(e)) {
             aktuelleLinie = line;
             popDraht.show(vmObject, e.getX(), e.getY());
         }
@@ -696,7 +696,7 @@ public class StatusIdle implements StatusBasisIF {
             element.setSelected(true);
         }
 
-        if (e.getSource() instanceof SelectionPane && e.getButton() == e.BUTTON1) {
+        if (e.getSource() instanceof SelectionPane && SwingUtilities.isLeftMouseButton(e)) {
             SelectionPane pane = (SelectionPane) e.getSource();
             Element element = pane.getElement();
 
@@ -704,7 +704,7 @@ public class StatusIdle implements StatusBasisIF {
                 getBasis().owner.frameCircuit.activate_DocFrame(element);
             }
 
-            if (e.getButton() == e.BUTTON1) {
+            if (SwingUtilities.isLeftMouseButton(e)) {
                 if (element != null) {
                     element.processPropertyEditor();
                     if (element.classRef != null) {
@@ -731,7 +731,7 @@ public class StatusIdle implements StatusBasisIF {
                 Element element = pane.getElement();
                 aktuellesElement = element;
 
-                if (e.getButton() == e.BUTTON3) {
+                if (SwingUtilities.isRightMouseButton(e)) {
                     mnuReihenfolge.setEnabled(vmObject.owner.getFrontBasis() == vmObject);
 
                     Element el = getAktuellesElement();
@@ -772,7 +772,7 @@ public class StatusIdle implements StatusBasisIF {
                 vmObject.requestFocus();
                 vmObject.requestFocus();
 
-                if (e.getButton() == e.BUTTON1) {
+                if (SwingUtilities.isLeftMouseButton(e)) {
                     vmObject.processPropertyEditor();
                 }
 
