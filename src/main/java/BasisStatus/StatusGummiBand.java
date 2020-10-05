@@ -53,7 +53,7 @@ public class StatusGummiBand implements StatusBasisIF {
 
     }
 
-    public void finalize() {}
+    protected void finalize() {}
 
     public void elementPinMousePressed(MouseEvent e, int elementID, int pin) {}
 
@@ -89,7 +89,7 @@ public class StatusGummiBand implements StatusBasisIF {
             p.y = y;
         }
 
-        float dash[] = {1.0f, 1.0f};
+        float[] dash = {1.0f, 1.0f};
         g2.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 3.0f, dash, 0.0f));
 
         g2.drawRect(x, y, xx - x, yy - y);

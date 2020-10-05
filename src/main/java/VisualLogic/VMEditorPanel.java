@@ -297,7 +297,7 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
 
         if (src.isDirectory()) {
             dest.mkdirs();
-            String list[] = src.list();
+            String[] list = src.list();
 
             for (int i = 0; i < list.length; i++) {
                 if (javaFilter) {
@@ -403,7 +403,7 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
         for (int i = 0; i < list.size(); i++) {
             str = (String) list.get(i);
             if (!str.trim().equalsIgnoreCase("")) {
-                String res[] = str.split("&");
+                String[] res = str.split("&");
 
                 if (res.length != 2) {
                     Logger.info("Error!");

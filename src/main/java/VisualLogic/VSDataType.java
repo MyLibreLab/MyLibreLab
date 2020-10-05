@@ -55,10 +55,10 @@ import VisualLogic.variables.VSString;
 
 public class VSDataType {
 
-    private static float dash1[] = {2.0f, 1.0f};
+    private static float[] dash1 = {2.0f, 1.0f};
     private static BasicStroke dashed1D =
             new BasicStroke(2.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 2.0f, dash1, 1.0f);
-    private static float dash2[] = {2.0f, 1.0f};
+    private static float[] dash2 = {2.0f, 1.0f};
     private static BasicStroke dashed2D =
             new BasicStroke(3.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1.0f, dash2, 1.0f);
     private static BasicStroke dashedGrp =
@@ -364,7 +364,7 @@ public class VSDataType {
         Color color = Color.black;
 
         Color orange = new Color(248, 197, 140);
-        Color pur = new Color(192, 0, 192);
+        // Color pur = new Color(192, 0, 192);
         Color strColor = new Color(245, 101, 234);
         Color ObjColor = new Color(51, 254, 204);
 
@@ -475,7 +475,7 @@ public class VSDataType {
         Color color = Color.black;
 
         Color orange = new Color(248, 197, 140);
-        Color pur = new Color(192, 0, 192);
+        // Color pur = new Color(192, 0, 192);
         Color strColor = new Color(245, 101, 234);
         Color ObjColor = new Color(51, 254, 204);
 

@@ -48,7 +48,7 @@ public class StatusAddElement implements StatusBasisIF {
 
     public StatusAddElement(VMObject vmobject, String mainPath, String circuitClass, String panelClass, String[] args) {
         String binPath = "bin/";
-        String pfad = mainPath + "/" + binPath;
+        // String pfad = mainPath + "/" + binPath;
 
         this.vmobject = vmobject;
 
@@ -57,7 +57,7 @@ public class StatusAddElement implements StatusBasisIF {
         this.circuitClass = circuitClass;
         this.panelClass = panelClass;
 
-        dummyElement = vmobject.AddDualElement(mainPath, binPath, circuitClass, panelClass, args);
+        dummyElement = vmobject.addDualElement(mainPath, binPath, circuitClass, panelClass, args);
         dummyElement.setSelected(true);
         dummyWidth = dummyElement.getWidth();
         dummyHeight = dummyElement.getHeight();
@@ -136,8 +136,8 @@ public class StatusAddElement implements StatusBasisIF {
     }
 
     public void mousePressed(MouseEvent e) {
-        int x = e.getX();
-        int y = e.getY();
+        // int x = e.getX();
+        // int y = e.getY();
 
         if (e.getSource() instanceof SelectionPane) {
             SelectionPane pane = (SelectionPane) e.getSource();
@@ -145,8 +145,8 @@ public class StatusAddElement implements StatusBasisIF {
 
             vmobject.owner.frameCircuit.activate_DocFrame(el);
 
-            x = el.getX() + e.getX();
-            y = el.getY() + e.getY();
+            // x = el.getX() + e.getX();
+            // y = el.getY() + e.getY();
         }
 
         vmobject.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));

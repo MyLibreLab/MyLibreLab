@@ -28,7 +28,7 @@ import org.tinylog.Logger;
  * @author Salafia
  */
 public class VS2DByte extends VSObject {
-    private byte value[][] = null;
+    private byte[][] value = null;
     private int columns = 0;
     private int rows = 0;
 

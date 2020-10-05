@@ -55,7 +55,7 @@ public class StatusGummiBandX implements StatusBasisIF {
 
     }
 
-    public void finalize() {}
+    protected void finalize() {}
 
     public void elementPinMousePressed(MouseEvent e, int elementID, int pin) {}
 
@@ -91,7 +91,7 @@ public class StatusGummiBandX implements StatusBasisIF {
             p.y = y;
         }
 
-        float dash[] = {1.0f, 1.0f};
+        // float dash[] = {1.0f, 1.0f};
         g2.setStroke(new BasicStroke(3.0f));
         g2.setColor(new Color(255, 200, 200, 100));
         g2.fillRect(x, y, xx - x, yy - y);

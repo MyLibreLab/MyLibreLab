@@ -28,6 +28,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JLabel;
 
@@ -46,7 +47,7 @@ public class Shape extends VisualObject {
     private int minWidth = 10;
     private int minHeight = 10;
 
-    public ArrayList<Object> subElemente = new ArrayList<>();
+    public List<Object> subElemente = new ArrayList<>();
 
     private String internalCaption = "";
 
@@ -165,10 +166,10 @@ public class Shape extends VisualObject {
     public void redimLabel() {
         if (lblName != null) {
             int elementMitteX = getX() + getWidth() / 2;
-            int elementMitteY = getY() + getHeight() / 2;
+            // int elementMitteY = getY() + getHeight() / 2;
 
             int labelMitteX = lblName.getWidth() / 2;
-            int labelMitteY = lblName.getHeight() / 2;
+            // int labelMitteY = lblName.getHeight() / 2;
 
             lblName.setLocation(elementMitteX - labelMitteX, getY() + getHeight() + 5);
         }

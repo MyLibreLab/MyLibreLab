@@ -21,7 +21,7 @@
 package VisualLogic.variables;
 
 public class VS2DDouble extends VSObject {
-    private double value[][] = null;
+    private double[][] value = null;
     private int columns = 0;
     private int rows = 0;
 

@@ -24,7 +24,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.geom.Rectangle2D;
 import java.text.DecimalFormat;
 
 import javax.swing.JPanel;
@@ -38,7 +37,7 @@ public class XAxis {
     private int width;
     private double stepInProzent;
     private double step = 0.0;
-    private String points[] = null;
+    private String[] points = null;
     private FontMetrics fm = null;
     public Font stdFont = new Font("Arial Bold", Font.BOLD, 11);
     private int xDistance = 5;
@@ -210,7 +209,7 @@ public class XAxis {
 
                 if (cc > 0) {
                     fm = owner.getFontMetrics(stdFont);
-                    Rectangle2D r = fm.getStringBounds(value, g);
+                    // Rectangle2D r = fm.getStringBounds(value, g);
                     if (textOrientation == TOP) {
                         g.drawString(value, (int) cc, (int) (y - 5 - fm.getDescent()));
                     } else if (textOrientation == BOTTOM) {
@@ -255,9 +254,9 @@ public class XAxis {
 
         drawLines(g);
 
-        int l = points.length - 1;
-        int d1 = (int) ((step * 0) + getWidth(points[0]) / 2);
-        int d2 = (int) ((step * l) - getWidth(points[l]) / 2);
+        // int l = points.length - 1;
+        // int d1 = (int) ((step * 0) + getWidth(points[0]) / 2);
+        // int d2 = (int) ((step * l) - getWidth(points[l]) / 2);
 
         drawString(g, 0);
         drawString(g, points.length - 1);

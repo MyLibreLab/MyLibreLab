@@ -160,7 +160,7 @@ public class Tools {
             // getJavaFileObjects' param is a vararg
             Iterable fileObjects = sjfm.getJavaFileObjects(javaFile);
 
-            ArrayList<String> options = new ArrayList<String>();
+            List<String> options = new ArrayList<String>();
             options.add("-d");
             options.add(destPath + "/bin");
             options.add("-cp");
@@ -948,11 +948,11 @@ public class Tools {
         return result;
     }
 
-    public static Element addSubVM(VMObject vmobject, String frontClass, String args[]) {
+    public static Element addSubVM(VMObject vmobject, String frontClass, String[] args) {
         Element element;
         // VMElement
 
-        element = vmobject.AddDualElement("/FrontElements/Version_2_0/VMElementUniversal", "bin", "VMElement",
+        element = vmobject.addDualElement("/FrontElements/Version_2_0/VMElementUniversal", "bin", "VMElement",
                 frontClass, args);
 
         return element;
@@ -965,28 +965,28 @@ public class Tools {
      */
     public static Element addNode(VMObject vmobject) {
         Element element;
-        element = vmobject.AddDualElement("/CircuitElements/Node", "bin", "Node", "", null);
+        element = vmobject.addDualElement("/CircuitElements/Node", "bin", "Node", "", null);
 
         return element;
     }
 
     public static Element addInputPin(VMObject vmobject, String[] args) {
         Element element;
-        element = vmobject.AddDualElement("/CircuitElements/Pins/InputPin", "bin", "CElement", "", args);
+        element = vmobject.addDualElement("/CircuitElements/Pins/InputPin", "bin", "CElement", "", args);
 
         return element;
     }
 
     public static Element addOutputPin(VMObject vmobject, String[] args) {
         Element element;
-        element = vmobject.AddDualElement("/CircuitElements/Pins/OutputPin", "bin", "CElement", "", args);
+        element = vmobject.addDualElement("/CircuitElements/Pins/OutputPin", "bin", "CElement", "", args);
 
         return element;
     }
 
     public static Element addTestpoint(VMObject vmobject) {
         Element element;
-        element = vmobject.AddDualElement("/CircuitElements/TP", "bin", "TP", "", null);
+        element = vmobject.addDualElement("/CircuitElements/TP", "bin", "TP", "", null);
 
         return element;
     }
@@ -1225,8 +1225,8 @@ public class Tools {
         }
     }
 
-    public static ArrayList<String> loadProjectsFile(File file) {
-        ArrayList<String> liste = new ArrayList<String>();
+    public static List<String> loadProjectsFile(File file) {
+        List<String> liste = new ArrayList<String>();
 
         String str;
 
@@ -1284,9 +1284,11 @@ public class Tools {
                     switch (lang) {
                         case "de": {
                             caption = caption_de;
+                            break;
                         }
                         case "en": {
                             caption = caption_en;
+                            break;
                         }
                         case "es": {
                             caption = caption_es;

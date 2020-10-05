@@ -27,10 +27,10 @@ import org.tinylog.Logger;
 
 public class DeletePackages implements Runnable {
 
-    public frmUpdate owner;
+    public FrmUpdate owner;
 
 
-    DeletePackages(frmUpdate aThis) {
+    DeletePackages(FrmUpdate aThis) {
         this.owner = aThis;
     }
 
@@ -61,7 +61,7 @@ public class DeletePackages implements Runnable {
                 if (row.isSelected()) {
 
                     String type = row.getType();
-                    String folder = frmUpdate.myopenlabpath + "/Elements/" + type + "/" + row.getName();
+                    String folder = FrmUpdate.myopenlabpath + "/Elements/" + type + "/" + row.getName();
 
                     owner.log("delete=" + folder);
                     Tools2.deleteFolder(new File(folder));

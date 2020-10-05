@@ -23,12 +23,12 @@ package BasisStatus;
 /**
  * @author Carmelo
  */
-public class frmElementInfo extends javax.swing.JDialog {
+public class FrmElementInfo extends javax.swing.JDialog {
 
     /**
      * Creates new form FrameGeneralSettings
      */
-    public frmElementInfo(java.awt.Frame parent, boolean modal) {
+    public FrmElementInfo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         java.awt.event.ActionListener actionListener = new java.awt.event.ActionListener() {

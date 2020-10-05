@@ -69,6 +69,7 @@ public class VSObject implements Serializable {
     }
 
     public boolean equals(VSObject obj) {
+        // TODO check here
         return false;
     }
 

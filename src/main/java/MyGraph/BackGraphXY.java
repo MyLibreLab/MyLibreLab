@@ -37,21 +37,21 @@ public class BackGraphXY extends GraphBackground {
     public double stepYY;
 
     public boolean autoScaleX = false;
-    public boolean FirstTimeScaleX = true;
+    public boolean firstTimeScaleX = true;
     public boolean autoScaleY = false;
     public double positionX = 0.0;
     private DecimalFormat format = new DecimalFormat("#0.0");
     public Color nullLineColor = new Color(0, 0, 254);
     public boolean nullLineVisible = true;
 
-    public Integer AustoscaleInterval = Integer.valueOf(600);
+    public Integer austoscaleInterval = Integer.valueOf(600);
 
     public void setAutoScaleInterval(Integer Interval) {
-        this.AustoscaleInterval = Interval;
+        this.austoscaleInterval = Interval;
     }
 
     public Integer getAutosCaleInterval() {
-        return this.AustoscaleInterval;
+        return this.austoscaleInterval;
     }
 
     public BackGraphXY(MyGraphX owner) {
@@ -111,12 +111,12 @@ public class BackGraphXY extends GraphBackground {
                 }
             }
 
-            if (FirstTimeScaleX) {
+            if (firstTimeScaleX) {
                 minX = 0;
                 maxX = 600;
-                FirstTimeScaleX = false;
+                firstTimeScaleX = false;
             }
-            maxX = minX + this.AustoscaleInterval;
+            maxX = minX + this.austoscaleInterval;
             this.maxX = maxX;
             this.minX = minX;
             // this.maxX=minX+(Math.abs(maxY-minY);

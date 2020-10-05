@@ -21,6 +21,7 @@
 package de.myopenlab.update;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyOpenLabRow {
 
@@ -35,7 +36,7 @@ public class MyOpenLabRow {
     private String dest_path;
     private String categorie;
     private String type;
-    public ArrayList<TestItem> items = null;
+    public List<TestItem> items = null;
 
     public MyOpenLabRow() {
         this("", "", "", "", "", "", "", "");

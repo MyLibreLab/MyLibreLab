@@ -24,7 +24,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
 public class VS1DString extends VSObject {
-    private String value[] = null;
+    private String[] value = null;
 
     public int getLength() {
         return value.length;

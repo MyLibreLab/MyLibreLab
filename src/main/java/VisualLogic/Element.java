@@ -192,7 +192,7 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
         GeneralPath path = parsepath(1.0, 1.0);
 
         if (jIsPathEditing()) {
-            Rectangle r2 = path.getBounds();
+            // Rectangle r2 = path.getBounds();
 
             if (points.size() == 0) {
                 zoomX = 1;
@@ -2576,37 +2576,37 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
     // *********************** Ende ExternalIF ***********************
     // *********************** Begin PinIF ***********************
     @Override
-    public void PinMousePressed(MouseEvent e, JPin pin, int pinIndex) {
+    public void pinMousePressed(MouseEvent e, JPin pin, int pinIndex) {
         owner.elementPinMousePressed(e, this.getID(), pinIndex);
     }
 
     @Override
-    public void PinMouseReleased(MouseEvent e, JPin pin, int pinIndex) {
+    public void pinMouseReleased(MouseEvent e, JPin pin, int pinIndex) {
         owner.elementPinMouseReleased(e, this.getID(), pinIndex);
     }
 
     @Override
-    public void PinMouseClicked(MouseEvent e, JPin pin, int pinIndex) {
+    public void pinMouseClicked(MouseEvent e, JPin pin, int pinIndex) {
         owner.elementPinMouseClicked(e, this.getID(), pinIndex);
     }
 
     @Override
-    public void PinMouseEntered(MouseEvent e, JPin pin, int pinIndex) {
+    public void pinMouseEntered(MouseEvent e, JPin pin, int pinIndex) {
         owner.elementPinMouseEntered(e, this.getID(), pinIndex);
     }
 
     @Override
-    public void PinMouseExited(MouseEvent e, JPin pin, int pinIndex) {
+    public void pinMouseExited(MouseEvent e, JPin pin, int pinIndex) {
         owner.elementPinMouseExited(e, this.getID(), pinIndex);
     }
 
     @Override
-    public void PinMouseDragged(MouseEvent e, JPin pin, int pinIndex) {
+    public void pinMouseDragged(MouseEvent e, JPin pin, int pinIndex) {
         owner.elementPinMouseDragged(e, this.getID(), pinIndex);
     }
 
     @Override
-    public void PinMouseMoved(MouseEvent e, JPin pin, int pinIndex) {
+    public void pinMouseMoved(MouseEvent e, JPin pin, int pinIndex) {
         owner.elementPinMouseMoved(e, this.getID(), pinIndex);
     }
 
@@ -3068,7 +3068,7 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
 
     public void draw90GradRotatedLabel(Graphics g, String text, int x, int y) {
         Graphics2D g2d = (Graphics2D) g.create();
-        FontMetrics fm = getFontMetrics(g.getFont());
+        // FontMetrics fm = getFontMetrics(g.getFont());
 
         // .getAscent(), (getHeight()/2)+(getFontMetrics(g.getFont()).stringWidth(text)/2 ));
         g2d.translate(x + 5, y);

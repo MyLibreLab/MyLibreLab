@@ -59,7 +59,7 @@ public class StatusNone implements StatusBasisIF {
     public void mouseDragged(MouseEvent e) {
 
         if (e.getSource() instanceof Element) {
-            Element el = (Element) e.getSource();
+            // Element el = (Element) e.getSource();
             // e.translatePoint(-e.getX(),-e.getY());
             // e.translatePoint(oldX,oldY);
             // vmObject.setModusMoveElements(e);
@@ -77,7 +77,7 @@ public class StatusNone implements StatusBasisIF {
      **/
     public void mousePressed(MouseEvent e) {
         if (e.getSource() instanceof Element) {
-            Element el = (Element) e.getSource();
+            // Element el = (Element) e.getSource();
             // e.translatePoint(-e.getX(),-e.getY());
             // e.translatePoint(oldX,oldY);
             // vmObject.setModusMoveElements(e);

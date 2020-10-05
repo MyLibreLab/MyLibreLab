@@ -81,8 +81,7 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
     }
 
     public void savedocFile(JEditorPane pane, String filename) {
-        try {
-            FileWriter out = new FileWriter(new File(filename));
+        try (FileWriter out = new FileWriter(new File(filename))) {
             pane.setContentType("text/html");
             pane.write(out);
             out.flush();

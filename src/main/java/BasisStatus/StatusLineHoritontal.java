@@ -93,8 +93,8 @@ public class StatusLineHoritontal implements StatusBasisIF {
 
     private void drawPoints(java.awt.Graphics g) {
         if (g != null) {
-            int xx[] = new int[drahtPoints.size()];
-            int yy[] = new int[drahtPoints.size()];
+            int[] xx = new int[drahtPoints.size()];
+            int[] yy = new int[drahtPoints.size()];
 
             for (int i = 0; i < drahtPoints.size(); i++) {
                 Point p = getDrahtPoint(i);
@@ -377,7 +377,7 @@ public class StatusLineHoritontal implements StatusBasisIF {
             if (pan.pinAlign == 1) // Rechts
             {
                 int x1 = pan.element.getX() + pan.getX();
-                int y1 = pan.element.getY() + pan.getY() + 5;
+                // int y1 = pan.element.getY() + pan.getY() + 5;
                 if (!hasLastPoint) {
                     hasLastPoint = true;
                     addDrahtPoint(x1, y);
@@ -389,7 +389,7 @@ public class StatusLineHoritontal implements StatusBasisIF {
             if (pan.pinAlign == 3) // Links
             {
                 int x1 = pan.element.getX() + pan.getX();
-                int y1 = pan.element.getY() + pan.getY() + 5;
+                // int y1 = pan.element.getY() + pan.getY() + 5;
                 if (!hasLastPoint) {
                     hasLastPoint = true;
                     addDrahtPoint(x1, y);

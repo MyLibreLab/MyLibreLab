@@ -21,7 +21,6 @@
 package VisualLogic;
 
 import java.awt.Image;
-import java.awt.Toolkit;
 
 /**
  * @author Homer
@@ -36,7 +35,7 @@ public class PanelImage extends javax.swing.JFrame {
     public PanelImage(String imageFilename) {
         initComponents();
 
-        Image iconImage = Toolkit.getDefaultToolkit().getImage(imageFilename);
+        // Image iconImage = Toolkit.getDefaultToolkit().getImage(imageFilename);
     }
 
     public void paintComponent(java.awt.Graphics g) {

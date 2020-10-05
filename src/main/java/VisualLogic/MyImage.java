@@ -75,7 +75,7 @@ public class MyImage extends JPanel {
             try {
                 mc.waitForID(0);
             } catch (InterruptedException ex) {
-                System.out.println(ex);
+                org.tinylog.Logger.error(ex);
             }
         }
         setImage(img);

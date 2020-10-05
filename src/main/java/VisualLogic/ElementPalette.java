@@ -53,6 +53,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
+import codeeditor.FrmDefinitonDefEditor;
 import create_new_group.Dialog_create_new_group;
 
 class MyButton extends JButton {
@@ -93,8 +94,8 @@ public class ElementPalette extends javax.swing.JPanel {
     public VMObject vmObject = null;
     private ElementPalette frm = this;
     private MyButton aktiveButton = null;
-    public static int MODE_NONE = 0;
-    public static int MODE_COPY = 1;
+    public static final int MODE_NONE = 0;
+    public static final int MODE_COPY = 1;
     public static int MODE_CUT = 2;
     public int modus = MODE_NONE;
     private String aktuellesVerz = "";
@@ -230,7 +231,7 @@ public class ElementPalette extends javax.swing.JPanel {
         return btn;
     }
 
-    private void reihenfolgeSortieren(File f, File files[]) {
+    private void reihenfolgeSortieren(File f, File[] files) {
         List<String> lstReihenfolge = getSortDefinitionFile(f);
 
         // Sortiere die Files nach der lstReihenfolge!
@@ -523,7 +524,7 @@ public class ElementPalette extends javax.swing.JPanel {
                             public void actionPerformed(ActionEvent evt) {
                                 String cmd = evt.getActionCommand();
 
-                                MyButton button = (MyButton) evt.getSource();
+                                // MyButton button = (MyButton) evt.getSource();
                                 loadFolder(thePath + "/" + cmd);
                             }
                         });
@@ -936,7 +937,7 @@ public class ElementPalette extends javax.swing.JPanel {
                 loadFolder(aktuellesVerzeichniss);
             }
         } else {
-            codeeditor.frmDefinitonDefEditor frm2 = new codeeditor.frmDefinitonDefEditor(frameCircuit, true);
+            FrmDefinitonDefEditor frm2 = new FrmDefinitonDefEditor(frameCircuit, true);
             frm2.execute(aktiveButton.filePath);
             loadFolder(aktuellesVerzeichniss);
         }
@@ -1007,19 +1008,12 @@ public class ElementPalette extends javax.swing.JPanel {
     }// GEN-LAST:event_jToggleButton1ActionPerformed
 
     private static void copyFileUsingStream(File source, File dest) throws IOException {
-        InputStream is = null;
-        OutputStream os = null;
-        try {
-            is = new FileInputStream(source);
-            os = new FileOutputStream(dest);
+        try (InputStream is = new FileInputStream(source); OutputStream os = new FileOutputStream(dest)) {
             byte[] buffer = new byte[1024];
             int length;
             while ((length = is.read(buffer)) > 0) {
                 os.write(buffer, 0, length);
             }
-        } finally {
-            is.close();
-            os.close();
         }
     }
 

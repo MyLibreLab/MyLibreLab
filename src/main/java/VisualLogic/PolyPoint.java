@@ -98,18 +98,18 @@ public class PolyPoint extends VisualObject {
     }
 
     public void paint(Graphics2D g) {
-        int pw = pWidth;
-        int pw2 = pw / 2;
+        // int pw = pWidth;
+        // int pw2 = pw / 2;
 
         if (selected)
             g.setColor(Color.red);
         else
             g.setColor(Color.black);
 
-        int x = getX();
-        int y = getY();
-        int w = getWidth();
-        int h = getHeight();
+        // int x = getX();
+        // int y = getY();
+        // int w = getWidth();
+        // int h = getHeight();
         // if (!(basis.getStatus() instanceof VisualLogic.basisStatus.StatusRun))
         {
             // zeichne den PolyPoint

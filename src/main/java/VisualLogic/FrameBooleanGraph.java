@@ -113,10 +113,10 @@ public class FrameBooleanGraph extends javax.swing.JFrame {
         myGraph1.setYAxisText("");
         myGraph1.setAutoScroll(java.lang.Boolean.TRUE);
         myGraph1.setCoordinatesVisible(java.lang.Boolean.FALSE);
-        myGraph1.setMaxX(new java.lang.Double(500.0));
-        myGraph1.setMaxY(new java.lang.Double(100.0));
-        myGraph1.setMinX(new java.lang.Double(-10.0));
-        myGraph1.setMinY(new java.lang.Double(-10.0));
+        myGraph1.setMaxX(Double.valueOf(500.0));
+        myGraph1.setMaxY(Double.valueOf(100.0));
+        myGraph1.setMinX(Double.valueOf(-10.0));
+        myGraph1.setMinY(Double.valueOf(-10.0));
         myGraph1.setNullLineVisible(java.lang.Boolean.FALSE);
 
         jSpinner1.setPreferredSize(new java.awt.Dimension(25, 20));

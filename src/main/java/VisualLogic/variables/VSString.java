@@ -64,10 +64,7 @@ public class VSString extends VSObject {
     @Override
     public boolean equals(VSObject obj) {
         VSString temp = (VSString) obj;
-        if (temp.value.equals(value))
-            return true;
-        else
-            return false;
+        return temp.value.equals(value);
     }
 
     @Override

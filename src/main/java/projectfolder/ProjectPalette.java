@@ -163,7 +163,7 @@ public class ProjectPalette extends javax.swing.JPanel {
         File file = new File(path);
 
         if (file.exists()) {
-            File[] files = file.listFiles();
+            // File[] files = file.listFiles();
 
             MyNode root = new MyNode(file);
             root.isProject = true;

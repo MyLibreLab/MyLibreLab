@@ -32,7 +32,7 @@ import VisualLogic.Tools;
 /**
  * @author Homer
  */
-public class frmDefinitonDefEditor extends javax.swing.JDialog {
+public class FrmDefinitonDefEditor extends javax.swing.JDialog {
     public MyImage image = new MyImage();
 
     String elementDir = ""; // NOI18N
@@ -40,7 +40,7 @@ public class frmDefinitonDefEditor extends javax.swing.JDialog {
     /**
      * Creates new form frmDefinitonDefEditor
      */
-    public frmDefinitonDefEditor(java.awt.Frame parent, boolean modal) {
+    public FrmDefinitonDefEditor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         jPanel5.add(image, BorderLayout.CENTER);

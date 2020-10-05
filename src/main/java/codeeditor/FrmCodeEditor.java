@@ -40,7 +40,7 @@ import VisualLogic.Tools;
 /**
  * @author Homer
  */
-public class frmCodeEditor extends javax.swing.JFrame {
+public class FrmCodeEditor extends javax.swing.JFrame {
 
     private String elementPath;
     private String elementLocation;
@@ -49,7 +49,7 @@ public class frmCodeEditor extends javax.swing.JFrame {
     /**
      * Creates new form frmCodeEditor
      */
-    public frmCodeEditor(FrameMain parent) {
+    public FrmCodeEditor(FrameMain parent) {
         this.initComponents();
         setIconImage(parent.iconImage);
 

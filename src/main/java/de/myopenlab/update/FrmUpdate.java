@@ -63,7 +63,7 @@ import ziputils.ZipFiles;
 /**
  * @author salafica
  */
-public class frmUpdate extends javax.swing.JFrame {
+public class FrmUpdate extends javax.swing.JFrame {
 
     public static final String ICON_32_PNG = "/icon32.png";
     public static final String STD_LIB_ICON_32_PNG = "/std_lib_icon_32.png";
@@ -610,7 +610,7 @@ public class frmUpdate extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
-    public frmUpdate() {
+    public FrmUpdate() {
         // Locale.setDefault(new Locale("de", "DE"));
 
         initComponents();
@@ -1544,14 +1544,14 @@ public class frmUpdate extends javax.swing.JFrame {
     public static void main(String args[]) {
 
         if (args.length >= 1) {
-            frmUpdate.myopenlabpath = args[0];
+            FrmUpdate.myopenlabpath = args[0];
         }
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new frmUpdate().setVisible(true);
+                new FrmUpdate().setVisible(true);
             }
         });
     }

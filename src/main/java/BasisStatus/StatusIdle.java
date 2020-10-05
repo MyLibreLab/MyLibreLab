@@ -48,6 +48,7 @@ import VisualLogic.PolyPoint;
 import VisualLogic.SelectionPane;
 import VisualLogic.Tools;
 import VisualLogic.VMObject;
+import codeeditor.FrmDefinitonDefEditor;
 
 public class StatusIdle implements StatusBasisIF {
 
@@ -263,8 +264,7 @@ public class StatusIdle implements StatusBasisIF {
                     for (int i = 0; i < getBasis().getElementCount(); i++) {
                         Element element = getBasis().getElement(i);
                         if (element.isSelected()) {
-                            codeeditor.frmDefinitonDefEditor frm =
-                                    new codeeditor.frmDefinitonDefEditor(getBasis().owner.frameCircuit, true);
+                            FrmDefinitonDefEditor frm = new FrmDefinitonDefEditor(getBasis().owner.frameCircuit, true);
                             frm.execute(element.elementPath + element.mainPath);
                             break;
                         }
@@ -362,7 +362,7 @@ public class StatusIdle implements StatusBasisIF {
 
     public void showElementInfo() {
         if (aktuellesElement != null) {
-            BasisStatus.frmElementInfo frm = new BasisStatus.frmElementInfo(null, true);
+            FrmElementInfo frm = new FrmElementInfo(null, true);
 
             Element el = aktuellesElement;
             frm.init(el.getInternName(), el.classPath, el.infoProgrammer, el.infoCopyrights, el.infoOther, el.getID());
@@ -502,8 +502,8 @@ public class StatusIdle implements StatusBasisIF {
 
             aktuellesElement = vmObject.getSelectedElement();
             if (aktuellesElement != null) {
-                int x = aktuellesElement.getX();
-                int y = aktuellesElement.getY();
+                // int x = aktuellesElement.getX();
+                // int y = aktuellesElement.getY();
 
                 if (isShiftPressed && !isControlPressed && code == KeyEvent.VK_LEFT) {
                     verschiebeAllSelectedElements(-1, 0);
@@ -538,7 +538,7 @@ public class StatusIdle implements StatusBasisIF {
         Point p = new Point(e.getX(), e.getY());
 
         if (myLine != null) {
-            Draht draht = myLine.getDraht();
+            // Draht draht = myLine.getDraht();
 
             int direction = myLine.getDirection();
             if (direction == 1) {
@@ -635,7 +635,7 @@ public class StatusIdle implements StatusBasisIF {
 
     private void addTestpoint(Point p, Line line) {
         if (line != null && p != null) {
-            Draht draht = line.getDraht();
+            // Draht draht = line.getDraht();
             Element node = Tools.addTestpoint(vmObject);
             Tools.addNodeIntoLine(vmObject, node, p, line);
             vmObject.reorderWireFrames();
@@ -645,7 +645,7 @@ public class StatusIdle implements StatusBasisIF {
 
     private void addNode(Point p, Line line) {
         if (line != null && p != null) {
-            Draht draht = line.getDraht();
+            // Draht draht = line.getDraht();
             Element node = Tools.addNode(vmObject);
             Tools.addNodeIntoLine(vmObject, node, p, line);
             vmObject.reorderWireFrames();
@@ -833,14 +833,15 @@ public class StatusIdle implements StatusBasisIF {
                 int p1Index = Tools.getPolyPointIndex(draht, p1);
                 int p2Index = Tools.getPolyPointIndex(draht, p2);
 
-                int mx = (p1.x + p2.x) / 2;
-                int my = (p1.y + p2.y) / 2;
+                // int mx = (p1.x + p2.x) / 2;
+                // int my = (p1.y + p2.y) / 2;
 
                 if (p1Index < p2Index) {
-                    PolyPoint px = draht.insertPoint(p2Index, x, y);
+                    draht.insertPoint(p2Index, x, y);
                 } else {
-                    PolyPoint px = draht.insertPoint(p1Index, x, y);
+                    draht.insertPoint(p1Index, x, y);
                 }
+
 
                 vmObject.repaint();
                 // erzeuge zwischen den 2 polyPoints ein Verteiler-Element

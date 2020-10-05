@@ -149,8 +149,7 @@ public class PanelEditor extends javax.swing.JPanel implements CommandIF {
 
     public void saveFile() {
         if (filename.length() > 0) {
-            try {
-                FileWriter out = new FileWriter(new File(filename));
+            try (FileWriter out = new FileWriter(new File(filename))) {
                 pane.write(out);
                 out.flush();
                 out.close();

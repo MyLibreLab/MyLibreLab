@@ -37,8 +37,7 @@ import org.tinylog.Logger;
  * recognizes, stores, and evaluates arithmetic expressions using a parser generated with jay.
  */
 public class Expression {
-
-    public static List<String> liste = new ArrayList<>();
+    public static final List<String> liste = new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
         Expression parser = new Expression();
@@ -48,7 +47,7 @@ public class Expression {
                 parser.yyparse(scanner, null);
                 Logger.error(() -> String.join(",", liste));
                 break;
-            } catch (IOException | yyException ioException) {
+            } catch (IOException | YYException ioException) {
                 Logger.error(ioException);
             }
     }
@@ -235,8 +234,8 @@ public class Expression {
      * thrown for irrecoverable syntax errors and stack overflow. Nested for convenience, does not
      * depend on parser class.
      */
-    public static class yyException extends java.lang.Exception {
-        public yyException(String message) {
+    public static class YYException extends java.lang.Exception {
+        public YYException(String message) {
             super(message);
         }
     }
@@ -319,7 +318,7 @@ public class Expression {
                 ok[token] = true;
             }
 
-        String result[] = new String[len];
+        String[] result = new String[len];
         for (n = token = 0; n < len; ++token)
             if (ok[token]) result[n++] = yyNames[token];
         return result;
@@ -331,9 +330,9 @@ public class Expression {
      * @param yyLex scanner.
      * @param yydebug debug message writer implementing <tt>yyDebug</tt>, or <tt>null</tt>.
      * @return result of the last reduction, if any.
-     * @throws yyException on irrecoverable parse error.
+     * @throws YYException on irrecoverable parse error.
      */
-    public Object yyparse(yyInput yyLex, Object yydebug) throws java.io.IOException, yyException {
+    public Object yyparse(yyInput yyLex, Object yydebug) throws java.io.IOException, YYException {
         // t this.yydebug = (jay.yydebug.yyDebug)yydebug;
         return yyparse(yyLex);
     }
@@ -360,12 +359,14 @@ public class Expression {
      *
      * @param yyLex scanner.
      * @return result of the last reduction, if any.
-     * @throws yyException on irrecoverable parse error.
+     * @throws YYException on irrecoverable parse error.
      */
-    public Object yyparse(yyInput yyLex) throws java.io.IOException, yyException {
+    public Object yyparse(yyInput yyLex) throws java.io.IOException, YYException {
         if (yyMax <= 0) yyMax = 256; // initial size
-        int yyState = 0, yyStates[] = new int[yyMax]; // state stack
-        Object yyVal = null, yyVals[] = new Object[yyMax]; // value stack
+        int yyState = 0; // state stack
+        int[] yyStates = new int[yyMax];
+        Object yyVal = null; // value stack
+        Object[] yyVals = new Object[yyMax];
         int yyToken = -1; // current input
         int yyErrorFlag = 0; // #tokens to shift
 
@@ -425,12 +426,12 @@ public class Expression {
                                     // t if (yydebug != null) yydebug.pop(yyStates[yyTop]);
                                 } while (--yyTop >= 0);
                                 // t if (yydebug != null) yydebug.reject();
-                                throw new yyException("irrecoverable syntax error");
+                                throw new YYException("irrecoverable syntax error");
 
                             case 3:
                                 if (yyToken == 0) {
                                     // t if (yydebug != null) yydebug.reject();
-                                    throw new yyException("irrecoverable syntax error at end-of-file");
+                                    throw new YYException("irrecoverable syntax error at end-of-file");
                                 }
                                 // t if (yydebug != null)
                                 // t yydebug.discard(yyState, yyToken, yyName(yyToken), yyLex.value());

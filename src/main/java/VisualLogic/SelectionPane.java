@@ -196,7 +196,7 @@ public class SelectionPane extends JPanel implements MouseListener, MouseMotionL
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
+        // Graphics2D g2 = (Graphics2D) g;
 
         int w = getWidth() - 2;
         int h = getHeight() - 2;

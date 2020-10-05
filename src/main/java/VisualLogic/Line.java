@@ -97,9 +97,9 @@ public class Line implements Serializable {
     public int getDirection() {
         int x, y, xx, yy;
         x = myStart.x;
-        y = myStart.y;
+        // y = myStart.y;
         xx = myEnd.x;
-        yy = myEnd.y;
+        // yy = myEnd.y;
 
         if (x == xx)
             return VERTIKAL;

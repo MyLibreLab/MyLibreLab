@@ -24,7 +24,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
 public class VS1DBoolean extends VSObject {
-    private boolean value[] = null;
+    private boolean[] value = null;
 
     public int getLength() {
         return value.length;
@@ -50,9 +50,7 @@ public class VS1DBoolean extends VSObject {
     public void setValues(boolean[] values) {
         this.value = new boolean[values.length];
 
-        for (int i = 0; i < values.length; i++) {
-            this.value[i] = values[i];
-        }
+        System.arraycopy(values, 0, this.value, 0, values.length);
     }
 
     public void copyReferenceFrom(Object in) {

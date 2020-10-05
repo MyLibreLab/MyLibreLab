@@ -32,7 +32,7 @@ import java.net.URLConnection;
 
 public class VSImage extends VSObject {
     private Image image;
-    private byte imageBytes[] = null;
+    private byte[] imageBytes = null;
     private ImageLoader il = new ImageLoader();
 
     public VSImage() {}

@@ -24,7 +24,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
 public class VS1DInteger extends VSObject {
-    private int value[] = null;
+    private int[] value = null;
 
     public int getLength() {
         return value.length;

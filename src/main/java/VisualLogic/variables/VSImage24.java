@@ -24,7 +24,7 @@ package VisualLogic.variables;
  * @author Homer
  */
 public class VSImage24 extends VSObject {
-    private int value[] = null;
+    private int[] value = null;
     private int width = 0;
     private int height = 0;
 

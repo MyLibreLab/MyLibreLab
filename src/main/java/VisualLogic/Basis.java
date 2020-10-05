@@ -89,7 +89,7 @@ class VariableNotifyRecord {
 /**
  * @author Homer
  */
-public class Basis implements ElementIF, VSBasisIF {
+public class Basis implements ElementIF, VSBasisIF, AutoCloseable {
 
     public VSColor backDisabledColor = new VSColor(Color.yellow);
     public DataHistory dataHistory = new DataHistory();
@@ -124,10 +124,10 @@ public class Basis implements ElementIF, VSBasisIF {
     private int dedugDelay = 10; // Speed from 0 to 100 : 0 = fast ; 100 =slow
     public int delay = 0; // Speed from 0 to 100 : 0 = fast ; 100 =slow
 
-    public boolean AlwaysOnTop = false;
-    public VSComboBox WindowsPosition = new VSComboBox();
-    public int CustomXwindowPos = 0;
-    public int CustomYwindowPos = 0;
+    public boolean alwaysOnTop = false;
+    public VSComboBox windowsPosition = new VSComboBox();
+    public int customXwindowPos = 0;
+    public int customYwindowPos = 0;
 
     public Stack stack = new Stack();
 
@@ -285,7 +285,7 @@ public class Basis implements ElementIF, VSBasisIF {
      */
     private boolean isNum(String val) {
         try {
-            double x = Double.parseDouble(val);
+            Double.parseDouble(val);
             return true;
         } catch (Exception ex) {
             return false;
@@ -842,13 +842,13 @@ public class Basis implements ElementIF, VSBasisIF {
 
         frontBasis.setPreferredSize(new Dimension(500, 500));
 
-        WindowsPosition.addItem("CENTER");
-        WindowsPosition.addItem("TOP_LEFT");
-        WindowsPosition.addItem("TOP_RIGHT");
-        WindowsPosition.addItem("BOTTOM_LEFT");
-        WindowsPosition.addItem("BOTTOM_RIGHT");
-        WindowsPosition.addItem("CUSTOM");
-        WindowsPosition.addItem("MAXIMIZED");
+        windowsPosition.addItem("CENTER");
+        windowsPosition.addItem("TOP_LEFT");
+        windowsPosition.addItem("TOP_RIGHT");
+        windowsPosition.addItem("BOTTOM_LEFT");
+        windowsPosition.addItem("BOTTOM_RIGHT");
+        windowsPosition.addItem("CUSTOM");
+        windowsPosition.addItem("MAXIMIZED");
 
         getCircuitBasis().setAlignToGrid(frameCircuit.settings.isCircuittAlignToGrid());
         getCircuitBasis().setRasterOn(frameCircuit.settings.isCircuitRasterOn());
@@ -907,7 +907,7 @@ public class Basis implements ElementIF, VSBasisIF {
 
         if (new File(filename).exists()) {
             loadFile(filename, true);
-            getCircuitBasis().ProcessPinDataType();
+            getCircuitBasis().processPinDataType();
             setChanged(true);
         }
     }
@@ -975,7 +975,7 @@ public class Basis implements ElementIF, VSBasisIF {
         chooser.setDialogTitle(java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("Speichern_als..."));
         chooser.setDialogType(JFileChooser.SAVE_DIALOG);
 
-        vlogicFilter filter = new vlogicFilter();
+        VlogicFilter filter = new VlogicFilter();
 
         chooser.setFileFilter(filter);
 
@@ -1159,7 +1159,7 @@ public class Basis implements ElementIF, VSBasisIF {
     private void createRunningFrame(boolean unDecoratedIn, boolean AlwaysOnTopIn) {
         // JFrame.setDefaultLookAndFeelDecorated(false);
         this.unDecorated = unDecoratedIn;
-        this.AlwaysOnTop = AlwaysOnTopIn;
+        this.alwaysOnTop = AlwaysOnTopIn;
         // this.WindowsPosition=WindowPositionIn;
 
         frm = new FrameRunning(this, unDecorated);
@@ -1169,11 +1169,11 @@ public class Basis implements ElementIF, VSBasisIF {
         if (showToolBar) {
             frm.jToolBar1.setVisible(true);
             frm.jToolBar1.setPreferredSize(new Dimension(10, 33));
-            h = frm.jToolBar1.getHeight();
+            // h = frm.jToolBar1.getHeight();
         } else {
             frm.jToolBar1.setVisible(false);
             frm.jToolBar1.setPreferredSize(new Dimension(10, 0));
-            h = 0;
+            // h = 0;
         }
 
         frm.setTitle(caption);
@@ -1190,42 +1190,42 @@ public class Basis implements ElementIF, VSBasisIF {
         // vsWindowsPosition.addItem("BOTTOM_RIGHT");
         int XPosTemp = 0;
         int YPosTemp = 0;
-        if (WindowsPosition.selectedIndex == 0) {// CENTER
+        if (windowsPosition.selectedIndex == 0) {// CENTER
             // frm.setLocation(screenSize.width / 2 - frm.getWidth() / 2, screenSize.height / 2 -
             // frm.getHeight() / 2);
             XPosTemp = screenSize.width / 2 - frm.getWidth() / 2;
             YPosTemp = screenSize.height / 2 - frm.getHeight() / 2;
         }
-        if (WindowsPosition.selectedIndex == 1) {
+        if (windowsPosition.selectedIndex == 1) {
             // frm.setLocation(0,0);
             XPosTemp = 0;
             YPosTemp = 0;
         }
-        if (WindowsPosition.selectedIndex == 2) {
+        if (windowsPosition.selectedIndex == 2) {
             // frm.setLocation(screenSize.width - frm.getWidth(),0);
             XPosTemp = screenSize.width - frm.getWidth();
             YPosTemp = 0;
         }
-        if (WindowsPosition.selectedIndex == 3) {
+        if (windowsPosition.selectedIndex == 3) {
             // frm.setLocation(0,screenSize.height - frm.getHeight());
             XPosTemp = 0;
             YPosTemp = screenSize.height - frm.getHeight();
         }
-        if (WindowsPosition.selectedIndex == 4) {
+        if (windowsPosition.selectedIndex == 4) {
             // frm.setLocation(screenSize.width - frm.getWidth(),screenSize.height - frm.getHeight());
             XPosTemp = screenSize.width - frm.getWidth();
             YPosTemp = screenSize.height - frm.getHeight();
         }
 
-        if (WindowsPosition.selectedIndex == 5) { // If Customized Position
-            XPosTemp = CustomXwindowPos;
-            YPosTemp = CustomYwindowPos;
+        if (windowsPosition.selectedIndex == 5) { // If Customized Position
+            XPosTemp = customXwindowPos;
+            YPosTemp = customYwindowPos;
         } else {
-            CustomXwindowPos = XPosTemp;
-            CustomYwindowPos = YPosTemp;
+            customXwindowPos = XPosTemp;
+            customYwindowPos = YPosTemp;
         }
 
-        if (WindowsPosition.selectedIndex == 6) {// MAXIMIZED
+        if (windowsPosition.selectedIndex == 6) {// MAXIMIZED
             // frm.setLocation(XPosTemp,YPosTemp);
             frm.setSize(screenSize);
             Rectangle b = this.frontBasis.getBounds();
@@ -1238,11 +1238,11 @@ public class Basis implements ElementIF, VSBasisIF {
             }
             // frm.repaint();
         } else {
-            frm.setLocation(CustomXwindowPos, CustomYwindowPos);
+            frm.setLocation(customXwindowPos, customYwindowPos);
         }
         frm.setVisible(true);
 
-        if (debugMode || AlwaysOnTop) {
+        if (debugMode || alwaysOnTop) {
             frm.setAlwaysOnTop(true);
         }
         frm.toFront();
@@ -1335,7 +1335,7 @@ public class Basis implements ElementIF, VSBasisIF {
 
                 // BasisPanel panelFront = new BasisPanel(basis.getFrontBasis());
                 // this.getContentPane().add(panelFront);
-                createRunningFrame(unDecorated, AlwaysOnTop);
+                createRunningFrame(unDecorated, alwaysOnTop);
             }
 
             circuitBasis.start();
@@ -1408,7 +1408,7 @@ public class Basis implements ElementIF, VSBasisIF {
         frontBasis.sortSubPanels();
 
         loading = false;
-        getCircuitBasis().ProcessPinDataType();
+        getCircuitBasis().processPinDataType();
     }
 
     public void scrambleElementAndWires() {
@@ -1460,7 +1460,7 @@ public class Basis implements ElementIF, VSBasisIF {
 
         setChanged(false);
 
-        getCircuitBasis().ProcessPinDataType();
+        getCircuitBasis().processPinDataType();
 
         // getFrontBasis().setSize(getFrontBasis().getWidth(),getFrontBasis().getHeight());
     }
@@ -1506,7 +1506,7 @@ public class Basis implements ElementIF, VSBasisIF {
             clear();
 
             loadFile(filename, false);
-            getCircuitBasis().ProcessPinDataType();
+            getCircuitBasis().processPinDataType();
             setChanged(true);
         }
     }
@@ -1517,7 +1517,7 @@ public class Basis implements ElementIF, VSBasisIF {
             String filename = (String) undoHistory.get(undoPointer - 1);
             clear();
             loadFile(filename, false);
-            getCircuitBasis().ProcessPinDataType();
+            getCircuitBasis().processPinDataType();
             setChanged(true);
         }
     }
@@ -1677,10 +1677,10 @@ public class Basis implements ElementIF, VSBasisIF {
                 strElementName = stream.readUTF();
                 showToolBar = stream.readBoolean();
                 unDecorated = stream.readBoolean();
-                AlwaysOnTop = stream.readBoolean();
-                WindowsPosition.loadFromStream(fis);
-                CustomXwindowPos = stream.readInt();
-                CustomYwindowPos = stream.readInt();
+                alwaysOnTop = stream.readBoolean();
+                windowsPosition.loadFromStream(fis);
+                customXwindowPos = stream.readInt();
+                customYwindowPos = stream.readInt();
                 strBasisTitel = stream.readUTF();
                 strBasisVersion = stream.readUTF();
                 strAutorName = stream.readUTF();
@@ -1866,7 +1866,7 @@ public class Basis implements ElementIF, VSBasisIF {
 
             // System.out.println("Element ="+element.getCaption());
             FileInputStream fis = fsIn.gotoItem(fileCount++);
-            DataInputStream stream = new DataInputStream(fis);
+            // DataInputStream stream = new DataInputStream(fis);
 
             try {
                 // if (!element.getCaption().equalsIgnoreCase("Analog Display 2"))
@@ -1915,10 +1915,10 @@ public class Basis implements ElementIF, VSBasisIF {
 
                 dos.writeBoolean(showToolBar);
                 dos.writeBoolean(unDecorated);
-                dos.writeBoolean(AlwaysOnTop);
-                WindowsPosition.saveToStream(fos);
-                dos.writeInt(CustomXwindowPos);
-                dos.writeInt(CustomYwindowPos);
+                dos.writeBoolean(alwaysOnTop);
+                windowsPosition.saveToStream(fos);
+                dos.writeInt(customXwindowPos);
+                dos.writeInt(customYwindowPos);
             }
 
 
@@ -1956,7 +1956,7 @@ public class Basis implements ElementIF, VSBasisIF {
 
     private void saveX(Element element, FileSystemOutput fsOut) {
         FileOutputStream fos = fsOut.addItem("Basis-Element-Data");
-        DataOutputStream dos = new DataOutputStream(fos);
+        // DataOutputStream dos = new DataOutputStream(fos);
 
         try {
             element.classRef.saveToStreamAfterXOnInit(fos);
@@ -2123,7 +2123,7 @@ public class Basis implements ElementIF, VSBasisIF {
     public void onDispose() {
 
         try {// Added on v3.12.0
-            this.finalize();
+            this.close();
         } catch (Throwable ex) {
             Logger.getLogger(Basis.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -2389,10 +2389,10 @@ public class Basis implements ElementIF, VSBasisIF {
         // System.out.println(""+this);
         loadFromFile(fileName, false);
 
-        circuitBasis.ProcessDeGruppierer();
-        frontBasis.ProcessDeGruppierer();
-        circuitBasis.ProcessDeGruppierer();
-        frontBasis.ProcessDeGruppierer();
+        circuitBasis.processDeGruppierer();
+        frontBasis.processDeGruppierer();
+        circuitBasis.processDeGruppierer();
+        frontBasis.processDeGruppierer();
     }
 
     @Override

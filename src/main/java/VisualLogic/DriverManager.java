@@ -24,6 +24,7 @@ import java.io.File;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 
 class MyOpenLabDriver {
 
@@ -58,7 +59,7 @@ class MyOpenLabDriver {
 public class DriverManager {
 
     // Haelt alle Treiber in der Liste driver
-    private ArrayList<MyOpenLabDriver> drivers = new ArrayList<MyOpenLabDriver>();
+    private List<MyOpenLabDriver> drivers = new ArrayList<MyOpenLabDriver>();
     private FrameMain frameCircuit;
 
     public DriverManager(FrameMain frameCircuit) {

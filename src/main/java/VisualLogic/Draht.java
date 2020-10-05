@@ -142,10 +142,7 @@ public class Draht implements Serializable {
             org.tinylog.Logger.error(ex);
             vmobject.owner.showErrorMessage("" + ex.toString());
         }
-        this.sourceElementID = sourceElementID;
-        this.sourcePin = sourcePin;
-        this.destElementID = destElementID;
-        this.destPin = destPin;
+
         /*
          * VisualLogic.Element sourceElement = (Element)vmobject.getObjectWithID(sourceElementID); JPin pin
          * =sourceElement.getPin(sourcePin); if (pin!=null) pin.draht=this; VisualLogic.Element destElement
@@ -323,7 +320,7 @@ public class Draht implements Serializable {
     }
 
     public void refresh() {
-        Rectangle b = getBounds();
+        // Rectangle b = getBounds();
         // vmobject.paintImmediately(b);
     }
 

@@ -30,12 +30,12 @@ import org.tinylog.Logger;
 /**
  * @author Homer
  */
-public class frmDTLengend extends javax.swing.JFrame {
+public class FrmDTLengend extends javax.swing.JFrame {
 
     /**
      * Creates new form frmDTLengend
      */
-    public frmDTLengend(Image image) {
+    public FrmDTLengend(Image image) {
         initComponents();
         setIconImage(image);
 

@@ -44,7 +44,7 @@ public class DialogFontChooser extends javax.swing.JDialog {
         initComponents();
         jTextPane1.setBackground(Color.WHITE);
         init = true;
-        String arfonts[] = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+        String[] arfonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
 
         fontName.removeAllItems();
         for (int i = 0; i < arfonts.length; ++i) {

@@ -24,7 +24,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
 public class VS1DByte extends VSObject {
-    private byte value[] = null;
+    private byte[] value = null;
 
     public VS1DByte(int size) {
         value = new byte[size];

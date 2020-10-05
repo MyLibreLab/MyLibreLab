@@ -128,31 +128,31 @@ public class JPin extends VisualObject implements MouseListener, MouseMotionList
     }
 
     public void mouseClicked(MouseEvent e) {
-        if (pinIF != null) pinIF.PinMouseClicked(e, this, pinIndex);
+        if (pinIF != null) pinIF.pinMouseClicked(e, this, pinIndex);
     }
 
     public void mouseEntered(MouseEvent e) {
-        if (pinIF != null) pinIF.PinMouseEntered(e, this, pinIndex);
+        if (pinIF != null) pinIF.pinMouseEntered(e, this, pinIndex);
     }
 
     public void mouseExited(MouseEvent e) {
-        if (pinIF != null) pinIF.PinMouseExited(e, this, pinIndex);
+        if (pinIF != null) pinIF.pinMouseExited(e, this, pinIndex);
     }
 
     public void mousePressed(MouseEvent e) {
-        if (pinIF != null) pinIF.PinMousePressed(e, this, pinIndex);
+        if (pinIF != null) pinIF.pinMousePressed(e, this, pinIndex);
     }
 
     public void mouseReleased(MouseEvent e) {
-        if (pinIF != null) pinIF.PinMouseReleased(e, this, pinIndex);
+        if (pinIF != null) pinIF.pinMouseReleased(e, this, pinIndex);
     }
 
     public void mouseDragged(MouseEvent e) {
-        if (pinIF != null) pinIF.PinMouseDragged(e, this, pinIndex);
+        if (pinIF != null) pinIF.pinMouseDragged(e, this, pinIndex);
     }
 
     public void mouseMoved(MouseEvent e) {
-        if (pinIF != null) pinIF.PinMouseMoved(e, this, pinIndex);
+        if (pinIF != null) pinIF.pinMouseMoved(e, this, pinIndex);
     }
 
 

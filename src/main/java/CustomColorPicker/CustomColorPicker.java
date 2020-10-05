@@ -26,7 +26,6 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
-import javax.swing.ButtonModel;
 import javax.swing.JColorChooser;
 
 /**
@@ -358,7 +357,7 @@ public class CustomColorPicker extends javax.swing.JDialog {
     }// GEN-LAST:event_jCheckBoxRepeatActionPerformed
 
     private void makeSelection() {
-        ButtonModel model = buttonGroup1.getSelection();
+        // ButtonModel model = buttonGroup1.getSelection();
         if (jToggleButtonFlat.isSelected()) {
             myPanel.modus = ColorPanel.MODE_FLAT;
             myPanel.updateUI();

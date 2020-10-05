@@ -21,6 +21,7 @@
 package VisualLogic;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.tinylog.Logger;
 
@@ -34,8 +35,8 @@ import jssc.SerialPortException;
 public class NewSerialDriverManager {
 
     public static SerialPort serialPortTemp;
-    public static VSserialPort vsSerialPortTemp;
-    public static ArrayList<VSserialPort> serialPortsArray;
+    public static VSserialPort VSserialPortTemp;
+    public static List<VSserialPort> serialPortsArray;
 
     private static String PortName = "";
     private static Thread ThreadIn;
@@ -65,11 +66,11 @@ public class NewSerialDriverManager {
 
         serialPortTemp = OpenPort(PortNameIN);
 
-        vsSerialPortTemp = new VSserialPort(serialPortTemp);
+        VSserialPortTemp = new VSserialPort(serialPortTemp);
         if (PortNameExist(PortNameIN)) {
-            UpdateSerialPortByPortName(vsSerialPortTemp, PortNameIN); // Do not add repeated ports
+            UpdateSerialPortByPortName(VSserialPortTemp, PortNameIN); // Do not add repeated ports
         } else {
-            serialPortsArray.add(vsSerialPortTemp);
+            serialPortsArray.add(VSserialPortTemp);
         }
         vsSerialTemp.setValue(serialPortTemp);
 
@@ -86,7 +87,7 @@ public class NewSerialDriverManager {
     }
 
     public static VSserialPort FindSerialPortByPortName(String PortNameIN) {
-        VSserialPort vsSerialTemp = new VSserialPort();
+        VSserialPort vsSerialTemp;
         // System.out.println("Searching Port:"+PortNameIN);
         for (VSserialPort vsTemp : serialPortsArray) {
             if (vsTemp.getValue().getPortName().equalsIgnoreCase(PortNameIN)) {

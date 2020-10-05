@@ -24,7 +24,7 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
-public class vlogicFilter extends FileFilter {
+public class VlogicFilter extends FileFilter {
     static String fileExtension = "vlogic";
 
     public boolean accept(File f) {

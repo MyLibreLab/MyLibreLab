@@ -24,7 +24,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
 public class VS1DDouble extends VSObject {
-    private double value[] = null;
+    private double[] value = null;
 
     public int getLength() {
         return value.length;
@@ -47,7 +47,7 @@ public class VS1DDouble extends VSObject {
         value = new double[size];
     }
 
-    public void setValue(double value[]) {
+    public void setValue(double[] value) {
         this.value = value;
     }
 

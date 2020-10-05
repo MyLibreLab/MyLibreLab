@@ -92,8 +92,8 @@ public class StatusLineVertikal implements StatusBasisIF {
     }
 
     private void drawPoints(java.awt.Graphics g) {
-        int xx[] = new int[drahtPoints.size()];
-        int yy[] = new int[drahtPoints.size()];
+        int[] xx = new int[drahtPoints.size()];
+        int[] yy = new int[drahtPoints.size()];
 
         for (int i = 0; i < drahtPoints.size(); i++) {
             Point p = getDrahtPoint(i);
@@ -264,7 +264,7 @@ public class StatusLineVertikal implements StatusBasisIF {
 
     public Element addNode() {
         Element element;
-        element = vmobject.AddDualElement("/CircuitElements/Node", "bin", "Node", "", null);
+        element = vmobject.addDualElement("/CircuitElements/Node", "bin", "Node", "", null);
 
         return element;
     }
@@ -376,7 +376,7 @@ public class StatusLineVertikal implements StatusBasisIF {
             try {
                 Point p = vmobject.getMousePosition();
 
-                Line line = vmobject.getLineInNaehe(p);
+                // Line line = vmobject.getLineInNaehe(p);
                 /*
                  * if (line!=null) { Polygon aktuellesPoly=getDrahtPoints(); Draht drahtX;
                  *

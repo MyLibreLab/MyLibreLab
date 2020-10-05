@@ -74,7 +74,7 @@ public class StatusAddWire implements StatusBasisIF {
     }
 
     public void elementPinMouseMoved(MouseEvent e, int elementID, int pin) {
-        Element element = (Element) vmobject.getObjectWithID(elementID);
+        // Element element = (Element) vmobject.getObjectWithID(elementID);
         // e.translatePoint(e.getX()+element.getX(),e.getY()+element.getY());
         if (status != null) status.mouseMoved(e);
     }

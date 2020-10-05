@@ -26,17 +26,17 @@ import java.awt.event.MouseEvent;
  * @author Homer
  */
 public interface PinIF {
-    public abstract void PinMousePressed(MouseEvent e, JPin pin, int pinIndex);
+    public abstract void pinMousePressed(MouseEvent e, JPin pin, int pinIndex);
 
-    public abstract void PinMouseReleased(MouseEvent e, JPin pin, int pinIndex);
+    public abstract void pinMouseReleased(MouseEvent e, JPin pin, int pinIndex);
 
-    public abstract void PinMouseClicked(MouseEvent e, JPin pin, int pinIndex);
+    public abstract void pinMouseClicked(MouseEvent e, JPin pin, int pinIndex);
 
-    public abstract void PinMouseEntered(MouseEvent e, JPin pin, int pinIndex);
+    public abstract void pinMouseEntered(MouseEvent e, JPin pin, int pinIndex);
 
-    public abstract void PinMouseExited(MouseEvent e, JPin pin, int pinIndex);
+    public abstract void pinMouseExited(MouseEvent e, JPin pin, int pinIndex);
 
-    public abstract void PinMouseDragged(MouseEvent e, JPin pin, int pinIndex);
+    public abstract void pinMouseDragged(MouseEvent e, JPin pin, int pinIndex);
 
-    public abstract void PinMouseMoved(MouseEvent e, JPin pin, int pinIndex);
+    public abstract void pinMouseMoved(MouseEvent e, JPin pin, int pinIndex);
 }

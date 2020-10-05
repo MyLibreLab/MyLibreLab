@@ -21,7 +21,7 @@
 package VisualLogic.variables;
 
 public class VS2DString extends VSObject {
-    private String value[][] = null;
+    private String[][] value = null;
     private int columns = 0;
     private int rows = 0;
 

@@ -29,7 +29,7 @@ import java.awt.BorderLayout;
 public class FrameMain extends javax.swing.JFrame {
 
     public MyGraph graph;
-    public Integer AustoscaleInterval = Integer.valueOf(600);
+    public Integer austoscaleInterval = Integer.valueOf(600);
 
     /**
      * Creates new form FrameMain
@@ -43,12 +43,12 @@ public class FrameMain extends javax.swing.JFrame {
     }
 
     public void setAutoScaleInterval(Integer Interval) {
-        this.AustoscaleInterval = Interval;
-        graph.setbufferLen(this.AustoscaleInterval);
+        this.austoscaleInterval = Interval;
+        graph.setbufferLen(this.austoscaleInterval);
     }
 
     public int getAutosCaleInterval() {
-        return this.AustoscaleInterval;
+        return this.austoscaleInterval;
     }
 
     /**

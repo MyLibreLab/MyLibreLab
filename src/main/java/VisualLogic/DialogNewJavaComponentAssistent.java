@@ -28,7 +28,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
@@ -1062,7 +1062,7 @@ public class DialogNewJavaComponentAssistent extends javax.swing.JDialog impleme
         }
     }
 
-    private void saveProperties(DefaultTableModel model, ArrayList<ElementPropertyX> items) {
+    private void saveProperties(DefaultTableModel model, List<ElementPropertyX> items) {
         items.clear();
 
         for (int row = 0; row < model.getRowCount(); row++) {
@@ -1101,7 +1101,7 @@ public class DialogNewJavaComponentAssistent extends javax.swing.JDialog impleme
         }
     }
 
-    private void loadProperties(DefaultTableModel model, ArrayList<ElementPropertyX> items) {
+    private void loadProperties(DefaultTableModel model, List<ElementPropertyX> items) {
         model.setRowCount(0);
         model.setRowCount(50);
 

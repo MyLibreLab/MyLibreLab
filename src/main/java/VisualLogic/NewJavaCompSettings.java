@@ -22,6 +22,7 @@ package VisualLogic;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class NewJavaCompSettings implements Serializable {
     public String circuitPanelName;
@@ -40,9 +41,9 @@ public class NewJavaCompSettings implements Serializable {
     public boolean showInnerBorder = true;
     public boolean showOuterBorder = true;
 
-    public ArrayList<PinsSettings> pins = new ArrayList<PinsSettings>();
+    public List<PinsSettings> pins = new ArrayList<PinsSettings>();
 
-    public ArrayList<ElementPropertyX> properties = new ArrayList<ElementPropertyX>();
+    public List<ElementPropertyX> properties = new ArrayList<ElementPropertyX>();
 }
 
 
@@ -67,5 +68,5 @@ class PinsSettings implements Serializable {
     public boolean pinsVisible = true;
     public int pinsCount = 0;
 
-    ArrayList<PinsSettingsItem> items = new ArrayList<PinsSettingsItem>();
+    List<PinsSettingsItem> items = new ArrayList<PinsSettingsItem>();
 }

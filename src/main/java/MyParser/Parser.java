@@ -106,7 +106,7 @@ public class Parser {
 
     private boolean isNum(String val) {
         try {
-            double x = Double.parseDouble(val);
+            Double.parseDouble(val);
             return true;
         } catch (Exception ex) {
             return false;

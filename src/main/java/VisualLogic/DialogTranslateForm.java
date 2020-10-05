@@ -147,11 +147,11 @@ public class DialogTranslateForm extends javax.swing.JDialog {
         DialogTranslateForm frm = new DialogTranslateForm(parent, true);
 
         String[] row = new String[5];
-        row[0] = new String("Title");
+        row[0] = "Title";
         row[1] = title;
-        row[2] = new String("");
-        row[3] = new String("");
-        row[4] = new String("");
+        row[2] = "";
+        row[3] = "";
+        row[4] = "";
 
         frm.model.addRow(row);
 

@@ -22,6 +22,7 @@ package VisualLogic.variables;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 import javax.script.Bindings;
 
@@ -31,8 +32,8 @@ import MyParser.OpenVariable;
 import VisualLogic.ExternalIF;
 
 public class VSFlowInfo extends VSObject {
-    public ArrayList<OpenVariable> parameterDefinitions = new ArrayList<>(); // enth�lt OpenVariable
-    public ArrayList<OpenVariable> variablenListe = new ArrayList<>(); // enth�lt OpenVariable
+    public List<OpenVariable> parameterDefinitions = new ArrayList<>(); // enth�lt OpenVariable
+    public List<OpenVariable> variablenListe = new ArrayList<>(); // enth�lt OpenVariable
     public Hashtable tags = new Hashtable(); // F�r irgendwelche Parameter die durch die ganze Linie laufen
     public Object returnValue = null;
     public ExternalIF source = null;
@@ -130,10 +131,10 @@ public class VSFlowInfo extends VSObject {
             // node= (OpenVariable)variablenListe.get(i);
 
             if (node.datatype == 0) {
-                node.value = (double) 0;
+                node.value = Double.valueOf(0);
             }
             if (node.datatype == 1) {
-                node.value = new String("");
+                node.value = "";
             }
             if (node.datatype == 2) {
                 node.value = Boolean.FALSE;

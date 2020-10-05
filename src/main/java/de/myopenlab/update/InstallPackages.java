@@ -34,9 +34,9 @@ import de.myopenlab.update.exception.PackageTransportationException;
 public class InstallPackages implements Runnable {
 
     public static final String MYOPENLAB_ = "myopenlab_";
-    public frmUpdate owner;
+    public FrmUpdate owner;
 
-    InstallPackages(frmUpdate aThis) {
+    InstallPackages(FrmUpdate aThis) {
         this.owner = aThis;
     }
 

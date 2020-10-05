@@ -38,8 +38,8 @@ public class YAxis {
     private int height;
     private double stepInProzent;
     private double step = 0.0;
-    private String points[] = null;
-    private int heights[] = null;
+    private String[] points = null;
+    private int[] heights = null;
     private FontMetrics fm = null;
     public Font stdFont = new Font("Arial Bold", Font.BOLD, 11);
     private int yDistance = 5;
@@ -264,9 +264,9 @@ public class YAxis {
 
         drawLines(g);
 
-        int l = points.length - 1;
-        int d1 = (int) ((step * 0) + getWidth(points[0]) / 2);
-        int d2 = (int) ((step * l) - getWidth(points[l]) / 2);
+        // int l = points.length - 1;
+        // int d1 = (int) ((step * 0) + getWidth(points[0]) / 2);
+        // int d2 = (int) ((step * l) - getWidth(points[l]) / 2);
 
         drawString(g, 0);
         drawString(g, points.length - 1);

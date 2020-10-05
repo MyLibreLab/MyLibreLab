@@ -194,8 +194,8 @@ public class FrameDoubleGraph extends javax.swing.JFrame {
         myGraph1.setAutoScroll(java.lang.Boolean.TRUE);
         myGraph1.setAutoZoomY(java.lang.Boolean.TRUE);
         myGraph1.setCoordinatesVisible(java.lang.Boolean.FALSE);
-        myGraph1.setMaxX(new java.lang.Double(500.0));
-        myGraph1.setMinX(new java.lang.Double(0.0));
+        myGraph1.setMaxX(Double.valueOf(500.0));
+        myGraph1.setMinX(Double.valueOf(0.0));
         myGraph1.setNullLineVisible(java.lang.Boolean.FALSE);
         jSplitPane1.setRightComponent(myGraph1);
 

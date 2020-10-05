@@ -479,10 +479,10 @@ public class VMObject extends JPanel
             owner.caption = vsCaption.getValue();
             owner.showToolBar = vsShowToolbar.getValue();
             owner.unDecorated = vsUnDecorate.getValue();
-            owner.AlwaysOnTop = vsAlwaysOnTop.getValue();
-            owner.WindowsPosition = vsWindowsPosition;
-            owner.CustomXwindowPos = vsCustomXwindowPos.getValue();
-            owner.CustomYwindowPos = vsCustomYwindowPos.getValue();
+            owner.alwaysOnTop = vsAlwaysOnTop.getValue();
+            owner.windowsPosition = vsWindowsPosition;
+            owner.customXwindowPos = vsCustomXwindowPos.getValue();
+            owner.customYwindowPos = vsCustomYwindowPos.getValue();
             if (referenz.equals(vsWindowsPosition)) {
                 processPropertyEditor(); // Added v3.12.0
             }
@@ -520,10 +520,10 @@ public class VMObject extends JPanel
             vsCaption.setValue(owner.caption);
             vsShowToolbar.setValue(owner.showToolBar);
             vsUnDecorate.setValue(owner.unDecorated);
-            vsAlwaysOnTop.setValue(owner.AlwaysOnTop);
-            vsWindowsPosition = owner.WindowsPosition;
-            vsCustomXwindowPos.setValue(owner.CustomXwindowPos);
-            vsCustomYwindowPos.setValue(owner.CustomYwindowPos);
+            vsAlwaysOnTop.setValue(owner.alwaysOnTop);
+            vsWindowsPosition = owner.windowsPosition;
+            vsCustomXwindowPos.setValue(owner.customXwindowPos);
+            vsCustomYwindowPos.setValue(owner.customYwindowPos);
 
             owner.propertyEditor.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("Width"),
                     vsWidth, 20, 5000, true);
@@ -533,7 +533,7 @@ public class VMObject extends JPanel
             owner.propertyEditor.addItem("Properties", vsProperties, 0, 0, true);
             boolean EditableTemp = false;
             // IF user select "CUSTOM" enable editable X and Y Loation
-            EditableTemp = owner.WindowsPosition.selectedIndex == 5;
+            EditableTemp = owner.windowsPosition.selectedIndex == 5;
 
             if (this == owner.getFrontBasis()) {
                 owner.propertyEditor.addItem(
@@ -569,17 +569,17 @@ public class VMObject extends JPanel
         }
     }
 
-    public void ProcessDeGruppierer() {
+    public void processDeGruppierer() {
 
         /*
          * setDraehteInRunMode(); initAllOutputPins(); initAllInputPins();
          */
     }
 
-    public void ProcessPinDataType() {
+    public void processPinDataType() {
         // if (owner.isLoading()) return;
 
-        ProcessDeGruppierer();
+        processDeGruppierer();
 
         Element element = null;
         for (int i = 0; i < getElementCount(); i++) {
@@ -682,6 +682,8 @@ public class VMObject extends JPanel
             // ge�ndert
             public void dropActionChanged(DropTargetDragEvent e) {}
         };
+
+        // TODO ??
         DropTarget dropTarget = new DropTarget(this, dropTargetListener);
     }
 
@@ -1091,7 +1093,7 @@ public class VMObject extends JPanel
         }
     }
 
-    public void SelectElement(int elementid) {
+    public void selectElement(int elementid) {
         for (int i = 0; i < getElementCount(); i++) {
             Element el = getElement(i);
             if (el.getID() == elementid) {
@@ -1233,7 +1235,7 @@ public class VMObject extends JPanel
 
     public Element addElementIntoCanvas(String mainPath, String binPath, String circuitClass, String[] args) {
         owner.setChanged(true);
-        String path = mainPath + "/" + binPath;
+        // String path = mainPath + "/" + binPath;
         try {
             lockGraphics();
             int id = getObjectID();
@@ -1400,7 +1402,7 @@ public class VMObject extends JPanel
         drahtLst.remove(draht);
         draht = null;
 
-        ProcessPinDataType();
+        processPinDataType();
         processElementChanged();
     }
 
@@ -1504,24 +1506,18 @@ public class VMObject extends JPanel
         JPin pinTop = el.getPin(pinTopNr);
         JPin pinBottom = el.getPin(pinBottomNr);
 
-        int elPinTopID = 0;
-        int elPinTopPin = 0;
-
-        int elPinBottomID = 0;
-        int elPinBottomPin = 0;
-        if (pinTop != null && pinTop.draht != null) {
-            elPinTopID = pinTop.draht.getSourceElementID();
-            elPinTopPin = pinTop.draht.getSourcePin();
-        }
-
-        if (pinBottom != null && pinBottom.draht != null) {
-            elPinBottomID = pinBottom.draht.getDestElementID();
-            elPinBottomPin = pinBottom.draht.getDestPin();
-        }
-
-        if (pinTop != null && pinBottom != null && pinTop.draht != null && pinBottom.draht != null) {
-            ok = true;
-        }
+        /*
+         * int elPinTopID = 0; int elPinTopPin = 0;
+         *
+         * int elPinBottomID = 0; int elPinBottomPin = 0; if (pinTop != null && pinTop.draht != null) {
+         * elPinTopID = pinTop.draht.getSourceElementID(); elPinTopPin = pinTop.draht.getSourcePin(); }
+         *
+         * if (pinBottom != null && pinBottom.draht != null) { elPinBottomID =
+         * pinBottom.draht.getDestElementID(); elPinBottomPin = pinBottom.draht.getDestPin(); }
+         *
+         * if (pinTop != null && pinBottom != null && pinTop.draht != null && pinBottom.draht != null) { ok
+         * = true; }
+         */
 
         deleteOtherPanelElement(el);
 
@@ -1563,7 +1559,7 @@ public class VMObject extends JPanel
         }
     }
 
-    public Element AddDualElement(String mainPath, String binPath, String circuitClass, String panelClass,
+    public Element addDualElement(String mainPath, String binPath, String circuitClass, String panelClass,
             String[] args) {
         Element aktiveElement;
         Element element;
@@ -1571,7 +1567,7 @@ public class VMObject extends JPanel
         VMObject circuitvmobject = owner.getCircuitBasis();
         VMObject frontvmobject = owner.getFrontBasis();
 
-        String pfad = mainPath + "/" + binPath;
+        // String pfad = mainPath + "/" + binPath;
 
         if (this == circuitvmobject) {
             aktiveElement = addElementIntoCanvas(mainPath, binPath, circuitClass, args);
@@ -1751,7 +1747,7 @@ public class VMObject extends JPanel
                     element.classRef.xonInitOutputPins();
                 }
             } catch (Exception ex) {
-                System.out.println(ex);
+                org.tinylog.Logger.error(ex);
             }
         }
     }
@@ -1764,7 +1760,7 @@ public class VMObject extends JPanel
                     element.classRef.xonInitInputPins();
                 }
             } catch (Exception ex) {
-                System.out.println(ex);
+                org.tinylog.Logger.error(ex);
             }
         }
     }
@@ -2230,7 +2226,7 @@ public class VMObject extends JPanel
                 return;
             }
 
-            Polygon poly = pin.draht.getPolygon();
+            // Polygon poly = pin.draht.getPolygon();
             if (pin.draht.getDestElementID() == node.getID()) {
                 if (pin.draht.getPolySize() > 2) {
                     linksOK = true;
@@ -2340,7 +2336,7 @@ public class VMObject extends JPanel
                 return;
             }
 
-            Polygon poly = pin.draht.getPolygon();
+            // Polygon poly = pin.draht.getPolygon();
 
             if (pin.draht.getDestElementID() == node.getID()) {
                 if (pin.draht.getPolySize() > 2) {
@@ -2621,7 +2617,7 @@ public class VMObject extends JPanel
         int sourcePin;
         int destPin;
 
-        ProcessPinDataType();
+        processPinDataType();
         processElementChanged();
 
         reorderFlowChartLines();
@@ -3442,7 +3438,7 @@ public class VMObject extends JPanel
                 Integer elementOldid = ElemetTabelle.get(k);
                 Integer elementId = ElemetTabelle.get(k + 1);
 
-                SelectElement(elementId);
+                selectElement(elementId);
                 k += 2;
             }
         }
@@ -3670,7 +3666,7 @@ public class VMObject extends JPanel
         }
 
         if (!graphikLocked && g != null) {
-            Graphics2D g2 = (Graphics2D) g;
+            // Graphics2D g2 = (Graphics2D) g;
 
 
             /*

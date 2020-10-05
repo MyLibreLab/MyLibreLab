@@ -106,7 +106,7 @@ public class ZipFiles {
      * @param zipFileName
      */
     private static void zipSingleFile(File file, String zipFileName) {
-        try {
+        try (FileInputStream fis = new FileInputStream(file)) {
             // create ZipOutputStream to write to the zip file
             FileOutputStream fos = new FileOutputStream(zipFileName);
             ZipOutputStream zos = new ZipOutputStream(fos);
@@ -114,7 +114,6 @@ public class ZipFiles {
             ZipEntry ze = new ZipEntry(file.getName());
             zos.putNextEntry(ze);
             // read the file and write to ZipOutputStream
-            FileInputStream fis = new FileInputStream(file);
             byte[] buffer = new byte[1024];
             int len;
             while ((len = fis.read(buffer)) > 0) {

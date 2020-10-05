@@ -27,6 +27,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 
 import org.tinylog.Logger;
 
@@ -44,13 +46,20 @@ public class Loader {
             // URL url3 = new File("Y:\\java\\carmelo's exp Lab
             // 3\\Distribution\\Elements\\Drivers\\K8055\\bin\\TWUsb.jar").toURI().toURL();
 
-            cl = new URLClassLoader(new URL[] {url, url2}, Thread.currentThread().getContextClassLoader());
+            AccessController.doPrivileged(new PrivilegedAction() {
+                @Override
+                public Object run() {
+                    cl = new URLClassLoader(new URL[] {url, url2}, Thread.currentThread().getContextClassLoader());
+                    return null;
+                }
+            });
 
             Class<?> c = cl.loadClass(klassename);
 
-            o = c.newInstance();
-        } catch (UnsupportedClassVersionError | InstantiationException | MalformedURLException | IllegalAccessException
-                | ClassNotFoundException ex) {
+
+            o = c.getDeclaredConstructor().newInstance();
+        } catch (NoSuchMethodException | MalformedURLException | ClassNotFoundException | IllegalAccessException
+                | InstantiationException | InvocationTargetException ex) {
             org.tinylog.Logger.error(ex);
         }
         return o;

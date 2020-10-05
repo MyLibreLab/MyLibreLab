@@ -54,7 +54,7 @@ public class DialogPropertiesChoice extends javax.swing.JDialog implements ListS
     private PropertyEditor propertyEditor;
     private VMObject vmobject;
     private boolean loading = false;
-    public static List<BasisProperty> props = new ArrayList<>();
+    public static final List<BasisProperty> props = new ArrayList<>();
     private DefaultListModel<BasisProperty> model = new DefaultListModel<>();
 
     public static boolean result = false;
