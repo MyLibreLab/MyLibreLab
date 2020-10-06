@@ -1,15 +1,19 @@
 import com.github.autostyle.generic.DefaultCopyrightStyle
 import com.github.autostyle.gradle.BaseFormatExtension
+import com.github.vlsi.gradle.crlf.CrLfSpec
+import com.github.vlsi.gradle.crlf.LineEndings
 import com.github.vlsi.gradle.properties.dsl.props
 import name.remal.gradle_plugins.plugins.code_quality.sonar.SonarLintExtension
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     `java-library`
     application
     id("com.github.autostyle")
     id("name.remal.sonarlint") apply false
-    id("org.sonarqube")
+    id("com.github.vlsi.crlf")
     id("com.github.vlsi.gradle-extensions")
+    id("org.sonarqube")
     id("org.beryx.runtime")
 }
 
@@ -62,7 +66,7 @@ dependencies {
 }
 
 application {
-    mainClassName = "VisualLogic.FrameMain"
+    mainClassName = "com.github.mylibrelab.MyLibreLab"
 }
 
 runtime {
@@ -105,6 +109,13 @@ allprojects {
             mavenLocal()
         }
         mavenCentral()
+        maven {
+            url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+        }
+    }
+
+    configurations.all {
+        resolutionStrategy.cacheChangingModulesFor(0, "seconds")
     }
 
     if (!skipSonarlint) {
@@ -166,6 +177,28 @@ allprojects {
                 endWithNewline()
             }
         }
+        plugins.withType<JavaBasePlugin> {
+            autostyle {
+                kotlin {
+                    ktlint(version = "0.39.0") {
+                        userData(mapOf("disabled_rules" to "no-wildcard-imports"))
+                    }
+                    license()
+                }
+            }
+        }
+        plugins.withType<JavaPlugin> {
+            autostyle {
+                java {
+                    importOrder("java", "javax", "org", "com", "")
+                    removeUnusedImports()
+                    eclipse {
+                        configFile("${project.rootDir}/config/style.eclipseformat.xml")
+                    }
+                    license()
+                }
+            }
+        }
     }
 
     tasks.withType<AbstractArchiveTask>().configureEach {
@@ -178,9 +211,21 @@ allprojects {
 
     plugins.withType<JavaLibraryPlugin> {
         dependencies {
-            "api"(platform(project(":mylibrelab-dependencies-bom")))
-            "annotationProcessor"(platform(project(":mylibrelab-dependencies-bom")))
+            val bom = platform(project(":mylibrelab-dependencies-bom"))
+            "api"(bom)
+            "annotationProcessor"(bom)
+            "kapt"(bom)
         }
+    }
+
+    tasks.withType<KotlinCompile>().configureEach {
+        kotlinOptions {
+            jvmTarget = "11"
+            freeCompilerArgs = listOf("-Xjvm-default=compatibility")
+        }
+    }
+
+    plugins.withType<JavaPlugin> {
 
         configure<JavaPluginExtension> {
             sourceCompatibility = JavaVersion.VERSION_11
@@ -195,16 +240,29 @@ allprojects {
                 // Use junit platform for unit tests
                 useJUnitPlatform()
             }
-        }
-        if (!skipAutostyle) {
-            autostyle {
-                java {
-                    importOrder("java", "javax", "org", "com", "")
-                    removeUnusedImports()
-                    eclipse {
-                        configFile("${project.rootDir}/config/style.eclipseformat.xml")
+            withType<Jar>().configureEach {
+                manifest {
+                    attributes["Bundle-License"] = "GPL-3.0"
+                    attributes["Implementation-Title"] = project.name
+                    attributes["Implementation-Version"] = project.version
+                    attributes["Specification-Vendor"] = "MyLibreLab"
+                    attributes["Specification-Version"] = project.version
+                    attributes["Specification-Title"] = "MyLibreLab"
+                    attributes["Implementation-Vendor"] = "MyLibreLab"
+                    attributes["Implementation-Vendor-Id"] = "com.github.mylibrelab"
+                }
+
+                CrLfSpec(LineEndings.LF).run {
+                    into("META-INF") {
+                        filteringCharset = "UTF-8"
+                        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+                        // This includes either project-specific license, or a default one
+                        if (file("$projectDir/LICENSE").exists()) {
+                            textFrom("$projectDir/LICENSE")
+                        } else {
+                            textFrom("$rootDir/LICENSE")
+                        }
                     }
-                    license()
                 }
             }
         }
