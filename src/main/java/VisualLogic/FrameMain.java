@@ -20,20 +20,7 @@
 
 package VisualLogic;
 
-import java.awt.AlphaComposite;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.SplashScreen;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -43,44 +30,18 @@ import java.awt.print.PrinterJob;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.XMLDecoder;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.net.MalformedURLException;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 import java.util.List;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JEditorPane;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.JMenu;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingWorker;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
 import javax.swing.filechooser.FileView;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.metal.DefaultMetalTheme;
-import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.plaf.metal.OceanTheme;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -1956,170 +1917,6 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         projectPalette1.expandRow(0);
     }
 
-    public static void setLookAndFeel() {
-
-        String nativeLF = UIManager.getSystemLookAndFeelClassName();
-
-        try {
-            // SwingUtilities.updateComponentTreeUI(this);
-            // this.pack();
-
-            // UIManager.setLookAndFeel(nativeLF);
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                org.tinylog.Logger.info(info.getName());
-                // UIManager.setLookAndFeel( "com.seaglasslookandfeel.SeaGlassLookAndFeel" );
-
-                // System.out.println("SYSTEM_laf:"+UIManager.getSystemLookAndFeelClassName()); //SYSTEM
-
-                if ("Nimbus".equals(info.getName())) {
-
-                    // MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
-                    // MetalLookAndFeel.setCurrentTheme(new OceanTheme());
-                    MetalLookAndFeel.setCurrentTheme(new TestTheme());
-                    // UIManager.setLookAndFeel(info.getClassName());
-                    UIManager.setLookAndFeel(new MetalLookAndFeel());
-                    UIManager.put("CheckBox.background", new Color(255, 255, 255));
-                    UIManager.put("ComboBox.background", new Color(233, 236, 242));
-                    UIManager.put("ComboBox.buttonBackground", Color.white);
-                    UIManager.put("ComboBox.buttonDarkShadow", Color.gray);
-                    UIManager.put("ComboBox.buttonHighlight", new Color(247, 248, 250));
-                    UIManager.put("ComboBox.buttonShadow", Color.darkGray);
-                    UIManager.put("ComboBox.disabledBackground", Color.lightGray);
-                    UIManager.put("ComboBox.disabledForeground", Color.white);
-                    UIManager.put("ComboBox.foreground", new Color(0, 0, 51));
-                    UIManager.put("ComboBox.selectionBackground", new Color(191, 98, 4)); // 115,164,209
-                    UIManager.put("ComboBox.selectionForeground", Color.WHITE);
-
-                    UIManager.put("ComboBox.font", new Font("Dialog", 1, 13));
-
-                    UIManager.put("Tree.font", new Font("Dialog", 0, 13));
-                    UIManager.put("ToolTip.font", new Font("Dialog", 1, 13));
-                    UIManager.put("TextPane.font", new Font("Dialog", 1, 13));
-                    UIManager.put("TextField.font", new Font("Dialog", 1, 13));
-                    UIManager.put("ToolTip.foreground", new Color(0, 0, 51));
-                    UIManager.put("TextField.foreground", new Color(0, 0, 51));
-                    UIManager.put("TextPane.foreground", new Color(0, 0, 51));
-                    UIManager.put("TextPane.background", new Color(214, 217, 223));
-
-                    UIManager.put("SplitPane.background", new Color(214, 217, 223));
-                    UIManager.put("Separator.foreground", new Color(214, 217, 223));
-
-                    // jPanelProjectExplorer.setBackground(new Color(214,217,223));
-                    UIManager.put("TextPane.inactiveBackground", new Color(214, 217, 223));
-                    UIManager.put("ToolTip.background", new Color(255, 242, 181));
-
-                    UIManager.put("controltHighlight", new Color(233, 236, 242));
-                    UIManager.put("controlLtHighlight", new Color(247, 248, 250));
-
-                    UIManager.put("Button.opaque", true);
-                    UIManager.put("ToggleButton.highlight", Color.orange);
-                    UIManager.put("ToggleButton.light", Color.yellow);
-                    UIManager.put("ToggleButton.border", BorderFactory.createRaisedBevelBorder());
-                    UIManager.put("Button.border", BorderFactory.createRaisedBevelBorder());
-                    UIManager.put("RadioButton.border", BorderFactory.createCompoundBorder(
-                            BorderFactory.createRaisedBevelBorder(), BorderFactory.createRaisedBevelBorder()));
-                    UIManager.put("ScrollPane.border", BorderFactory.createRaisedBevelBorder());
-                    UIManager.put("ScrollPane.background", Color.WHITE);
-                    UIManager.put("ScrollPane.foreground", Color.WHITE);
-
-                    UIManager.put("ToolBar.border", BorderFactory.createEmptyBorder());
-                    UIManager.put("Panel.border", BorderFactory.createEmptyBorder());
-                    UIManager.put("SplitPane.border", BorderFactory.createEmptyBorder());
-
-                    UIManager.put("Tree.background", new Color(255, 255, 255)); // 214,217,223
-                    UIManager.put("Tree.textBackground", new Color(255, 255, 255));
-                    UIManager.put("Tree.font", new Font("Dialog", 0, 13));
-                    UIManager.put("List.font", new Font("Dialog", 1, 13));
-                    UIManager.put("TabbedPane.font", new Font("Dialog", 1, 13));
-                    UIManager.put("PopupMenu.font", new Font("Dialog", 0, 13));
-                    UIManager.put("MenuItem.font", new Font("Dialog", 0, 13));
-                    UIManager.put("Menu.font", new Font("Dialog", 0, 13));
-                    UIManager.put("MenuBar.font", new Font("Dialog", 0, 13));
-                    UIManager.put("MenuBar.disabledForeground", Color.DARK_GRAY);
-                    UIManager.put("Menu.selectionForeground", Color.white);
-                    UIManager.put("MenuBar.selectionForeground", Color.white);
-                    UIManager.put("MenuItem.selectionForeground", Color.white);
-                    UIManager.put("Menu.disabledForeground", Color.DARK_GRAY);
-                    UIManager.put("MenuItem.disabledForeground", Color.DARK_GRAY);
-
-                    UIManager.put("Table.foreground", new Color(0, 0, 51));
-                    UIManager.put("Tree.foreground", new Color(0, 0, 51));
-                    UIManager.put("List.background", Color.white);
-                    UIManager.put("ScrollBar.squareButtons", false);
-
-                    UIManager.put("TableHeader.background", new Color(214, 217, 223));
-                    UIManager.put("TableHeader.foreground", new Color(0, 0, 51));
-                    UIManager.put("TableHeader.font", new Font("Dialog", 1, 13));
-
-                    UIManager.put("Table.gridColor", new Color(51, 98, 140));
-
-                    UIManager.put("Table.background", Color.white);
-                    UIManager.put("List.dropLineColor", Color.red);
-                    UIManager.put("Table.dropLineColor", Color.red);
-                    UIManager.put("List.selectionBackground", new Color(115, 164, 209));
-                    UIManager.put("Table.selectionBackground", new Color(115, 164, 209));
-                    // UIManager.put("List.focusCellHighlightBorder",Color.green);
-                    // UIManager.put("Table.focusCellHighlightBorder",Color.green);
-                    UIManager.put("List.selectionForeground", Color.WHITE);
-                    UIManager.put("Table.selectionForeground", Color.WHITE);
-                    // UIManager.put("TableHeader.cellBorder",false);
-
-                    UIManager.put("Panel.opaque", true);
-                    UIManager.put("Panel.background", new Color(214, 217, 223));
-                    UIManager.put("Panel.foreground", new Color(214, 217, 223));
-                    UIManager.put("Separator.foreground", new Color(214, 217, 223));
-                    // UIManager.put("TabbedPane.tabsOverlapBorder",true);
-                    UIManager.put("TabbedPane.focus", new Color(51, 98, 140));
-                    UIManager.put("TabbedPane.shadow", Color.black);
-                    UIManager.put("TabbedPane.highlight", new Color(51, 98, 140));
-                    UIManager.put("TabbedPane.light", Color.WHITE);
-                    // UIManager.put("TabbedPane.leftTabInsets",new Color(51,98,140));
-                    // UIManager.put("TabbedPane.darkShadow",new Color(191,98,4));
-                    UIManager.put("TabbedPane.background", new Color(115, 164, 209)); // Relleno de la Pesta�a
-                                                                                      // Deshabilitada
-
-                    // UIManager.put("ScrollBar.background",new Color(214,217,223));
-                    UIManager.put("ScrollBar.background", new Color(233, 236, 242));
-                    UIManager.put("ScrollBar.foreground", Color.DARK_GRAY);
-                    UIManager.put("ScrollBar.thumbDarkShadow", Color.black);
-                    UIManager.put("ScrollBar.width", 16);
-                    UIManager.put("ScrollBar.thumbHighlight", Color.lightGray);
-                    UIManager.put("ScrollBar.thumbShadow", Color.gray);
-
-                    // SwingUtilities.updateComponentTreeUI(this);
-                    // pack();
-
-                    // Specify the theme to use by defining the THEME constant
-                    // Valid values are: "DefaultMetal", "Ocean", and "Test"
-                    // MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
-                    // UIManager.setLookAndFeel(nativeLF);
-
-                    // System.setProperty( "sun.java2d.xrender","false"); //sun.java2d.xrender=True
-                    // xrender Intended use: To enable the XRender-based Java 2D rendering pipeline for modern X11-based
-                    // desktops, offering improved graphics performance.
-
-                    // System.setProperty( "sun.java2d.d3d","false"); //sun.java2d.d3d=false //d3d
-                    // Intended use: To turn off the Java 2D system's use of Direct3D.
-
-                    // -Dsun.java2d.xrender=false -Dsun.java2d.d3d=false
-                    break;
-                }
-            }
-            // Set cross-platform Java L&F (also called "Metal")
-            // UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-
-        } catch (Exception e) {
-            // If Nimbus is not available, you can set the GUI to another look and feel.
-            try {
-
-                UIManager.setLookAndFeel(nativeLF);
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                    | UnsupportedLookAndFeelException ex) {
-
-            }
-        }
-    }
-
     public void removeVMPanel(VMEditorPanel panel) {
         jPaneVMPanels.remove(panel);
         desktop.remove(panel.basis);
@@ -2171,124 +1968,6 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         errorWarnings = new FrameErrorWarnings();
 
         org.tinylog.Logger.info("Locale=" + settings.getLanguage());
-    }
-
-    public static String arg1;
-
-    public static String getArg1() {
-        return arg1;
-    }
-
-    public static void handleLicense() {
-        // String licenseFile = FrameMain.userURL.getPath() + "/Licences1.Accepted";
-        String licenseFile = FrameMain.userURL.getPath() + File.separator + "Licences1.Accepted";
-        File file = new File(licenseFile);
-
-        boolean licencesAccepted = false;
-
-        if (file.exists()) {
-            licencesAccepted = true;
-        } else {
-            licencesAccepted = false;
-        }
-
-        if (licencesAccepted == false) {
-            DialogLicence frmLicence = new DialogLicence(null, true);
-            frmLicence.setVisible(true);
-            if (frmLicence.result) {
-                try {
-                    file.createNewFile();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            } else {
-                System.exit(0);
-            }
-        }
-    }
-
-    public static void setUIFont(javax.swing.plaf.FontUIResource f) {
-        java.util.Enumeration keys = UIManager.getDefaults().keys();
-        while (keys.hasMoreElements()) {
-            Object key = keys.nextElement();
-            Object value = UIManager.get(key);
-            if (value != null && value instanceof javax.swing.plaf.FontUIResource) {
-                UIManager.put(key, f);
-            }
-        }
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-
-        setUIFont(new javax.swing.plaf.FontUIResource("Dialog", Font.PLAIN, 13)); // Application Font
-
-        SplashScreen splash = SplashScreen.getSplashScreen();
-        if (splash != null) {
-            Graphics2D g = (Graphics2D) splash.createGraphics();
-            Rectangle size = splash.getBounds();
-            g.setComposite(AlphaComposite.Clear);
-            g.fillRect(0, 0, size.width, size.height);
-            g.setPaintMode();
-        }
-
-        try {
-            FrameMain.userURL = new URL(
-                    "file:" + System.getProperty("user.home") + System.getProperty("file.separator") + "VisualLogic");
-        } catch (MalformedURLException ex) {
-            ex.printStackTrace();
-        }
-        setLookAndFeel();
-
-        Tools.appResult = 0;
-
-        File file = new File(FrameMain.userURL.getPath());
-
-        if (!file.exists()) {
-            boolean success = file.mkdir();
-            if (!success) {
-                Tools.showMessage(java.util.ResourceBundle.getBundle("VisualLogic/Messages")
-                        .getString("Fehler : Verzeichniss konnte nicht erzeugt werden") + " : " + userURL.getPath());
-            }
-        }
-
-        handleLicense();
-
-        if (args.length > 0) {
-            for (int i = 0; i < args.length; i++) {
-                org.tinylog.Logger.info("Arg[" + i + "]=" + args[i]);
-            }
-            FrameMain.elementPath = args[0];
-
-            Tools.elementPath = FrameMain.elementPath;
-        }
-
-        // JFrame.setDefaultLookAndFeelDecorated(false);
-        frm = new FrameMain(args);
-
-        if (args.length >= 2) {
-            org.tinylog.Logger.info("Arg[1]=" + args[1]);
-
-            arg1 = args[1];
-            java.awt.EventQueue.invokeLater(new Runnable() {
-
-                public void run() {
-                    String projectPath = getArg1();
-
-                    ProjectProperties props = Tools.openProjectFile(new File(projectPath));
-                    frm.openFileAsFront(projectPath, props.mainVM);
-                }
-            });
-        } else {
-            java.awt.EventQueue.invokeLater(new Runnable() {
-
-                public void run() {
-                    frm.setVisible(true);
-                }
-            });
-        }
     }
 
     public void openFileAsFront(String projectPath, String vmName) {
@@ -5830,7 +5509,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     private void formWindowClosing(java.awt.event.WindowEvent evt) {// GEN-FIRST:event_formWindowClosing
         // if (isEnabled)
         {
-            closeApplication();
+            SwingUtilities.invokeLater(this::closeApplication);
         }
     }// GEN-LAST:event_formWindowClosing
 
