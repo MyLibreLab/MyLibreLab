@@ -5,8 +5,11 @@ pluginManagement {
 
         idv("com.github.autostyle")
         idv("com.github.vlsi.crlf", "com.github.vlsi.vlsi-release-plugins")
+        idv("com.github.vlsi.crlf", "com.github.vlsi.vlsi-release-plugins")
         idv("com.github.vlsi.gradle-extensions", "com.github.vlsi.vlsi-release-plugins")
         idv("org.beryx.runtime")
+        idv("org.jetbrains.kotlin.jvm", "kotlin")
+        idv("org.jetbrains.kotlin.kapt", "kotlin")
     }
 }
 
