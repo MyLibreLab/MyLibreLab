@@ -42,6 +42,7 @@ dependencies {
 
     implementation("org.netbeans.external:AbsoluteLayout")
     implementation("org.swinglabs:swing-layout")
+    implementation("com.github.weisj:darklaf-core")
 
     implementation("com.google.code.findbugs:jsr305")
     testImplementation("org.junit.jupiter:junit-jupiter-api")

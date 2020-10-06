@@ -30,3 +30,14 @@ for (p in rootProject.children) {
         p.name = rootProject.name.toLowerCase() + "-" + p.name
     }
 }
+
+fun property(name: String) =
+    when (extra.has(name)) {
+        true -> extra.get(name) as? String
+        else -> null
+    }
+
+property("localDarklaf")?.ifBlank { "../darklaf" }?.let {
+    println("Importing project '$it'")
+    includeBuild(it)
+}
