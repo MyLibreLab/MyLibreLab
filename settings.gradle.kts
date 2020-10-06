@@ -18,7 +18,9 @@ pluginManagement {
 rootProject.name = "MyLibreLab"
 
 include(
-    "dependencies-bom"
+    "dependencies-bom",
+    "settings-api",
+    "util"
 )
 
 for (p in rootProject.children) {
