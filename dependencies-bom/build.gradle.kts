@@ -40,6 +40,8 @@ dependencies {
 
         apiv("org.netbeans.external:AbsoluteLayout")
         apiv("org.swinglabs:swing-layout")
+        apiv("com.github.weisj:darklaf-core", "darklaf")
+        apiv("com.github.weisj:darklaf-property-loader", "darklaf")
 
         apiv("com.pi4j:pi4j-core", "pi4j")
         apiv("com.pi4j:pi4j-device", "pi4j")
