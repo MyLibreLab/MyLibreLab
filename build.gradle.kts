@@ -12,6 +12,8 @@ plugins {
     id("com.github.vlsi.crlf")
     id("com.github.vlsi.gradle-extensions")
     id("org.beryx.runtime")
+    kotlin("jvm")
+    kotlin("kapt")
 }
 
 val String.v: String get() = rootProject.extra["$this.version"] as String
@@ -21,6 +23,9 @@ val enableMavenLocal by props()
 val skipAutostyle by props()
 
 dependencies {
+    implementation(project(":mylibrelab-settings-api"))
+    implementation(project(":mylibrelab-util"))
+
     implementation("org.json:json")
     implementation("org.scream3r:jssc")
 
@@ -37,6 +42,10 @@ dependencies {
     implementation("com.google.code.findbugs:jsr305")
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+
+    implementation(kotlin("stdlib"))
+    kapt("com.google.auto.service:auto-service")
+    compileOnly("com.google.auto.service:auto-service-annotations")
 
     /* Currently unused dependencies. Those need further investigation whether they are needed for the elements
      * at runtime.
