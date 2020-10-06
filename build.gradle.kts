@@ -6,6 +6,7 @@ plugins {
     `java-library`
     application
     id("com.github.autostyle")
+    id("org.sonarqube")
     id("com.github.vlsi.gradle-extensions")
     id("org.beryx.runtime")
 }
