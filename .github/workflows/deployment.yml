@@ -52,6 +52,8 @@ jobs:
             Linux-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
             Windows-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
             macOS-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+      - name: Build
+        run: ./gradlew build -PskipAutostyle -PskipSonarlint
       - name: Build runtime image
         run: ./gradlew runtimeZip -PskipAutostyle -PskipSonarlint
       - name: Build installer
