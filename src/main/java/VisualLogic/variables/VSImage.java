@@ -115,10 +115,7 @@ public class VSImage extends VSObject {
                 if (image != null) {
                     image.flush();
                 }
-                /*
-                 * TODO ignored read here.This should be adressed in another PR because there are lots of cases like
-                 * this. Why do we even read here in the first place?
-                 */
+                // TODO ignored read here
                 fis.read(imageBytes);
                 image = java.awt.Toolkit.getDefaultToolkit().createImage(imageBytes);
             } else {
