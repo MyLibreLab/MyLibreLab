@@ -20,9 +20,9 @@
 
 package SimpleFileSystem;
 
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
+import org.tinylog.Logger;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +32,7 @@ import java.util.List;
  */
 
 public class FileSystemOutput {
+    //TODO why do we have here a global FileOutputStream?
     private List<SFileDescriptor> liste = new ArrayList<>();
     private FileOutputStream fos = null;
     private SFileDescriptor oldItem;
@@ -44,10 +45,14 @@ public class FileSystemOutput {
         try {
             fos = new FileOutputStream(new File(filename));
 
-            DataOutputStream dos = new DataOutputStream(fos);
+            try(DataOutputStream dos = new DataOutputStream(fos)){
+                dos.writeLong(123479); // platzhalter f�r die Position der IndexListe!
 
-            dos.writeLong(123479); // platzhalter f�r die Position der IndexListe!
-        } catch (Exception ex) {
+            } catch (IOException ioException) {
+                Logger.error(ioException);
+            }
+
+        } catch (FileNotFoundException ex) {
             org.tinylog.Logger.error(ex);
             System.out.println("Error in Methode createFile()" + ex.toString());
         }
