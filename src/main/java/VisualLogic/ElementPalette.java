@@ -159,10 +159,8 @@ public class ElementPalette extends javax.swing.JPanel {
                 list.add(inputString);
             }
 
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             org.tinylog.Logger.error(e);
-        } catch (IOException ioException) {
-            org.tinylog.Logger.error(ioException);
         }
 
 
