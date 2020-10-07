@@ -32,6 +32,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -138,7 +139,7 @@ public class Draht implements Serializable {
                     polyList.add(p);
                 }
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
             vmobject.owner.showErrorMessage("" + ex.toString());
         }
@@ -163,7 +164,7 @@ public class Draht implements Serializable {
                 PolyPoint p = getPoint(i);
                 p.saveToStream(dos);
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
             vmobject.owner.showErrorMessage("" + ex.toString());
         }
@@ -623,15 +624,12 @@ public class Draht implements Serializable {
                 int dataTypeSrc = -1;
                 int dataTypeDest = -1;
 
-                try {
-                    JPin aa = elementSrc.getPin(getSourcePin());
-                    JPin bb = elementDst.getPin(getDestPin());
-                    if (aa != null) dataTypeSrc = aa.dataType;
-                    if (bb != null) dataTypeDest = bb.dataType;
-                } catch (Exception ex) {
-                    org.tinylog.Logger.error(ex);
-                    return;
-                }
+
+                JPin aa = elementSrc.getPin(getSourcePin());
+                JPin bb = elementDst.getPin(getDestPin());
+                if (aa != null) dataTypeSrc = aa.dataType;
+                if (bb != null) dataTypeDest = bb.dataType;
+
 
                 if (dataTypeSrc == -1)
                     dataType = dataTypeDest;

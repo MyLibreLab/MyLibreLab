@@ -30,15 +30,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -160,16 +152,20 @@ public class ElementPalette extends javax.swing.JPanel {
 
     public List<String> getSortDefinitionFile(File file) {
         List<String> list = new ArrayList<>();
-        try {
-            BufferedReader input = new BufferedReader(new FileReader(file.getAbsolutePath() + "/" + "sort.def"));
+
+        try (BufferedReader input = new BufferedReader(new FileReader(file.getAbsolutePath() + "/" + "sort.def"))) {
             String inputString;
             while ((inputString = input.readLine()) != null) {
                 list.add(inputString);
             }
-            input.close();
-        } catch (Exception ex) {
-            // System.out.println("FEHLER : "+ex.getMessage());
+
+        } catch (FileNotFoundException e) {
+            org.tinylog.Logger.error(e);
+        } catch (IOException ioException) {
+            org.tinylog.Logger.error(ioException);
         }
+
+
         return list;
     }
 
@@ -183,6 +179,7 @@ public class ElementPalette extends javax.swing.JPanel {
         try {
             mc.waitForID(0);
         } catch (InterruptedException ex) {
+            org.tinylog.Logger.error(ex);
         }
 
         BufferedImage bufferedimage = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
@@ -216,14 +213,12 @@ public class ElementPalette extends javax.swing.JPanel {
 
         btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    if (!aktuellesVerzeichniss.equalsIgnoreCase(rootPath)) {
-                        String str = aktuellesVerzeichniss.substring(0, aktuellesVerzeichniss.lastIndexOf("/"));
-                        loadFolder(str);
-                    }
-                } catch (Exception ex) {
-                    Tools.showMessage(ex.toString());
+
+                if (!aktuellesVerzeichniss.equalsIgnoreCase(rootPath)) {
+                    String str = aktuellesVerzeichniss.substring(0, aktuellesVerzeichniss.lastIndexOf("/"));
+                    loadFolder(str);
                 }
+
             }
         });
 
@@ -892,7 +887,8 @@ public class ElementPalette extends javax.swing.JPanel {
                 String newIcon = file.getPath() + "/icon." + ext;
                 try {
                     Tools.copyFile(new File(frm.xicon), new File(newIcon));
-                } catch (Exception ex) {
+                } catch (IOException ex) {
+                    org.tinylog.Logger.error(ex);
                 }
 
                 DFProperties props = new DFProperties();

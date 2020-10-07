@@ -44,6 +44,7 @@ public class StatusRun implements StatusBasisIF {
             element.layeredPane.start();
 
             if (element.classRef != null) {
+                // TODO why the exception?
                 try {
                     element.classRef.xonStart();
                 } catch (Exception ex) {
@@ -74,6 +75,7 @@ public class StatusRun implements StatusBasisIF {
 
             if (element.classRef != null) {
                 try {
+                    // TODO exception here why?
                     element.classRef.xonStop();
                     element.mouseEventsTo = null;
                 } catch (Exception ex) {
@@ -106,17 +108,14 @@ public class StatusRun implements StatusBasisIF {
             SelectionPane pane = (SelectionPane) e.getSource();
             Element element = pane.getElement();
 
-            try {
 
-                if (element.mouseEventsTo == null) {
-                    element.classRef.xonMouseDragged(e);
-                } else {
-                    element.mouseEventsTo.xonMouseDragged(e);
-                }
-            } catch (Exception ex) {
 
+            if (element.mouseEventsTo == null) {
+                element.classRef.xonMouseDragged(e);
+            } else {
+                element.mouseEventsTo.xonMouseDragged(e);
             }
-        } else {
+
         }
     }
 

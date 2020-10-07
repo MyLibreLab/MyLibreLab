@@ -20,28 +20,21 @@
 
 package VisualLogic;
 
-import java.beans.XMLDecoder;
-import java.beans.XMLEncoder;
-import java.io.*;
+import java.io.IOException;
 
-import org.tinylog.Logger;
+public class StoreImageException extends IOException {
 
-public class XMLSerializer {
-    public static void write(Object f, String filename) {
-        try (XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(filename)))) {
-            encoder.writeObject(f);
-        } catch (IOException ex) {
-            Logger.error(ex);
-        }
+    public StoreImageException() {}
+
+    public StoreImageException(String message) {
+        super(message);
     }
 
-    public static Object read(String filename) {
-        Object o;
-        try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(filename)))) {
-            o = decoder.readObject();
-            return o;
-        } catch (IOException ex) {
-            Logger.error(ex);
-        }
+    public StoreImageException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public StoreImageException(Throwable cause) {
+        super(cause);
     }
 }

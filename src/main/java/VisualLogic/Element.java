@@ -896,12 +896,9 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
     }
 
     public void jProcessPanel(int pinIndex, double value, Object obj) {
-        try {
-            ((PanelIF) classRef).processPanel(pinIndex, value, obj);
-        } catch (Exception ex) {
-            org.tinylog.Logger.error(ex);
-            owner.owner.showErrorMessage("PanelIF existiert nicht : " + ex);
-        }
+
+        ((PanelIF) classRef).processPanel(pinIndex, value, obj);
+
     }
 
     public void moveElement(int srcIndex, int dstIndex) {
@@ -921,9 +918,6 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
         } catch (IllegalArgumentException e) {
             org.tinylog.Logger.error(e);
             System.out.println("Error VisualLogic.Element.inDenVordergrund(Element.java:906) " + e.getMessage());
-        } catch (Exception e) {
-            org.tinylog.Logger.error(e);
-            System.out.println("Error VisualLogic.Element.inDenVordergrund " + e.getMessage());
         }
     }
 
@@ -991,8 +985,8 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
     }
 
     public void loadFromStream(FileInputStream fis, boolean fromAblage) {
-        try {
-            DataInputStream stream = new DataInputStream(fis);
+        try (DataInputStream stream = new DataInputStream(fis)) {
+
 
             circuitElementID = stream.readInt();
             panelElementID = stream.readInt();
@@ -1041,75 +1035,70 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
             if (classRef != null) {
                 loadProperties();
 
-                try {
-                    classRef.xLoadFromStream(fis);
 
-                    if (this.owner == owner.owner.getCircuitBasis()) {
-                        if (panelElementID == -1 && circuitElementID != -1) {
-                            classRef.xOnInit();
-                            // classRef.loadFromStreamAfterXOnInit(fis);
-                        }
-                    }
+                classRef.xLoadFromStream(fis);
 
-                    if (this.owner == owner.owner.getFrontBasis()) {
-                        if (fromAblage) {
-                            setPanelElementWhereOldID(this);
-                        }
-
-                        VMObject frontBasis = owner.owner.getFrontBasis();
-                        VMObject circuitBasis = owner.owner.getCircuitBasis();
-
-                        if (circuitElementID != -1) {
-                            circuitElement = (Element) circuitBasis.getObjectWithID(circuitElementID);
-
-                            Element el = (Element) circuitElement;
-                            if (el.panelElementID != -1) {
-                                el.panelElement = (Element) frontBasis.getObjectWithID(el.panelElementID);
-                            }
-                        }
-
-                        if (circuitElement != null) {
-                            ((Element) circuitElement).classRef.xOnInit();
-                        }
+                if (this.owner == owner.owner.getCircuitBasis()) {
+                    if (panelElementID == -1 && circuitElementID != -1) {
                         classRef.xOnInit();
+                        // classRef.loadFromStreamAfterXOnInit(fis);
+                    }
+                }
 
-                        if (circuitElement != null) {
-                            ((Element) circuitElement).classRef.loadFromStreamAfterXOnInit(fis);
-                        }
-                        classRef.loadFromStreamAfterXOnInit(fis);
+                if (this.owner == owner.owner.getFrontBasis()) {
+                    if (fromAblage) {
+                        setPanelElementWhereOldID(this);
+                    }
 
-                        // owner.owner.verknuepfeElemente(fromAblage);
-                        if (elementBasis != null) {
-                            elementBasis.getCircuitBasis().processpropertyChangedToAllElements(null);
-                            elementBasis.getFrontBasis().processpropertyChangedToAllElements(null);
+                    VMObject frontBasis = owner.owner.getFrontBasis();
+                    VMObject circuitBasis = owner.owner.getCircuitBasis();
+
+                    if (circuitElementID != -1) {
+                        circuitElement = (Element) circuitBasis.getObjectWithID(circuitElementID);
+
+                        Element el = (Element) circuitElement;
+                        if (el.panelElementID != -1) {
+                            el.panelElement = (Element) frontBasis.getObjectWithID(el.panelElementID);
                         }
                     }
-                } catch (Exception ex) {
-                    org.tinylog.Logger.error(ex);
-                    owner.owner.showErrorMessage("Error loading Component <" + strName + "> :" + ex);
+
+                    if (circuitElement != null) {
+                        ((Element) circuitElement).classRef.xOnInit();
+                    }
+                    classRef.xOnInit();
+
+                    if (circuitElement != null) {
+                        ((Element) circuitElement).classRef.loadFromStreamAfterXOnInit(fis);
+                    }
+                    classRef.loadFromStreamAfterXOnInit(fis);
+
+                    // owner.owner.verknuepfeElemente(fromAblage);
+                    if (elementBasis != null) {
+                        elementBasis.getCircuitBasis().processpropertyChangedToAllElements(null);
+                        elementBasis.getFrontBasis().processpropertyChangedToAllElements(null);
+                    }
                 }
+
             } else {
-                try {
-                    jSetTopPinsVisible(topPinsVisible);
-                    jSetRightPinsVisible(rightPinsVisible);
-                    jSetBottomPinsVisible(bottomPinsVisible);
-                    jSetLeftPinsVisible(leftPinsVisible);
 
-                    jSetTopPins(topPins);
-                    jSetRightPins(rightPins);
-                    jSetBottomPins(bottomPins);
-                    jSetLeftPins(leftPins);
+                jSetTopPinsVisible(topPinsVisible);
+                jSetRightPinsVisible(rightPinsVisible);
+                jSetBottomPinsVisible(bottomPinsVisible);
+                jSetLeftPinsVisible(leftPinsVisible);
 
-                    setCaptionVisible(true);
-                    setCaption("NOT FOUND!");
+                jSetTopPins(topPins);
+                jSetRightPins(rightPins);
+                jSetBottomPins(bottomPins);
+                jSetLeftPins(leftPins);
 
-                    initPins(true);
-                    alreadyInitialized = true;
-                } catch (Exception ex) {
-                    org.tinylog.Logger.error(ex);
-                }
+                setCaptionVisible(true);
+                setCaption("NOT FOUND!");
+
+                initPins(true);
+                alreadyInitialized = true;
+
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
             owner.owner.showErrorMessage("Error in Element.loadFromStream() :" + ex.toString());
         }
@@ -2897,36 +2886,34 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
     }
 
     public void drawSubElements(Graphics2D gx, boolean translate) {
-        try {
-            for (Object o : subElemente) {
-                if (o instanceof JPanel) {
-                    JPanel panel = (JPanel) o;
-                    if (panel.isVisible()) {
-                        Graphics2D g = (Graphics2D) gx.create();
 
-                        if (translate) {
-                            g.setClip(null);
-                            g.translate(-getX(), -getY());
-                        }
+        for (Object o : subElemente) {
+            if (o instanceof JPanel) {
+                JPanel panel = (JPanel) o;
+                if (panel.isVisible()) {
+                    Graphics2D g = (Graphics2D) gx.create();
 
-                        g.setFont(panel.getFont());
-                        g.translate(panel.getLocation().x, panel.getLocation().y);
-                        /*
-                         * g.setColor(Color.RED); g.fillRect(0,0,panel.getWidth(),panel.getHeight());
-                         */
-                        g.setColor(Color.black);
-                        panel.paint(g);
-                        if (translate) {
-                            g.translate(-panel.getLocation().x, -panel.getLocation().y);
-                            g.translate(getX(), getY());
-                        }
-                        g.dispose();
+                    if (translate) {
+                        g.setClip(null);
+                        g.translate(-getX(), -getY());
                     }
+
+                    g.setFont(panel.getFont());
+                    g.translate(panel.getLocation().x, panel.getLocation().y);
+                    /*
+                     * g.setColor(Color.RED); g.fillRect(0,0,panel.getWidth(),panel.getHeight());
+                     */
+                    g.setColor(Color.black);
+                    panel.paint(g);
+                    if (translate) {
+                        g.translate(-panel.getLocation().x, -panel.getLocation().y);
+                        g.translate(getX(), getY());
+                    }
+                    g.dispose();
                 }
             }
-        } catch (Exception ex) {
-            org.tinylog.Logger.error(ex);
         }
+
     }
 
     public boolean drawElement(Graphics2D g) {
@@ -3097,8 +3084,9 @@ public class Element extends Shape implements MouseListener, MouseMotionListener
             mc.addImage(result, 0);
             try {
                 mc.waitForID(0);
-            } catch (Exception exe) {
+            } catch (InterruptedException exe) {
                 org.tinylog.Logger.error(exe);
+                Thread.currentThread().interrupt();
             }
             return result;
             // System.out.println("fn"+fn);

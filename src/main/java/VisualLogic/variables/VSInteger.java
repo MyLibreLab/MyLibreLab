@@ -20,6 +20,9 @@
 
 package VisualLogic.variables;
 
+import java.io.IOException;
+
+
 public class VSInteger extends VSObject {
     private int value;
 
@@ -83,20 +86,20 @@ public class VSInteger extends VSObject {
     }
 
     public void loadFromStream(java.io.FileInputStream fis) {
-        try {
-            java.io.DataInputStream dis = new java.io.DataInputStream(fis);
+        try (java.io.DataInputStream dis = new java.io.DataInputStream(fis)) {
+
 
             value = dis.readInt();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
         }
     }
 
     public void saveToStream(java.io.FileOutputStream fos) {
-        try {
-            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
+        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)) {
+
             dos.writeInt(value);
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
             VisualLogic.Tools.showMessage("Fehler in VSInteger.saveToStream() : " + ex.toString());
         }
@@ -105,7 +108,7 @@ public class VSInteger extends VSObject {
     public void loadFromXML(String name, org.w3c.dom.Element nodeElement) {
         try {
             value = Integer.parseInt(nodeElement.getAttribute("VSInteger" + name));
-        } catch (Exception ex) {
+        } catch (NumberFormatException ex) {
             org.tinylog.Logger.error(ex);
         }
     }

@@ -283,11 +283,13 @@ public class Basis implements ElementIF, VSBasisIF {
      * private boolean isVariable(String val) { String ch; for(int i=0;i<val.length();i++) {
      * ch=val.substring(i,i+1); if (isIn(ch,ALPHA)==false) return false; } return true; }
      */
+
+    // TODO NumberUtils
     private boolean isNum(String val) {
         try {
             double x = Double.parseDouble(val);
             return true;
-        } catch (Exception ex) {
+        } catch (NumberFormatException ex) {
             return false;
         }
     }
@@ -894,12 +896,10 @@ public class Basis implements ElementIF, VSBasisIF {
     }
 
     public void copy() {
-        try {
-            String filename = getFrameMain().getUserURL().getFile() + "/Ablage.tmp";
-            saveFile(filename, true);
-        } catch (Exception ex) {
-            showErrorMessage(ex.toString());
-        }
+
+        String filename = getFrameMain().getUserURL().getFile() + "/Ablage.tmp";
+        saveFile(filename, true);
+
     }
 
     public void paste() {
@@ -1229,13 +1229,12 @@ public class Basis implements ElementIF, VSBasisIF {
             // frm.setLocation(XPosTemp,YPosTemp);
             frm.setSize(screenSize);
             Rectangle b = this.frontBasis.getBounds();
-            try {
-                // Thread.currentThread().sleep(125);
-                frm.getContentPane().getComponent(1).setBackground(this.frontBasis.getBackground());
-                this.frontBasis.setLocation((screenSize.width / 2) - (b.width / 2),
-                        ((screenSize.height / 2) - (b.height / 2)));
-            } catch (Exception e) {
-            }
+
+            // Thread.currentThread().sleep(125);
+            frm.getContentPane().getComponent(1).setBackground(this.frontBasis.getBackground());
+            this.frontBasis.setLocation((screenSize.width / 2) - (b.width / 2),
+                    ((screenSize.height / 2) - (b.height / 2)));
+
             // frm.repaint();
         } else {
             frm.setLocation(CustomXwindowPos, CustomYwindowPos);
@@ -1382,27 +1381,24 @@ public class Basis implements ElementIF, VSBasisIF {
 
         this.XfileName = fileName;
 
-        try {
-            FileSystemInput fsi = new FileSystemInput(filename);
 
-            loadFromStream(fsi, fromAblage);
-            fsi.close();
+        FileSystemInput fsi = new FileSystemInput(filename);
 
-            circuitBasis.korrigiereFehler();
-            frontBasis.korrigiereFehler();
+        loadFromStream(fsi, fromAblage);
+        fsi.close();
 
-            circuitBasis.reorderWireFrames();
-            frontBasis.reorderWireFrames();
+        circuitBasis.korrigiereFehler();
+        frontBasis.korrigiereFehler();
 
-            circuitBasis.unlockGraphics();
-            frontBasis.unlockGraphics();
+        circuitBasis.reorderWireFrames();
+        frontBasis.reorderWireFrames();
 
-            // System.out.println(fileName +
-            // java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("_ist_in_Ordnung."));
-        } catch (Exception ex) {
-            // System.out.println(ex.toString());
-            // showErrorMessage(ex.toString());
-        }
+        circuitBasis.unlockGraphics();
+        frontBasis.unlockGraphics();
+
+        // System.out.println(fileName +
+        // java.util.ResourceBundle.getBundle("VisualLogic/Basic").getString("_ist_in_Ordnung."));
+
 
         circuitBasis.processPropertyEditor();
         frontBasis.sortSubPanels();
@@ -1543,10 +1539,9 @@ public class Basis implements ElementIF, VSBasisIF {
             Component comp = vm.getComponent(i);
             if (comp instanceof Element) {
                 element = (Element) comp;
-                try {
-                    element.classRef.xOnInit();
-                } catch (Exception ex) {
-                }
+
+                element.classRef.xOnInit();
+
             }
         }
     }
@@ -1557,10 +1552,7 @@ public class Basis implements ElementIF, VSBasisIF {
             Component comp = vm.getComponent(i);
             if (comp instanceof Element) {
                 element = (Element) comp;
-                try {
-                    // if (element.loadedFromAblageFlag2) element.classRef.xOnInit();
-                } catch (Exception ex) {
-                }
+
             }
         }
     }
@@ -1866,14 +1858,9 @@ public class Basis implements ElementIF, VSBasisIF {
 
             // System.out.println("Element ="+element.getCaption());
             FileInputStream fis = fsIn.gotoItem(fileCount++);
-            DataInputStream stream = new DataInputStream(fis);
-
-            try {
-                // if (!element.getCaption().equalsIgnoreCase("Analog Display 2"))
-                {
-                    element.classRef.loadFromStreamAfterXOnInit(fis);
-                }
-            } catch (Exception | java.lang.AbstractMethodError ex) {
+            try (DataInputStream stream = new DataInputStream(fis)) {
+                element.classRef.loadFromStreamAfterXOnInit(fis);
+            } catch (IOException ex) {
                 System.out.println(ex.toString());
             }
 
@@ -1954,42 +1941,14 @@ public class Basis implements ElementIF, VSBasisIF {
         }
     }
 
-    private void saveX(Element element, FileSystemOutput fsOut) {
-        FileOutputStream fos = fsOut.addItem("Basis-Element-Data");
-        DataOutputStream dos = new DataOutputStream(fos);
 
-        try {
-            element.classRef.saveToStreamAfterXOnInit(fos);
-        } catch (Exception | java.lang.AbstractMethodError ex) {
-            System.out.println(ex);
-        }
-    }
-
-    public void speichereNunAlleBasisElemente(VMObject vm, FileSystemOutput fsOut, boolean onlySelected) {
-
-        Element element;
-        for (int i = 0; i < vm.getElementCount(); i++) {
-            element = vm.getElement(i);
-
-            if (onlySelected) {
-                if (element.isSelected()) {
-                    saveX(element, fsOut);
-                }
-            } else {
-                saveX(element, fsOut);
-                // System.out.println("Element="+element.getCaption());
-            }
-        }
-    }
 
     private void saveFile(String fileName, boolean onlySelected) {
-        try {
-            FileSystemOutput fsOut = new FileSystemOutput(fileName);
+        try (FileSystemOutput fsOut = new FileSystemOutput(fileName)) {
+
             saveToStream(fsOut, onlySelected);
-            fsOut.close();
-            fsOut = null;
-        } catch (Exception ex) {
-            showErrorMessage(ex.toString());
+
+
         }
     }
 
@@ -2251,11 +2210,9 @@ public class Basis implements ElementIF, VSBasisIF {
 
                     if (elementX != null && elementX.classRef != null) {
                         flowInfo.source = sourceElement;
-                        try {
-                            elementX.classRef.processMethod(flowInfo);
-                        } catch (Exception ex) {
-                            System.out.println("" + ex);
-                        }
+
+                        elementX.classRef.processMethod(flowInfo);
+
                     }
                 }
             }
@@ -2264,13 +2221,11 @@ public class Basis implements ElementIF, VSBasisIF {
 
     @Override
     public void vsStartElement(int elementID) {
-        try {
-            Element element = getCircuitBasis().getElementWithID(elementID);
 
-            element.classRef.xonProcess();
-        } catch (Exception ex) {
-            System.out.println("" + ex);
-        }
+        Element element = getCircuitBasis().getElementWithID(elementID);
+
+        element.classRef.xonProcess();
+
     }
 
     @Override

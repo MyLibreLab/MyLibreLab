@@ -20,6 +20,10 @@
 
 package VisualLogic.variables;
 
+import java.io.IOException;
+
+import org.tinylog.Logger;
+
 public class VSString extends VSObject {
     private String value = "";
 
@@ -90,21 +94,22 @@ public class VSString extends VSObject {
 
     @Override
     public void loadFromStream(java.io.FileInputStream fis) {
-        try {
-            java.io.DataInputStream dis = new java.io.DataInputStream(fis);
+        try (java.io.DataInputStream dis = new java.io.DataInputStream(fis)) {
+
 
             value = dis.readUTF();
-        } catch (Exception ex) {
-
+        } catch (IOException ex) {
+            Logger.error(ex);
         }
     }
 
     @Override
     public void saveToStream(java.io.FileOutputStream fos) {
-        try {
-            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
+        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)) {
+
             dos.writeUTF(value);
-        } catch (Exception ex) {
+        } catch (IOException ex) {
+            Logger.error(ex);
             System.err.println("Fehler in VSDouble.saveToStream() : " + ex.toString());
         }
     }

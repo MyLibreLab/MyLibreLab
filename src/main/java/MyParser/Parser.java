@@ -103,12 +103,12 @@ public class Parser {
      * private boolean isVariable(String val) { String ch; for(int i=0;i<val.length();i++) {
      * ch=val.substring(i,i+1); if (isIn(ch,ALPHA)==false) return false; } return true; }
      */
-
+    // TODO NumberUtils anyone?
     private boolean isNum(String val) {
         try {
             double x = Double.parseDouble(val);
             return true;
-        } catch (Exception ex) {
+        } catch (NumberFormatException ex) {
             return false;
         }
     }

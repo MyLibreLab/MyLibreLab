@@ -23,6 +23,7 @@ package SimpleFileSystem;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +70,7 @@ public class FileSystemInput {
 
                 liste.add(dt);
             }
-        } catch (Exception ex) {
+        } catch/* TODO why exception here? */ (Exception ex) {
             org.tinylog.Logger.error(ex);
             System.out.println("Error in Methode loadIndexList()" + ex);
         }
@@ -107,7 +108,7 @@ public class FileSystemInput {
         SFileDescriptor dt = getFileDescriptor(index);
         try {
             fis.getChannel().position(dt.position);
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
         }
         return fis;
@@ -126,7 +127,7 @@ public class FileSystemInput {
     public void close() {
         try {
             fis.close();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
             System.out.println("Error in Methode close()" + ex.toString());
         }

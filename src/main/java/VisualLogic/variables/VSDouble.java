@@ -20,6 +20,8 @@
 
 package VisualLogic.variables;
 
+import java.io.IOException;
+
 public class VSDouble extends VSObject {
     private double value;
 
@@ -84,19 +86,19 @@ public class VSDouble extends VSObject {
     }
 
     public void loadFromStream(java.io.FileInputStream fis) {
-        try {
-            java.io.DataInputStream dis = new java.io.DataInputStream(fis);
+        try (java.io.DataInputStream dis = new java.io.DataInputStream(fis)) {
+
             value = dis.readDouble();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
         }
     }
 
     public void saveToStream(java.io.FileOutputStream fos) {
-        try {
-            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
+        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)) {
+
             dos.writeDouble(value);
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
             System.err.println("Fehler in VSDouble.saveToStream() : " + ex.toString());
         }
@@ -105,7 +107,7 @@ public class VSDouble extends VSObject {
     public void loadFromXML(String name, org.w3c.dom.Element nodeElement) {
         try {
             value = Double.parseDouble(nodeElement.getAttribute("VSDouble" + name));
-        } catch (Exception ex) {
+        } catch (NumberFormatException ex) {
             org.tinylog.Logger.error(ex);
         }
     }

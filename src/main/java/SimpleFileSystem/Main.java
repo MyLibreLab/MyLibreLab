@@ -22,6 +22,7 @@ package SimpleFileSystem;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 import org.tinylog.Logger;
 
@@ -41,28 +42,24 @@ public class Main {
     public static void main(String[] args) {
         FileSystemOutput fso = new FileSystemOutput("c:/test.dat");
 
-        FileOutputStream fos = fso.addItem("Homer");
 
-        try {
+
+        try (FileOutputStream fos = fso.addItem("Homer")) {
             fos.write(255);
             fos.write(216);
             fos.write(2);
             fos.write(31);
-        } catch (Exception ex) {
+            fso.postItem();
+
+            var addedFile = fso.addItem("Simpson");
+            addedFile.write(21);
+            addedFile.write(239);
+            fso.postItem();
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
         }
-        fso.postItem();
 
-        fos = fso.addItem("Simpson");
-        try {
-            fos.write(21);
-            fos.write(239);
-        } catch (Exception ex) {
-            org.tinylog.Logger.error(ex);
-        }
-        fso.postItem();
 
-        fso.close();
 
         FileSystemInput fsIn = new FileSystemInput("c:/test.dat");
 
@@ -79,9 +76,9 @@ public class Main {
         fis = fsIn.gotoItem(1);
 
         try {
-            System.out.println("Value1=" + fis.read());
-            System.out.println("Value2=" + fis.read());
-        } catch (Exception ex) {
+            Logger.debug("Value1={}", fis.read());
+            Logger.debug("Value2={}", fis.read());
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
         }
     }

@@ -21,13 +21,7 @@
 package VisualLogic;
 
 import java.awt.Component;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 import javax.swing.DefaultCellEditor;
@@ -40,6 +34,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+
+import org.tinylog.Logger;
 
 class JavaElementConfigFilter extends javax.swing.filechooser.FileFilter {
     static String fileExtension = "javaelementconfig";
@@ -924,50 +920,47 @@ public class DialogNewJavaComponentAssistent extends javax.swing.JDialog impleme
     }// GEN-LAST:event_jSpinner4StateChanged
 
     private void loadSettings() {
-        try {
-            jTextField1.setText(settings.circuitPanelName);
-            jTextField2.setText(settings.frontPanelName);
 
-            jCheckBox3.setSelected(settings.circuitElementResizable);
-            jCheckBox5.setSelected(settings.circuitElementResizableWithAspect);
+        jTextField1.setText(settings.circuitPanelName);
+        jTextField2.setText(settings.frontPanelName);
 
-            jCheckBox4.setSelected(settings.frontElementResizable);
-            jCheckBox6.setSelected(settings.frontElementResizableWithAspect);
+        jCheckBox3.setSelected(settings.circuitElementResizable);
+        jCheckBox5.setSelected(settings.circuitElementResizableWithAspect);
 
-            // jRadioButton1.setSelected(settings.createCircuitAndFrontElements);
-            // jRadioButton2.setSelected(settings.createOnyCircuitElement);
-            // jRadioButton3.setSelected(settings.createOnyFrontElement);
+        jCheckBox4.setSelected(settings.frontElementResizable);
+        jCheckBox6.setSelected(settings.frontElementResizableWithAspect);
 
-            jCheckBox1.setSelected(settings.showInnerBorder);
-            jCheckBox2.setSelected(settings.showOuterBorder);
+        // jRadioButton1.setSelected(settings.createCircuitAndFrontElements);
+        // jRadioButton2.setSelected(settings.createOnyCircuitElement);
+        // jRadioButton3.setSelected(settings.createOnyFrontElement);
 
-            if (settings.pins.size() == 4) {
-                PinsSettings item1 = settings.pins.get(0);
-                jSpinner4.setValue(Integer.valueOf(item1.pinsCount));
-                jCheckBox9.setSelected(item1.pinsVisible);
-                loadItems(model1, item1);
+        jCheckBox1.setSelected(settings.showInnerBorder);
+        jCheckBox2.setSelected(settings.showOuterBorder);
 
-                PinsSettings item2 = settings.pins.get(1);
-                jSpinner5.setValue(Integer.valueOf(item2.pinsCount));
-                jCheckBox10.setSelected(item2.pinsVisible);
-                loadItems(model2, item2);
+        if (settings.pins.size() == 4) {
+            PinsSettings item1 = settings.pins.get(0);
+            jSpinner4.setValue(Integer.valueOf(item1.pinsCount));
+            jCheckBox9.setSelected(item1.pinsVisible);
+            loadItems(model1, item1);
 
-                PinsSettings item3 = settings.pins.get(2);
-                jSpinner6.setValue(Integer.valueOf(item3.pinsCount));
-                jCheckBox11.setSelected(item3.pinsVisible);
-                loadItems(model3, item3);
+            PinsSettings item2 = settings.pins.get(1);
+            jSpinner5.setValue(Integer.valueOf(item2.pinsCount));
+            jCheckBox10.setSelected(item2.pinsVisible);
+            loadItems(model2, item2);
 
-                PinsSettings item4 = settings.pins.get(3);
-                jSpinner7.setValue(Integer.valueOf(item4.pinsCount));
-                jCheckBox12.setSelected(item4.pinsVisible);
-                loadItems(model4, item4);
-            }
+            PinsSettings item3 = settings.pins.get(2);
+            jSpinner6.setValue(Integer.valueOf(item3.pinsCount));
+            jCheckBox11.setSelected(item3.pinsVisible);
+            loadItems(model3, item3);
 
-            loadProperties(model5, settings.properties);
-        } catch (Exception ex) {
-            Tools.showMessage(this, java.util.ResourceBundle.getBundle("VisualLogic/DialogNewJavaComponentAssistent")
-                    .getString("Error_loading_Configuration!"));
+            PinsSettings item4 = settings.pins.get(3);
+            jSpinner7.setValue(Integer.valueOf(item4.pinsCount));
+            jCheckBox12.setSelected(item4.pinsVisible);
+            loadItems(model4, item4);
         }
+
+        loadProperties(model5, settings.properties);
+
     }
 
     private void saveSettings() {
@@ -1171,28 +1164,28 @@ public class DialogNewJavaComponentAssistent extends javax.swing.JDialog impleme
     }// GEN-LAST:event_jButton1ActionPerformed
 
     public void loadConfigFile(File file) {
-        try {
-            if (file.exists()) {
-                ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file.getAbsolutePath()));
+
+        if (file.exists()) {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file.getAbsolutePath()))) {
                 settings = (NewJavaCompSettings) ois.readObject();
-                ois.close();
+            } catch (IOException | ClassNotFoundException ioe) {
+                Logger.error(ioe);
             }
-        } catch (Exception ioe) {
-            System.out.println("" + ioe.toString());
         }
     }
 
     public void saveConfiFile(File file) {
 
-        try {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file.getAbsolutePath()))) {
 
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file.getAbsolutePath()));
+
 
             oos.writeObject(settings);
 
             oos.flush();
             oos.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
+            Logger.error(e);
             System.out.println("" + e.toString());
         }
     }
@@ -1216,7 +1209,8 @@ public class DialogNewJavaComponentAssistent extends javax.swing.JDialog impleme
                     }
                 }
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
+            Logger.error(ex);
             Tools.showMessage(this, ex.toString());
         }
     }
@@ -1256,7 +1250,8 @@ public class DialogNewJavaComponentAssistent extends javax.swing.JDialog impleme
                     c++;
                 }
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
+            Logger.error(ex);
             Tools.showMessage(this, ex.toString());
         }
     }
@@ -1275,7 +1270,8 @@ public class DialogNewJavaComponentAssistent extends javax.swing.JDialog impleme
                     out.newLine();
                 }
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
+            Logger.error(ex);
             Tools.showMessage(this, ex.toString());
         }
     }
@@ -1294,7 +1290,8 @@ public class DialogNewJavaComponentAssistent extends javax.swing.JDialog impleme
                     out.newLine();
                 }
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
+            Logger.error(ex);
             Tools.showMessage(this, ex.toString());
         }
     }
@@ -1309,7 +1306,8 @@ public class DialogNewJavaComponentAssistent extends javax.swing.JDialog impleme
                     out.newLine();
                 }
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
+            Logger.error(ex);
             Tools.showMessage(this, ex.toString());
         }
     }
@@ -1333,7 +1331,8 @@ public class DialogNewJavaComponentAssistent extends javax.swing.JDialog impleme
                     c++;
                 }
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
+            Logger.error(ex);
             Tools.showMessage(this, ex.toString());
         }
     }
@@ -1358,15 +1357,16 @@ public class DialogNewJavaComponentAssistent extends javax.swing.JDialog impleme
                     c++;
                 }
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
+            Logger.error(ex);
             Tools.showMessage(this, ex.toString());
         }
     }
 
     public void generateDefinitionDef(String destPath, int type) {
-        try {
-            String filename = destPath + "/" + "definition.def";
-            BufferedWriter out = new BufferedWriter(new FileWriter(new File(filename)));
+        String filename = destPath + "/" + "definition.def";
+        try (BufferedWriter out = new BufferedWriter(new FileWriter(new File(filename)))) {
+
 
             String elementName = txtName.getText();
 
@@ -1388,7 +1388,8 @@ public class DialogNewJavaComponentAssistent extends javax.swing.JDialog impleme
             out.newLine();
 
             out.close();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
+            Logger.error(ex);
             Tools.showMessage(this, ex.toString());
         }
     }
@@ -1406,9 +1407,9 @@ public class DialogNewJavaComponentAssistent extends javax.swing.JDialog impleme
     }
 
     public void generateCircuitJavaFile(String basisDestPath, String srcPath, int type) {
-        try {
-            String filename = srcPath + "/" + settings.circuitPanelName + ".java";
-            BufferedWriter out = new BufferedWriter(new FileWriter(new File(filename)));
+        String filename = srcPath + "/" + settings.circuitPanelName + ".java";
+        try (BufferedWriter out = new BufferedWriter(new FileWriter(new File(filename)))) {
+
 
             out.write("//********************************");
             out.newLine();
@@ -1695,16 +1696,17 @@ public class DialogNewJavaComponentAssistent extends javax.swing.JDialog impleme
             out.write("}");
             out.newLine();
             out.close();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
+            Logger.error(ex);
             Tools.showMessage(this, ex.toString());
         }
     }
 
     public void generateFrontJavaFile(String basisDestPath, String srcPath) {
 
-        try {
-            String filename = srcPath + "/" + settings.frontPanelName + ".java";
-            BufferedWriter out = new BufferedWriter(new FileWriter(new File(filename)));
+        String filename = srcPath + "/" + settings.frontPanelName + ".java";
+        try (BufferedWriter out = new BufferedWriter(new FileWriter(new File(filename)))) {
+
 
             out.write("import VisualLogic.*;");
             out.newLine();
@@ -1825,7 +1827,8 @@ public class DialogNewJavaComponentAssistent extends javax.swing.JDialog impleme
             out.write("}");
             out.newLine();
             out.close();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
+            Logger.error(ex);
             Tools.showMessage(this, ex.toString());
         }
     }

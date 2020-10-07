@@ -22,6 +22,9 @@ package VisualLogic.variables;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
+
+import org.tinylog.Logger;
 
 public class VS1DByte extends VSObject {
     private byte value[] = null;
@@ -82,8 +85,8 @@ public class VS1DByte extends VSObject {
     }
 
     public void loadFromStream(java.io.FileInputStream fis) {
-        try {
-            DataInputStream dis = new DataInputStream(fis);
+        try (DataInputStream dis = new DataInputStream(fis)) {
+
 
             int size = dis.readInt();
             value = new byte[size];
@@ -91,21 +94,23 @@ public class VS1DByte extends VSObject {
             for (int i = 0; i < value.length; i++) {
                 value[i] = dis.readByte();
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
+            Logger.error(ex);
             System.err.println("Fehler in VS1DByte.loadFromStream() : " + ex.toString());
         }
     }
 
     public void saveToStream(java.io.FileOutputStream fos) {
-        try {
-            DataOutputStream dos = new DataOutputStream(fos);
+        try (DataOutputStream dos = new DataOutputStream(fos)) {
+
             dos.writeInt(value.length);
 
             for (int i = 0; i < value.length; i++) {
                 byte val = value[i];
                 dos.writeByte(val);
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
+            Logger.error(ex);
             System.err.println("Fehler in VS1DByte.saveToStream() : " + ex.toString());
         }
     }

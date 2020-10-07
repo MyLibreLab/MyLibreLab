@@ -27,6 +27,8 @@ import java.awt.GraphicsEnvironment;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
+import org.tinylog.Logger;
+
 /**
  * @author Homer
  */
@@ -244,7 +246,8 @@ public class DialogFontChooser extends javax.swing.JDialog {
                 if (StyleConstants.getFontSize(attributes) != Integer.parseInt(fontSize.getText())) {
                     StyleConstants.setFontSize(attributes, Integer.parseInt(fontSize.getText()));
                 }
-            } catch (Exception ex) {
+            } catch (NumberFormatException ex) {
+                Logger.warn(ex);
                 fontSize.setText("12");
                 StyleConstants.setFontSize(attributes, Integer.parseInt(fontSize.getText()));
             }

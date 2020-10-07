@@ -95,11 +95,9 @@ public class FrameDoc extends javax.swing.JDialog {
 
     public void openDoc(FrameMain owner, Element element) {
 
-        try {
-            panel.openElementDocFile(owner, element);
-        } catch (Exception ex) {
 
-        }
+        panel.openElementDocFile(owner, element);
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

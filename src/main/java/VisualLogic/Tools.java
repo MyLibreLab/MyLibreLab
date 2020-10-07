@@ -146,11 +146,10 @@ public class Tools {
 
         JavaCompiler jc = null;
         StandardJavaFileManager sjfm = null;
-        
 
-            jc = ToolProvider.getSystemJavaCompiler();
-            sjfm = jc.getStandardFileManager(null, null, null);
 
+        jc = ToolProvider.getSystemJavaCompiler();
+        sjfm = jc.getStandardFileManager(null, null, null);
 
 
 

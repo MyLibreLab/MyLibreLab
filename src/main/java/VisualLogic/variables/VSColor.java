@@ -21,6 +21,7 @@
 package VisualLogic.variables;
 
 import java.awt.Color;
+import java.io.IOException;
 
 public class VSColor extends VSObject {
     private Color value = Color.BLACK;
@@ -55,25 +56,25 @@ public class VSColor extends VSObject {
     }
 
     public void loadFromStream(java.io.FileInputStream fis) {
-        try {
-            java.io.DataInputStream dis = new java.io.DataInputStream(fis);
+        try (java.io.DataInputStream dis = new java.io.DataInputStream(fis)) {
+
 
             int r = dis.readInt();
             int g = dis.readInt();
             int b = dis.readInt();
             value = new Color(r, g, b);
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
         }
     }
 
     public void saveToStream(java.io.FileOutputStream fos) {
-        try {
-            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
+        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)) {
+
             dos.writeInt(value.getRed());
             dos.writeInt(value.getGreen());
             dos.writeInt(value.getBlue());
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
             System.err.println("Fehler in VSColor.saveToStream() : " + ex.toString());
         }
@@ -85,7 +86,7 @@ public class VSColor extends VSObject {
             int g = Integer.parseInt(nodeElement.getAttribute("VSColorG" + name));
             int b = Integer.parseInt(nodeElement.getAttribute("VSColorB" + name));
             value = new Color(r, g, b);
-        } catch (Exception ex) {
+        } catch (NumberFormatException ex) {
             org.tinylog.Logger.error(ex);
         }
     }

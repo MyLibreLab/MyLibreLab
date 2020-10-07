@@ -103,12 +103,8 @@ public class StatusResizeElement implements StatusBasisIF {
             int yy = 0;
 
             if (vmobject != null) {
-                try {
-                    xx = vmobject.getMousePosition().x;
-                    yy = vmobject.getMousePosition().y;
-                } catch (Exception ex) {
-                    return;
-                }
+                xx = vmobject.getMousePosition().x;
+                yy = vmobject.getMousePosition().y;
             }
 
             Point p;

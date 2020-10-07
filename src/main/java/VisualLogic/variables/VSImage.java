@@ -27,8 +27,11 @@ import java.awt.Toolkit;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+
+import org.tinylog.Logger;
 
 public class VSImage extends VSObject {
     private Image image;
@@ -38,44 +41,40 @@ public class VSImage extends VSObject {
     public VSImage() {}
 
     public void loadImage(String fileName) {
-        try {
-            image = il.loadImage(Toolkit.getDefaultToolkit().getImage(fileName));
-        } catch (Exception ex) {
-            org.tinylog.Logger.error(ex);
-        }
+
+        image = il.loadImage(Toolkit.getDefaultToolkit().getImage(fileName));
+
         File f = new File(fileName);
         int fileSize = (int) f.length();
-        try {
-            BufferedInputStream input = new BufferedInputStream(new FileInputStream(fileName));
+        try (BufferedInputStream input = new BufferedInputStream(new FileInputStream(fileName))) {
+
             imageBytes = new byte[(int) fileSize];
 
             input.read(imageBytes);
-            input.close();
-            input = null;
-        } catch (Exception ex) {
+
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
         }
     }
 
     public void loadImage(URL url) {
-        try {
-            image = il.loadImage(Toolkit.getDefaultToolkit().getImage(url));
-        } catch (Exception ex) {
-            org.tinylog.Logger.error(ex);
-        }
+
+        image = il.loadImage(Toolkit.getDefaultToolkit().getImage(url));
+
 
         // int fileSize = (int) f.length();
         try {
             URLConnection myConnection = url.openConnection();
             int length = myConnection.getContentLength();
-            BufferedInputStream input = new BufferedInputStream(myConnection.getInputStream());
+            try (BufferedInputStream input = new BufferedInputStream(myConnection.getInputStream())) {
+                imageBytes = new byte[length];
+                // TODO ignored result here meybe to consume the stream?
+                input.read(imageBytes);
+            } catch (IOException exception) {
+                Logger.error(exception);
+            }
 
-            imageBytes = new byte[length];
-
-            input.read(imageBytes);
-            input.close();
-            input = null;
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
         }
     }
@@ -116,13 +115,13 @@ public class VSImage extends VSObject {
                 if (image != null) {
                     image.flush();
                 }
-
+                // TODO ignored read here
                 fis.read(imageBytes);
                 image = java.awt.Toolkit.getDefaultToolkit().createImage(imageBytes);
             } else {
                 image = null;
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
         }
 
@@ -142,7 +141,7 @@ public class VSImage extends VSObject {
             } else {
                 dos.writeInt(0);
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
             System.err.println("Error in VSImage.saveToStream() : " + ex.toString());
         }

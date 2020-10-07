@@ -54,10 +54,9 @@ public class FrameRunning extends javax.swing.JFrame {
 
         basis.delay = 0;
         if (basis.frameCircuit != null) {
-            try {
-                setIconImage(basis.frameCircuit.getIconImage());
-            } catch (Exception ex) {
-            }
+
+            setIconImage(basis.frameCircuit.getIconImage());
+
         }
     }
 

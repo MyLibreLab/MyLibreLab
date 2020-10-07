@@ -21,6 +21,7 @@
 package VisualLogic.variables;
 
 import java.awt.Font;
+import java.io.IOException;
 
 public class VSFont extends VSObject {
     private Font value = new Font("Arial", 1, 10);
@@ -50,15 +51,15 @@ public class VSFont extends VSObject {
     }
 
     public void loadFromStream(java.io.FileInputStream fis) {
-        try {
-            java.io.DataInputStream dis = new java.io.DataInputStream(fis);
+        try (java.io.DataInputStream dis = new java.io.DataInputStream(fis)) {
+
 
             String fnt_Name = dis.readUTF();
             int fnt_Style = dis.readInt();
             int fnt_Size = dis.readInt();
 
             value = new Font(fnt_Name, fnt_Style, fnt_Size);
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
         }
     }
@@ -68,12 +69,12 @@ public class VSFont extends VSObject {
     }
 
     public void saveToStream(java.io.FileOutputStream fos) {
-        try {
-            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
+        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)) {
+
             dos.writeUTF(value.getName());
             dos.writeInt(value.getStyle());
             dos.writeInt(value.getSize());
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
             System.err.println("Fehler in VSFont.saveToStream() : " + ex.toString());
         }
@@ -87,7 +88,7 @@ public class VSFont extends VSObject {
             // int fnt_Color=Integer.parseInt(nodeElement.getAttribute("VSFontColor"));
 
             value = new Font(fnt_Name, fnt_Style, fnt_Size);
-        } catch (Exception ex) {
+        } catch (NumberFormatException ex) {
             org.tinylog.Logger.error(ex);
         }
     }

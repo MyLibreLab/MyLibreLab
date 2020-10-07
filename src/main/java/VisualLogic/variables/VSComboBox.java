@@ -20,7 +20,10 @@
 
 package VisualLogic.variables;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import org.tinylog.Logger;
 
 public class VSComboBox extends VSObject {
     private ArrayList liste = new ArrayList();
@@ -51,20 +54,22 @@ public class VSComboBox extends VSObject {
     public void copyValueFrom(Object in) {}
 
     public void loadFromStream(java.io.FileInputStream fis) {
-        try {
-            java.io.DataInputStream dis = new java.io.DataInputStream(fis);
 
+        try (java.io.DataInputStream dis = new java.io.DataInputStream(fis)) {
             selectedIndex = dis.readInt();
-        } catch (Exception ex) {
-            org.tinylog.Logger.error(ex);
+
+        } catch (IOException ioException) {
+            Logger.error(ioException);
         }
+
+
     }
 
     public void saveToStream(java.io.FileOutputStream fos) {
-        try {
-            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
+        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)) {
+
             dos.writeInt(selectedIndex);
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
             System.err.println("Fehler in VSComboBox.saveToStream() : " + ex.toString());
         }
@@ -82,7 +87,7 @@ public class VSComboBox extends VSObject {
              * for (int i=0;i<count;i++) { String str=nodeElement.getAttribute("VSComboBox"+name+""+i);
              * addItem(str); }
              */
-        } catch (Exception ex) {
+        } catch (NumberFormatException ex) {
             org.tinylog.Logger.error(ex);
         }
     }
