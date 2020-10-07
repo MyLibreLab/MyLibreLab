@@ -129,6 +129,12 @@ allprojects {
                     "**/VisualLogic/",
                     "**/ziputils/"
                 ))
+                // Ignore [Fields in a "Serializable" class should either be transient or serializable]
+                // We do not plan to use serialization, but most swing components declare that they are.
+                message("java:S1948")
+                // Ignore [Inheritance tree of classes should not be too deep]
+                // Extending JComponent will break this rule.
+                message("java:S110")
             }
         }
     }
