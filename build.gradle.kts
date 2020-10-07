@@ -94,6 +94,15 @@ fun BaseFormatExtension.configFilter(init: PatternFilterable.() -> Unit) {
     }
 }
 
+val sonarBranchName by props("")
+sonarqube {
+    properties {
+        if (sonarBranchName.isNotEmpty()) {
+            property("sonar.pullrequest.branch", sonarBranchName)
+        }
+    }
+}
+
 allprojects {
     version = projectVersion
 
