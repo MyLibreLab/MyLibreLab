@@ -36,6 +36,8 @@ import javax.swing.JPanel;
 
 import org.tinylog.Logger;
 
+import com.github.mylibrelab.exception.StoreImageException;
+
 /**
  * @author Carmelo
  */

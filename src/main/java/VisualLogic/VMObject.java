@@ -64,6 +64,8 @@ import javax.swing.JProgressBar;
 
 import org.tinylog.Logger;
 
+import com.github.mylibrelab.exception.StoreImageException;
+
 import BasisStatus.StatusAddElement;
 import BasisStatus.StatusAddWire;
 import BasisStatus.StatusBasisIF;
