@@ -29,7 +29,7 @@ import java.util.List;
 
 import org.tinylog.Logger;
 
-import VisualLogic.exception.VisualLogicIoException;
+import com.github.mylibrelab.exception.VisualLogicIoException;
 
 /**
  * @author salafica
