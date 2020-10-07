@@ -115,7 +115,6 @@ public class VSImage extends VSObject {
                 if (image != null) {
                     image.flush();
                 }
-                // TODO ignored read here
                 fis.read(imageBytes);
                 image = java.awt.Toolkit.getDefaultToolkit().createImage(imageBytes);
             } else {
