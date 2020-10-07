@@ -20,6 +20,7 @@ dependencies {
     implementation("org.json:json")
     implementation("org.scream3r:jssc")
 
+
     implementation("javax.xml.bind:jaxb-api")
     runtimeOnly("com.sun.xml.bind:jaxb-core")
     runtimeOnly("com.sun.xml.bind:jaxb-impl")
