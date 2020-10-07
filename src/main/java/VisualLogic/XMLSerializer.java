@@ -42,7 +42,7 @@ public class XMLSerializer {
             return o;
         } catch (IOException ex) {
             Logger.error(ex);
-            throw new IOException("Could not read from file",ex);
+            throw new IOException("Could not read from file", ex);
         }
     }
 }
