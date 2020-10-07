@@ -1,11 +1,13 @@
 import com.github.autostyle.generic.DefaultCopyrightStyle
 import com.github.autostyle.gradle.BaseFormatExtension
 import com.github.vlsi.gradle.properties.dsl.props
+import name.remal.gradle_plugins.plugins.code_quality.sonar.SonarLintExtension
 
 plugins {
     `java-library`
     application
     id("com.github.autostyle")
+    id("name.remal.sonarlint") apply false
     id("org.sonarqube")
     id("com.github.vlsi.gradle-extensions")
     id("org.beryx.runtime")
@@ -16,6 +18,7 @@ val projectVersion = "MyLibreLab".v
 
 val enableMavenLocal by props()
 val skipAutostyle by props()
+val skipSonarlint by props()
 
 dependencies {
     implementation("org.json:json")
@@ -102,6 +105,32 @@ allprojects {
             mavenLocal()
         }
         mavenCentral()
+    }
+
+    if (!skipSonarlint) {
+        apply(plugin = "name.remal.sonarlint")
+        val allowSonarlintFailures by props()
+        configure<SonarLintExtension> {
+            isIgnoreFailures = allowSonarlintFailures
+            excludes {
+                sources(listOf(
+                    "**/BasisStatus/",
+                    "**/codeeditor/",
+                    "**/create_new_group/",
+                    "**/CustomColorPicker/",
+                    "**/de/myopenlab/update/",
+                    "**/MyGraph/",
+                    "**/MyParser/",
+                    "**/ParserCode/",
+                    "**/Peditor/",
+                    "**/projectfolder/",
+                    "**/SimpleFileSystem/",
+                    "**/SimulatorSocket/",
+                    "**/VisualLogic/",
+                    "**/ziputils/"
+                ))
+            }
+        }
     }
 
     if (!skipAutostyle) {
