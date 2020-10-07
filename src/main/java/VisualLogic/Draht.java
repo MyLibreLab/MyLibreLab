@@ -670,7 +670,7 @@ public class Draht implements Serializable {
                 for (Line line : lineList) {
                     line.draw(g2);
 
-                    JPin bb = elementDst.getPin(getDestPin());
+                    bb = elementDst.getPin(getDestPin());
 
                     /*
                      * if (dataType==ExternalIF.C_FLOWINFO) { if (bb!=null && bb.pinAlign==0 && i==lineList.size()-1) {
