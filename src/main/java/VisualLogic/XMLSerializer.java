@@ -35,13 +35,14 @@ public class XMLSerializer {
         }
     }
 
-    public static Object read(String filename) {
+    public static Object read(String filename) throws IOException {
         Object o;
         try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(filename)))) {
             o = decoder.readObject();
             return o;
         } catch (IOException ex) {
             Logger.error(ex);
+            throw new IOException("Could not read from file",ex);
         }
     }
 }
