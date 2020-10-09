@@ -122,7 +122,6 @@ public class FileSystemInput {
             fis.close();
         } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
-            System.out.println("Error in Methode close()" + ex.toString());
         }
     }
 }
