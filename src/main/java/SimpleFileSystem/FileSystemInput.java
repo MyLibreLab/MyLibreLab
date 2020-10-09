@@ -39,7 +39,7 @@ public class FileSystemInput {
      * Liest aus der Datei die IndexListe in der alle DatensatzBeschreibungen stehen
      */
     public FileSystemInput(String filename) {
-        try (DataInputStream dis = new DataInputStream(fis)){
+        try (DataInputStream dis = new DataInputStream(fis)) {
             fis = new FileInputStream(new File(filename));
 
 

@@ -1183,7 +1183,7 @@ public class DialogNewJavaComponentAssistent extends javax.swing.JDialog impleme
             oos.writeObject(settings);
 
             oos.flush();
-            
+
         } catch (IOException e) {
             Logger.error(e);
             System.out.println("" + e.toString());
