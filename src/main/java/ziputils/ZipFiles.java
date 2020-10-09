@@ -55,31 +55,29 @@ public class ZipFiles {
      * @param zipDirName
      */
     public void zipDirectory(File dir, String zipDirName) {
-        try {
-            populateFilesList(dir);
-            // now zip files one by one
-            // create ZipOutputStream to write to the zip file
-            FileOutputStream fos = new FileOutputStream(zipDirName);
-            ZipOutputStream zos = new ZipOutputStream(fos);
+        populateFilesList(dir);
+        // now zip files one by one
+        // create ZipOutputStream to write to the zip file
+        try (FileOutputStream fos = new FileOutputStream(zipDirName); ZipOutputStream zos = new ZipOutputStream(fos)) {
             for (String filePath : filesListInDir) {
                 Logger.info("Zipping " + filePath);
                 // for ZipEntry we need to keep only relative file path, so we used substring on absolute path
                 ZipEntry ze = new ZipEntry(filePath.substring(dir.getAbsolutePath().length() + 1, filePath.length()));
                 zos.putNextEntry(ze);
                 // read the file and write to ZipOutputStream
-                FileInputStream fis = new FileInputStream(filePath);
-                byte[] buffer = new byte[1024];
-                int len;
-                while ((len = fis.read(buffer)) > 0) {
-                    zos.write(buffer, 0, len);
+                try (FileInputStream fis = new FileInputStream(filePath)) {
+                    byte[] buffer = new byte[1024];
+                    int len;
+                    while ((len = fis.read(buffer)) > 0) {
+                        zos.write(buffer, 0, len);
+                    }
+
                 }
                 zos.closeEntry();
-                fis.close();
+
             }
-            zos.close();
-            fos.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.error(e);
         }
     }
 
@@ -89,7 +87,7 @@ public class ZipFiles {
      * @param dir
      * @throws IOException
      */
-    private void populateFilesList(File dir) throws IOException {
+    private void populateFilesList(File dir) {
         File[] files = dir.listFiles();
         for (File file : files) {
             if (file.isFile())
@@ -106,30 +104,26 @@ public class ZipFiles {
      * @param zipFileName
      */
     private static void zipSingleFile(File file, String zipFileName) {
-        try {
-            // create ZipOutputStream to write to the zip file
-            FileOutputStream fos = new FileOutputStream(zipFileName);
-            ZipOutputStream zos = new ZipOutputStream(fos);
+        // create ZipOutputStream to write to the zip file
+        try (FileOutputStream fos = new FileOutputStream(zipFileName); ZipOutputStream zos = new ZipOutputStream(fos)) {
+
             // add a new Zip Entry to the ZipOutputStream
             ZipEntry ze = new ZipEntry(file.getName());
             zos.putNextEntry(ze);
             // read the file and write to ZipOutputStream
-            FileInputStream fis = new FileInputStream(file);
-            byte[] buffer = new byte[1024];
-            int len;
-            while ((len = fis.read(buffer)) > 0) {
-                zos.write(buffer, 0, len);
-            }
+            try (FileInputStream fis = new FileInputStream(file)) {
+                byte[] buffer = new byte[1024];
+                int len;
+                while ((len = fis.read(buffer)) > 0) {
+                    zos.write(buffer, 0, len);
+                }
 
+            }
             // Close the zip entry to write to zip file
             zos.closeEntry();
-            // Close resources
-            zos.close();
-            fis.close();
-            fos.close();
-            System.out.println(file.getCanonicalPath() + " is zipped to " + zipFileName);
+            Logger.info("{} is zipped to {}", file.getCanonicalPath(), zipFileName);
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.error(e);
         }
     }
 }

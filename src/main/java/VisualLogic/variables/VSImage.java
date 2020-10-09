@@ -106,8 +106,8 @@ public class VSImage extends VSObject {
     }
 
     public void loadFromStream(java.io.FileInputStream fis) {
-        java.io.DataInputStream dis = new java.io.DataInputStream(fis);
-        try {
+
+        try (java.io.DataInputStream dis = new java.io.DataInputStream(fis)) {
             int size = dis.readInt();
             if (size > 0) {
                 imageBytes = new byte[size];

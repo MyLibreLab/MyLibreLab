@@ -345,7 +345,6 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
 
 
             out.write("javaw -splash:splash.png -jar c-exp-lab.jar Elements \"./" + mainVM + "\"");
-            out.close();
         } catch (IOException ex) {
             Tools.showMessage(ex.toString());
             Logger.error(ex);

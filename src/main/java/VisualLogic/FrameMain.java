@@ -2127,8 +2127,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         String fileNameXML = getUserURL().getFile() + System.getProperty("file.separator") + "config.xml";
         File fxml = new File(fileNameXML);
         if (fxml.exists()) {
-            try {
-                XMLDecoder d = new XMLDecoder(new BufferedInputStream(new FileInputStream(fxml.getAbsolutePath())));
+            try (XMLDecoder d = new XMLDecoder(new BufferedInputStream(new FileInputStream(fxml.getAbsolutePath())))) {
+
                 settings = (Settings) d.readObject();
                 d.close();
 
