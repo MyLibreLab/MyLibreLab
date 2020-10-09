@@ -1387,7 +1387,7 @@ public class DialogNewJavaComponentAssistent extends javax.swing.JDialog impleme
             out.write("Icon         = icon.gif");
             out.newLine();
 
-            out.close();
+
         } catch (IOException ex) {
             Logger.error(ex);
             Tools.showMessage(this, ex.toString());
@@ -1695,7 +1695,7 @@ public class DialogNewJavaComponentAssistent extends javax.swing.JDialog impleme
 
             out.write("}");
             out.newLine();
-            out.close();
+
         } catch (IOException ex) {
             Logger.error(ex);
             Tools.showMessage(this, ex.toString());
@@ -1826,7 +1826,7 @@ public class DialogNewJavaComponentAssistent extends javax.swing.JDialog impleme
 
             out.write("}");
             out.newLine();
-            out.close();
+
         } catch (IOException ex) {
             Logger.error(ex);
             Tools.showMessage(this, ex.toString());
