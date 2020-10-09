@@ -146,14 +146,12 @@ public class Tools {
 
         JavaCompiler jc = null;
         StandardJavaFileManager sjfm = null;
-        try {
 
-            jc = ToolProvider.getSystemJavaCompiler();
-            sjfm = jc.getStandardFileManager(null, null, null);
-        } catch (Exception ex) {
-            showMessage("To compile you need Java JDK 1.6 or higher.\nPlease start with JDK.");
-            return false;
-        }
+
+        jc = ToolProvider.getSystemJavaCompiler();
+        sjfm = jc.getStandardFileManager(null, null, null);
+
+
 
         try {
             File javaFile = new File(srcFile);

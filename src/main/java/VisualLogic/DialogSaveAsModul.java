@@ -94,13 +94,15 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
 
     public void loadFile(JEditorPane pane, String filename) {
 
+
         try {
             pane.setPage(new URL("file:" + filename));
             pane.setContentType("text/html");
             pane.setCaretPosition(0);
-        } catch (Exception e) {
-            // VisualLogic.Tools.showMessage(e.toString());
+        } catch (IOException urlException) {
+            org.tinylog.Logger.error(urlException);
         }
+
     }
 
     public void executeNewDirectory() {
@@ -315,7 +317,8 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
 
                 try {
                     Tools.copyFile(new File(xicon), new File(baseDir + "/icon." + ext));
-                } catch (Exception ex) {
+                } catch (IOException ex) {
+                    org.tinylog.Logger.error(ex);
                     Tools.showMessage(java.util.ResourceBundle.getBundle("VisualLogic/DialogSaveAsModul")
                             .getString("ERROR: COPYING ICON FILE!"));
                 }
@@ -380,7 +383,8 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
 
             try {
                 Tools.copyFile(new File(xicon), new File(baseDir + "/icon." + ext));
-            } catch (Exception ex) {
+            } catch (IOException ex) {
+                org.tinylog.Logger.error(ex);
                 Tools.showMessage("Error: copying icon file!");
             }
 
@@ -847,14 +851,16 @@ public class DialogSaveAsModul extends javax.swing.JDialog implements ElementPal
         Desktop desktop = Desktop.getDesktop();
 
         File dirToOpen = null;
+
+
+        dirToOpen = new File(editBaseDir + "/doc_" + lang);
+
         try {
-
-            dirToOpen = new File(editBaseDir + "/doc_" + lang);
-
             desktop.open(dirToOpen);
-        } catch (Exception ex) {
-            Tools.showMessage(this, ex.toString());
+        } catch (IOException ioException) {
+            org.tinylog.Logger.error(ioException);
         }
+
     }
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton6ActionPerformed

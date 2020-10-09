@@ -29,10 +29,9 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JEditorPane;
 import javax.swing.JPanel;
@@ -41,6 +40,8 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLFrameHyperlinkEvent;
+
+import org.tinylog.Logger;
 
 /**
  * @author Homer
@@ -203,26 +204,22 @@ public class PanelDokumentation extends javax.swing.JPanel {
 
     private void jButtonESActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jButtonESActionPerformed
     {// GEN-HEADEREND:event_jButtonESActionPerformed
-        try {
-            processButtons();
-            selectedLanguage = "es";
 
-            openElementDocFile(this.owner, this.element);
-        } catch (Exception ex) {
-            Logger.getLogger(PanelDokumentation.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processButtons();
+        selectedLanguage = "es";
+
+        openElementDocFile(this.owner, this.element);
+
     }// GEN-LAST:event_jButtonESActionPerformed
 
     private void jButtonENActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jButtonENActionPerformed
     {// GEN-HEADEREND:event_jButtonENActionPerformed
-        try {
-            processButtons();
-            selectedLanguage = "en";
 
-            openElementDocFile(this.owner, this.element);
-        } catch (Exception ex) {
-            Logger.getLogger(PanelDokumentation.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processButtons();
+        selectedLanguage = "en";
+
+        openElementDocFile(this.owner, this.element);
+
     }// GEN-LAST:event_jButtonENActionPerformed
 
     private void processButtons() {
@@ -248,14 +245,12 @@ public class PanelDokumentation extends javax.swing.JPanel {
     private void jButtonDEActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jButtonDEActionPerformed
     {// GEN-HEADEREND:event_jButtonDEActionPerformed
 
-        try {
-            processButtons();
-            selectedLanguage = "de";
 
-            openElementDocFile(this.owner, this.element);
-        } catch (Exception ex) {
-            Logger.getLogger(PanelDokumentation.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processButtons();
+        selectedLanguage = "de";
+
+        openElementDocFile(this.owner, this.element);
+
     }// GEN-LAST:event_jButtonDEActionPerformed
 
     JPanel docPanel = new JPanel();
@@ -268,35 +263,35 @@ public class PanelDokumentation extends javax.swing.JPanel {
 
         try {
             url = new URL("file:" + filename);
-        } catch (Exception ex) {
-
+        } catch (IOException ex) {
+            Logger.error(ex);
         }
 
+
+        pane.setContentType("text/html");
         try {
-            pane.setContentType("text/html");
             pane.setPage(url);
-        } catch (Exception e) {
-
+        } catch (IOException ioException) {
+            Logger.error(url);
         }
+
     }
 
-    public void openElementDocFile(FrameMain owner, Element element) throws Exception {
+    public void openElementDocFile(FrameMain owner, Element element) {
 
         // Delete Inhalt
-        try {
-            jEditorPane1.setText("");
-            jEditorPane1.setContentType("text");
 
-            Image img = new BufferedImage(10, 10, TYPE_INT_RGB);
-            img.getGraphics().setColor(Color.WHITE);
-            img.getGraphics().fillRect(0, 0, 100, 100);
+        jEditorPane1.setText("");
+        jEditorPane1.setContentType("text");
 
-            doc_image.setImage(img);
+        Image img = new BufferedImage(10, 10, TYPE_INT_RGB);
+        img.getGraphics().setColor(Color.WHITE);
+        img.getGraphics().fillRect(0, 0, 100, 100);
 
-            jLabel1.setText("???");
-        } catch (Exception e) {
+        doc_image.setImage(img);
 
-        }
+        jLabel1.setText("???");
+
 
         if (owner == null || element == null) {
             return;
@@ -351,7 +346,7 @@ public class PanelDokumentation extends javax.swing.JPanel {
             loadDoc(docFileName, jEditorPane1);
         }
 
-        Image img;
+
 
         if (element.owner.equals(owner.getActualBasis().getCircuitBasis())) {
             img = element.getImage();

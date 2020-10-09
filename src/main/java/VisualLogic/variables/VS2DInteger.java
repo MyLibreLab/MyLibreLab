@@ -20,6 +20,8 @@
 
 package VisualLogic.variables;
 
+import java.io.IOException;
+
 public class VS2DInteger extends VSObject {
     private int value[][] = null;
     private int columns = 0;
@@ -104,8 +106,8 @@ public class VS2DInteger extends VSObject {
     }
 
     public void saveToStream(java.io.FileOutputStream fos) {
-        try {
-            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
+        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)) {
+
             dos.writeInt(columns);
             dos.writeInt(rows);
 
@@ -116,15 +118,14 @@ public class VS2DInteger extends VSObject {
                     dos.writeInt(val);
                 }
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
-            System.err.println("Fehler in VS2DInteger.saveToStream() : " + ex.toString());
         }
     }
 
     public void loadFromStream(java.io.FileInputStream fis) {
-        try {
-            java.io.DataInputStream dis = new java.io.DataInputStream(fis);
+        try (java.io.DataInputStream dis = new java.io.DataInputStream(fis)) {
+
 
             columns = dis.readInt();
             rows = dis.readInt();
@@ -135,9 +136,8 @@ public class VS2DInteger extends VSObject {
                     value[i][j] = dis.readInt();
                 }
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
-            System.err.println("Error in VS2DInteger.loadFromStream() : " + ex.toString());
         }
     }
 }

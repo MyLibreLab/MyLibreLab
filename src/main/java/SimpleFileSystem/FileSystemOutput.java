@@ -20,18 +20,19 @@
 
 package SimpleFileSystem;
 
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.tinylog.Logger;
 
 /**
  * @author Carmelo Salafia FileSystemOutput ist f�r das schreiben der Datensaetze und ihrer
  *         IndexListe verantwortlich. erzeugt ein kuenstliches Dateisystem!
  */
 
-public class FileSystemOutput {
+public class FileSystemOutput implements AutoCloseable {
+    // TODO why do we have here a global FileOutputStream?
     private List<SFileDescriptor> liste = new ArrayList<>();
     private FileOutputStream fos = null;
     private SFileDescriptor oldItem;
@@ -44,10 +45,14 @@ public class FileSystemOutput {
         try {
             fos = new FileOutputStream(new File(filename));
 
-            DataOutputStream dos = new DataOutputStream(fos);
+            try (DataOutputStream dos = new DataOutputStream(fos)) {
+                dos.writeLong(123479); // platzhalter f�r die Position der IndexListe!
 
-            dos.writeLong(123479); // platzhalter f�r die Position der IndexListe!
-        } catch (Exception ex) {
+            } catch (IOException ioException) {
+                Logger.error(ioException);
+            }
+
+        } catch (FileNotFoundException ex) {
             org.tinylog.Logger.error(ex);
             System.out.println("Error in Methode createFile()" + ex.toString());
         }
@@ -66,7 +71,7 @@ public class FileSystemOutput {
             liste.add(dt);
 
             oldItem = dt;
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
             System.out.println("Error in Methode addItem()" + ex.toString());
         }
@@ -82,7 +87,7 @@ public class FileSystemOutput {
             try {
                 long position = fos.getChannel().position();
                 oldItem.size = position - oldItem.position;
-            } catch (Exception ex) {
+            } catch (IOException ex) {
                 org.tinylog.Logger.error(ex);
             }
         }
@@ -109,7 +114,7 @@ public class FileSystemOutput {
 
             fos.getChannel().position(0);
             dos.writeLong(pos);
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
             System.out.println("Error in Methode addIndexList()" + ex.toString());
         }
@@ -119,12 +124,13 @@ public class FileSystemOutput {
      * sorgt daf�r das die datei erfolgreich abgeschlossen wird! und muss nachdem alle Datens�tze
      * geschrieben worden sind aufgerufen werden!
      */
+    @Override
     public void close() {
         addIndexList();
         try {
             fos.flush();
             fos.close();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
             System.out.println("Error in Methode close()" + ex.toString());
         }

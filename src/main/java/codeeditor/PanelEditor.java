@@ -210,7 +210,7 @@ public class PanelEditor extends javax.swing.JPanel implements CommandIF {
 
             changed = false;
             pane.setCaretPosition(0);
-        } catch (Exception e) {
+        } catch (IOException e) {
             org.tinylog.Logger.error(e);
             VisualLogic.Tools.showMessage(e.toString());
         }

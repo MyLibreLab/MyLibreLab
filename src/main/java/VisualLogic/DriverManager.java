@@ -21,6 +21,7 @@
 package VisualLogic;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -46,9 +47,8 @@ class MyOpenLabDriver {
 
                 driver = (MyOpenLabDriverIF) loader.ladeClasseDriver(new URL[] {url1, url2}, info.Classe);
                 System.out.println("Driver loaded : " + driverName);
-            } catch (Exception ex) {
+            } catch (MalformedURLException ex) {
                 org.tinylog.Logger.error(ex);
-                return;
             }
         }
     }
@@ -81,24 +81,20 @@ public class DriverManager {
      * If result = null : Driver not found or already Opened from another Component
      */
     public MyOpenLabDriverIF openDriver(Element element, String driverName, ArrayList args) {
-        try {
-            MyOpenLabDriver driver = findDriver(driverName);
-            // if (driver!=null && driver.owner==null)
-            {
-                if (driver.owner != element) {
-                    driver.owner = element;
-                    driver.driver.driverStart(args);
-                    return driver.driver;
-                }
-                /*
-                 * else { return null; }
-                 */
+
+        MyOpenLabDriver driver = findDriver(driverName);
+        // if (driver!=null && driver.owner==null)
+        {
+            if (driver.owner != element) {
+                driver.owner = element;
+                driver.driver.driverStart(args);
+                return driver.driver;
             }
-        } catch (Exception ex) {
-            org.tinylog.Logger.error(ex);
-            System.out.println("Errorin openDriver: " + ex);
-            return null;
+            /*
+             * else { return null; }
+             */
         }
+
 
         return null;
     }

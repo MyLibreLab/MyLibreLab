@@ -51,11 +51,7 @@ import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -67,6 +63,8 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 import org.tinylog.Logger;
+
+import com.github.mylibrelab.exception.StoreImageException;
 
 import BasisStatus.StatusAddElement;
 import BasisStatus.StatusAddWire;
@@ -499,11 +497,9 @@ public class VMObject extends JPanel
             if (comp instanceof Element) {
                 Element element = (Element) comp;
 
-                try {
-                    element.classRef.propertyChanged(o);
-                } catch (Exception ex) {
 
-                }
+                element.classRef.propertyChanged(o);
+
             }
         }
 
@@ -596,11 +592,9 @@ public class VMObject extends JPanel
         for (int i = 0; i < getElementCount(); i++) {
             element = getElement(i);
 
-            try {
-                element.classRef.xonChangeElement();
-            } catch (Exception ex) {
-                // Tools.showErrorMessage(""+ex.toString());
-            }
+
+            element.classRef.xonChangeElement();
+
         }
     }
 
@@ -688,56 +682,54 @@ public class VMObject extends JPanel
     public void dragged(String filename) {
         if (getOwner().getCircuitBasis() == this) {
             Element subVM = null;
-            try {
-                File f = new File(filename);
 
-                if (f.isDirectory()) {
-                    return;
-                }
-                if (!Tools.getExtension(f).equalsIgnoreCase("VLOGIC")) {
-                    return;
-                }
-                if (f.getAbsolutePath().equalsIgnoreCase(new File(this.owner.fileName).getAbsolutePath())) {
-                    return;
-                }
+            File f = new File(filename);
 
-                String p1 = new File(owner.projectPath).getAbsolutePath();
-
-                String p2 = new File(filename).getAbsolutePath();
-
-                String arrg = p2.substring(p1.length(), p2.length());
-
-                // if (p1.equals(p2))
-                {
-                    // String path=f.getPath();
-                    String vmName = f.getName();
-
-                    String[] args = new String[3];
-                    args[0] = arrg; // vmName zb: "Untiled.vlogic""
-                    args[1] = vmName; // caption!
-                    args[2] = "";
-
-                    String vmPanel = "";
-
-                    JFrame parent = null;
-                    if (owner.frameCircuit != null) {
-                        parent = owner.frameCircuit;
-                    }
-                    if (Tools.setQuestionDialog(parent, "Do you want to Add Panel?")) {
-                        vmPanel = "VMPanel";
-                    }
-
-                    subVM = Tools.addSubVM(this, vmPanel, args);
-
-                    Point p = this.getMousePosition();
-                    if (p == null) {
-                        p = new Point(40, 40);
-                    }
-                    subVM.setLocation(p.x - (subVM.getWidth() / 2), p.y - subVM.getHeight() / 2);
-                }
-            } catch (Exception ex) {
-                Tools.showMessage(this, "" + ex.toString());
+            if (f.isDirectory()) {
+                return;
             }
+            if (!Tools.getExtension(f).equalsIgnoreCase("VLOGIC")) {
+                return;
+            }
+            if (f.getAbsolutePath().equalsIgnoreCase(new File(this.owner.fileName).getAbsolutePath())) {
+                return;
+            }
+
+            String p1 = new File(owner.projectPath).getAbsolutePath();
+
+            String p2 = new File(filename).getAbsolutePath();
+
+            String arrg = p2.substring(p1.length(), p2.length());
+
+            // if (p1.equals(p2))
+            {
+                // String path=f.getPath();
+                String vmName = f.getName();
+
+                String[] args = new String[3];
+                args[0] = arrg; // vmName zb: "Untiled.vlogic""
+                args[1] = vmName; // caption!
+                args[2] = "";
+
+                String vmPanel = "";
+
+                JFrame parent = null;
+                if (owner.frameCircuit != null) {
+                    parent = owner.frameCircuit;
+                }
+                if (Tools.setQuestionDialog(parent, "Do you want to Add Panel?")) {
+                    vmPanel = "VMPanel";
+                }
+
+                subVM = Tools.addSubVM(this, vmPanel, args);
+
+                Point p = this.getMousePosition();
+                if (p == null) {
+                    p = new Point(40, 40);
+                }
+                subVM.setLocation(p.x - (subVM.getWidth() / 2), p.y - subVM.getHeight() / 2);
+            }
+
         }
     }
 
@@ -788,7 +780,7 @@ public class VMObject extends JPanel
         }
     }
 
-    public void saveAsJPEG(String sImgFilename) throws Exception {
+    public void saveAsJPEG(String sImgFilename) throws StoreImageException {
 
         BufferedImage img = getVMImage();
 
@@ -801,14 +793,13 @@ public class VMObject extends JPanel
              *
              * out.flush(); out.close(); out = null; enc = null; prm = null;
              */
-        } catch (Exception ex) {
-            throw new Exception(
+        } catch (IOException ex) {
+            throw new StoreImageException(
                     java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("\nError:_Image_storing_to_'")
                             + sImgFilename
                             + java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("'_failed:_")
                             + ex.getMessage());
-        }
-        if (img != null) {
+        } finally {
             img.flush();
         }
     }
@@ -859,7 +850,9 @@ public class VMObject extends JPanel
         while (!stop) {
             try {
                 Thread.sleep(owner.delay);
-            } catch (Exception exe) {
+            } catch (InterruptedException exe) {
+                Logger.error(exe);
+                Thread.currentThread().interrupt();
             }
 
             processAllElements();
@@ -1234,36 +1227,32 @@ public class VMObject extends JPanel
     public Element addElementIntoCanvas(String mainPath, String binPath, String circuitClass, String[] args) {
         owner.setChanged(true);
         String path = mainPath + "/" + binPath;
-        try {
-            lockGraphics();
-            int id = getObjectID();
-            Element element = new Element(id, this, elementPath, mainPath, binPath, circuitClass, "", args);
-            reserveObjectID(id, element);
-            // System.out.println("Element.id="+id);
-            elList.add(element);
 
-            add(element, 0);
-            // wrappElement(element);
-            // reorderWireFrames();
-            unlockGraphics();
+        lockGraphics();
+        int id = getObjectID();
+        Element element = new Element(id, this, elementPath, mainPath, binPath, circuitClass, "", args);
+        reserveObjectID(id, element);
+        // System.out.println("Element.id="+id);
+        elList.add(element);
 
-            element.setLocation(500, 500);
+        add(element, 0);
+        // wrappElement(element);
+        // reorderWireFrames();
+        unlockGraphics();
 
-            Point p = getNewElementLocation();
-            element.setLocation(p.x, p.y);
-            int num = getElementCaptionNumber(element);
+        element.setLocation(500, 500);
 
-            element.setCaption(element.getNameLocalized() + num);
-            element.setNameID(num);
+        Point p = getNewElementLocation();
+        element.setLocation(p.x, p.y);
+        int num = getElementCaptionNumber(element);
 
-            return element;
-        } catch (Exception ex) {
-            owner.showErrorMessage(circuitClass + java.util.ResourceBundle.getBundle("VisualLogic/VMObject")
-                    .getString("Element_konnte_nicht_erfolgreich_erzeugt_werden_:") + ex.toString());
-            unlockGraphics();
-        }
+        element.setCaption(element.getNameLocalized() + num);
+        element.setNameID(num);
 
-        return null;
+        return element;
+
+
+
     }
 
     // ************************* End Element handling ***************************
@@ -1271,33 +1260,27 @@ public class VMObject extends JPanel
 
         Draht dr = null;
         int id = getObjectID();
-        try {
-            dr = new Draht(id, this, sourceElementID, sourcePin, destElementID, destPin);
-            drahtLst.add(dr);
-        } catch (Exception ex) {
-            owner.showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/VMObject")
-                    .getString("Draht_konnte_nicht_erfolgreich_erzeugt_werden_:") + ex.toString());
-        }
+
+        dr = new Draht(id, this, sourceElementID, sourcePin, destElementID, destPin);
+        drahtLst.add(dr);
+
         reserveObjectID(id, dr);
         return dr;
     }
 
     public Draht addDraht(int id, int sourceElementID, int sourcePin, int destElementID, int destPin) {
         Draht dr = null;
-        try {
-            dr = new Draht(id, this, sourceElementID, sourcePin, destElementID, destPin);
 
-            Element element = null;
+        dr = new Draht(id, this, sourceElementID, sourcePin, destElementID, destPin);
 
-            /*
-             * element=(Element)getObjectWithID(sourceElementID); element.getPin(sourcePin).draht=dr;
-             * element=(Element)getObjectWithID(destElementID); element.getPin(destPin).draht=dr;
-             */
-            drahtLst.add(dr);
-        } catch (Exception ex) {
-            owner.showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/VMObject")
-                    .getString("Draht_konnte_nicht_erfolgreich_erzeugt_werden_:") + ex.toString());
-        }
+        Element element = null;
+
+        /*
+         * element=(Element)getObjectWithID(sourceElementID); element.getPin(sourcePin).draht=dr;
+         * element=(Element)getObjectWithID(destElementID); element.getPin(destPin).draht=dr;
+         */
+        drahtLst.add(dr);
+
         return dr;
     }
 
@@ -1430,13 +1413,12 @@ public class VMObject extends JPanel
             elc.jClearSubElements();
             elc.panelElementID = -1;
             elc.circuitElementID = -1;
-            try {
-                if (elc.classRef != null) {
-                    elc.classRef.onDispose();
-                    elc.removeAll();
-                }
-            } catch (Exception ex) {
+
+            if (elc.classRef != null) {
+                elc.classRef.onDispose();
+                elc.removeAll();
             }
+
 
             frontBasis.removeFromElementReferences(elc.getID());
         }
@@ -1452,31 +1434,27 @@ public class VMObject extends JPanel
             elc.panelElementID = -1;
             elc.circuitElementID = -1;
 
-            try {
-                if (elc.classRef != null) {
-                    elc.classRef.onDispose();
-                    elc.removeAll();
-                }
-            } catch (Exception ex) {
+
+            if (elc.classRef != null) {
+                elc.classRef.onDispose();
+                elc.removeAll();
             }
+
 
             circuitBasis.removeFromElementReferences(elc.getID());
         }
 
         removeFromElementReferences(el.getID());
-        try {
-            this.remove(el.lblName);
-            this.remove(el);
-        } catch (Exception e) {
-            System.out.println("Error at VisualLogic.VMObject.deleteOtherPanelElement(VMObject.java:1487)");
+
+        this.remove(el.lblName);
+        this.remove(el);
+
+
+        if (el.classRef != null) {
+            el.classRef.onDispose();
+            el.removeAll();
         }
-        try {
-            if (el.classRef != null) {
-                el.classRef.onDispose();
-                el.removeAll();
-            }
-        } catch (Exception ex) {
-        }
+
 
         this.elList.remove(el);
         el.removeReference();
@@ -1557,10 +1535,9 @@ public class VMObject extends JPanel
     }
 
     private void rufeXOnInit(Element element) {
-        try {
-            element.classRef.xOnInit();
-        } catch (Exception ex) {
-        }
+
+        element.classRef.xOnInit();
+
     }
 
     public Element AddDualElement(String mainPath, String binPath, String circuitClass, String panelClass,
@@ -1746,26 +1723,22 @@ public class VMObject extends JPanel
         // zuerst die Outpins Initialisieren
         for (int i = 0; i < getElementCount(); i++) {
             Element element = getElement(i);
-            try {
-                if (element.classRef != null) {
-                    element.classRef.xonInitOutputPins();
-                }
-            } catch (Exception ex) {
-                System.out.println(ex);
+
+            if (element.classRef != null) {
+                element.classRef.xonInitOutputPins();
             }
+
         }
     }
 
     public void initAllInputPins() {
         for (int i = 0; i < getElementCount(); i++) {
             Element element = getElement(i);
-            try {
-                if (element.classRef != null) {
-                    element.classRef.xonInitInputPins();
-                }
-            } catch (Exception ex) {
-                System.out.println(ex);
+
+            if (element.classRef != null) {
+                element.classRef.xonInitInputPins();
             }
+
         }
     }
 
@@ -1832,7 +1805,9 @@ public class VMObject extends JPanel
 
             try {
                 Thread.sleep(owner.getDebugDelay());
-            } catch (Exception ex) {
+            } catch (InterruptedException ex) {
+                Logger.error(ex);
+                Thread.currentThread().interrupt();
             }
             ddd.setOff();
         }
@@ -1842,11 +1817,9 @@ public class VMObject extends JPanel
         // System.out.println("clockList.size()="+clockList.size());
         for (Element element : clockList) {
             if (element != null && element.classRef != null) {
-                try {
-                    element.classRef.xonClock();
-                } catch (Exception ex) {
-                    System.out.println("proprocessClock() error : " + ex);
-                }
+
+                element.classRef.xonClock();
+
             }
         }
 
@@ -1926,7 +1899,9 @@ public class VMObject extends JPanel
         } else {
             try {
                 Thread.sleep(1);
-            } catch (Exception ex) {
+            } catch (InterruptedException ex) {
+                Logger.error(ex);
+                Thread.currentThread().interrupt();
             }
         }
     }
@@ -1939,7 +1914,9 @@ public class VMObject extends JPanel
                 Thread.sleep(1);
                 // System.out.println("PAUSE"+pauseC++);
 
-            } catch (Exception ex) {
+            } catch (InterruptedException ex) {
+                Logger.error(ex);
+                Thread.currentThread().interrupt();
             }
             return;
         }
@@ -1974,7 +1951,9 @@ public class VMObject extends JPanel
                 }
                 try {
                     Thread.sleep(owner.getDebugDelay());
-                } catch (Exception ex) {
+                } catch (InterruptedException ex) {
+                    Logger.error(ex);
+                    Thread.currentThread().interrupt();
                 }
 
                 if (pin.object instanceof VSBoolean) {
@@ -3059,32 +3038,30 @@ public class VMObject extends JPanel
     }
 
     public void saveElements(FileSystemOutput fsOut, boolean onlySelected) {
-        try {
-            for (int i = getComponentCount() - 1; i >= 0; i--) {
-                Component comp = getComponent(i);
 
-                if (comp instanceof Element) {
-                    Element el = (Element) comp;
-                    if (onlySelected) {
-                        if (el.isSelected()) {
-                            el.saveToStream(fsOut);
-                        }
-                    } else {
+        for (int i = getComponentCount() - 1; i >= 0; i--) {
+            Component comp = getComponent(i);
+
+            if (comp instanceof Element) {
+                Element el = (Element) comp;
+                if (onlySelected) {
+                    if (el.isSelected()) {
                         el.saveToStream(fsOut);
                     }
+                } else {
+                    el.saveToStream(fsOut);
                 }
             }
-            fsOut.postItem();
-        } catch (Exception ex) {
-            owner.showErrorMessage("" + ex.toString());
         }
+        fsOut.postItem();
+
     }
 
     public void saveDraehte(FileSystemOutput fsOut, boolean onlySelected) {
-        try {
-            FileOutputStream fos =
-                    fsOut.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("Element"));
-            DataOutputStream dos = new DataOutputStream(fos);
+        try (FileOutputStream fos =
+                fsOut.addItem(java.util.ResourceBundle.getBundle("VisualLogic/VMObject").getString("Element"));
+                DataOutputStream dos = new DataOutputStream(fos)) {
+
 
             for (Draht draht : drahtLst) {
                 if (onlySelected) {
@@ -3106,7 +3083,8 @@ public class VMObject extends JPanel
                 }
             }
             fsOut.postItem();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
+            Logger.error(ex);
             owner.showErrorMessage("" + ex.toString());
         }
     }
@@ -3134,9 +3112,8 @@ public class VMObject extends JPanel
     }
 
     public void saveToStream(FileSystemOutput fsOut, String filename, boolean onlySelected) {
-        try {
-            FileOutputStream fos = fsOut.addItem(filename);
-            DataOutputStream dos = new DataOutputStream(fos);
+        try (FileOutputStream fos = fsOut.addItem(filename); DataOutputStream dos = new DataOutputStream(fos)) {
+
 
             dos.writeInt(getWidth());
             dos.writeInt(getHeight());
@@ -3170,7 +3147,8 @@ public class VMObject extends JPanel
 
             saveElements(fsOut, onlySelected);
             saveDraehte(fsOut, onlySelected);
-        } catch (Exception ex) {
+        } catch (IOException ex) {
+            Logger.error(ex);
             owner.showErrorMessage("" + ex.toString());
         }
     }
@@ -3180,9 +3158,9 @@ public class VMObject extends JPanel
 
         for (int i = 0; i < size; i++) {
 
-            try {
-                FileInputStream fis = fsIn.gotoItem(owner.fileCount++);
-                DataInputStream stream = new DataInputStream(fis);
+            try (FileInputStream fis = fsIn.gotoItem(owner.fileCount++);
+                    DataInputStream stream = new DataInputStream(fis)) {
+
 
                 String classPfad = stream.readUTF(); // classPath
                 String className = stream.readUTF(); // className
@@ -3250,7 +3228,8 @@ public class VMObject extends JPanel
                     elementsCount++;
                     progressBar.setValue(progress++);
                 }
-            } catch (Exception ex) {
+            } catch (IOException ex) {
+                Logger.error(ex);
                 beendeWaitDialog();
                 owner.showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/VMObject")
                         .getString("Element_konnte_nicht_erfolgreich_erzeugt_werden_:") + ex.toString());
@@ -3343,7 +3322,8 @@ public class VMObject extends JPanel
                     draht.loadFromStream(stream);
                 }
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
+            Logger.error(ex);
             beendeWaitDialog();
             owner.showErrorMessage("" + ex.toString());
         }
@@ -3393,9 +3373,9 @@ public class VMObject extends JPanel
         }
 
         List<Integer> ElemetTabelle = new ArrayList<>();
-        try {
-            FileInputStream fis = fsIn.gotoItem(owner.fileCount++);
-            DataInputStream stream = new DataInputStream(fis);
+        try (FileInputStream fis = fsIn.gotoItem(owner.fileCount++);
+                DataInputStream stream = new DataInputStream(fis)) {
+
 
             int w = stream.readInt();
             int h = stream.readInt();
@@ -3431,7 +3411,8 @@ public class VMObject extends JPanel
             readElements(elsize, fsIn, fromAblage, ElemetTabelle);
 
             readDrahts(drsize, fsIn, fromAblage, ElemetTabelle);
-        } catch (Exception ex) {
+        } catch (IOException ex) {
+            Logger.error(ex);
             beendeWaitDialog();
             owner.showErrorMessage(java.util.ResourceBundle.getBundle("VisualLogic/VMObject")
                     .getString("Fehler_in_Basis.loadFromStream()_:") + ex.toString());

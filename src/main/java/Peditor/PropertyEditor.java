@@ -898,7 +898,7 @@ class PropertiesEditor extends JButton implements PEIF, ActionListener {
             int newVersion = 0;
             try {
                 newVersion = Integer.parseInt(vmobject.owner.basisVersion);
-            } catch (Exception ex) {
+            } catch (NumberFormatException ex) {
                 org.tinylog.Logger.error(ex);
             }
             newVersion++;

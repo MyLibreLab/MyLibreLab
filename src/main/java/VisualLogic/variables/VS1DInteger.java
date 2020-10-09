@@ -22,6 +22,9 @@ package VisualLogic.variables;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
+
+import org.tinylog.Logger;
 
 public class VS1DInteger extends VSObject {
     private int value[] = null;
@@ -74,8 +77,8 @@ public class VS1DInteger extends VSObject {
     }
 
     public void loadFromStream(java.io.FileInputStream fis) {
-        try {
-            DataInputStream dis = new DataInputStream(fis);
+        try (DataInputStream dis = new DataInputStream(fis)) {
+
 
             int size = dis.readInt();
             value = new int[size];
@@ -83,22 +86,23 @@ public class VS1DInteger extends VSObject {
             for (int i = 0; i < value.length; i++) {
                 value[i] = dis.readInt();
             }
-        } catch (Exception ex) {
-            System.err.println("Fehler in VS1DInteger.loadFromStream() : " + ex.toString());
+        } catch (IOException ex) {
+            Logger.error(ex);
         }
     }
 
     public void saveToStream(java.io.FileOutputStream fos) {
-        try {
-            DataOutputStream dos = new DataOutputStream(fos);
+        try (DataOutputStream dos = new DataOutputStream(fos)) {
+
             dos.writeInt(value.length);
 
             for (int i = 0; i < value.length; i++) {
                 int val = value[i];
                 dos.writeInt(val);
             }
-        } catch (Exception ex) {
-            System.err.println("Fehler in VS1DInteger.saveToStream() : " + ex.toString());
+        } catch (IOException ex) {
+            Logger.error(ex);
+
         }
     }
 }

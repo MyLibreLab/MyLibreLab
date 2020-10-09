@@ -22,23 +22,27 @@ package VisualLogic;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
+
+import org.tinylog.Logger;
 
 public class XMLSerializer {
-    public static void write(Object f, String filename) throws Exception {
+    public static void write(Object f, String filename) {
         try (XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(filename)))) {
             encoder.writeObject(f);
+        } catch (IOException ex) {
+            Logger.error(ex);
         }
     }
 
-    public static Object read(String filename) throws Exception {
+    public static Object read(String filename) throws IOException {
         Object o;
         try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(filename)))) {
             o = decoder.readObject();
+            return o;
+        } catch (IOException ex) {
+            Logger.error(ex);
+            throw new IOException("Could not read from file", ex);
         }
-        return o;
     }
 }

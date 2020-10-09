@@ -56,8 +56,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -707,13 +705,9 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 String std = file.getParent() + File.separator + frm.newName + "." + ext;
 
                 if (!new File(std).exists()) {
-                    try {
-                        file.renameTo(new File(std));
-                    } catch (Exception ex) {
-                        Tools.showMessage(this, java.util.ResourceBundle.getBundle("VisualLogic/Messages")
-                                .getString("Could not rename File!"));
-                        return;
-                    }
+
+                    file.renameTo(new File(std));
+
 
                     Basis basis = isBasisInDesktop(file.getAbsolutePath());
                     if (basis != null) {
@@ -827,23 +821,21 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             settings.setDocDimension(docFrame.getSize());
         }
 
-        try {
-            // String fileName = getUserURL().getFile() + System.getProperty("file.separator") + "Config.conf";
-            // File fconf = new File(fileName);
 
-            // ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fconf.getAbsolutePath()));
-            settings.setMainFrameLocation(this.getLocation());
-            settings.setMainFrameSize(this.getSize());
-            // oos.writeObject(settings);
-            // oos.flush();
-            // oos.close();
+        // String fileName = getUserURL().getFile() + System.getProperty("file.separator") + "Config.conf";
+        // File fconf = new File(fileName);
 
-            String fileName_xml = getUserURL().getFile() + System.getProperty("file.separator") + "config.xml";
+        // ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fconf.getAbsolutePath()));
+        settings.setMainFrameLocation(this.getLocation());
+        settings.setMainFrameSize(this.getSize());
+        // oos.writeObject(settings);
+        // oos.flush();
+        // oos.close();
 
-            XMLSerializer.write(settings, fileName_xml);
-        } catch (Exception e) {
+        String fileName_xml = getUserURL().getFile() + System.getProperty("file.separator") + "config.xml";
 
-        }
+        XMLSerializer.write(settings, fileName_xml);
+
     }
 
     public Basis isBasisInDesktop(String path) {
@@ -1382,28 +1374,26 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
     public FrameMain(String args[]) {
 
-        try {
 
-            // iconImage =
-            // Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Bilder/16x16/icon.png"));
-            // setIconImage(iconImage); ?
-            iconImage = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Bilder/icon_16.png"));
-            Image iconImage32 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Bilder/icon_32.png"));
-            Image iconImage64 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Bilder/icon_64.png"));
 
-            List<Image> images = new ArrayList<>();
-            images.add(iconImage);
-            images.add(iconImage32);
-            images.add(iconImage64);
-            setIconImages(images);
+        // iconImage =
+        // Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Bilder/16x16/icon.png"));
+        // setIconImage(iconImage); ?
+        iconImage = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Bilder/icon_16.png"));
+        Image iconImage32 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Bilder/icon_32.png"));
+        Image iconImage64 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Bilder/icon_64.png"));
 
-            // for mac os!
-            // Application application = Application.getApplication();
-            // application.setDockIconImage(iconImage64);
+        List<Image> images = new ArrayList<>();
+        images.add(iconImage);
+        images.add(iconImage32);
+        images.add(iconImage64);
+        setIconImages(images);
 
-        } catch (Exception ex) {
-            Tools.showMessage("Fehler : " + ex.toString());
-        }
+        // for mac os!
+        // Application application = Application.getApplication();
+        // application.setDockIconImage(iconImage64);
+
+
 
         // JDialog.setDefaultLookAndFeelDecorated(true);
         // driverPath = elementPath + "/Drivers";
@@ -1474,26 +1464,24 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         org.tinylog.Logger.info("myopenlab Path=" + myopenlabX);
 
-        try {
-            String OS_arch = System.getProperty("os.arch"); // arm Raspberry PI
-            String OS_name = System.getProperty("os.name"); // Linux Raspberry PI
-            System.out.println("OS_Name=" + OS_name + "_OS_Arch=" + OS_arch);
 
-            if (OS_arch.equalsIgnoreCase("arm") || OS_name.contains("Linux") || OS_name.contains("linux")
-                    || OS_name.contains("LINUX") || OS_name.contains("mac") || OS_name.contains("MAC")
-                    || OS_name.contains("Mac")) {
+        String OS_arch = System.getProperty("os.arch"); // arm Raspberry PI
+        String OS_name = System.getProperty("os.name"); // Linux Raspberry PI
+        System.out.println("OS_Name=" + OS_name + "_OS_Arch=" + OS_arch);
 
-                // System.setProperty( "sun.java2d.xrender","True"); //sun.java2d.xrender=True
-                // xrender Intended use: To enable the XRender-based Java 2D rendering pipeline for modern X11-based
-                // desktops, offering improved graphics performance.
+        if (OS_arch.equalsIgnoreCase("arm") || OS_name.contains("Linux") || OS_name.contains("linux")
+                || OS_name.contains("LINUX") || OS_name.contains("mac") || OS_name.contains("MAC")
+                || OS_name.contains("Mac")) {
 
-                // System.setProperty( "sun.java2d.d3d","false"); //sun.java2d.d3d=false //d3d
-                // Intended use: To turn off the Java 2D system's use of Direct3D.
-                // https://docs.oracle.com/javase/7/docs/technotes/guides/2d/flags.html#xrender
-            }
-        } catch (Exception e) {
-            System.out.println(e);
+            // System.setProperty( "sun.java2d.xrender","True"); //sun.java2d.xrender=True
+            // xrender Intended use: To enable the XRender-based Java 2D rendering pipeline for modern X11-based
+            // desktops, offering improved graphics performance.
+
+            // System.setProperty( "sun.java2d.d3d","false"); //sun.java2d.d3d=false //d3d
+            // Intended use: To turn off the Java 2D system's use of Direct3D.
+            // https://docs.oracle.com/javase/7/docs/technotes/guides/2d/flags.html#xrender
         }
+
 
         /*
          * DialogLanguage lan = new DialogLanguage(this, true);
@@ -1634,26 +1622,23 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     }
 
     public void showPinDescription(JPin pin) {
-        try {
-            String desc = pin.getDescription();
-            desc += " (" + VSDataType.getDataTypeShortCut(pin.dataType) + ")";
-            JLabel lbl = layedLabel;
 
-            lbl.setText(desc);
+        String desc = pin.getDescription();
+        desc += " (" + VSDataType.getDataTypeShortCut(pin.dataType) + ")";
+        JLabel lbl = layedLabel;
 
-            Point p = getMousePosition();
+        lbl.setText(desc);
 
-            FontMetrics fm = lbl.getFontMetrics(lbl.getFont());
-            int xx = fm.stringWidth(desc);
-            lbl.setLocation(p.x + 10, p.y - fm.getHeight() * 2);
-            lbl.setSize(xx, fm.getHeight());
-            lbl.setOpaque(true);
+        Point p = getMousePosition();
 
-            lbl.updateUI();
-        } catch (Exception e) {
-            System.out.println("FrameMain Line 1624 Error");
-            // This error is caused on MAC OS Jdescription does not work
-        }
+        FontMetrics fm = lbl.getFontMetrics(lbl.getFont());
+        int xx = fm.stringWidth(desc);
+        lbl.setLocation(p.x + 10, p.y - fm.getHeight() * 2);
+        lbl.setSize(xx, fm.getHeight());
+        lbl.setOpaque(true);
+
+        lbl.updateUI();
+
     }
 
     public void startButtonHandler() {
@@ -2108,14 +2093,15 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             // Set cross-platform Java L&F (also called "Metal")
             // UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 
-        } catch (Exception e) {
+        } catch (UnsupportedLookAndFeelException e) {
+            org.tinylog.Logger.error(e);
             // If Nimbus is not available, you can set the GUI to another look and feel.
             try {
 
                 UIManager.setLookAndFeel(nativeLF);
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
                     | UnsupportedLookAndFeelException ex) {
-
+                org.tinylog.Logger.error(ex);
             }
         }
     }
@@ -2141,13 +2127,14 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
         String fileNameXML = getUserURL().getFile() + System.getProperty("file.separator") + "config.xml";
         File fxml = new File(fileNameXML);
         if (fxml.exists()) {
-            try {
-                XMLDecoder d = new XMLDecoder(new BufferedInputStream(new FileInputStream(fxml.getAbsolutePath())));
+            try (XMLDecoder d = new XMLDecoder(new BufferedInputStream(new FileInputStream(fxml.getAbsolutePath())))) {
+
                 settings = (Settings) d.readObject();
                 d.close();
 
                 config_file_loaded = true;
-            } catch (Exception ioe) {
+            } catch (IOException ioe) {
+                org.tinylog.Logger.error(ioe);
                 choiceLanguage(this);
             }
         }
@@ -3502,11 +3489,12 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
                 for (int i = 0; i < Expression.liste.size(); i++) {
                     result += Expression.liste.get(i) + "\n";
-                    // System.err.println(""+Expression.liste.get(i));
                 }
                 break;
-            } catch (Exception ye) {
-                System.err.println(scanner + ": " + ye);
+            } catch (IOException ioException) {
+                org.tinylog.Logger.error(ioException);
+            } catch (Expression.yyException e) {
+                org.tinylog.Logger.error(e);
             }
         }
 
@@ -4103,7 +4091,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
             jc = ToolProvider.getSystemJavaCompiler();
             sjfm = jc.getStandardFileManager(null, null, null);
-        } catch (Exception ex) {
+        } /* TODO do we need this here ? */ catch (Exception ex) {
             return false;
         }
 
@@ -4488,164 +4476,159 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     public void createSubElementFromVM(VMObject vm, Rectangle rect, String vmFilename) {
         timer.stop();
 
-        try {
-            System.out.println("binFertig!");
 
-            int x1 = rect.x;
-            int y1 = rect.y;
-            int x2 = rect.width;
-            int y2 = rect.height;
+        System.out.println("binFertig!");
 
-            List<Element> elements = vm.getSelectedElements();
+        int x1 = rect.x;
+        int y1 = rect.y;
+        int x2 = rect.width;
+        int y2 = rect.height;
 
-            Basis basis = createNewVM();
+        List<Element> elements = vm.getSelectedElements();
 
-            addBasisToVMPanel(basis);
+        Basis basis = createNewVM();
 
-            Element element;
-            JPin pin;
-            int i, j;
-            LineInfo info;
-            Draht draht;
+        addBasisToVMPanel(basis);
 
-            yx1 = 20;
-            yx2 = 20;
-            IPindex = 0;
-            OPindex = 0;
+        Element element;
+        JPin pin;
+        int i, j;
+        LineInfo info;
+        Draht draht;
 
-            backupDrahtsInputs = new ArrayList<BackupDrahtInput>();
-            backupDrahtsOutputs = new ArrayList<BackupDrahtOutut>();
+        yx1 = 20;
+        yx2 = 20;
+        IPindex = 0;
+        OPindex = 0;
 
-            for (i = 0; i < 4; i++) {
-                List<LineInfo> lineInfos = selectAllDrahtsWhereIntersectWithRectaqngle(elements, x1, y1, x2, y2, i);
+        backupDrahtsInputs = new ArrayList<BackupDrahtInput>();
+        backupDrahtsOutputs = new ArrayList<BackupDrahtOutut>();
 
-                for (j = 0; j < lineInfos.size(); j++) {
-                    info = lineInfos.get(j);
+        for (i = 0; i < 4; i++) {
+            List<LineInfo> lineInfos = selectAllDrahtsWhereIntersectWithRectaqngle(elements, x1, y1, x2, y2, i);
 
-                    processDraht(info, vm);
-                }
+            for (j = 0; j < lineInfos.size(); j++) {
+                info = lineInfos.get(j);
+
+                processDraht(info, vm);
             }
-
-            vm.owner.cut();
-            basis.paste();
-
-            basis.projectPath = vm.owner.projectPath;
-
-            if (basis.projectPath.length() == 0) {
-                basis.save();
-            } else {
-                String fileName = "";
-                // fileName = basis.projectPath + "/" + vmFilename + ".vlogic";
-                fileName = basis.projectPath + File.separator + vmFilename + ".vlogic";
-                basis.saveToFile(fileName, false);
-                basis.vmFilename = fileName;
-                basis.fileName = fileName;
-
-                reloadProjectPanel();
-            }
-
-            Element subVM = null;
-            try {
-                String mainPath = basis.fileName;
-
-                String frontClass = "VMPanel";
-
-                if (basis.getFrontBasis().getSelectedElements().size() > 0) {
-                    frontClass = "VMPanel";
-                } else {
-                    frontClass = "";
-                }
-
-                File f = new File(mainPath);
-
-                // String path=fconf.getPath();
-                String vmName = f.getName();
-
-                String[] args = new String[3];
-                args[0] = vmName; // vmName zb: "Untiled.vlogic""
-                args[1] = vmName; // caption!
-                args[2] = "";
-
-                subVM = Tools.addSubVM(vm, frontClass, args);
-
-                int dx = (x1 + x2) / 2;
-                int dy = (y1 + y2) / 2;
-                subVM.setLocation(dx, dy);
-            } catch (Exception ex) {
-                Tools.showMessage(this, "" + ex.toString());
-            }
-
-            // verbinde die subVM mit den Dr�hten!
-            if (subVM != null) {
-                // INPUTS
-                int outpintCount = subVM.getRightPins();
-                BackupDrahtInput tmp;
-                for (i = 0; i < backupDrahtsInputs.size(); i++) {
-                    tmp = backupDrahtsInputs.get(i);
-
-                    Element srcElement = vm.getElementWithID(tmp.sourceElementID);
-                    int srcPin = tmp.sourcePin;
-
-                    draht = vm.addDrahtIntoCanvas(tmp.sourceElementID, tmp.sourcePin, subVM.getID(),
-                            outpintCount + tmp.pinIndex);
-
-                    Point p = srcElement.getPin(srcPin).getLocation();
-                    Point px = subVM.getPin(outpintCount + tmp.pinIndex).getLocation();
-
-                    while (draht.getPolySize() > 0) {
-                        draht.deletePoint(0);
-                    }
-
-                    draht.addPoint(srcElement.getLocation().x + p.x, srcElement.getLocation().y + p.y);
-
-                    int dx = (srcElement.getLocation().x + subVM.getLocation().x) / 2;
-                    int dy = 300;// wird eh automatisch gesetzt von reorderWireFrames();
-                    draht.addPoint(dx, 10);
-                    draht.addPoint(dx, 10);
-                    draht.addPoint(10, 10);
-
-                    srcElement.getPin(srcPin).draht = draht;
-                    subVM.getPin(outpintCount + tmp.pinIndex).draht = draht;
-
-                    vm.reorderWireFrames();
-                }
-
-                // OUTPUTS
-                BackupDrahtOutut tmp2;
-                for (i = 0; i < backupDrahtsOutputs.size(); i++) {
-                    tmp2 = backupDrahtsOutputs.get(i);
-
-                    Element dstElement = vm.getElementWithID(tmp2.destElementID);
-                    int dstPin = tmp2.destPin;
-
-                    draht = vm.addDrahtIntoCanvas(subVM.getID(), tmp2.pinIndex, tmp2.destElementID, tmp2.destPin);
-
-                    Point p = dstElement.getPin(dstPin).getLocation();
-                    // Point px=subVM.getPin(tmp.pinIndex).getLocation();
-
-                    int dx = (dstElement.getLocation().x + subVM.getLocation().x) / 2;
-                    int dy = 300;// wird eh automatisch gesetzt von reorderWireFrames();
-
-                    while (draht.getPolySize() > 0) {
-                        draht.deletePoint(0);
-                    }
-
-                    draht.addPoint(dstElement.getLocation().x + p.x, dstElement.getLocation().y + p.y);
-                    draht.addPoint(dx, 10);
-                    draht.addPoint(dx, 10);
-                    draht.addPoint(10, 10);
-
-                    dstElement.getPin(dstPin).draht = draht;
-                    subVM.getPin(tmp2.pinIndex).draht = draht;
-                    vm.reorderWireFrames();
-                }
-            }
-
-            packBasis(basis);
-        } catch (Exception ex) {
-            timer.start();
-            Tools.showMessage(this, "" + ex.toString());
         }
+
+        vm.owner.cut();
+        basis.paste();
+
+        basis.projectPath = vm.owner.projectPath;
+
+        if (basis.projectPath.length() == 0) {
+            basis.save();
+        } else {
+            String fileName = "";
+            // fileName = basis.projectPath + "/" + vmFilename + ".vlogic";
+            fileName = basis.projectPath + File.separator + vmFilename + ".vlogic";
+            basis.saveToFile(fileName, false);
+            basis.vmFilename = fileName;
+            basis.fileName = fileName;
+
+            reloadProjectPanel();
+        }
+
+        Element subVM = null;
+
+        String mainPath = basis.fileName;
+
+        String frontClass = "VMPanel";
+
+        if (basis.getFrontBasis().getSelectedElements().size() > 0) {
+            frontClass = "VMPanel";
+        } else {
+            frontClass = "";
+        }
+
+        File f = new File(mainPath);
+
+        // String path=fconf.getPath();
+        String vmName = f.getName();
+
+        String[] args = new String[3];
+        args[0] = vmName; // vmName zb: "Untiled.vlogic""
+        args[1] = vmName; // caption!
+        args[2] = "";
+
+        subVM = Tools.addSubVM(vm, frontClass, args);
+
+        int dx = (x1 + x2) / 2;
+        int dy = (y1 + y2) / 2;
+        subVM.setLocation(dx, dy);
+
+
+        // verbinde die subVM mit den Dr�hten!
+        if (subVM != null) {
+            // INPUTS
+            int outpintCount = subVM.getRightPins();
+            BackupDrahtInput tmp;
+            for (i = 0; i < backupDrahtsInputs.size(); i++) {
+                tmp = backupDrahtsInputs.get(i);
+
+                Element srcElement = vm.getElementWithID(tmp.sourceElementID);
+                int srcPin = tmp.sourcePin;
+
+                draht = vm.addDrahtIntoCanvas(tmp.sourceElementID, tmp.sourcePin, subVM.getID(),
+                        outpintCount + tmp.pinIndex);
+
+                Point p = srcElement.getPin(srcPin).getLocation();
+                Point px = subVM.getPin(outpintCount + tmp.pinIndex).getLocation();
+
+                while (draht.getPolySize() > 0) {
+                    draht.deletePoint(0);
+                }
+
+                draht.addPoint(srcElement.getLocation().x + p.x, srcElement.getLocation().y + p.y);
+
+                dx = (srcElement.getLocation().x + subVM.getLocation().x) / 2;
+                dy = 300;// wird eh automatisch gesetzt von reorderWireFrames();
+                draht.addPoint(dx, 10);
+                draht.addPoint(dx, 10);
+                draht.addPoint(10, 10);
+
+                srcElement.getPin(srcPin).draht = draht;
+                subVM.getPin(outpintCount + tmp.pinIndex).draht = draht;
+
+                vm.reorderWireFrames();
+            }
+
+            // OUTPUTS
+            BackupDrahtOutut tmp2;
+            for (i = 0; i < backupDrahtsOutputs.size(); i++) {
+                tmp2 = backupDrahtsOutputs.get(i);
+
+                Element dstElement = vm.getElementWithID(tmp2.destElementID);
+                int dstPin = tmp2.destPin;
+
+                draht = vm.addDrahtIntoCanvas(subVM.getID(), tmp2.pinIndex, tmp2.destElementID, tmp2.destPin);
+
+                Point p = dstElement.getPin(dstPin).getLocation();
+                // Point px=subVM.getPin(tmp.pinIndex).getLocation();
+
+                dx = (dstElement.getLocation().x + subVM.getLocation().x) / 2;
+                dy = 300;// wird eh automatisch gesetzt von reorderWireFrames();
+
+                while (draht.getPolySize() > 0) {
+                    draht.deletePoint(0);
+                }
+
+                draht.addPoint(dstElement.getLocation().x + p.x, dstElement.getLocation().y + p.y);
+                draht.addPoint(dx, 10);
+                draht.addPoint(dx, 10);
+                draht.addPoint(10, 10);
+
+                dstElement.getPin(dstPin).draht = draht;
+                subVM.getPin(tmp2.pinIndex).draht = draht;
+                vm.reorderWireFrames();
+            }
+        }
+
+        packBasis(basis);
+
         timer.start();
     }
 
@@ -5788,7 +5771,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 Tools.saveText(projectFile, str);
 
                 // Basis oBasis=addBasisToVMPanel(filename);
-            } catch (Exception ex) {
+            } catch (IOException ex) {
+                org.tinylog.Logger.error(ex);
                 Tools.showMessage(
                         java.util.ResourceBundle.getBundle("VisualLogic/Messages").getString("Could not create") + " "
                                 + projectName);
@@ -6136,25 +6120,24 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         try {
             url = new URL("file:" + filename);
-        } catch (Exception ex) {
+        } catch (IOException ex) {
+            org.tinylog.Logger.error(ex);
 
         }
 
         try {
             pane.setContentType("text/html");
             pane.setPage(url);
-        } catch (Exception e) {
-
+        } catch (IOException e) {
+            org.tinylog.Logger.error(e);
         }
     }
 
     public void activate_DocFrame(Element element) {
 
-        try {
-            panelDoc.openElementDocFile(this, element);
-        } catch (Exception ex) {
-            Logger.getLogger(FrameMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        panelDoc.openElementDocFile(this, element);
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

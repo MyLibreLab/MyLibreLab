@@ -20,6 +20,8 @@
 
 package VisualLogic.variables;
 
+import java.io.IOException;
+
 import org.tinylog.Logger;
 
 public class VSByte extends VSObject {
@@ -124,20 +126,20 @@ public class VSByte extends VSObject {
     }
 
     public void loadFromStream(java.io.FileInputStream fis) {
-        try {
-            java.io.DataInputStream dis = new java.io.DataInputStream(fis);
+        try (java.io.DataInputStream dis = new java.io.DataInputStream(fis)) {
+
 
             value = dis.readByte();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
         }
     }
 
     public void saveToStream(java.io.FileOutputStream fos) {
-        try {
-            java.io.DataOutputStream dos = new java.io.DataOutputStream(fos);
+        try (java.io.DataOutputStream dos = new java.io.DataOutputStream(fos)) {
+
             dos.writeByte(value);
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
             VisualLogic.Tools.showMessage("Fehler in VSByte.saveToStream() : " + ex.toString());
         }
@@ -146,7 +148,7 @@ public class VSByte extends VSObject {
     public void loadFromXML(String name, org.w3c.dom.Element nodeElement) {
         try {
             value = Byte.parseByte(nodeElement.getAttribute("VSByte" + name));
-        } catch (Exception ex) {
+        } catch (NumberFormatException ex) {
             org.tinylog.Logger.error(ex);
         }
     }

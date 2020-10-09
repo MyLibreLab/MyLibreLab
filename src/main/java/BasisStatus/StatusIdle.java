@@ -905,7 +905,7 @@ public class StatusIdle implements StatusBasisIF {
 
             try {
                 vmObject.processAddElement(mainPath, circuitClass, frontClass, args);
-            } catch (Exception ex) {
+            } /* TODO why the exception here? */ catch (Exception ex) {
                 vmObject.newElement = null;
             }
         }

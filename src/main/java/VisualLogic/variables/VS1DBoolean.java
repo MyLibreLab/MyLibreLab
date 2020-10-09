@@ -22,6 +22,9 @@ package VisualLogic.variables;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
+
+import org.tinylog.Logger;
 
 public class VS1DBoolean extends VSObject {
     private boolean value[] = null;
@@ -74,8 +77,8 @@ public class VS1DBoolean extends VSObject {
     }
 
     public void loadFromStream(java.io.FileInputStream fis) {
-        try {
-            DataInputStream dis = new DataInputStream(fis);
+        try (DataInputStream dis = new DataInputStream(fis)) {
+
 
             int size = dis.readInt();
             value = new boolean[size];
@@ -83,22 +86,24 @@ public class VS1DBoolean extends VSObject {
             for (int i = 0; i < value.length; i++) {
                 value[i] = dis.readBoolean();
             }
-        } catch (Exception ex) {
-            System.err.println("Fehler in VS1DBoolean.loadFromStream() : " + ex.toString());
+        } catch (IOException ex) {
+            Logger.error(ex);
+
         }
     }
 
     public void saveToStream(java.io.FileOutputStream fos) {
-        try {
-            DataOutputStream dos = new DataOutputStream(fos);
+        try (DataOutputStream dos = new DataOutputStream(fos)) {
+
             dos.writeInt(value.length);
 
             for (int i = 0; i < value.length; i++) {
                 boolean val = value[i];
                 dos.writeBoolean(val);
             }
-        } catch (Exception ex) {
-            System.err.println("Fehler in VS1DBoolean.saveToStream() : " + ex.toString());
+        } catch (IOException ex) {
+            Logger.error(ex);
+
         }
     }
 }

@@ -18,28 +18,23 @@
  *
  */
 
-package VisualLogic.exception;
+package com.github.mylibrelab.exception;
 
 import java.io.IOException;
 
-/**
- * Exceptions that are thrown while doing IO work such as copying or reading files
- */
-public class VisualLogicIoException extends IOException {
+public class StoreImageException extends IOException {
 
-    public VisualLogicIoException() {
-        super();
-    }
+    public StoreImageException() {}
 
-    public VisualLogicIoException(String message) {
+    public StoreImageException(String message) {
         super(message);
     }
 
-    public VisualLogicIoException(String message, Throwable cause) {
+    public StoreImageException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public VisualLogicIoException(Throwable cause) {
+    public StoreImageException(Throwable cause) {
         super(cause);
     }
 }

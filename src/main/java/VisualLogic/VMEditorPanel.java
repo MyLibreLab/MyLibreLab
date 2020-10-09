@@ -26,6 +26,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -34,6 +35,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
 import org.tinylog.Logger;
+
+import com.github.mylibrelab.exception.StoreImageException;
 
 /**
  * @author Carmelo
@@ -96,33 +99,25 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
         URL url = null;
         try {
             url = new URL("file://" + filename);
-        } catch (Exception ex) {
-
+        } catch (MalformedURLException ex) {
+            Logger.error(ex);
         }
         if (new File(filename).exists()) {
             try {
                 pane.setPage(url);
-            } catch (Exception e) {
+            } catch (IOException e) {
                 basis.showErrorMessage(e.toString());
+                Logger.error(e);
             }
-        } else {
-            /*
-             * URL urlx = new File(elementPath).toURL(); String s=urlx.getFile(); s =
-             * s.substring(0,s.lastIndexOf("/"));
-             * pane.setText(java.util.ResourceBundle.getBundle("VisualLogic/FrameCircuit").
-             * getString("Keine Beschreibung gefunden"));
-             */
         }
     }
 
     public void openElementDocFile(FrameMain owner, Element element) {
         PanelDokumentation panel = new PanelDokumentation();
 
-        try {
-            panel.openElementDocFile(owner, element);
-        } catch (Exception ex) {
 
-        }
+        panel.openElementDocFile(owner, element);
+
         jTabbedPane1.addTab("Doc - " + element.getNameLocalized(), panel);
         jTabbedPane1.setSelectedComponent(panel);
     }
@@ -207,13 +202,12 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
         // oldPanelDirectory=basis.getFrameMain().settings.panelDirectory;
         // oldCircuitDirectory=basis.getFrameMain().settings.circuitDirectory;
 
-        try {
-            // setIconImage(basis.getFrameMain().iconImage);
-            // iconImage= Toolkit.getDefaultToolkit().getImage();
-            // setIconImage(iconImage);
-            basis.vsIcon.loadImage(getClass().getResource("/Bilder/icon_16.png"));
-        } catch (Exception ex) {
-        }
+
+        // setIconImage(basis.getFrameMain().iconImage);
+        // iconImage= Toolkit.getDefaultToolkit().getImage();
+        // setIconImage(iconImage);
+        basis.vsIcon.loadImage(getClass().getResource("/Bilder/icon_16.png"));
+
 
         /*
          * timer = new javax.swing.Timer(500, new ActionListener() { public void actionPerformed(ActionEvent
@@ -347,13 +341,13 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
     }
 
     private void createBatchFile(String destFilename, String mainVM) {
-        try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(destFilename));
+        try (BufferedWriter out = new BufferedWriter(new FileWriter(destFilename))) {
+
 
             out.write("javaw -splash:splash.png -jar c-exp-lab.jar Elements \"./" + mainVM + "\"");
-            out.close();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             Tools.showMessage(ex.toString());
+            Logger.error(ex);
         }
     }
 
@@ -501,7 +495,8 @@ public class VMEditorPanel extends javax.swing.JPanel implements ElementPaletteI
 
             try {
                 getVMObject().saveAsJPEG(fileName);
-            } catch (Exception ex) {
+            } catch (StoreImageException ex) {
+                Logger.error(ex);
                 basis.showErrorMessage(
                         java.util.ResourceBundle.getBundle("VisualLogic/FrameCircuit").getString("error_save_JPG"));
             }
