@@ -11,10 +11,10 @@ jobs:
         with:
           # Shallow clones should be disabled for a better relevancy of analysis
           fetch-depth: 0
-      - name: Set up JDK 14
+      - name: Set up JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 14
+          java-version: 15
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:

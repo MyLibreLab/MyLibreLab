@@ -27,6 +27,9 @@ val enableMavenLocal by props()
 val skipAutostyle by props()
 val skipSonarlint by props()
 
+println("Building: MyLibreLab $projectVersion")
+println("     JDK: " + System.getProperty("java.home"))
+
 dependencies {
     implementation(project(":mylibrelab-settings-api"))
     implementation(project(":mylibrelab-service-manager"))
@@ -262,8 +265,8 @@ allprojects {
     plugins.withType<JavaPlugin> {
 
         configure<JavaPluginExtension> {
-            sourceCompatibility = JavaVersion.VERSION_11
-            targetCompatibility = JavaVersion.VERSION_11
+            sourceCompatibility = JavaVersion.VERSION_15
+            targetCompatibility = JavaVersion.VERSION_15
         }
 
         tasks {
