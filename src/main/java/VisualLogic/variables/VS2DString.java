@@ -124,7 +124,6 @@ public class VS2DString extends VSObject {
             }
         } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
-            System.err.println("Fehler in VS2DString.saveToStream() : " + ex.toString());
         }
     }
 
@@ -143,7 +142,7 @@ public class VS2DString extends VSObject {
             }
         } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
-            System.err.println("Fehler in VS2DString.loadFromStream() : " + ex.toString());
+
         }
     }
 }

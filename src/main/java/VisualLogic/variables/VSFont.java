@@ -76,7 +76,6 @@ public class VSFont extends VSObject {
             dos.writeInt(value.getSize());
         } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
-            System.err.println("Fehler in VSFont.saveToStream() : " + ex.toString());
         }
     }
 

@@ -96,7 +96,7 @@ public class VS1DDouble extends VSObject {
                 value[i] = dis.readDouble();
             }
         } catch (IOException ex) {
-            System.err.println("Fehler in VS1DDouble.loadFromStream() : " + ex.toString());
+
             Logger.error(ex);
         }
     }
@@ -112,7 +112,7 @@ public class VS1DDouble extends VSObject {
             }
         } catch (IOException ex) {
             Logger.error(ex);
-            System.err.println("Fehler in VS1DDouble.saveToStream() : " + ex.toString());
+
         }
     }
 }

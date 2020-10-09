@@ -122,7 +122,6 @@ public class VS2DDouble extends VSObject {
             }
         } catch (IOException ex) {
             Logger.error(ex);
-            System.err.println("Fehler in VS2DDouble.saveToStream() : " + ex.toString());
         }
     }
 
@@ -140,7 +139,7 @@ public class VS2DDouble extends VSObject {
                 }
             }
         } catch (IOException ex) {
-            System.err.println("Fehler in VS2DDouble.loadFromStream() : " + ex.toString());
+            Logger.error(ex);
         }
     }
 }

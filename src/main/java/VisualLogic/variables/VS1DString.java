@@ -92,7 +92,7 @@ public class VS1DString extends VSObject {
             }
         } catch (IOException ex) {
             Logger.error(ex);
-            System.err.println("Fehler in VS1DString.loadFromStream() : " + ex.toString());
+
         }
     }
 
@@ -107,7 +107,6 @@ public class VS1DString extends VSObject {
             }
         } catch (IOException ex) {
             Logger.error(ex);
-            System.err.println("Fehler in VS1DString.saveToStream() : " + ex);
         }
     }
 

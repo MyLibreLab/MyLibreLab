@@ -71,7 +71,6 @@ public class VSComboBox extends VSObject {
             dos.writeInt(selectedIndex);
         } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
-            System.err.println("Fehler in VSComboBox.saveToStream() : " + ex.toString());
         }
     }
 

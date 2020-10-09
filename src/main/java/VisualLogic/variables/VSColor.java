@@ -76,7 +76,7 @@ public class VSColor extends VSObject {
             dos.writeInt(value.getBlue());
         } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
-            System.err.println("Fehler in VSColor.saveToStream() : " + ex.toString());
+
         }
     }
 

@@ -142,7 +142,6 @@ public class VSImage extends VSObject {
             }
         } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
-            System.err.println("Error in VSImage.saveToStream() : " + ex.toString());
         }
     }
 
@@ -166,6 +165,7 @@ class ImageLoader extends Component {
             mc.waitForID(0);
         } catch (InterruptedException ex) {
             org.tinylog.Logger.error(ex);
+            Thread.currentThread().interrupt();
         }
         return img;
     }

@@ -88,7 +88,6 @@ public class VS1DInteger extends VSObject {
             }
         } catch (IOException ex) {
             Logger.error(ex);
-            System.err.println("Fehler in VS1DInteger.loadFromStream() : " + ex.toString());
         }
     }
 
@@ -103,7 +102,7 @@ public class VS1DInteger extends VSObject {
             }
         } catch (IOException ex) {
             Logger.error(ex);
-            System.err.println("Fehler in VS1DInteger.saveToStream() : " + ex.toString());
+
         }
     }
 }

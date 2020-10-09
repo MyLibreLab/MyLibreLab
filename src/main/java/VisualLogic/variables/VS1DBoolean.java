@@ -88,7 +88,7 @@ public class VS1DBoolean extends VSObject {
             }
         } catch (IOException ex) {
             Logger.error(ex);
-            System.err.println("Fehler in VS1DBoolean.loadFromStream() : " + ex.toString());
+
         }
     }
 
@@ -103,7 +103,7 @@ public class VS1DBoolean extends VSObject {
             }
         } catch (IOException ex) {
             Logger.error(ex);
-            System.err.println("Fehler in VS1DBoolean.saveToStream() : " + ex.toString());
+
         }
     }
 }

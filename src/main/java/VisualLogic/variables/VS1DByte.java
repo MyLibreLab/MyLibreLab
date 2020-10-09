@@ -96,7 +96,7 @@ public class VS1DByte extends VSObject {
             }
         } catch (IOException ex) {
             Logger.error(ex);
-            System.err.println("Fehler in VS1DByte.loadFromStream() : " + ex.toString());
+
         }
     }
 
@@ -111,7 +111,7 @@ public class VS1DByte extends VSObject {
             }
         } catch (IOException ex) {
             Logger.error(ex);
-            System.err.println("Fehler in VS1DByte.saveToStream() : " + ex.toString());
+
         }
     }
 }

@@ -100,7 +100,6 @@ public class VSDouble extends VSObject {
             dos.writeDouble(value);
         } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
-            System.err.println("Fehler in VSDouble.saveToStream() : " + ex.toString());
         }
     }
 

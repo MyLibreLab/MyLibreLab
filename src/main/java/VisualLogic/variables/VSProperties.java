@@ -57,17 +57,12 @@ public class VSProperties extends VSObject {
          * value=dis.readInt();
          *
          * } catch(Exception ex) {
-         * System.err.println("Fehler in VSDouble.loadFromStream() : "+ex.toString()); }
+         *
          */
     }
 
     public void saveToStream(java.io.FileOutputStream fos) {
-        /*
-         * try { java.io.DataOutputStream dos = new java.io.DataOutputStream(fos); dos.writeInt(value);
-         *
-         * } catch(Exception ex) { System.err.println("Fehler in VSDouble.saveToStream() : "+ex.toString());
-         * }
-         */
+
     }
 
     public void loadFromXML(String name, org.w3c.dom.Element nodeElement) {

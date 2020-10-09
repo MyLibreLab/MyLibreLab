@@ -3489,7 +3489,6 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
                 for (int i = 0; i < Expression.liste.size(); i++) {
                     result += Expression.liste.get(i) + "\n";
-                    // System.err.println(""+Expression.liste.get(i));
                 }
                 break;
             } catch (IOException ioException) {

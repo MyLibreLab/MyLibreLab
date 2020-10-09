@@ -110,7 +110,7 @@ public class VSString extends VSObject {
             dos.writeUTF(value);
         } catch (IOException ex) {
             Logger.error(ex);
-            System.err.println("Fehler in VSDouble.saveToStream() : " + ex.toString());
+
         }
     }
 
