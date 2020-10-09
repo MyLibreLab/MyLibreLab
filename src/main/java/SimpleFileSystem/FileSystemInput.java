@@ -39,16 +39,9 @@ public class FileSystemInput {
      * Liest aus der Datei die IndexListe in der alle DatensatzBeschreibungen stehen
      */
     public FileSystemInput(String filename) {
-        try {
-            // System.out.println("FileInput-Received: "+filename);
-            // filename = filename.replace("\\", File.separator);
-            // filename = filename.replace("/", File.separator);
-            // filename = filename.replace("/\\", File.separator);
-            // filename = filename.replace("//", File.separator);
-            // System.out.println("Modified: "+filename);
-
+        try (DataInputStream dis = new DataInputStream(fis)){
             fis = new FileInputStream(new File(filename));
-            DataInputStream dis = new DataInputStream(fis);
+
 
             long indexPos = dis.readLong();
             fis.getChannel().position(indexPos);
@@ -70,7 +63,7 @@ public class FileSystemInput {
 
                 liste.add(dt);
             }
-        } catch/* TODO why exception here? */ (Exception ex) {
+        } catch (IOException ex) {
             org.tinylog.Logger.error(ex);
             System.out.println("Error in Methode loadIndexList()" + ex);
         }
