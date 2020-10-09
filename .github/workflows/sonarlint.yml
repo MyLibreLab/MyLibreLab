@@ -10,7 +10,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 14
+          java-version: 15
       - uses: actions/checkout@v2
         with:
           fetch-depth: 2
