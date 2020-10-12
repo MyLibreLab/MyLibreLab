@@ -28,7 +28,10 @@ import com.google.auto.service.AutoService
 @AutoService(AppLifecycleListener::class)
 internal class SettingsAppLifecycleListener : AppLifecycleAdapter() {
 
-    override fun applicationStarted() = Settings.loadState()
+    override fun applicationStarted() {
+        Settings.reset()
+        Settings.loadState()
+    }
 
     override fun applicationStopping() = Settings.saveState()
 }
