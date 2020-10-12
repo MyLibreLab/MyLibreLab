@@ -22,6 +22,8 @@ package com.github.mylibrelab.exception;
 
 import java.io.IOException;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Exceptions that are thrown while doing IO work such as copying or reading files
  */
@@ -31,15 +33,15 @@ public class VisualLogicIoException extends IOException {
         super();
     }
 
-    public VisualLogicIoException(String message) {
+    public VisualLogicIoException(@NotNull final String message) {
         super(message);
     }
 
-    public VisualLogicIoException(String message, Throwable cause) {
+    public VisualLogicIoException(@NotNull final String message, @NotNull final Throwable cause) {
         super(message, cause);
     }
 
-    public VisualLogicIoException(Throwable cause) {
+    public VisualLogicIoException(@NotNull final Throwable cause) {
         super(cause);
     }
 }
