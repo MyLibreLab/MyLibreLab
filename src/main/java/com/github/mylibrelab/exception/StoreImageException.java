@@ -22,19 +22,21 @@ package com.github.mylibrelab.exception;
 
 import java.io.IOException;
 
+import org.jetbrains.annotations.NotNull;
+
 public class StoreImageException extends IOException {
 
     public StoreImageException() {}
 
-    public StoreImageException(String message) {
+    public StoreImageException(@NotNull final String message) {
         super(message);
     }
 
-    public StoreImageException(String message, Throwable cause) {
+    public StoreImageException(@NotNull final String message, @NotNull final Throwable cause) {
         super(message, cause);
     }
 
-    public StoreImageException(Throwable cause) {
+    public StoreImageException(@NotNull final Throwable cause) {
         super(cause);
     }
 }
