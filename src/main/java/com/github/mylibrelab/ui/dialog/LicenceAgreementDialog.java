@@ -28,6 +28,8 @@ import javax.swing.*;
 import org.jetbrains.annotations.Nullable;
 
 import com.github.mylibrelab.resources.Resources;
+import com.github.mylibrelab.text.component.TextButton;
+import com.github.mylibrelab.ui.UIStyle;
 import com.github.mylibrelab.ui.UIUtil;
 import com.github.mylibrelab.ui.border.Borders;
 import com.github.mylibrelab.ui.component.LicencePanel;
@@ -72,7 +74,7 @@ public class LicenceAgreementDialog extends JDialog {
     }
 
     private void initComponents() {
-        setTitle(Resources.getString("licence.title"));
+        UIStyle.withTitle(this, Resources.getResourceText("licence.title"));
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         JPanel contentPane = new JPanel(new BorderLayout());
@@ -97,13 +99,13 @@ public class LicenceAgreementDialog extends JDialog {
     }
 
     private JButton createAcceptButton() {
-        JButton button = new DefaultButton(Resources.getString("licence.accept"));
+        JButton button = UIStyle.withText(new DefaultButton(""), Resources.getResourceText("licence.accept"));
         button.addActionListener(e -> accept());
         return button;
     }
 
     private JButton createDeclineButton() {
-        JButton button = new JButton(Resources.getString("licence.decline"));
+        JButton button = new TextButton(Resources.getResourceText("licence.decline"));
         button.addActionListener(e -> decline());
         return button;
     }

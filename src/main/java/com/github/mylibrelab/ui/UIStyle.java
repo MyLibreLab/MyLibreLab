@@ -33,9 +33,11 @@ import javax.swing.plaf.UIResource;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.github.mylibrelab.text.Text;
+
 public class UIStyle {
 
-    private static final Map<JComponent, List<Consumer<JComponent>>> listeners = new WeakHashMap<>();
+    private static final Map<Component, List<Consumer<Component>>> listeners = new WeakHashMap<>();
 
     static {
         UIManager.addPropertyChangeListener(e -> {
@@ -63,7 +65,7 @@ public class UIStyle {
      * @return input component
      */
     @NotNull
-    public static <T extends JComponent> T withDynamic(@NotNull final T component,
+    public static <T extends Component> T withDynamic(@NotNull final T component,
             @NotNull final Consumer<T> onUpdateUi) {
         // Explicit component update is required since the component already exists
         // and we can't want to wait for the next LaF change
@@ -72,11 +74,11 @@ public class UIStyle {
             listeners.compute(component, (k, v) -> {
                 if (v == null) {
                     // noinspection unchecked
-                    return Collections.singletonList((Consumer<JComponent>) onUpdateUi);
+                    return Collections.singletonList((Consumer<Component>) onUpdateUi);
                 }
-                List<Consumer<JComponent>> res = v.size() == 1 ? new ArrayList<>(v) : v;
+                List<Consumer<Component>> res = v.size() == 1 ? new ArrayList<>(v) : v;
                 // noinspection unchecked
-                res.add((Consumer<JComponent>) onUpdateUi);
+                res.add((Consumer<Component>) onUpdateUi);
                 return res;
             });
         }
@@ -84,12 +86,12 @@ public class UIStyle {
     }
 
     @NotNull
-    public static <T extends JComponent> T withMonospacedFont(@NotNull final T component) {
+    public static <T extends Component> T withMonospacedFont(@NotNull final T component) {
         return withFontFamily(component, Font.MONOSPACED);
     }
 
     @NotNull
-    public static <T extends JComponent> T withFontFamily(final @NotNull T component, final @NotNull String fontName) {
+    public static <T extends Component> T withFontFamily(@NotNull final T component, @NotNull final String fontName) {
         return withTransformedFont(component, f -> {
             var attrs = f.getAttributes();
             // noinspection unchecked
@@ -99,24 +101,39 @@ public class UIStyle {
     }
 
     @NotNull
-    public static <T extends JComponent> T withTransformedFont(final @NotNull T component,
+    public static <T extends Component> T withTransformedFont(@NotNull final T component,
             final @NotNull UnaryOperator<Font> fontMapper) {
         // Ensure the font is a UIResource to guarantee it gets replaced when changing the LaF.
         return withDynamic(component, c -> c.setFont(makeUIResource(fontMapper.apply(c.getFont()))));
     }
 
-    private static Font makeUIResource(final @NotNull Font font) {
+    @NotNull
+    public static <T extends AbstractButton> T withText(@NotNull final T component, @NotNull final Text text) {
+        return withDynamic(component, c -> c.setText(text.getText()));
+    }
+
+    @NotNull
+    public static <T extends Frame> T withTitle(@NotNull final T component, @NotNull final Text text) {
+        return withDynamic(component, c -> c.setTitle(text.getText()));
+    }
+
+    @NotNull
+    public static <T extends Dialog> T withTitle(@NotNull final T component, @NotNull final Text text) {
+        return withDynamic(component, c -> c.setTitle(text.getText()));
+    }
+
+    private static Font makeUIResource(@NotNull final Font font) {
         if (font instanceof UIResource) return font;
         return new FontUIResource(font);
     }
 
-    private static void updateComponent(final @NotNull JComponent component) {
+    private static void updateComponent(@NotNull final Component component) {
         synchronized (listeners) {
-            List<Consumer<JComponent>> list = listeners.get(component);
+            List<Consumer<Component>> list = listeners.get(component);
             if (list == null) {
                 return;
             }
-            for (Consumer<JComponent> action : list) {
+            for (var action : list) {
                 action.accept(component);
             }
         }
