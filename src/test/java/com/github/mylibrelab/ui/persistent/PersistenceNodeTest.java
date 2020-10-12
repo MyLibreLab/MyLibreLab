@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class PersistenceNodeTest {
+class PersistenceNodeTest {
 
     private PersistenceNode node;
     private Map<String, String> map;

@@ -25,7 +25,7 @@ import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ResourcesTest {
+class ResourcesTest {
 
     private static final String TEST_FILE = "testFile.txt";
     private static final String TEST_FILE_CONTENT =
