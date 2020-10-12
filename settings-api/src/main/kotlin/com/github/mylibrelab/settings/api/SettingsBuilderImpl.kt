@@ -20,6 +20,7 @@
 
 package com.github.mylibrelab.settings.api
 
+import com.github.mylibrelab.text.Text
 import com.github.mylibrelab.util.*
 import kotlin.reflect.KMutableProperty0
 
@@ -117,21 +118,24 @@ fun <T : ValueProperty<T>> SettingsGroup.property(property: T, init: T.() -> Uni
 /**
  * Declare a new raw property.
  * @param name the name of the property.
+ * @param displayName the display name of the property
  * @param description the description of the property
  * @param value The property reference.
  * @param init The initialization block.
  */
 fun <T : Any> SettingsGroup.property(
     name: String? = null,
-    description: String? = null,
+    displayName: Text? = null,
+    description: Text? = null,
     value: KMutableProperty0<T>,
     init: SimpleValueProperty<T>.() -> Unit = {}
 ): ValueProperty<T> =
-    SimpleValueProperty(name, description, value, this).also { it.init(); add(it) }
+    SimpleValueProperty(name, displayName, description, value, this).also { it.init(); add(it) }
 
 /**
  * Declare a new raw property whose exposed type is different from the internal storage value.
  * @param name the name of the property.
+ * @param displayName the display name of the property
  * @param description the description of the property
  * @param value The property reference.
  * @param transformer The transformer to convert between the storage and exposed type.
@@ -139,39 +143,44 @@ fun <T : Any> SettingsGroup.property(
  */
 fun <R : Any, T : Any> SettingsGroup.transformingProperty(
     name: String? = null,
-    description: String? = null,
+    displayName: Text? = null,
+    description: Text? = null,
     value: KMutableProperty0<R>,
     transformer: Transformer<R, T>,
     init: SimpleValueProperty<R>.() -> Unit = {}
 ): TransformingValueProperty<R, T> =
     SimpleTransformingValueProperty(
-        SimpleValueProperty(name, description, value, this).also(init),
+        SimpleValueProperty(name, displayName, description, value, this).also(init),
         transformer
     ).also { add(it) }
 
 /**
  * Declare a new String property.
  * @param name the name of the property.
+ * @param displayName the display name of the property
  * @param description the description of the property
  * @param value The property reference.
  */
 fun SettingsGroup.stringProperty(
     name: String? = null,
-    description: String? = null,
+    displayName: Text? = null,
+    description: Text? = null,
     value: KMutableProperty0<String>
-): ValueProperty<String> = property(name, description, value)
+): ValueProperty<String> = property(name, displayName, description, value)
 
 /**
  * Declare a new boolean property.
  * @param name the name of the property.
+ * @param displayName the display name of the property
  * @param description the description of the property
  * @param value The property reference.
  */
 fun SettingsGroup.booleanProperty(
     name: String? = null,
-    description: String? = null,
+    displayName: Text? = null,
+    description: Text? = null,
     value: KMutableProperty0<Boolean>,
-): ValueProperty<Boolean> = property(name, description, value)
+): ValueProperty<Boolean> = property(name, displayName, description, value)
 
 /**
  * Declare a new property which has a limited set of possible values.
@@ -180,6 +189,7 @@ fun SettingsGroup.booleanProperty(
  * This method allows to declare a transformer to allow for a separate storage type.
  *
  * @param name the name of the property.
+ * @param displayName the display name of the property
  * @param description the description of the property
  * @param value The property reference.
  * @param transformer The transformer to convert between the storage and exposed type.
@@ -187,13 +197,14 @@ fun SettingsGroup.booleanProperty(
  */
 fun <R : Any, T : Any> SettingsGroup.choiceProperty(
     name: String? = null,
-    description: String? = null,
+    displayName: Text? = null,
+    description: Text? = null,
     value: KMutableProperty0<R>,
     transformer: Transformer<R, T>,
     init: ChoiceProperty<R, T>.() -> Unit = {}
 ): ChoiceProperty<R, T> =
     TransformingChoiceProperty(
-        SimpleValueProperty(name, description, value, this),
+        SimpleValueProperty(name, displayName, description, value, this),
         transformer
     ).also {
         it.init(); add(it)
@@ -205,21 +216,24 @@ fun <R : Any, T : Any> SettingsGroup.choiceProperty(
  * with the 'choices' value.
  *
  * @param name the name of the property.
+ * @param displayName the display name of the property
  * @param description the description of the property
  * @param value The property reference.
  * @param init The initialization block.
  */
 fun <T : Any> SettingsGroup.choiceProperty(
-    name: String? = null,
-    description: String? = null,
+    name: String?,
+    displayName: Text? = null,
+    description: Text? = null,
     value: KMutableProperty0<T>,
     init: ChoiceProperty<T, T>.() -> Unit = {}
 ): ChoiceProperty<T, T> =
-    choiceProperty(name, description, value, identityTransformer(), init)
+    choiceProperty(name, displayName, description, value, identityTransformer(), init)
 
 /**
  * Declare a new property that is persisted between sessions.
  * @param name the name of the property.
+ * @param displayName the display name of the property
  * @param description the description of the property
  * @param value The property reference.
  * @param transformer The transformer to read/write the properties to the storage.
@@ -228,93 +242,106 @@ fun <T : Any> SettingsGroup.choiceProperty(
  */
 fun <R : Any> SettingsGroup.persistentProperty(
     name: String? = null,
-    description: String? = null,
+    displayName: Text? = null,
+    description: Text? = null,
     value: KMutableProperty0<R>,
     transformer: Transformer<R, String>,
     initValueProp: ValueProperty<R>.() -> Unit = {},
     initPersistentProp: PersistentValueProperty<R>.() -> Unit = {}
 ): PersistentValueProperty<R> =
     SimplePersistentValueProperty(
-        SimpleValueProperty(name, description, value, this).also(initValueProp),
+        SimpleValueProperty(name, displayName, description, value, this).also(initValueProp),
         transformer
     ).also { it.initPersistentProp(); add(it) }
 
 /**
  * Declare a new string property that is persisted between sessions.
  * @param name the name of the property.
+ * @param displayName the display name of the property
  * @param description the description of the property
  * @param value The property reference.
  */
 fun SettingsGroup.persistentStringProperty(
     name: String? = null,
-    description: String? = null,
+    displayName: Text? = null,
+    description: Text? = null,
     value: KMutableProperty0<String>
-): ValueProperty<String> = persistentProperty(name, description, value, identityTransformer())
+): ValueProperty<String> = persistentProperty(name, displayName, description, value, identityTransformer())
 
 /**
  * Declare a new boolean property that is persisted between sessions.
  * @param name the name of the property.
+ * @param displayName the display name of the property
  * @param description the description of the property
  * @param value The property reference.
  */
 fun SettingsGroup.persistentBooleanProperty(
-    description: String? = null,
-    value: KMutableProperty0<Boolean>,
     name: String? = null,
+    displayName: Text? = null,
+    description: Text? = null,
+    value: KMutableProperty0<Boolean>,
 ): PersistentValueProperty<Boolean> =
-    persistentProperty(name, description, value, boolParser())
+    persistentProperty(name, displayName, description, value, boolParser())
 
 /**
  * Declare a new integer property that is persisted between sessions.
  * @param name the name of the property.
+ * @param displayName the display name of the property
  * @param description the description of the property
  * @param value The property reference.
  */
 fun SettingsGroup.persistentIntProperty(
-    description: String? = null,
-    value: KMutableProperty0<Int>,
     name: String? = null,
+    displayName: Text? = null,
+    description: Text? = null,
+    value: KMutableProperty0<Int>,
 ): PersistentValueProperty<Int> =
-    persistentProperty(name, description, value, intParser())
+    persistentProperty(name, displayName, description, value, intParser())
 
 /**
  * Declare a new long property that is persisted between sessions.
  * @param name the name of the property.
+ * @param displayName the display name of the property
  * @param description the description of the property
  * @param value The property reference.
  */
 fun SettingsGroup.persistentLongProperty(
-    description: String? = null,
-    value: KMutableProperty0<Long>,
     name: String? = null,
+    displayName: Text? = null,
+    description: Text? = null,
+    value: KMutableProperty0<Long>,
 ): PersistentValueProperty<Long> =
-    persistentProperty(name, description, value, longParser())
+    persistentProperty(name, displayName, description, value, longParser())
 
 /**
  * Declare a new float property that is persisted between sessions.
  * @param name the name of the property.
+ * @param displayName the display name of the property
  * @param description the description of the property
  * @param value The property reference.
  */
 fun SettingsGroup.persistentFloatProperty(
-    description: String? = null,
-    value: KMutableProperty0<Float>,
     name: String? = null,
+    displayName: Text? = null,
+    description: Text? = null,
+    value: KMutableProperty0<Float>,
 ): PersistentValueProperty<Float> =
-    persistentProperty(name, description, value, floatParser())
+    persistentProperty(name, displayName, description, value, floatParser())
 
 /**
  * Declare a new double property that is persisted between sessions.
  * @param name the name of the property.
+ * @param displayName the display name of the property
  * @param description the description of the property
  * @param value The property reference.
  */
 fun SettingsGroup.persistentDoubleProperty(
-    description: String? = null,
-    value: KMutableProperty0<Double>,
     name: String? = null,
+    displayName: Text? = null,
+    description: Text? = null,
+    value: KMutableProperty0<Double>,
 ): PersistentValueProperty<Double> =
-    persistentProperty(name, description, value, doubleParser())
+    persistentProperty(name, displayName, description, value, doubleParser())
 
 /**
  * Declare a new choice property that is persisted between sessions.
@@ -323,19 +350,21 @@ fun SettingsGroup.persistentDoubleProperty(
  * with the 'choices' value.
  *
  * @param name the name of the property.
+ * @param displayName the display name of the property
  * @param description the description of the property
  * @param value The property reference.
  * @param init The initialization block.
  */
 fun <R : Any> SettingsGroup.persistentChoiceProperty(
     name: String? = null,
-    description: String? = null,
+    displayName: Text? = null,
+    description: Text? = null,
     value: KMutableProperty0<R>,
     transformer: Transformer<R, String>,
     init: ChoiceProperty<R, String>.() -> Unit = {}
 ): ChoiceProperty<R, String> =
     PersistentChoiceProperty(
-        SimpleValueProperty(name, description, value, this),
+        SimpleValueProperty(name, displayName, description, value, this),
         transformer
     ).also { it.init(); add(it) }
 
@@ -346,14 +375,16 @@ fun <R : Any> SettingsGroup.persistentChoiceProperty(
  * with the 'choices' value.
  *
  * @param name the name of the property.
+ * @param displayName the display name of the property
  * @param description the description of the property
  * @param value The property reference.
  * @param init The initialization block.
  */
 fun SettingsGroup.persistentChoiceProperty(
     name: String? = null,
-    description: String? = null,
+    displayName: Text? = null,
+    description: Text? = null,
     value: KMutableProperty0<String>,
     init: ChoiceProperty<String, String>.() -> Unit = {}
 ): ChoiceProperty<String, String> =
-    persistentChoiceProperty(name, description, value, identityTransformer(), init)
+    persistentChoiceProperty(name, displayName, description, value, identityTransformer(), init)
