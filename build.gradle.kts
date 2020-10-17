@@ -157,6 +157,8 @@ allprojects {
                 // Ignore [Inheritance tree of classes should not be too deep]
                 // Extending JComponent will break this rule.
                 message("java:S110")
+                // Some classes benefit from mmore descriptive generic type paramaters.
+                message("java:S119")
             }
         }
     }
