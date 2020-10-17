@@ -1,0 +1,2 @@
+com.github.mylibrelab.annotations.processor.ProviderProcessor,ISOLATING
+com.github.mylibrelab.annotations.processor.ServiceProcessor,ISOLATING
