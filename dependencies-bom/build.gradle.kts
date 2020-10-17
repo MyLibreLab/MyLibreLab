@@ -29,6 +29,7 @@ dependencies {
         // runtime means "the dependency is only for runtime, not for compilation"
         // In other words, marking dependency as "runtime" would avoid accidental
         // dependency on it during compilation
+        apiv("org.jetbrains:annotations", "jetbrains.annotations")
         apiv("com.google.guava:guava")
         apiv("javax.vecmath:vecmath")
         apiv("eu.hansolo:SteelSeries")
@@ -61,5 +62,6 @@ dependencies {
 
         apiv("com.google.auto.service:auto-service-annotations", "auto-service")
         apiv("com.google.auto.service:auto-service", "auto-service")
+        apiv("com.squareup:javapoet")
     }
 }
