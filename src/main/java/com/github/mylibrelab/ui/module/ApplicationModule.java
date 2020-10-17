@@ -18,34 +18,44 @@
  *
  */
 
-package com.github.mylibrelab.ui.component;
+package com.github.mylibrelab.ui.module;
 
 import javax.swing.*;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import com.github.weisj.darklaf.components.tabframe.PanelPopup;
+import com.github.mylibrelab.action.ActionContext;
+import com.github.mylibrelab.text.Text;
+import com.github.mylibrelab.ui.component.TextPanelPopup;
 import com.github.weisj.darklaf.components.tabframe.TabFramePopup;
 import com.github.weisj.darklaf.components.tabframe.TabbedPopup;
 import com.github.weisj.darklaf.util.Alignment;
 
 /**
  * A pluggable component which corresponds to a tab in the application frame. Classes implementing
- * {@link AppComponent} should be annotated with {@code @Service(AppComponent.class)}
+ * {@link ApplicationModule} should be annotated with {@link AppModule @AppModule}
  */
-public interface AppComponent {
+public interface ApplicationModule {
 
     /**
-     * The display title of the component.
+     * Returns the identifier of the module.
      *
-     * @return the title of the component.
+     * @return the identifier.
      */
     @NotNull
-    String getTitle();
+    String getIdentifier();
 
     /**
-     * The icon of the component. If the component has no icon returns {@link null}.
+     * The display title of the module.
+     *
+     * @return the title of the module.
+     */
+    @NotNull
+    Text getTitle();
+
+    /**
+     * The icon of the module. If the module has no icon returns {@link null}.
      *
      * @return the icon.
      */
@@ -66,7 +76,7 @@ public interface AppComponent {
     }
 
     /**
-     * Returns the UI for this component.
+     * Returns the UI for this module.
      *
      * @return the visual component.
      */
@@ -80,18 +90,28 @@ public interface AppComponent {
      * @return The associated {@link TabFramePopup}.
      */
     @NotNull
-    default TabFramePopup getPopupTab() {
-        return new PanelPopup(getTitle(), getIcon(), getComponent());
+    default TabFramePopup createPopupTab() {
+        return new TextPanelPopup(getTitle(), getIcon(), getComponent());
     }
 
     /**
-     * Determines whether the component should be open by default. This value will be ignored after the
+     * Determines whether the module should be open by default. This value will be ignored after the
      * first application start.
      *
-     * @return whether the component should be open by default.
+     * @return whether the module should be open by default.
      */
     default boolean openByDefault() {
         return false;
+    }
+
+    /**
+     * Get the {@link ActionContext} for the module providing the accessible models for the actions to
+     * work on.
+     *
+     * @return the {@link ActionContext}.
+     */
+    default ActionContext getActionContext() {
+        return new ActionContext();
     }
 
 }

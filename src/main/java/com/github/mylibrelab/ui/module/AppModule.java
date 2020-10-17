@@ -18,16 +18,20 @@
  *
  */
 
-package com.github.mylibrelab.ui.component.dummy;
+package com.github.mylibrelab.ui.module;
 
-import com.github.mylibrelab.annotations.Service;
-import com.github.mylibrelab.ui.component.AppComponent;
-import com.github.weisj.darklaf.util.Alignment;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-@Service(AppComponent.class)
-public class DummyF extends DummyComponent {
+import com.github.mylibrelab.annotations.ServiceSpec;
 
-    public DummyF() {
-        super("Dummy F", null, Alignment.SOUTH_WEST);
-    }
+/**
+ * Used to mark {@link ApplicationModule} for automatic loading.
+ */
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.CLASS)
+@ServiceSpec(ApplicationModule.class)
+public @interface AppModule {
 }
