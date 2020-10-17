@@ -20,13 +20,12 @@
 
 package com.github.mylibrelab.lifecycle;
 
-import java.util.ServiceLoader;
-
 import org.jetbrains.annotations.NotNull;
 
 import com.github.mylibrelab.event.EventBus;
 import com.github.mylibrelab.event.Topic;
 import com.github.mylibrelab.event.Topics;
+import com.github.mylibrelab.service.ServiceManager;
 
 /**
  * Dispatcher to notify {@link AppLifecycleListener} about various stages of the application
@@ -66,7 +65,7 @@ public enum AppLifecycleManager {
 
     AppLifecycleManager() {
         eventBus = EventBus.get(Topics.APP_LIFECYCLE);
-        ServiceLoader.load(AppLifecycleListener.class).forEach(eventBus::subscribe);
+        ServiceManager.getAllServices(AppLifecycleListener.class).forEach(eventBus::subscribe);
     }
 
     /**

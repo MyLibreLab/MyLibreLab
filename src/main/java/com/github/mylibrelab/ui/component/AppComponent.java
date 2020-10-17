@@ -32,7 +32,7 @@ import com.github.weisj.darklaf.util.Alignment;
 
 /**
  * A pluggable component which corresponds to a tab in the application frame. Classes implementing
- * {@link AppComponent} should be annotated with {@code @AutoService(AppComponent.class)}
+ * {@link AppComponent} should be annotated with {@code @Service(AppComponent.class)}
  */
 public interface AppComponent {
 

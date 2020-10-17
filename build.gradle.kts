@@ -29,6 +29,7 @@ val skipSonarlint by props()
 
 dependencies {
     implementation(project(":mylibrelab-settings-api"))
+    implementation(project(":mylibrelab-service-manager"))
     implementation(project(":mylibrelab-util"))
 
     implementation("org.json:json")
@@ -51,8 +52,7 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
     implementation(kotlin("stdlib"))
-    kapt("com.google.auto.service:auto-service")
-    compileOnly("com.google.auto.service:auto-service-annotations")
+    kapt(project(":mylibrelab-annotations"))
 
     /* Currently unused dependencies. Those need further investigation whether they are needed for the elements
      * at runtime.
