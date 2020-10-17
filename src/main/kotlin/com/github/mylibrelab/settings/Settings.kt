@@ -20,20 +20,21 @@
 
 package com.github.mylibrelab.settings
 
+import com.github.mylibrelab.annotations.Service
 import com.github.mylibrelab.lifecycle.AppLifecycleAdapter
 import com.github.mylibrelab.lifecycle.AppLifecycleListener
 import com.github.mylibrelab.settings.api.SettingsStorage
-import com.google.auto.service.AutoService
 
-@AutoService(AppLifecycleListener::class)
+@Service(AppLifecycleListener::class)
 internal class SettingsAppLifecycleListener : AppLifecycleAdapter() {
 
     override fun applicationStarted() {
-        Settings.reset()
         Settings.loadState()
     }
 
-    override fun applicationStopping() = Settings.saveState()
+    override fun applicationStopping() {
+        Settings.saveState()
+    }
 }
 
 object Settings {

@@ -20,11 +20,11 @@
 
 package com.github.mylibrelab.ui.component.dummy;
 
+import com.github.mylibrelab.annotations.Service;
 import com.github.mylibrelab.ui.component.AppComponent;
 import com.github.weisj.darklaf.util.Alignment;
-import com.google.auto.service.AutoService;
 
-@AutoService(AppComponent.class)
+@Service(AppComponent.class)
 public class DummyD extends DummyComponent {
 
     public DummyD() {

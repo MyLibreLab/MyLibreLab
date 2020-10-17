@@ -18,16 +18,11 @@
  *
  */
 
-package com.github.mylibrelab.ui.component.dummy;
+package com.github.mylibrelab.settings.api
 
-import com.github.mylibrelab.annotations.Service;
-import com.github.mylibrelab.ui.component.AppComponent;
-import com.github.weisj.darklaf.util.Alignment;
+import com.github.mylibrelab.annotations.ServiceSpec
 
-@Service(AppComponent.class)
-public class DummyB extends DummyComponent {
-
-    public DummyB() {
-        super("Dummy B", null, Alignment.NORTH_EAST);
-    }
-}
+@Target(AnnotationTarget.CLASS)
+@Retention(AnnotationRetention.BINARY)
+@ServiceSpec(SettingsContainerProvider::class)
+annotation class SettingsProvider

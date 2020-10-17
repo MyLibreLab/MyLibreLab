@@ -21,9 +21,8 @@
 package com.github.mylibrelab.settings
 
 import com.github.mylibrelab.settings.api.*
-import com.google.auto.service.AutoService
 
-@AutoService(SettingsContainerProvider::class)
+@SettingsProvider
 class StartupSettingsProvider : SingletonSettingsContainerProvider({ StartupSettings })
 
 object StartupSettings : DefaultSettingsContainer(identifier = "startup") {

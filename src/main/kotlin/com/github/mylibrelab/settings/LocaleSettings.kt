@@ -23,10 +23,9 @@ package com.github.mylibrelab.settings
 import com.github.mylibrelab.settings.api.*
 import com.github.mylibrelab.util.transformerOf
 import com.github.weisj.darklaf.LafManager
-import com.google.auto.service.AutoService
 import java.util.*
 
-@AutoService(SettingsContainerProvider::class)
+@SettingsProvider
 class LocaleSettingsProvider : SingletonSettingsContainerProvider({ LocaleSettings })
 
 object LocaleSettings : DefaultSettingsContainer(identifier = "locale") {
@@ -34,8 +33,8 @@ object LocaleSettings : DefaultSettingsContainer(identifier = "locale") {
     var locale: Locale = Locale.getDefault()
         set(l) {
             field = l
-            if (Locale.getDefault() != locale) {
-                Locale.setDefault(locale)
+            if (Locale.getDefault() != field) {
+                Locale.setDefault(field)
                 LafManager.install()
             }
         }
