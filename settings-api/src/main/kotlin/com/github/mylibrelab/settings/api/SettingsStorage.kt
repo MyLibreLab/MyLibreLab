@@ -20,9 +20,8 @@
 
 package com.github.mylibrelab.settings.api
 
-import java.util.*
+import com.github.mylibrelab.service.ServiceManager
 import java.util.prefs.Preferences
-import kotlin.collections.HashMap
 
 object SettingsStorage {
 
@@ -35,7 +34,7 @@ object SettingsStorage {
     @Volatile
     private var saving: Boolean = false
     val containers: List<SettingsContainer> =
-        ServiceLoader.load(SettingsContainerProvider::class.java)
+        ServiceManager.getAllServices(SettingsContainerProvider::class.java)
             .asSequence()
             .filter { it.enabled }
             .map { it.create() }
@@ -63,7 +62,7 @@ object SettingsStorage {
         ).forEach { (identifier, propertyList) ->
             preferencesRoot.node(identifier).addPreferenceChangeListener {
                 if (saving) return@addPreferenceChangeListener
-                propertyList.map { it.container }.forEach { container ->
+                propertyList.asSequence().map { it.container }.distinct().forEach { container ->
                     loadSettings(container)
                 }
             }
