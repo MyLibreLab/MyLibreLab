@@ -4,6 +4,7 @@ import com.github.vlsi.gradle.crlf.CrLfSpec
 import com.github.vlsi.gradle.crlf.LineEndings
 import com.github.vlsi.gradle.properties.dsl.props
 import name.remal.gradle_plugins.plugins.code_quality.sonar.SonarLintExtension
+import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -157,7 +158,7 @@ allprojects {
                 // Ignore [Inheritance tree of classes should not be too deep]
                 // Extending JComponent will break this rule.
                 message("java:S110")
-                // Some classes benefit from mmore descriptive generic type paramaters.
+                // Some classes benefit from more descriptive generic type parameters.
                 message("java:S119")
             }
         }
@@ -205,6 +206,7 @@ allprojects {
                 java {
                     importOrder("java", "javax", "org", "com", "")
                     removeUnusedImports()
+
                     eclipse {
                         configFile("${project.rootDir}/config/style.eclipseformat.xml")
                     }
@@ -227,8 +229,14 @@ allprojects {
             val bom = platform(project(":mylibrelab-dependencies-bom"))
             "api"(bom)
             "annotationProcessor"(bom)
-            "kapt"(bom)
         }
+    }
+
+    extensions.findByType(KaptExtension::class)?.run {
+        dependencies {
+            "kapt"(platform(project(":mylibrelab-dependencies-bom")))
+        }
+        includeCompileClasspath = false
     }
 
     tasks.withType<KotlinCompile>().configureEach {
