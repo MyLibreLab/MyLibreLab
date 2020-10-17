@@ -18,16 +18,12 @@
  *
  */
 
-package com.github.mylibrelab.ui.component.dummy;
+package com.github.mylibrelab.action;
 
-import com.github.mylibrelab.annotations.Service;
-import com.github.mylibrelab.ui.component.AppComponent;
-import com.github.weisj.darklaf.util.Alignment;
-
-@Service(AppComponent.class)
-public class DummyC extends DummyComponent {
-
-    public DummyC() {
-        super("Dummy C", null, Alignment.EAST);
-    }
+/**
+ * Represent a visual location in the application. {@link AnAction} can change their appearance
+ * based on the place they displayed in.
+ */
+public enum Place {
+    TOOLBAR, MENUBAR, POPUP_MENU
 }
