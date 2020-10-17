@@ -31,8 +31,8 @@ import com.github.weisj.darklaf.util.Alignment;
 
 public class PersistentTabFrame extends JTabFrame implements PersistentComponent {
 
-    private static final String KEY_ENABLED = "enabled";
-    private static final String KEY_INDEX = "selectedIndex";
+    public static final String KEY_ENABLED = "enabled";
+    public static final String KEY_INDEX = "selectedIndex";
     private final PersistenceHelper persistenceHelper = new PersistenceHelper(this);
 
     @Override
@@ -57,7 +57,9 @@ public class PersistentTabFrame extends JTabFrame implements PersistentComponent
     @Override
     public void loadState(@NotNull final PersistenceNode node) {
         var cont = (PersistentTabFrameContentPane) getContentPane().getComponent();
-        for (var a : Alignment.values()) {
+        for (var a : new Alignment[] {Alignment.NORTH, Alignment.NORTH_EAST, Alignment.SOUTH, Alignment.SOUTH_WEST,
+                Alignment.WEST, Alignment.NORTH_WEST, Alignment.EAST, Alignment.SOUTH_EAST}) {
+            if (a == Alignment.CENTER) continue;
             var alignmentNode = node.getSubNode(a.toString());
             var enabled = alignmentNode.getBoolean(KEY_ENABLED, cont.isEnabled(a));
             int index = enabled ? alignmentNode.getInt(KEY_INDEX, 0) : getSelectedIndex(a);

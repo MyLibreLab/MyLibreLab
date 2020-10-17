@@ -32,6 +32,7 @@ import javax.swing.*;
 
 import org.tinylog.Logger;
 
+import com.github.mylibrelab.event.EventBus;
 import com.github.mylibrelab.lifecycle.AppLifecycleManager;
 import com.github.mylibrelab.resources.ErrorType;
 import com.github.mylibrelab.resources.Resources;
@@ -45,12 +46,16 @@ import VisualLogic.Tools;
 
 public class MyLibreLab {
 
+    private static JFrame frame;
+
     public static void main(final String[] args) {
         parseArguments(args);
 
         AppLifecycleManager.INSTANCE.notifyApplicationStarted();
+
         if (!checkLicenceAgreement()) {
             Logger.error(Resources.getErrorMessage(ErrorType.LICENCE_DECLINED));
+            stopApplication();
             return;
         }
 
@@ -74,7 +79,7 @@ public class MyLibreLab {
             }
         });
         SwingUtilities.invokeLater(() -> {
-            var frame = new JFrame();
+            frame = new JFrame();
             // Only hide for now. The application lifecycle is still bound to
             // the legacy frames lifetime. Because persistent components are weakly
             // referenced we also don't want to dispose the frame (though they will be saved
@@ -100,7 +105,21 @@ public class MyLibreLab {
 
         // Necessary because the legacy code uses System#exit(int) in a lot of places which makes
         // notifying the AppLifeCycleManager difficult.
-        Runtime.getRuntime().addShutdownHook(new Thread(AppLifecycleManager.INSTANCE::notifyApplicationStopping));
+        Runtime.getRuntime().addShutdownHook(new Thread(MyLibreLab::stopApplication));
+    }
+
+    private static void stopApplication() {
+        if (frame != null && frame.isDisplayable()) {
+            // Necessary if the legacy frame gets closed first.
+            AppLifecycleManager.INSTANCE.notifyAppFrameClosing();
+        }
+        AppLifecycleManager.INSTANCE.notifyApplicationStopping();
+        try {
+            EventBus.shutDown();
+        } catch (InterruptedException e) {
+            Logger.error(e);
+            Thread.currentThread().interrupt();
+        }
     }
 
     private static Path getApplicationDirectory() {
