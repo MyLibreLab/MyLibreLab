@@ -35,9 +35,9 @@ import org.jetbrains.annotations.Nullable;
  */
 public class TreeNode<N, E> implements Iterable<TreeNode<N, E>> {
 
-    private final TreeNode<N, E> parent;
-    private final E parentEdge;
     private final Map<E, TreeNode<N, E>> nodes;
+    private TreeNode<N, E> parent;
+    private E parentEdge;
     private N value;
 
     /**
@@ -82,7 +82,8 @@ public class TreeNode<N, E> implements Iterable<TreeNode<N, E>> {
      *
      * @return the parent or null
      */
-    public @Nullable TreeNode<N, E> getParent() {
+    @Nullable
+    public TreeNode<N, E> getParent() {
         return parent;
     }
 
@@ -91,7 +92,8 @@ public class TreeNode<N, E> implements Iterable<TreeNode<N, E>> {
      *
      * @return the edge or null
      */
-    public @Nullable E getParentEdge() {
+    @Nullable
+    public E getParentEdge() {
         return parentEdge;
     }
 
@@ -100,7 +102,8 @@ public class TreeNode<N, E> implements Iterable<TreeNode<N, E>> {
      *
      * @return the value of this node.
      */
-    public @Nullable N getNodeValue() {
+    @Nullable
+    public N getNodeValue() {
         return value;
     }
 
@@ -127,7 +130,8 @@ public class TreeNode<N, E> implements Iterable<TreeNode<N, E>> {
      *
      * @return the edges going out of this node.
      */
-    public @NotNull Set<E> edges() {
+    @NotNull
+    public Set<E> edges() {
         return nodes.keySet();
     }
 
@@ -138,7 +142,8 @@ public class TreeNode<N, E> implements Iterable<TreeNode<N, E>> {
      * @param value the node value.
      * @return the inserted node.
      */
-    public @NotNull TreeNode<N, E> insert(@NotNull final E edge, @Nullable final N value) {
+    @NotNull
+    public TreeNode<N, E> insert(@NotNull final E edge, @Nullable final N value) {
         var node = createNode(this, edge, value);
         insertNode(edge, node);
         return node;
@@ -166,7 +171,10 @@ public class TreeNode<N, E> implements Iterable<TreeNode<N, E>> {
      * @param subtree the subtree node to insert.
      * @return the inserted node.
      */
+    @NotNull
     public TreeNode<N, E> insertNode(@NotNull final E edge, @NotNull final TreeNode<N, E> subtree) {
+        subtree.parentEdge = edge;
+        subtree.parent = this;
         nodes.put(edge, subtree);
         return subtree;
     }
@@ -187,7 +195,8 @@ public class TreeNode<N, E> implements Iterable<TreeNode<N, E>> {
      * @return the subtree.
      * @throws NoSuchElementException if there is no node connected to the given edge.
      */
-    public @NotNull TreeNode<N, E> getSubTree(@NotNull final E edge) {
+    @NotNull
+    public TreeNode<N, E> getSubTree(@NotNull final E edge) {
         if (!hasEdge(edge)) {
             throw new NoSuchElementException("Edge '" + edge + "' does not exist.");
         }
@@ -200,7 +209,8 @@ public class TreeNode<N, E> implements Iterable<TreeNode<N, E>> {
      * @param edge the edge.
      * @return the value at the node or null
      */
-    public @Nullable N getValueAtEdge(@Nullable final E edge) {
+    @Nullable
+    public N getValueAtEdge(@Nullable final E edge) {
         if (!hasEdge(edge)) return null;
         return nodes.get(edge).getNodeValue();
     }
@@ -216,7 +226,8 @@ public class TreeNode<N, E> implements Iterable<TreeNode<N, E>> {
     }
 
     @Override
-    public @NotNull Iterator<TreeNode<N, E>> iterator() {
+    @NotNull
+    public Iterator<TreeNode<N, E>> iterator() {
         return nodes.values().iterator();
     }
 
@@ -226,32 +237,23 @@ public class TreeNode<N, E> implements Iterable<TreeNode<N, E>> {
     }
 
     @Override
-    public @NotNull Spliterator<TreeNode<N, E>> spliterator() {
+    @NotNull
+    public Spliterator<TreeNode<N, E>> spliterator() {
         return nodes.values().spliterator();
     }
 
-    public @NotNull Stream<TreeNode<N, E>> stream() {
+    @NotNull
+    public Stream<TreeNode<N, E>> stream() {
         return nodes.values().stream();
-    }
-
-    /**
-     * Constructs a stream where all nodes in the hierarchy are flattened out.
-     *
-     * @return the stream.
-     */
-    public @NotNull Stream<TreeNode<N, E>> flatStream() {
-        return Stream.concat(Stream.of(this), stream().flatMap(TreeNode::flatStream));
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(Objects.toString(value, ""));
-        nodes.forEach((k, v) -> {
-            var keyStr = k.toString();
-            var valueStr = v.toString().replace("\n", "\n\t");
-            if (sb.length() > 0) {
-                sb.append('\n');
-            }
+        nodes.entrySet().stream().sorted(Comparator.comparing(n -> Objects.toString(n.getKey(), ""))).forEach(e -> {
+            var keyStr = e.getKey().toString();
+            var valueStr = e.getValue().toString().replace("\n", "\n\t");
+            sb.append('\n');
             sb.append(keyStr).append(" -> ").append(valueStr);
         });
         return sb.toString();
