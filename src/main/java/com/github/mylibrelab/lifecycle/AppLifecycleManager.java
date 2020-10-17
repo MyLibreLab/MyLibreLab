@@ -20,10 +20,13 @@
 
 package com.github.mylibrelab.lifecycle;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ServiceLoader;
-import java.util.function.Consumer;
+
+import org.jetbrains.annotations.NotNull;
+
+import com.github.mylibrelab.event.EventBus;
+import com.github.mylibrelab.event.Topic;
+import com.github.mylibrelab.event.Topics;
 
 /**
  * Dispatcher to notify {@link AppLifecycleListener} about various stages of the application
@@ -32,33 +35,72 @@ import java.util.function.Consumer;
 public enum AppLifecycleManager {
     INSTANCE;
 
-    private final List<AppLifecycleListener> listeners = new ArrayList<>();
+    public enum EventType {
+        APP_STARTED, APP_FRAME_CREATED, APP_FRAME_OPENED, APP_FRAME_CLOSING, APP_STOPPING
+    }
+
+    @NotNull
+    public static Topic<EventType, AppLifecycleListener> createTopic() {
+        return Topic.create(AppLifecycleListener.class.getName(), (e, l) -> {
+            switch (e) {
+                case APP_STARTED:
+                    l.applicationStarted();
+                    break;
+                case APP_FRAME_CREATED:
+                    l.appFrameCreated();
+                    break;
+                case APP_FRAME_OPENED:
+                    l.appFrameOpened();
+                    break;
+                case APP_FRAME_CLOSING:
+                    l.appFrameClosing();
+                    break;
+                case APP_STOPPING:
+                    l.applicationStopping();
+                    break;
+            }
+        });
+    }
+
+    private final EventBus<EventType, AppLifecycleListener> eventBus;
 
     AppLifecycleManager() {
-        ServiceLoader.load(AppLifecycleListener.class).forEach(listeners::add);
+        eventBus = EventBus.get(Topics.APP_LIFECYCLE);
+        ServiceLoader.load(AppLifecycleListener.class).forEach(eventBus::subscribe);
     }
 
+    /**
+     * Notify listeners that the application has started.
+     */
     public void notifyApplicationStarted() {
-        notify(AppLifecycleListener::applicationStarted);
+        eventBus.post(EventType.APP_STARTED, true);
     }
 
+    /**
+     * Notify listeners that the application frame has been created.
+     */
     public void notifyAppFrameCreated() {
-        notify(AppLifecycleListener::appFrameCreated);
+        eventBus.post(EventType.APP_FRAME_CREATED, true);
     }
 
+    /**
+     * Notify listeners that the application frame has been opened.
+     */
     public void notifyAppFrameOpened() {
-        notify(AppLifecycleListener::appFrameOpened);
+        eventBus.post(EventType.APP_FRAME_OPENED, true);
     }
 
+    /**
+     * Notify listeners that the application frame is closing.
+     */
     public void notifyAppFrameClosing() {
-        notify(AppLifecycleListener::appFrameClosing);
+        eventBus.post(EventType.APP_FRAME_CLOSING, true);
     }
 
+    /**
+     * Notify listeners that the application is stopping.
+     */
     public void notifyApplicationStopping() {
-        notify(AppLifecycleListener::applicationStopping);
-    }
-
-    private void notify(final Consumer<AppLifecycleListener> callback) {
-        listeners.forEach(callback);
+        eventBus.post(EventType.APP_STOPPING, true);
     }
 }
