@@ -22,8 +22,13 @@ package com.github.mylibrelab.event;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.github.mylibrelab.action.ActionManager;
+import com.github.mylibrelab.action.AnAction;
 import com.github.mylibrelab.lifecycle.AppLifecycleListener;
 import com.github.mylibrelab.lifecycle.AppLifecycleManager;
+import com.github.mylibrelab.ui.module.ApplicationModule;
+
+import kotlin.Pair;
 
 /**
  * Definitions of common topics.
@@ -38,4 +43,6 @@ public class Topics {
             Topic.create("default", Dispatchers.createVoidDispatcher(Runnable::run));
     public static final @NotNull Topic<AppLifecycleManager.EventType, AppLifecycleListener> APP_LIFECYCLE =
             AppLifecycleManager.createTopic();
+    public static final @NotNull Topic<Pair<Class<? extends AnAction>, ApplicationModule>, Void> ACTIONS =
+            ActionManager.INSTANCE.createTopic();
 }

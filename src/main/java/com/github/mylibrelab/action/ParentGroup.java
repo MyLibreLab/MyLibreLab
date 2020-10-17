@@ -18,16 +18,22 @@
  *
  */
 
-package com.github.mylibrelab.ui.component.dummy;
+package com.github.mylibrelab.action;
 
-import com.github.mylibrelab.annotations.Service;
-import com.github.mylibrelab.ui.component.AppComponent;
-import com.github.weisj.darklaf.util.Alignment;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-@Service(AppComponent.class)
-public class DummyB extends DummyComponent {
 
-    public DummyB() {
-        super("Dummy B", null, Alignment.NORTH_EAST);
-    }
+/**
+ * {@link AnAction}s can specify their parent groups using this annotation. They can specify both
+ * {@link DefaultActionGroup}s and general groups by their class.
+ */
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ParentGroup {
+    DefaultActionGroup[] defaultGroups() default {};
+
+    Class<? extends AnActionGroup>[] groups() default {};
 }
