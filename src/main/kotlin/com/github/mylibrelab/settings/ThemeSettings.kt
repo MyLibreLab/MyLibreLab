@@ -27,10 +27,9 @@ import com.github.weisj.darklaf.LafManager
 import com.github.weisj.darklaf.theme.Theme
 import com.github.weisj.darklaf.theme.info.AccentColorRule
 import com.github.weisj.darklaf.theme.info.FontSizeRule
-import com.google.auto.service.AutoService
 import java.awt.Color
 
-@AutoService(SettingsContainerProvider::class)
+@SettingsProvider
 class ThemeSettingsProvider : SingletonSettingsContainerProvider({ ThemeSettings })
 
 /*

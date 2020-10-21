@@ -29,40 +29,53 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.ResourceBundle;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.PropertyKey;
 
+import com.github.mylibrelab.text.DynamicResourceBundle;
+import com.github.mylibrelab.text.InternationalizedText;
+import com.github.mylibrelab.text.Text;
+
 public class Resources {
 
-    private static final ResourceBundle MESSAGES =
-            ResourceBundle.getBundle("com.github.mylibrelab.resources.messages", Locale.getDefault());
+    private static final DynamicResourceBundle MESSAGES =
+            new DynamicResourceBundle("com.github.mylibrelab.resources.messages");
 
     private Resources() {
         throw new IllegalStateException("Utility class");
     }
 
+    @NotNull
     public static String getErrorMessage(@NotNull final ErrorType errorType) {
         return getString(errorType.getKey());
     }
 
+    @NotNull
     public static String getString(
             @NotNull @PropertyKey(resourceBundle = "com.github.mylibrelab.resources.messages") final String key) {
-        return MESSAGES.getString(key);
+        return MESSAGES.getBundle().getString(key);
     }
 
-    public static @NotNull String getFileContent(@NotNull final String fileName) {
+    @NotNull
+    public static String getFileContent(@NotNull final String fileName) {
         return getFileContent(StackWalker.getInstance(RETAIN_CLASS_REFERENCE).getCallerClass(), fileName,
                 StandardCharsets.UTF_8);
     }
 
-    public static @NotNull String getFileContent(@NotNull final String fileName, @NotNull final Charset charset) {
+    @NotNull
+    public static String getFileContent(@NotNull final String fileName, @NotNull final Charset charset) {
         return getFileContent(StackWalker.getInstance(RETAIN_CLASS_REFERENCE).getCallerClass(), fileName, charset);
     }
 
+    @NotNull
+    public static Text getResourceText(
+            @NotNull @PropertyKey(resourceBundle = "com.github.mylibrelab.resources.messages") final String key) {
+        return new InternationalizedText(MESSAGES, key);
+    }
+
+    @NotNull
     public static String getFileContent(@NotNull final Class<?> callerClass, @NotNull final String fileName,
             @NotNull final Charset charset) {
         try {

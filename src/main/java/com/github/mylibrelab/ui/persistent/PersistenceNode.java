@@ -20,9 +20,10 @@
 
 package com.github.mylibrelab.ui.persistent;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 import javax.annotation.Nullable;
 
@@ -31,6 +32,8 @@ import org.jetbrains.annotations.NotNull;
 import com.github.mylibrelab.collections.tree.TreeNode;
 
 public class PersistenceNode {
+
+    private static final String DELIMITER = "/";
 
     private final TreeNode<String, String> treeNode;
 
@@ -44,7 +47,7 @@ public class PersistenceNode {
 
     /**
      * Create the persistence node structure from a flattened map where paths in the tree structure are
-     * represented by the edges joined with '.'.
+     * represented by the edges joined with '/'.
      *
      * @see #toFlattenedMap()
      * @param map the map to construct the node from.
@@ -53,7 +56,7 @@ public class PersistenceNode {
     public static PersistenceNode fromFlattenedMap(@NotNull final Map<String, String> map) {
         var node = new TreeNode<String, String>(null);
         map.forEach((k, v) -> {
-            var path = k.split("\\.");
+            var path = k.split(DELIMITER);
             var current = node;
             for (int i = 0; i < path.length - 1; i++) {
                 current = getOrCreateSubTree(current, path[i]);
@@ -70,9 +73,20 @@ public class PersistenceNode {
      * @see #fromFlattenedMap(Map)
      * @return the flattened map.
      */
-    public @NotNull Map<String, String> toFlattenedMap() {
-        return treeNode.flatStream().filter(n -> n.getNodeValue() != null)
-                .collect(Collectors.toMap(PersistenceNode::makePath, TreeNode::getNodeValue));
+    @NotNull
+    public Map<String, String> toFlattenedMap() {
+        return populate(treeNode, new HashMap<>());
+    }
+
+    private static Map<String, String> populate(final TreeNode<String, String> node, final Map<String, String> map) {
+        var value = node.getNodeValue();
+        if (value != null) {
+            map.put(makePath(node), value);
+        }
+        for (var n : node) {
+            populate(n, map);
+        }
+        return map;
     }
 
     private static String makePath(final TreeNode<String, String> node) {
@@ -80,7 +94,7 @@ public class PersistenceNode {
         var curr = node;
         while (curr != null && !curr.isRoot()) {
             if (sb.length() > 0) {
-                sb.insert(0, ".");
+                sb.insert(0, DELIMITER);
             }
             sb.insert(0, curr.getParentEdge());
             curr = curr.getParent();
@@ -94,6 +108,16 @@ public class PersistenceNode {
         } else {
             return node.insert(edge, null);
         }
+    }
+
+    /**
+     * Returns the names of the child nodes.
+     *
+     * @return set of child node names.
+     */
+    @NotNull
+    public Set<String> getChildNodeNames() {
+        return treeNode.edges();
     }
 
     /**
@@ -118,6 +142,11 @@ public class PersistenceNode {
     @NotNull
     public PersistenceNode insert(@NotNull final String key, @NotNull final Object value) {
         checkKey(key);
+        if (treeNode.hasEdge(key)) {
+            var node = treeNode.getSubTree(key);
+            node.setNodeValue(value.toString());
+            return new PersistenceNode(node);
+        }
         return new PersistenceNode(treeNode.insert(key, value.toString()));
     }
 
@@ -138,9 +167,9 @@ public class PersistenceNode {
         if (key == null) {
             throw new IllegalArgumentException("Key is null");
         }
-        if (key.contains(".")) {
-            throw new IllegalArgumentException("Key '" + key
-                    + "' contains a period. Keys containing a period will be split into separate nodes after parsing.");
+        if (key.contains(DELIMITER)) {
+            throw new IllegalArgumentException("Key '" + key + "' contains '" + DELIMITER
+                    + "'. Keys containing a period will be split into separate nodes after parsing.");
         }
     }
 
@@ -150,7 +179,8 @@ public class PersistenceNode {
      * @param key the key.
      * @return the object associated to the key.
      */
-    protected @Nullable Object get(@NotNull final String key) {
+    @Nullable
+    public String get(@NotNull final String key) {
         return treeNode.getValueAtEdge(key);
     }
 
@@ -183,7 +213,7 @@ public class PersistenceNode {
     @NotNull
     public String getString(@NotNull final String key, @NotNull final String defaultValue) {
         var value = get(key);
-        return value != null ? value.toString() : defaultValue;
+        return value != null ? value : defaultValue;
     }
 
     /**

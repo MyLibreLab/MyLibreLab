@@ -67,7 +67,7 @@ public class PersistentToggleSplitPane extends ToggleSplitPane implements Persis
     @Override
     public PersistenceNode saveState() {
         var node = persistenceHelper.createInfo();
-        node.insert(KEY_POSITION, getRelativeDividerLocation());
+        node.insert(KEY_POSITION, getDividerLocation());
         node.insert(KEY_SAVED_POSITION, getRestorePosition());
         if (persistResizableState) {
             node.insert(KEY_LOCKED_POSITION, getLockedPosition());
@@ -78,16 +78,24 @@ public class PersistentToggleSplitPane extends ToggleSplitPane implements Persis
 
     @Override
     public void loadState(@NotNull final PersistenceNode node) {
-        forceSetDividerLocation(getPositionValue(node, KEY_POSITION, getRelativeDividerLocation()));
-        savePosition(getPositionValue(node, KEY_SAVED_POSITION, getRestorePosition()));
+        double restorePos = clamp(node.getDouble(KEY_SAVED_POSITION, -1), -1, 1);
+        if (restorePos >= 0) {
+            savePosition(restorePos);
+        }
+        int pos = node.getInt(KEY_POSITION, -1);
+        if (pos >= 0) {
+            forceSetDividerLocation(pos);
+        } else {
+            forceSetDividerLocation(clamp(getRestorePosition(), 0, 1));
+        }
         if (persistResizableState) {
-            setResizable(false, getPositionValue(node, KEY_LOCKED_POSITION, getLockedPosition()));
-            setResizable(node.getBoolean(KEY_RESIZABLE, true));
+            setResizable(node.getBoolean(KEY_RESIZABLE, true),
+                    clamp(node.getDouble(KEY_LOCKED_POSITION, getLockedPosition()), 0, 1));
         }
     }
 
-    private double getPositionValue(final PersistenceNode source, final String key, final double fallback) {
-        return Math.max(0.0, Math.min(1.0, source.getDouble(key, fallback)));
+    private double clamp(final double value, final double min, final double max) {
+        return Math.max(min, Math.min(max, value));
     }
 
     @NotNull

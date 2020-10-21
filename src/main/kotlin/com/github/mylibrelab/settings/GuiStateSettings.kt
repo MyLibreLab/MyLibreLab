@@ -20,6 +20,7 @@
 
 package com.github.mylibrelab.settings
 
+import com.github.mylibrelab.annotations.Service
 import com.github.mylibrelab.lifecycle.AppLifecycleAdapter
 import com.github.mylibrelab.lifecycle.AppLifecycleListener
 import com.github.mylibrelab.settings.api.*
@@ -28,9 +29,8 @@ import com.github.mylibrelab.ui.persistent.PersistenceNode
 import com.github.mylibrelab.util.andThen
 import com.github.mylibrelab.util.propertyParser
 import com.github.mylibrelab.util.transformerOf
-import com.google.auto.service.AutoService
 
-@AutoService(AppLifecycleListener::class)
+@Service(AppLifecycleListener::class)
 internal class GuiStateAppLifecycleListener : AppLifecycleAdapter() {
 
     override fun appFrameCreated() {
@@ -42,7 +42,7 @@ internal class GuiStateAppLifecycleListener : AppLifecycleAdapter() {
     }
 }
 
-@AutoService(SettingsContainerProvider::class)
+@SettingsProvider
 class GuiStateSettingsProvider : SingletonSettingsContainerProvider({ GuiStateSettings })
 
 object GuiStateSettings : DefaultSettingsContainer(identifier = "gui_state") {

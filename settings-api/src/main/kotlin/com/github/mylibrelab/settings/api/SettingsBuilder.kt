@@ -20,6 +20,9 @@
 
 package com.github.mylibrelab.settings.api
 
+import com.github.mylibrelab.text.Text
+import com.github.mylibrelab.text.emptyText
+import com.github.mylibrelab.text.textOf
 import com.github.mylibrelab.util.*
 import kotlin.reflect.KClass
 import kotlin.reflect.KMutableProperty0
@@ -181,7 +184,8 @@ internal class DefaultNamedSettingsGroup internal constructor(
  * for persistent storage.
  */
 interface ValueProperty<T> : Observable<ValueProperty<T>> {
-    val description: String
+    val description: Text
+    val displayName: Text
     val name: String
     var value: T
     var preview: T
@@ -240,11 +244,13 @@ fun <K : Any> ValueProperty<*>.effective(type: KClass<K>): ValueProperty<K> {
 
 class SimpleValueProperty<T : Any> internal constructor(
     name: String?,
-    description: String?,
+    description: Text?,
+    displayName: Text?,
     property: KMutableProperty0<T>,
     override val group: SettingsGroup
 ) : ValueProperty<T>, Observable<ValueProperty<T>> by DefaultObservable() {
-    override val description: String = description ?: property.name
+    override val description: Text = description ?: emptyText()
+    override val displayName: Text = displayName ?: textOf(property.name)
     override val name: String = name ?: property.name
     override var value: T by observable<ValueProperty<T>, T>(property)
     override var preview: T by observable<ValueProperty<T>, T>(value)
@@ -261,6 +267,7 @@ open class SimpleTransformingValueProperty<R : Any, T : Any> internal constructo
 ) : TransformingValueProperty<R, T>,
     Observable<ValueProperty<T>> by DefaultObservable() {
     override val description by backingProperty::description
+    override val displayName by backingProperty::displayName
     override val name by backingProperty::name
     override var activeCondition by backingProperty::activeCondition
     override val group by backingProperty::group

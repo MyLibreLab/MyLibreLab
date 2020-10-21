@@ -4,6 +4,10 @@ plugins {
 }
 
 dependencies {
-    implementation(kotlin("stdlib"))
+    compileOnly(project(":mylibrelab-annotations"))
+    implementation(project(":mylibrelab-service-manager"))
     implementation(project(":mylibrelab-util"))
+
+    implementation(kotlin("stdlib"))
+    implementation("org.tinylog:tinylog-api")
 }

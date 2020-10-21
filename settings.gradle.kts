@@ -18,8 +18,10 @@ pluginManagement {
 rootProject.name = "MyLibreLab"
 
 include(
+    "annotations",
     "dependencies-bom",
     "settings-api",
+    "service-manager",
     "util"
 )
 

@@ -4,6 +4,7 @@ import com.github.vlsi.gradle.crlf.CrLfSpec
 import com.github.vlsi.gradle.crlf.LineEndings
 import com.github.vlsi.gradle.properties.dsl.props
 import name.remal.gradle_plugins.plugins.code_quality.sonar.SonarLintExtension
+import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -28,6 +29,7 @@ val skipSonarlint by props()
 
 dependencies {
     implementation(project(":mylibrelab-settings-api"))
+    implementation(project(":mylibrelab-service-manager"))
     implementation(project(":mylibrelab-util"))
 
     implementation("org.json:json")
@@ -50,8 +52,7 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
     implementation(kotlin("stdlib"))
-    kapt("com.google.auto.service:auto-service")
-    compileOnly("com.google.auto.service:auto-service-annotations")
+    kapt(project(":mylibrelab-annotations"))
 
     /* Currently unused dependencies. Those need further investigation whether they are needed for the elements
      * at runtime.
@@ -157,6 +158,8 @@ allprojects {
                 // Ignore [Inheritance tree of classes should not be too deep]
                 // Extending JComponent will break this rule.
                 message("java:S110")
+                // Some classes benefit from mmore descriptive generic type paramaters.
+                message("java:S119")
             }
         }
     }
@@ -203,6 +206,7 @@ allprojects {
                 java {
                     importOrder("java", "javax", "org", "com", "")
                     removeUnusedImports()
+
                     eclipse {
                         configFile("${project.rootDir}/config/style.eclipseformat.xml")
                     }
@@ -225,8 +229,14 @@ allprojects {
             val bom = platform(project(":mylibrelab-dependencies-bom"))
             "api"(bom)
             "annotationProcessor"(bom)
-            "kapt"(bom)
         }
+    }
+
+    extensions.findByType(KaptExtension::class)?.run {
+        dependencies {
+            "kapt"(platform(project(":mylibrelab-dependencies-bom")))
+        }
+        includeCompileClasspath = false
     }
 
     tasks.withType<KotlinCompile>().configureEach {

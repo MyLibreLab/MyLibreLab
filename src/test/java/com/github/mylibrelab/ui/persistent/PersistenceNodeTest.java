@@ -37,7 +37,7 @@ class PersistenceNodeTest {
         node.insert("A1", 1);
         node.insert("B1", "B").insert("B2", 4);
         node.insert("C1", "3");
-        map = Map.of("A1", "1", "B1", "B", "B1.B2", "4", "C1", "3");
+        map = Map.of("A1", "1", "B1", "B", "B1/B2", "4", "C1", "3");
     }
 
     @Test
