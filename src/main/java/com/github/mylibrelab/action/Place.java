@@ -25,5 +25,7 @@ package com.github.mylibrelab.action;
  * based on the place they displayed in.
  */
 public enum Place {
-    TOOLBAR, MENUBAR, POPUP_MENU
+    TOOLBAR,
+    MENUBAR,
+    POPUP_MENU
 }

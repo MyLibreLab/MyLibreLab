@@ -21,7 +21,8 @@
 package com.github.mylibrelab.resources;
 
 public enum ErrorType {
-    DIRECTORY_NOT_FOUND("directoryNotFound"), LICENCE_DECLINED("licenseDeclined");
+    DIRECTORY_NOT_FOUND("directoryNotFound"),
+    LICENCE_DECLINED("licenseDeclined");
 
     private final String key;
 

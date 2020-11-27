@@ -39,7 +39,8 @@ import com.github.weisj.darklaf.util.AlignmentExt;
 public class LicenceAgreementDialog extends JDialog {
 
     public enum Result {
-        ACCEPT, DECLINE
+        ACCEPT,
+        DECLINE
     }
 
     private Result result = Result.DECLINE;

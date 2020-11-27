@@ -26,8 +26,12 @@ import org.jetbrains.annotations.NotNull;
  * Top level default {@link AnActionGroup}s.
  */
 public enum DefaultActionGroup {
-    TOOLBAR("groups.toolbar", false), FILE_MENU("groups.file_menu", true), EDIT_MENU("groups.edit_menu", true),
-    VM_MENU("groups.vm_menu", true), WINDOW_MENU("groups.window_menu", true), HELP_MENU("groups.help_menu", true);
+    TOOLBAR("groups.toolbar", false),
+    FILE_MENU("groups.file_menu", true),
+    EDIT_MENU("groups.edit_menu", true),
+    VM_MENU("groups.vm_menu", true),
+    WINDOW_MENU("groups.window_menu", true),
+    HELP_MENU("groups.help_menu", true);
 
     private final boolean inMenuBar;
     private final AnActionGroup actionGroup;
