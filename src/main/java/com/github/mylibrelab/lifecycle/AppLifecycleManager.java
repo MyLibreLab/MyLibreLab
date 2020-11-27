@@ -35,7 +35,11 @@ public enum AppLifecycleManager {
     INSTANCE;
 
     public enum EventType {
-        APP_STARTED, APP_FRAME_CREATED, APP_FRAME_OPENED, APP_FRAME_CLOSING, APP_STOPPING
+        APP_STARTED,
+        APP_FRAME_CREATED,
+        APP_FRAME_OPENED,
+        APP_FRAME_CLOSING,
+        APP_STOPPING
     }
 
     @NotNull
