@@ -22,6 +22,8 @@ package com.github.mylibrelab.action;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.github.mylibrelab.resources.Resources;
+
 /**
  * Top level default {@link AnActionGroup}s.
  */
@@ -30,7 +32,7 @@ public enum DefaultActionGroup {
     FILE_MENU("groups.file_menu", true),
     EDIT_MENU("groups.edit_menu", true),
     VM_MENU("groups.vm_menu", true),
-    WINDOW_MENU("groups.window_menu", true),
+    VIEW_MENU("groups.view_menu", true),
     HELP_MENU("groups.help_menu", true);
 
     private final boolean inMenuBar;
@@ -38,7 +40,7 @@ public enum DefaultActionGroup {
 
     DefaultActionGroup(@NotNull final String identifier, final boolean inMenuBar) {
         this.inMenuBar = inMenuBar;
-        this.actionGroup = new AnActionGroup(identifier);
+        this.actionGroup = new TopLevelActionGroup(identifier);
     }
 
     /**
@@ -57,5 +59,18 @@ public enum DefaultActionGroup {
      */
     public boolean isInMenuBar() {
         return inMenuBar;
+    }
+
+    private static class TopLevelActionGroup extends AnActionGroup {
+
+        private TopLevelActionGroup(@NotNull final String identifier) {
+            super(identifier);
+            getPresentation().setDisplayName(Resources.getResourceText(identifier));
+        }
+
+        @Override
+        public boolean isPopup() {
+            return true;
+        }
     }
 }
