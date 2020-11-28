@@ -39,6 +39,7 @@ import com.github.mylibrelab.resources.Resources;
 import com.github.mylibrelab.settings.StartupSettings;
 import com.github.mylibrelab.ui.component.AppContentPane;
 import com.github.mylibrelab.ui.dialog.LicenceAgreementDialog;
+import com.github.mylibrelab.ui.menu.ActionMenuBar;
 
 import VisualLogic.FrameMain;
 import VisualLogic.ProjectProperties;
@@ -94,6 +95,7 @@ public class MyLibreLab {
                 }
             });
             frame.setContentPane(new AppContentPane());
+            frame.setJMenuBar(new ActionMenuBar());
             frame.setTitle("New GUI Frame");
             frame.pack();
             frame.setLocationRelativeTo(null);

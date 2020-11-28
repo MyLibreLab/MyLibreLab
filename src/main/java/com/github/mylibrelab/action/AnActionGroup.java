@@ -210,7 +210,7 @@ public class AnActionGroup extends AnAction implements Iterable<AnAction> {
      * @return true if the group should be hidden with no visible children.
      */
     public boolean hideIfNoVisibleChildren() {
-        return isPopup();
+        return !isPopup();
     }
 
     /**
