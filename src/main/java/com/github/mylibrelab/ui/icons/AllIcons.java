@@ -53,5 +53,6 @@ public class AllIcons {
         public static final @NotNull Icon PasteDisabled = Icons.internal("menu/pasteDisabled.svg");
         public static final @NotNull Icon Delete = Icons.internal("menu/delete.svg");
         public static final @NotNull Icon DeleteDisabled = Icons.internal("menu/deleteDisabled.svg");
+        public static final @NotNull Icon Settings = Icons.internal("menu/settings.svg");
     }
 }
