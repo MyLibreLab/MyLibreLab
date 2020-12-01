@@ -36,7 +36,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.github.mylibrelab.text.Text;
-import com.github.weisj.darklaf.components.border.DarkBorders;
+import com.github.mylibrelab.ui.border.Borders;
 
 public class UIStyle {
 
@@ -121,6 +121,11 @@ public class UIStyle {
     }
 
     @NotNull
+    public static <T extends JComponent> T withTooltipText(@NotNull final T component, @NotNull final Text text) {
+        return withDynamic(component, c -> c.setToolTipText(text.getText()));
+    }
+
+    @NotNull
     public static <T extends Frame> T withTitle(@NotNull final T component, @NotNull final Text text) {
         return withDynamic(component, c -> c.setTitle(text.getText()));
     }
@@ -159,11 +164,11 @@ public class UIStyle {
             if (title != null) {
                 String text = title.getText();
                 if (!text.isEmpty()) {
-                    c.setBorder(BorderFactory.createTitledBorder(border, text));
+                    c.setBorder(Borders.createTitledBorder(border, text));
                     return;
                 }
             }
-            c.setBorder(BorderFactory.createTitledBorder(DarkBorders.createTopBorder()));
+            c.setBorder(Borders.createTitledBorder(Borders.topLineBorder()));
         });
     }
 }

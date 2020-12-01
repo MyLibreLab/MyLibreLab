@@ -28,74 +28,85 @@ import javax.swing.border.Border;
 import org.jetbrains.annotations.NotNull;
 
 import com.github.weisj.darklaf.components.border.DarkBorders;
+import com.github.weisj.darklaf.layout.LayoutHelper;
 import com.github.weisj.darklaf.util.AlignmentExt;
 
 public class Borders {
 
-    public static final int DEFAULT_SPACING = 5;
-    public static final int DIALOG_SPACING = 10;
+    public static final int DEFAULT_SPACING = LayoutHelper.getDefaultSpacing();
+    public static final int DIALOG_SPACING = 2 * DEFAULT_SPACING;
 
     private Borders() {
         throw new IllegalStateException("Utility class");
     }
 
     @NotNull
-    public static Border emptyTopBorder() {
-        return emptyTopBorder(DEFAULT_SPACING);
+    public static Insets createSpacingInsets() {
+        return new Insets(DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING);
     }
 
     @NotNull
-    public static Border emptyTopBorder(final int spacing) {
+    public static Border emptySpacerBorder() {
+        return emptyBorder(DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING);
+    }
+
+    @NotNull
+    public static Border emptyTopSpacerBorder() {
+        return emptyTopSpacerBorder(DEFAULT_SPACING);
+    }
+
+    @NotNull
+    public static Border emptyTopSpacerBorder(final int spacing) {
         return emptyBorder(spacing, 0, 0, 0);
     }
 
     @NotNull
-    public static Border emptyBottomBorder() {
-        return emptyBottomBorder(DEFAULT_SPACING);
+    public static Border emptyBottomSpacerBorder() {
+        return emptyBottomSpacerBorder(DEFAULT_SPACING);
     }
 
     @NotNull
-    public static Border emptyBottomBorder(final int spacing) {
+    public static Border emptyBottomSpacerBorder(final int spacing) {
         return emptyBorder(0, 0, spacing, 0);
     }
 
     @NotNull
-    public static Border emptyLeftBorder() {
-        return emptyLeftBorder(DEFAULT_SPACING);
+    public static Border emptyLeftSpacerBorder() {
+        return emptyLeftSpacerBorder(DEFAULT_SPACING);
     }
 
     @NotNull
-    public static Border emptyLeftBorder(final int spacing) {
+    public static Border emptyLeftSpacerBorder(final int spacing) {
         return emptyBorder(0, spacing, 0, 0);
     }
 
     @NotNull
-    public static Border emptyRightBorder() {
-        return emptyRightBorder(DEFAULT_SPACING);
+    public static Border emptyRightSpacerBorder() {
+        return emptyRightSpacerBorder(DEFAULT_SPACING);
     }
 
     @NotNull
-    public static Border emptyRightBorder(final int spacing) {
+    public static Border emptyRightSpacerBorder(final int spacing) {
         return emptyBorder(0, 0, 0, spacing);
     }
 
     @NotNull
-    public static Border emptyTopBottomBorder() {
-        return emptyTopBottomBorder(DEFAULT_SPACING);
+    public static Border emptyTopBottomSpacerBorder() {
+        return emptyTopBottomSpacerBorder(DEFAULT_SPACING);
     }
 
     @NotNull
-    public static Border emptyTopBottomBorder(final int spacing) {
+    public static Border emptyTopBottomSpacerBorder(final int spacing) {
         return emptyBorder(spacing, 0, spacing, 0);
     }
 
     @NotNull
-    public static Border emptyLeftRightBorder() {
-        return emptyLeftRightBorder(DEFAULT_SPACING);
+    public static Border emptyLeftRightSpacerBorder() {
+        return emptyLeftRightSpacerBorder(DEFAULT_SPACING);
     }
 
     @NotNull
-    public static Border emptyLeftRightBorder(final int spacing) {
+    public static Border emptyLeftRightSpacerBorder(final int spacing) {
         return emptyBorder(0, spacing, 0, spacing);
     }
 
@@ -127,6 +138,11 @@ public class Borders {
     @NotNull
     public static Border leftRightLineBorder() {
         return lineBorder(0, 1, 0, 1);
+    }
+
+    @NotNull
+    public static Border withSpacing(@NotNull final Border border) {
+        return compoundBorder(border, emptyBorder(DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING, DEFAULT_SPACING));
     }
 
     @NotNull
@@ -224,5 +240,47 @@ public class Borders {
     @NotNull
     public static Border compoundBorder(final Border outside, final Border inside) {
         return BorderFactory.createCompoundBorder(outside, inside);
+    }
+
+    /**
+     * Adds a title to an existing border,
+     * with default positioning (determined by the current look and feel),
+     * default justification (leading) and the default
+     * font and text color (determined by the current look and feel).
+     *
+     * @param border the <code>Border</code> object to add the title to
+     * @param title a <code>String</code> containing the text of the title
+     * @return the <code>TitledBorder</code> object
+     */
+    public static Border createTitledBorder(final Border border, final String title) {
+        return BorderFactory.createTitledBorder(border, title);
+    }
+
+    /**
+     * Adds a title to an existing border,
+     * with default positioning (determined by the current look and feel),
+     * default justification (leading) and the default
+     * font and text color (determined by the current look and feel).
+     *
+     * @param border the <code>Border</code> object to add the title to
+     * @return the <code>TitledBorder</code> object
+     */
+    public static Border createTitledBorder(final Border border) {
+        return BorderFactory.createTitledBorder(border);
+    }
+
+    /**
+     * Creates a new titled border with the specified title,
+     * the default border type (determined by the current look and feel),
+     * the default text position (determined by the current look and feel),
+     * the default justification (leading), and the default
+     * font and text color (determined by the current look and feel).
+     *
+     * @param title a <code>String</code> containing the text of the title
+     * @return the <code>TitledBorder</code> object
+     */
+    @NotNull
+    public static Border createTitledBorder(final String title) {
+        return BorderFactory.createTitledBorder(title);
     }
 }

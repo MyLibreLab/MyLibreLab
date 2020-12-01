@@ -44,6 +44,7 @@ dependencies {
         apiv("com.miglayout:miglayout-swing", "miglayout")
         apiv("com.github.weisj:darklaf-core", "darklaf")
         apiv("com.github.weisj:darklaf-property-loader", "darklaf")
+        apiv("com.github.weisj:darklaf-extensions-kotlin", "darklaf-extensions")
 
         apiv("com.pi4j:pi4j-core", "pi4j")
         apiv("com.pi4j:pi4j-device", "pi4j")
