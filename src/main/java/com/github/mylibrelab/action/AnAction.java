@@ -28,7 +28,7 @@ import com.github.mylibrelab.text.Text;
 public abstract class AnAction {
 
     private String identifier;
-    private final Presentation presentation;
+    private final ActionPresentation presentation;
 
     /**
      * Creates a new {@link AnAction} with the given identifier. The identifier will be the class name
@@ -72,8 +72,8 @@ public abstract class AnAction {
         }
     }
 
-    protected Presentation createDefaultPresentation() {
-        return new Presentation().setDisplayName(Text.of(getIdentifier()));
+    protected ActionPresentation createDefaultPresentation() {
+        return new ActionPresentation(Text.of(getIdentifier()));
     }
 
     /**
@@ -112,13 +112,13 @@ public abstract class AnAction {
     public void update(@NotNull final ActionContext context) {}
 
     /**
-     * Returns the {@link Presentation} of the action. The presentation should only be updated in
+     * Returns the {@link ActionPresentation} of the action. The presentation should only be updated in
      * {@link #update(ActionContext)}
      *
-     * @return the {@link Presentation} of the action.
+     * @return the {@link ActionPresentation} of the action.
      */
     @NotNull
-    public Presentation getPresentation() {
+    public ActionPresentation getPresentation() {
         return presentation;
     }
 

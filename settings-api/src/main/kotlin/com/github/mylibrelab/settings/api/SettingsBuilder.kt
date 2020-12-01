@@ -21,11 +21,14 @@
 package com.github.mylibrelab.settings.api
 
 import com.github.mylibrelab.text.Text
-import com.github.mylibrelab.text.emptyText
 import com.github.mylibrelab.text.textOf
 import com.github.mylibrelab.util.*
+import com.github.mylibrelab.view.Presentation
 import kotlin.reflect.KClass
 import kotlin.reflect.KMutableProperty0
+
+@DslMarker
+annotation class PropertyMarker
 
 /**
  * Provider for SettingsContainer.
@@ -34,6 +37,8 @@ import kotlin.reflect.KMutableProperty0
  */
 interface SettingsContainerProvider : Provider<SettingsContainer> {
     val enabled: Boolean
+
+    fun createAndInit(): SettingsContainer = create().apply { init() }
 }
 
 /**
@@ -54,20 +59,29 @@ open class SingletonSettingsContainerProvider(
 interface SettingsContainer : SettingsGroup {
     val unnamedGroup: SettingsGroup
     val hiddenGroup: SettingsGroup
+    val presentation: Presentation
 
     /**
      * Called after the settings have been loaded/updated from storage.
      */
-    fun onSettingsUpdate(loaded: Boolean = false)
+    fun onSettingsUpdate(updatedFromDisk: Boolean = false)
 
     /**
      * Called before the settings are being saved.
      */
     fun onSettingsSave()
 
+    /**
+     * Determines whether the container contributes to a visual representation
+     * of the settings structure.
+     */
+    fun shouldBeDisplayed(): Boolean = isNonEmpty()
+
     override fun allProperties(): List<ValueProperty<Any>> =
         subgroups.map { it.allProperties() }.flatten() + unnamedGroup + hiddenGroup
 }
+
+fun SettingsContainer.presentation(init: Presentation.() -> Unit) = presentation.init()
 
 /**
  * Initialize the SettingsContainer.
@@ -119,8 +133,14 @@ abstract class DefaultSettingsContainer private constructor(
 
     override val subgroups: MutableList<NamedSettingsGroup> = mutableListOf()
 
-    override fun onSettingsUpdate(loaded: Boolean) { /* Default implementation */ }
-    override fun onSettingsSave() { /* Default implementation */ }
+    override val presentation: Presentation = Presentation(textOf(identifier))
+
+    override fun onSettingsUpdate(updatedFromDisk: Boolean) { /* Default implementation */
+    }
+
+    override fun onSettingsSave() { /* Default implementation */
+    }
+
     override fun allProperties(): List<ValueProperty<Any>> {
         return super<SettingsContainer>.allProperties()
     }
@@ -137,6 +157,9 @@ interface SettingsGroup : MutableList<ValueProperty<Any>> {
     val identifier: String
     val parent: SettingsGroup?
     val subgroups: MutableList<NamedSettingsGroup>
+
+    fun isAllEmpty(): Boolean = isEmpty() && subgroups.all { it.isAllEmpty() }
+    fun isNonEmpty(): Boolean = !isEmpty() || subgroups.any { it.isNonEmpty() }
 
     fun allProperties(): List<ValueProperty<Any>> = this + subgroups.map { it.allProperties() }.flatten()
 
@@ -157,6 +180,8 @@ internal val <T> ValueProperty<T>.container: SettingsContainer
 
 interface NamedSettingsGroup : SettingsGroup {
     val name: String
+    val displayName: Text
+    val description: Text?
 }
 
 internal open class DefaultSettingsGroup internal constructor(
@@ -176,6 +201,8 @@ internal open class DefaultSettingsGroup internal constructor(
 internal class DefaultNamedSettingsGroup internal constructor(
     override var parent: SettingsGroup?,
     override val name: String,
+    override val displayName: Text,
+    override val description: Text?,
     identifier: String? = null
 ) : DefaultSettingsGroup(parent, identifier ?: name), NamedSettingsGroup
 
@@ -183,8 +210,9 @@ internal class DefaultNamedSettingsGroup internal constructor(
  * Wrapper for properties that provides a description and parser/writer used
  * for persistent storage.
  */
+@PropertyMarker
 interface ValueProperty<T> : Observable<ValueProperty<T>> {
-    val description: Text
+    val description: Text?
     val displayName: Text
     val name: String
     var value: T
@@ -218,17 +246,11 @@ fun ValueProperty<*>.toTransformer(): TransformingValueProperty<Any, Any>? =
     castSafelyTo<TransformingValueProperty<Any, Any>>()
 
 inline fun <reified T : Any> ValueProperty<T>.asPersistent(): PersistentValueProperty<T>? =
-    castSafelyTo<PersistentValueProperty<T>>()
+    castSafelyTo<TransformingValueProperty<T, Any>>()?.let {
+        if (it.value is String) it.castSafelyTo<PersistentValueProperty<T>>() else null
+    }
 
-/**
- * The effective value of the property. If the property is a transforming property the
- * backing field is chosen. Because of this for a reference to a simple ValueProperty<T>
- * the most general value that can be returned is Any.
- */
-val <T : Any> ValueProperty<T>.effectiveProperty: KMutableProperty0<Any>
-    get() = effective<Any>()::value
-
-inline fun <reified K : Any> ValueProperty<*>.effective(): ValueProperty<K> = effective(K::class)
+inline fun <reified K : Any> ValueProperty<*>.effective(): ValueProperty<K> = effective<K>(type = K::class)
 
 fun <K : Any> ValueProperty<*>.effective(type: KClass<K>): ValueProperty<K> {
     var prop: ValueProperty<*> = this
@@ -244,12 +266,11 @@ fun <K : Any> ValueProperty<*>.effective(type: KClass<K>): ValueProperty<K> {
 
 class SimpleValueProperty<T : Any> internal constructor(
     name: String?,
-    description: Text?,
     displayName: Text?,
+    override val description: Text?,
     property: KMutableProperty0<T>,
     override val group: SettingsGroup
 ) : ValueProperty<T>, Observable<ValueProperty<T>> by DefaultObservable() {
-    override val description: Text = description ?: emptyText()
     override val displayName: Text = displayName ?: textOf(property.name)
     override val name: String = name ?: property.name
     override var value: T by observable<ValueProperty<T>, T>(property)

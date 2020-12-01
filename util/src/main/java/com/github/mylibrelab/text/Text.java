@@ -41,6 +41,7 @@ public interface Text {
      * @param string the string value.
      * @return the {@link Text} object.
      */
+    @NotNull
     static Text of(@NotNull final String string) {
         return new ConstantText(string);
     }

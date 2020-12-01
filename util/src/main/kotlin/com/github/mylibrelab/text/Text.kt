@@ -20,6 +20,21 @@
 
 package com.github.mylibrelab.text
 
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
+
 fun textOf(str: String = ""): Text = Text.of(str)
 
 fun emptyText() = textOf()
+
+fun Text.isConstantEmpty(): Boolean {
+    return this is ConstantText && !this.text.isNotEmpty()
+}
+
+@OptIn(ExperimentalContracts::class)
+fun Text?.isConstantNullOrEmpty(): Boolean {
+    contract {
+        returns(false) implies (this@isConstantNullOrEmpty != null)
+    }
+    return this?.isConstantEmpty() ?: true
+}

@@ -37,8 +37,7 @@ object SettingsStorage {
         ServiceManager.getAllServices(SettingsContainerProvider::class.java)
             .asSequence()
             .filter { it.enabled }
-            .map { it.create() }
-            .onEach { it.init() }
+            .map { it.createAndInit() }
             .toList()
 
     init {
@@ -76,7 +75,7 @@ object SettingsStorage {
             val savedValue = node[it.name] ?: return@forEach
             it.value = savedValue
         }
-        container.onSettingsUpdate()
+        container.onSettingsUpdate(updatedFromDisk = true)
     }
 
     private fun Preferences.convertToEntries(): List<Entry> =
@@ -114,7 +113,7 @@ object SettingsStorage {
                 preferencesRoot.node(entry.groupIdentifier).remove(entry.name)
             }
         }
-        containers.forEach { it.onSettingsUpdate(loaded = true) }
+        containers.forEach { it.onSettingsUpdate() }
     }
 
     /**
