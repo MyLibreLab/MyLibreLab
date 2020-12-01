@@ -47,6 +47,7 @@ dependencies {
     implementation("com.miglayout:miglayout-swing")
     implementation("com.github.weisj:darklaf-core")
     implementation("com.github.weisj:darklaf-property-loader")
+    implementation("com.github.weisj:darklaf-extensions-kotlin")
 
     implementation("com.google.code.findbugs:jsr305")
     testImplementation("org.junit.jupiter:junit-jupiter-api")

@@ -20,9 +20,13 @@
 
 package com.github.mylibrelab.ui.icons;
 
+import java.awt.*;
+
 import javax.swing.*;
 
 import org.jetbrains.annotations.NotNull;
+
+import com.github.weisj.darklaf.icons.IconLoader;
 
 
 /**
@@ -34,7 +38,15 @@ public class AllIcons {
         throw new IllegalStateException("Static data holder");
     }
 
+    @NotNull
+    public static Image asWindowIcon(@NotNull final Icon icon, final Window window) {
+        return IconLoader.createFrameIcon(icon, window);
+    }
+
     public static final @NotNull Icon LOGO = Icons.load("mylibrelab.svg");
+    public static final @NotNull Icon THEME_SETTINGS = Icons.internal("menu/themeSettings.svg");
+    public static final @NotNull Icon CONTEXT_HELP = Icons.load("contextHelp.svg");
+    public static final @NotNull Icon CONTEXT_HELP_DISABLED = Icons.load("contextHelpDisabled.svg");
 
     public static final class Actions {
         private Actions() {
@@ -54,5 +66,7 @@ public class AllIcons {
         public static final @NotNull Icon Delete = Icons.internal("menu/delete.svg");
         public static final @NotNull Icon DeleteDisabled = Icons.internal("menu/deleteDisabled.svg");
         public static final @NotNull Icon Settings = Icons.internal("menu/settings.svg");
+        public static final @NotNull Icon Revert = Icons.internal("misc/revert.svg");
+        public static final @NotNull Icon RevertDisabled = Icons.internal("misc/revertDisabled.svg");
     }
 }

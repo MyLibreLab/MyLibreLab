@@ -23,6 +23,8 @@ package com.github.mylibrelab.ui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
@@ -115,5 +117,18 @@ public class UIUtil {
                 Thread.currentThread().interrupt();
             }
         }
+    }
+
+    /**
+     * Forces the component to display it's tooltip.
+     * Note: If this method is invoked while the mouse is outside of the component, the tooltip
+     * will disappear as soon as the mouse is moved.
+     *
+     * @param component the component.
+     */
+    public static void showTooltip(@NotNull final JComponent component) {
+        component.dispatchEvent(new KeyEvent(component, KeyEvent.KEY_PRESSED,
+                System.currentTimeMillis(), InputEvent.CTRL_DOWN_MASK,
+                KeyEvent.VK_F1, KeyEvent.CHAR_UNDEFINED));
     }
 }

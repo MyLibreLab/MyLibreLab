@@ -22,15 +22,19 @@ package com.github.mylibrelab.settings
 
 import com.github.mylibrelab.resources.Resources
 import com.github.mylibrelab.settings.api.*
+import com.github.mylibrelab.text.textOf
+import com.github.mylibrelab.ui.icons.AllIcons
 import com.github.mylibrelab.util.*
 import com.github.weisj.darklaf.LafManager
-import com.github.weisj.darklaf.theme.Theme
-import com.github.weisj.darklaf.theme.info.AccentColorRule
-import com.github.weisj.darklaf.theme.info.FontSizeRule
+import com.github.weisj.darklaf.settings.SettingsConfiguration
+import com.github.weisj.darklaf.theme.*
+import com.github.weisj.darklaf.theme.info.*
 import java.awt.Color
 
 @SettingsProvider
 class ThemeSettingsProvider : SingletonSettingsContainerProvider({ ThemeSettings })
+
+typealias LafThemeSettings = com.github.weisj.darklaf.settings.ThemeSettings
 
 /*
  * Delegate the Settings from 'com.github.weisj.darklaf.settings.ThemeSettings'
@@ -38,14 +42,8 @@ class ThemeSettingsProvider : SingletonSettingsContainerProvider({ ThemeSettings
 object ThemeSettings : DefaultSettingsContainer(identifier = "theme") {
 
     private val DEFAULT_BASE_THEME = LafManager.getTheme()
-    private val ALL_THEMES = LafManager.getRegisteredThemes().let { themes ->
-        themes.forEach {
-            val displayName = Resources.getString("themes.${it.prefix}.displayName")
-            LafManager.replaceTheme(it, it.withDisplayName(displayName))
-        }
-        LafManager.getRegisteredThemes()
-    }
-    private val themeSettings = com.github.weisj.darklaf.settings.ThemeSettings.getInstance()
+    private val ALL_THEMES = LafManager.getRegisteredThemes().toList()
+    val themeSettings: LafThemeSettings = LafThemeSettings.getInstance()
 
     private var baseTheme: Theme by themeSettings::theme
 
@@ -73,12 +71,29 @@ object ThemeSettings : DefaultSettingsContainer(identifier = "theme") {
         themeSettings::setSelectionColorFollowsSystem
     )
 
+    private var themeProvider = MutableThemeProvider(
+        IntelliJTheme(), DarculaTheme(),
+        HighContrastLightTheme(),
+        HighContrastDarkTheme()
+    ).also {
+        LafManager.setThemeProvider(it)
+    }
+
+    val themeRenderer = { it: Theme -> Resources.getString("themes.${it.prefix}.displayName") }
+    private val updateHandlers = mutableListOf<(SettingsConfiguration) -> Unit>()
+
     init {
+        presentation {
+            icon = AllIcons.THEME_SETTINGS
+            displayName = Resources.getResourceText("settings.theme.displayName")
+        }
+
+        val themeParser = transformerOf(
+            write = { name -> ALL_THEMES.find { it.name == name } ?: DEFAULT_BASE_THEME },
+            read = Theme::getName
+        )
+
         hidden {
-            val themeParser = transformerOf(
-                write = { name -> ALL_THEMES.find { it.name == name } ?: DEFAULT_BASE_THEME },
-                read = Theme::getName
-            )
             val colorParser = transformerOf(
                 write = { hex -> if (hex != -1) Color(hex) else null },
                 read = Color::getRGB.or(-1)
@@ -95,23 +110,97 @@ object ThemeSettings : DefaultSettingsContainer(identifier = "theme") {
             )
 
             persistentProperty(value = ::baseTheme, transformer = themeParser)
+                .bindPreview { it.theme }
             persistentProperty(value = ::fontSizeRule, transformer = fontRuleParser)
+                .bindPreview { it.fontSizeRule }
             persistentProperty(value = ::colorRule, transformer = colorRuleParser)
+                .bindPreview { it.accentColorRule }
             persistentBooleanProperty(value = ::useSystemPreferences)
+                .bindPreview { it.isSystemPreferencesEnabled }
             persistentBooleanProperty(value = ::themeFollowsSystem)
+                .bindPreview { it.isThemeFollowsSystem }
             persistentBooleanProperty(value = ::fontSizeFollowsSystem)
+                .bindPreview { it.isFontSizeFollowsSystem }
             persistentBooleanProperty(value = ::accentColorFollowsSystem)
+                .bindPreview { it.isAccentColorFollowsSystem }
             persistentBooleanProperty(value = ::selectionColorFollowsSystem)
+                .bindPreview { it.isSelectionColorFollowsSystem }
+        }
+
+        group("preferred_themes", displayName = textOf("Theme Preferences")) {
+            activeIf(::themeFollowsSystem.isTrue())
+            persistentChoiceProperty(
+                displayName = Resources.getResourceText("settings.theme.lightThemeLabel"),
+                value = themeProvider::lightTheme,
+                transformer = themeParser
+            ) { choices = ALL_THEMES; renderer = themeRenderer }
+            persistentChoiceProperty(
+                displayName = Resources.getResourceText("settings.theme.darkThemeLabel"),
+                value = themeProvider::darkTheme,
+                transformer = themeParser
+            ) { choices = ALL_THEMES; renderer = themeRenderer }
+            persistentChoiceProperty(
+                displayName = Resources.getResourceText("settings.theme.lightHighContrastThemeLabel"),
+                value = themeProvider::lightHighContrastTheme,
+                transformer = themeParser
+            ) { choices = ALL_THEMES; renderer = themeRenderer }
+            persistentChoiceProperty(
+                displayName = Resources.getResourceText("settings.theme.darkHighContrastThemeLabel"),
+                value = themeProvider::darkHighContrastTheme,
+                transformer = themeParser
+            ) { choices = ALL_THEMES; renderer = themeRenderer }
         }
     }
 
-    override fun onSettingsUpdate(loaded: Boolean) {
-        if (loaded) {
+    private fun <T> PersistentValueProperty<T>.bindPreview(getter: (SettingsConfiguration) -> T) {
+        updateHandlers.add {
+            backingProperty.preview = getter(it)
+        }
+    }
+
+    fun onLafThemeSettingsUpdated(config: SettingsConfiguration) {
+        updateHandlers.forEach { it(config) }
+    }
+
+    fun isConfigurationEqual(config: SettingsConfiguration): Boolean = config.let {
+        it.isSystemPreferencesEnabled != useSystemPreferences ||
+            it.isThemeFollowsSystem != themeFollowsSystem ||
+            it.isAccentColorFollowsSystem != accentColorFollowsSystem ||
+            it.isSelectionColorFollowsSystem != selectionColorFollowsSystem ||
+            it.isFontSizeFollowsSystem != fontSizeFollowsSystem ||
+            it.accentColorRule != colorRule ||
+            it.fontSizeRule != fontSizeRule ||
+            Theme.baseThemeOf(it.theme) != Theme.baseThemeOf(baseTheme)
+    }
+
+    override fun onSettingsUpdate(updatedFromDisk: Boolean) {
+        if (!updatedFromDisk) {
             // We allow for different instances of the application to have different themes.
             themeSettings.apply()
             if (!LafManager.isInstalled()) {
                 LafManager.install()
             }
         }
+    }
+
+    override fun shouldBeDisplayed(): Boolean = true
+}
+
+internal class MutableThemeProvider(
+    var lightTheme: Theme,
+    var darkTheme: Theme,
+    var lightHighContrastTheme: Theme,
+    var darkHighContrastTheme: Theme
+) : ThemeProvider {
+    override fun getTheme(themeStyle: PreferredThemeStyle?): Theme {
+        val light = themeStyle?.colorToneRule == ColorToneRule.LIGHT
+        val highContrast = themeStyle?.contrastRule == ContrastRule.HIGH_CONTRAST
+        return when {
+            light && !highContrast -> lightTheme
+            !light && !highContrast -> darkTheme
+            light && highContrast -> lightHighContrastTheme
+            !light && highContrast -> darkHighContrastTheme
+            else -> lightTheme
+        }.derive(themeStyle?.fontSizeRule, themeStyle?.accentColorRule)
     }
 }
