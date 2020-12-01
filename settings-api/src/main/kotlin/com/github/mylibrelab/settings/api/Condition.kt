@@ -61,7 +61,7 @@ class DefaultCondition(initial: Boolean, private val cond: () -> Boolean = { ini
 }
 
 /**
- * Lazily evaluated condition which is bound to a ValueProperty and is true of the value equals an expected value.
+ * Lazily evaluated condition which is bound to a ValueProperty and is true if the value equals an expected value.
  */
 class LazyCondition<T : Any>(private val valueProp: Lazy<ValueProperty<T>>, private val expected: T) :
     Condition,
@@ -69,13 +69,15 @@ class LazyCondition<T : Any>(private val valueProp: Lazy<ValueProperty<T>>, priv
     override var value: Boolean by observable<Condition, Boolean>(true)
 
     override fun invoke(): Boolean {
-        value = valueProp.value.effective(expected::class).preview == expected
         return value
     }
 
     override fun build() {
-        valueProp.value.effective<Boolean>().let {
-            it.registerListener(ValueProperty<Boolean>::preview) { _, _ -> this() }
+        valueProp.value.effective<Any>().let {
+            value = it.preview == expected
+            it.registerListener(ValueProperty<Any>::preview) { _, _ ->
+                value = it.preview == expected
+            }
         }
     }
 }
