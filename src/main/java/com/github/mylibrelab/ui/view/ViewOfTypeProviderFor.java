@@ -26,9 +26,24 @@ import com.github.mylibrelab.annotations.ProviderFor;
 
 /**
  * View specific refinement of the {@link ProviderFor} interface. The output type is always an
- * {@link JComponent ui component}.
+ * {@link ViewType ui component}.
  *
  * @param <ModelType> the model type.
+ * @param <ViewType> the view type.
  */
-public interface ViewProviderFor<ModelType> extends ViewOfTypeProviderFor<ModelType, JComponent> {
+public interface ViewOfTypeProviderFor<ModelType, ViewType extends JComponent>
+        extends ProviderFor<ModelType, ViewType> {
+
+    @Override
+    default ViewType provide(final ModelType target) {
+        return createView(target);
+    }
+
+    /**
+     * Create a view for the given model.
+     *
+     * @param model the model.
+     * @return the created view.
+     */
+    ViewType createView(final ModelType model);
 }
