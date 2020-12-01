@@ -21,6 +21,7 @@
 package com.github.mylibrelab.settings.api
 
 import com.github.mylibrelab.text.Text
+import com.github.mylibrelab.text.textOf
 import com.github.mylibrelab.util.*
 import kotlin.reflect.KMutableProperty0
 
@@ -45,7 +46,7 @@ private val SettingsGroup.unnamedGroupCounter
     get() = UnnamedGroupCounter.get(this)
 
 class SettingsGroupBuilder(group: SettingsGroup) : SettingsGroup by group {
-    internal var activeCondition: Condition? = null
+    internal var activeCondition: Condition? = (group.parent as? SettingsGroupBuilder)?.activeCondition
 
     fun KMutableProperty0<Boolean>.isTrue() = isTrue(getWithProperty(this))
     fun KMutableProperty0<Boolean>.isFalse() = isFalse(getWithProperty(this))
@@ -84,10 +85,15 @@ private fun initGroup(group: SettingsGroup, init: SettingsGroupBuilder.() -> Uni
  * @param name The name of the group.
  * @param init The initialization block.
  */
-fun SettingsGroup.group(name: String = "", init: SettingsGroupBuilder.() -> Unit): SettingsGroup {
+fun SettingsGroup.group(
+    name: String = "",
+    displayName: Text = textOf(name),
+    description: Text? = null,
+    init: SettingsGroupBuilder.() -> Unit
+): SettingsGroup {
     val identifier = if (name.isNotEmpty()) null else "group_${unnamedGroupCounter.increment()}"
     val group = subgroups.find { it.identifier == identifier && it.name == name } ?: {
-        val gr = DefaultNamedSettingsGroup(this, name, identifier)
+        val gr = DefaultNamedSettingsGroup(this, name, displayName, description, identifier)
         subgroups.add(gr)
         gr
     }()
@@ -160,13 +166,15 @@ fun <R : Any, T : Any> SettingsGroup.transformingProperty(
  * @param displayName the display name of the property
  * @param description the description of the property
  * @param value The property reference.
+ * @param init The initialization block.
  */
 fun SettingsGroup.stringProperty(
     name: String? = null,
     displayName: Text? = null,
     description: Text? = null,
-    value: KMutableProperty0<String>
-): ValueProperty<String> = property(name, displayName, description, value)
+    value: KMutableProperty0<String>,
+    init: SimpleValueProperty<String>.() -> Unit = {}
+): ValueProperty<String> = property(name, displayName, description, value, init)
 
 /**
  * Declare a new boolean property.
@@ -174,13 +182,15 @@ fun SettingsGroup.stringProperty(
  * @param displayName the display name of the property
  * @param description the description of the property
  * @param value The property reference.
+ * @param init The initialization block.
  */
 fun SettingsGroup.booleanProperty(
     name: String? = null,
     displayName: Text? = null,
     description: Text? = null,
     value: KMutableProperty0<Boolean>,
-): ValueProperty<Boolean> = property(name, displayName, description, value)
+    init: SimpleValueProperty<Boolean>.() -> Unit = {}
+): ValueProperty<Boolean> = property(name, displayName, description, value, init)
 
 /**
  * Declare a new property which has a limited set of possible values.
@@ -222,7 +232,7 @@ fun <R : Any, T : Any> SettingsGroup.choiceProperty(
  * @param init The initialization block.
  */
 fun <T : Any> SettingsGroup.choiceProperty(
-    name: String?,
+    name: String? = null,
     displayName: Text? = null,
     description: Text? = null,
     value: KMutableProperty0<T>,

@@ -49,7 +49,7 @@ public abstract class BasicAction extends AnAction {
         super(identifier);
         this.icon = icon;
         this.disabledIcon = disabledIcon;
-        Presentation presentation = getPresentation();
+        ActionPresentation presentation = getPresentation();
         presentation.setDisplayName(displayName);
         presentation.setIcon(icon);
     }
@@ -57,7 +57,7 @@ public abstract class BasicAction extends AnAction {
     @Override
     public final void update(@NotNull final ActionContext context) {
         super.update(context);
-        Presentation presentation = getPresentation();
+        ActionPresentation presentation = getPresentation();
         presentation.setIcon(presentation.isEnabled() ? icon : disabledIcon);
     }
 

@@ -84,7 +84,7 @@ public class ActionUtil {
      * @return the button.
      */
     @NotNull
-    public static AbstractButton createButton(@NotNull final Class<? extends AnAction> actionClass) {
+    public static JButton createButton(@NotNull final Class<? extends AnAction> actionClass) {
         return createButton(actionClass, ALL_ACTIONS);
     }
 
@@ -97,7 +97,7 @@ public class ActionUtil {
      * @return the button.
      */
     @NotNull
-    public static AbstractButton createButton(@NotNull final Class<? extends AnAction> actionClass,
+    public static JButton createButton(@NotNull final Class<? extends AnAction> actionClass,
             @Nullable final String identifier) {
         List<AnAction> actions = new ArrayList<>();
         ActionManager.INSTANCE.configureAction(actionClass, identifier, a -> {
@@ -113,12 +113,12 @@ public class ActionUtil {
                 return !actions.isEmpty() ? actions.get(0) : null;
             }
 
-            private Presentation getPresentation() {
+            private ActionPresentation getPresentation() {
                 var action = getAnAction();
                 if (action != null) {
                     return action.getPresentation();
                 }
-                return new Presentation();
+                return new ActionPresentation();
             }
 
             @Override
