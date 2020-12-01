@@ -47,6 +47,22 @@ public class ViewFactory {
      */
     @NotNull
     public static <T> JComponent createView(@NotNull final T model) {
-        return ServiceManager.getProvidedServiceFor(JComponent.class, model);
+        return createView(model, JComponent.class);
+    }
+
+    /**
+     * Create the view for the given model.
+     *
+     * Views are provided by classes annotated with {@link ViewProvider} and which implement
+     * {@link ViewProviderFor}.
+     *
+     * @param model the model object.
+     * @param <T> the model type.
+     * @param <V> the view type.
+     * @return the created view.
+     */
+    @NotNull
+    public static <T, V extends JComponent> V createView(@NotNull final T model, @NotNull Class<V> viewType) {
+        return ServiceManager.getProvidedServiceFor(viewType, model);
     }
 }
