@@ -28,12 +28,15 @@ import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.plaf.UIResource;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import com.github.mylibrelab.text.Text;
+import com.github.weisj.darklaf.components.border.DarkBorders;
 
 public class UIStyle {
 
@@ -101,6 +104,11 @@ public class UIStyle {
     }
 
     @NotNull
+    public static <T extends Component> T withBoldFont(@NotNull final T component) {
+        return withTransformedFont(component, f -> f.deriveFont(Font.BOLD));
+    }
+
+    @NotNull
     public static <T extends Component> T withTransformedFont(@NotNull final T component,
             final @NotNull UnaryOperator<Font> fontMapper) {
         // Ensure the font is a UIResource to guarantee it gets replaced when changing the LaF.
@@ -137,5 +145,25 @@ public class UIStyle {
                 action.accept(component);
             }
         }
+    }
+
+    @NotNull
+    public static <T extends JComponent> T withTitledBorder(@NotNull final T comp, @Nullable final Text title) {
+        return withTitledBorder(comp, title, null);
+    }
+
+    @NotNull
+    public static <T extends JComponent> T withTitledBorder(@NotNull final T comp, @Nullable final Text title,
+            @Nullable final Border border) {
+        return withDynamic(comp, c -> {
+            if (title != null) {
+                String text = title.getText();
+                if (!text.isEmpty()) {
+                    c.setBorder(BorderFactory.createTitledBorder(border, text));
+                    return;
+                }
+            }
+            c.setBorder(BorderFactory.createTitledBorder(DarkBorders.createTopBorder()));
+        });
     }
 }

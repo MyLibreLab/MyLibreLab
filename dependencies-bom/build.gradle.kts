@@ -41,6 +41,7 @@ dependencies {
 
         apiv("org.netbeans.external:AbsoluteLayout")
         apiv("org.swinglabs:swing-layout")
+        apiv("com.miglayout:miglayout-swing", "miglayout")
         apiv("com.github.weisj:darklaf-core", "darklaf")
         apiv("com.github.weisj:darklaf-property-loader", "darklaf")
 

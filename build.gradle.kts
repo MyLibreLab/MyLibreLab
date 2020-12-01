@@ -44,6 +44,7 @@ dependencies {
 
     implementation("org.netbeans.external:AbsoluteLayout")
     implementation("org.swinglabs:swing-layout")
+    implementation("com.miglayout:miglayout-swing")
     implementation("com.github.weisj:darklaf-core")
     implementation("com.github.weisj:darklaf-property-loader")
 
@@ -88,6 +89,17 @@ runtime {
         "--no-header-files",
         "--no-man-pages"
     )
+}
+
+fun Jar.includeLicenses() {
+    CrLfSpec(LineEndings.LF).run {
+        into("META-INF") {
+            filteringCharset = "UTF-8"
+            textFrom("$rootDir/licenses/INTELLIJ_LICENSE.txt")
+            textFrom("$rootDir/licenses/INTELLIJ_NOTICE.txt")
+            textFrom("$rootDir/licenses/MIGLAYOUT_LICENSE.txt")
+        }
+    }
 }
 
 fun BaseFormatExtension.license() {
@@ -242,7 +254,7 @@ allprojects {
     tasks.withType<KotlinCompile>().configureEach {
         kotlinOptions {
             jvmTarget = "11"
-            freeCompilerArgs = listOf("-Xjvm-default=compatibility")
+            freeCompilerArgs = listOf("-Xjvm-default=compatibility", "-Xopt-in=kotlin.RequiresOptIn")
         }
     }
 
