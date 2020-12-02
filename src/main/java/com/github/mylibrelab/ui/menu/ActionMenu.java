@@ -25,6 +25,8 @@ import java.util.Map;
 
 import javax.swing.*;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.github.mylibrelab.action.ActionContext;
 import com.github.mylibrelab.action.AnAction;
 import com.github.mylibrelab.action.AnActionGroup;
@@ -74,19 +76,9 @@ class ActionMenu extends TextMenu implements ActionMenuElement {
         }
     }
 
+    @NotNull
     private ActionContext getContext() {
-        /*
-         * Todo: The context for updating the actions should be retrieved as follows:
-         * - The application holds a global session context which contains all
-         * registered modules together with the following information:
-         * - Whether the module is displayed. - Whether the module is
-         * active/enabled (this may not be needed).
-         * - Whether the module is in focus.
-         * Additionally the current focused module should be retrievable directly.
-         *
-         * For now we return an empty action context.
-         */
-        return new ActionContext();
+        return ApplicationContext.getApplicationContext();
     }
 
     public void updateActions(final ActionContext context, final boolean updateChildren) {
