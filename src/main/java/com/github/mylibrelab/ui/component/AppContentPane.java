@@ -30,6 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import org.tinylog.Logger;
 
 import com.github.mylibrelab.service.ServiceManager;
+import com.github.mylibrelab.ui.menu.ApplicationContext;
 import com.github.mylibrelab.ui.module.ApplicationModule;
 import com.github.mylibrelab.ui.persistent.PersistenceHelper;
 import com.github.mylibrelab.ui.persistent.PersistenceNode;
@@ -101,6 +102,8 @@ public class AppContentPane extends JPanel implements PersistentComponent {
             list.forEach(p -> {
                 var c = p.component1();
                 var tab = c.createPopupTab();
+                ApplicationContext.getApplicationContext()
+                        .getModuleState().registerModule(c, tab);
 
                 /*
                  * Set the KEY_APP_MODULE property, which is used by ActionUtils to retrieve the ActionContext.
