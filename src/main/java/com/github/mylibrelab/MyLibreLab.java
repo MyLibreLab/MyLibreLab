@@ -110,6 +110,10 @@ public class MyLibreLab {
         Runtime.getRuntime().addShutdownHook(new Thread(MyLibreLab::stopApplication));
     }
 
+    public static JFrame getFrame() {
+        return frame;
+    }
+
     private static void stopApplication() {
         if (frame != null && frame.isDisplayable()) {
             // Necessary if the legacy frame gets closed first.
