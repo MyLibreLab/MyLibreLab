@@ -30,10 +30,11 @@ class ActionMenuItem extends TextMenuItem implements ActionMenuElement {
 
     private final AnAction action;
 
-    ActionMenuItem(@NotNull final AnAction action) {
+    ActionMenuItem(@NotNull final AnAction action, @NotNull final ActionMenu actionMenu) {
         super(action.getPresentation().getDisplayName());
         this.action = action;
         update();
+        addActionListener(e -> action.actionPerformed(actionMenu.getContext()));
     }
 
     @Override

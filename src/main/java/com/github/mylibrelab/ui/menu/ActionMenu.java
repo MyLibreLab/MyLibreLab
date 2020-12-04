@@ -69,7 +69,7 @@ class ActionMenu extends TextMenu implements ActionMenuElement {
                     }
                 }
             } else {
-                var menuItem = new ActionMenuItem(action);
+                var menuItem = new ActionMenuItem(action, this);
                 menuMap.put(action, menuItem);
                 menu.add(menuItem);
             }
@@ -77,7 +77,7 @@ class ActionMenu extends TextMenu implements ActionMenuElement {
     }
 
     @NotNull
-    private ActionContext getContext() {
+    protected ActionContext getContext() {
         return ApplicationContext.getApplicationContext();
     }
 
