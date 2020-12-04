@@ -22,8 +22,13 @@ package com.github.mylibrelab.ui.legacybridge.actions.config;
 
 import org.jetbrains.annotations.NotNull;
 
-import com.github.mylibrelab.action.*;
+import com.github.mylibrelab.MyLibreLab;
+import com.github.mylibrelab.action.Action;
+import com.github.mylibrelab.action.ActionContext;
+import com.github.mylibrelab.action.BasicAction;
+import com.github.mylibrelab.action.ParentGroup;
 import com.github.mylibrelab.resources.Resources;
+import com.github.mylibrelab.ui.dialog.SettingsDialog;
 import com.github.mylibrelab.ui.icons.AllIcons;
 
 @Action
@@ -35,7 +40,7 @@ public class ShowSettingsAction extends BasicAction {
     }
 
     @Override
-    public void actionPerformed(@NotNull ActionContext context) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public void actionPerformed(@NotNull final ActionContext context) {
+        SettingsDialog.showSettingsDialog(MyLibreLab.getFrame());
     }
 }
