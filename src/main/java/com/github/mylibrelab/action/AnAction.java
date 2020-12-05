@@ -34,7 +34,7 @@ public abstract class AnAction {
      * Creates a new {@link AnAction} with the given identifier. The identifier will be the class name
      * of the action.
      */
-    public AnAction() {
+    protected AnAction() {
         this(null);
     }
 
@@ -44,7 +44,7 @@ public abstract class AnAction {
      *
      * @param identifier the identifier.
      */
-    public AnAction(@Nullable final String identifier) {
+    protected AnAction(@Nullable final String identifier) {
         this.identifier = identifier;
         if (this.identifier == null) {
             var type = getClass();

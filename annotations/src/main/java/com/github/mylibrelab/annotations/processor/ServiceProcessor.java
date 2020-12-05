@@ -66,7 +66,7 @@ public class ServiceProcessor extends ProcessorBase {
         try {
             processPlainServices(roundEnv);
             if (!checkServiceSpecs(roundEnv)) {
-                return false;
+                return ANNOTATIONS_UNCLAIMED;
             }
             processAnnotations(annotations, roundEnv);
             if (roundEnv.processingOver()) {
@@ -76,7 +76,7 @@ public class ServiceProcessor extends ProcessorBase {
             // Don't propagate any exceptions to the compiler
             error(e);
         }
-        return false;
+        return ANNOTATIONS_UNCLAIMED;
     }
 
     private void processAnnotations(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
