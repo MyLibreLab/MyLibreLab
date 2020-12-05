@@ -43,7 +43,7 @@ public abstract class DefaultApplicationModule implements ApplicationModule {
      *
      * @param displayTitle the title of the module.
      */
-    public DefaultApplicationModule(@NotNull final Text displayTitle) {
+    protected DefaultApplicationModule(@NotNull final Text displayTitle) {
         this(displayTitle, null);
     }
 
@@ -53,7 +53,7 @@ public abstract class DefaultApplicationModule implements ApplicationModule {
      * @param displayTitle the title of the module.
      * @param icon the icon of the module.
      */
-    public DefaultApplicationModule(@NotNull final Text displayTitle, @Nullable final Icon icon) {
+    protected DefaultApplicationModule(@NotNull final Text displayTitle, @Nullable final Icon icon) {
         this(displayTitle, icon, Alignment.SOUTH_WEST);
     }
 
@@ -64,7 +64,7 @@ public abstract class DefaultApplicationModule implements ApplicationModule {
      * @param icon the icon of the module.
      * @param preferredAlignment the preferred alignment position.
      */
-    public DefaultApplicationModule(@NotNull final Text displayTitle, @Nullable final Icon icon,
+    protected DefaultApplicationModule(@NotNull final Text displayTitle, @Nullable final Icon icon,
             @NotNull final Alignment preferredAlignment) {
         this.title = displayTitle;
         this.icon = icon;

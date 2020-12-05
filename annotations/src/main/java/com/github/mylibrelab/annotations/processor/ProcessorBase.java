@@ -37,6 +37,8 @@ import javax.tools.Diagnostic;
 
 public abstract class ProcessorBase extends AbstractProcessor {
 
+    protected static final boolean ANNOTATIONS_UNCLAIMED = false;
+
     protected boolean verifyMetaAnnotatedElement(final Element element) {
         if (element.getAnnotation(Inherited.class) != null) {
             processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "cannot be @Inherited");

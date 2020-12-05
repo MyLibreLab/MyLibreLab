@@ -32,19 +32,20 @@ public abstract class BasicAction extends AnAction {
     private final Icon icon;
     private final Icon disabledIcon;
 
-    public BasicAction(@NotNull final Text displayName) {
+    protected BasicAction(@NotNull final Text displayName) {
         this(displayName, null, null, null);
     }
 
-    public BasicAction(@NotNull final Text displayName, @Nullable final Icon icon) {
+    protected BasicAction(@NotNull final Text displayName, @Nullable final Icon icon) {
         this(displayName, icon, null, null);
     }
 
-    public BasicAction(@NotNull final Text displayName, @Nullable final Icon icon, @Nullable final Icon disabledIcon) {
+    protected BasicAction(@NotNull final Text displayName, @Nullable final Icon icon,
+            @Nullable final Icon disabledIcon) {
         this(displayName, icon, disabledIcon, null);
     }
 
-    public BasicAction(@NotNull final Text displayName, @Nullable final Icon icon, @Nullable final Icon disabledIcon,
+    protected BasicAction(@NotNull final Text displayName, @Nullable final Icon icon, @Nullable final Icon disabledIcon,
             @Nullable final String identifier) {
         super(identifier);
         this.icon = icon;

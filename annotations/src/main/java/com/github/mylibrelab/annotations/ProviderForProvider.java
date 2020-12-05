@@ -37,7 +37,7 @@ public abstract class ProviderForProvider<T, K> implements Comparable<ProviderFo
     private final Class<T> targetType;
     private final Class<K> valueType;
 
-    public ProviderForProvider(@NotNull final Class<T> targetType, final Class<K> valueType) {
+    protected ProviderForProvider(@NotNull final Class<T> targetType, final Class<K> valueType) {
         this.targetType = targetType;
         this.valueType = valueType;
     }

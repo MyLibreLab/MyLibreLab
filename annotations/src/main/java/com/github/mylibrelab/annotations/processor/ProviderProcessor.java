@@ -76,7 +76,7 @@ public class ProviderProcessor extends ProcessorBase {
             // Don't propagate any exceptions to the compiler
             error(e);
         }
-        return false;
+        return ANNOTATIONS_UNCLAIMED;
     }
 
     private boolean checkProviderSpec(final ProviderSpec providerSpec, final TypeElement element,
