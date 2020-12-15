@@ -3,6 +3,8 @@
 This is a fork of [MyOpenLab](https://myopenlab.org/), which became unmaintained in 2020.
 The original sources were gathered from <https://sourceforge.net/p/myopenlab3/code/HEAD/tree/>.
 
+MyLibreLab is currently under heavy development (early alpha stage), and it's not yet functional. If you are looking for a fully functional and stable version, check out original [archived MyOpenLab](https://github.com/MyLibreLab/MyOpenLab).
+
 ## Differences to MyOpenLab
 
 - Provides self-contained distribution. No need to install any Java distribution any more.
