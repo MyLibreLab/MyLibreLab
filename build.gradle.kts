@@ -1,3 +1,4 @@
+
 import com.github.autostyle.generic.DefaultCopyrightStyle
 import com.github.autostyle.gradle.BaseFormatExtension
 import com.github.vlsi.gradle.crlf.CrLfSpec
@@ -182,6 +183,7 @@ allprojects {
 
     if (!skipAutostyle) {
         apply(plugin = "com.github.autostyle")
+
         autostyle {
             kotlinGradle {
                 ktlint()
@@ -221,7 +223,7 @@ allprojects {
             autostyle {
                 java {
                     importOrder("java", "javax", "org", "com", "")
-                    removeUnusedImports()
+                    addStep(FixedRemoveUnusedImportsStep())
 
                     eclipse {
                         configFile("${project.rootDir}/config/style.eclipseformat.xml")
