@@ -46,21 +46,11 @@ public enum AppLifecycleManager {
     public static Topic<EventType, AppLifecycleListener> createTopic() {
         return Topic.create(AppLifecycleListener.class.getName(), (e, l) -> {
             switch (e) {
-                case APP_STARTED:
-                    l.applicationStarted();
-                    break;
-                case APP_FRAME_CREATED:
-                    l.appFrameCreated();
-                    break;
-                case APP_FRAME_OPENED:
-                    l.appFrameOpened();
-                    break;
-                case APP_FRAME_CLOSING:
-                    l.appFrameClosing();
-                    break;
-                case APP_STOPPING:
-                    l.applicationStopping();
-                    break;
+                case APP_STARTED -> l.applicationStarted();
+                case APP_FRAME_CREATED -> l.appFrameCreated();
+                case APP_FRAME_OPENED -> l.appFrameOpened();
+                case APP_FRAME_CLOSING -> l.appFrameClosing();
+                case APP_STOPPING -> l.applicationStopping();
             }
         });
     }

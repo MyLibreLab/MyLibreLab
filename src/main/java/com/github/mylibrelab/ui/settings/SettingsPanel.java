@@ -189,25 +189,19 @@ public class SettingsPanel extends JPanel implements AWTEventListener {
     public final void eventDispatched(final AWTEvent event) {
         if (!isVisible()) return;
         switch (event.getID()) {
-            case MouseEvent.MOUSE_PRESSED:
-            case MouseEvent.MOUSE_RELEASED:
-            case MouseEvent.MOUSE_DRAGGED:
+            case MouseEvent.MOUSE_PRESSED, MouseEvent.MOUSE_RELEASED, MouseEvent.MOUSE_DRAGGED -> {
                 MouseEvent me = (MouseEvent) event;
                 if (SwingUtilities.isDescendingFrom(me.getComponent(), containers.get(currentContainer))
                         || isPopupOverEditor(me.getComponent())) {
                     requestUpdate();
                 }
-                break;
-            case KeyEvent.KEY_PRESSED:
-            case KeyEvent.KEY_RELEASED:
+            }
+            case KeyEvent.KEY_PRESSED, KeyEvent.KEY_RELEASED -> {
                 KeyEvent ke = (KeyEvent) event;
-                if (SwingUtilities.isDescendingFrom(ke.getComponent(),
-                        containers.get(currentContainer))) {
+                if (SwingUtilities.isDescendingFrom(ke.getComponent(), containers.get(currentContainer))) {
                     requestUpdate();
                 }
-                break;
-            default:
-                break;
+            }
         }
     }
 
