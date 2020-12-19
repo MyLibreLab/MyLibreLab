@@ -1,23 +1,23 @@
 pluginManagement {
+    fun String.v() = extra["$this.version"].toString()
     plugins {
-        fun String.v() = extra["$this.version"].toString()
         fun PluginDependenciesSpec.idv(id: String, key: String = id) = id(id) version key.v()
 
+        kotlin("jvm") version "kotlin".v()
+        kotlin("kapt") version "kotlin".v()
         idv("com.github.autostyle")
         idv("org.sonarqube")
-        idv("com.github.vlsi.crlf", "com.github.vlsi.vlsi-release-plugins")
         idv("com.github.vlsi.crlf", "com.github.vlsi.vlsi-release-plugins")
         idv("com.github.vlsi.gradle-extensions", "com.github.vlsi.vlsi-release-plugins")
         idv("org.beryx.runtime")
         idv("name.remal.sonarlint")
-        idv("org.jetbrains.kotlin.jvm", "kotlin")
-        idv("org.jetbrains.kotlin.kapt", "kotlin")
     }
 }
 
 rootProject.name = "MyLibreLab"
 
 include(
+    "application",
     "annotations",
     "dependencies-bom",
     "settings-api",
