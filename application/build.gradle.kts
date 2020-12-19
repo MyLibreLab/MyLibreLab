@@ -61,7 +61,8 @@ dependencies {
 }
 
 application {
-    mainClass.set("com.github.mylibrelab.MyLibreLab")
+    mainClassName = "com.github.mylibrelab.MyLibreLab"
+    mainClass.set(mainClassName)
 }
 
 runtime {
