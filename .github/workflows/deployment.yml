@@ -57,7 +57,7 @@ jobs:
       - name: Build
         run: ./gradlew build -PskipAutostyle -PskipSonarlint
       - name: Build runtime image
-        run: ./gradlew runtimeZip -PskipAutostyle -PskipSonarlint
+        run: ./gradlew :mylibrelab-application:runtimeZip -PskipAutostyle -PskipSonarlint
       - name: Build installer
-        run: ./gradlew jpackage -PskipAutostyle -PskipSonarlint
+        run: ./gradlew :mylibrelab-application:jpackage -PskipAutostyle -PskipSonarlint
         shell: bash
