@@ -27,7 +27,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -797,7 +796,7 @@ public class Dialog_create_new_group extends javax.swing.JDialog {
                         Logger.getLogger(Dialog_create_new_group.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-            } catch (FileNotFoundException | UnsupportedEncodingException ex) {
+            } catch (IOException ex) {
                 Logger.getLogger(Dialog_create_new_group.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 writer.close();

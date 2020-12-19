@@ -250,7 +250,7 @@ inline fun <reified T : Any> ValueProperty<T>.asPersistent(): PersistentValuePro
         if (it.value is String) it.castSafelyTo<PersistentValueProperty<T>>() else null
     }
 
-inline fun <reified K : Any> ValueProperty<*>.effective(): ValueProperty<K> = effective<K>(type = K::class)
+inline fun <reified K : Any> ValueProperty<*>.effective(): ValueProperty<K> = effective(type = K::class)
 
 fun <K : Any> ValueProperty<*>.effective(type: KClass<K>): ValueProperty<K> {
     var prop: ValueProperty<*> = this
@@ -273,8 +273,8 @@ class SimpleValueProperty<T : Any> internal constructor(
 ) : ValueProperty<T>, Observable<ValueProperty<T>> by DefaultObservable() {
     override val displayName: Text = displayName ?: textOf(property.name)
     override val name: String = name ?: property.name
-    override var value: T by observable<ValueProperty<T>, T>(property)
-    override var preview: T by observable<ValueProperty<T>, T>(value)
+    override var value: T by observable(property)
+    override var preview: T by observable(value)
     override var activeCondition: Condition = conditionOf(true)
 
     init {
@@ -294,7 +294,7 @@ open class SimpleTransformingValueProperty<R : Any, T : Any> internal constructo
     override val group by backingProperty::group
 
     final override var value: T by transformer.delegate(backingProp = backingProperty::value)
-    override var preview: T by observable<ValueProperty<T>, T>(value)
+    override var preview: T by observable(value)
 }
 
 class SimplePersistentValueProperty<R : Any>(

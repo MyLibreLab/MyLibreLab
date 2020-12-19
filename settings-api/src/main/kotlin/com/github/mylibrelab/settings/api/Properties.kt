@@ -40,9 +40,9 @@ inline fun <reified T, R : Any> KMutableProperty0<R>.withType(): KMutablePropert
 /**
  * Cast the property to the specified type if applicable for read operations.
  */
-inline fun <reified T, R : Any> KMutableProperty0<R>.withOutType(): KMutableProperty0<T>? {
+inline fun <reified T, R : Any> KMutableProperty0<R>.withOutType(): KProperty0<T>? {
     return if (T::class.java.isAssignableFrom(get().javaClass)) {
-        this.castSafelyTo<KMutableProperty0<T>>()
+        this.castSafelyTo<KProperty0<T>>()
     } else {
         null
     }

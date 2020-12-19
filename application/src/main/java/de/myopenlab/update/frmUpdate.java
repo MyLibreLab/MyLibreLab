@@ -630,8 +630,8 @@ public class frmUpdate extends javax.swing.JFrame {
         }
 
         jMenuItemUploadPackage.setEnabled(settings.getRepository_domain().trim().length() > 0
-            && settings.getRepository_login_username().trim().length() > 0
-            && settings.getRepository_login_password().trim().length() > 0);
+                && settings.getRepository_login_username().trim().length() > 0
+                && settings.getRepository_login_password().trim().length() > 0);
 
         // Create a new trust manager that trust all certificates
         TrustManager[] trustAllCerts = new TrustManager[] {new X509TrustManager() {

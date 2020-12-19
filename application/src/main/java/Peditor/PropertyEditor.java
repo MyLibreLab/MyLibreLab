@@ -234,8 +234,9 @@ class AdvancedColorEditor extends JPanel implements PEIF {
                 frm.init();
                 frm.setVisible(true);
                 if (CustomColorPicker.result) {
-                    setValue(CustomColorPicker.modus, CustomColorPicker.p1, CustomColorPicker.p2, CustomColorPicker.color1, CustomColorPicker.color2, CustomColorPicker.color1Transparency,
-                        CustomColorPicker.color2Transparency, CustomColorPicker.wiederholung);
+                    setValue(CustomColorPicker.modus, CustomColorPicker.p1, CustomColorPicker.p2,
+                            CustomColorPicker.color1, CustomColorPicker.color2, CustomColorPicker.color1Transparency,
+                            CustomColorPicker.color2Transparency, CustomColorPicker.wiederholung);
                 }
                 // Color bgColor =
                 // JColorChooser.showDialog(getFrame(),java.util.ResourceBundle.getBundle("Peditor/PropertyEditor").getString("Choose
