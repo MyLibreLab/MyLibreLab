@@ -52,7 +52,7 @@ class ConstantCondition(value: Boolean) : Condition, Observable<Condition> by De
 class DefaultCondition(initial: Boolean, private val cond: () -> Boolean = { initial }) :
     Condition,
     Observable<Condition> by DefaultObservable() {
-    override var value: Boolean by observable<Condition, Boolean>(initial)
+    override var value: Boolean by observable(initial)
 
     override operator fun invoke(): Boolean {
         value = cond()
@@ -66,7 +66,7 @@ class DefaultCondition(initial: Boolean, private val cond: () -> Boolean = { ini
 class LazyCondition<T : Any>(private val valueProp: Lazy<ValueProperty<T>>, private val expected: T) :
     Condition,
     Observable<Condition> by DefaultObservable() {
-    override var value: Boolean by observable<Condition, Boolean>(true)
+    override var value: Boolean by observable(true)
 
     override fun invoke(): Boolean {
         return value
@@ -87,7 +87,7 @@ class CompoundCondition(
     private val second: Condition,
     private val combinator: (Boolean, Boolean) -> Boolean
 ) : Condition, Observable<Condition> by first {
-    override var value: Boolean by observable<Condition, Boolean>(combinator(first.value, second.value))
+    override var value: Boolean by observable(combinator(first.value, second.value))
 
     override fun invoke(): Boolean {
         value = combinator(first(), second())

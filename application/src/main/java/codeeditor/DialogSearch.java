@@ -20,9 +20,9 @@
 
 package codeeditor;
 
-import VisualLogic.CommandIF;
-
 import java.awt.event.KeyEvent;
+
+import VisualLogic.CommandIF;
 
 /**
  * @author Carmelo

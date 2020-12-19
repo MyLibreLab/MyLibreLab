@@ -547,7 +547,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                         Tools.copy(new File(elementPath + File.separator + "nope.html"),
                                 new File(dir + File.separator + "doc_es.html"));
 
-                        Tools.copy(new File(elementPath + "/element.gif"), new File(dir + "/" + DialogSubVMAssistent.vmName + ".gif"));
+                        Tools.copy(new File(elementPath + "/element.gif"),
+                                new File(dir + "/" + DialogSubVMAssistent.vmName + ".gif"));
                         // Tools.copy(new File(elementPath + File.separator+"element.gif"), new File(dir +
                         // File.separator + frm.vmName + ".gif"));
                     } catch (IOException ex) {
@@ -556,7 +557,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                     // File file = new File(dir + File.separator+"subvm.vlogic");
                     File file = new File(dir + "/" + "subvm.vlogic");
 
-                    generateSubVM(node.projectPath, DialogSubVMAssistent.pinsLeft, DialogSubVMAssistent.pinsRight, dir + "/" + DialogSubVMAssistent.vmName + ".vlogic");
+                    generateSubVM(node.projectPath, DialogSubVMAssistent.pinsLeft, DialogSubVMAssistent.pinsRight,
+                            dir + "/" + DialogSubVMAssistent.vmName + ".vlogic");
                     // generateSubVM(node.projectPath, frm.pinsLeft, frm.pinsRight, dir + File.separator + frm.vmName +
                     // ".vlogic");
 
@@ -3793,9 +3795,11 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 // String binDir = grp + "/" + frm.compName + "/bin";
                 String basisDir = grp + File.separator + DialogNewJavaComponentAssistent.compName;
                 // String srcDir = grp + File.separator + frm.compName + "/src";
-                String srcDir = grp + File.separator + DialogNewJavaComponentAssistent.compName + File.separator + "src";
+                String srcDir =
+                        grp + File.separator + DialogNewJavaComponentAssistent.compName + File.separator + "src";
                 // String binDir = grp + File.separator + frm.compName + "/bin";
-                String binDir = grp + File.separator + DialogNewJavaComponentAssistent.compName + File.separator + "bin";
+                String binDir =
+                        grp + File.separator + DialogNewJavaComponentAssistent.compName + File.separator + "bin";
 
                 // String str = grp + "/" + frm.compName;
                 String str = grp + File.separator + DialogNewJavaComponentAssistent.compName;
@@ -5462,7 +5466,8 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                 projectName = projectName.replace("\\", File.separator);
                 projectName = projectName.replace("/", File.separator);
 
-                createNewProject(projectName, DialogNewProject.createMainVM, DialogNewProject.mainVMFilename, DialogNewProject.projectType);
+                createNewProject(projectName, DialogNewProject.createMainVM, DialogNewProject.mainVMFilename,
+                        DialogNewProject.projectType);
                 projects.add(projectName);
                 reloadProjectPanel();
             } else {

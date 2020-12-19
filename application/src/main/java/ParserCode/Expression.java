@@ -366,7 +366,7 @@ public class Expression {
         if (yyMax <= 0) yyMax = 256; // initial size
         int yyState = 0; // state stack
         int[] yyStates = new int[yyMax];
-        Object yyVal = null;  // value stack
+        Object yyVal = null; // value stack
         Object[] yyVals = new Object[yyMax];
         int yyToken = -1; // current input
         int yyErrorFlag = 0; // #tokens to shift
