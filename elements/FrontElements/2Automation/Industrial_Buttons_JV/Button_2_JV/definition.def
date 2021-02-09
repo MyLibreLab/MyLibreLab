@@ -1,8 +1,0 @@
-ISDIRECTORY = FALSE
-CAPTION= Button_2_JV
-CAPTION_EN= Button_2_JV
-CAPTION_ES= Botón_2_JV
-Jar= bin/Taster.jar
-ClassCircuit = Taster
-ClassFront = TasterPanel
-Icon= bin/Button.gif
