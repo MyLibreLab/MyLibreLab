@@ -1,0 +1,14 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+CAPTION         = RS232_
+CAPTION_EN      = RS232_
+CAPTION_ES      = RS232_
+VM              = 
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = RS232
+CLASSFRONT      = 
+ICON            = bin/icon.gif
+CLASSPATH       = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

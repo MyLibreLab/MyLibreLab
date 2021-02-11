@@ -18,21 +18,73 @@
  *
  */
 
+package com.github.mylibrelab.elements.front.twonumerisch.steel.gauges.jv.stopwatch.jv;/*
+                                                                                        * Copyright (C) 2020 MyLibreLab
+                                                                                        * Based on MyOpenLab by Carmelo
+                                                                                        * Salafia www.myopenlab.de
+                                                                                        * Copyright (C) 2004 Carmelo
+                                                                                        * Salafia cswi@gmx.de
+                                                                                        *
+                                                                                        * This program is free software:
+                                                                                        * you can redistribute it and/or
+                                                                                        * modify
+                                                                                        * it under the terms of the GNU
+                                                                                        * General Public License as
+                                                                                        * published by
+                                                                                        * the Free Software Foundation,
+                                                                                        * either version 3 of the
+                                                                                        * License, or
+                                                                                        * (at your option) any later
+                                                                                        * version.
+                                                                                        *
+                                                                                        * This program is distributed in
+                                                                                        * the hope that it will be
+                                                                                        * useful,
+                                                                                        * but WITHOUT ANY WARRANTY;
+                                                                                        * without even the implied
+                                                                                        * warranty of
+                                                                                        * MERCHANTABILITY or FITNESS FOR
+                                                                                        * A PARTICULAR PURPOSE. See the
+                                                                                        * GNU General Public License for
+                                                                                        * more details.
+                                                                                        *
+                                                                                        * You should have received a
+                                                                                        * copy of the GNU General Public
+                                                                                        * License
+                                                                                        * along with this program. If
+                                                                                        * not, see
+                                                                                        * <http://www.gnu.org/licenses/>
+                                                                                        * .
+                                                                                        *
+                                                                                        */
+
+import java.awt.*;
+
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.PanelIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSComboBox;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSString;
+
 public class GaugePanel extends JVSMain implements PanelIF {
-    private int width = 50, height = 150;
-    private double value = 0.0;
     final private static StopWatch myGauge = new StopWatch();
-
-    private VSBoolean InitState = new VSBoolean(false);
-    private VSBoolean frameVisible = new VSBoolean(true);
-    private VSComboBox frameDesign = new VSComboBox();
-    private VSBoolean backGroundVisible = new VSBoolean(true);
-    private VSComboBox backGroundColor = new VSComboBox();
-
-    private VSComboBox onColor = new VSComboBox();
-    private VSComboBox offColor = new VSComboBox();
-    private VSComboBox icon = new VSComboBox();
-    private VSBoolean FlatNeedle = new VSBoolean(true);
+    private final int width = 50;
+    private final int height = 150;
+    private final VSBoolean InitState = new VSBoolean(false);
+    private final VSBoolean frameVisible = new VSBoolean(true);
+    private final VSComboBox frameDesign = new VSComboBox();
+    private final VSBoolean backGroundVisible = new VSBoolean(true);
+    private final VSComboBox backGroundColor = new VSComboBox();
+    private final VSComboBox onColor = new VSComboBox();
+    private final VSComboBox offColor = new VSComboBox();
+    private final VSComboBox icon = new VSComboBox();
+    private final VSBoolean FlatNeedle = new VSBoolean(true);
+    private double value = 0.0;
     private ExternalIF circuitElement;
 
 
@@ -179,7 +231,7 @@ public class GaugePanel extends JVSMain implements PanelIF {
         element.jSetPEItemLocale(d + 1, language, "Frame Desing");
         element.jSetPEItemLocale(d + 2, language, "Background Visible");
         element.jSetPEItemLocale(d + 3, language, "Background Color");
-        element.jSetPEItemLocale(d + 4, language, "Flat Needle");;
+        element.jSetPEItemLocale(d + 4, language, "Flat Needle");
 
         language = "es_ES";
         element.jSetPEItemLocale(d + 0, language, "Marco Visible");
@@ -200,7 +252,6 @@ public class GaugePanel extends JVSMain implements PanelIF {
         GaugeSet();
         element.jRepaint();
     }
-
 
 
     public void loadFromStream(java.io.FileInputStream fis) {

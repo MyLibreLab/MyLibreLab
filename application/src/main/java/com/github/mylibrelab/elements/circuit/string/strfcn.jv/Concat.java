@@ -18,29 +18,15 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.String.StrFcn_JV.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.string.strfcn.jv;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * Copyright (C) 2018 Javier Velásquez (javiervelasquez125@gnail.com) *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
+import com.github.mylibrelab.elements.tools.JVSMain;
 
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.*;
 
 public class Concat extends JVSMain {
     private Image image;
@@ -50,17 +36,17 @@ public class Concat extends JVSMain {
     private VSString inDStr;
     private VSInteger inAInt;
     private VSInteger inBInt;
-    private VSInteger concatenateInputs = new VSInteger(2);
-    private VSInteger selectedFcn = new VSInteger(0);
+    private final VSInteger concatenateInputs = new VSInteger(2);
+    private final VSInteger selectedFcn = new VSInteger(0);
 
 
-    private VSString strOut = new VSString();
-    private VSInteger intOut = new VSInteger();
-    private VSBoolean boolOut = new VSBoolean();
+    private final VSString strOut = new VSString();
+    private final VSInteger intOut = new VSInteger();
+    private final VSBoolean boolOut = new VSBoolean();
     private VS1DByte bytesOut = new VS1DByte(0);
     private VS1DString strArrayOut = new VS1DString(0);
     private String oldValue = "";
-    private VSComboBox Strfunction = new VSComboBox();
+    private final VSComboBox Strfunction = new VSComboBox();
 
     public void onDispose() {
         if (image != null) {

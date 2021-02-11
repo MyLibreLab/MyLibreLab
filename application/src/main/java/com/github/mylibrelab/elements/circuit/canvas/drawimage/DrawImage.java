@@ -18,29 +18,19 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Canvas.DrawImage.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.canvas.drawimage;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
+import java.awt.image.MemoryImageSource;
 
+import com.github.mylibrelab.elements.tools.JVSMain;
 
+import VisualLogic.ElementActionEvent;
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSCanvas;
+import VisualLogic.variables.VSImage24;
+import VisualLogic.variables.VSInteger;
 
 public class DrawImage extends JVSMain {
     private Image image;
@@ -50,7 +40,7 @@ public class DrawImage extends JVSMain {
     private VSInteger xwidth;
     private VSInteger xheight;
     private VSBoolean interpolation;
-    private VSCanvas out = new VSCanvas();
+    private final VSCanvas out = new VSCanvas();
 
     public void onDispose() {
         if (image != null) {
@@ -129,7 +119,7 @@ public class DrawImage extends JVSMain {
 
             // Image Input
             if (evt.getSourcePinIndex() == 1) {
-                VSImage24 vsimg = (VSImage24) img;
+                VSImage24 vsimg = img;
 
                 Image gf = Toolkit.getDefaultToolkit().createImage(new MemoryImageSource(vsimg.getWidth(),
                         vsimg.getHeight(), vsimg.getPixels(), 0, vsimg.getWidth()));
@@ -137,10 +127,10 @@ public class DrawImage extends JVSMain {
                 xwidth.setValue(vsimg.getWidth());
                 xheight.setValue(vsimg.getHeight());
                 out.type = element.C_SHAPE_IMAGE;
-                out.x1 = (int) x.getValue();
-                out.y1 = (int) y.getValue();
-                out.x2 = (int) xwidth.getValue();
-                out.y2 = (int) xheight.getValue();
+                out.x1 = x.getValue();
+                out.y1 = y.getValue();
+                out.x2 = xwidth.getValue();
+                out.y2 = xheight.getValue();
                 // Rectangle2D shape = new Rectangle2D.Double(xwidth.getValue(),xheight.getValue());
 
                 out.antialising = interpolation.getValue();
@@ -150,10 +140,10 @@ public class DrawImage extends JVSMain {
                 // Rectangle2D shape = new
                 // Rectangle2D.Double(x.getValue(),y.getValue(),xwidth.getValue(),xheight.getValue());
                 out.type = element.C_SHAPE_IMAGE;
-                out.x1 = (int) x.getValue();
-                out.y1 = (int) y.getValue();
-                out.x2 = (int) xwidth.getValue();
-                out.y2 = (int) xheight.getValue();
+                out.x1 = x.getValue();
+                out.y1 = y.getValue();
+                out.x2 = xwidth.getValue();
+                out.y2 = xheight.getValue();
                 out.antialising = interpolation.getValue();
                 out.setChanged(true);
                 element.notifyPin(0);

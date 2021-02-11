@@ -18,12 +18,56 @@
  *
  */
 
+package com.github.mylibrelab.elements.circuit.numerik.datetime.datetime.vone.one;/*
+                                                                                   * Copyright (C) 2020 MyLibreLab
+                                                                                   * Based on MyOpenLab by Carmelo
+                                                                                   * Salafia www.myopenlab.de
+                                                                                   * Copyright (C) 2004 Carmelo Salafia
+                                                                                   * cswi@gmx.de
+                                                                                   *
+                                                                                   * This program is free software: you
+                                                                                   * can redistribute it and/or modify
+                                                                                   * it under the terms of the GNU
+                                                                                   * General Public License as published
+                                                                                   * by
+                                                                                   * the Free Software Foundation,
+                                                                                   * either version 3 of the License, or
+                                                                                   * (at your option) any later version.
+                                                                                   *
+                                                                                   * This program is distributed in the
+                                                                                   * hope that it will be useful,
+                                                                                   * but WITHOUT ANY WARRANTY; without
+                                                                                   * even the implied warranty of
+                                                                                   * MERCHANTABILITY or FITNESS FOR A
+                                                                                   * PARTICULAR PURPOSE. See the
+                                                                                   * GNU General Public License for more
+                                                                                   * details.
+                                                                                   *
+                                                                                   * You should have received a copy of
+                                                                                   * the GNU General Public License
+                                                                                   * along with this program. If not,
+                                                                                   * see <http://www.gnu.org/licenses/>.
+                                                                                   *
+                                                                                   */
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSComboBox;
+import VisualLogic.variables.VSInteger;
+
 public class DateTime extends JVSMain {
     private Image image;
     private Calendar rightNow = Calendar.getInstance();
-    private VSBoolean amPmFOrmat = new VSBoolean(false);
-    private VSInteger out = new VSInteger();
-    private VSComboBox param = new VSComboBox();
+    private final VSBoolean amPmFOrmat = new VSBoolean(false);
+    private final VSInteger out = new VSInteger();
+    private final VSComboBox param = new VSComboBox();
     private javax.swing.Timer timer;
     private int oldValue = -1;
 

@@ -27,7 +27,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Expression {
-    public static ArrayList code = new ArrayList();
+    // line 43 "-"
+    // %token constants
+    public static final int BYTE = 257;
 
     /*
      * public static void main (String args []) throws Exception
@@ -51,11 +53,6 @@ public class Expression {
      * }
      * }
      */
-
-
-    // line 43 "-"
-    // %token constants
-    public static final int BYTE = 257;
     public static final int WORD = 258;
     public static final int Real = 259;
     public static final int Variable = 260;
@@ -74,12 +71,10 @@ public class Expression {
     public static final int UNARY = 273;
     public static final int condition = 274;
     public static final int yyErrorCode = 256;
-
     /**
      * number of final state.
      */
     protected static final int yyFinal = 9;
-
     /**
      * parser tables.
      * Order is mandated by <i>jay</i>.
@@ -189,7 +184,6 @@ public class Expression {
                             258, 274, 260, -1, -1, -1, -1, -1, 258, -1,
                             260,
                     };
-
     /**
      * maps symbol value to printable name.
      *
@@ -219,6 +213,7 @@ public class Expression {
             "ATAN", "IF", "THEN", "DIM", "RBYTE", "RWORD", "LCD_PRINT_NUM", "UNARY",
             "condition",
     };
+    public static ArrayList code = new ArrayList();
 
     // t /** printable rules for debugging.
     // t */
@@ -271,45 +266,11 @@ public class Expression {
     // t }
     // t
     /**
-     * thrown for irrecoverable syntax errors and stack overflow.
-     * Nested for convenience, does not depend on parser class.
+     * initial size and increment of the state/value stack [default 256].
+     * This is not final so that it can be overwritten outside of invocations
+     * of {@link #yyparse}.
      */
-    public static class yyException extends java.lang.Exception {
-        public yyException(String message) {
-            super(message);
-        }
-    }
-
-    /**
-     * must be implemented by a scanner object to supply input to the parser.
-     * Nested for convenience, does not depend on parser class.
-     */
-    public interface yyInput {
-
-        /**
-         * move on to next token.
-         *
-         * @return <tt>false</tt> if positioned beyond tokens.
-         * @throws IOException on input error.
-         */
-        boolean advance() throws java.io.IOException;
-
-        /**
-         * classifies current token.
-         * Should not be called if {@link #advance()} returned <tt>false</tt>.
-         *
-         * @return current <tt>%token</tt> or single character.
-         */
-        int token();
-
-        /**
-         * associated with current token.
-         * Should not be called if {@link #advance()} returned <tt>false</tt>.
-         *
-         * @return value for {@link #token()}.
-         */
-        Object value();
-    }
+    protected int yyMax;
 
     /**
      * simplified error message.
@@ -360,7 +321,7 @@ public class Expression {
                 ok[token] = true;
             }
 
-        String result[] = new String[len];
+        String[] result = new String[len];
         for (n = token = 0; n < len; ++token)
             if (ok[token]) result[n++] = yyNames[token];
         return result;
@@ -380,13 +341,6 @@ public class Expression {
         // t this.yydebug = (jay.yydebug.yyDebug)yydebug;
         return yyparse(yyLex);
     }
-
-    /**
-     * initial size and increment of the state/value stack [default 256].
-     * This is not final so that it can be overwritten outside of invocations
-     * of {@link #yyparse}.
-     */
-    protected int yyMax;
 
     /**
      * executed at the beginning of a reduce action.
@@ -410,8 +364,10 @@ public class Expression {
      */
     public Object yyparse(yyInput yyLex) throws java.io.IOException, yyException {
         if (yyMax <= 0) yyMax = 256; // initial size
-        int yyState = 0, yyStates[] = new int[yyMax]; // state stack
-        Object yyVal = null, yyVals[] = new Object[yyMax]; // value stack
+        int yyState = 0; // state stack
+        int[] yyStates = new int[yyMax];
+        Object yyVal = null; // value stack
+        Object[] yyVals = new Object[yyMax];
         int yyToken = -1; // current input
         int yyErrorFlag = 0; // #tokens to shift
 
@@ -559,13 +515,13 @@ public class Expression {
                     case 14:
                     // line 80 "Expression.jay"
                     {
-                        code.add("PUSH_SI_C " + ((String) yyVals[0 + yyTop]));
+                        code.add("PUSH_SI_C " + yyVals[0 + yyTop]);
                     }
                         break;
                     case 15:
                     // line 81 "Expression.jay"
                     {
-                        code.add("LOAD_I " + ((String) yyVals[0 + yyTop]));
+                        code.add("LOAD_I " + yyVals[0 + yyTop]);
                     }
                         break;
                     case 16:
@@ -607,13 +563,13 @@ public class Expression {
                     case 23:
                     // line 92 "Expression.jay"
                     {
-                        code.add("STORE_I " + ((String) yyVals[-2 + yyTop]));
+                        code.add("STORE_I " + yyVals[-2 + yyTop]);
                     }
                         break;
                     case 28:
                     // line 100 "Expression.jay"
                     {
-                        code.add("DIM " + ((String) yyVals[-3 + yyTop]) + "," + ((String) yyVals[-2 + yyTop]));
+                        code.add("DIM " + yyVals[-3 + yyTop] + "," + yyVals[-2 + yyTop]);
                     }
                         break;
                     // line 533 "-"
@@ -643,6 +599,47 @@ public class Expression {
                 // t if (yydebug != null) yydebug.shift(yyStates[yyTop], yyState);
                 continue yyLoop;
             }
+        }
+    }
+
+    /**
+     * must be implemented by a scanner object to supply input to the parser.
+     * Nested for convenience, does not depend on parser class.
+     */
+    public interface yyInput {
+
+        /**
+         * move on to next token.
+         *
+         * @return <tt>false</tt> if positioned beyond tokens.
+         * @throws IOException on input error.
+         */
+        boolean advance() throws java.io.IOException;
+
+        /**
+         * classifies current token.
+         * Should not be called if {@link #advance()} returned <tt>false</tt>.
+         *
+         * @return current <tt>%token</tt> or single character.
+         */
+        int token();
+
+        /**
+         * associated with current token.
+         * Should not be called if {@link #advance()} returned <tt>false</tt>.
+         *
+         * @return value for {@link #token()}.
+         */
+        Object value();
+    }
+
+    /**
+     * thrown for irrecoverable syntax errors and stack overflow.
+     * Nested for convenience, does not depend on parser class.
+     */
+    public static class yyException extends java.lang.Exception {
+        public yyException(String message) {
+            super(message);
         }
     }
 

@@ -18,12 +18,53 @@
  *
  */
 
+package com.github.mylibrelab.elements.circuit.twodekoratoren.svgimage;/*
+                                                                        * Copyright (C) 2020 MyLibreLab
+                                                                        * Based on MyOpenLab by Carmelo Salafia
+                                                                        * www.myopenlab.de
+                                                                        * Copyright (C) 2004 Carmelo Salafia cswi@gmx.de
+                                                                        *
+                                                                        * This program is free software: you can
+                                                                        * redistribute it and/or modify
+                                                                        * it under the terms of the GNU General Public
+                                                                        * License as published by
+                                                                        * the Free Software Foundation, either version 3
+                                                                        * of the License, or
+                                                                        * (at your option) any later version.
+                                                                        *
+                                                                        * This program is distributed in the hope that
+                                                                        * it will be useful,
+                                                                        * but WITHOUT ANY WARRANTY; without even the
+                                                                        * implied warranty of
+                                                                        * MERCHANTABILITY or FITNESS FOR A PARTICULAR
+                                                                        * PURPOSE. See the
+                                                                        * GNU General Public License for more details.
+                                                                        *
+                                                                        * You should have received a copy of the GNU
+                                                                        * General Public License
+                                                                        * along with this program. If not, see
+                                                                        * <http://www.gnu.org/licenses/>.
+                                                                        *
+                                                                        */
+
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.variables.VSFile;
+import VisualLogic.variables.VSString;
+
 public class Panel extends JVSMain {
-    private boolean on = false;
-    private SVGManager svgManager = new SVGManager();
-    private VSFile file = new VSFile("");
-    private byte imageBytes[] = null;
-    private VSString xmlText = new VSString("");
+    private final boolean on = false;
+    private final SVGManager svgManager = new SVGManager();
+    private final VSFile file = new VSFile("");
+    private final byte[] imageBytes = null;
+    private final VSString xmlText = new VSString("");
 
     JPanel panel;
 

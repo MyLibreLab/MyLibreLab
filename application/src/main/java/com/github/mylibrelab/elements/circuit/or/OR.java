@@ -18,31 +18,18 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.OR.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.or;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
 
+import com.github.mylibrelab.elements.tools.JVSMain;
 
+import VisualLogic.ElementActionEvent;
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSObject;
 
 public class OR extends JVSMain {
+    VSObject vv = null;
     private Image image;
     private VSObject inA;
     private VSObject inB;
@@ -98,8 +85,6 @@ public class OR extends JVSMain {
         out.setPin(0);
     }
 
-
-
     public void initInputPins() {
         inA = (VSObject) element.getPinInputReference(1);
         inB = (VSObject) element.getPinInputReference(2);
@@ -110,7 +95,6 @@ public class OR extends JVSMain {
         // element.setPinOutputReference(i,out[i]);
         element.setPinOutputReference(0, out);
     }
-
 
     public void checkPinDataType() {
         boolean pinInA = element.hasPinWire(1);
@@ -147,12 +131,10 @@ public class OR extends JVSMain {
         element.jRepaint();
     }
 
-    VSObject vv = null;
-
     public void elementActionPerformed(ElementActionEvent evt) {
 
         if (inA instanceof VSObject && evt.getSourcePinIndex() == 1) {
-            vv = (VSObject) inA;
+            vv = inA;
 
             out.copyValueFrom(vv);
             out.setChanged(true);
@@ -160,7 +142,7 @@ public class OR extends JVSMain {
         }
 
         if (inB instanceof VSObject && evt.getSourcePinIndex() == 2) {
-            vv = (VSObject) inB;
+            vv = inB;
 
             out.copyValueFrom(vv);
             out.setChanged(true);

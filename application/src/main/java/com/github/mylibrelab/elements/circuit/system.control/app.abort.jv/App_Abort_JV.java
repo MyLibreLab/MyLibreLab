@@ -18,7 +18,7 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.System_Control.App_Abort_JV.src;// ********************************
+package com.github.mylibrelab.elements.circuit.system.control.app.abort.jv;// ********************************
 
 // * Autor : Robinson Javier Velasquez
 // * Date : Jul-24-2016
@@ -28,6 +28,13 @@ package com.github.mylibrelab.elements.circuit.System_Control.App_Abort_JV.src;/
 // ********************************
 
 
+import java.awt.*;
+import java.awt.event.WindowEvent;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
 
 public class App_Abort_JV extends JVSMain {
     private Image image;

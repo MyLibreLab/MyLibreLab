@@ -21,29 +21,33 @@
 package com.github.mylibrelab.elements.tools;
 
 
-public class Gatter extends JVSMain {
-    private int anzPins = 2;
-    private int width, height;
-    private Image image;
-    private String name = "";
+import java.awt.*;
 
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
+
+public class Gatter extends JVSMain {
+    private final int height;
     public VSBoolean inA;
     public VSBoolean inB;
     public VSBoolean out = new VSBoolean();
-
-    public void onDispose() {
-        if (image != null) {
-            image.flush();
-            image = null;
-        }
-    }
-
+    private int anzPins = 2;
+    private int width;
+    private Image image;
+    private String name = "";
 
     public Gatter(int anzPins, String name) {
         this.anzPins = anzPins;
         this.name = name;
         width = 50;
         height = 25;
+    }
+
+    public void onDispose() {
+        if (image != null) {
+            image.flush();
+            image = null;
+        }
     }
 
     public void paint(java.awt.Graphics g) {

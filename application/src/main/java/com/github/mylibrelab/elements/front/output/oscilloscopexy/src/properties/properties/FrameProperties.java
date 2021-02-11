@@ -18,18 +18,134 @@
  *
  */
 
-package com.github.mylibrelab.elements.front.Output.OscilloscopeXY.src.Properties.Properties.src;// *****************************************************************************
+package com.github.mylibrelab.elements.front.output.oscilloscopexy.src.properties.properties;// *****************************************************************************
 
 /**
- *
  * @author Homer
  */
 public class FrameProperties extends javax.swing.JDialog {
 
-    /** Creates new form FrameProperties */
+    public static boolean result = false;
+    public static int minX = -100;
+    // </editor-fold>//GEN-END:initComponents
+    public static int maxX = 100;
+    public static int minY = -100;
+    public static int maxY = 100;
+    public static int zoomX = 1;
+    public static int zoomY = 1;
+    public static int stepX = 20;
+    public static int stepY = 10;
+    public static int darstellungAs = 1; // 0 : Punkt 1 : Linie
+    public static boolean showFontXAchse = true;
+    public static boolean showFontYAchse = true;
+    public static boolean showHelpLinesXAchse = true;
+    public static boolean showHelpLinesYAchse = true;
+    public static boolean xAchseBottom = false;
+    public static boolean yAchseLeft = false;
+    public static boolean xAchseLettersBottom = false;
+    public static boolean yAchseLettersLeft = false;
+    public static boolean fadenKreuzVisible = true;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.ButtonGroup buttonGroup4;
+    private javax.swing.ButtonGroup buttonGroup5;
+    private javax.swing.JButton jBtnCancel;
+    private javax.swing.JButton jBtnOK;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JCheckBox jCheckBox4;
+    private javax.swing.JCheckBox jCheckBoxFadenKreuzVisible;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton10;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JRadioButton jRadioButton5;
+    private javax.swing.JRadioButton jRadioButton6;
+    private javax.swing.JRadioButton jRadioButton7;
+    private javax.swing.JRadioButton jRadioButton8;
+    private javax.swing.JRadioButton jRadioButton9;
+    private javax.swing.JSpinner jSpinnerMaxX;
+    private javax.swing.JSpinner jSpinnerMaxY;
+    private javax.swing.JSpinner jSpinnerMinX;
+    private javax.swing.JSpinner jSpinnerMinY;
+    private javax.swing.JSpinner jSpinnerStepX;
+    private javax.swing.JSpinner jSpinnerStepY;
+    private javax.swing.JSpinner jSpinnerZoomX;
+    private javax.swing.JSpinner jSpinnerZoomY;
+
+    /**
+     * Creates new form FrameProperties
+     */
     public FrameProperties(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+
+    // Liefert TRUE wenn alles OK,
+    // und FALSE wenn auf Cancel gedrückt worden ist
+    public static boolean execute() {
+        FrameProperties frm = new FrameProperties(null, true);
+        frm.jSpinnerZoomX.setValue(new Integer(zoomX));
+        frm.jSpinnerZoomY.setValue(new Integer(zoomY));
+        frm.jSpinnerStepX.setValue(new Integer(stepX));
+        frm.jSpinnerStepY.setValue(new Integer(stepY));
+
+        frm.jSpinnerMinX.setValue(new Integer(minX));
+        frm.jSpinnerMaxX.setValue(new Integer(maxX));
+        frm.jSpinnerMinY.setValue(new Integer(minY));
+        frm.jSpinnerMaxY.setValue(new Integer(maxY));
+
+        if (darstellungAs == 0)
+            frm.jRadioButton1.setSelected(true);
+        else
+            frm.jRadioButton2.setSelected(true);
+
+        frm.jCheckBox1.setSelected(showFontXAchse);
+        frm.jCheckBox2.setSelected(showFontYAchse);
+        frm.jCheckBox3.setSelected(showHelpLinesXAchse);
+        frm.jCheckBox4.setSelected(showHelpLinesYAchse);
+
+        if (xAchseBottom)
+            frm.jRadioButton4.setSelected(true);
+        else
+            frm.jRadioButton3.setSelected(true);
+        if (yAchseLeft)
+            frm.jRadioButton6.setSelected(true);
+        else
+            frm.jRadioButton5.setSelected(true);
+        if (xAchseLettersBottom)
+            frm.jRadioButton8.setSelected(true);
+        else
+            frm.jRadioButton7.setSelected(true);
+        if (yAchseLettersLeft)
+            frm.jRadioButton10.setSelected(true);
+        else
+            frm.jRadioButton9.setSelected(true);
+
+        frm.jCheckBoxFadenKreuzVisible.setSelected(fadenKreuzVisible);
+
+
+        frm.setVisible(true);
+        return result;
     }
 
     /**
@@ -261,7 +377,6 @@ public class FrameProperties extends javax.swing.JDialog {
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width - 343) / 2, (screenSize.height - 538) / 2, 343, 538);
     }
-    // </editor-fold>//GEN-END:initComponents
 
     private void jBtnOKActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBtnOKActionPerformed
         zoomX = ((Integer) jSpinnerZoomX.getValue()).intValue();
@@ -286,22 +401,10 @@ public class FrameProperties extends javax.swing.JDialog {
         showHelpLinesXAchse = jCheckBox3.isSelected();
         showHelpLinesYAchse = jCheckBox4.isSelected();
 
-        if (jRadioButton4.isSelected())
-            xAchseBottom = true;
-        else
-            xAchseBottom = false;
-        if (jRadioButton6.isSelected())
-            yAchseLeft = true;
-        else
-            yAchseLeft = false;
-        if (jRadioButton8.isSelected())
-            xAchseLettersBottom = true;
-        else
-            xAchseLettersBottom = false;
-        if (jRadioButton10.isSelected())
-            yAchseLettersLeft = true;
-        else
-            yAchseLettersLeft = false;
+        xAchseBottom = jRadioButton4.isSelected();
+        yAchseLeft = jRadioButton6.isSelected();
+        xAchseLettersBottom = jRadioButton8.isSelected();
+        yAchseLettersLeft = jRadioButton10.isSelected();
         result = true;
         dispose();
     }// GEN-LAST:event_jBtnOKActionPerformed
@@ -314,126 +417,6 @@ public class FrameProperties extends javax.swing.JDialog {
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCheckBox1ActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_jCheckBox1ActionPerformed
-
-    // Liefert TRUE wenn alles OK,
-    // und FALSE wenn auf Cancel gedrückt worden ist
-    public static boolean execute() {
-        FrameProperties frm = new FrameProperties(null, true);
-        frm.jSpinnerZoomX.setValue(new Integer(zoomX));
-        frm.jSpinnerZoomY.setValue(new Integer(zoomY));
-        frm.jSpinnerStepX.setValue(new Integer(stepX));
-        frm.jSpinnerStepY.setValue(new Integer(stepY));
-
-        frm.jSpinnerMinX.setValue(new Integer(minX));
-        frm.jSpinnerMaxX.setValue(new Integer(maxX));
-        frm.jSpinnerMinY.setValue(new Integer(minY));
-        frm.jSpinnerMaxY.setValue(new Integer(maxY));
-
-        if (darstellungAs == 0)
-            frm.jRadioButton1.setSelected(true);
-        else
-            frm.jRadioButton2.setSelected(true);
-
-        frm.jCheckBox1.setSelected(showFontXAchse);
-        frm.jCheckBox2.setSelected(showFontYAchse);
-        frm.jCheckBox3.setSelected(showHelpLinesXAchse);
-        frm.jCheckBox4.setSelected(showHelpLinesYAchse);
-
-        if (xAchseBottom)
-            frm.jRadioButton4.setSelected(true);
-        else
-            frm.jRadioButton3.setSelected(true);
-        if (yAchseLeft)
-            frm.jRadioButton6.setSelected(true);
-        else
-            frm.jRadioButton5.setSelected(true);
-        if (xAchseLettersBottom)
-            frm.jRadioButton8.setSelected(true);
-        else
-            frm.jRadioButton7.setSelected(true);
-        if (yAchseLettersLeft)
-            frm.jRadioButton10.setSelected(true);
-        else
-            frm.jRadioButton9.setSelected(true);
-
-        frm.jCheckBoxFadenKreuzVisible.setSelected(fadenKreuzVisible);
-
-
-        frm.setVisible(true);
-        return result;
-    }
-
-    public static boolean result = false;
-
-    public static int minX = -100;
-    public static int maxX = 100;
-    public static int minY = -100;
-    public static int maxY = 100;
-
-    public static int zoomX = 1;
-    public static int zoomY = 1;
-    public static int stepX = 20;
-    public static int stepY = 10;
-    public static int darstellungAs = 1; // 0 : Punkt 1 : Linie
-    public static boolean showFontXAchse = true;
-    public static boolean showFontYAchse = true;
-    public static boolean showHelpLinesXAchse = true;
-    public static boolean showHelpLinesYAchse = true;
-
-    public static boolean xAchseBottom = false;
-    public static boolean yAchseLeft = false;
-    public static boolean xAchseLettersBottom = false;
-    public static boolean yAchseLettersLeft = false;
-    public static boolean fadenKreuzVisible = true;
-
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.ButtonGroup buttonGroup3;
-    private javax.swing.ButtonGroup buttonGroup4;
-    private javax.swing.ButtonGroup buttonGroup5;
-    private javax.swing.JButton jBtnCancel;
-    private javax.swing.JButton jBtnOK;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBoxFadenKreuzVisible;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton10;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
-    private javax.swing.JRadioButton jRadioButton7;
-    private javax.swing.JRadioButton jRadioButton8;
-    private javax.swing.JRadioButton jRadioButton9;
-    private javax.swing.JSpinner jSpinnerMaxX;
-    private javax.swing.JSpinner jSpinnerMaxY;
-    private javax.swing.JSpinner jSpinnerMinX;
-    private javax.swing.JSpinner jSpinnerMinY;
-    private javax.swing.JSpinner jSpinnerStepX;
-    private javax.swing.JSpinner jSpinnerStepY;
-    private javax.swing.JSpinner jSpinnerZoomX;
-    private javax.swing.JSpinner jSpinnerZoomY;
-    // End of variables declaration//GEN-END:variables
+     // End of variables declaration//GEN-END:variables
 
 }

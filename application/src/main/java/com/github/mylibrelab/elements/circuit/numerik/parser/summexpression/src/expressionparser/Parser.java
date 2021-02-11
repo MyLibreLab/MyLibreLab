@@ -18,9 +18,11 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Numerik.Parser.SummExpression.src.ExpressionParser;
+package com.github.mylibrelab.elements.circuit.numerik.parser.summexpression.src.expressionparser;
 
 
+import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 class Token {
     public boolean isNum = false;
@@ -68,10 +70,10 @@ public class Parser {
     private static final String OPERATOREN = "+-*/^%";
     private static final String KLAMMER = "()";
     private StringTokenizer tokenizer;
-    private ArrayList mainVector = new ArrayList();
+    private final ArrayList mainVector = new ArrayList();
     private ArrayList optVector;
     private int pointer = 0;
-    private ArrayList vars = new ArrayList();
+    private final ArrayList vars = new ArrayList();
     private String errorMessage = "";
 
 
@@ -440,7 +442,7 @@ public class Parser {
     }
 
     private boolean isFunc(String val) {
-        if (val.equalsIgnoreCase("sin") ||
+        return val.equalsIgnoreCase("sin") ||
                 val.equalsIgnoreCase("cos") ||
                 val.equalsIgnoreCase("tan") ||
                 val.equalsIgnoreCase("asin") ||
@@ -457,10 +459,7 @@ public class Parser {
                 val.equalsIgnoreCase("round") ||
                 val.equalsIgnoreCase("fak") ||
                 val.equalsIgnoreCase("toDeg") ||
-                val.equalsIgnoreCase("toRad")) {
-            return true;
-        } else
-            return false;
+                val.equalsIgnoreCase("toRad");
     }
 
     private boolean isIn(String a, String set) {

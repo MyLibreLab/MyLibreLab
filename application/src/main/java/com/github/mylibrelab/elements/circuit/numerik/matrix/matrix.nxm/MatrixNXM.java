@@ -18,29 +18,18 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Numerik.Matrix.Matrix_NXM.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.numerik.matrix.matrix.nxm;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VS2DDouble;
+import VisualLogic.variables.VSInteger;
 
 class DoubleModel extends javax.swing.table.DefaultTableModel {
     public Class getColumnClass(int columnIndex) {
@@ -50,16 +39,16 @@ class DoubleModel extends javax.swing.table.DefaultTableModel {
 
 
 public class MatrixNXM extends JVSMain {
-    private Object valueObj = null;
+    private final Object valueObj = null;
 
-    private JTable table = new JTable();
-    private JScrollPane bar = new JScrollPane(table);
+    private final JTable table = new JTable();
+    private final JScrollPane bar = new JScrollPane(table);
 
-    private VSInteger zeilen = new VSInteger(3);
-    private VSInteger spalten = new VSInteger(3);
+    private final VSInteger zeilen = new VSInteger(3);
+    private final VSInteger spalten = new VSInteger(3);
 
 
-    private DefaultTableModel model = new DoubleModel();
+    private final DefaultTableModel model = new DoubleModel();
 
     private VS2DDouble out = new VS2DDouble(spalten.getValue(), zeilen.getValue());
 

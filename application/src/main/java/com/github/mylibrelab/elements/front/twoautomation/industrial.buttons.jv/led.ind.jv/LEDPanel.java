@@ -18,34 +18,82 @@
  *
  */
 
+package com.github.mylibrelab.elements.front.twoautomation.industrial.buttons.jv.led.ind.jv;/*
+                                                                                             * Copyright (C) 2020
+                                                                                             * MyLibreLab
+                                                                                             * Based on MyOpenLab by
+                                                                                             * Carmelo Salafia
+                                                                                             * www.myopenlab.de
+                                                                                             * Copyright (C) 2004
+                                                                                             * Carmelo Salafia
+                                                                                             * cswi@gmx.de
+                                                                                             *
+                                                                                             * This program is free
+                                                                                             * software: you can
+                                                                                             * redistribute it and/or
+                                                                                             * modify
+                                                                                             * it under the terms of the
+                                                                                             * GNU General Public
+                                                                                             * License as published by
+                                                                                             * the Free Software
+                                                                                             * Foundation, either
+                                                                                             * version 3 of the License,
+                                                                                             * or
+                                                                                             * (at your option) any
+                                                                                             * later version.
+                                                                                             *
+                                                                                             * This program is
+                                                                                             * distributed in the hope
+                                                                                             * that it will be useful,
+                                                                                             * but WITHOUT ANY WARRANTY;
+                                                                                             * without even the implied
+                                                                                             * warranty of
+                                                                                             * MERCHANTABILITY or
+                                                                                             * FITNESS FOR A PARTICULAR
+                                                                                             * PURPOSE. See the
+                                                                                             * GNU General Public
+                                                                                             * License for more details.
+                                                                                             *
+                                                                                             * You should have received
+                                                                                             * a copy of the GNU General
+                                                                                             * Public License
+                                                                                             * along with this program.
+                                                                                             * If not, see
+                                                                                             * <http://www.gnu.org/
+                                                                                             * licenses/>.
+                                                                                             *
+                                                                                             */
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.PanelIF;
+import VisualLogic.variables.*;
+
 public class LEDPanel extends JVSMain implements PanelIF {
+    private final VSInteger strokeValue = new VSInteger(2);
+    private final BasicStroke strokeLine = new BasicStroke(1);
+    private final SVGManager svgManager = new SVGManager();
+    private final VSBoolean initValue = new VSBoolean(false);
+    private final VSBoolean textVisible = new VSBoolean(true);
+    private final VSString captionON = new VSString("ON");
+    private final VSString captionOFF = new VSString("OFF");
+    private final VSBoolean baseVisible = new VSBoolean(true);
+    private final VSColorAdvanced baseColor = new VSColorAdvanced();
+    private final VSColorAdvanced strokeBaseColor = new VSColorAdvanced();
+    private final VSColorAdvanced shadowLigthColor = new VSColorAdvanced();
+    private final VSColorAdvanced shadowDarkColor = new VSColorAdvanced();
+    private final VSFont font = new VSFont(new Font("Dialog", 1, 15));
+    private final VSColor fontColor = new VSColor(Color.WHITE);
+    private final VSColor onButtonColor = new VSColor(Color.WHITE);
+    private final VSColor offButtonColor = new VSColor(Color.WHITE);
+    private final VSColorAdvanced buttonLigthColor = new VSColorAdvanced();
+    private final VSColorAdvanced buttonDarkColor = new VSColorAdvanced();
+    private final VSColor edgeColor = new VSColor(Color.BLACK);
     private boolean on = false;
-    private VSInteger strokeValue = new VSInteger(2);
     private BasicStroke stroke = new BasicStroke(1);
-    private BasicStroke strokeLine = new BasicStroke(1);
-    private SVGManager svgManager = new SVGManager();
-
-
-
-    private VSBoolean initValue = new VSBoolean(false);
-    private VSBoolean textVisible = new VSBoolean(true);
-    private VSString captionON = new VSString("ON");
-    private VSString captionOFF = new VSString("OFF");
-    private VSBoolean baseVisible = new VSBoolean(true);
-    private VSColorAdvanced baseColor = new VSColorAdvanced();
-    private VSColorAdvanced strokeBaseColor = new VSColorAdvanced();
-    private VSColorAdvanced shadowLigthColor = new VSColorAdvanced();
-    private VSColorAdvanced shadowDarkColor = new VSColorAdvanced();
-
-    private VSFont font = new VSFont(new Font("Dialog", 1, 15));
-    private VSColor fontColor = new VSColor(Color.WHITE);
-    private VSColor onButtonColor = new VSColor(Color.WHITE);
-    private VSColor offButtonColor = new VSColor(Color.WHITE);
-    private VSColorAdvanced buttonLigthColor = new VSColorAdvanced();
-    private VSColorAdvanced buttonDarkColor = new VSColorAdvanced();
-    private VSColor edgeColor = new VSColor(Color.BLACK);
-
-
 
     private void setOn(boolean value) {
         if (value != on) {
@@ -55,10 +103,7 @@ public class LEDPanel extends JVSMain implements PanelIF {
     }
 
     public void processPanel(int pinIndex, double value, Object obj) {
-        if (value == 0.0)
-            setOn(false);
-        else
-            setOn(true);
+        setOn(value != 0.0);
     }
 
     public void paint(java.awt.Graphics g) {
@@ -181,14 +226,12 @@ public class LEDPanel extends JVSMain implements PanelIF {
                 bubble.translate(23, 23);
                 blackim.translate(23, 23);
 
-                svgManager.paint(g2, (int) tWidth - X0Im, (int) tHeight - Y0Im);
+                svgManager.paint(g2, tWidth - X0Im, tHeight - Y0Im);
             }
-
 
 
             // -----------------------------------------------------------------------------DRAW BOOLEN TEXT
             if (textVisible.getValue()) {
-
 
 
                 g2.setFont(font.getValue());
@@ -237,7 +280,6 @@ public class LEDPanel extends JVSMain implements PanelIF {
         offButtonColor.setValue(new Color(51, 0, 0));
 
         strokeBaseColor.color1 = new Color(102, 102, 102);
-
 
 
         shadowLigthColor.color1 = new Color(153, 153, 153);
@@ -340,7 +382,7 @@ public class LEDPanel extends JVSMain implements PanelIF {
         element.jSetPEItemLocale(d + i++, language, "Color Obscuro del Boton");
         element.jSetPEItemLocale(d + i++, language, "Color LED ON");
         element.jSetPEItemLocale(d + i++, language, "Color LED OFF");
-        element.jSetPEItemLocale(d + i++, language, "Color Bordes");;
+        element.jSetPEItemLocale(d + i++, language, "Color Bordes");
 
     }
 

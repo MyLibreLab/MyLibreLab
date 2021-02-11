@@ -18,43 +18,85 @@
  *
  */
 
+package com.github.mylibrelab.elements.front.twonumerisch.steel.gauges.jv.horizon.jv;/*
+                                                                                      * Copyright (C) 2020 MyLibreLab
+                                                                                      * Based on MyOpenLab by Carmelo
+                                                                                      * Salafia www.myopenlab.de
+                                                                                      * Copyright (C) 2004 Carmelo
+                                                                                      * Salafia cswi@gmx.de
+                                                                                      *
+                                                                                      * This program is free software:
+                                                                                      * you can redistribute it and/or
+                                                                                      * modify
+                                                                                      * it under the terms of the GNU
+                                                                                      * General Public License as
+                                                                                      * published by
+                                                                                      * the Free Software Foundation,
+                                                                                      * either version 3 of the License,
+                                                                                      * or
+                                                                                      * (at your option) any later
+                                                                                      * version.
+                                                                                      *
+                                                                                      * This program is distributed in
+                                                                                      * the hope that it will be useful,
+                                                                                      * but WITHOUT ANY WARRANTY;
+                                                                                      * without even the implied
+                                                                                      * warranty of
+                                                                                      * MERCHANTABILITY or FITNESS FOR A
+                                                                                      * PARTICULAR PURPOSE. See the
+                                                                                      * GNU General Public License for
+                                                                                      * more details.
+                                                                                      *
+                                                                                      * You should have received a copy
+                                                                                      * of the GNU General Public
+                                                                                      * License
+                                                                                      * along with this program. If not,
+                                                                                      * see
+                                                                                      * <http://www.gnu.org/licenses/>.
+                                                                                      *
+                                                                                      */
+
+import java.awt.*;
+
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.PanelIF;
+import VisualLogic.variables.*;
+
 public class GaugePanel extends JVSMain implements PanelIF {
-    private int width = 50, height = 150;
+    final private static Horizon myGauge = new Horizon();
+    private final int width = 50;
+    private final int height = 150;
+    private final VSDouble InitialPitch = new VSDouble(0.0);
+    private final VSDouble InitialRoll = new VSDouble(0.0);
+    private final VSColor fontColor = new VSColor(Color.red);
+    private final VSFont font = new VSFont(new Font("Dialog", Font.BOLD, 11));
+    private final VSComboBox ledColor = new VSComboBox();
+    private final VSComboBox barColor = new VSComboBox();
+    private final VSDouble minMeasured = new VSDouble(-360.0);
+    private final VSBoolean lcdDisplayEn = new VSBoolean(false);
+    private final VSBoolean digitalFontEn = new VSBoolean(true);
+    private final VSComboBox lcdDisplayColor = new VSComboBox();
+    private final VSComboBox pointerColor = new VSComboBox();
+    private final VSBoolean backGroundVisible = new VSBoolean(true);
+    private final VSBoolean frameVisible = new VSBoolean(true);
+    private final VSComboBox backGroundColor = new VSComboBox();
+    private final VSComboBox frameDesign = new VSComboBox();
+    private final VSBoolean tresholdIndicatorEn = new VSBoolean(true);
+    private final VSDouble maxMeasured = new VSDouble(360.0);
+    private final VSBoolean tresholdLedIndicatorEn = new VSBoolean(true);
+    private final VSDouble tresholdValue = new VSDouble(50.0);
+    private final VSBoolean trackEnable = new VSBoolean(true);
+    private final VSDouble trackStart = new VSDouble(70.0);
+    private final VSDouble trackSection = new VSDouble(85.0);
+    private final VSDouble trackStop = new VSDouble(100.0);
+    // private VSColor skyColor = new VSColor(new Color(153,153,255)); //
+    private final VSColor skyColor = new VSColor(new Color(204, 204, 255)); //
+    private final VSColor groundColor = new VSColor(new Color(0, 0, 51));
     private double value = 0.0;
     private double oldPin;
-    final private static Horizon myGauge = new Horizon();
-    private VSDouble InitialPitch = new VSDouble(0.0);
-    private VSDouble InitialRoll = new VSDouble(0.0);
-
-    private VSColor fontColor = new VSColor(Color.red);
-    private VSFont font = new VSFont(new Font("Dialog", Font.BOLD, 11));
-
-    private VSComboBox ledColor = new VSComboBox();
-    private VSComboBox barColor = new VSComboBox();
-    private VSDouble minMeasured = new VSDouble(-360.0);
-    private VSBoolean lcdDisplayEn = new VSBoolean(false);
-    private VSBoolean digitalFontEn = new VSBoolean(true);
-    private VSComboBox lcdDisplayColor = new VSComboBox();
-    private VSComboBox pointerColor = new VSComboBox();
-    private VSBoolean backGroundVisible = new VSBoolean(true);
-    private VSBoolean frameVisible = new VSBoolean(true);
-    private VSComboBox backGroundColor = new VSComboBox();
-    private VSComboBox frameDesign = new VSComboBox();
-    private VSBoolean tresholdIndicatorEn = new VSBoolean(true);
-    private VSDouble maxMeasured = new VSDouble(360.0);
-    private VSBoolean tresholdLedIndicatorEn = new VSBoolean(true);
-    private VSDouble tresholdValue = new VSDouble(50.0);
-    private VSBoolean trackEnable = new VSBoolean(true);
-
-    private VSDouble trackStart = new VSDouble(70.0);
-    private VSDouble trackSection = new VSDouble(85.0);
-    private VSDouble trackStop = new VSDouble(100.0);
-
-    // private VSColor skyColor = new VSColor(new Color(153,153,255)); //
-    private VSColor skyColor = new VSColor(new Color(204, 204, 255)); //
-    private VSColor groundColor = new VSColor(new Color(0, 0, 51));
-
-
 
     public void processPanel(int pinIndex, double value, Object obj) {
         // if (obj instanceof VSDouble){
@@ -283,7 +325,6 @@ public class GaugePanel extends JVSMain implements PanelIF {
         GaugeSet();
         element.jRepaint();
     }
-
 
 
     public void loadFromStream(java.io.FileInputStream fis) {

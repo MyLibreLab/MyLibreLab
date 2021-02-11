@@ -18,9 +18,52 @@
  *
  */
 
+package com.github.mylibrelab.elements.circuit.numerik.parser.math.graph.generator;/*
+                                                                                    * Copyright (C) 2020 MyLibreLab
+                                                                                    * Based on MyOpenLab by Carmelo
+                                                                                    * Salafia www.myopenlab.de
+                                                                                    * Copyright (C) 2004 Carmelo Salafia
+                                                                                    * cswi@gmx.de
+                                                                                    *
+                                                                                    * This program is free software: you
+                                                                                    * can redistribute it and/or modify
+                                                                                    * it under the terms of the GNU
+                                                                                    * General Public License as
+                                                                                    * published by
+                                                                                    * the Free Software Foundation,
+                                                                                    * either version 3 of the License,
+                                                                                    * or
+                                                                                    * (at your option) any later
+                                                                                    * version.
+                                                                                    *
+                                                                                    * This program is distributed in the
+                                                                                    * hope that it will be useful,
+                                                                                    * but WITHOUT ANY WARRANTY; without
+                                                                                    * even the implied warranty of
+                                                                                    * MERCHANTABILITY or FITNESS FOR A
+                                                                                    * PARTICULAR PURPOSE. See the
+                                                                                    * GNU General Public License for
+                                                                                    * more details.
+                                                                                    *
+                                                                                    * You should have received a copy of
+                                                                                    * the GNU General Public License
+                                                                                    * along with this program. If not,
+                                                                                    * see
+                                                                                    * <http://www.gnu.org/licenses/>.
+                                                                                    *
+                                                                                    */
+
+import java.awt.*;
+import java.util.Locale;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.*;
+
 public class MathGraphGenerator extends JVSMain {
     private Image image;
-    private VSGroup group = new VSGroup();
+    private final VSGroup group = new VSGroup();
     private VS1DDouble outX = null;
     private VS1DDouble outY = null;
     private VSString inExpr;
@@ -28,12 +71,12 @@ public class MathGraphGenerator extends JVSMain {
 
     private boolean oldValue;
 
-    private VSString outError = new VSString();
-    private Parser parser = new Parser("");
+    private final VSString outError = new VSString();
+    private final Parser parser = new Parser("");
 
-    private VSDouble step = new VSDouble(1);
-    private VSDouble minX = new VSDouble(-500);
-    private VSDouble maxX = new VSDouble(+500);
+    private final VSDouble step = new VSDouble(1);
+    private final VSDouble minX = new VSDouble(-500);
+    private final VSDouble maxX = new VSDouble(+500);
 
 
 

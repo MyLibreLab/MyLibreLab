@@ -1,16 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ /*
+  ~  * Copyright (C) 2020 MyLibreLab
+  ~  * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+  ~  * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+  ~  *
+  ~  * This program is free software: you can redistribute it and/or modify
+  ~  * it under the terms of the GNU General Public License as published by
+  ~  * the Free Software Foundation, either version 3 of the License, or
+  ~  * (at your option) any later version.
+  ~  *
+  ~  * This program is distributed in the hope that it will be useful,
+  ~  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  * GNU General Public License for more details.
+  ~  *
+  ~  * You should have received a copy of the GNU General Public License
+  ~  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  ~  *
+  ~  */
+  -->
+
 <root>
-  <caption>Automation JV</caption>
-  <caption_en>Automation JV</caption_en>
-  <caption_es>Automatizacion JV</caption_es>
-  <categorie>Education</categorie>
-  <author>Ing. Javier Velásquez</author>
-  <email>javiervelasquez125@gmail.com</email>
-  <web>http://myopenlab.org</web>
-  <version>1.0.0.0</version>
-  <date>18.04.2018</date>
-  <dest_path>/FrontElements/2Automation</dest_path>
-  <type>FrontElements</type>
-  <content>
-  </content>
+    <caption>Automation JV</caption>
+    <caption_en>Automation JV</caption_en>
+    <caption_es>Automatizacion JV</caption_es>
+    <categorie>Education</categorie>
+    <author>Ing. Javier Velásquez</author>
+    <email>javiervelasquez125@gmail.com</email>
+    <web>http://myopenlab.org</web>
+    <version>1.0.0.0</version>
+    <date>18.04.2018</date>
+    <dest_path>/FrontElements/2Automation</dest_path>
+    <type>FrontElements</type>
+    <content>
+    </content>
 </root>

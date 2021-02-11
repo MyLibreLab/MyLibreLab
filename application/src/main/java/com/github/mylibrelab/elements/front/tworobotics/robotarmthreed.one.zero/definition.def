@@ -1,0 +1,8 @@
+ISDIRECTORY  = FALSE
+CAPTION	     = Robot Arm 3D Simulatio V. 0.9 b
+CAPTION_EN   = Robot Arm 3D Simulatio V. 0.9 b
+CAPTION_ES   = Robot Arm 3D Simulatio V. 0.9 b
+ClassCircuit = RobotCanvas
+ClassFront   = Panel
+icon         = bin/icon.png
+ClassPath    = bin/Java3DRobot.jar

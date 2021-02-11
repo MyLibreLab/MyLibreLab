@@ -18,9 +18,9 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Extras.Javascript.src;
+package com.github.mylibrelab.elements.circuit.extras.javascript;
 
-import java.awt.GraphicsEnvironment;
+import java.awt.*;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -121,7 +121,7 @@ public class EditorFrame extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         /* Set the Nimbus look and feel */
         // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /*

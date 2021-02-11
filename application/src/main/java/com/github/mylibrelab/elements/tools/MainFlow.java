@@ -21,6 +21,14 @@
 package com.github.mylibrelab.elements.tools;
 
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.geom.Rectangle2D;
+
+import javax.swing.*;
+
+import VisualLogic.variables.VSString;
+
 public class MainFlow extends JVSMain {
     public VSString variable = new VSString("i");
     public Font font = new Font("Courier", 0, 12);
@@ -170,7 +178,7 @@ public class MainFlow extends JVSMain {
 
 
     public void jTextKeyPressed(java.awt.event.KeyEvent evt) {
-        if (evt.getKeyCode() == evt.VK_ESCAPE) {
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
                     text.setVisible(false);
@@ -179,7 +187,7 @@ public class MainFlow extends JVSMain {
             });
         }
 
-        if (evt.getKeyCode() == evt.VK_ENTER) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
                     variable.setValue(text.getText());

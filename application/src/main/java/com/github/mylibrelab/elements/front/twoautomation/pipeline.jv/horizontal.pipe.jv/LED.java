@@ -18,6 +18,58 @@
  *
  */
 
+package com.github.mylibrelab.elements.front.twoautomation.pipeline.jv.horizontal.pipe.jv;/*
+                                                                                           * Copyright (C) 2020
+                                                                                           * MyLibreLab
+                                                                                           * Based on MyOpenLab by
+                                                                                           * Carmelo Salafia
+                                                                                           * www.myopenlab.de
+                                                                                           * Copyright (C) 2004 Carmelo
+                                                                                           * Salafia cswi@gmx.de
+                                                                                           *
+                                                                                           * This program is free
+                                                                                           * software: you can
+                                                                                           * redistribute it and/or
+                                                                                           * modify
+                                                                                           * it under the terms of the
+                                                                                           * GNU General Public License
+                                                                                           * as published by
+                                                                                           * the Free Software
+                                                                                           * Foundation, either version
+                                                                                           * 3 of the License, or
+                                                                                           * (at your option) any later
+                                                                                           * version.
+                                                                                           *
+                                                                                           * This program is distributed
+                                                                                           * in the hope that it will be
+                                                                                           * useful,
+                                                                                           * but WITHOUT ANY WARRANTY;
+                                                                                           * without even the implied
+                                                                                           * warranty of
+                                                                                           * MERCHANTABILITY or FITNESS
+                                                                                           * FOR A PARTICULAR PURPOSE.
+                                                                                           * See the
+                                                                                           * GNU General Public License
+                                                                                           * for more details.
+                                                                                           *
+                                                                                           * You should have received a
+                                                                                           * copy of the GNU General
+                                                                                           * Public License
+                                                                                           * along with this program. If
+                                                                                           * not, see
+                                                                                           * <http://www.gnu.org/
+                                                                                           * licenses/>.
+                                                                                           *
+                                                                                           */
+
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSObject;
+
 public class LED extends JVSMain {
     private ExternalIF panelElement;
     private Image image;
@@ -74,8 +126,8 @@ public class LED extends JVSMain {
         firstTime2 = true;
         panelElement = element.getPanelElement();
         if (panelElement != null) {
-            panelElement.jProcessPanel(0, 0.0, (Object) this);
-            panelElement.jProcessPanel(1, 0.0, (Object) this);
+            panelElement.jProcessPanel(0, 0.0, this);
+            panelElement.jProcessPanel(1, 0.0, this);
         }
     }
 
@@ -86,9 +138,9 @@ public class LED extends JVSMain {
             if ((in != null) && ((inX.getValue() != oldValue) || (firstTime))) {
                 firstTime = false;
                 if (inX.getValue()) {
-                    if (panelElement != null) panelElement.jProcessPanel(0, 1.0, (Object) this);
+                    if (panelElement != null) panelElement.jProcessPanel(0, 1.0, this);
                 } else {
-                    if (panelElement != null) panelElement.jProcessPanel(0, 0.0, (Object) this);
+                    if (panelElement != null) panelElement.jProcessPanel(0, 0.0, this);
                 }
                 panelElement.jRepaint();
                 oldValue = inX.getValue();
@@ -100,9 +152,9 @@ public class LED extends JVSMain {
             if ((in2 != null) && ((inX.getValue() != oldValue2) || (firstTime2))) {
                 firstTime2 = false;
                 if (inX.getValue()) {
-                    if (panelElement != null) panelElement.jProcessPanel(1, 1.0, (Object) this);
+                    if (panelElement != null) panelElement.jProcessPanel(1, 1.0, this);
                 } else {
-                    if (panelElement != null) panelElement.jProcessPanel(1, 0.0, (Object) this);
+                    if (panelElement != null) panelElement.jProcessPanel(1, 0.0, this);
                 }
                 panelElement.jRepaint();
                 oldValue2 = inX.getValue();

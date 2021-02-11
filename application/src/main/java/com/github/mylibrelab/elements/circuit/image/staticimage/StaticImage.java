@@ -18,39 +18,30 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Image.StaticImage.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.image.staticimage;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
+import java.awt.image.PixelGrabber;
+import java.util.Locale;
 
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSFile;
+import VisualLogic.variables.VSImage;
+import VisualLogic.variables.VSImage24;
+import VisualLogic.variables.VSInteger;
 
 public class StaticImage extends JVSMain {
     private Image icon = null;
 
-    private VSImage outImage = new VSImage();
-    private VSInteger outWidth = new VSInteger();
-    private VSInteger outHeight = new VSInteger();
-    private VSImage24 out = new VSImage24(1, 1);
+    private final VSImage outImage = new VSImage();
+    private final VSInteger outWidth = new VSInteger();
+    private final VSInteger outHeight = new VSInteger();
+    private final VSImage24 out = new VSImage24(1, 1);
 
-    private VSFile file = new VSFile("");
-    private byte imageBytes[] = null;
+    private final VSFile file = new VSFile("");
+    private final byte[] imageBytes = null;
 
 
     public void paint(java.awt.Graphics g) {

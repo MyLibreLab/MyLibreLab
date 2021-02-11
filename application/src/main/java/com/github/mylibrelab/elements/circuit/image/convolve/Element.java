@@ -18,28 +18,19 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Image.Convolve.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.image.convolve;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.*;
 
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VS2DDouble;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSDouble;
+import VisualLogic.variables.VSImage24;
 
 public class Element extends JVSMain {
     private Image image;
@@ -49,7 +40,7 @@ public class Element extends JVSMain {
     private VS2DDouble matrix;
     private VSDouble factor;
     private VSBoolean convolve;
-    private VSImage24 out = new VSImage24(1, 1);
+    private final VSImage24 out = new VSImage24(1, 1);
 
     public void onDispose() {
         if (image != null) {

@@ -18,8 +18,10 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Numerik.Parser.SummExpression.src.ExpressionParser;
+package com.github.mylibrelab.elements.circuit.numerik.parser.summexpression.src.expressionparser;
 
+
+import java.awt.*;
 
 /**
  *
@@ -90,7 +92,7 @@ public class Visual extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Visual().setVisible(true);

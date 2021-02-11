@@ -18,29 +18,17 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Numerik.dividierer.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.numerik.dividierer;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
 
+import com.github.mylibrelab.elements.tools.JVSMain;
 
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSByte;
+import VisualLogic.variables.VSDouble;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSObject;
 
 public class Dividierer extends JVSMain {
     private Image image;
@@ -146,46 +134,46 @@ public class Dividierer extends JVSMain {
         if (inA instanceof VSDouble) {
             VSDouble valA = (VSDouble) inA;
             a = valA.getValue();
-        } ;
+        }
 
         if (inB instanceof VSDouble) {
             VSDouble valB = (VSDouble) inB;
             b = valB.getValue();
-        } ;
+        }
 
         if (inA instanceof VSInteger) {
             VSInteger valA = (VSInteger) inA;
             a = valA.getValue();
-        } ;
+        }
 
         if (inB instanceof VSInteger) {
             VSInteger valB = (VSInteger) inB;
             b = valB.getValue();
-        } ;
+        }
 
         if (inA instanceof VSByte) {
             VSByte valA = (VSByte) inA;
             a = toSigned(valA.getValue());
-        } ;
+        }
 
         if (inB instanceof VSByte) {
             VSByte valB = (VSByte) inB;
             b = toSigned(valB.getValue());
-        } ;
+        }
 
 
         if (out instanceof VSDouble) {
             VSDouble outX = (VSDouble) out;
             outX.setValue(a / b);
-        } ;
+        }
         if (out instanceof VSInteger) {
             VSInteger outX = (VSInteger) out;
             outX.setValue((int) (a / b));
-        } ;
+        }
         if (out instanceof VSByte) {
             VSByte outX = (VSByte) out;
             outX.setValue(toUnsigned((short) (a / b)));
-        } ;
+        }
 
         element.notifyPin(0);
     }

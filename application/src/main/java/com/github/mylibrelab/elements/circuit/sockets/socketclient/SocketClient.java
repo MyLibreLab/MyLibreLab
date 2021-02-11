@@ -18,29 +18,19 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Sockets.SocketClient.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.sockets.socketclient;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.util.Locale;
 
+import com.github.mylibrelab.elements.tools.JVSMain;
 
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.*;
 
 public class SocketClient extends JVSMain {
     public ObjectInputStream serverIn;
@@ -48,8 +38,8 @@ public class SocketClient extends JVSMain {
     private Socket clientSocket;
 
 
-    private VSString ipAdresse = new VSString("localhost");
-    private VSInteger port = new VSInteger(4444);
+    private final VSString ipAdresse = new VSString("localhost");
+    private final VSInteger port = new VSInteger(4444);
 
     private Image image = null;
 
@@ -64,14 +54,14 @@ public class SocketClient extends JVSMain {
     private boolean connected = false;
 
 
-    private VSComboBox dtPin0 = new VSComboBox();
-    private VSComboBox dtPin1 = new VSComboBox();
-    private VSComboBox dtPin2 = new VSComboBox();
-    private VSComboBox dtPin3 = new VSComboBox();
-    private VSComboBox dtPin4 = new VSComboBox();
-    private VSComboBox dtPin5 = new VSComboBox();
-    private VSComboBox dtPin6 = new VSComboBox();
-    private VSComboBox dtPin7 = new VSComboBox();
+    private final VSComboBox dtPin0 = new VSComboBox();
+    private final VSComboBox dtPin1 = new VSComboBox();
+    private final VSComboBox dtPin2 = new VSComboBox();
+    private final VSComboBox dtPin3 = new VSComboBox();
+    private final VSComboBox dtPin4 = new VSComboBox();
+    private final VSComboBox dtPin5 = new VSComboBox();
+    private final VSComboBox dtPin6 = new VSComboBox();
+    private final VSComboBox dtPin7 = new VSComboBox();
 
     private VSBoolean inConnect;
     private VSBoolean inDisconnect;
@@ -97,9 +87,9 @@ public class SocketClient extends JVSMain {
 
     public WarteAufObject warteAufObject;
 
-    private int STATUS_NOT_CONNECTED = 0;
-    private int STATUS_CONNECTED = 1;
-    private int STATUS_ERROR = 2;
+    private final int STATUS_NOT_CONNECTED = 0;
+    private final int STATUS_CONNECTED = 1;
+    private final int STATUS_ERROR = 2;
 
     private int status = STATUS_NOT_CONNECTED;
 
@@ -187,7 +177,7 @@ public class SocketClient extends JVSMain {
         }
 
 
-        String liste[] = element.jGetDataTypeList();
+        String[] liste = element.jGetDataTypeList();
 
         for (int i = 0; i < liste.length; i++) {
             dtPin0.addItem(liste[i]);
@@ -457,7 +447,7 @@ public class SocketClient extends JVSMain {
     private void disconnectServer() {
 
         try {
-            serverOut.writeObject(new String("exit"));
+            serverOut.writeObject("exit");
             serverOut.flush();
             serverOut.reset();
 
@@ -535,7 +525,7 @@ public class SocketClient extends JVSMain {
 class WarteAufObject extends Thread {
     private Object obj = null;
     public ObjectInputStream serverIn;
-    private SocketClient client;
+    private final SocketClient client;
 
     public WarteAufObject(ObjectInputStream serverIn, SocketClient client) {
         this.serverIn = serverIn;

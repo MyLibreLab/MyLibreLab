@@ -18,55 +18,55 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Extras.Javascript.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.extras.javascript;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.script.*;
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSComboBox;
+import VisualLogic.variables.VSObject;
+import VisualLogic.variables.VSPropertyDialog;
+import VisualLogic.variables.VSString;
 
 public class Javascript extends JVSMain {
 
     public File tempfile;
     private Image image;
 
-    private com.github.mylibrelab.elements.circuit.Interface.Firmata.src.MyTimer theTimer =
+    private final com.github.mylibrelab.elements.circuit.Interface.Firmata.src.MyTimer theTimer =
             new com.github.mylibrelab.elements.circuit.Interface.Firmata.src.MyTimer(this);
-    private Thread timer = new Thread(theTimer);
+    private final Thread timer = new Thread(theTimer);
 
-    private VSComboBox dtPin_in_0 = new VSComboBox();
-    private VSComboBox dtPin_in_1 = new VSComboBox();
-    private VSComboBox dtPin_in_2 = new VSComboBox();
-    private VSComboBox dtPin_in_3 = new VSComboBox();
-    private VSComboBox dtPin_in_4 = new VSComboBox();
-    private VSComboBox dtPin_in_5 = new VSComboBox();
-    private VSComboBox dtPin_in_6 = new VSComboBox();
-    private VSComboBox dtPin_in_7 = new VSComboBox();
+    private final VSComboBox dtPin_in_0 = new VSComboBox();
+    private final VSComboBox dtPin_in_1 = new VSComboBox();
+    private final VSComboBox dtPin_in_2 = new VSComboBox();
+    private final VSComboBox dtPin_in_3 = new VSComboBox();
+    private final VSComboBox dtPin_in_4 = new VSComboBox();
+    private final VSComboBox dtPin_in_5 = new VSComboBox();
+    private final VSComboBox dtPin_in_6 = new VSComboBox();
+    private final VSComboBox dtPin_in_7 = new VSComboBox();
 
-    private VSComboBox dtPin_out_0 = new VSComboBox();
-    private VSComboBox dtPin_out_1 = new VSComboBox();
-    private VSComboBox dtPin_out_2 = new VSComboBox();
-    private VSComboBox dtPin_out_3 = new VSComboBox();
-    private VSComboBox dtPin_out_4 = new VSComboBox();
-    private VSComboBox dtPin_out_5 = new VSComboBox();
-    private VSComboBox dtPin_out_6 = new VSComboBox();
-    private VSComboBox dtPin_out_7 = new VSComboBox();
+    private final VSComboBox dtPin_out_0 = new VSComboBox();
+    private final VSComboBox dtPin_out_1 = new VSComboBox();
+    private final VSComboBox dtPin_out_2 = new VSComboBox();
+    private final VSComboBox dtPin_out_3 = new VSComboBox();
+    private final VSComboBox dtPin_out_4 = new VSComboBox();
+    private final VSComboBox dtPin_out_5 = new VSComboBox();
+    private final VSComboBox dtPin_out_6 = new VSComboBox();
+    private final VSComboBox dtPin_out_7 = new VSComboBox();
 
     private VSObject in0;
     private VSObject in1;
@@ -91,7 +91,7 @@ public class Javascript extends JVSMain {
     private CompiledScript cs;
     public VSString script = new VSString();
 
-    private VSPropertyDialog more = new VSPropertyDialog();
+    private final VSPropertyDialog more = new VSPropertyDialog();
 
     @Override
     public void onDispose() {
@@ -186,7 +186,7 @@ public class Javascript extends JVSMain {
         element.jSetPinDescription(14, "In");
         element.jSetPinDescription(15, "In");
 
-        String liste[] = element.jGetDataTypeList();
+        String[] liste = element.jGetDataTypeList();
 
         for (String liste1 : liste) {
             dtPin_in_0.addItem(liste1);

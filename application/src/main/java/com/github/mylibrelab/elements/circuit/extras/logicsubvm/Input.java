@@ -18,27 +18,15 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Extras.LogicSubVM.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.extras.logicsubvm;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.*;
 
 /**
  *
@@ -50,12 +38,12 @@ package com.github.mylibrelab.elements.circuit.Extras.LogicSubVM.src;// ********
 
 public class Input extends JDialog {
     // Anfang Variablen
-    private Button button1 = new Button();
-    private Panel checkboxGroup1Panel = new Panel();
-    private CheckboxGroup checkboxGroup1 = new CheckboxGroup();
-    private Button button2 = new Button();
-    private TextField textField1 = new TextField();
-    private Label label1 = new Label();
+    private final Button button1 = new Button();
+    private final Panel checkboxGroup1Panel = new Panel();
+    private final CheckboxGroup checkboxGroup1 = new CheckboxGroup();
+    private final Button button2 = new Button();
+    private final TextField textField1 = new TextField();
+    private final Label label1 = new Label();
     public static String result = "";
 
     // Ende Variablen

@@ -21,25 +21,31 @@
 package com.github.mylibrelab.elements.tools;
 
 
+import java.awt.*;
+
+import VisualLogic.ElementActionEvent;
+import VisualLogic.ElementIF;
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSFlowInfo;
+
 public class JVSMain extends Object implements ElementIF {
     public ExternalIF element;
 
     private String name;
+    private boolean firstTime = true;
+
+    public String getName() {
+        return name;
+    }
 
     public void setName(String name) {
         this.name = name;
         element.jSetName(name);
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void xOnInit() {
 
     }
-
-
 
     public void destElementCalled() {
 
@@ -52,8 +58,6 @@ public class JVSMain extends Object implements ElementIF {
     public String getBinDir() {
         return "";
     }
-
-    private boolean firstTime = true;
 
     public void beforeInit(String[] args) {
 
@@ -126,7 +130,6 @@ public class JVSMain extends Object implements ElementIF {
         element.jSetBottomPinsVisible(bottom);
         element.jSetLeftPinsVisible(left);
     }
-
 
 
     public void drawImageCentred(Graphics g, Image image) {

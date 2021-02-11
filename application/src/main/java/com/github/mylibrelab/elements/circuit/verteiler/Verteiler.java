@@ -18,41 +18,28 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Verteiler.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.verteiler;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
 
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSObject;
 
 public class Verteiler extends JVSMain {
-    private Object valueObj = null;
-    private boolean oki = false;
-    private int okiPin = -1;
+    private final Object valueObj = null;
+    private final boolean oki = false;
+    private final int okiPin = -1;
     private int aktuellerPin;
 
-    private VSInteger anzPins = new VSInteger(2);
+    private final VSInteger anzPins = new VSInteger(2);
 
     private VSObject in;
-    private VSObject out[];
+    private VSObject[] out;
 
-    private VSInteger outPins = new VSInteger(2);
+    private final VSInteger outPins = new VSInteger(2);
 
     public static final byte PIN_INPUT = 1;
     public static final byte PIN_OUTPUT = 2;

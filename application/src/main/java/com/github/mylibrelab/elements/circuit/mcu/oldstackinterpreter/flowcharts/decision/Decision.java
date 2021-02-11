@@ -18,36 +18,23 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.MCU.oldStackInterpreter.FlowCharts.Decision.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.mcu.oldstackinterpreter.flowcharts.decision;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
+import com.github.mylibrelab.elements.tools.MainFlow;
+
+import VisualLogic.VSBasisIF;
+import VisualLogic.variables.VSFlowInfo;
 
 public class Decision extends MainFlow {
     private Image image;
     private VSBasisIF basis;
     private VSFlowInfo in = null;
-    private VSFlowInfo outY = new VSFlowInfo();
-    private VSFlowInfo outN = new VSFlowInfo();
-    private String[] strElements = null;
+    private final VSFlowInfo outY = new VSFlowInfo();
+    private final VSFlowInfo outN = new VSFlowInfo();
+    private final String[] strElements = null;
 
 
     public void paint(java.awt.Graphics g) {
@@ -83,7 +70,7 @@ public class Decision extends MainFlow {
             Rectangle2D r = fm.getStringBounds(caption, g2);
 
             g2.setColor(Color.BLACK);
-            g.drawString(caption, mitteX - (int) (r.getWidth() / 2), (int) (mitteY + fm.getHeight() / 2) - 3);
+            g.drawString(caption, mitteX - (int) (r.getWidth() / 2), (mitteY + fm.getHeight() / 2) - 3);
 
             g2.setColor(new Color(180, 0, 0));
 

@@ -18,9 +18,9 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Extras.Javascript.src;
+package com.github.mylibrelab.elements.circuit.extras.javascript;
 
-import java.awt.GraphicsEnvironment;
+import java.awt.*;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

@@ -18,18 +18,54 @@
  *
  */
 
+package com.github.mylibrelab.elements.circuit.verteiler.kopie;/*
+                                                                * Copyright (C) 2020 MyLibreLab
+                                                                * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+                                                                * Copyright (C) 2004 Carmelo Salafia cswi@gmx.de
+                                                                *
+                                                                * This program is free software: you can redistribute it
+                                                                * and/or modify
+                                                                * it under the terms of the GNU General Public License
+                                                                * as published by
+                                                                * the Free Software Foundation, either version 3 of the
+                                                                * License, or
+                                                                * (at your option) any later version.
+                                                                *
+                                                                * This program is distributed in the hope that it will
+                                                                * be useful,
+                                                                * but WITHOUT ANY WARRANTY; without even the implied
+                                                                * warranty of
+                                                                * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+                                                                * See the
+                                                                * GNU General Public License for more details.
+                                                                *
+                                                                * You should have received a copy of the GNU General
+                                                                * Public License
+                                                                * along with this program. If not, see
+                                                                * <http://www.gnu.org/licenses/>.
+                                                                *
+                                                                */
+
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSObject;
+
 public class Verteiler extends JVSMain {
-    private Object valueObj = null;
-    private boolean oki = false;
-    private int okiPin = -1;
+    private final Object valueObj = null;
+    private final boolean oki = false;
+    private final int okiPin = -1;
     private int aktuellerPin;
 
-    private VSInteger anzPins = new VSInteger(2);
+    private final VSInteger anzPins = new VSInteger(2);
 
     private VSObject in;
-    private VSObject out[];
+    private VSObject[] out;
 
-    private VSInteger outPins = new VSInteger(2);
+    private final VSInteger outPins = new VSInteger(2);
 
     public static final byte PIN_INPUT = 1;
     public static final byte PIN_OUTPUT = 2;

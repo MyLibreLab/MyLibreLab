@@ -1,0 +1,8 @@
+ISDIRECTORY  = FALSE
+CAPTION	     = Simple Robot 3D
+CAPTION_EN   = Simple Robot 3D
+CAPTION_ES   = Simple Robot 3D
+ClassCircuit = RobotCanvas
+ClassFront   = Panel
+icon         = bin/icon.png
+ClassPath    = bin/RobotSimulator3D.jar

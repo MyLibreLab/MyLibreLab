@@ -18,19 +18,68 @@
  *
  */
 
+package com.github.mylibrelab.elements.front.twonumerisch.steel.gauges.jv.stopwatch.jv;/*
+                                                                                        * Copyright (C) 2020 MyLibreLab
+                                                                                        * Based on MyOpenLab by Carmelo
+                                                                                        * Salafia www.myopenlab.de
+                                                                                        * Copyright (C) 2004 Carmelo
+                                                                                        * Salafia cswi@gmx.de
+                                                                                        *
+                                                                                        * This program is free software:
+                                                                                        * you can redistribute it and/or
+                                                                                        * modify
+                                                                                        * it under the terms of the GNU
+                                                                                        * General Public License as
+                                                                                        * published by
+                                                                                        * the Free Software Foundation,
+                                                                                        * either version 3 of the
+                                                                                        * License, or
+                                                                                        * (at your option) any later
+                                                                                        * version.
+                                                                                        *
+                                                                                        * This program is distributed in
+                                                                                        * the hope that it will be
+                                                                                        * useful,
+                                                                                        * but WITHOUT ANY WARRANTY;
+                                                                                        * without even the implied
+                                                                                        * warranty of
+                                                                                        * MERCHANTABILITY or FITNESS FOR
+                                                                                        * A PARTICULAR PURPOSE. See the
+                                                                                        * GNU General Public License for
+                                                                                        * more details.
+                                                                                        *
+                                                                                        * You should have received a
+                                                                                        * copy of the GNU General Public
+                                                                                        * License
+                                                                                        * along with this program. If
+                                                                                        * not, see
+                                                                                        * <http://www.gnu.org/licenses/>
+                                                                                        * .
+                                                                                        *
+                                                                                        */
+
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSObject;
+import VisualLogic.variables.VSString;
+
 public class GaugeCircuit extends JVSMain {
+    private final VSString out = new VSString("0");
+    private final VSInteger Minutes = new VSInteger(0);
+    private final VSInteger Seconds = new VSInteger(0);
+    private final VSInteger Millis = new VSInteger(0);
     private boolean oldValue;
     private ExternalIF panelElement;
     private Image image;
     private VSObject in = null;
-    private VSString out = new VSString("0");
-    private VSInteger Minutes = new VSInteger(0);
-    private VSInteger Seconds = new VSInteger(0);
-    private VSInteger Millis = new VSInteger(0);
     private boolean firstTime = false;
     private VSString val;
     private boolean changed = false;
-
 
 
     public void onDispose() {
@@ -53,7 +102,6 @@ public class GaugeCircuit extends JVSMain {
         element.jSetBottomPinsVisible(false);
 
         image = element.jLoadImage(element.jGetSourcePath() + "icon.gif");
-
 
 
         setPin(0, ExternalIF.C_STRING, element.PIN_OUTPUT);
@@ -137,9 +185,8 @@ public class GaugeCircuit extends JVSMain {
     public void start() {
         firstTime = true;
         panelElement = element.getPanelElement();
-        panelElement.jProcessPanel(0, 0.0, (Object) this);
+        panelElement.jProcessPanel(0, 0.0, this);
     }
-
 
 
     public void process() {
@@ -149,9 +196,9 @@ public class GaugeCircuit extends JVSMain {
             if ((in != null) && ((inX.getValue() != oldValue) || (firstTime))) {
                 firstTime = false;
                 if (inX.getValue()) {
-                    if (panelElement != null) panelElement.jProcessPanel(0, 1.0, (Object) this);
+                    if (panelElement != null) panelElement.jProcessPanel(0, 1.0, this);
                 } else {
-                    if (panelElement != null) panelElement.jProcessPanel(0, 0.0, (Object) this);
+                    if (panelElement != null) panelElement.jProcessPanel(0, 0.0, this);
                 }
                 panelElement.jRepaint();
                 oldValue = inX.getValue();

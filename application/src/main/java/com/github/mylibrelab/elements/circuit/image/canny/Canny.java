@@ -18,29 +18,11 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Image.Canny.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.image.canny;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
-
-
+import java.awt.*;
+import java.util.EmptyStackException;
+import java.util.Stack;
 
 /**
  * Canny is an algorithm to apply the canny edge detector to an image
@@ -142,9 +124,9 @@ public class Canny extends Thread {
                         tmp_2d[i + 1][j + 1] - tmp_2d[i + 1][j]) / 2;
                 q_2d[i][j] = (tmp_2d[i][j] - tmp_2d[i + 1][j] +
                         tmp_2d[i][j + 1] - tmp_2d[i + 1][j + 1]) / 2;
-                m_2d[i][j] = (int) Math.sqrt(Math.pow((double) p_2d[i][j], 2) +
-                        Math.pow((double) q_2d[i][j], 2));
-                theta_2d[i][j] = Math.atan2((double) (q_2d[i][j]), (double) (p_2d[i][j]));
+                m_2d[i][j] = (int) Math.sqrt(Math.pow(p_2d[i][j], 2) +
+                        Math.pow(q_2d[i][j], 2));
+                theta_2d[i][j] = Math.atan2(q_2d[i][j], p_2d[i][j]);
             }
         }
 

@@ -18,29 +18,9 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.MCU.oldStackInterpreter.UserElement.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.mcu.oldstackinterpreter.userelement;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
-
-
+import java.util.ArrayList;
 
 /**
  *
@@ -57,8 +37,8 @@ public class FileConfigParser {
     public String strInputPins = "0";
     public String strOutputPins = "0";
 
-    public int pinTypes[] = new int[100];
-    public String pinDescription[] = new String[100];
+    public int[] pinTypes = new int[100];
+    public String[] pinDescription = new String[100];
 
     public final int PIN_NOP = 0;
     public final int PIN_INTEGER = 1;
@@ -104,7 +84,7 @@ public class FileConfigParser {
     }
 
 
-    private String[] reduceTokens(String tokens[]) {
+    private String[] reduceTokens(String[] tokens) {
         ArrayList<String> result = new ArrayList();
 
         for (int i = 0; i < tokens.length; i++) {
@@ -113,7 +93,7 @@ public class FileConfigParser {
             }
         }
 
-        String res[] = new String[result.size()];
+        String[] res = new String[result.size()];
         for (int i = 0; i < result.size(); i++) {
             res[i] = result.get(i);
         }
@@ -128,9 +108,9 @@ public class FileConfigParser {
         while (pc < liste.size()) {
             inputString = liste.get(pc);
 
-            String tokenX[] = inputString.split("\\s"); // Trenner ist das leerzeichen
+            String[] tokenX = inputString.split("\\s"); // Trenner ist das leerzeichen
 
-            String tokens[] = reduceTokens(tokenX);
+            String[] tokens = reduceTokens(tokenX);
 
             if (tokens.length > 0) {
                 String token = tokens[0].trim();
@@ -233,7 +213,7 @@ public class FileConfigParser {
 
             c++;
             if (ch.equalsIgnoreCase("\n")) {
-                liste.add(new String(line));
+                liste.add(line);
                 line = "";
                 c = 0;
             } else {
@@ -242,7 +222,7 @@ public class FileConfigParser {
             i++;
         }
         if (c > 0) {
-            liste.add(new String(line));
+            liste.add(line);
         }
 
         /*

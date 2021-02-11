@@ -18,37 +18,24 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.MCU.StackInterpreter.old.LCD_PRINT_NUM.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.mcu.stackinterpreter.old.lcd.print.num;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
 
+import javax.swing.*;
 
+import com.github.mylibrelab.elements.tools.MCUMainFlow;
+
+import VisualLogic.VSBasisIF;
+import VisualLogic.variables.VSFlowInfo;
+import VisualLogic.variables.VSString;
 
 public class PrintNum extends MCUMainFlow {
+    private final VSFlowInfo out = new VSFlowInfo();
+    private final VSString param = new VSString("");
     private Image image;
     private VSBasisIF basis;
     private VSFlowInfo in = null;
-    private VSFlowInfo out = new VSFlowInfo();
-
-    private VSString param = new VSString("");
 
     public void paint(java.awt.Graphics g) {
         if (element != null) {
@@ -66,7 +53,6 @@ public class PrintNum extends MCUMainFlow {
             g2.fillRect(bounds.x, mitteY - distanceY, bounds.width, 2 * distanceY);
             g2.setColor(Color.BLACK);
             g2.drawRect(bounds.x, mitteY - distanceY, bounds.width, 2 * distanceY);
-
 
 
             String caption = "LCD_PRINT_NUM(" + param.getValue() + ")";
@@ -140,7 +126,6 @@ public class PrintNum extends MCUMainFlow {
         element.jSetCaption("Calculate");
 
 
-
         setName("#MCU-FLOWCHART-CALCULATE#");
 
     }
@@ -166,7 +151,6 @@ public class PrintNum extends MCUMainFlow {
     }
 
     public void propertyChanged(Object o) {
-
 
 
         if (o.equals(param)) // darf Variable oder Konstante sein!

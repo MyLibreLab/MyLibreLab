@@ -18,35 +18,24 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Numerik.DateTime.DateTime.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.numerik.datetime.datetime;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
 
+import com.github.mylibrelab.elements.tools.JVSMain;
 
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSComboBox;
+import VisualLogic.variables.VSInteger;
 
 public class DateTime extends JVSMain {
     private Image image;
     private Calendar rightNow = Calendar.getInstance();
-    private VSInteger out = new VSInteger();
-    private VSComboBox param = new VSComboBox();
+    private final VSInteger out = new VSInteger();
+    private final VSComboBox param = new VSComboBox();
     private javax.swing.Timer timer;
     private int oldValue = -1;
 

@@ -21,24 +21,22 @@
 package com.github.mylibrelab.elements.tools;
 
 
+import java.awt.*;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSInteger;
+
 public class Gatter2 extends JVSMain {
 
-    private int width, height;
-    private Image image;
-    private String name = "";
-    public VSBoolean in[];
+    private final int height;
+    public VSBoolean[] in;
     public VSInteger delay = new VSInteger(0); // = 0 micro sec.
     public VSBoolean out = new VSBoolean();
     public VSInteger anzPins = new VSInteger(2);
-
-    public void onDispose() {
-        if (image != null) {
-            image.flush();
-            image = null;
-        }
-    }
-
-
+    private int width;
+    private Image image;
+    private String name = "";
 
     public Gatter2(int anzPins, String name) {
         this.anzPins.setValue(anzPins);
@@ -46,6 +44,13 @@ public class Gatter2 extends JVSMain {
         this.name = name;
         width = 50;
         height = 25;
+    }
+
+    public void onDispose() {
+        if (image != null) {
+            image.flush();
+            image = null;
+        }
     }
 
     public void paint(java.awt.Graphics g) {
@@ -83,7 +88,6 @@ public class Gatter2 extends JVSMain {
             element.jRefreshVM();
         }
     }
-
 
 
     public void setPropertyEditor() {

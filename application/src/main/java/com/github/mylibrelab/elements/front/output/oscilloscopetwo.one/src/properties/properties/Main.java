@@ -18,15 +18,16 @@
  *
  */
 
-package com.github.mylibrelab.elements.front.Output.Oscilloscope2_1.src.Properties.Properties.src;// *****************************************************************************
+package com.github.mylibrelab.elements.front.output.oscilloscopetwo.one.src.properties.properties;// *****************************************************************************
 
 /**
- *
  * @author Homer
  */
 public class Main {
 
-    /** Creates a new instance of Main */
+    /**
+     * Creates a new instance of Main
+     */
     public Main() {}
 
     /**

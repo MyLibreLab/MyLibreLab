@@ -18,6 +18,37 @@
  *
  */
 
+package com.github.mylibrelab.elements.circuit.analoge.elemente.ton.generator;/*
+                                                                               * Copyright (C) 2020 MyLibreLab
+                                                                               * Based on MyOpenLab by Carmelo Salafia
+                                                                               * www.myopenlab.de
+                                                                               * Copyright (C) 2004 Carmelo Salafia
+                                                                               * cswi@gmx.de
+                                                                               *
+                                                                               * This program is free software: you can
+                                                                               * redistribute it and/or modify
+                                                                               * it under the terms of the GNU General
+                                                                               * Public License as published by
+                                                                               * the Free Software Foundation, either
+                                                                               * version 3 of the License, or
+                                                                               * (at your option) any later version.
+                                                                               *
+                                                                               * This program is distributed in the hope
+                                                                               * that it will be useful,
+                                                                               * but WITHOUT ANY WARRANTY; without even
+                                                                               * the implied warranty of
+                                                                               * MERCHANTABILITY or FITNESS FOR A
+                                                                               * PARTICULAR PURPOSE. See the
+                                                                               * GNU General Public License for more
+                                                                               * details.
+                                                                               *
+                                                                               * You should have received a copy of the
+                                                                               * GNU General Public License
+                                                                               * along with this program. If not, see
+                                                                               * <http://www.gnu.org/licenses/>.
+                                                                               *
+                                                                               */
+
 public class TonGenrator extends JVSMain {
     private VSGroup in;
     private Image image;
@@ -47,7 +78,7 @@ public class TonGenrator extends JVSMain {
     // A buffer to hold two seconds monaural and one
     // second stereo data at 16000 samp/sec for
     // 16-bit samples
-    byte audioData[] = new byte[16000 * 4];
+    byte[] audioData = new byte[16000 * 4];
 
 
     public void onDispose() {
@@ -115,7 +146,7 @@ public class TonGenrator extends JVSMain {
         // the data between the AudioInputStream and
         // the SourceDataLine. The size is rather
         // arbitrary.
-        byte playBuffer[] = new byte[16384];
+        byte[] playBuffer = new byte[16384];
 
         public void run() {
             try {

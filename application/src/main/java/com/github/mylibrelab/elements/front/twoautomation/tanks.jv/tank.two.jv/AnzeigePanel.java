@@ -18,49 +18,80 @@
  *
  */
 
+package com.github.mylibrelab.elements.front.twoautomation.tanks.jv.tank.two.jv;/*
+                                                                                 * Copyright (C) 2020 MyLibreLab
+                                                                                 * Based on MyOpenLab by Carmelo Salafia
+                                                                                 * www.myopenlab.de
+                                                                                 * Copyright (C) 2004 Carmelo Salafia
+                                                                                 * cswi@gmx.de
+                                                                                 *
+                                                                                 * This program is free software: you
+                                                                                 * can redistribute it and/or modify
+                                                                                 * it under the terms of the GNU General
+                                                                                 * Public License as published by
+                                                                                 * the Free Software Foundation, either
+                                                                                 * version 3 of the License, or
+                                                                                 * (at your option) any later version.
+                                                                                 *
+                                                                                 * This program is distributed in the
+                                                                                 * hope that it will be useful,
+                                                                                 * but WITHOUT ANY WARRANTY; without
+                                                                                 * even the implied warranty of
+                                                                                 * MERCHANTABILITY or FITNESS FOR A
+                                                                                 * PARTICULAR PURPOSE. See the
+                                                                                 * GNU General Public License for more
+                                                                                 * details.
+                                                                                 *
+                                                                                 * You should have received a copy of
+                                                                                 * the GNU General Public License
+                                                                                 * along with this program. If not, see
+                                                                                 * <http://www.gnu.org/licenses/>.
+                                                                                 *
+                                                                                 */
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.text.DecimalFormat;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.PanelIF;
+import VisualLogic.variables.*;
+
 public class AnzeigePanel extends JVSMain implements PanelIF {
-    private int width = 180, height = 180;
+    private final int width = 180;
+    private final int height = 180;
+    private final VSString formatierung = new VSString("#0");
+    private final DecimalFormat df = new DecimalFormat(formatierung.getValue());
+    private final VSInteger arcValue = new VSInteger(10);
+    private final VSDouble InitialValue = new VSDouble(0.0);
+    private final VSBoolean TextVisible = new VSBoolean(true);
+    private final VSFont textFont = new VSFont(new Font("Dialog", Font.BOLD, 18));
+    private final VSComboBox textAlign = new VSComboBox();
+    private final VSColor textColor = new VSColor(new Color(0, 0, 51));
+    private final VSBoolean UnitsVisible = new VSBoolean(true);
+    private final VSString UnitsStr = new VSString("%");
+    private final VSBoolean displayEdgeVisible = new VSBoolean(true);
+    private final VSColor displayEdgeColor = new VSColor(new Color(253, 153, 0));
+    private final VSBoolean displayFill = new VSBoolean(true);
+    private final VSColor displayFillColor = new VSColor(new Color(255, 242, 181));
+    private final VSBoolean tankfillExpand = new VSBoolean(false);
+    private final VSColor UpperFillColor = new VSColor(new Color(0, 0, 102));
+    private final VSColor fillColor1 = new VSColor(new Color(0, 0, 102));
+    private final VSColor fillColor2 = new VSColor(new Color(153, 204, 255));
+    private final VSInteger strokeValue = new VSInteger(5);
+    private final VSColorAdvanced strokeColor = new VSColorAdvanced();
+    private final VSColorAdvanced overlayColor = new VSColorAdvanced();
+    private final VSBoolean tankEdgeVisible = new VSBoolean(true);
+    private final VSColor tankEdgeColor = new VSColor(Color.BLACK);
+    private final VSColorAdvanced tankExternalColor = new VSColorAdvanced();
+    private final VSColorAdvanced tankInternalColor = new VSColorAdvanced();
+    private final VSColorAdvanced tankBottomColor = new VSColorAdvanced();
+    private final VSBoolean defaultColorSettings = new VSBoolean(true);
+    private final VSInteger AlignNumber = new VSInteger(0);
     private double value = 0.0;
-
-    private VSString formatierung = new VSString("#0");
-    private DecimalFormat df = new DecimalFormat(formatierung.getValue());
-
-    private VSInteger arcValue = new VSInteger(10);
-
-
-
-    private VSDouble InitialValue = new VSDouble(0.0);
-    private VSBoolean TextVisible = new VSBoolean(true);
-    private VSFont textFont = new VSFont(new Font("Dialog", Font.BOLD, 18));
-    private VSComboBox textAlign = new VSComboBox();
-    private VSColor textColor = new VSColor(new Color(0, 0, 51));
-    private VSBoolean UnitsVisible = new VSBoolean(true);
-    private VSString UnitsStr = new VSString("%");
-    private VSBoolean displayEdgeVisible = new VSBoolean(true);
-    private VSColor displayEdgeColor = new VSColor(new Color(253, 153, 0));
-    private VSBoolean displayFill = new VSBoolean(true);
-    private VSColor displayFillColor = new VSColor(new Color(255, 242, 181));
-    private VSBoolean tankfillExpand = new VSBoolean(false);
-    private VSColor UpperFillColor = new VSColor(new Color(0, 0, 102));
-    private VSColor fillColor1 = new VSColor(new Color(0, 0, 102));
-    private VSColor fillColor2 = new VSColor(new Color(153, 204, 255));
-    private VSInteger strokeValue = new VSInteger(5);
-    private VSColorAdvanced strokeColor = new VSColorAdvanced();
-    private VSColorAdvanced overlayColor = new VSColorAdvanced();
-    private VSBoolean tankEdgeVisible = new VSBoolean(true);
-    private VSColor tankEdgeColor = new VSColor(Color.BLACK);
-    private VSColorAdvanced tankExternalColor = new VSColorAdvanced();
-    private VSColorAdvanced tankInternalColor = new VSColorAdvanced();
-    private VSColorAdvanced tankBottomColor = new VSColorAdvanced();
-
-    private VSBoolean defaultColorSettings = new VSBoolean(true);
-    private VSInteger AlignNumber = new VSInteger(0);
-
-
-
     private boolean overlay = false;
     private boolean started = false;
-
 
 
     public void processPanel(int pinIndex, double value, Object obj) {
@@ -69,14 +100,10 @@ public class AnzeigePanel extends JVSMain implements PanelIF {
             started = true;
         }
         if (pinIndex == 1) {
-            if (value == 1.0)
-                overlay = true;
-            else
-                overlay = false;
+            overlay = value == 1.0;
         }
 
     }
-
 
 
     public void paint(java.awt.Graphics g) {
@@ -267,7 +294,6 @@ public class AnzeigePanel extends JVSMain implements PanelIF {
             }
 
 
-
         }
     }
 
@@ -325,7 +351,6 @@ public class AnzeigePanel extends JVSMain implements PanelIF {
         tankBottomColor.p1 = new Point(20, 0);
         tankBottomColor.wiederholung = true;
         tankBottomColor.modus = 1;
-
 
 
     }

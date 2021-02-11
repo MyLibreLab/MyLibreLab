@@ -1,0 +1,149 @@
+/*
+ * Copyright (C) 2020 MyLibreLab
+ * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
+ * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+package com.github.mylibrelab.elements.circuit.booleanpackage.demultiplexer;// *****************************************************************************
+
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
+
+public class Demultiplexer extends JVSMain {
+    private final int anzAdr = 3;
+    private final int anzOut = 8;
+
+    public VSBoolean[] inAdress;
+    public VSBoolean in;
+    public VSBoolean[] out = new VSBoolean[anzOut];
+
+
+    private final boolean setted = false;
+
+    private Image image;
+
+
+    public void onDispose() {
+        if (image != null) {
+            image.flush();
+            image = null;
+        }
+    }
+
+    public void paint(java.awt.Graphics g) {
+        drawImageCentred(g, image);
+    }
+
+
+    public void init() {
+
+        initPins(0, anzOut, 0, anzAdr + 1);
+        setSize(57 + 1 + 10, 34 + (10 * (anzOut)));
+
+        initPinVisibility(false, true, false, true);
+        element.jSetInnerBorderVisibility(false);
+        image = element.jLoadImage(element.jGetSourcePath() + "icon.gif");
+
+
+        for (int i = 0; i < anzOut; i++) {
+            setPin(i, ExternalIF.C_BOOLEAN, element.PIN_OUTPUT);
+            element.jSetPinDescription(i, "x" + i);
+        }
+        for (int i = 0; i < anzAdr; i++) {
+            setPin(anzOut + i, ExternalIF.C_BOOLEAN, element.PIN_INPUT);
+            element.jSetPinDescription(anzOut + i, "S" + i);
+        }
+
+        setPin(anzOut + anzAdr, ExternalIF.C_BOOLEAN, element.PIN_INPUT);
+        element.jSetPinDescription(anzOut + anzAdr, "y");
+
+
+
+        element.jSetCaptionVisible(true);
+        element.jSetCaption("Demuxltiplexer");
+        setName("Demuxltiplexer");
+        // element.jSetInfo("Carmelo Salafia","Open Source 2007","");
+    }
+
+
+
+    public void propertyChanged(Object o) {}
+
+    public void setPropertyEditor() {}
+
+
+    public void initInputPins() {
+        in = (VSBoolean) element.getPinInputReference(anzOut + anzAdr);
+
+        if (in == null) {
+            in = new VSBoolean(false);
+        }
+
+        inAdress = new VSBoolean[anzAdr];
+        for (int i = 0; i < anzAdr; i++) {
+            inAdress[i] = (VSBoolean) element.getPinInputReference(anzOut + i);
+            if (inAdress[i] == null) {
+                inAdress[i] = new VSBoolean(false);
+            }
+        }
+
+    }
+
+    public void initOutputPins() {
+        for (int i = 0; i < anzOut; i++) {
+            out[i] = new VSBoolean(false);
+            element.setPinOutputReference(i, out[i]);
+        }
+    }
+
+    public void start() {}
+
+    public void stop() {}
+
+    private int bolToInt(boolean d, boolean c, boolean b, boolean a) {
+        int result = 0;
+        if (a) result += 1;
+        if (b) result += 2;
+        if (c) result += 4;
+        if (d) result += 8;
+
+        return result;
+    }
+
+    public void process() {
+        int adr = bolToInt(false, inAdress[2].getValue(), inAdress[1].getValue(), inAdress[0].getValue());
+
+        for (int i = 0; i < out.length; i++) {
+            if (i == adr) {
+                out[i].setValue(in.getValue());
+            } else {
+                out[i].setValue(false);
+            }
+            element.notifyPin(i);
+        }
+        // System.out.println("in="+in.getValue());
+
+
+    }
+
+
+
+}

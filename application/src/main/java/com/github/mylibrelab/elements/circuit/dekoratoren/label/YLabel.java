@@ -18,39 +18,29 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Dekoratoren.Label.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.dekoratoren.label;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
 
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.variables.VSColor;
+import VisualLogic.variables.VSFont;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSString;
 
 public class YLabel extends JVSMain {
-    private Image image = null;
-    private VSString strText = new VSString();
-    private VSInteger ausrichtungH = new VSInteger();
-    private VSInteger ausrichtungV = new VSInteger();
+    private final Image image = null;
+    private final VSString strText = new VSString();
+    private final VSInteger ausrichtungH = new VSInteger();
+    private final VSInteger ausrichtungV = new VSInteger();
 
-    private VSFont font = new VSFont(new Font("Monospaced", 0, 11));
-    private VSColor fontColor = new VSColor(Color.BLACK);
-    private String[] values = new String[3];
-    private JLabel label = new JLabel("Label");
+    private final VSFont font = new VSFont(new Font("Monospaced", 0, 11));
+    private final VSColor fontColor = new VSColor(Color.BLACK);
+    private final String[] values = new String[3];
+    private final JLabel label = new JLabel("Label");
 
 
     public YLabel() {
