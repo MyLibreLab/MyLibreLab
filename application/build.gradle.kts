@@ -35,6 +35,15 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
+    implementation("net.java.dev.jna:jna:5.7.0")
+    implementation("org.openmuc:jrxtx:1.0.1")
+    implementation("org.bidib.jbidib.eu.hansolo:SteelSeries:3.9.31.2")
+    implementation("guru.nidi.com.kitfox:svgSalamander:1.1.3")
+//    implementation("com.barchart.kitfox:kitfox-svg-core:1.0.0-build001")
+//    implementation("com.barchart.kitfox:kitfox-svg-editor:1.0.0-build001")
+//    implementation("com.weblookandfeel:svg-salamander:1.1.2.2")
+    implementation("org.jfree:jfreechart:1.5.2")
+
     kapt(project(":mylibrelab-annotations"))
 
     /* Currently unused dependencies. Those need further investigation whether they are needed for the elements

@@ -56,6 +56,7 @@ package com.github.mylibrelab.elements.circuit.numerik.parser.math.graph.generat
 import java.awt.*;
 import java.util.Locale;
 
+import com.github.mylibrelab.elements.circuit.numerik.parser.math.graph.generator.src.expressionparser.Parser;
 import com.github.mylibrelab.elements.tools.JVSMain;
 
 import VisualLogic.ExternalIF;

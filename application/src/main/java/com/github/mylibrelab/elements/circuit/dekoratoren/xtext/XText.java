@@ -20,14 +20,24 @@
 
 package com.github.mylibrelab.elements.circuit.dekoratoren.xtext;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.util.Locale;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 
-import VisualLogic.variables.*;
+import VisualLogic.variables.VSColor;
+import VisualLogic.variables.VSFont;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSPropertyDialog;
+import VisualLogic.variables.VSString;
 
 public class XText extends JVSMain {
     private final Image image = null;

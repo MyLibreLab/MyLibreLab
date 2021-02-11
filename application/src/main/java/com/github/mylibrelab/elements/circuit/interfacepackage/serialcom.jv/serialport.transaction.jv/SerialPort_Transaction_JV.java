@@ -27,6 +27,16 @@ package com.github.mylibrelab.elements.circuit.interfacepackage.serialcom.jv.ser
 // ********************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.NewSerialDriverManager;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSString;
+import VisualLogic.variables.VSserialPort;
 
 public class SerialPort_Transaction_JV extends JVSMain {
 

@@ -48,13 +48,23 @@ package com.github.mylibrelab.elements.circuit.vectorenmatrix.twodsetter;/*
                                                                           *
                                                                           */
 
-import java.awt.*;
+import java.awt.Image;
 import java.util.Locale;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 
 import VisualLogic.ExternalIF;
-import VisualLogic.variables.*;
+import VisualLogic.variables.VS2DBoolean;
+import VisualLogic.variables.VS2DByte;
+import VisualLogic.variables.VS2DDouble;
+import VisualLogic.variables.VS2DInteger;
+import VisualLogic.variables.VS2DString;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSByte;
+import VisualLogic.variables.VSDouble;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSObject;
+import VisualLogic.variables.VSString;
 
 public class Setter2D extends JVSMain {
     private Image image;

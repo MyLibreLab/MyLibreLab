@@ -25,6 +25,8 @@ import java.awt.*;
 
 import javax.swing.*;
 
+import com.github.mylibrelab.elements.front.version.two.zero.output.oscilloscopexy.src.mygraph.src.mygraph.MyGraph;
+
 import VisualLogic.PanelIF;
 import VisualLogic.variables.VS1DDouble;
 

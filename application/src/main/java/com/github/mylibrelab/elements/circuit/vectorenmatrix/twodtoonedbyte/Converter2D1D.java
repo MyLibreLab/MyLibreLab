@@ -49,7 +49,7 @@ package com.github.mylibrelab.elements.circuit.vectorenmatrix.twodtoonedbyte;/*
                                                                               *
                                                                               */
 
-import java.awt.*;
+import java.awt.Image;
 import java.util.Locale;
 
 import com.github.mylibrelab.elements.tools.JVSMain;

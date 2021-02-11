@@ -20,7 +20,7 @@
 
 package com.github.mylibrelab.ui.view;
 
-import javax.swing.*;
+import javax.swing.JComponent;
 
 import com.github.mylibrelab.annotations.ProviderFor;
 

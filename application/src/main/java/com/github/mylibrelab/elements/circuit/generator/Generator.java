@@ -20,13 +20,17 @@
 
 package com.github.mylibrelab.elements.circuit.generator;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Image;
 import java.util.Locale;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 
 import VisualLogic.ExternalIF;
-import VisualLogic.variables.*;
+import VisualLogic.variables.VS1DByte;
+import VisualLogic.variables.VS1DDouble;
+import VisualLogic.variables.VSDouble;
+import VisualLogic.variables.VSGroup;
+import VisualLogic.variables.VSInteger;
 
 public class Generator extends JVSMain {
     private final VSGroup groupA = new VSGroup();

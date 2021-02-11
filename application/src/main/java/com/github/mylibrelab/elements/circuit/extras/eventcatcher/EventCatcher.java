@@ -20,9 +20,10 @@
 
 package com.github.mylibrelab.elements.circuit.extras.eventcatcher;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

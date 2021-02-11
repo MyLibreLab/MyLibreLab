@@ -20,7 +20,8 @@
 
 package com.github.mylibrelab.ui.module;
 
-import javax.swing.*;
+import javax.swing.Icon;
+import javax.swing.JComponent;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

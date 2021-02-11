@@ -20,7 +20,7 @@
 
 package com.github.mylibrelab.elements.circuit.image.staticimage;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Image;
 import java.awt.image.PixelGrabber;
 import java.util.Locale;
 

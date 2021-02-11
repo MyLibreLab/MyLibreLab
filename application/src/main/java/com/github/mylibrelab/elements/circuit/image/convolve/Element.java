@@ -20,9 +20,15 @@
 
 package com.github.mylibrelab.elements.circuit.image.convolve;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
-import java.awt.image.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.ConvolveOp;
+import java.awt.image.Kernel;
+import java.awt.image.MemoryImageSource;
+import java.awt.image.PixelGrabber;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

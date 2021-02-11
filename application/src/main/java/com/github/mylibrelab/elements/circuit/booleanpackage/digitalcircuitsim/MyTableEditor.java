@@ -20,7 +20,8 @@
 
 package com.github.mylibrelab.elements.circuit.booleanpackage.digitalcircuitsim;// *****************************************************************************
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 

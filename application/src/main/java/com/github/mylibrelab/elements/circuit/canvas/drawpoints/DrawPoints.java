@@ -20,12 +20,18 @@
 
 package com.github.mylibrelab.elements.circuit.canvas.drawpoints;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.Point;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 
 import VisualLogic.ExternalIF;
-import VisualLogic.variables.*;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSCanvas;
+import VisualLogic.variables.VSColor;
+import VisualLogic.variables.VSDouble;
+import VisualLogic.variables.VSInteger;
 
 public class DrawPoints extends JVSMain {
 

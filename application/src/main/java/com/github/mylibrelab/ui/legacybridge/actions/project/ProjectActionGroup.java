@@ -22,7 +22,11 @@ package com.github.mylibrelab.ui.legacybridge.actions.project;
 
 import org.jetbrains.annotations.NotNull;
 
-import com.github.mylibrelab.action.*;
+import com.github.mylibrelab.action.ActionGroup;
+import com.github.mylibrelab.action.AnActionGroup;
+import com.github.mylibrelab.action.DefaultActionGroup;
+import com.github.mylibrelab.action.ParentGroup;
+import com.github.mylibrelab.action.Priority;
 
 @ActionGroup
 @ParentGroup(defaultGroups = DefaultActionGroup.FILE_MENU)

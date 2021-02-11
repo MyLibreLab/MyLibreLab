@@ -49,6 +49,26 @@ package com.github.mylibrelab.elements.circuit.interfacepackage.compulab.usb;/*
                                                                               *
                                                                               */
 
+import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ElementActionEvent;
+import VisualLogic.ExternalIF;
+import VisualLogic.MyOpenLabDriverIF;
+import VisualLogic.MyOpenLabDriverOwnerIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSInteger;
+
 public class CompuLABUSB extends JVSMain implements MyOpenLabDriverOwnerIF {
     private boolean isOpen = false;
 

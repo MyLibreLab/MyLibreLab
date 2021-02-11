@@ -21,7 +21,7 @@
 package com.github.mylibrelab.elements.tools;
 
 
-import java.awt.*;
+import java.awt.Image;
 
 import VisualLogic.ExternalIF;
 import VisualLogic.variables.VSBoolean;

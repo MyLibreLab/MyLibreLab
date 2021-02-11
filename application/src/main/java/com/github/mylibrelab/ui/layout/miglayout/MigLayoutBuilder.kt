@@ -34,7 +34,13 @@ import net.miginfocom.layout.LC
 import java.awt.Component
 import java.awt.Container
 import java.util.*
-import javax.swing.*
+import javax.swing.ButtonGroup
+import javax.swing.JCheckBox
+import javax.swing.JComboBox
+import javax.swing.JComponent
+import javax.swing.JLabel
+import javax.swing.JPasswordField
+import javax.swing.JTextField
 
 internal class MigLayoutBuilder(val spacing: SpacingConfiguration) : LayoutBuilderImpl {
     companion object {

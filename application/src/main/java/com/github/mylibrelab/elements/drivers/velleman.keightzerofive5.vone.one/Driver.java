@@ -57,6 +57,18 @@ package com.github.mylibrelab.elements.drivers.velleman.keightzerofive5.vone.one
                                                                                   *
                                                                                   */
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.*;
+
+import com.sun.jna.NativeLong;
+
+import VisualLogic.MyOpenLabDriverIF;
+import VisualLogic.MyOpenLabDriverOwnerIF;
+import VisualLogic.variables.VSDouble;
+
 public class Driver implements MyOpenLabDriverIF {
     private boolean isOpen = false;
     private K8055 lib;

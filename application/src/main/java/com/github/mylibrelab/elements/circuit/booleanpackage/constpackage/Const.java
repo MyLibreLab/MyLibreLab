@@ -49,7 +49,8 @@ package com.github.mylibrelab.elements.circuit.booleanpackage.constpackage;/*
                                                                             *
                                                                             */
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Rectangle;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

@@ -20,9 +20,12 @@
 
 package com.github.mylibrelab.elements.circuit.mcu.stackinterpreter.flowcharts.setvar;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Rectangle;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 import com.github.mylibrelab.elements.tools.MCUMainFlow;
 

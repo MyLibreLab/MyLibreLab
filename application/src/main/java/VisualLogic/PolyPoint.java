@@ -20,12 +20,12 @@
 
 package VisualLogic;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Point;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-
-import org.tinylog.Logger;
 
 /**
  * @author Homer

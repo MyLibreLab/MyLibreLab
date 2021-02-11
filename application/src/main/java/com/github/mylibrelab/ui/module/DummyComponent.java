@@ -20,9 +20,11 @@
 
 package com.github.mylibrelab.ui.module;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.GridBagLayout;
 
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 import org.jetbrains.annotations.NotNull;
 

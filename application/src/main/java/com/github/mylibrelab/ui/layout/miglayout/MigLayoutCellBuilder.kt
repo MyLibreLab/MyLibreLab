@@ -24,9 +24,10 @@ package com.github.mylibrelab.ui.layout.miglayout
 import com.github.mylibrelab.settings.api.Condition
 import com.github.mylibrelab.settings.api.registerListener
 import com.github.mylibrelab.text.Text
-import com.github.mylibrelab.ui.layout.*
 import com.github.mylibrelab.ui.layout.CCFlags
+import com.github.mylibrelab.ui.layout.CellBuilder
 import com.github.mylibrelab.ui.layout.CheckboxCellBuilder
+import com.github.mylibrelab.ui.layout.GrowPolicy
 import com.github.mylibrelab.ui.layout.ScrollPaneCellBuilder
 import javax.swing.JComponent
 

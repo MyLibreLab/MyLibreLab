@@ -22,7 +22,17 @@ package com.github.mylibrelab.ui.settings
 
 import com.github.mylibrelab.resources.Resources
 import com.github.mylibrelab.settings.Settings
-import com.github.mylibrelab.settings.api.*
+import com.github.mylibrelab.settings.api.DefaultSettingsContainer
+import com.github.mylibrelab.settings.api.SettingsProvider
+import com.github.mylibrelab.settings.api.SettingsStorage
+import com.github.mylibrelab.settings.api.SingletonSettingsContainerProvider
+import com.github.mylibrelab.settings.api.activeIf
+import com.github.mylibrelab.settings.api.booleanProperty
+import com.github.mylibrelab.settings.api.choiceProperty
+import com.github.mylibrelab.settings.api.group
+import com.github.mylibrelab.settings.api.presentation
+import com.github.mylibrelab.settings.api.property
+import com.github.mylibrelab.settings.api.stringProperty
 import com.github.mylibrelab.text.textOf
 import com.github.mylibrelab.ui.UIStyle
 import com.github.mylibrelab.ui.border.Borders

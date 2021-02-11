@@ -48,12 +48,18 @@ package com.github.mylibrelab.elements.circuit.vectorenmatrix.onedlength;/*
                                                                           *
                                                                           */
 
-import java.awt.*;
+import java.awt.Image;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 
 import VisualLogic.ExternalIF;
-import VisualLogic.variables.*;
+import VisualLogic.variables.VS1DBoolean;
+import VisualLogic.variables.VS1DByte;
+import VisualLogic.variables.VS1DDouble;
+import VisualLogic.variables.VS1DInteger;
+import VisualLogic.variables.VS1DString;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSObject;
 
 public class Length1D extends JVSMain {
     private Image image;

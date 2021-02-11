@@ -20,7 +20,7 @@
 
 package com.github.mylibrelab.elements.circuit.mcu.stackinterpreter.old.booleanpackage.constpackage;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Image;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

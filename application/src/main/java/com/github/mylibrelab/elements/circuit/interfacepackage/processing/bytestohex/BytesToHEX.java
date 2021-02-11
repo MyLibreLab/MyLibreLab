@@ -20,6 +20,15 @@
 
 package com.github.mylibrelab.elements.circuit.interfacepackage.processing.bytestohex;// *****************************************************************************
 
+import java.awt.Image;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ElementActionEvent;
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VS1DByte;
+import VisualLogic.variables.VS1DString;
+
 public class BytesToHEX extends JVSMain {
     private Image image;
 

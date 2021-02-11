@@ -23,8 +23,6 @@ package VisualLogic.variables;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.tinylog.Logger;
-
 public class VSFile extends VSObject {
     private String value;
     private final ArrayList extensions = new ArrayList();

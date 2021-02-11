@@ -18,7 +18,7 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.interfacepackage.rstwothree2v2;
+package com.github.mylibrelab.elements.circuit.interfacepackage.rstwothreetwov2;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

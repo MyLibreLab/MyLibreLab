@@ -20,7 +20,11 @@
 
 package com.github.mylibrelab.elements.circuit.string.constpackageant.jv.nall.constpackage;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
 import com.github.mylibrelab.elements.tools.JVSMain;

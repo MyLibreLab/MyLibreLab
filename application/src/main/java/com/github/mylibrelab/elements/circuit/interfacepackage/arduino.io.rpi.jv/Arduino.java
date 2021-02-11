@@ -20,6 +20,27 @@
 
 package com.github.mylibrelab.elements.circuit.interfacepackage.arduino.io.rpi.jv;// *****************************************************************************
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ElementActionEvent;
+import VisualLogic.ExternalIF;
+import VisualLogic.MyOpenLabDriverIF;
+import VisualLogic.MyOpenLabDriverOwnerIF;
+import VisualLogic.variables.*;
+
 public class Arduino extends JVSMain implements MyOpenLabDriverOwnerIF {
     private Image image;
 

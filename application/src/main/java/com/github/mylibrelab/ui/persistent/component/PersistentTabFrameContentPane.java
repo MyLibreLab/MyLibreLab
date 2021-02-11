@@ -22,7 +22,7 @@ package com.github.mylibrelab.ui.persistent.component;
 
 import java.util.function.BiConsumer;
 
-import javax.swing.*;
+import javax.swing.JSplitPane;
 
 import org.jetbrains.annotations.NotNull;
 

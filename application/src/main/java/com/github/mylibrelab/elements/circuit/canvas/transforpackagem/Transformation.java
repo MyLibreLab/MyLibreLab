@@ -18,9 +18,9 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.canvas.transform;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.canvas.transforpackagem;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Image;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

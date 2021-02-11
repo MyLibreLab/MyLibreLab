@@ -59,7 +59,12 @@ import net.miginfocom.layout.ComponentWrapper
 import net.miginfocom.layout.ContainerWrapper
 import net.miginfocom.layout.LayoutUtil
 import net.miginfocom.layout.PlatformDefaults
-import java.awt.*
+import java.awt.BasicStroke
+import java.awt.Color
+import java.awt.Graphics2D
+import java.awt.HeadlessException
+import java.awt.Insets
+import java.awt.Point
 import javax.swing.JComponent
 import javax.swing.JEditorPane
 import javax.swing.JTextArea

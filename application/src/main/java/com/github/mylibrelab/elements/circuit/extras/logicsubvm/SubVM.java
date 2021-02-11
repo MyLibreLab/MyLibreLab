@@ -20,14 +20,15 @@
 
 package com.github.mylibrelab.elements.circuit.extras.logicsubvm;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import javax.swing.*;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

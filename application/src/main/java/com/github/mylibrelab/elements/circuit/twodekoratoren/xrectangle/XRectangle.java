@@ -48,7 +48,11 @@ package com.github.mylibrelab.elements.circuit.twodekoratoren.xrectangle;/*
                                                                           *
                                                                           */
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

@@ -49,6 +49,28 @@ package com.github.mylibrelab.elements.circuit.interfacepackage.fourefours;/*
                                                                             *
                                                                             */
 
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.JOptionPane;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ElementActionEvent;
+import VisualLogic.ExternalIF;
+import VisualLogic.MyOpenLabDriverIF;
+import VisualLogic.MyOpenLabDriverOwnerIF;
+import VisualLogic.variables.VS1DByte;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSComboBox;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSObject;
+
 public class PCIO extends JVSMain implements MyOpenLabDriverOwnerIF {
 
     private final VSInteger pollTime = new VSInteger(350);

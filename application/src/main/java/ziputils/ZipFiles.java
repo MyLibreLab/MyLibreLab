@@ -29,8 +29,6 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import org.tinylog.Logger;
-
 public class ZipFiles {
 
     List<String> filesListInDir = new ArrayList<>();

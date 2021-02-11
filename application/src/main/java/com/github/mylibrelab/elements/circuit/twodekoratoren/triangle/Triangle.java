@@ -47,7 +47,12 @@ package com.github.mylibrelab.elements.circuit.twodekoratoren.triangle;/*
                                                                         *
                                                                         */
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

@@ -20,7 +20,7 @@
 
 package com.github.mylibrelab.elements.circuit.mcu.oldstackinterpreter.loader;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Image;
 import java.io.File;
 
 import com.github.mylibrelab.elements.tools.JVSMain;

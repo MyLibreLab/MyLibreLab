@@ -57,6 +57,10 @@ package com.github.mylibrelab.elements.drivers.velleman.keightzerofive5.vone.one
                                                                                   *
                                                                                   */
 
+import com.sun.jna.Native;
+import com.sun.jna.NativeLong;
+import com.sun.jna.win32.StdCallLibrary;
+
 /**
  *
  * @author Salafia

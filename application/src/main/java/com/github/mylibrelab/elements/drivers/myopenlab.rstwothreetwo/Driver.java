@@ -18,7 +18,20 @@
  *
  */
 
-package com.github.mylibrelab.elements.drivers.myopenlab.rstwothree2;// *****************************************************************************
+package com.github.mylibrelab.elements.drivers.myopenlab.rstwothreetwo;// *****************************************************************************
+
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Enumeration;
+
+import VisualLogic.MyOpenLabDriverOwnerIF;
+import VisualLogic.variables.VS1DByte;
+import jssc.SerialPort;
+import jssc.SerialPortEvent;
+import jssc.SerialPortEventListener;
 
 public class Driver {
 

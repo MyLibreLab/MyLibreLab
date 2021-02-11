@@ -27,6 +27,13 @@ package com.github.mylibrelab.elements.circuit.interfacepackage.serialcom.jv.ini
 // ********************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.NewSerialDriverManager;
+import VisualLogic.variables.*;
 
 public class InitSerialCOM_JV extends JVSMain {
 

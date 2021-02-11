@@ -20,9 +20,15 @@
 
 package com.github.mylibrelab.elements.circuit.mcu.oldstackinterpreter.userelement;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class Properties extends JDialog {
     private final JScrollPane scroll = new JScrollPane();

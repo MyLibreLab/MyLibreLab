@@ -20,6 +20,15 @@
 
 package com.github.mylibrelab.elements.circuit.interfacepackage.processing.crconesixbit;// *****************************************************************************
 
+import java.awt.Image;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VS1DByte;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSInteger;
+
 public class CRC16 extends JVSMain {
     private Image image;
 

@@ -22,8 +22,6 @@ package VisualLogic.variables;
 
 import java.io.IOException;
 
-import org.tinylog.Logger;
-
 public class VS2DBoolean extends VSObject {
     private boolean[][] value = null;
     private int columns = 0;

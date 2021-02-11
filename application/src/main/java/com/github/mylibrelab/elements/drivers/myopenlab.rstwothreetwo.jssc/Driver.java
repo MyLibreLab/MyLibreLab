@@ -18,7 +18,13 @@
  *
  */
 
-package com.github.mylibrelab.elements.drivers.myopenlab.rstwothree2.jssc;// *****************************************************************************
+package com.github.mylibrelab.elements.drivers.myopenlab.rstwothreetwo.jssc;// *****************************************************************************
+
+import java.util.ArrayList;
+
+import VisualLogic.MyOpenLabDriverOwnerIF;
+import VisualLogic.variables.VS1DByte;
+import jssc.*;
 
 public class Driver {
 

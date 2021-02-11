@@ -20,13 +20,18 @@
 
 package com.github.mylibrelab.elements.circuit.flowcharts.procedure;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import javax.swing.*;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import com.github.mylibrelab.elements.tools.MainFlow;
 

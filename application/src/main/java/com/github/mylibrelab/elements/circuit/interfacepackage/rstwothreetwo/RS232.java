@@ -18,7 +18,29 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.interfacepackage.rstwothree2;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.interfacepackage.rstwothreetwo;// *****************************************************************************
+
+import java.awt.Image;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ElementActionEvent;
+import VisualLogic.ExternalIF;
+import VisualLogic.MyOpenLabDriverIF;
+import VisualLogic.MyOpenLabDriverOwnerIF;
+import VisualLogic.variables.VS1DByte;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSComboBox;
+import VisualLogic.variables.VSInteger;
 
 public class RS232 extends JVSMain implements MyOpenLabDriverOwnerIF {
     private Image image;

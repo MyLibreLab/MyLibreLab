@@ -20,7 +20,8 @@
 
 package com.github.mylibrelab.elements.circuit.canvas.drawimage;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.MemoryImageSource;
 
 import com.github.mylibrelab.elements.tools.JVSMain;

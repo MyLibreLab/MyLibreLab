@@ -20,7 +20,8 @@
 
 package com.github.mylibrelab.elements.circuit.color.coltorgb;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Image;
 import java.util.Locale;
 
 import com.github.mylibrelab.elements.tools.JVSMain;

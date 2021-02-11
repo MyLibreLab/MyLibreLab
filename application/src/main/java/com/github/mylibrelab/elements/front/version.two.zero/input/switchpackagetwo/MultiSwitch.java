@@ -18,7 +18,7 @@
  *
  */
 
-package com.github.mylibrelab.elements.front.version.two.zero.input.switchtwo;// *****************************************************************************
+package com.github.mylibrelab.elements.front.version.two.zero.input.switchpackagetwo;// *****************************************************************************
 
 // package javaapplication2;
 

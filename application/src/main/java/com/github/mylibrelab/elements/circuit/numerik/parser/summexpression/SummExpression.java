@@ -20,12 +20,17 @@
 
 package com.github.mylibrelab.elements.circuit.numerik.parser.summexpression;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Image;
 
+import com.github.mylibrelab.elements.circuit.numerik.parser.summexpression.src.expressionparser.Parser;
 import com.github.mylibrelab.elements.tools.JVSMain;
 
 import VisualLogic.ExternalIF;
-import VisualLogic.variables.*;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSDouble;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSPropertyDialog;
+import VisualLogic.variables.VSString;
 
 public class SummExpression extends JVSMain {
     private Image image;

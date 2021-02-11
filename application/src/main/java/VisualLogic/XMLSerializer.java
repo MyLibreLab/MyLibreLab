@@ -22,9 +22,11 @@ package VisualLogic;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
-import java.io.*;
-
-import org.tinylog.Logger;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class XMLSerializer {
     public static void write(Object f, String filename) {

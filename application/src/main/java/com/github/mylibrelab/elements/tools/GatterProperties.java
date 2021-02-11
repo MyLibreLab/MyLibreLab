@@ -21,9 +21,9 @@
 package com.github.mylibrelab.elements.tools;
 
 
-import java.awt.*;
+import java.awt.Frame;
 
-import javax.swing.*;
+import javax.swing.SpinnerNumberModel;
 
 public class GatterProperties extends javax.swing.JDialog {
 

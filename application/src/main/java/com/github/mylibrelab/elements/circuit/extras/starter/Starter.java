@@ -20,10 +20,10 @@
 
 package com.github.mylibrelab.elements.circuit.extras.starter;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Image;
 import java.util.Locale;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

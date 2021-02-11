@@ -51,6 +51,7 @@ package com.github.mylibrelab.elements.circuit.numerik.parser.math.calc;/*
 import java.awt.*;
 import java.util.Locale;
 
+import com.github.mylibrelab.elements.circuit.numerik.parser.math.calc.src.expressionparser.Parser;
 import com.github.mylibrelab.elements.tools.JVSMain;
 
 import VisualLogic.ExternalIF;

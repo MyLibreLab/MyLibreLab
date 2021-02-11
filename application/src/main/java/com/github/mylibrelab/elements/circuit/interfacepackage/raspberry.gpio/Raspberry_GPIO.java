@@ -20,6 +20,23 @@
 
 package com.github.mylibrelab.elements.circuit.interfacepackage.raspberry.gpio;// *****************************************************************************
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ElementActionEvent;
+import VisualLogic.ExternalIF;
+import VisualLogic.MyOpenLabDriverOwnerIF;
+import VisualLogic.variables.VS1DByte;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSComboBox;
+import VisualLogic.variables.VSObject;
+
 public class Raspberry_GPIO extends JVSMain implements MyOpenLabDriverOwnerIF {
 
     private final int GPIO_INPUT = 0;

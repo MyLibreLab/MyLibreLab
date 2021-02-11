@@ -20,7 +20,7 @@
 
 package com.github.mylibrelab.elements.circuit.sockets.socketserver;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Image;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

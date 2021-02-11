@@ -20,7 +20,9 @@
 
 package com.github.mylibrelab.elements.circuit.or;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.Rectangle;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

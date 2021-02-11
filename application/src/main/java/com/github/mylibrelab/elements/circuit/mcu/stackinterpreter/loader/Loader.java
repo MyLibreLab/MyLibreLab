@@ -20,7 +20,7 @@
 
 package com.github.mylibrelab.elements.circuit.mcu.stackinterpreter.loader;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Image;
 import java.io.File;
 
 import javax.script.ScriptEngine;

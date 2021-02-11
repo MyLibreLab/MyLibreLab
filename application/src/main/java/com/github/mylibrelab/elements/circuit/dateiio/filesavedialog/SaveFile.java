@@ -20,10 +20,12 @@
 
 package com.github.mylibrelab.elements.circuit.dateiio.filesavedialog;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Image;
 import java.io.File;
 
-import javax.swing.*;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

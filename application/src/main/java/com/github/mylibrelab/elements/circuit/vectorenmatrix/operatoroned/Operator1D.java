@@ -20,15 +20,20 @@
 
 package com.github.mylibrelab.elements.circuit.vectorenmatrix.operatoroned;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Image;
 import java.util.Locale;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 
 import VisualLogic.ExternalIF;
-import VisualLogic.variables.*;
+import VisualLogic.variables.VS1DDouble;
+import VisualLogic.variables.VS1DInteger;
+import VisualLogic.variables.VSComboBox;
+import VisualLogic.variables.VSDouble;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSObject;
 
 public class Operator1D extends JVSMain {
     private Image image;

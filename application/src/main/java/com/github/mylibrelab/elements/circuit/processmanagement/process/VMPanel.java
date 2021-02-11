@@ -20,6 +20,15 @@
 
 package com.github.mylibrelab.elements.circuit.processmanagement.process;// *****************************************************************************
 
+import javax.swing.JOptionPane;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.VSBasisIF;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSString;
+
 public class VMPanel extends JVSMain {
     private final int width = 60;
     private final int height = 150;

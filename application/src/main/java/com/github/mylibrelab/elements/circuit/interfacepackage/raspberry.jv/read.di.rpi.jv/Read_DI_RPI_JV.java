@@ -27,6 +27,17 @@ package com.github.mylibrelab.elements.circuit.interfacepackage.raspberry.jv.rea
 // ********************************
 
 
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSString;
 
 public class Read_DI_RPI_JV extends JVSMain {
     private Image image;

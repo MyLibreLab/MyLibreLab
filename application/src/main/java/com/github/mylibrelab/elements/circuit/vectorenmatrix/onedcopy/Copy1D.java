@@ -47,13 +47,20 @@ package com.github.mylibrelab.elements.circuit.vectorenmatrix.onedcopy;/*
                                                                         *
                                                                         */
 
-import java.awt.*;
+import java.awt.Image;
 import java.util.Locale;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 
 import VisualLogic.ExternalIF;
-import VisualLogic.variables.*;
+import VisualLogic.variables.VS1DBoolean;
+import VisualLogic.variables.VS1DByte;
+import VisualLogic.variables.VS1DDouble;
+import VisualLogic.variables.VS1DInteger;
+import VisualLogic.variables.VS1DString;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSObject;
 
 public class Copy1D extends JVSMain {
     private Image image;

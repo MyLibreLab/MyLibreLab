@@ -18,9 +18,9 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.string.format;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.string.forpackagemat;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Image;
 import java.text.DecimalFormat;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
