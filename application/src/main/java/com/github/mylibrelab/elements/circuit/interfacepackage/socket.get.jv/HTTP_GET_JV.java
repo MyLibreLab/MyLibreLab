@@ -23,6 +23,18 @@ package com.github.mylibrelab.elements.circuit.interfacepackage.socket.get.jv;//
 // *****************************************************************************
 
 
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSString;
 
 public class HTTP_GET_JV extends JVSMain {
     private Image image;

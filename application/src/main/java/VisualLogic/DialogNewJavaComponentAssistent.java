@@ -21,7 +21,14 @@
 package VisualLogic;
 
 import java.awt.Component;
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import javax.swing.DefaultCellEditor;
@@ -34,8 +41,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-
-import org.tinylog.Logger;
 
 class JavaElementConfigFilter extends javax.swing.filechooser.FileFilter {
     static String fileExtension = "javaelementconfig";

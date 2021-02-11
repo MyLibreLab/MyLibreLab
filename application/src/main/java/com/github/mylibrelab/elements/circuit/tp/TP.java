@@ -20,7 +20,9 @@
 
 package com.github.mylibrelab.elements.circuit.tp;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Polygon;
+import java.awt.Rectangle;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

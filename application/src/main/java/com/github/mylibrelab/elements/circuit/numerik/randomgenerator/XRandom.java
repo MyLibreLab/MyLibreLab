@@ -20,7 +20,8 @@
 
 package com.github.mylibrelab.elements.circuit.numerik.randomgenerator;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Image;
+import java.util.Random;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

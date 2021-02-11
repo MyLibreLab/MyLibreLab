@@ -20,7 +20,7 @@
 
 package com.github.mylibrelab.elements.circuit.string.substring;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Image;
 import java.text.DecimalFormat;
 
 import com.github.mylibrelab.elements.tools.JVSMain;

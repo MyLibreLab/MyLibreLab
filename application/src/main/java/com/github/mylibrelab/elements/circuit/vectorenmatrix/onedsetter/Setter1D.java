@@ -48,13 +48,23 @@ package com.github.mylibrelab.elements.circuit.vectorenmatrix.onedsetter;/*
                                                                           *
                                                                           */
 
-import java.awt.*;
+import java.awt.Image;
 import java.util.Locale;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 
 import VisualLogic.ExternalIF;
-import VisualLogic.variables.*;
+import VisualLogic.variables.VS1DBoolean;
+import VisualLogic.variables.VS1DByte;
+import VisualLogic.variables.VS1DDouble;
+import VisualLogic.variables.VS1DInteger;
+import VisualLogic.variables.VS1DString;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSByte;
+import VisualLogic.variables.VSDouble;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSObject;
+import VisualLogic.variables.VSString;
 
 public class Setter1D extends JVSMain {
     private Image image;

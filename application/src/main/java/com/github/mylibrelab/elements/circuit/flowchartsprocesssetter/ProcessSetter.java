@@ -20,7 +20,12 @@
 
 package com.github.mylibrelab.elements.circuit.flowchartsprocesssetter;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
 import com.github.mylibrelab.elements.tools.MainFlow;
@@ -28,7 +33,11 @@ import com.github.mylibrelab.elements.tools.MainFlow;
 import VisualLogic.ElementActionEvent;
 import VisualLogic.ExternalIF;
 import VisualLogic.VSBasisIF;
-import VisualLogic.variables.*;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSDouble;
+import VisualLogic.variables.VSFlowInfo;
+import VisualLogic.variables.VSObject;
+import VisualLogic.variables.VSString;
 
 public class ProcessSetter extends MainFlow {
 

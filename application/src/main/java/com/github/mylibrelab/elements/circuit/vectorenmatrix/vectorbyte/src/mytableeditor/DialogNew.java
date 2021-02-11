@@ -25,8 +25,7 @@ package com.github.mylibrelab.elements.circuit.vectorenmatrix.vectorbyte.src.myt
  *
  * Created on 8. März 2007, 12:27
  */
-
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 /**
  *

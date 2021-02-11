@@ -20,7 +20,7 @@
 
 package com.github.mylibrelab.elements.circuit.image.canny;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.EmptyStackException;
 import java.util.Stack;
 

@@ -21,7 +21,7 @@
 package com.github.mylibrelab.elements.circuit.numerik.parser.summexpression.src.expressionparser;
 
 
-import java.awt.*;
+import java.awt.Graphics;
 
 /**
  *

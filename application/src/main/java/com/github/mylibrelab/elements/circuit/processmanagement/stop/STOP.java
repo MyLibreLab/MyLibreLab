@@ -20,6 +20,16 @@
 
 package com.github.mylibrelab.elements.circuit.processmanagement.stop;// *****************************************************************************
 
+import java.awt.Image;
+import java.util.ArrayList;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.VSBasisIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSObject;
+
 public class STOP extends JVSMain {
     private Image image;
 

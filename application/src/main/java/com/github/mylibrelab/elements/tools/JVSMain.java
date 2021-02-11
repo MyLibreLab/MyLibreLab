@@ -21,7 +21,11 @@
 package com.github.mylibrelab.elements.tools;
 
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 
 import VisualLogic.ElementActionEvent;
 import VisualLogic.ElementIF;

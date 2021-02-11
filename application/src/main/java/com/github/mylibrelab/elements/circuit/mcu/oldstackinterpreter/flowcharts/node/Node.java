@@ -20,7 +20,11 @@
 
 package com.github.mylibrelab.elements.circuit.mcu.oldstackinterpreter.flowcharts.node;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Polygon;
+import java.awt.Rectangle;
 
 import com.github.mylibrelab.elements.tools.MainFlow;
 

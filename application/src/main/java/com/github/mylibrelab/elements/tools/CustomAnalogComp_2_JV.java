@@ -21,17 +21,35 @@
 package com.github.mylibrelab.elements.tools;
 
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
 import VisualLogic.ExternalIF;
-import VisualLogic.variables.*;
+import VisualLogic.variables.VS1DString;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSColor;
+import VisualLogic.variables.VSColorAdvanced;
+import VisualLogic.variables.VSComboBox;
+import VisualLogic.variables.VSDouble;
+import VisualLogic.variables.VSFont;
+import VisualLogic.variables.VSImage;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSPropertyDialog;
+import VisualLogic.variables.VSString;
 
 public class CustomAnalogComp_2_JV extends JVSMain {
     private final ArrayList listeBeschriftungen = new ArrayList();

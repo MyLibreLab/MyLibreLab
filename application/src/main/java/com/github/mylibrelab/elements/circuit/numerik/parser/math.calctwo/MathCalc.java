@@ -52,6 +52,7 @@ package com.github.mylibrelab.elements.circuit.numerik.parser.math.calctwo;/*
 import java.awt.*;
 import java.util.Locale;
 
+import com.github.mylibrelab.elements.circuit.numerik.parser.math.calctwo.src.expressionparser.Parser;
 import com.github.mylibrelab.elements.tools.JVSMain;
 
 import VisualLogic.ExternalIF;

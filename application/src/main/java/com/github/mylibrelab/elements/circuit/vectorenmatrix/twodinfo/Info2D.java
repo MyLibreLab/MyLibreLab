@@ -47,13 +47,18 @@ package com.github.mylibrelab.elements.circuit.vectorenmatrix.twodinfo;/*
                                                                         *
                                                                         */
 
-import java.awt.*;
+import java.awt.Image;
 import java.util.Locale;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 
 import VisualLogic.ExternalIF;
-import VisualLogic.variables.*;
+import VisualLogic.variables.VS2DBoolean;
+import VisualLogic.variables.VS2DDouble;
+import VisualLogic.variables.VS2DInteger;
+import VisualLogic.variables.VS2DString;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSObject;
 
 public class Info2D extends JVSMain {
     private Image image;

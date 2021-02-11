@@ -20,7 +20,7 @@
 
 package com.github.mylibrelab.elements.circuit.sockets.socketclient;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Image;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -30,7 +30,11 @@ import java.util.Locale;
 import com.github.mylibrelab.elements.tools.JVSMain;
 
 import VisualLogic.ExternalIF;
-import VisualLogic.variables.*;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSComboBox;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSObject;
+import VisualLogic.variables.VSString;
 
 public class SocketClient extends JVSMain {
     public ObjectInputStream serverIn;

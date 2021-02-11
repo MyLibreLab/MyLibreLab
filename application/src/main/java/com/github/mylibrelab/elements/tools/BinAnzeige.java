@@ -21,7 +21,10 @@
 package com.github.mylibrelab.elements.tools;
 
 
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
 
 public class BinAnzeige extends JVSMain {
     private final String fileNameImageON;

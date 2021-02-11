@@ -20,7 +20,8 @@
 
 package com.github.mylibrelab.elements.circuit.countertimer.impulsedelay;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

@@ -20,9 +20,12 @@
 
 package com.github.mylibrelab.elements.circuit.dekoratoren.label;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

@@ -20,7 +20,7 @@
 
 package com.github.mylibrelab.elements.circuit.automation.fuzzycontrol;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Image;
 import java.util.ArrayList;
 
 import com.github.mylibrelab.elements.tools.JVSMain;

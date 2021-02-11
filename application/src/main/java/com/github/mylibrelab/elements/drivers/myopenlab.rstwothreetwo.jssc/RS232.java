@@ -18,7 +18,17 @@
  *
  */
 
-package com.github.mylibrelab.elements.drivers.myopenlab.rstwothree2.jssc;// *****************************************************************************
+package com.github.mylibrelab.elements.drivers.myopenlab.rstwothreetwo.jssc;// *****************************************************************************
+
+import java.util.ArrayList;
+
+import javax.swing.*;
+
+import VisualLogic.MyOpenLabDriverIF;
+import VisualLogic.MyOpenLabDriverOwnerIF;
+import VisualLogic.variables.VS1DByte;
+import VisualLogic.variables.VSInteger;
+import jssc.SerialPort;
 
 public class RS232 implements MyOpenLabDriverIF {
 

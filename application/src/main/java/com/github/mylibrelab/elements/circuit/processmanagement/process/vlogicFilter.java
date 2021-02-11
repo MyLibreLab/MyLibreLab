@@ -20,6 +20,10 @@
 
 package com.github.mylibrelab.elements.circuit.processmanagement.process;// *****************************************************************************
 
+import java.io.File;
+
+import javax.swing.filechooser.FileFilter;
+
 public class vlogicFilter extends FileFilter {
     static String fileExtension = "vlogic";
 

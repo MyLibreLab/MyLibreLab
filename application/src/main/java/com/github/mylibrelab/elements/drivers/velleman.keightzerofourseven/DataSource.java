@@ -20,6 +20,8 @@
 
 package com.github.mylibrelab.elements.drivers.velleman.keightzerofourseven;// *****************************************************************************
 
+import VisualLogic.MyOpenLabDriverOwnerIF;
+
 /**
  *
  * @author Carmelo

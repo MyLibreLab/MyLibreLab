@@ -56,7 +56,7 @@ package com.github.mylibrelab.elements.circuit.vectorenmatrix.oneddoubletoonedst
                                                                                       *
                                                                                       */
 
-import java.awt.*;
+import java.awt.Image;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

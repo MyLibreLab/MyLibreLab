@@ -20,12 +20,22 @@
 
 package com.github.mylibrelab.elements.circuit.sound.playsound;// *****************************************************************************
 
-import java.awt.*;
-import java.io.*;
+import java.awt.Image;
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Locale;
 
-import javax.sound.sampled.*;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

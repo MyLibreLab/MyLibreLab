@@ -20,7 +20,11 @@
 
 package com.github.mylibrelab.elements.circuit.flowcharts.variables.getter;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
 import com.github.mylibrelab.elements.tools.MainFlow;
@@ -28,7 +32,19 @@ import com.github.mylibrelab.elements.tools.MainFlow;
 import MyParser.OpenVariable;
 import VisualLogic.ExternalIF;
 import VisualLogic.VSBasisIF;
-import VisualLogic.variables.*;
+import VisualLogic.variables.VS1DBoolean;
+import VisualLogic.variables.VS1DDouble;
+import VisualLogic.variables.VS1DInteger;
+import VisualLogic.variables.VS1DString;
+import VisualLogic.variables.VS2DBoolean;
+import VisualLogic.variables.VS2DDouble;
+import VisualLogic.variables.VS2DInteger;
+import VisualLogic.variables.VS2DString;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSDouble;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSObject;
+import VisualLogic.variables.VSString;
 
 public class GetterDouble extends MainFlow {
 

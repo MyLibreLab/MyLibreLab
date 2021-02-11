@@ -49,8 +49,9 @@ package com.github.mylibrelab.elements.circuit.onedarray.onednoisegenerator;/*
                                                                              *
                                                                              */
 
-import java.awt.*;
+import java.awt.Image;
 import java.util.Locale;
+import java.util.Random;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

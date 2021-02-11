@@ -20,6 +20,15 @@
 
 package com.github.mylibrelab.elements.circuit.interfacepackage.processing.bytestostring;// *****************************************************************************
 
+import java.awt.Image;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ElementActionEvent;
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VS1DByte;
+import VisualLogic.variables.VSString;
+
 public class BytesToString extends JVSMain {
     private Image image;
 

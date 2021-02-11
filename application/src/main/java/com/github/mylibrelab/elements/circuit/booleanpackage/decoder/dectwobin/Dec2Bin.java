@@ -20,7 +20,9 @@
 
 package com.github.mylibrelab.elements.circuit.booleanpackage.decoder.dectwobin;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Rectangle;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

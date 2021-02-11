@@ -20,9 +20,11 @@
 
 package com.github.mylibrelab.elements.tools;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
 class Beschriftung extends JPanel {
     public String text = "";

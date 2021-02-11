@@ -20,6 +20,16 @@
 
 package com.github.mylibrelab.elements.drivers.modusbus.compulab;// *****************************************************************************
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.*;
+
+import VisualLogic.MyOpenLabDriverIF;
+import VisualLogic.MyOpenLabDriverOwnerIF;
+import VisualLogic.variables.VSDouble;
+
 public class Driver implements MyOpenLabDriverIF {
     private boolean isOpen = false;
     private CLusb lib;

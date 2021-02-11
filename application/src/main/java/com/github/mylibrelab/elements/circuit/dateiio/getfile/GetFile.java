@@ -20,9 +20,9 @@
 
 package com.github.mylibrelab.elements.circuit.dateiio.getfile;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Image;
 
-import javax.swing.*;
+import javax.swing.JFileChooser;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

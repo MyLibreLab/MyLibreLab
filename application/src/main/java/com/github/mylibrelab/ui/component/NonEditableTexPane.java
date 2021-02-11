@@ -20,9 +20,9 @@
 
 package com.github.mylibrelab.ui.component;
 
-import java.awt.*;
+import java.awt.Color;
 
-import javax.swing.*;
+import javax.swing.JTextPane;
 
 public class NonEditableTexPane extends JTextPane {
 

@@ -20,9 +20,10 @@
 
 package com.github.mylibrelab.ui.icons;
 
-import java.awt.*;
+import java.awt.Image;
+import java.awt.Window;
 
-import javax.swing.*;
+import javax.swing.Icon;
 
 import org.jetbrains.annotations.NotNull;
 

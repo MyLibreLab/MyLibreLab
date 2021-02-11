@@ -20,7 +20,10 @@
 
 package com.github.mylibrelab.elements.circuit.mcu.stackinterpreter.flowcharts.function;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import com.github.mylibrelab.elements.tools.MCUMainFlow;

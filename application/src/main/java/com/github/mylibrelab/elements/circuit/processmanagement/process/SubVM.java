@@ -20,6 +20,25 @@
 
 package com.github.mylibrelab.elements.circuit.processmanagement.process;// *****************************************************************************
 
+import java.awt.Image;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Locale;
+
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ElementActionEvent;
+import VisualLogic.ExternalIF;
+import VisualLogic.VSBasisIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSObject;
+import VisualLogic.variables.VSString;
+
 public class SubVM extends JVSMain {
     private Image image;
     private VSBoolean inStart = null;

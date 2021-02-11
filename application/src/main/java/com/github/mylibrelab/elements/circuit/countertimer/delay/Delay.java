@@ -20,7 +20,8 @@
 
 package com.github.mylibrelab.elements.circuit.countertimer.delay;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Image;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

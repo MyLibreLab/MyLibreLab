@@ -20,7 +20,11 @@
 
 package com.github.mylibrelab.elements.circuit.flowcharts.dec;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
 import com.github.mylibrelab.elements.tools.MainFlow;

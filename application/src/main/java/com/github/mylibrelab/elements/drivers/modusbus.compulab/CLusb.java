@@ -20,6 +20,9 @@
 
 package com.github.mylibrelab.elements.drivers.modusbus.compulab;// *****************************************************************************
 
+import com.sun.jna.Native;
+import com.sun.jna.win32.StdCallLibrary;
+
 /**
  *
  * @author Salafia

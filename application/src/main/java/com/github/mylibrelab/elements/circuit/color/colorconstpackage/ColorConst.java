@@ -20,7 +20,7 @@
 
 package com.github.mylibrelab.elements.circuit.color.colorconstpackage;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Rectangle;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

@@ -20,11 +20,15 @@
 
 package com.github.mylibrelab.action;
 
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.AbstractButton;
+import javax.swing.Icon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -35,8 +39,6 @@ import com.github.mylibrelab.event.Topics;
 import com.github.mylibrelab.ui.component.AppContentPane;
 import com.github.mylibrelab.ui.module.ApplicationModule;
 import com.github.weisj.darklaf.util.PropertyUtil;
-
-import kotlin.Pair;
 
 /**
  * Utility class for working with action.

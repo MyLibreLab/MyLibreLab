@@ -56,7 +56,7 @@ package com.github.mylibrelab.elements.circuit.booleanpackage.counter.fourbitcou
                                                                                       *
                                                                                       */
 
-import java.awt.*;
+import java.awt.Image;
 import java.util.Locale;
 
 import com.github.mylibrelab.elements.tools.JVSMain;

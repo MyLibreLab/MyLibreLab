@@ -20,6 +20,13 @@
 
 package com.github.mylibrelab.elements.drivers.velleman.keightzerofourseven;// *****************************************************************************
 
+import java.util.ArrayList;
+
+import javax.swing.*;
+
+import VisualLogic.MyOpenLabDriverIF;
+import VisualLogic.MyOpenLabDriverOwnerIF;
+
 public class K8047 implements MyOpenLabDriverIF {
     private boolean isOpen = false;
     private K8047d lib;

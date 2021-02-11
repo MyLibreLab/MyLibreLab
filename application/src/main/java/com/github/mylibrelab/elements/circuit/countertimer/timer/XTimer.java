@@ -20,7 +20,7 @@
 
 package com.github.mylibrelab.elements.circuit.countertimer.timer;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

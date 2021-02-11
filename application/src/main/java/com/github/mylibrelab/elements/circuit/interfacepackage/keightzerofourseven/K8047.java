@@ -20,6 +20,20 @@
 
 package com.github.mylibrelab.elements.circuit.interfacepackage.keightzerofourseven;// *****************************************************************************
 
+import java.awt.Image;
+import java.io.File;
+
+import javax.swing.JOptionPane;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ElementActionEvent;
+import VisualLogic.ExternalIF;
+import VisualLogic.MyOpenLabDriverIF;
+import VisualLogic.MyOpenLabDriverOwnerIF;
+import VisualLogic.variables.VSDouble;
+import VisualLogic.variables.VSInteger;
+
 public class K8047 extends JVSMain implements MyOpenLabDriverOwnerIF {
     private boolean isOpen = false;
 

@@ -20,13 +20,20 @@
 
 package com.github.mylibrelab.elements.circuit.extras.logicsubvm;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Button;
+import java.awt.CheckboxGroup;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Label;
+import java.awt.Panel;
+import java.awt.TextField;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.*;
+import javax.swing.JDialog;
 
 /**
  *

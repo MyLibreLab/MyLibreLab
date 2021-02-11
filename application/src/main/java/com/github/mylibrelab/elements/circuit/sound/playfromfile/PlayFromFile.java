@@ -22,7 +22,7 @@ package com.github.mylibrelab.elements.circuit.sound.playfromfile;// ***********
 
 import java.applet.Applet;
 import java.applet.AudioClip;
-import java.awt.*;
+import java.awt.Image;
 import java.util.Locale;
 
 import com.github.mylibrelab.elements.tools.JVSMain;

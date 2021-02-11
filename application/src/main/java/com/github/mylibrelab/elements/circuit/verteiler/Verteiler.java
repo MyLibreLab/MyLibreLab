@@ -20,7 +20,8 @@
 
 package com.github.mylibrelab.elements.circuit.verteiler;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Rectangle;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

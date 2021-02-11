@@ -50,13 +50,18 @@ package com.github.mylibrelab.elements.circuit.vectorenmatrix.twodstringmemtable
                                                                                   *
                                                                                   */
 
-import java.awt.*;
+import java.awt.Image;
 import java.util.Locale;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 
 import VisualLogic.ExternalIF;
-import VisualLogic.variables.*;
+import VisualLogic.variables.VS2DBoolean;
+import VisualLogic.variables.VS2DDouble;
+import VisualLogic.variables.VS2DInteger;
+import VisualLogic.variables.VS2DString;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSObject;
 
 public class MemTable extends JVSMain {
     private Image image;

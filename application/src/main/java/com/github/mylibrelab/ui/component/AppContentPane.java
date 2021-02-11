@@ -20,11 +20,19 @@
 
 package com.github.mylibrelab.ui.component;
 
-import java.awt.*;
-import java.util.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridBagLayout;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import org.jetbrains.annotations.NotNull;
 import org.tinylog.Logger;
@@ -37,10 +45,7 @@ import com.github.mylibrelab.ui.persistent.PersistenceNode;
 import com.github.mylibrelab.ui.persistent.PersistentComponent;
 import com.github.mylibrelab.ui.persistent.component.PersistentTabFrame;
 import com.github.weisj.darklaf.components.tabframe.TabFramePopup;
-import com.github.weisj.darklaf.util.Alignment;
 import com.github.weisj.darklaf.util.PropertyUtil;
-
-import kotlin.Pair;
 
 public class AppContentPane extends JPanel implements PersistentComponent {
 

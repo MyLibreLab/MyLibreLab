@@ -20,7 +20,8 @@
 
 package com.github.mylibrelab.elements.circuit.extras.fontconstpackage;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Font;
+import java.awt.Image;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 

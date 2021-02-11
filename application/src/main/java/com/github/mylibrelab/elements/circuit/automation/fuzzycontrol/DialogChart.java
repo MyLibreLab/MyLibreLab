@@ -25,10 +25,13 @@ package com.github.mylibrelab.elements.circuit.automation.fuzzycontrol;// ******
  *
  * Created on 19. Mai 2007, 20:22
  */
+import java.awt.BorderLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 
-import java.awt.*;
+import javax.swing.JPanel;
 
-import javax.swing.*;
+import org.jfree.chart.JFreeChart;
 
 /**
  *

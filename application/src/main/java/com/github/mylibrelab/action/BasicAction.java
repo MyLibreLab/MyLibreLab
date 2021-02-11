@@ -20,7 +20,7 @@
 
 package com.github.mylibrelab.action;
 
-import javax.swing.*;
+import javax.swing.Icon;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

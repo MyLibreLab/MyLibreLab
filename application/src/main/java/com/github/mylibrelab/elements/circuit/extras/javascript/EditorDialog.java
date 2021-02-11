@@ -20,7 +20,7 @@
 
 package com.github.mylibrelab.elements.circuit.extras.javascript;
 
-import java.awt.*;
+import java.awt.GraphicsEnvironment;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

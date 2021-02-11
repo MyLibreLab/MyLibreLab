@@ -64,10 +64,13 @@ package com.github.mylibrelab.elements.front.twoautomation.industrial.buttons.jv
                                                                                              *
                                                                                              */
 
+
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
+import com.github.mylibrelab.svg.viewer.SVGManager;
+import com.github.mylibrelab.svg.viewer.SVGObject;
 
 import VisualLogic.PanelIF;
 import VisualLogic.variables.*;

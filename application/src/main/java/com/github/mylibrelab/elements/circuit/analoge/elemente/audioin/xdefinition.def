@@ -1,7 +1,0 @@
-ISDIRECTORY = FALSE
-CAPTION= AudioIn
-CAPTION_EN=AudioIn
-CAPTION_ES=Entrada Audio
-Jar= bin/AudioIn.jar
-classCircuit  =AudioIn
-Icon= bin/AudioIn.gif

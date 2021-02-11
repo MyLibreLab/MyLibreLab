@@ -20,9 +20,9 @@
 
 package com.github.mylibrelab.ui.border;
 
-import java.awt.*;
+import java.awt.Insets;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 
 import org.jetbrains.annotations.NotNull;

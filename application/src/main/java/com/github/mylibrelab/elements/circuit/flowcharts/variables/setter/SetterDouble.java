@@ -20,13 +20,21 @@
 
 package com.github.mylibrelab.elements.circuit.flowcharts.variables.setter;// *****************************************************************************
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
 import com.github.mylibrelab.elements.tools.MainFlow;
 
 import VisualLogic.VSBasisIF;
-import VisualLogic.variables.*;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSDouble;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSObject;
+import VisualLogic.variables.VSString;
 
 public class SetterDouble extends MainFlow {
     private Image image;

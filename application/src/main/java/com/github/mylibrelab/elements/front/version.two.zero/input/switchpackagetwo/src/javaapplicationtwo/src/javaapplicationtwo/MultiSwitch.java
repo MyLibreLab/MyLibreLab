@@ -18,7 +18,7 @@
  *
  */
 
-package com.github.mylibrelab.elements.front.version.two.zero.input.switchtwo.src.javaapplicationtwo.src.javaapplicationtwo;
+package com.github.mylibrelab.elements.front.version.two.zero.input.switchpackagetwo.src.javaapplicationtwo.src.javaapplicationtwo;
 
 import java.awt.*;
 

@@ -22,8 +22,6 @@ package VisualLogic.variables;
 
 import java.io.IOException;
 
-import org.tinylog.Logger;
-
 import jssc.SerialPort;
 import jssc.SerialPortException;
 import jssc.SerialPortTimeoutException;

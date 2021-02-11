@@ -20,7 +20,7 @@
 
 package com.github.mylibrelab.elements.circuit.extras.subvm;// *****************************************************************************
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 
