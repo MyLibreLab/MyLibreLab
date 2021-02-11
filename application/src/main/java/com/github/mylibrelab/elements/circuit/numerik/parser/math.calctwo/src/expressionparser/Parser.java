@@ -18,6 +18,61 @@
  *
  */
 
+package com.github.mylibrelab.elements.circuit.numerik.parser.math.calctwo.src.expressionparser;/*
+                                                                                                 * Copyright (C) 2020
+                                                                                                 * MyLibreLab
+                                                                                                 * Based on MyOpenLab by
+                                                                                                 * Carmelo Salafia
+                                                                                                 * www.myopenlab.de
+                                                                                                 * Copyright (C) 2004
+                                                                                                 * Carmelo Salafia
+                                                                                                 * cswi@gmx.de
+                                                                                                 *
+                                                                                                 * This program is free
+                                                                                                 * software: you can
+                                                                                                 * redistribute it
+                                                                                                 * and/or modify
+                                                                                                 * it under the terms of
+                                                                                                 * the GNU General
+                                                                                                 * Public License as
+                                                                                                 * published by
+                                                                                                 * the Free Software
+                                                                                                 * Foundation, either
+                                                                                                 * version 3 of the
+                                                                                                 * License, or
+                                                                                                 * (at your option) any
+                                                                                                 * later version.
+                                                                                                 *
+                                                                                                 * This program is
+                                                                                                 * distributed in the
+                                                                                                 * hope that it will be
+                                                                                                 * useful,
+                                                                                                 * but WITHOUT ANY
+                                                                                                 * WARRANTY; without
+                                                                                                 * even the implied
+                                                                                                 * warranty of
+                                                                                                 * MERCHANTABILITY or
+                                                                                                 * FITNESS FOR A
+                                                                                                 * PARTICULAR PURPOSE.
+                                                                                                 * See the
+                                                                                                 * GNU General Public
+                                                                                                 * License for more
+                                                                                                 * details.
+                                                                                                 *
+                                                                                                 * You should have
+                                                                                                 * received a copy of
+                                                                                                 * the GNU General
+                                                                                                 * Public License
+                                                                                                 * along with this
+                                                                                                 * program. If not, see
+                                                                                                 * <http://www.gnu.org/
+                                                                                                 * licenses/>.
+                                                                                                 *
+                                                                                                 */
+
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
 class Token {
     public boolean isNum = false;
     public boolean isOp = false;
@@ -64,10 +119,10 @@ public class Parser {
     private static final String OPERATOREN = "+-*/^%";
     private static final String KLAMMER = "()";
     private StringTokenizer tokenizer;
-    private ArrayList mainVector = new ArrayList();
+    private final ArrayList mainVector = new ArrayList();
     private ArrayList optVector;
     private int pointer = 0;
-    private ArrayList vars = new ArrayList();
+    private final ArrayList vars = new ArrayList();
     private String errorMessage = "";
 
 
@@ -436,7 +491,7 @@ public class Parser {
     }
 
     private boolean isFunc(String val) {
-        if (val.equalsIgnoreCase("sin") ||
+        return val.equalsIgnoreCase("sin") ||
                 val.equalsIgnoreCase("cos") ||
                 val.equalsIgnoreCase("tan") ||
                 val.equalsIgnoreCase("asin") ||
@@ -453,10 +508,7 @@ public class Parser {
                 val.equalsIgnoreCase("round") ||
                 val.equalsIgnoreCase("fak") ||
                 val.equalsIgnoreCase("toDeg") ||
-                val.equalsIgnoreCase("toRad")) {
-            return true;
-        } else
-            return false;
+                val.equalsIgnoreCase("toRad");
     }
 
     private boolean isIn(String a, String set) {

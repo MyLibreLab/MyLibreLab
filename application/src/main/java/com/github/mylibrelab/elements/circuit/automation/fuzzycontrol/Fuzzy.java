@@ -18,29 +18,19 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Automation.FuzzyControl.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.automation.fuzzycontrol;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
+import java.util.ArrayList;
 
+import com.github.mylibrelab.elements.tools.JVSMain;
 
+import VisualLogic.ElementActionEvent;
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSDouble;
+import VisualLogic.variables.VSPropertyDialog;
+import VisualLogic.variables.VSString;
 
 public class Fuzzy extends JVSMain {
     private Image image;
@@ -50,9 +40,9 @@ public class Fuzzy extends JVSMain {
     private ArrayList<MyNode> inputList;
     private ArrayList<MyNode> outputList;
 
-    private VSPropertyDialog text = new VSPropertyDialog();
+    private final VSPropertyDialog text = new VSPropertyDialog();
     public VSBoolean showGraphs = new VSBoolean(false);
-    private VSString textVar = new VSString("");
+    private final VSString textVar = new VSString("");
     public VSPropertyDialog assistent = new VSPropertyDialog();
 
 
@@ -288,9 +278,9 @@ public class Fuzzy extends JVSMain {
             frm.jEditorPane1.setText(textVar.getValue());
             frm.setVisible(true);
 
-            if (frm.result) {
+            if (NewJDialog.result) {
                 System.out.println("##############################");
-                textVar.setValue(frm.text);
+                textVar.setValue(NewJDialog.text);
 
                 init();
             }

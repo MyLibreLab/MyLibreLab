@@ -18,41 +18,32 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.FlowCharts.Robot.Get.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.flowcharts.robot.get;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 
+import com.github.mylibrelab.elements.tools.MainFlow;
 
+import VisualLogic.ExternalIF;
+import VisualLogic.VSBasisIF;
+import VisualLogic.variables.VSComboBox;
+import VisualLogic.variables.VSDouble;
+import VisualLogic.variables.VSFlowInfo;
+import VisualLogic.variables.VSString;
 
 public class Get extends MainFlow {
     private Image image;
     private VSBasisIF basis;
     private VSFlowInfo in = null;
-    private VSFlowInfo out = new VSFlowInfo();
+    private final VSFlowInfo out = new VSFlowInfo();
 
     private ExternalIF robotCircuitElement;
     private ExternalIF robotFrontElement;
 
-    private VSString resultVar = new VSString();
-    private VSComboBox sensorNr = new VSComboBox();
+    private final VSString resultVar = new VSString();
+    private final VSComboBox sensorNr = new VSComboBox();
 
     public void onDispose() {
         robotCircuitElement = null;

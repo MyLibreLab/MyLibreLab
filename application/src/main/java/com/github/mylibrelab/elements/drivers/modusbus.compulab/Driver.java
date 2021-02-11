@@ -18,29 +18,7 @@
  *
  */
 
-package com.github.mylibrelab.elements.drivers.modusbus.CompuLab.src;// *****************************************************************************
-
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
-
-
+package com.github.mylibrelab.elements.drivers.modusbus.compulab;// *****************************************************************************
 
 public class Driver implements MyOpenLabDriverIF {
     private boolean isOpen = false;
@@ -60,7 +38,7 @@ public class Driver implements MyOpenLabDriverIF {
     private boolean inp6 = false;
     private boolean inp7 = false;
     private boolean inp8 = false;
-    private boolean running = false;
+    private final boolean running = false;
 
     private boolean inOut1;
     private boolean inOut2;
@@ -75,10 +53,10 @@ public class Driver implements MyOpenLabDriverIF {
     private double inAC2;
 
 
-    private VSDouble outA1 = new VSDouble(0);
-    private VSDouble outA2 = new VSDouble(0);
+    private final VSDouble outA1 = new VSDouble(0);
+    private final VSDouble outA2 = new VSDouble(0);
 
-    private javax.swing.Timer timer;
+    private final javax.swing.Timer timer;
 
     private MyOpenLabDriverOwnerIF owner;
     private boolean firstTime = true;
@@ -156,38 +134,14 @@ public class Driver implements MyOpenLabDriverIF {
                     try {
                         int din = lib.DIN();
 
-                        if ((din & 1) > 0)
-                            inp1 = true;
-                        else
-                            inp1 = false;
-                        if ((din & 2) > 0)
-                            inp2 = true;
-                        else
-                            inp2 = false;
-                        if ((din & 4) > 0)
-                            inp3 = true;
-                        else
-                            inp3 = false;
-                        if ((din & 8) > 0)
-                            inp4 = true;
-                        else
-                            inp4 = false;
-                        if ((din & 16) > 0)
-                            inp5 = true;
-                        else
-                            inp5 = false;
-                        if ((din & 32) > 0)
-                            inp6 = true;
-                        else
-                            inp6 = false;
-                        if ((din & 64) > 0)
-                            inp7 = true;
-                        else
-                            inp7 = false;
-                        if ((din & 128) > 0)
-                            inp8 = true;
-                        else
-                            inp8 = false;
+                        inp1 = (din & 1) > 0;
+                        inp2 = (din & 2) > 0;
+                        inp3 = (din & 4) > 0;
+                        inp4 = (din & 8) > 0;
+                        inp5 = (din & 16) > 0;
+                        inp6 = (din & 32) > 0;
+                        inp7 = (din & 64) > 0;
+                        inp8 = (din & 128) > 0;
 
                         int a1 = lib.AIN(1);
                         int a2 = lib.AIN(2);

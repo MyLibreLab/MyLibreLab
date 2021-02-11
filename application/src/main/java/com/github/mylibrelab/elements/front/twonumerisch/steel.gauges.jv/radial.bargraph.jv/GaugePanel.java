@@ -18,50 +18,96 @@
  *
  */
 
+package com.github.mylibrelab.elements.front.twonumerisch.steel.gauges.jv.radial.bargraph.jv;/*
+                                                                                              * Copyright (C) 2020
+                                                                                              * MyLibreLab
+                                                                                              * Based on MyOpenLab by
+                                                                                              * Carmelo Salafia
+                                                                                              * www.myopenlab.de
+                                                                                              * Copyright (C) 2004
+                                                                                              * Carmelo Salafia
+                                                                                              * cswi@gmx.de
+                                                                                              *
+                                                                                              * This program is free
+                                                                                              * software: you can
+                                                                                              * redistribute it and/or
+                                                                                              * modify
+                                                                                              * it under the terms of
+                                                                                              * the GNU General Public
+                                                                                              * License as published by
+                                                                                              * the Free Software
+                                                                                              * Foundation, either
+                                                                                              * version 3 of the
+                                                                                              * License, or
+                                                                                              * (at your option) any
+                                                                                              * later version.
+                                                                                              *
+                                                                                              * This program is
+                                                                                              * distributed in the hope
+                                                                                              * that it will be useful,
+                                                                                              * but WITHOUT ANY
+                                                                                              * WARRANTY; without even
+                                                                                              * the implied warranty of
+                                                                                              * MERCHANTABILITY or
+                                                                                              * FITNESS FOR A PARTICULAR
+                                                                                              * PURPOSE. See the
+                                                                                              * GNU General Public
+                                                                                              * License for more
+                                                                                              * details.
+                                                                                              *
+                                                                                              * You should have received
+                                                                                              * a copy of the GNU
+                                                                                              * General Public License
+                                                                                              * along with this program.
+                                                                                              * If not, see
+                                                                                              * <http://www.gnu.org/
+                                                                                              * licenses/>.
+                                                                                              *
+                                                                                              */
+
+import java.awt.*;
+import java.text.NumberFormat;
+
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.PanelIF;
+import VisualLogic.variables.*;
+
 public class GaugePanel extends JVSMain implements PanelIF {
 
-    private double value = 0.0;
-
     final private static RadialBargraph myGauge = new RadialBargraph();
-    private VSDouble InitialValue = new VSDouble();
-
-    private VSColor fontColor = new VSColor(Color.red);
-    private VSFont font = new VSFont(new Font("Dialog", Font.BOLD, 11));
-
-    private VSComboBox ledColor = new VSComboBox();
-    private VSDouble minMeasured = new VSDouble(0.0);
-    private VSBoolean lcdDisplayEn = new VSBoolean(false);
-    private VSBoolean digitalFontEn = new VSBoolean(false);
-    private VSComboBox lcdDisplayColor = new VSComboBox();
-    private VSComboBox pointerColor = new VSComboBox();
-    private VSBoolean backGroundVisible = new VSBoolean(true);
-    private VSBoolean frameVisible = new VSBoolean(true);
-    private VSComboBox backGroundColor = new VSComboBox();
-    private VSComboBox frameDesign = new VSComboBox();
-
-    private VSDouble maxMeasured = new VSDouble(100.0);
-    private VSBoolean tresholdLedIndicatorEn = new VSBoolean(true);
-    private VSDouble tresholdValue = new VSDouble(50.0);
-
-
-
-    private VSBoolean tittleNunitsEnable = new VSBoolean(true);
-    private VSString tittle = new VSString("Tittle");
-    private VSString subTittle = new VSString("SubTittle");
-    private VSBoolean unitsEnable = new VSBoolean(false);
-    private VSString unitString = new VSString("units");
-    private VSBoolean scientificEnable = new VSBoolean(false);
-    private VSInteger decimals = new VSInteger(0);
-    private VSComboBox numberSystemCbox = new VSComboBox();
-
-    private VSBoolean textVisible = new VSBoolean(true);
-
-    private VSInteger majorTicks = new VSInteger(10);
-    private VSInteger minorTicks = new VSInteger(10);
-    private VSBoolean logScale = new VSBoolean(false);
-    private VSComboBox labelNumberF = new VSComboBox();
-
-
+    private final VSDouble InitialValue = new VSDouble();
+    private final VSColor fontColor = new VSColor(Color.red);
+    private final VSFont font = new VSFont(new Font("Dialog", Font.BOLD, 11));
+    private final VSComboBox ledColor = new VSComboBox();
+    private final VSDouble minMeasured = new VSDouble(0.0);
+    private final VSBoolean lcdDisplayEn = new VSBoolean(false);
+    private final VSBoolean digitalFontEn = new VSBoolean(false);
+    private final VSComboBox lcdDisplayColor = new VSComboBox();
+    private final VSComboBox pointerColor = new VSComboBox();
+    private final VSBoolean backGroundVisible = new VSBoolean(true);
+    private final VSBoolean frameVisible = new VSBoolean(true);
+    private final VSComboBox backGroundColor = new VSComboBox();
+    private final VSComboBox frameDesign = new VSComboBox();
+    private final VSDouble maxMeasured = new VSDouble(100.0);
+    private final VSBoolean tresholdLedIndicatorEn = new VSBoolean(true);
+    private final VSDouble tresholdValue = new VSDouble(50.0);
+    private final VSBoolean tittleNunitsEnable = new VSBoolean(true);
+    private final VSString tittle = new VSString("Tittle");
+    private final VSString subTittle = new VSString("SubTittle");
+    private final VSBoolean unitsEnable = new VSBoolean(false);
+    private final VSString unitString = new VSString("units");
+    private final VSBoolean scientificEnable = new VSBoolean(false);
+    private final VSInteger decimals = new VSInteger(0);
+    private final VSComboBox numberSystemCbox = new VSComboBox();
+    private final VSBoolean textVisible = new VSBoolean(true);
+    private final VSInteger majorTicks = new VSInteger(10);
+    private final VSInteger minorTicks = new VSInteger(10);
+    private final VSBoolean logScale = new VSBoolean(false);
+    private final VSComboBox labelNumberF = new VSComboBox();
+    private double value = 0.0;
 
     public void processPanel(int pinIndex, double value, Object obj) {
         // if (obj instanceof VSDouble){
@@ -101,7 +147,6 @@ public class GaugePanel extends JVSMain implements PanelIF {
             myGauge.setFrameVisible(frameVisible.getValue());
 
             myGauge.setTicklabelsVisible(textVisible.getValue());
-
 
 
             myGauge.setTitleAndUnitFontEnabled(tittleNunitsEnable.getValue());
@@ -354,7 +399,6 @@ public class GaugePanel extends JVSMain implements PanelIF {
         GaugeSet();
         element.jRepaint();
     }
-
 
 
     public void loadFromStream(java.io.FileInputStream fis) {

@@ -21,7 +21,19 @@
 package com.github.mylibrelab.elements.tools;
 
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.geom.Rectangle2D;
+
+import javax.swing.*;
+
+import VisualLogic.VSBasisIF;
+import VisualLogic.variables.VSString;
+
 public class MCUMainFlow extends JVSMain {
+    public static int ONLY_VAR = 1;
+    public static int SIMPLE = 2;
+    public static int VAR_OR_CONST = 3;
     public VSString variable = new VSString("i");
     public Font font = new Font("Courier", 0, 12);
     public JTextField text = new JTextField();
@@ -32,11 +44,6 @@ public class MCUMainFlow extends JVSMain {
     public int height = 53;
     public String toInclude = "";
 
-
-    public static int ONLY_VAR = 1;
-    public static int SIMPLE = 2;
-    public static int VAR_OR_CONST = 3;
-
     public MCUMainFlow() {
 
     }
@@ -46,14 +53,14 @@ public class MCUMainFlow extends JVSMain {
         String result = "";
 
         Expression parser = new Expression();
-        parser.code.clear();
+        Expression.code.clear();
         java.util.Scanner scanner = new Scanner(element, new java.io.StringReader(param));
         while (scanner.ttype != scanner.TT_EOF)
             try {
                 parser.yyparse(scanner, null);
 
-                for (int i = 0; i < parser.code.size(); i++) {
-                    result += parser.code.get(i) + "\n";
+                for (int i = 0; i < Expression.code.size(); i++) {
+                    result += Expression.code.get(i) + "\n";
                 }
                 break;
 
@@ -63,12 +70,6 @@ public class MCUMainFlow extends JVSMain {
             }
 
         return result;
-    }
-
-    class MCUMainFlow_Property {
-        String name = "";
-        VSString obj;
-        int type = 0;
     }
 
     public void drawImageLeftAlign(java.awt.Graphics g, Image image, int left) {
@@ -91,8 +92,7 @@ public class MCUMainFlow extends JVSMain {
         Rectangle2D r = fm.getStringBounds(caption, g);
 
         g.setColor(Color.BLACK);
-        g.drawString(caption, mitteX - (int) (r.getWidth() / 2), (int) (mitteY + fm.getHeight() / 2) - 3);
-
+        g.drawString(caption, mitteX - (int) (r.getWidth() / 2), (mitteY + fm.getHeight() / 2) - 3);
 
 
         resizeWidth(g, leftRightDistance);
@@ -113,8 +113,6 @@ public class MCUMainFlow extends JVSMain {
             }
         }
     }
-
-
 
     public String checkProperty(String name, String value, int type) {
         if (type == SIMPLE) {
@@ -158,15 +156,11 @@ public class MCUMainFlow extends JVSMain {
 
         if (basis != null) {
             int varDT = basis.vsGetVariableDT(value);
-            if (varDT > -1) {
-                return true;
-            }
+            return varDT > -1;
         }
         // oder auch nicht!
         return false;
     }
-
-
 
     public void resizeWidth(Graphics g2, int leftRightDistance) {
         if (g2 != null) {
@@ -246,7 +240,6 @@ public class MCUMainFlow extends JVSMain {
         // element.setAlwaysOnTop(true);
 
 
-
         text.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextKeyPressed(evt);
@@ -261,9 +254,8 @@ public class MCUMainFlow extends JVSMain {
 
     }
 
-
     public void jTextKeyPressed(java.awt.event.KeyEvent evt) {
-        if (evt.getKeyCode() == evt.VK_ESCAPE) {
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
                     text.setVisible(false);
@@ -272,7 +264,7 @@ public class MCUMainFlow extends JVSMain {
             });
         }
 
-        if (evt.getKeyCode() == evt.VK_ENTER) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
                     variable.setValue(text.getText());
@@ -297,16 +289,19 @@ public class MCUMainFlow extends JVSMain {
 
     }
 
-
     public void loadFromStream(java.io.FileInputStream fis) {
         variable.loadFromStream(fis);
     }
-
 
     public void saveToStream(java.io.FileOutputStream fos) {
         variable.saveToStream(fos);
     }
 
+    class MCUMainFlow_Property {
+        String name = "";
+        VSString obj;
+        int type = 0;
+    }
 
 
 }

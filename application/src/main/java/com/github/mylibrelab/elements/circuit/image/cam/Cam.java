@@ -18,37 +18,28 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Image.Cam.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.image.cam;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.PixelGrabber;
+import java.nio.Buffer;
 
+import com.github.mylibrelab.elements.tools.JVSMain;
 
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSImage24;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSString;
 
 public class Cam extends JVSMain {
     private Image image;
     private Player player = null;
     private VSBoolean open;
-    private VSImage24 out = new VSImage24(1, 1);
-    private VSInteger delay = new VSInteger(2500);
-    private VSString captureDevice = new VSString("vfw:Microsoft WDM Image Capture (Win32):0");
+    private final VSImage24 out = new VSImage24(1, 1);
+    private final VSInteger delay = new VSInteger(2500);
+    private final VSString captureDevice = new VSString("vfw:Microsoft WDM Image Capture (Win32):0");
     private GRABB grabb = null;
 
     public void onDispose() {
@@ -206,9 +197,9 @@ public class Cam extends JVSMain {
 
 
 class GRABB extends Thread {
-    private Player player;
-    private ExternalIF element;
-    private VSImage24 out;
+    private final Player player;
+    private final ExternalIF element;
+    private final VSImage24 out;
     public boolean stop = false;
 
     public GRABB(Player player, ExternalIF element, VSImage24 out) {

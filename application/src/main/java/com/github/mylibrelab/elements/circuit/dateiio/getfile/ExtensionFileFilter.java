@@ -18,34 +18,17 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.DateiIO.GetFile.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.dateiio.getfile;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
-
+import java.io.File;
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 public class ExtensionFileFilter extends FileFilter {
 
 
-    private static String TYPE_UNKNOWN = "Type Unknown";
-    private static String HIDDEN_FILE = "Hidden File";
+    private static final String TYPE_UNKNOWN = "Type Unknown";
+    private static final String HIDDEN_FILE = "Hidden File";
 
 
     private Hashtable filters = null;
@@ -96,9 +79,7 @@ public class ExtensionFileFilter extends FileFilter {
                 return true;
             }
             String extension = getExtension(f);
-            if (extension != null && filters.get(getExtension(f)) != null) {
-                return true;
-            } ;
+            return extension != null && filters.get(getExtension(f)) != null;
         }
         return false;
     }
@@ -111,7 +92,7 @@ public class ExtensionFileFilter extends FileFilter {
             int i = filename.lastIndexOf('.');
             if (i > 0 && i < filename.length() - 1) {
                 return filename.substring(i + 1).toLowerCase();
-            } ;
+            }
         }
         return null;
     }
@@ -134,9 +115,9 @@ public class ExtensionFileFilter extends FileFilter {
                 // build the description from the extension list
                 Enumeration extensions = filters.keys();
                 if (extensions != null) {
-                    fullDescription += "." + (String) extensions.nextElement();
+                    fullDescription += "." + extensions.nextElement();
                     while (extensions.hasMoreElements()) {
-                        fullDescription += ", " + (String) extensions.nextElement();
+                        fullDescription += ", " + extensions.nextElement();
                     }
                 }
                 fullDescription += ")";

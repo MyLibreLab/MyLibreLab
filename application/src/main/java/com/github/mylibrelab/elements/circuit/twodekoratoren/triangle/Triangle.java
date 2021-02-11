@@ -18,13 +18,50 @@
  *
  */
 
+package com.github.mylibrelab.elements.circuit.twodekoratoren.triangle;/*
+                                                                        * Copyright (C) 2020 MyLibreLab
+                                                                        * Based on MyOpenLab by Carmelo Salafia
+                                                                        * www.myopenlab.de
+                                                                        * Copyright (C) 2004 Carmelo Salafia cswi@gmx.de
+                                                                        *
+                                                                        * This program is free software: you can
+                                                                        * redistribute it and/or modify
+                                                                        * it under the terms of the GNU General Public
+                                                                        * License as published by
+                                                                        * the Free Software Foundation, either version 3
+                                                                        * of the License, or
+                                                                        * (at your option) any later version.
+                                                                        *
+                                                                        * This program is distributed in the hope that
+                                                                        * it will be useful,
+                                                                        * but WITHOUT ANY WARRANTY; without even the
+                                                                        * implied warranty of
+                                                                        * MERCHANTABILITY or FITNESS FOR A PARTICULAR
+                                                                        * PURPOSE. See the
+                                                                        * GNU General Public License for more details.
+                                                                        *
+                                                                        * You should have received a copy of the GNU
+                                                                        * General Public License
+                                                                        * along with this program. If not, see
+                                                                        * <http://www.gnu.org/licenses/>.
+                                                                        *
+                                                                        */
+
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSColorAdvanced;
+import VisualLogic.variables.VSInteger;
+
 public class Triangle extends JVSMain {
 
-    private VSColorAdvanced fillColor = new VSColorAdvanced();
-    private VSColorAdvanced strokeColor = new VSColorAdvanced();
+    private final VSColorAdvanced fillColor = new VSColorAdvanced();
+    private final VSColorAdvanced strokeColor = new VSColorAdvanced();
 
-    private VSInteger strokeWidth = new VSInteger();
-    private VSBoolean fill = new VSBoolean(true);
+    private final VSInteger strokeWidth = new VSInteger();
+    private final VSBoolean fill = new VSBoolean(true);
 
     public void paint(java.awt.Graphics g) {
         if (element != null) {

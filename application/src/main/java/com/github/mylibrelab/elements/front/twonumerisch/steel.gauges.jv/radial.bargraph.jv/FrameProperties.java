@@ -18,16 +18,89 @@
  *
  */
 
+package com.github.mylibrelab.elements.front.twonumerisch.steel.gauges.jv.radial.bargraph.jv;/*
+                                                                                              * Copyright (C) 2020
+                                                                                              * MyLibreLab
+                                                                                              * Based on MyOpenLab by
+                                                                                              * Carmelo Salafia
+                                                                                              * www.myopenlab.de
+                                                                                              * Copyright (C) 2004
+                                                                                              * Carmelo Salafia
+                                                                                              * cswi@gmx.de
+                                                                                              *
+                                                                                              * This program is free
+                                                                                              * software: you can
+                                                                                              * redistribute it and/or
+                                                                                              * modify
+                                                                                              * it under the terms of
+                                                                                              * the GNU General Public
+                                                                                              * License as published by
+                                                                                              * the Free Software
+                                                                                              * Foundation, either
+                                                                                              * version 3 of the
+                                                                                              * License, or
+                                                                                              * (at your option) any
+                                                                                              * later version.
+                                                                                              *
+                                                                                              * This program is
+                                                                                              * distributed in the hope
+                                                                                              * that it will be useful,
+                                                                                              * but WITHOUT ANY
+                                                                                              * WARRANTY; without even
+                                                                                              * the implied warranty of
+                                                                                              * MERCHANTABILITY or
+                                                                                              * FITNESS FOR A PARTICULAR
+                                                                                              * PURPOSE. See the
+                                                                                              * GNU General Public
+                                                                                              * License for more
+                                                                                              * details.
+                                                                                              *
+                                                                                              * You should have received
+                                                                                              * a copy of the GNU
+                                                                                              * General Public License
+                                                                                              * along with this program.
+                                                                                              * If not, see
+                                                                                              * <http://www.gnu.org/
+                                                                                              * licenses/>.
+                                                                                              *
+                                                                                              */
+
 /**
- *
  * @author Homer
  */
 public class FrameProperties extends javax.swing.JDialog {
 
-    /** Creates new form FrameProperties */
+    public static boolean result = false;
+    public static double min = 0;
+    // </editor-fold>//GEN-END:initComponents
+    public static double max = 100;
+    public static double abschnitte = 3;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+
+    /**
+     * Creates new form FrameProperties
+     */
     public FrameProperties(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+
+    public static void execute(double min, double max, double abschnitte) {
+        FrameProperties frm = new FrameProperties(null, true);
+
+        frm.jTextField1.setText("" + min);
+        frm.jTextField2.setText("" + max);
+        frm.jTextField3.setText("" + abschnitte);
+
+        frm.setVisible(true);
     }
 
     /**
@@ -88,7 +161,6 @@ public class FrameProperties extends javax.swing.JDialog {
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width - 208) / 2, (screenSize.height - 134) / 2, 208, 134);
     }
-    // </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
         try {
@@ -108,33 +180,6 @@ public class FrameProperties extends javax.swing.JDialog {
         result = false;
         this.dispose();
     }// GEN-LAST:event_jButton2ActionPerformed
-
-
-    public static void execute(double min, double max, double abschnitte) {
-        FrameProperties frm = new FrameProperties(null, true);
-
-        frm.jTextField1.setText("" + min);
-        frm.jTextField2.setText("" + max);
-        frm.jTextField3.setText("" + abschnitte);
-
-        frm.setVisible(true);
-    }
-
-    public static boolean result = false;
-    public static double min = 0;
-    public static double max = 100;
-    public static double abschnitte = 3;
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    // End of variables declaration//GEN-END:variables
+     // End of variables declaration//GEN-END:variables
 
 }

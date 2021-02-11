@@ -18,7 +18,7 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Numerik.Parser.SummExpression.src.ExpressionParser;
+package com.github.mylibrelab.elements.circuit.numerik.parser.summexpression.src.expressionparser;
 
 public class Var {
 

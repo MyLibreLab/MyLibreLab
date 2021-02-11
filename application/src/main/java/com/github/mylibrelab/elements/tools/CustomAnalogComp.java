@@ -21,15 +21,26 @@
 package com.github.mylibrelab.elements.tools;
 
 
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
+import javax.swing.*;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.*;
+
 public class CustomAnalogComp extends JVSMain {
+    private final ArrayList listeBeschriftungen = new ArrayList();
+    private final double theAngle = 0.0;
     public VSDouble value0 = new VSDouble();
     public VSDouble initValue = new VSDouble();
     public Graphics2D gb = null;
-    private int oldH = 0, oldW = 0;
     public double oldValue;
     public VSDouble min = new VSDouble(0);
     public VSDouble max = new VSDouble(100);
-    private ArrayList listeBeschriftungen = new ArrayList();
     public VSInteger abschnitte = new VSInteger(10);
     public VSInteger abstand = new VSInteger(15);
     public VSInteger knobSizeInProzent = new VSInteger(30);
@@ -52,11 +63,11 @@ public class CustomAnalogComp extends JVSMain {
     public VSPropertyDialog captions = new VSPropertyDialog();
     public VSBoolean transparent = new VSBoolean(false);
     public VSBoolean onlyNumbers = new VSBoolean(true);
+    private int oldH = 0, oldW = 0;
     private boolean firstTime = true;
     private FontMetrics fm;
     private Rectangle2D r;
     private DecimalFormat df = new DecimalFormat(formatierung.getValue());
-    private double theAngle = 0.0;
     private ExternalIF circuitElement;
 
 
@@ -138,7 +149,6 @@ public class CustomAnalogComp extends JVSMain {
     }
 
 
-
     public void drawAnzeige(java.awt.Graphics gx, int x, int y, int w, int h) {
         int mitteX = x + (w / 2);
         int mitteY = y + (h / 2);
@@ -167,7 +177,6 @@ public class CustomAnalogComp extends JVSMain {
             Beschriftung bes = (Beschriftung) listeBeschriftungen.get(i);
             bes.visible = showText.getValue();
         }
-
 
 
         distance = w * 5 / 100;
@@ -212,7 +221,7 @@ public class CustomAnalogComp extends JVSMain {
                 vectLen1 = vectorLaenge - (double) d2;
             }
 
-            double disVal = ((double) (max.getValue() - min.getValue())) / (double) abschnitte.getValue();
+            double disVal = (max.getValue() - min.getValue()) / (double) abschnitte.getValue();
 
             double dis = 100.0 / (double) abschnitte.getValue();
             for (double i = 0; i <= 100.0; i += dis) {
@@ -276,7 +285,7 @@ public class CustomAnalogComp extends JVSMain {
 
         values.resize(abschnitte.getValue() + 1);
         double dblVal = min.getValue();
-        double disVal = ((double) (max.getValue() - min.getValue())) / (double) abschnitte.getValue();
+        double disVal = (max.getValue() - min.getValue()) / (double) abschnitte.getValue();
 
         double value = 0;
         double dis = 100.0 / (double) abschnitte.getValue();
@@ -370,7 +379,7 @@ public class CustomAnalogComp extends JVSMain {
         oldValue = value0.getValue() + 1;
 
         circuitElement = element.getCircuitElement();
-        circuitElement.Change(0, (Object) value0);
+        circuitElement.Change(0, value0);
         element.jRepaint();
     }
 
@@ -419,12 +428,10 @@ public class CustomAnalogComp extends JVSMain {
         else if (x >= 0 && y < 0) angle = 270 - q + alpha;
 
 
-
         double mitteRest = (360.0 + maxGrad.getValue()) / 2.0;
 
         angle = angle - 45 - minGrad.getValue();
         if (angle < 0) angle = (360.0 - 90) + (90 - Math.abs(angle));
-
 
 
         double f = 360.0 / maxGrad.getValue();
@@ -445,7 +452,7 @@ public class CustomAnalogComp extends JVSMain {
             }
 
             processProc();
-            circuitElement.Change(0, (Object) value0);
+            circuitElement.Change(0, value0);
             oldValue = value0.getValue();
             element.jRepaint();
         }
@@ -472,7 +479,7 @@ public class CustomAnalogComp extends JVSMain {
         if (o.equals(captions)) {
             String str = getTextWithN();
 
-            java.util.Properties frm = new Properties(element.jGetFrame(), str);
+            Properties frm = new Properties(element.jGetFrame(), str);
             frm.setSize(200, 200);
             frm.setModal(true);
             frm.setVisible(true);
@@ -540,7 +547,6 @@ public class CustomAnalogComp extends JVSMain {
         }
         initSubElements();
     }
-
 
 
     public void setPropertyEditor() {
@@ -637,7 +643,6 @@ public class CustomAnalogComp extends JVSMain {
     }
 
 
-
     public void loadFromStream(java.io.FileInputStream fis) {
         min.loadFromStream(fis);
         max.loadFromStream(fis);
@@ -702,31 +707,4 @@ public class CustomAnalogComp extends JVSMain {
         nibbleCircleSizeInProzent.saveToStream(fos);
     }
 
-}
-
-
-class Beschriftung extends JPanel {
-    public String text = "";
-    private CustomAnalogComp owner = null;
-    public boolean visible = false;
-
-    public Beschriftung(CustomAnalogComp owner, String text) {
-        this.text = text;
-        this.owner = owner;
-        this.setBackground(new Color(100, 100, 100, 0));
-        this.setOpaque(false);
-    }
-
-    public void paint(java.awt.Graphics g) {
-        // super.paintComponent(g);
-
-        if (visible) {
-            g.setFont(owner.font.getValue());
-            g.setColor(owner.fontColor.getValue());
-
-            java.awt.FontMetrics fm = g.getFontMetrics(owner.font.getValue());
-
-            g.drawString(text, 1, 0 + fm.getMaxAscent());
-        }
-    }
 }

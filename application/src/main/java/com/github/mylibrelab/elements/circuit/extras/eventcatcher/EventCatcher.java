@@ -18,50 +18,42 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Extras.EventCatcher.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.extras.eventcatcher;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.VSBasisIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSComboBox;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSString;
 
 public class EventCatcher extends JVSMain {
     private Image image;
-    private VSBoolean outMousePressed = new VSBoolean(false);
-    private VSBoolean outMouseReleased = new VSBoolean(false);
-    private VSBoolean outMouseDragged = new VSBoolean(false);
-    private VSBoolean outMouseMoved = new VSBoolean(false);
+    private final VSBoolean outMousePressed = new VSBoolean(false);
+    private final VSBoolean outMouseReleased = new VSBoolean(false);
+    private final VSBoolean outMouseDragged = new VSBoolean(false);
+    private final VSBoolean outMouseMoved = new VSBoolean(false);
 
-    private VSInteger outMouseX = new VSInteger(0);
-    private VSInteger outMouseY = new VSInteger(0);
-    private VSInteger outMouseButton = new VSInteger(0);
-    private VSInteger outMouseClickcount = new VSInteger(0);
+    private final VSInteger outMouseX = new VSInteger(0);
+    private final VSInteger outMouseY = new VSInteger(0);
+    private final VSInteger outMouseButton = new VSInteger(0);
+    private final VSInteger outMouseClickcount = new VSInteger(0);
 
-    private VSComboBox elList = new VSComboBox();
-    private VSInteger selectedID = new VSInteger(-1);
-    private VSString selectedCaption = new VSString("");
+    private final VSComboBox elList = new VSComboBox();
+    private final VSInteger selectedID = new VSInteger(-1);
+    private final VSString selectedCaption = new VSString("");
 
     private javax.swing.Timer timer;
 
     private VSBasisIF basis = null;
 
-    private ExternalIF elements[] = null;
+    private ExternalIF[] elements = null;
 
     public void paint(java.awt.Graphics g) {
         drawImageCentred(g, image);

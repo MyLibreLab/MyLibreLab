@@ -18,29 +18,16 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.CounterTimer.TickerCounter.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.countertimer.tickercounter;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
 
+import com.github.mylibrelab.elements.tools.JVSMain;
 
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSDouble;
+import VisualLogic.variables.VSInteger;
 
 public class TickerCounter extends JVSMain {
 
@@ -48,16 +35,16 @@ public class TickerCounter extends JVSMain {
     private VSBoolean pause;
     private VSBoolean reset;
 
-    private VSDouble outValue = new VSDouble(0.0);
+    private final VSDouble outValue = new VSDouble(0.0);
 
-    private VSInteger delay = new VSInteger(100);
-    private VSDouble step = new VSDouble(1);
-    private VSDouble from = new VSDouble(0);
-    private VSDouble to = new VSDouble(100000);
+    private final VSInteger delay = new VSInteger(100);
+    private final VSDouble step = new VSDouble(1);
+    private final VSDouble from = new VSDouble(0);
+    private final VSDouble to = new VSDouble(100000);
 
     private int counter = 0;
 
-    private int oldImpuse = -1;
+    private final int oldImpuse = -1;
     private Image image;
 
     public void onDispose() {

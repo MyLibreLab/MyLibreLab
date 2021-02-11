@@ -18,40 +18,75 @@
  *
  */
 
+package com.github.mylibrelab.elements.front.twoautomation.valves.jv.right.valve.jv;/*
+                                                                                     * Copyright (C) 2020 MyLibreLab
+                                                                                     * Based on MyOpenLab by Carmelo
+                                                                                     * Salafia www.myopenlab.de
+                                                                                     * Copyright (C) 2004 Carmelo
+                                                                                     * Salafia cswi@gmx.de
+                                                                                     *
+                                                                                     * This program is free software:
+                                                                                     * you can redistribute it and/or
+                                                                                     * modify
+                                                                                     * it under the terms of the GNU
+                                                                                     * General Public License as
+                                                                                     * published by
+                                                                                     * the Free Software Foundation,
+                                                                                     * either version 3 of the License,
+                                                                                     * or
+                                                                                     * (at your option) any later
+                                                                                     * version.
+                                                                                     *
+                                                                                     * This program is distributed in
+                                                                                     * the hope that it will be useful,
+                                                                                     * but WITHOUT ANY WARRANTY; without
+                                                                                     * even the implied warranty of
+                                                                                     * MERCHANTABILITY or FITNESS FOR A
+                                                                                     * PARTICULAR PURPOSE. See the
+                                                                                     * GNU General Public License for
+                                                                                     * more details.
+                                                                                     *
+                                                                                     * You should have received a copy
+                                                                                     * of the GNU General Public License
+                                                                                     * along with this program. If not,
+                                                                                     * see
+                                                                                     * <http://www.gnu.org/licenses/>.
+                                                                                     *
+                                                                                     */
+
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.PanelIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSColor;
+import VisualLogic.variables.VSColorAdvanced;
+import VisualLogic.variables.VSInteger;
+
 public class LEDPanel extends JVSMain implements PanelIF {
-    private boolean on = false;
     // private SVGManager svgManager = new SVGManager();
-    private VSColorAdvanced onColor = new VSColorAdvanced();
-    private VSColorAdvanced offColor = new VSColorAdvanced();
-
-    private VSInteger stroke = new VSInteger(5);
-
-    private VSColorAdvanced StrokeColor = new VSColorAdvanced();
-
-    private VSBoolean borderVisible = new VSBoolean(true);
-    private VSColor borderColor = new VSColor(Color.BLACK);
-    private VSBoolean fillAllPipe = new VSBoolean(false);
-
-    private VSBoolean InitState = new VSBoolean(false);
-
-    private VSInteger cnxSize = new VSInteger(5);
-
-
-    private VSInteger valveSize = new VSInteger(15); // Percent of Width
-    private VSInteger circleSizePerc = new VSInteger(25); // Percent of Width
-    private VSBoolean Diaphragm = new VSBoolean(true);
-    private VSBoolean manualValve = new VSBoolean(false);
-    private VSBoolean roundValve = new VSBoolean(false);
-    private VSBoolean controlValve = new VSBoolean(true);
-    private VSColorAdvanced ValveOnColor = new VSColorAdvanced();
-    private VSColorAdvanced ValveOffColor = new VSColorAdvanced();
-
-
-
+    private final VSColorAdvanced onColor = new VSColorAdvanced();
+    private final VSColorAdvanced offColor = new VSColorAdvanced();
+    private final VSInteger stroke = new VSInteger(5);
+    private final VSColorAdvanced StrokeColor = new VSColorAdvanced();
+    private final VSBoolean borderVisible = new VSBoolean(true);
+    private final VSColor borderColor = new VSColor(Color.BLACK);
+    private final VSBoolean fillAllPipe = new VSBoolean(false);
+    private final VSBoolean InitState = new VSBoolean(false);
+    private final VSInteger cnxSize = new VSInteger(5);
+    private final VSInteger valveSize = new VSInteger(15); // Percent of Width
+    private final VSInteger circleSizePerc = new VSInteger(25); // Percent of Width
+    private final VSBoolean Diaphragm = new VSBoolean(true);
+    private final VSBoolean manualValve = new VSBoolean(false);
+    private final VSBoolean roundValve = new VSBoolean(false);
+    private final VSBoolean controlValve = new VSBoolean(true);
+    private final VSColorAdvanced ValveOnColor = new VSColorAdvanced();
+    private final VSColorAdvanced ValveOffColor = new VSColorAdvanced();
     // private VSBoolean AutoOverlay = new VSBoolean(true);
-    private VSColorAdvanced overlayColor = new VSColorAdvanced();
+    private final VSColorAdvanced overlayColor = new VSColorAdvanced();
     Boolean overlay = false;
-
+    private boolean on = false;
 
     private void setOn(boolean value) {
         if (value != on) {
@@ -62,16 +97,10 @@ public class LEDPanel extends JVSMain implements PanelIF {
 
     public void processPanel(int pinIndex, double value, Object obj) {
         if (pinIndex == 0) {
-            if (value == 0.0)
-                setOn(false);
-            else
-                setOn(true);
+            setOn(value != 0.0);
         }
         if (pinIndex == 1) {
-            if (value == 0.0)
-                overlay = false;
-            else
-                overlay = true;
+            overlay = value != 0.0;
         }
     }
 
@@ -92,7 +121,6 @@ public class LEDPanel extends JVSMain implements PanelIF {
             int Y0 = 0;
             int tWidth = 0;
             int tHeight = 0;
-
 
 
             // ------------------------------------------------------------------------INICIO SECCIÓN DE TUBO
@@ -135,7 +163,6 @@ public class LEDPanel extends JVSMain implements PanelIF {
             }
             // ----------------------------------------------------------------------FINAL SECCIÓN DE TUBO
             // DERECHA
-
 
 
             // -------------------------------------------------------------------------------------RIGTH
@@ -182,7 +209,6 @@ public class LEDPanel extends JVSMain implements PanelIF {
                 }
 
 
-
                 if (borderVisible.getValue()) {
                     g2.setStroke(new BasicStroke(1));
                     g2.setColor(borderColor.getValue());
@@ -220,8 +246,8 @@ public class LEDPanel extends JVSMain implements PanelIF {
             else
                 offColor.setFillColor(g2);
 
-            int XC = (int) (X0 + (tWidth / 2));
-            int YC = (int) Y0 + (tHeight / 2) - (stroke.getValue());
+            int XC = X0 + (tWidth / 2);
+            int YC = Y0 + (tHeight / 2) - (stroke.getValue());
             int tWidth1 = (int) ((element.jGetWidth() * 0.02));
             int tWidthCircle = (int) ((element.jGetWidth() * (circleSizePerc.getValue() / 100.0)));
             int tHeigthCircle = (int) ((element.jGetHeight() * (circleSizePerc.getValue() / 100.0)));
@@ -282,7 +308,6 @@ public class LEDPanel extends JVSMain implements PanelIF {
             }
             // ---------------------------------------------------------------------FINAL SECCIÓN DE TUBO DE
             // ARRIBA
-
 
 
             // ---------------------------------------------------------------------------INICIO CONECTOR DE

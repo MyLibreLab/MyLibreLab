@@ -18,47 +18,43 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Extras.LogicSubVM.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.extras.logicsubvm;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Locale;
 
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ElementActionEvent;
+import VisualLogic.ExternalIF;
+import VisualLogic.VSBasisIF;
+import VisualLogic.variables.VSObject;
+import VisualLogic.variables.VSString;
 
 public class SubVM extends JVSMain {
     private Image image;
     private VSObject[] in = new VSObject[0];
     private VSObject[] myOuts = new VSObject[0];
-    private VSObject[] inX = new VSObject[0];
+    private final VSObject[] inX = new VSObject[0];
     private VSObject[] outX = new VSObject[0];
     private boolean changed = false;
     private VSBasisIF basis;
     private ExternalIF[] inputs;
     private ExternalIF[] outputs;
-    private VSString relativeFilename = new VSString("");
-    private String filenameX = "";
-    private String elementNameX = "";
-    private String elementIconX = "";
-    private VSString elementName = new VSString("");
-    private VSString elementIcon = new VSString("");
+    private final VSString relativeFilename = new VSString("");
+    private final String filenameX = "";
+    private final String elementNameX = "";
+    private final String elementIconX = "";
+    private final VSString elementName = new VSString("");
+    private final VSString elementIcon = new VSString("");
     private ExternalIF panelElement;
-    private VSString version = new VSString("");
+    private final VSString version = new VSString("");
     private String projektPath = "";
 
 

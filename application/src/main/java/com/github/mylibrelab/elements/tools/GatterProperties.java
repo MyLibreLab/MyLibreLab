@@ -21,13 +21,35 @@
 package com.github.mylibrelab.elements.tools;
 
 
+import java.awt.*;
+
+import javax.swing.*;
 
 public class GatterProperties extends javax.swing.JDialog {
 
-    /** Creates new form Properties */
+    private static int value;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JButton jcmdCancel;
+    private javax.swing.JButton jcmdOK;
+
+    /**
+     * Creates new form Properties
+     */
     public GatterProperties(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+
+    public static int showDialog(Frame frame) {
+        GatterProperties frm = new GatterProperties(frame, true);
+        frm.setVisible(true);
+
+        return value;
     }
 
     /**
@@ -151,23 +173,6 @@ public class GatterProperties extends javax.swing.JDialog {
         value = -1;
         dispose();
     }// GEN-LAST:event_jcmdCancelActionPerformed
-
-    public static int showDialog(Frame frame) {
-        GatterProperties frm = new GatterProperties(frame, true);
-        frm.setVisible(true);
-
-        return value;
-    }
-
-    private static int value;
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JButton jcmdCancel;
-    private javax.swing.JButton jcmdOK;
-    // End of variables declaration//GEN-END:variables
+     // End of variables declaration//GEN-END:variables
 
 }

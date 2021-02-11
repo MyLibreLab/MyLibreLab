@@ -18,29 +18,14 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.MCU.StackInterpreter.Loader.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.mcu.stackinterpreter.loader;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
 
-
+import VisualLogic.variables.VSObject;
 
 class Property {
     public String name = "";
@@ -53,50 +38,45 @@ class Property {
 
 public class FileConfigParser {
 
-    private ArrayList<String> liste = new ArrayList();
-    private int pc = 0;
-
+    public final int PIN_NOP = 0;
+    public final int PIN_INTEGER = 1;
+    public final int PIN_BOOLEAN = 2;
+    public final int PIN_DOUBLE = 3;
+    public final int PIN_FLOWINFO = 4;
+    public final int DT_NOP = 0;
+    public final int DT_BYTE = 1;
+    public final int DT_WORD = 2;
+    public final int DT_BOOLEAN = 3;
+    public final int DT_STRING = 4;
+    private final ArrayList<String> liste = new ArrayList();
     public String strName = "";
     public String strGlobals = "";
     public String strInit = "";
     public String strEventHandler = "";
     public String strProcedure = "";
     public String strPaint = "";
-
     public String strTopPins = "";
     public String strRightPins = "";
     public String strBottomPins = "";
     public String strLeftPins = "";
-
     public String strWidth = "";
     public String strHeight = "";
-
     public String strPINS_VISIBLE_TOP = "";
     public String strPINS_VISIBLE_RIGHT = "";
     public String strPINS_VISIBLE_BOTTOM = "";
     public String strPINS_VISIBLE_LEFT = "";
-
-    public int pinTypes[] = new int[100];
-    public String pinInputOutput[] = new String[100];
-    public String pinDescription[] = new String[100];
-
-    public Property properties[] = new Property[100];
+    public int[] pinTypes = new int[100];
+    public String[] pinInputOutput = new String[100];
+    public String[] pinDescription = new String[100];
+    public Property[] properties = new Property[100];
     public int propertiesC = 0;
-
-    public final int PIN_NOP = 0;
-    public final int PIN_INTEGER = 1;
-    public final int PIN_BOOLEAN = 2;
-    public final int PIN_DOUBLE = 3;
-    public final int PIN_FLOWINFO = 4;
+    private int pc = 0;
 
 
-    public final int DT_NOP = 0;
-    public final int DT_BYTE = 1;
-    public final int DT_WORD = 2;
-    public final int DT_BOOLEAN = 3;
-    public final int DT_STRING = 4;
-
-
+    public FileConfigParser(String filename) {
+        loadTextFile(new File(filename));
+        interp();
+    }
 
     private String getBlock() {
         boolean begin = false;
@@ -135,8 +115,7 @@ public class FileConfigParser {
         System.out.println(message);
     }
 
-
-    private String[] reduceTokens(String tokens[]) {
+    private String[] reduceTokens(String[] tokens) {
         ArrayList<String> result = new ArrayList();
 
         for (int i = 0; i < tokens.length; i++) {
@@ -145,7 +124,7 @@ public class FileConfigParser {
             }
         }
 
-        String res[] = new String[result.size()];
+        String[] res = new String[result.size()];
         for (int i = 0; i < result.size(); i++) {
             res[i] = result.get(i);
         }
@@ -162,7 +141,6 @@ public class FileConfigParser {
         return 0;
     }
 
-
     private void interp() {
         String inputString;
         pc = 0;
@@ -172,9 +150,9 @@ public class FileConfigParser {
         while (pc < liste.size()) {
             inputString = liste.get(pc);
 
-            String tokenX[] = inputString.split("\\s"); // Trenner ist das leerzeichen
+            String[] tokenX = inputString.split("\\s"); // Trenner ist das leerzeichen
 
-            String tokens[] = reduceTokens(tokenX);
+            String[] tokens = reduceTokens(tokenX);
 
             if (tokens.length > 0) {
                 String token = tokens[0].trim();
@@ -322,11 +300,6 @@ public class FileConfigParser {
                 showMessage(ex.toString());
             }
         }
-    }
-
-    public FileConfigParser(String filename) {
-        loadTextFile(new File(filename));
-        interp();
     }
 
 }

@@ -21,16 +21,28 @@
 package com.github.mylibrelab.elements.tools;
 
 
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
+import javax.swing.*;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.*;
 
 public class CustomAnalogComp_2_JV extends JVSMain {
+    private final ArrayList listeBeschriftungen = new ArrayList();
+    private final double theAngle = 0.0;
+    private final VSImage spitze = new VSImage();
     public VSDouble value0 = new VSDouble();
     public VSDouble initValue = new VSDouble();
     public Graphics2D gb = null;
-    private int oldH = 0, oldW = 0;
     public double oldValue;
     public VSDouble min = new VSDouble(0);
     public VSDouble max = new VSDouble(100);
-    private ArrayList listeBeschriftungen = new ArrayList();
     public VSInteger abschnitte = new VSInteger(10);
     public VSInteger abstand = new VSInteger(5);
     public VSInteger knobSizeInProzent = new VSInteger(5);
@@ -43,11 +55,9 @@ public class CustomAnalogComp_2_JV extends JVSMain {
     public VSColorAdvanced buttonColor = new VSColorAdvanced();// new VSColor(new Color(153,153,153));
     public VSColorAdvanced StrokeColor = new VSColorAdvanced(); // (new Color(204,204,204)); //G
     public VSColorAdvanced backColor = new VSColorAdvanced();
-
     public VSComboBox nibbleColor = new VSComboBox();
     public VSColor lineColor = new VSColor(new Color(253, 153, 0)); // 255 242 181
     public VSColor fontColor = new VSColor(new Color(0, 0, 51)); //
-
     public VSString formatierung = new VSString("#0");
     public VSBoolean textInside = new VSBoolean(false);
     public VSBoolean CircleComplete = new VSBoolean(false);
@@ -59,22 +69,19 @@ public class CustomAnalogComp_2_JV extends JVSMain {
     public VSPropertyDialog captions = new VSPropertyDialog();
     public VSBoolean transparent = new VSBoolean(false);
     public VSBoolean onlyNumbers = new VSBoolean(true);
-    private boolean firstTime = true;
-    private FontMetrics fm;
-    private Rectangle2D r;
-    private DecimalFormat df = new DecimalFormat(formatierung.getValue());
-    private double theAngle = 0.0;
-    private ExternalIF circuitElement;
-    private VSImage spitze = new VSImage();
-
     public int ArcGap = -2;
     public int diameterBack = 140;
     public int diameterLine = 140;
     public int TextGap = 0;
     public Color NibbleColorTemp;
-
     public VSInteger borderStroke = new VSInteger(7);
     public VSInteger lineStroke = new VSInteger(2);
+    private int oldH = 0, oldW = 0;
+    private boolean firstTime = true;
+    private FontMetrics fm;
+    private Rectangle2D r;
+    private DecimalFormat df = new DecimalFormat(formatierung.getValue());
+    private ExternalIF circuitElement;
 
     public void setValue(double value) {
         value0.setValue(value);
@@ -192,7 +199,6 @@ public class CustomAnalogComp_2_JV extends JVSMain {
     }
 
 
-
     public void drawAnzeige(java.awt.Graphics gx, int x, int y, int w, int h) {
         int mitteX = x + (w / 2);
         int mitteY = y + (h / 2);
@@ -234,12 +240,12 @@ public class CustomAnalogComp_2_JV extends JVSMain {
         int InsideGapW = (int) ((w - distance * 2) * 0.3);
         int InsideGapH = (int) ((w - distance * 2) * 0.3);
 
-        int TempW = (int) ((w - distance * 2) - InsideGapW) + abstand.getValue();
-        int TempH = (int) ((h - distance * 2) - InsideGapH) + abstand.getValue();
+        int TempW = ((w - distance * 2) - InsideGapW) + abstand.getValue();
+        int TempH = ((h - distance * 2) - InsideGapH) + abstand.getValue();
         int Tam = ((3 * TempW / 4) - 15) + abstand.getValue(); // Tamaño del circulo cuando se selecciona Texto Externo
         if (textInside.getValue()) {
-            TempW = (int) ((w - distance * 2) - InsideGapW) - abstand.getValue();
-            TempH = (int) ((h - distance * 2) - InsideGapH) - abstand.getValue();
+            TempW = (w - distance * 2) - InsideGapW - abstand.getValue();
+            TempH = (h - distance * 2) - InsideGapH - abstand.getValue();
             Tam = ((3 * TempW / 4) - 15) + abstand.getValue(); // Tamaño del circulo cuando se selecciona Texto Externo
         }
         if (transparent.getValue() == false) {
@@ -250,12 +256,12 @@ public class CustomAnalogComp_2_JV extends JVSMain {
                 StrokeColor.setFillColor(g);
 
                 g.fillOval(Stroke, Stroke, (w - 2 * Stroke) + 1, (h - 2 * Stroke) + 1); // Fill Color Circle 2 (Between
-                                                                                        // Stroke and BackGround)
+                // Stroke and BackGround)
 
                 // g.setColor(backColor.getValue());
                 backColor.setFillColor(g);
                 g.fillOval((2 * Stroke), (2 * Stroke), (w - (4 * Stroke)), (h - (4 * Stroke))); // Fill Background
-                                                                                                // (White)
+                // (White)
                 // g.fillOval(distance,distance,(w-distance*2)+3,((h-distance*2)+3));
                 // g.setColor(Color.ORANGE);
                 g.setColor(lineColor.getValue());
@@ -328,20 +334,19 @@ public class CustomAnalogComp_2_JV extends JVSMain {
 
 
         double vectorLaenge = ((Math.sqrt((x1 * x1) + (y1 * y1)) - (double) d2) - (InsideGapW / 2) + 3); // Vector sobre
-                                                                                                         // el que
-                                                                                                         // quedarán las
-                                                                                                         // rayitas
-                                                                                                         // polares del
-                                                                                                         // gráfico
+        // el que
+        // quedarán las
+        // rayitas
+        // polares del
+        // gráfico
         // System.out.println("LenW="+w+"Vector Magnitude: "+vectorLaenge);
-
 
 
         if (showText.getValue()) {
             int counter = 0;
 
             double vectLen = (vectorLaenge + abstand.getValue() + (InsideGapW) + (double) d2); // (Distancia circulo +
-                                                                                               // Distancia texto)
+            // Distancia texto)
             double vectLen1 = vectorLaenge + (double) d2; // Tamaño rayas indicadoras
 
 
@@ -357,7 +362,7 @@ public class CustomAnalogComp_2_JV extends JVSMain {
                 vectLen1 = vectorLaenge - (double) d2;
             }
 
-            double disVal = ((double) (max.getValue() - min.getValue())) / (double) abschnitte.getValue();
+            double disVal = (max.getValue() - min.getValue()) / (double) abschnitte.getValue();
 
             double dis = 100.0 / (double) abschnitte.getValue();
             g.setStroke(new BasicStroke(lineStroke.getValue())); // Stroke for
@@ -426,8 +431,7 @@ public class CustomAnalogComp_2_JV extends JVSMain {
                 int ws = spitze.getImage().getWidth(null);
                 int hs = spitze.getImage().getHeight(null);
 
-                double z = (double) ((double) w / (double) ws * 2) * (double) nibbleLenInProzent.getValue() / 100.0;
-
+                double z = (double) w / (double) ws * 2 * (double) nibbleLenInProzent.getValue() / 100.0;
 
 
                 g.translate(mitteX, mitteY);
@@ -436,7 +440,7 @@ public class CustomAnalogComp_2_JV extends JVSMain {
 
 
                 if (spitze.getImage() != null)
-                    g.drawImage(spitze.getImage(), (int) ((-ws / 2.0)), (int) ((-hs / 2)), null);
+                    g.drawImage(spitze.getImage(), (int) ((-ws / 2.0)), (-hs / 2), null);
 
                 g.setTransform(origTransform);
 
@@ -453,7 +457,7 @@ public class CustomAnalogComp_2_JV extends JVSMain {
 
         values.resize(abschnitte.getValue() + 1);
         double dblVal = min.getValue();
-        double disVal = ((double) (max.getValue() - min.getValue())) / (double) abschnitte.getValue();
+        double disVal = (max.getValue() - min.getValue()) / (double) abschnitte.getValue();
 
         double value = 0;
         double dis = 100.0 / (double) abschnitte.getValue();
@@ -559,7 +563,6 @@ public class CustomAnalogComp_2_JV extends JVSMain {
     }
 
 
-
     public void initInputPins() {
         value0.setValue(initValue.getValue());
     }
@@ -574,7 +577,7 @@ public class CustomAnalogComp_2_JV extends JVSMain {
         oldValue = value0.getValue() + 1;
 
         circuitElement = element.getCircuitElement();
-        circuitElement.Change(0, (Object) value0);
+        circuitElement.Change(0, value0);
         element.jRepaint();
     }
 
@@ -623,12 +626,10 @@ public class CustomAnalogComp_2_JV extends JVSMain {
         else if (x >= 0 && y < 0) angle = 270 - q + alpha;
 
 
-
         double mitteRest = (360.0 + maxGrad.getValue()) / 2.0;
 
         angle = angle - 45 - minGrad.getValue();
         if (angle < 0) angle = (360.0 - 90) + (90 - Math.abs(angle));
-
 
 
         double f = 360.0 / maxGrad.getValue();
@@ -644,7 +645,7 @@ public class CustomAnalogComp_2_JV extends JVSMain {
 
         if (value0.getValue() != oldValue) {
             processProc();
-            circuitElement.Change(0, (Object) value0);
+            circuitElement.Change(0, value0);
             oldValue = value0.getValue();
             try {
                 Thread.sleep(1);
@@ -673,11 +674,10 @@ public class CustomAnalogComp_2_JV extends JVSMain {
         }
 
 
-
         if (o.equals(captions)) {
             String str = getTextWithN();
 
-            java.util.Properties frm = new Properties(element.jGetFrame(), str);
+            Properties frm = new Properties(element.jGetFrame(), str);
             frm.setSize(200, 200);
             frm.setModal(true);
             frm.setVisible(true);
@@ -746,7 +746,6 @@ public class CustomAnalogComp_2_JV extends JVSMain {
         }
         initSubElements();
     }
-
 
 
     public void setPropertyEditor() {
@@ -860,7 +859,6 @@ public class CustomAnalogComp_2_JV extends JVSMain {
     }
 
 
-
     public void loadFromStream(java.io.FileInputStream fis) {
         min.loadFromStream(fis);
         max.loadFromStream(fis);
@@ -930,32 +928,4 @@ public class CustomAnalogComp_2_JV extends JVSMain {
         SetKnobStroke.saveToStream(fos);
     }
 
-}
-
-
-class Beschriftung2 extends JPanel {
-    public String text = "";
-    private CustomAnalogComp_2_JV owner = null;
-    public boolean visible = false;
-
-    public Beschriftung2(CustomAnalogComp_2_JV owner, String text) {
-        this.text = text;
-        this.owner = owner;
-        this.setBackground(new Color(100, 100, 100, 0));
-        this.setOpaque(false);
-    }
-
-    public void paint(java.awt.Graphics g) {
-        // super.paintComponent(g);
-
-        if (visible) {
-            g.setFont(owner.font.getValue());
-            g.setColor(owner.fontColor.getValue());
-
-            java.awt.FontMetrics fm = g.getFontMetrics(owner.font.getValue());
-
-            g.drawString(text, 1, 0 + fm.getMaxAscent());
-
-        }
-    }
 }

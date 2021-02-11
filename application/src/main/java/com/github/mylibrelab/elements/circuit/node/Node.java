@@ -18,29 +18,16 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Node.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.node;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
 
+import com.github.mylibrelab.elements.tools.JVSMain;
 
+import VisualLogic.ElementActionEvent;
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSObject;
 
 public class Node extends JVSMain {
 
@@ -56,7 +43,7 @@ public class Node extends JVSMain {
     int pin3_dt = ExternalIF.C_VARIANT;
     int pin3_io = ExternalIF.PIN_INPUT_OUTPUT;
 
-    VSObject inOut[] = new VSObject[4];
+    VSObject[] inOut = new VSObject[4];
 
     private boolean isLoading = false;
 
@@ -134,22 +121,10 @@ public class Node extends JVSMain {
          * if (pinD==false) element.jSetPinIO(3, element.PIN_INPUT_OUTPUT);
          */
 
-        if (pinA == false)
-            element.jSetPinVisible(0, false);
-        else
-            element.jSetPinVisible(0, true);
-        if (pinB == false)
-            element.jSetPinVisible(1, false);
-        else
-            element.jSetPinVisible(1, true);
-        if (pinC == false)
-            element.jSetPinVisible(2, false);
-        else
-            element.jSetPinVisible(2, true);
-        if (pinD == false)
-            element.jSetPinVisible(3, false);
-        else
-            element.jSetPinVisible(3, true);
+        element.jSetPinVisible(0, pinA != false);
+        element.jSetPinVisible(1, pinB != false);
+        element.jSetPinVisible(2, pinC != false);
+        element.jSetPinVisible(3, pinD != false);
 
         element.jRepaint();
     }

@@ -18,29 +18,9 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.VectorenMatrix.MatrixInteger.src.MyTableEditor.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.vectorenmatrix.matrixinteger.src.mytableeditor;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
-
-
+import javax.swing.table.DefaultTableModel;
 
 class IntegerModel extends javax.swing.table.DefaultTableModel {
     public Class getColumnClass(int columnIndex) {
@@ -55,7 +35,7 @@ class IntegerModel extends javax.swing.table.DefaultTableModel {
  */
 public class MyTableEditor extends javax.swing.JDialog {
 
-    private DefaultTableModel model = new IntegerModel();
+    private final DefaultTableModel model = new IntegerModel();
 
 
     /** Creates new form MyTableEditor2 */
@@ -270,7 +250,7 @@ public class MyTableEditor extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 

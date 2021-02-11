@@ -21,16 +21,28 @@
 package com.github.mylibrelab.elements.tools;
 
 
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
+import javax.swing.*;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.*;
 
 public class CustomAnalogComp2 extends JVSMain {
+    private final ArrayList listeBeschriftungen = new ArrayList();
+    private final double theAngle = 0.0;
+    private final VSImage spitze = new VSImage();
     public VSDouble value0 = new VSDouble();
     public VSDouble initValue = new VSDouble();
     public Graphics2D gb = null;
-    private int oldH = 0, oldW = 0;
     public double oldValue;
     public VSDouble min = new VSDouble(0);
     public VSDouble max = new VSDouble(100);
-    private ArrayList listeBeschriftungen = new ArrayList();
     public VSInteger abschnitte = new VSInteger(10);
     public VSInteger abstand = new VSInteger(15);
     public VSInteger knobSizeInProzent = new VSInteger(30);
@@ -53,14 +65,12 @@ public class CustomAnalogComp2 extends JVSMain {
     public VSPropertyDialog captions = new VSPropertyDialog();
     public VSBoolean transparent = new VSBoolean(false);
     public VSBoolean onlyNumbers = new VSBoolean(true);
+    private int oldH = 0, oldW = 0;
     private boolean firstTime = true;
     private FontMetrics fm;
     private Rectangle2D r;
     private DecimalFormat df = new DecimalFormat(formatierung.getValue());
-    private double theAngle = 0.0;
     private ExternalIF circuitElement;
-    private VSImage spitze = new VSImage();
-
 
     public void setValue(double value) {
         value0.setValue(value);
@@ -146,13 +156,11 @@ public class CustomAnalogComp2 extends JVSMain {
     }
 
 
-
     public void drawAnzeige(java.awt.Graphics gx, int x, int y, int w, int h) {
         int mitteX = x + (w / 2);
         int mitteY = y + (h / 2);
 
         Graphics2D g = (Graphics2D) gx;
-
 
 
         gb = g;
@@ -179,7 +187,6 @@ public class CustomAnalogComp2 extends JVSMain {
             // element.jSetSubElementVisible(i,showText.getValue());
         }
         initSubElements();
-
 
 
         distance = w * 5 / 100;
@@ -224,7 +231,7 @@ public class CustomAnalogComp2 extends JVSMain {
                 vectLen1 = vectorLaenge - (double) d2;
             }
 
-            double disVal = ((double) (max.getValue() - min.getValue())) / (double) abschnitte.getValue();
+            double disVal = (max.getValue() - min.getValue()) / (double) abschnitte.getValue();
 
             double dis = 100.0 / (double) abschnitte.getValue();
             for (double i = 0; i <= 100.0; i += dis) {
@@ -286,7 +293,7 @@ public class CustomAnalogComp2 extends JVSMain {
                 int ws = spitze.getImage().getWidth(null);
                 int hs = spitze.getImage().getHeight(null);
 
-                double z = (double) ((double) w / (double) ws * 2) * (double) nibbleLenInProzent.getValue() / 100.0;
+                double z = (double) w / (double) ws * 2 * (double) nibbleLenInProzent.getValue() / 100.0;
 
 
                 g.translate(mitteX, mitteY);
@@ -295,7 +302,7 @@ public class CustomAnalogComp2 extends JVSMain {
 
 
                 if (spitze.getImage() != null)
-                    g.drawImage(spitze.getImage(), (int) ((-ws / 2.0)), (int) ((-hs / 2)), null);
+                    g.drawImage(spitze.getImage(), (int) ((-ws / 2.0)), (-hs / 2), null);
 
                 g.setTransform(origTransform);
 
@@ -312,7 +319,7 @@ public class CustomAnalogComp2 extends JVSMain {
 
         values.resize(abschnitte.getValue() + 1);
         double dblVal = min.getValue();
-        double disVal = ((double) (max.getValue() - min.getValue())) / (double) abschnitte.getValue();
+        double disVal = (max.getValue() - min.getValue()) / (double) abschnitte.getValue();
 
         double value = 0;
         double dis = 100.0 / (double) abschnitte.getValue();
@@ -389,7 +396,6 @@ public class CustomAnalogComp2 extends JVSMain {
     }
 
 
-
     public void initInputPins() {
         value0.setValue(initValue.getValue());
     }
@@ -404,7 +410,7 @@ public class CustomAnalogComp2 extends JVSMain {
         oldValue = value0.getValue() + 1;
 
         circuitElement = element.getCircuitElement();
-        circuitElement.Change(0, (Object) value0);
+        circuitElement.Change(0, value0);
         element.jRepaint();
     }
 
@@ -453,12 +459,10 @@ public class CustomAnalogComp2 extends JVSMain {
         else if (x >= 0 && y < 0) angle = 270 - q + alpha;
 
 
-
         double mitteRest = (360.0 + maxGrad.getValue()) / 2.0;
 
         angle = angle - 45 - minGrad.getValue();
         if (angle < 0) angle = (360.0 - 90) + (90 - Math.abs(angle));
-
 
 
         double f = 360.0 / maxGrad.getValue();
@@ -474,7 +478,7 @@ public class CustomAnalogComp2 extends JVSMain {
 
         if (value0.getValue() != oldValue) {
             processProc();
-            circuitElement.Change(0, (Object) value0);
+            circuitElement.Change(0, value0);
             oldValue = value0.getValue();
             try {
                 Thread.sleep(1);
@@ -503,11 +507,10 @@ public class CustomAnalogComp2 extends JVSMain {
         }
 
 
-
         if (o.equals(captions)) {
             String str = getTextWithN();
 
-            java.util.Properties frm = new Properties(element.jGetFrame(), str);
+            Properties frm = new Properties(element.jGetFrame(), str);
             frm.setSize(200, 200);
             frm.setModal(true);
             frm.setVisible(true);
@@ -576,7 +579,6 @@ public class CustomAnalogComp2 extends JVSMain {
         }
         initSubElements();
     }
-
 
 
     public void setPropertyEditor() {
@@ -674,7 +676,6 @@ public class CustomAnalogComp2 extends JVSMain {
     }
 
 
-
     public void loadFromStream(java.io.FileInputStream fis) {
         min.loadFromStream(fis);
         max.loadFromStream(fis);
@@ -738,32 +739,4 @@ public class CustomAnalogComp2 extends JVSMain {
         spitze.saveToStream(fos);
     }
 
-}
-
-
-class Beschriftung2 extends JPanel {
-    public String text = "";
-    private CustomAnalogComp2 owner = null;
-    public boolean visible = false;
-
-    public Beschriftung2(CustomAnalogComp2 owner, String text) {
-        this.text = text;
-        this.owner = owner;
-        this.setBackground(new Color(100, 100, 100, 0));
-        this.setOpaque(false);
-    }
-
-    public void paint(java.awt.Graphics g) {
-        // super.paintComponent(g);
-
-        if (visible) {
-            g.setFont(owner.font.getValue());
-            g.setColor(owner.fontColor.getValue());
-
-            java.awt.FontMetrics fm = g.getFontMetrics(owner.font.getValue());
-
-            g.drawString(text, 1, 0 + fm.getMaxAscent());
-
-        }
-    }
 }

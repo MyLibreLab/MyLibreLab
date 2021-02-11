@@ -18,6 +18,44 @@
  *
  */
 
+package com.github.mylibrelab.elements.front.twoautomation.tanks.jv.tank.two.jv;/*
+                                                                                 * Copyright (C) 2020 MyLibreLab
+                                                                                 * Based on MyOpenLab by Carmelo Salafia
+                                                                                 * www.myopenlab.de
+                                                                                 * Copyright (C) 2004 Carmelo Salafia
+                                                                                 * cswi@gmx.de
+                                                                                 *
+                                                                                 * This program is free software: you
+                                                                                 * can redistribute it and/or modify
+                                                                                 * it under the terms of the GNU General
+                                                                                 * Public License as published by
+                                                                                 * the Free Software Foundation, either
+                                                                                 * version 3 of the License, or
+                                                                                 * (at your option) any later version.
+                                                                                 *
+                                                                                 * This program is distributed in the
+                                                                                 * hope that it will be useful,
+                                                                                 * but WITHOUT ANY WARRANTY; without
+                                                                                 * even the implied warranty of
+                                                                                 * MERCHANTABILITY or FITNESS FOR A
+                                                                                 * PARTICULAR PURPOSE. See the
+                                                                                 * GNU General Public License for more
+                                                                                 * details.
+                                                                                 *
+                                                                                 * You should have received a copy of
+                                                                                 * the GNU General Public License
+                                                                                 * along with this program. If not, see
+                                                                                 * <http://www.gnu.org/licenses/>.
+                                                                                 *
+                                                                                 */
+
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.*;
+
 public class Anzeige extends JVSMain {
     private double oldValue;
     private boolean oldValue2;
@@ -71,11 +109,7 @@ public class Anzeige extends JVSMain {
 
         panelElement = element.getPanelElement();
         oldValue = -1;
-        if (oldValue2) {
-            oldValue2 = false;
-        } else {
-            oldValue2 = true;
-        }
+        oldValue2 = !oldValue2;
 
         // panelElement.jProcessPanel(0,0.0,(Object)this);
         // panelElement.jProcessPanel(1,0.0,(Object)this);
@@ -108,7 +142,6 @@ public class Anzeige extends JVSMain {
     }
 
 
-
     public void process() {
         if (in != null) {
             double value = 0;
@@ -118,16 +151,16 @@ public class Anzeige extends JVSMain {
                 value = val.getValue();
             } else if (in instanceof VSInteger) {
                 VSInteger val = (VSInteger) in;
-                value = (double) val.getValue();
+                value = val.getValue();
             } else if (in instanceof VSByte) {
                 VSByte val = (VSByte) in;
-                value = (double) val.toSigned(val.getValue());
+                value = VSByte.toSigned(val.getValue());
             }
 
             if (value != oldValue) {
                 panelElement = element.getPanelElement();
                 if (panelElement != null) {
-                    panelElement.jProcessPanel(0, value, (Object) this);
+                    panelElement.jProcessPanel(0, value, this);
                     panelElement.jRepaint();
                 }
                 oldValue = value;
@@ -142,9 +175,9 @@ public class Anzeige extends JVSMain {
                 if ((in2 != null) && ((inX.getValue() != oldValue2))) {
 
                     if (inX.getValue()) {
-                        if (panelElement != null) panelElement.jProcessPanel(1, 1.0, (Object) this);
+                        if (panelElement != null) panelElement.jProcessPanel(1, 1.0, this);
                     } else {
-                        if (panelElement != null) panelElement.jProcessPanel(1, 0.0, (Object) this);
+                        if (panelElement != null) panelElement.jProcessPanel(1, 0.0, this);
                     }
                     panelElement.jRepaint();
                     oldValue2 = inX.getValue();

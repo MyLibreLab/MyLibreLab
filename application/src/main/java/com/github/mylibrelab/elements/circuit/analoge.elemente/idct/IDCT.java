@@ -18,10 +18,47 @@
  *
  */
 
+package com.github.mylibrelab.elements.circuit.analoge.elemente.idct;/*
+                                                                      * Copyright (C) 2020 MyLibreLab
+                                                                      * Based on MyOpenLab by Carmelo Salafia
+                                                                      * www.myopenlab.de
+                                                                      * Copyright (C) 2004 Carmelo Salafia cswi@gmx.de
+                                                                      *
+                                                                      * This program is free software: you can
+                                                                      * redistribute it and/or modify
+                                                                      * it under the terms of the GNU General Public
+                                                                      * License as published by
+                                                                      * the Free Software Foundation, either version 3
+                                                                      * of the License, or
+                                                                      * (at your option) any later version.
+                                                                      *
+                                                                      * This program is distributed in the hope that it
+                                                                      * will be useful,
+                                                                      * but WITHOUT ANY WARRANTY; without even the
+                                                                      * implied warranty of
+                                                                      * MERCHANTABILITY or FITNESS FOR A PARTICULAR
+                                                                      * PURPOSE. See the
+                                                                      * GNU General Public License for more details.
+                                                                      *
+                                                                      * You should have received a copy of the GNU
+                                                                      * General Public License
+                                                                      * along with this program. If not, see
+                                                                      * <http://www.gnu.org/licenses/>.
+                                                                      *
+                                                                      */
+
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VS1DDouble;
+import VisualLogic.variables.VSGroup;
+
 public class IDCT extends JVSMain {
     private Image image;
     private VSGroup in;
-    private VSGroup out = new VSGroup();
+    private final VSGroup out = new VSGroup();
     private VS1DDouble arrX = new VS1DDouble(0);
     private VS1DDouble arrY = new VS1DDouble(0);
     private boolean changed = false;
@@ -105,7 +142,7 @@ public class IDCT extends JVSMain {
 
         double summ = 0.0;
         double ck;
-        double N = (double) values.length;
+        double N = values.length;
         double f2 = 1.0 / Math.sqrt(2.0);
         double ff = Math.sqrt(2.0 / N);
         double x1 = 0;
@@ -137,7 +174,7 @@ public class IDCT extends JVSMain {
 
         double summ = 0.0;
         double ck;
-        double N = (double) values.length;
+        double N = values.length;
         double f2 = 1.0 / Math.sqrt(2.0);
         double N2 = 2.0 * N;
         double PI = Math.PI;

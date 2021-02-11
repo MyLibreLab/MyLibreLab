@@ -18,33 +18,70 @@
  *
  */
 
+package com.github.mylibrelab.elements.front.twoautomation.tanks.jv.tank.one.jv;/*
+                                                                                 * Copyright (C) 2020 MyLibreLab
+                                                                                 * Based on MyOpenLab by Carmelo Salafia
+                                                                                 * www.myopenlab.de
+                                                                                 * Copyright (C) 2004 Carmelo Salafia
+                                                                                 * cswi@gmx.de
+                                                                                 *
+                                                                                 * This program is free software: you
+                                                                                 * can redistribute it and/or modify
+                                                                                 * it under the terms of the GNU General
+                                                                                 * Public License as published by
+                                                                                 * the Free Software Foundation, either
+                                                                                 * version 3 of the License, or
+                                                                                 * (at your option) any later version.
+                                                                                 *
+                                                                                 * This program is distributed in the
+                                                                                 * hope that it will be useful,
+                                                                                 * but WITHOUT ANY WARRANTY; without
+                                                                                 * even the implied warranty of
+                                                                                 * MERCHANTABILITY or FITNESS FOR A
+                                                                                 * PARTICULAR PURPOSE. See the
+                                                                                 * GNU General Public License for more
+                                                                                 * details.
+                                                                                 *
+                                                                                 * You should have received a copy of
+                                                                                 * the GNU General Public License
+                                                                                 * along with this program. If not, see
+                                                                                 * <http://www.gnu.org/licenses/>.
+                                                                                 *
+                                                                                 */
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.PanelIF;
+import VisualLogic.variables.*;
+
 public class AnzeigePanel extends JVSMain implements PanelIF {
-    private int width = 180, height = 180;
-    private double value = 0.0;
-
     final private JSlider slider = new JSlider(JSlider.VERTICAL);
+    private final int width = 180;
+    private final int height = 180;
+    private final VSInteger arcValue = new VSInteger(10);
+    private final VSDouble InitialValue = new VSDouble(0.0);
+    private final VSColorAdvanced tankExternalColor = new VSColorAdvanced();
+    private final VSColorAdvanced tankInternalColor = new VSColorAdvanced();
+    private final VSColorAdvanced UpperFillColor = new VSColorAdvanced();
+    private final VSColor fillColor2 = new VSColor(new Color(153, 204, 255));
+    private final VSColor fillColor1 = new VSColor(new Color(0, 0, 102));
+    private final VSInteger strokeValue = new VSInteger(5);
+    private final VSColorAdvanced strokeColor = new VSColorAdvanced();
+    private final VSColorAdvanced overlayColor = new VSColorAdvanced();
+    private final VSBoolean borderVisible = new VSBoolean(true);
+    private final VSColor borderColor = new VSColor(Color.BLACK);
+    private final VSBoolean StagesVisible = new VSBoolean(true);
+    private final VSInteger majorStages = new VSInteger(20);
+    private final VSFont fnt = new VSFont(new Font("Dialog", Font.PLAIN, 10));
+    private final VSColor fontColor = new VSColor(new Color(0, 0, 0));
+    private double value = 0.0;
     private Boolean overlay = new Boolean(false);
-    private VSInteger arcValue = new VSInteger(10);
-
-
-    private VSDouble InitialValue = new VSDouble(0.0);
-    private VSColorAdvanced tankExternalColor = new VSColorAdvanced();
-    private VSColorAdvanced tankInternalColor = new VSColorAdvanced();
-    private VSColorAdvanced UpperFillColor = new VSColorAdvanced();
-    private VSColor fillColor2 = new VSColor(new Color(153, 204, 255));
-    private VSColor fillColor1 = new VSColor(new Color(0, 0, 102));
-    private VSInteger strokeValue = new VSInteger(5);
-    private VSColorAdvanced strokeColor = new VSColorAdvanced();
-    private VSColorAdvanced overlayColor = new VSColorAdvanced();
-    private VSBoolean borderVisible = new VSBoolean(true);
-    private VSColor borderColor = new VSColor(Color.BLACK);
-    private VSBoolean StagesVisible = new VSBoolean(true);
-    private VSInteger majorStages = new VSInteger(20);
-    private VSFont fnt = new VSFont(new Font("Dialog", Font.PLAIN, 10));
-    private VSColor fontColor = new VSColor(new Color(0, 0, 0));
-
     private boolean started = false;
-
 
 
     public void processPanel(int pinIndex, double value, Object obj) {
@@ -53,10 +90,7 @@ public class AnzeigePanel extends JVSMain implements PanelIF {
             started = true;
         }
         if (pinIndex == 1) {
-            if (value == 1.0)
-                overlay = true;
-            else
-                overlay = false;
+            overlay = value == 1.0;
         }
         // element.jConsolePrintln("Notificado"+pinIndex+"_"+value);
         // element.jRepaint();
@@ -81,7 +115,6 @@ public class AnzeigePanel extends JVSMain implements PanelIF {
                 int Y0 = 0;
 
 
-
                 Graphics2D g2 = (Graphics2D) g;
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
@@ -95,7 +128,7 @@ public class AnzeigePanel extends JVSMain implements PanelIF {
                 // TANQUE
                 tWidth = (int) (ArcWidth * 0.8);
                 tHeight = (int) (ArcHeight * 0.75);
-                X0 = (ArcWidth - ((int) (ArcWidth * 1))) + (strokeValue.getValue());
+                X0 = (ArcWidth - (ArcWidth * 1)) + (strokeValue.getValue());
                 Y0 = (ArcHeight - ((int) (ArcHeight * 0.86))) + (strokeValue.getValue());
 
                 tankExternalColor.setFillColor(g2);
@@ -119,7 +152,7 @@ public class AnzeigePanel extends JVSMain implements PanelIF {
                 // EXTERNO
                 tWidth = (int) (ArcWidth * 0.8);
                 tHeight = (int) (ArcHeight * 0.25);
-                X0 = (ArcWidth - ((int) (ArcWidth * 1))) + (strokeValue.getValue());
+                X0 = (ArcWidth - (ArcWidth * 1)) + (strokeValue.getValue());
                 Y0 = (ArcHeight - ((int) (ArcHeight * 0.98))) + (strokeValue.getValue());
 
                 tankExternalColor.setFillColor(g2);
@@ -137,7 +170,6 @@ public class AnzeigePanel extends JVSMain implements PanelIF {
                     g2.setColor(borderColor.getValue());
                     g2.drawArc(X0, Y0, tWidth, tHeight, 0, 180);
                 }
-
 
 
                 // ----------------------------------------------------------------------------FONDO INTERIOR DEL
@@ -167,7 +199,7 @@ public class AnzeigePanel extends JVSMain implements PanelIF {
                 // EXTERNO
                 tWidth = (int) (ArcWidth * 0.8);
                 tHeight = (int) (ArcHeight * 0.25);
-                X0 = (ArcWidth - ((int) (ArcWidth * 1))) + (strokeValue.getValue());
+                X0 = (ArcWidth - (ArcWidth * 1)) + (strokeValue.getValue());
                 Y0 = (ArcHeight - ((int) (ArcHeight * 0.25))) + (strokeValue.getValue());
 
                 tankExternalColor.setFillColor(g2);
@@ -233,7 +265,6 @@ public class AnzeigePanel extends JVSMain implements PanelIF {
                     g2.setColor(borderColor.getValue());
                     g2.drawArc(X0, Y0, tWidth, tHeight, 0, 360);
                 }
-
 
 
                 // ----------------------------------------------------------ARCO INTERIOR INTERNO MOVIL
@@ -309,7 +340,6 @@ public class AnzeigePanel extends JVSMain implements PanelIF {
                     g2.setColor(borderColor.getValue());
                     g2.drawArc((X0 + strokeValue.getValue() / 4), Y0, tWidth, tHeight, 0, 360);
                 }
-
 
 
                 // -
@@ -472,7 +502,6 @@ public class AnzeigePanel extends JVSMain implements PanelIF {
         this.value = InitialValue.getValue();
         element.jRepaint();
     }
-
 
 
     public void loadFromStream(java.io.FileInputStream fis) {

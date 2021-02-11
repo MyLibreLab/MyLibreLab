@@ -18,37 +18,21 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.MCU.StackInterpreter.old.Number.ADC.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.mcu.stackinterpreter.old.number.adc;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
 
+import com.github.mylibrelab.elements.tools.JVSMain;
 
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSInteger;
 
 public class ADC extends JVSMain {
-    private VSInteger value = new VSInteger(0);
-    private VSInteger out = new VSInteger();
+    private final VSInteger value = new VSInteger(0);
+    private final VSInteger out = new VSInteger();
+    private final Font fnt = new Font("Courier", 0, 12);
     private boolean changed = false;
     private Image image;
-    private Font fnt = new Font("Courier", 0, 12);
-
 
     public void paint(java.awt.Graphics g) {
         if (element != null) {
@@ -133,7 +117,6 @@ public class ADC extends JVSMain {
     }
 
 
-
     public void start() {
         changed = true;
         // out.setValue(value.getValue());
@@ -147,7 +130,6 @@ public class ADC extends JVSMain {
 
         }
     }
-
 
 
     public void setPropertyEditor() {
@@ -174,7 +156,6 @@ public class ADC extends JVSMain {
     }
 
 
-
     public void loadFromStream(java.io.FileInputStream fis) {
         value.loadFromStream(fis);
         generateCode();
@@ -183,7 +164,6 @@ public class ADC extends JVSMain {
     public void saveToStream(java.io.FileOutputStream fos) {
         value.saveToStream(fos);
     }
-
 
 
 }

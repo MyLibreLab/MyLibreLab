@@ -18,39 +18,27 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.MCU.StackInterpreter.FlowCharts.Node.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.mcu.stackinterpreter.flowcharts.node;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
 
+import com.github.mylibrelab.elements.tools.MainFlow;
 
+import VisualLogic.ElementActionEvent;
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSFlowInfo;
+import VisualLogic.variables.VSObject;
 
 public class Node extends MainFlow {
+    private final VSFlowInfo out = new VSFlowInfo();
+    VSObject vv = null;
     private Image image;
     private VSFlowInfo inA;
     private VSFlowInfo inB;
     private VSFlowInfo inC;
-
-    private VSFlowInfo out = new VSFlowInfo();
     private Color colorLinks = new Color(220, 220, 220);
     private Color colorRechts = new Color(220, 220, 220);
+    private boolean changed = false;
 
     public void paint(java.awt.Graphics g) {
         if (element != null) {
@@ -147,7 +135,6 @@ public class Node extends MainFlow {
 
     }
 
-
     public void init() {
         standardWidth = 130;
         width = standardWidth;
@@ -178,12 +165,9 @@ public class Node extends MainFlow {
         super.xOnInit();
     }
 
-
     public void start() {
         generateCode();
     }
-
-
 
     public void initInputPins() {
         inA = (VSFlowInfo) element.getPinInputReference(0);
@@ -199,6 +183,16 @@ public class Node extends MainFlow {
         element.setPinOutputReference(2, out);
     }
 
+    /*
+     * public void destElementCalled()
+     * {
+     * if (changed)
+     * {
+     * element.notifyPin(2);
+     * changed=false;
+     * }
+     * }
+     */
 
     public void checkPinDataType() {
         boolean pinInA = element.hasPinWire(0);
@@ -221,38 +215,22 @@ public class Node extends MainFlow {
         element.jRepaint();
     }
 
-
-    private boolean changed = false;
-
-    /*
-     * public void destElementCalled()
-     * {
-     * if (changed)
-     * {
-     * element.notifyPin(2);
-     * changed=false;
-     * }
-     * }
-     */
-
-    VSObject vv = null;
-
     public void elementActionPerformed(ElementActionEvent evt) {
 
         if (inA instanceof VSObject && evt.getSourcePinIndex() == 0) {
-            vv = (VSObject) inA;
+            vv = inA;
 
             callOut();
         }
 
         if (inB instanceof VSObject && evt.getSourcePinIndex() == 1) {
-            vv = (VSObject) inB;
+            vv = inB;
 
             callOut();
         }
 
         if (inC instanceof VSObject && evt.getSourcePinIndex() == 3) {
-            vv = (VSObject) inC;
+            vv = inC;
 
             callOut();
         }

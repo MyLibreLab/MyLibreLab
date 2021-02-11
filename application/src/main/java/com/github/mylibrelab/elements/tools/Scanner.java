@@ -24,11 +24,15 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StreamTokenizer;
 
-import VisualLogic.*;
-import VisualLogic.variables.*;
+import VisualLogic.ExternalIF;
+import VisualLogic.VSBasisIF;
 
 
 public class Scanner extends StreamTokenizer implements Expression.yyInput {
+    /**
+     * value associated with current input.
+     */
+    protected Object value;
     ExternalIF element;
 
     public Scanner(ExternalIF element, Reader r) {
@@ -57,7 +61,6 @@ public class Scanner extends StreamTokenizer implements Expression.yyInput {
         return ttype != TT_EOF && ttype != TT_EOL;
     }
 
-
     // Überprüft ob der String eine Zahl von -32... + 32... (16 Bit)
     public boolean isConst(String value) {
         try {
@@ -76,14 +79,11 @@ public class Scanner extends StreamTokenizer implements Expression.yyInput {
 
         if (basis != null) {
             int varDT = basis.vsGetVariableDT(value);
-            if (varDT > -1) {
-                return true;
-            }
+            return varDT > -1;
         }
         // oder auch nicht!
         return false;
     }
-
 
     /**
      * determines current input, sets value to String for Int and Real.
@@ -154,11 +154,6 @@ public class Scanner extends StreamTokenizer implements Expression.yyInput {
                 return ttype;
         }
     }
-
-    /**
-     * value associated with current input.
-     */
-    protected Object value;
 
     /**
      * produces value associated with current input.

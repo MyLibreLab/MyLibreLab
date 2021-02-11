@@ -18,43 +18,102 @@
  *
  */
 
+package com.github.mylibrelab.elements.front.twoautomation.industrial.buttons.jv.button.two.jv;/*
+                                                                                                * Copyright (C) 2020
+                                                                                                * MyLibreLab
+                                                                                                * Based on MyOpenLab by
+                                                                                                * Carmelo Salafia
+                                                                                                * www.myopenlab.de
+                                                                                                * Copyright (C) 2004
+                                                                                                * Carmelo Salafia
+                                                                                                * cswi@gmx.de
+                                                                                                *
+                                                                                                * This program is free
+                                                                                                * software: you can
+                                                                                                * redistribute it and/or
+                                                                                                * modify
+                                                                                                * it under the terms of
+                                                                                                * the GNU General Public
+                                                                                                * License as published
+                                                                                                * by
+                                                                                                * the Free Software
+                                                                                                * Foundation, either
+                                                                                                * version 3 of the
+                                                                                                * License, or
+                                                                                                * (at your option) any
+                                                                                                * later version.
+                                                                                                *
+                                                                                                * This program is
+                                                                                                * distributed in the
+                                                                                                * hope that it will be
+                                                                                                * useful,
+                                                                                                * but WITHOUT ANY
+                                                                                                * WARRANTY; without even
+                                                                                                * the implied warranty
+                                                                                                * of
+                                                                                                * MERCHANTABILITY or
+                                                                                                * FITNESS FOR A
+                                                                                                * PARTICULAR PURPOSE.
+                                                                                                * See the
+                                                                                                * GNU General Public
+                                                                                                * License for more
+                                                                                                * details.
+                                                                                                *
+                                                                                                * You should have
+                                                                                                * received a copy of the
+                                                                                                * GNU General Public
+                                                                                                * License
+                                                                                                * along with this
+                                                                                                * program. If not, see
+                                                                                                * <http://www.gnu.org/
+                                                                                                * licenses/>.
+                                                                                                *
+                                                                                                */
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
+
+import javax.swing.*;
+import javax.swing.event.MouseInputAdapter;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.*;
+
 public class TasterPanel extends JVSMain {
 
-    private int sizeW = 150;
-    private int sizeH = 150;
+    private final int sizeW = 150;
+    private final int sizeH = 150;
 
-    private boolean value = false;
-    private VSBoolean down = new VSBoolean(false);
+    private final boolean value = false;
+    private final VSBoolean down = new VSBoolean(false);
+    private final VSInteger strokeValue = new VSInteger(2);
+    private final BasicStroke strokeLine = new BasicStroke(1);
+    private final VSBoolean initValue = new VSBoolean(false);
+    private final VSBoolean asSwitch = new VSBoolean(true);
+    private final VSBoolean textVisible = new VSBoolean(true);
+    private final VSString captionON = new VSString("ON");
+    private final VSString captionOFF = new VSString("OFF");
+    private final VSBoolean baseVisible = new VSBoolean(true);
+    private final VSColorAdvanced baseColor = new VSColorAdvanced();
+    private final VSColorAdvanced strokeBaseColor = new VSColorAdvanced();
+    private final VSColorAdvanced shadowLigthColor = new VSColorAdvanced();
+    private final VSColorAdvanced shadowDarkColor = new VSColorAdvanced();
+    private final VSFont font = new VSFont(new Font("Dialog", 1, 15));
+    private final VSColor fontColor = new VSColor(Color.WHITE);
+    private final VSFont overfont = new VSFont(new Font("Dialog", 1, 18));
+    private final VSColor overfontColor = new VSColor(new Color(255, 255, 0));
+    private final VSColorAdvanced buttonLigthColor = new VSColorAdvanced();
+    private final VSColorAdvanced buttonDarkColor = new VSColorAdvanced();
+    private final VSColorAdvanced buttonDarkerColor = new VSColorAdvanced();
+    private final VSColor edgeColor = new VSColor(Color.BLACK);
+    private final VSColorAdvanced focusColor = new VSColorAdvanced();
     private ExternalIF circuitElement;
-    private VSInteger strokeValue = new VSInteger(2);
     private BasicStroke stroke = new BasicStroke(1);
-    private BasicStroke strokeLine = new BasicStroke(1);
     private boolean mouseOver = false;
     private boolean running = false;
-
-
-    private VSBoolean initValue = new VSBoolean(false);
-    private VSBoolean asSwitch = new VSBoolean(true);
-    private VSBoolean textVisible = new VSBoolean(true);
-    private VSString captionON = new VSString("ON");
-    private VSString captionOFF = new VSString("OFF");
-    private VSBoolean baseVisible = new VSBoolean(true);
-    private VSColorAdvanced baseColor = new VSColorAdvanced();
-    private VSColorAdvanced strokeBaseColor = new VSColorAdvanced();
-    private VSColorAdvanced shadowLigthColor = new VSColorAdvanced();
-    private VSColorAdvanced shadowDarkColor = new VSColorAdvanced();
-
-    private VSFont font = new VSFont(new Font("Dialog", 1, 15));
-    private VSColor fontColor = new VSColor(Color.WHITE);
-    private VSFont overfont = new VSFont(new Font("Dialog", 1, 18));
-    private VSColor overfontColor = new VSColor(new Color(255, 255, 0));
-    private VSColorAdvanced buttonLigthColor = new VSColorAdvanced();
-    private VSColorAdvanced buttonDarkColor = new VSColorAdvanced();
-    private VSColorAdvanced buttonDarkerColor = new VSColorAdvanced();
-    private VSColor edgeColor = new VSColor(Color.BLACK);
-    private VSColorAdvanced focusColor = new VSColorAdvanced();
-
-
 
     public void onDispose() {
         JPanel panel = element.getFrontPanel();
@@ -267,7 +326,6 @@ public class TasterPanel extends JVSMain {
         focusColor.color1 = new Color(255, 243, 181);
 
 
-
         mouseOver = false;
 
         MouseInputAdapter mouseHandler = new MouseInputAdapter() {
@@ -315,7 +373,6 @@ public class TasterPanel extends JVSMain {
         running = false;
 
     }
-
 
 
     public void setPropertyEditor() {
@@ -404,10 +461,7 @@ public class TasterPanel extends JVSMain {
     public void mouseReleased(MouseEvent e) {
 
         if (asSwitch.getValue()) {
-            if (down.getValue())
-                down.setValue(false);
-            else
-                down.setValue(true);
+            down.setValue(!down.getValue());
             circuitElement.Change(0, down);
         } else {
             down.setValue(false);
@@ -416,7 +470,6 @@ public class TasterPanel extends JVSMain {
 
         element.jRepaint();
     }
-
 
 
     public void mousePressed(MouseEvent e) {
@@ -443,7 +496,6 @@ public class TasterPanel extends JVSMain {
         }
 
 
-
     }
 
 
@@ -468,7 +520,6 @@ public class TasterPanel extends JVSMain {
         edgeColor.loadFromStream(fis);
         focusColor.loadFromStream(fis);
         textVisible.loadFromStream(fis);
-
 
 
         down.setValue(initValue.getValue());

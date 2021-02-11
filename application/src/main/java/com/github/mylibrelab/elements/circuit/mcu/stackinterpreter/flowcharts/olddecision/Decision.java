@@ -18,42 +18,27 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.MCU.StackInterpreter.FlowCharts.oldDecision.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.mcu.stackinterpreter.flowcharts.olddecision;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
 
+import com.github.mylibrelab.elements.tools.MCUMainFlow;
+
+import VisualLogic.VSBasisIF;
+import VisualLogic.variables.VSComboBox;
+import VisualLogic.variables.VSFlowInfo;
+import VisualLogic.variables.VSString;
 
 public class Decision extends MCUMainFlow {
+    private final VSFlowInfo outY = new VSFlowInfo();
+    private final VSFlowInfo outN = new VSFlowInfo();
+    private final String[] strElements = null;
+    private final VSString _var = new VSString("");
+    private final VSComboBox _op = new VSComboBox();
+    private final VSString _varConst = new VSString("");
     private Image image;
     private VSBasisIF basis;
     private VSFlowInfo in = null;
-    private VSFlowInfo outY = new VSFlowInfo();
-    private VSFlowInfo outN = new VSFlowInfo();
-    private String[] strElements = null;
-
-    private VSString _var = new VSString("");
-    private VSComboBox _op = new VSComboBox();
-
-    private VSString _varConst = new VSString("");
-
 
     public void paint(java.awt.Graphics g) {
         if (element != null) {
@@ -228,7 +213,6 @@ public class Decision extends MCUMainFlow {
     public void start() {
         generateCode();
     }
-
 
 
     public void process() {

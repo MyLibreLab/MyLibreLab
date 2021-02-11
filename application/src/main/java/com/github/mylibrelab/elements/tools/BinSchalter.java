@@ -21,13 +21,15 @@
 package com.github.mylibrelab.elements.tools;
 
 
+import java.awt.*;
+
 public class BinSchalter extends JVSMain {
-    private boolean value = false;
+    private final boolean value = false;
+    private final String fileNameImageON;
+    private final String fileNameImageOFF;
     private Image image = null;
     private Image imageON = null;
     private Image imageOFF = null;
-    private String fileNameImageON;
-    private String fileNameImageOFF;
     private int sizeW = 30;
     private int sizeH = 30;
     private boolean down = false;
@@ -79,13 +81,8 @@ public class BinSchalter extends JVSMain {
 
     public void process() {
         double pin1 = element.readPin(0);
-        if (pin1 > 0) {
-            setValue(true);
-        } else {
-            setValue(false);
-        }
+        setValue(pin1 > 0);
     }
-
 
 
     public void mousePressed(MouseEvent e) {

@@ -18,7 +18,7 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.System_Control.CMDWRITE.src;// ********************************
+package com.github.mylibrelab.elements.circuit.system.control.cmdwrite;// ********************************
 
 // * Autor : Robinson Javier Velasquez
 // * Date : Jul-24-2016
@@ -27,6 +27,16 @@ package com.github.mylibrelab.elements.circuit.System_Control.CMDWRITE.src;// **
 // ********************************
 
 
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSString;
 
 public class cmdWrite_JV extends JVSMain {
     private Image image;

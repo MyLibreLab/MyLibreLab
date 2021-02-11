@@ -18,34 +18,20 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.VectorenMatrix.MatrixInteger.src;// *****************************************************************************
+package com.github.mylibrelab.elements.circuit.vectorenmatrix.matrixinteger;// *****************************************************************************
 
-// * Element of MyOpenLab Library *
-// * *
-// * Copyright (C) 2004 Carmelo Salafia (cswi@gmx.de) *
-// * *
-// * This library is free software; you can redistribute it and/or modify *
-// * it under the terms of the GNU Lesser General Public License as published *
-// * by the Free Software Foundation; either version 2.1 of the License, *
-// * or (at your option) any later version. *
-// * http://www.gnu.org/licenses/lgpl.html *
-// * *
-// * This library is distributed in the hope that it will be useful, *
-// * but WITHOUTANY WARRANTY; without even the implied warranty of *
-// * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. *
-// * See the GNU Lesser General Public License for more details. *
-// * *
-// * You should have received a copy of the GNU Lesser General Public License *
-// * along with this library; if not, write to the Free Software Foundation, *
-// * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
-// *****************************************************************************
+import java.awt.*;
 
+import com.github.mylibrelab.elements.tools.JVSMain;
 
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VS2DInteger;
+import VisualLogic.variables.VSPropertyDialog;
 
 public class MatrixNXM extends JVSMain {
-    private VSPropertyDialog more = new VSPropertyDialog();
+    private final VSPropertyDialog more = new VSPropertyDialog();
     private Image image;
-    private VS2DInteger matrix = new VS2DInteger(3, 3);
+    private final VS2DInteger matrix = new VS2DInteger(3, 3);
 
     public void onDispose() {
         if (image != null) {
@@ -119,9 +105,9 @@ public class MatrixNXM extends JVSMain {
             frm.setVisible(true);
 
 
-            if (frm.result) {
+            if (MyTableEditor.result) {
                 int[][] data = frm.getInputs();
-                matrix.setValues(data, frm.resN, frm.resM);
+                matrix.setValues(data, MyTableEditor.resN, MyTableEditor.resM);
             }
 
         }

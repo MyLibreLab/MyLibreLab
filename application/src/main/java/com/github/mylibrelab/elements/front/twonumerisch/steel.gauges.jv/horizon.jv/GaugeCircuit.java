@@ -18,6 +18,54 @@
  *
  */
 
+package com.github.mylibrelab.elements.front.twonumerisch.steel.gauges.jv.horizon.jv;/*
+                                                                                      * Copyright (C) 2020 MyLibreLab
+                                                                                      * Based on MyOpenLab by Carmelo
+                                                                                      * Salafia www.myopenlab.de
+                                                                                      * Copyright (C) 2004 Carmelo
+                                                                                      * Salafia cswi@gmx.de
+                                                                                      *
+                                                                                      * This program is free software:
+                                                                                      * you can redistribute it and/or
+                                                                                      * modify
+                                                                                      * it under the terms of the GNU
+                                                                                      * General Public License as
+                                                                                      * published by
+                                                                                      * the Free Software Foundation,
+                                                                                      * either version 3 of the License,
+                                                                                      * or
+                                                                                      * (at your option) any later
+                                                                                      * version.
+                                                                                      *
+                                                                                      * This program is distributed in
+                                                                                      * the hope that it will be useful,
+                                                                                      * but WITHOUT ANY WARRANTY;
+                                                                                      * without even the implied
+                                                                                      * warranty of
+                                                                                      * MERCHANTABILITY or FITNESS FOR A
+                                                                                      * PARTICULAR PURPOSE. See the
+                                                                                      * GNU General Public License for
+                                                                                      * more details.
+                                                                                      *
+                                                                                      * You should have received a copy
+                                                                                      * of the GNU General Public
+                                                                                      * License
+                                                                                      * along with this program. If not,
+                                                                                      * see
+                                                                                      * <http://www.gnu.org/licenses/>.
+                                                                                      *
+                                                                                      */
+
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSByte;
+import VisualLogic.variables.VSDouble;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSObject;
+
 public class GaugeCircuit extends JVSMain {
     private double oldValue;
     private double oldValue2;
@@ -106,7 +154,6 @@ public class GaugeCircuit extends JVSMain {
     }
 
 
-
     public void process() {
         if (in != null) {
             double value = 0;
@@ -115,16 +162,16 @@ public class GaugeCircuit extends JVSMain {
                 value = val.getValue();
             } else if (in instanceof VSInteger) {
                 VSInteger val = (VSInteger) in;
-                value = (double) val.getValue();
+                value = val.getValue();
             } else if (in instanceof VSByte) {
                 VSByte val = (VSByte) in;
-                value = (double) val.toSigned(val.getValue());
+                value = VSByte.toSigned(val.getValue());
             }
 
             if (value != oldValue) {
                 panelElement = element.getPanelElement();
                 if (panelElement != null) {
-                    panelElement.jProcessPanel(0, value, (Object) this);
+                    panelElement.jProcessPanel(0, value, this);
                     panelElement.jRepaint();
                 }
                 oldValue = value;
@@ -140,16 +187,16 @@ public class GaugeCircuit extends JVSMain {
                 value2 = val.getValue();
             } else if (in2 instanceof VSInteger) {
                 VSInteger val = (VSInteger) in2;
-                value2 = (double) val.getValue();
+                value2 = val.getValue();
             } else if (in2 instanceof VSByte) {
                 VSByte val = (VSByte) in2;
-                value2 = (double) val.toSigned(val.getValue());
+                value2 = VSByte.toSigned(val.getValue());
             }
 
             if (value2 != oldValue2) {
                 panelElement = element.getPanelElement();
                 if (panelElement != null) {
-                    panelElement.jProcessPanel(1, value2, (Object) this);
+                    panelElement.jProcessPanel(1, value2, this);
                     panelElement.jRepaint();
                 }
                 oldValue2 = value2;

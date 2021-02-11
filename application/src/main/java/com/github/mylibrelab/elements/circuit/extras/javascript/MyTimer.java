@@ -18,7 +18,7 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.Extras.Javascript.src;
+package com.github.mylibrelab.elements.circuit.extras.javascript;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

@@ -21,13 +21,15 @@
 package com.github.mylibrelab.elements.tools;
 
 
+import java.awt.*;
+
 public class BinAnzeige extends JVSMain {
+    private final String fileNameImageON;
+    private final String fileNameImageOFF;
     private boolean value = false;
     private Image image = null;
     private Image imageON = null;
     private Image imageOFF = null;
-    private String fileNameImageON;
-    private String fileNameImageOFF;
     private int sizeW = 30;
     private int sizeH = 30;
 
@@ -81,11 +83,7 @@ public class BinAnzeige extends JVSMain {
 
     public void process() {
         double pin1 = element.readPin(0);
-        if (pin1 > 0) {
-            setValue(true);
-        } else {
-            setValue(false);
-        }
+        setValue(pin1 > 0);
     }
 
 }

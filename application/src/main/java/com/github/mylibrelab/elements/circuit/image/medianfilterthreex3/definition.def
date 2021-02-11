@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Median Filter (3x3)
+CAPTION_EN   = Median Filter (3x3)
+CAPTION_ES   = Filtro Medio (3x3)
+ClassCircuit = MedianFilter
+Icon         = bin/MedianFilter.gif
