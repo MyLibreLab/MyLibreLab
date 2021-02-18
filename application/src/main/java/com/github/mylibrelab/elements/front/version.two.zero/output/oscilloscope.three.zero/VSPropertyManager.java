@@ -23,6 +23,7 @@ package com.github.mylibrelab.elements.front.version.two.zero.output.oscilloscop
 
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import VisualLogic.variables.*;
 
@@ -46,7 +47,7 @@ public class VSPropertyManager {
         try {
             method = classRef.getClass().getMethod("get" + propertyName);
 
-            returnValue = method.invoke(classRef, (Object[]) null);
+            returnValue = ((Method) method).invoke(classRef, (Object[]) null);
         } catch (SecurityException ex) {
             ex.printStackTrace();
         } catch (NoSuchMethodException ex) {

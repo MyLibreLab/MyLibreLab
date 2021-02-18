@@ -31,6 +31,8 @@ import java.net.URLConnection;
 
 import javax.swing.JOptionPane;
 
+import org.tinylog.Logger;
+
 /**
  * @author Carmelo
  */

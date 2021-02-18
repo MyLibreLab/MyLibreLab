@@ -43,7 +43,7 @@ import VisualLogic.variables.VSInteger;
 import VisualLogic.variables.VSPropertyDialog;
 import VisualLogic.variables.VSString;
 
-public class CustomAnalogComp extends JVSMain {
+public class CustomAnalogComp extends AbstractCustomAnalogComp {
     private final ArrayList listeBeschriftungen = new ArrayList();
     private final double theAngle = 0.0;
     public VSDouble value0 = new VSDouble();

@@ -29,9 +29,11 @@ import java.util.Enumeration;
 
 import VisualLogic.MyOpenLabDriverOwnerIF;
 import VisualLogic.variables.VS1DByte;
-import jssc.SerialPort;
-import jssc.SerialPortEvent;
-import jssc.SerialPortEventListener;
+import gnu.io.CommPortIdentifier;
+import gnu.io.SerialPort;
+import gnu.io.SerialPortEvent;
+import gnu.io.SerialPortEventListener;
+
 
 public class Driver {
 

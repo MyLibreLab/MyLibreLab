@@ -162,8 +162,7 @@ package com.github.mylibrelab.elements.front.twonumerisch.switchpackagetwo.src.j
                                                                                                                           *
                                                                                                                           */
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 
 /**
  * @author Homer

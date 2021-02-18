@@ -22,6 +22,9 @@ package com.github.mylibrelab.elements.circuit.automation.fuzzycontrol;// ******
 
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.jfree.chart.JFreeChart;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 
@@ -31,6 +34,9 @@ import VisualLogic.variables.VSBoolean;
 import VisualLogic.variables.VSDouble;
 import VisualLogic.variables.VSPropertyDialog;
 import VisualLogic.variables.VSString;
+import net.sourceforge.jFuzzyLogic.FIS;
+import net.sourceforge.jFuzzyLogic.rule.FuzzyRuleSet;
+import net.sourceforge.jFuzzyLogic.rule.Variable;
 
 public class Fuzzy extends JVSMain {
     private Image image;

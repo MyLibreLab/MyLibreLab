@@ -195,7 +195,7 @@ public class MyTableEditor extends javax.swing.JDialog {
 
     private void jmiNewActionPerformed(java.awt.event.ActionEvent evt)// GEN-FIRST:event_jmiNewActionPerformed
     {// GEN-HEADEREND:event_jmiNewActionPerformed
-        com.github.mylibrelab.elements.circuit.VectorenMatrix.MatrixByte.src.DialogNew frm = new DialogNew(null, true);
+        DialogNew frm = new DialogNew(null, true);
 
         frm.setVisible(true);
 

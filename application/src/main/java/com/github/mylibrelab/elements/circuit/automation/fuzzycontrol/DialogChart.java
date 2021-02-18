@@ -33,6 +33,8 @@ import javax.swing.JPanel;
 
 import org.jfree.chart.JFreeChart;
 
+import net.sourceforge.jFuzzyLogic.rule.Variable;
+
 /**
  *
  * @author Carmelo

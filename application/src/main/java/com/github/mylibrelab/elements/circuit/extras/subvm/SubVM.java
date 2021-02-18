@@ -94,7 +94,7 @@ public class SubVM extends JVSMain {
     }
 
     private String openFile() {
-        com.github.mylibrelab.elements.circuit.Extras.LogicSubVM.src.Input frm = new Input(element.jGetFrame(), true);
+        Input frm = new Input(element.jGetFrame(), true);
         if (frm.result == null) frm.result = "";
         return frm.result;
     }

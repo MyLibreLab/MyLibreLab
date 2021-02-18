@@ -18,37 +18,15 @@
  *
  */
 
-package com.github.mylibrelab.elements.circuit.booleanpackage.or;// *****************************************************************************
+package com.github.mylibrelab.elements.tools;
 
-import com.github.mylibrelab.elements.tools.Gatter;
+import java.awt.*;
 
-public class OR extends Gatter {
+import VisualLogic.variables.VSColor;
+import VisualLogic.variables.VSFont;
 
-    public OR() {
-        super(2, "OR");
-    }
-
-
-    boolean a, b, oldValue;
-
-    public void process() {
-        if (inA != null) {
-            a = inA.getValue();
-        } else
-            a = false;
-
-        if (inB != null) {
-            b = inB.getValue();
-        } else
-            b = false;
-
-        out.setValue(a || b);
-
-        if (out.getValue() != oldValue) {
-            oldValue = out.getValue();
-            element.notifyPin(0);
-        }
-
-    }
-
+// quick improvement that reduces number of 'Beschriftung' classes from 4 to 1, needs rework
+public abstract class AbstractCustomAnalogComp extends JVSMain {
+    public VSFont font;
+    public VSColor fontColor;
 }

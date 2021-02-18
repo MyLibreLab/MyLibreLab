@@ -29,13 +29,7 @@ import com.github.mylibrelab.elements.tools.JVSMain;
 import VisualLogic.PanelIF;
 import VisualLogic.variables.*;
 import eu.hansolo.steelseries.gauges.RadialBargraph;
-import eu.hansolo.steelseries.tools.BackgroundColor;
-import eu.hansolo.steelseries.tools.ColorDef;
-import eu.hansolo.steelseries.tools.FrameDesign;
-import eu.hansolo.steelseries.tools.LcdColor;
-import eu.hansolo.steelseries.tools.LedColor;
-import eu.hansolo.steelseries.tools.NumberFormat;
-import eu.hansolo.steelseries.tools.NumberSystem;
+import eu.hansolo.steelseries.tools.*;
 
 public class GaugePanel extends JVSMain implements PanelIF {
 

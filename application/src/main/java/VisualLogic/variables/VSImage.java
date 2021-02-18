@@ -31,6 +31,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.tinylog.Logger;
+
 public class VSImage extends VSObject {
     private Image image;
     private byte[] imageBytes = null;

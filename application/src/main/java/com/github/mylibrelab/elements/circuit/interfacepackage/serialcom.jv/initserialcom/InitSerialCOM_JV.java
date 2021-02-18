@@ -34,6 +34,7 @@ import com.github.mylibrelab.elements.tools.JVSMain;
 import VisualLogic.ExternalIF;
 import VisualLogic.NewSerialDriverManager;
 import VisualLogic.variables.*;
+import jssc.SerialPortException;
 
 public class InitSerialCOM_JV extends JVSMain {
 

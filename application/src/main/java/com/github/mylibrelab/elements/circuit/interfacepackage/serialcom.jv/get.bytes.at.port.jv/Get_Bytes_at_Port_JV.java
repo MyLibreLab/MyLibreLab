@@ -37,6 +37,7 @@ import VisualLogic.variables.VSBoolean;
 import VisualLogic.variables.VSInteger;
 import VisualLogic.variables.VSString;
 import VisualLogic.variables.VSserialPort;
+import jssc.SerialPortException;
 
 public class Get_Bytes_at_Port_JV extends JVSMain {
 

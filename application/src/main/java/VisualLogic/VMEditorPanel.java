@@ -34,6 +34,8 @@ import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
+import org.tinylog.Logger;
+
 import com.github.mylibrelab.exception.StoreImageException;
 
 /**

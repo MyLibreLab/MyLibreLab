@@ -40,6 +40,8 @@ import com.github.mylibrelab.ui.component.AppContentPane;
 import com.github.mylibrelab.ui.module.ApplicationModule;
 import com.github.weisj.darklaf.util.PropertyUtil;
 
+import kotlin.Pair;
+
 /**
  * Utility class for working with action.
  */

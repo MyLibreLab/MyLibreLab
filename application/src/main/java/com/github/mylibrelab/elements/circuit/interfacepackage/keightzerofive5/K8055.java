@@ -119,6 +119,11 @@ public class K8055 extends JVSMain implements MyOpenLabDriverOwnerIF {
         }
     }
 
+    @Override
+    public void getSingleByte(int value) {
+
+    }
+
 
     public K8055() {
 

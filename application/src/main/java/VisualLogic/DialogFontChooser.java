@@ -27,6 +27,8 @@ import java.awt.GraphicsEnvironment;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
+import org.tinylog.Logger;
+
 /**
  * @author Homer
  */

@@ -51,7 +51,7 @@ import VisualLogic.variables.VSInteger;
 import VisualLogic.variables.VSPropertyDialog;
 import VisualLogic.variables.VSString;
 
-public class CustomAnalogComp_2_JV extends JVSMain {
+public class CustomAnalogComp_2_JV extends AbstractCustomAnalogComp {
     private final ArrayList listeBeschriftungen = new ArrayList();
     private final double theAngle = 0.0;
     private final VSImage spitze = new VSImage();
@@ -248,7 +248,7 @@ public class CustomAnalogComp_2_JV extends JVSMain {
 
 
         for (int i = 0; i < listeBeschriftungen.size(); i++) {
-            Beschriftung2 bes = (Beschriftung2) listeBeschriftungen.get(i);
+            Beschriftung<CustomAnalogComp_2_JV> bes = (Beschriftung) listeBeschriftungen.get(i);
             bes.visible = showText.getValue();
             // element.jSetSubElementVisible(i,showText.getValue());
         }
@@ -758,7 +758,7 @@ public class CustomAnalogComp_2_JV extends JVSMain {
         listeBeschriftungen.clear();
         for (int i = 0; i < values.getLength(); i++) {
             String strValue = values.getValue(i);
-            Beschriftung2 bes = new Beschriftung2(this, strValue);
+            Beschriftung<CustomAnalogComp_2_JV> bes = new Beschriftung(this, strValue);
             listeBeschriftungen.add(bes);
             element.jAddSubElement2(bes);
         }

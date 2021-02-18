@@ -26,25 +26,17 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-class Beschriftung extends JPanel {
+class Beschriftung<T extends AbstractCustomAnalogComp> extends JPanel {
     public String text = "";
     public boolean visible = false;
-    private JVSMain owner = null;
+    private T owner = null;
 
-    public Beschriftung(CustomAnalogComp owner, String text) {
+    public Beschriftung(T owner, String text) {
         this.text = text;
         this.owner = owner;
         this.setBackground(new Color(100, 100, 100, 0));
         this.setOpaque(false);
     }
-
-    public Beschriftung(CustomAnalogComp_1_JV owner, String text) {
-        this.text = text;
-        this.owner = owner;
-        this.setBackground(new Color(100, 100, 100, 0));
-        this.setOpaque(false);
-    }
-
 
     public void paint(Graphics g) {
         // super.paintComponent(g);

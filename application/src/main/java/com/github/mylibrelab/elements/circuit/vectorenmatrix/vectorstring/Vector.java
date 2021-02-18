@@ -22,6 +22,7 @@ package com.github.mylibrelab.elements.circuit.vectorenmatrix.vectorstring;// **
 
 import java.awt.Image;
 
+import com.github.mylibrelab.elements.circuit.vectorenmatrix.vectorstring.src.mytableeditor.MyTableEditor;
 import com.github.mylibrelab.elements.tools.JVSMain;
 
 import VisualLogic.ExternalIF;

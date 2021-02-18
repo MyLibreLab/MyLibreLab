@@ -42,6 +42,8 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
+import org.tinylog.Logger;
+
 class JavaElementConfigFilter extends javax.swing.filechooser.FileFilter {
     static String fileExtension = "javaelementconfig";
 

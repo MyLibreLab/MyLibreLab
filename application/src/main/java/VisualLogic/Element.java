@@ -62,6 +62,8 @@ import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import org.tinylog.Logger;
+
 import BasisStatus.StatusEditPath;
 import Peditor.BasisProperty;
 import Peditor.PropertyEditor;

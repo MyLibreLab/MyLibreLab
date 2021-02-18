@@ -23,7 +23,11 @@ package com.github.mylibrelab.elements.circuit.image.cam;// ********************
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.PixelGrabber;
-import java.nio.Buffer;
+
+import javax.media.*;
+import javax.media.control.FrameGrabbingControl;
+import javax.media.format.VideoFormat;
+import javax.media.util.BufferToImage;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
 
@@ -136,7 +140,7 @@ public class Cam extends JVSMain {
 
     private boolean hasBufferToImage() {
         FrameGrabbingControl fg = (FrameGrabbingControl) player.getControl("javax.media.control.FrameGrabbingControl");
-        Buffer buf = fg.grabFrame(); // take a snap
+        javax.media.Buffer buf = fg.grabFrame(); // take a snap
         if (buf == null) {
             // System.out.println("No grabbed frame");
             return false;

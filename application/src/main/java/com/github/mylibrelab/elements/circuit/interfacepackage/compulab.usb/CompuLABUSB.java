@@ -171,6 +171,8 @@ public class CompuLABUSB extends JVSMain implements MyOpenLabDriverOwnerIF {
 
     }
 
+    @Override
+    public void getSingleByte(int value) {}
 
 
     public void onDispose() {

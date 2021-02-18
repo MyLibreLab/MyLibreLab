@@ -70,8 +70,11 @@ public class ArduinoJSSC_JV {
     }
 
     public void DisposeSerialPort() {
-        serialPort.onDispose();
-        serialPort = null;
+        // Method 'DisposeSerialPort()' is never used, thus I'm commenting it out
+        /*
+         * serialPort.onDispose();
+         * serialPort = null;
+         */
     }
 
     public void OpenPort(String PortName) throws Exception {
