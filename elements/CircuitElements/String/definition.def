@@ -1,0 +1,5 @@
+ISDIRECTORY = TRUE
+CAPTION= String
+CAPTION_EN= String
+CAPTION_ES= Tratamiento de Caracteres
+Icon= icon32.png

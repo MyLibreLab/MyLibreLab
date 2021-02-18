@@ -1,0 +1,8 @@
+isDirectory  = FALSE
+Caption      = Regler
+CAPTION_EN= Gauge
+CAPTION_ES= Indicador de Aguja
+JAR          = bin/Gauge.jar
+Classcircuit = Gauge
+Classfront   = GaugePanel
+icon         = bin/Gauge.gif

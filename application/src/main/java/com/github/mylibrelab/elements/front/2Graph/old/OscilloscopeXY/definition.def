@@ -1,0 +1,7 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Oscilloscope-X/Y
+CAPTION_EN   = Oscilloscope-X/Y
+CAPTION_ES   = Osciloscopio-X/Y
+ClassCircuit = Oscilloscope
+ClassFront   = OscPanel
+Icon         = bin/Oscilloscope.gif

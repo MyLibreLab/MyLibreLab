@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = For / Next Schleife
+CAPTION_EN   = For / Next Loop
+CAPTION_ES   = For / Next Loop
+ClassCircuit = XFor
+Icon         = bin/icon.gif

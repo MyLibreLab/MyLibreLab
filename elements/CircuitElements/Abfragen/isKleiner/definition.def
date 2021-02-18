@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= IsKleiner
+CAPTION_EN=isSmaller
+CAPTION_ES=Menor que
+Jar= bin/IsKleiner.jar
+classCircuit  =IsKleiner
+Icon= bin/IsKleiner.gif

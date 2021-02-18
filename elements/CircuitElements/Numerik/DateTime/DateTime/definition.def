@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION= Date/Time
+CAPTION_EN = Date/Time
+CAPTION_ES = Fecha/Hora
+ClassCircuit =DateTime
+Icon= bin/DateTime.gif

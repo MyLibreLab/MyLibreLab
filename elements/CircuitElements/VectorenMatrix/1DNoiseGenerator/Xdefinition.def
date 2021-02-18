@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = 1D-Noise-Generator
+CAPTION_EN  = 1D-Noise-Generator
+CAPTION_ES  = 1D-Noise-Generator
+ClassCircuit= NoiseGenerator1D
+Icon        = bin/NoiseGenerator1D.gif

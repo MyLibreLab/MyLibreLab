@@ -1,0 +1,8 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Altimeter_JV
+CAPTION_EN= Altimeter_JV
+CAPTION_ES= Altimetro_JV
+Jar          = bin/Compass_JV.jar
+ClassCircuit = GaugeCircuit
+ClassFront   = GaugePanel
+Icon         = bin/Gauge.gif

@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Punkte zeichen
+CAPTION_EN   = Draw Points
+CAPTION_ES   = Dibuja Puntos
+ClassCircuit = DrawPoints
+Icon         = bin/icon.gif

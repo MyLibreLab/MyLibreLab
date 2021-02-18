@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Nachricht
+CAPTION_EN = Message
+CAPTION_ES = Mensaje
+Jar= bin/Message.jar
+ClassCircuit = Message
+Icon = bin/Message.gif

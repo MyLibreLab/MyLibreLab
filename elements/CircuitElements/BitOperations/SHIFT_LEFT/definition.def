@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION=     Shift Left-Operation
+CAPTION_EN = Shift Left-Operation
+CAPTION_ES = Desplazamiento Izquierda
+ClassCircuit =ShiftLeft
+icon= bin/icon.gif

@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= isKleinerGleich
+CAPTION_EN=isSmallerOrEqual
+CAPTION_ES=Menor que o igual
+Jar= bin/isKleinerGleich.jar
+classCircuit  =isKleinerGleich
+Icon= bin/isKleinerGleich.gif

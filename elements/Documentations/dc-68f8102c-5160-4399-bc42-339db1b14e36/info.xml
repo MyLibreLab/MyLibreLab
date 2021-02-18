@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <caption>Tutorials</caption>
+  <caption_en>Tutorials</caption_en>
+  <caption_es>Tutoriales</caption_es>
+  <categorie>Education</categorie>
+  <author>Prof. José Manuel Ruiz Gutiérrez</author>
+  <email></email>
+  <web></web>
+  <version>1.0.0.0</version>
+  <date>16.10.2016</date>
+  <dest_path>/Documentations/dc-68f8102c-5160-4399-bc42-339db1b14e36</dest_path>
+  <type>Documentations</type>
+  <content>
+  </content>
+</root>

@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Set Robot
+CAPTION_EN   = Set Robot
+CAPTION_ES   = Set Robot
+ClassCircuit = SetRobot
+Icon         = bin/icon.gif

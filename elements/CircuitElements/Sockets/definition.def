@@ -1,0 +1,5 @@
+ISDIRECTORY = TRUE
+CAPTION= Sockets
+CAPTION_EN = Sockets
+CAPTION_ES = Sockets
+Icon= icon.gif

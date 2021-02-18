@@ -1,0 +1,56 @@
+object Input: TFGUIFormular
+  Left = 0
+  Top = 0
+  Width = 300
+  Height = 130
+  BorderIcons = [biSystemMenu, biMinimize]
+  Caption = 
+    'Y:\java\carmelo'#39's exp Lab 3\Distribution\Elements\CircuitElement' +
+    's\SubVM\src\Input.jfm'
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -13
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  FormStyle = fsMDIChild
+  OldCreateOrder = True
+  Visible = True
+  OnActivate = FormActivate
+  OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
+  OnResize = FormResize
+  PixelsPerInch = 96
+  TextHeight = 16
+  object label1: TLabel
+    Left = 8
+    Top = 16
+    Width = 117
+    Height = 16
+    Caption = 'Relative Path to VM'
+  end
+  object button1: TButton
+    Left = 208
+    Top = 72
+    Width = 75
+    Height = 25
+    Caption = 'Cancel'
+    TabOrder = 0
+  end
+  object button2: TButton
+    Left = 128
+    Top = 72
+    Width = 75
+    Height = 25
+    Caption = 'OK'
+    TabOrder = 1
+  end
+  object textField1: TEdit
+    Left = 8
+    Top = 40
+    Width = 273
+    Height = 24
+    Color = clBtnFace
+    TabOrder = 2
+  end
+end

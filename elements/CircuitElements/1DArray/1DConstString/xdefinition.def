@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION    = 1D-String Const
+CAPTION_EN = 1D-String Const
+CAPTION_ES = 1D-String Const
+Jar= bin/StrConst1D.jar
+ClassCircuit =StrConst1D
+Icon= bin/StrConst1D.gif

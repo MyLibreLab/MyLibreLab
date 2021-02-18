@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Test Point
+CAPTION_EN   = Test Point
+CAPTION_ES   = Test Point
+classCircuit = TP
+Icon         = bin/icon.gif

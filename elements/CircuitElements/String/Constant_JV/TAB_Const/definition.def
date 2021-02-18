@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= TAB_Konstante
+CAPTION_EN= TAB_Constant
+CAPTION_ES= Constante_TAB
+Jar= bin/Const.jar
+ClassCircuit =Const
+Icon= bin/Const.gif

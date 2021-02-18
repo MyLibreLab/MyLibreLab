@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Setter
+CAPTION_EN   = Setter
+CAPTION_ES   = Leer
+ClassCircuit = ProcessSetter
+Icon         = bin/icon.gif

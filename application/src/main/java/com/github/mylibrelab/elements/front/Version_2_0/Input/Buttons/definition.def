@@ -1,0 +1,5 @@
+ISDIRECTORY = TRUE
+CAPTION= Knoepfe
+CAPTION_EN= Buttons
+CAPTION_ES= Botones/Interruptores
+Icon= icon32.png

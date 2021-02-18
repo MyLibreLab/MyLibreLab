@@ -1,0 +1,434 @@
+// *********************************************************
+// * Code generated from MyOpenLab (www.MyOpenLab.de)
+// * MyOpenLab is Freeware!
+// * This is a nano VM for MyOpenLab v.3.5 (Experimental)
+// * Date : Thu Jan 17 11:59:19 CET 2008
+// *********************************************************
+
+
+
+  // Variables
+  DIM BYTE,ELEMENT0_PIN0
+  DIM BYTE,ELEMENT11_PIN0
+  DIM BYTE,ELEMENT11_PIN1
+  DIM BYTE,ELEMENT11_PIN2
+  DIM BYTE,ELEMENT47_PIN0
+  DIM BYTE,ELEMENT52_PIN0
+  DIM BYTE,ELEMENT58_PIN0
+  DIM BYTE,ELEMENT76_PIN0
+  DIM BYTE,ELEMENT76_PIN1
+  DIM BYTE,ELEMENT76_PIN2
+  DIM BYTE,ELEMENT78_PIN0
+  DIM BYTE,ELEMENT78_PIN1
+  DIM BYTE,ELEMENT79_PIN0
+  DIM BYTE,ELEMENT79_PIN1
+  DIM BYTE,ELEMENT79_PIN2
+  DIM BYTE,ELEMENT79_PIN3
+  DIM BYTE,ELEMENT92_PIN0
+  DIM BYTE,ELEMENT94_PIN0
+  DIM BYTE,ELEMENT96_PIN0
+  DIM BYTE,ELEMENT98_PIN0
+  DIM BYTE,ELEMENT100_PIN0
+  DIM BYTE,ELEMENT100_PIN1
+  DIM BYTE,ELEMENT100_PIN2
+  DIM BYTE,ELEMENT100_PIN3
+  DIM BYTE,ELEMENT100_PIN4
+  DIM BYTE,ELEMENT102_PIN0
+  DIM WORD,ELEMENT130_PIN0
+  DIM WORD,ELEMENT131_PIN0
+  DIM WORD,ELEMENT147_PIN0
+  DIM WORD,ELEMENT148_PIN0
+  DIM WORD,ELEMENT148_PIN1
+  DIM WORD,ELEMENT148_PIN2
+
+  // Element globals
+  DIM BYTE,ELEMENT78_OLDVALUE
+  DIM BYTE, ELEMENT100_FLIP
+
+ GOTO MAIN
+
+//******************************************************
+//* FUNCTION Input Pin1
+//******************************************************
+ELEMENT0:
+
+  E 0
+  POP R0
+  NOTIFY_ON_CHANGED ELEMENT79_PIN2,R0, ELEMENT79
+
+RETURN
+
+//******************************************************
+//* FUNCTION Splitter1
+//******************************************************
+ELEMENT11:
+
+  PUSH ELEMENT11_PIN2
+  POP ELEMENT47_PIN0
+  PUSH ELEMENT11_PIN2
+  POP ELEMENT78_PIN1
+
+  PUSH_NEXTELEMENT ELEMENT47// PUSHT die Adresse des NextElements in den Stack
+
+  PUSH_NEXTELEMENT ELEMENT78// PUSHT die Adresse des NextElements in den Stack
+
+
+RETURN
+
+//******************************************************
+//* FUNCTION Output1
+//******************************************************
+ELEMENT47:
+
+  PUSH ELEMENT47_PIN0 // VALUE 0 // BitNr
+  O 0 // BitNr
+
+RETURN
+
+//******************************************************
+//* FUNCTION Output1
+//******************************************************
+ELEMENT52:
+
+  PUSH ELEMENT52_PIN0 // VALUE 1 // BitNr
+  O 1 // BitNr
+
+RETURN
+
+//******************************************************
+//* FUNCTION Output1
+//******************************************************
+ELEMENT58:
+
+  PUSH ELEMENT58_PIN0 // VALUE 2 // BitNr
+  O 2 // BitNr
+
+RETURN
+
+//******************************************************
+//* FUNCTION Splitter1
+//******************************************************
+ELEMENT76:
+
+  PUSH ELEMENT76_PIN2
+  POP ELEMENT58_PIN0
+  PUSH ELEMENT76_PIN2
+  POP ELEMENT79_PIN3
+
+  PUSH_NEXTELEMENT ELEMENT58// PUSHT die Adresse des NextElements in den Stack
+
+  PUSH_NEXTELEMENT ELEMENT79// PUSHT die Adresse des NextElements in den Stack
+
+
+RETURN
+
+//******************************************************
+//* FUNCTION Anzugsverzögerung1
+//******************************************************
+ELEMENT78:
+
+  PUSH ELEMENT78_PIN1
+  POP ELEMENT76_PIN2
+  GOTO ELEMENT78_BEGIN
+  ELEMENT78_TIMER:
+  PUSH 0// TimerNr
+  TIMER_STOP
+  PUSH_NEXTELEMENT ELEMENT76// PUSHT die Adresse des NextElements in den Stack
+
+  RETURN
+
+  ELEMENT78_BEGIN:
+  CMP ELEMENT78_PIN1,0
+  JMP_IF_A=B ELEMENT78_SUB
+  PUSH 0// TimerNr
+  TIMER_START
+  GOTO ELEMENT78_EXIT
+  ELEMENT78_SUB:
+  PUSH_NEXTELEMENT ELEMENT76// PUSHT die Adresse des NextElements in den Stack
+
+  ELEMENT78_EXIT:
+
+RETURN
+
+//******************************************************
+//* FUNCTION RS-Flip Flop1
+//******************************************************
+ELEMENT79:
+
+  // SET ?
+  CMP ELEMENT79_PIN2,1
+  JMP_IF_A!=B ELEMENT79_OK
+
+  PUSH 1
+  POP R0
+  // Params : <OLD-VALUE>, <NEW_VALUE>, <NEXTELEMENT-LABEL>
+  NOTIFY_ON_CHANGED ELEMENT11_PIN2, R0, ELEMENT11
+
+  PUSH 0
+  POP R0
+  // Params : <OLD-VALUE>, <NEW_VALUE>, <NEXTELEMENT-LABEL>
+  NOTIFY_ON_CHANGED ELEMENT52_PIN0, R0, ELEMENT52
+
+
+  CALL ELEMENT79_EXIT
+
+
+  ELEMENT79_OK:
+
+  CMP ELEMENT79_PIN3,1 // RESET?
+  JMP_IF_A!=B ELEMENT79_EXIT
+
+  PUSH 0
+  POP R0
+  // Params : <OLD-VALUE>, <NEW_VALUE>, <NEXTELEMENT-LABEL>
+  NOTIFY_ON_CHANGED ELEMENT11_PIN2, R0, ELEMENT11
+
+  PUSH 1
+  POP R0
+  // Params : <OLD-VALUE>, <NEW_VALUE>, <NEXTELEMENT-LABEL>
+  NOTIFY_ON_CHANGED ELEMENT52_PIN0, R0, ELEMENT52
+
+
+  ELEMENT79_EXIT:
+
+RETURN
+
+//******************************************************
+//* FUNCTION Output1
+//******************************************************
+ELEMENT92:
+
+  PUSH ELEMENT92_PIN0 // VALUE 3 // BitNr
+  O 3 // BitNr
+
+RETURN
+
+//******************************************************
+//* FUNCTION Const1
+//******************************************************
+ELEMENT94:
+
+  PUSH 0
+  POP ELEMENT100_PIN4
+  PUSH_NEXTELEMENT ELEMENT100// PUSHT die Adresse des NextElements in den Stack
+
+
+RETURN
+
+//******************************************************
+//* FUNCTION Input Pin1
+//******************************************************
+ELEMENT96:
+
+  E 1
+  POP R0
+  NOTIFY_ON_CHANGED ELEMENT100_PIN3,R0, ELEMENT100
+
+RETURN
+
+//******************************************************
+//* FUNCTION Const2
+//******************************************************
+ELEMENT98:
+
+  PUSH 0
+  POP ELEMENT100_PIN2
+  PUSH_NEXTELEMENT ELEMENT100// PUSHT die Adresse des NextElements in den Stack
+
+
+RETURN
+
+//******************************************************
+//* FUNCTION D-Flip Flop1
+//******************************************************
+ELEMENT100:
+
+  CMP ELEMENT100_PIN2, 0 // Invertiert!
+  JMP_IF_A!=B ELEMENT100_EXIT
+
+  // RESET PRESSED?
+  CMP ELEMENT100_PIN4,1
+  JMP_IF_A!=B ELEMENT100_OK
+  PUSH 0
+  POP ELEMENT100_FLIP
+
+  //   MOV ELEMENT92_PIN0, 0
+  PUSH 0
+  POP R0
+  // Params : <OLD-VALUE>, <NEW_VALUE>, <NEXTELEMENT-LABEL>
+  NOTIFY_ON_CHANGED ELEMENT92_PIN0, R0, ELEMENT92
+
+  //  MOV ELEMENT102_PIN0, 1
+  PUSH 1
+  POP R0
+  // Params : <OLD-VALUE>, <NEW_VALUE>, <NEXTELEMENT-LABEL>
+  NOTIFY_ON_CHANGED ELEMENT102_PIN0, R0, ELEMENT102
+
+  PUSH_NEXTELEMENT ELEMENT92// PUSHT die Adresse des NextElements in den Stack
+
+  PUSH_NEXTELEMENT ELEMENT102// PUSHT die Adresse des NextElements in den Stack
+
+  CALL ELEMENT100_EXIT
+
+
+  ELEMENT100_OK:
+
+  CMP ELEMENT100_PIN3,1
+  JMP_IF_A!=B ELEMENT100_EXIT
+  // IF pin3==1 then FLIP
+
+  PUSH ELEMENT100_FLIP
+  NOT
+  POP ELEMENT100_FLIP
+
+  PUSH ELEMENT100_FLIP
+  PUSH 0  // BIT 0
+  REG_GET_BIT
+  POP ELEMENT100_FLIP
+
+  CMP ELEMENT100_FLIP,1
+  JMP_IF_A!=B ELEMENT100_NEXT
+
+  PUSH 1
+  POP R0
+  // Params : <OLD-VALUE>, <NEW_VALUE>, <NEXTELEMENT-LABEL>
+  NOTIFY_ON_CHANGED ELEMENT92_PIN0, R0, ELEMENT92
+
+  //  MOV ELEMENT102_PIN0, 1
+  PUSH 0
+  POP R0
+  // Params : <OLD-VALUE>, <NEW_VALUE>, <NEXTELEMENT-LABEL>
+  NOTIFY_ON_CHANGED ELEMENT102_PIN0, R0, ELEMENT102
+
+
+
+  goto ELEMENT100_EXIT
+
+  ELEMENT100_NEXT:
+  MOV ELEMENT92_PIN0, 0
+  MOV ELEMENT102_PIN0, 1
+  PUSH_NEXTELEMENT ELEMENT92// PUSHT die Adresse des NextElements in den Stack
+
+  PUSH_NEXTELEMENT ELEMENT102// PUSHT die Adresse des NextElements in den Stack
+
+
+  ELEMENT100_EXIT:
+
+RETURN
+
+//******************************************************
+//* FUNCTION Output1
+//******************************************************
+ELEMENT102:
+
+  PUSH ELEMENT102_PIN0 // VALUE 4 // BitNr
+  O 4 // BitNr
+
+RETURN
+
+//******************************************************
+//* FUNCTION ADC Input1
+//******************************************************
+ELEMENT130:
+
+  ADC 0
+  POP R0   //! ACHTUNG hier werden 2 Bytes reserviert, also R0 und R1.
+  // Params : <OLD-VALUE>, <NEW_VALUE>, <NEXTELEMENT-LABEL>
+  NOTIFY_ON_CHANGED ELEMENT148_PIN1, R0, ELEMENT148
+
+RETURN
+
+//******************************************************
+//* FUNCTION PWM Output1
+//******************************************************
+ELEMENT131:
+
+  PUSH 0 // PIN-NR
+  PUSH ELEMENT131_PIN0 // VALUE
+  PWM
+
+RETURN
+
+//******************************************************
+//* FUNCTION Const3
+//******************************************************
+ELEMENT147:
+
+  PUSH16 10
+  POP16 ELEMENT148_PIN2
+  PUSH_NEXTELEMENT ELEMENT148// PUSHT die Adresse des NextElements in den Stack
+
+
+RETURN
+
+//******************************************************
+//* FUNCTION DIV1
+//******************************************************
+ELEMENT148:
+
+  //  PUSH2 ELEMENT148_PIN1,ELEMENT148_PIN2
+  PUSH2 ELEMENT148_PIN1, ELEMENT148_PIN2
+  DIV
+  POP R0
+  // Params : <OLD-VALUE>, <NEW_VALUE>, <NEXTELEMENT-LABEL>
+  NOTIFY_ON_CHANGED ELEMENT131_PIN0, R0, ELEMENT131
+
+RETURN
+
+MAIN:
+  //INIT-BLOCK
+  //--INIT : ELEMENT_78-Anzugsverzögerung1
+  PUSH 0//TimerNr
+  PUSH 60//Intervall
+  TIMER_SET_INTERVALL
+  PUSH 0// TimerNr
+  GET_LABEL_ADR  ELEMENT78_TIMER // PUSH LabelAdresse
+  CALL_WHEN_TIMER_INCREASED
+  //--INIT : ELEMENT_79-RS-Flip Flop1
+  PUSH 0
+  POP ELEMENT11_PIN2
+
+  PUSH 1
+  POP ELEMENT52_PIN0
+
+  PUSH_NEXTELEMENT ELEMENT11// PUSHT die Adresse des NextElements in den Stack
+
+  PUSH_NEXTELEMENT ELEMENT52// PUSHT die Adresse des NextElements in den Stack
+
+  //--INIT : ELEMENT_94-Const1
+  CALL  ELEMENT94
+  //--INIT : ELEMENT_98-Const2
+  CALL  ELEMENT98
+  //--INIT : ELEMENT_100-D-Flip Flop1
+  //   MOV ELEMENT100_FLIP,0
+  PUSH 0
+  POP ELEMENT100_FLIP
+
+  //   MOV ELEMENT92_PIN0, 0
+  PUSH 0
+  POP ELEMENT92_PIN0
+
+  //  MOV ELEMENT102_PIN0, 1
+  PUSH 1
+  POP ELEMENT102_PIN0
+
+  PUSH_NEXTELEMENT ELEMENT92// PUSHT die Adresse des NextElements in den Stack
+
+  PUSH_NEXTELEMENT ELEMENT102// PUSHT die Adresse des NextElements in den Stack
+
+  //--INIT : ELEMENT_147-Const3
+  CALL  ELEMENT147
+MAIN_BEGIN:
+  //---BEGIN EVENT-Handler
+  //--EVENT-H : ELEMENT_0-Input Pin1
+  CALL ELEMENT0
+  //--EVENT-H : ELEMENT_96-Input Pin1
+  CALL ELEMENT96
+  //--EVENT-H : ELEMENT_130-ADC Input1
+  CALL  ELEMENT130
+  //---END EVENT-Handler
+  PROCESS_NEXTELEMENT
+  PROCESS_TIMERS
+  GOTO MAIN_BEGIN
+MAIN_EXIT:
+

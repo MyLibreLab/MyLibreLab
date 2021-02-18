@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <caption>String_Conversion</caption>
+  <caption_en>String_Conversion</caption_en>
+  <caption_es>Conversiones desde Texto</caption_es>
+  <categorie>Education</categorie>
+  <author>Javier Velasquez</author>
+  <email>javiervelasquez125@gmail.com</email>
+  <web>http://myopenlab.org</web>
+  <version>1.0.0.0</version>
+  <date>04.05.2018</date>
+  <dest_path>/CircuitElements/String/StringConversion</dest_path>
+  <type>CircuitElements</type>
+  <content>
+  </content>
+</root>

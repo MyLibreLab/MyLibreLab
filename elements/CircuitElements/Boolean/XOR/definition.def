@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= XOR-Gatter
+CAPTION_EN= XOR-Gate
+CAPTION_ES= Operador XOR
+Jar= bin/XOR.jar
+classCircuit =XOR
+icon= bin/XOR.gif

@@ -1,0 +1,8 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Tank 6 JV
+CAPTION_EN=  Tank 6 JV
+CAPTION_ES= Tanque 6 JV
+Jar          = bin/Anzeige.jar
+ClassCircuit = Anzeige
+ClassFront   = AnzeigePanel
+Icon         = bin/Anzeige.gif

@@ -1,0 +1,8 @@
+ISDIRECTORY = FALSE
+CAPTION= Multiswitch 2
+CAPTION_EN= Multiswitch 2
+CAPTION_ES= Multiswitch 2
+Jar= bin/Taster.jar
+ClassCircuit = Taster
+ClassFront = TasterPanel
+Icon= bin/Taster.gif

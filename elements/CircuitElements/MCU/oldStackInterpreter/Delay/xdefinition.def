@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION= Delay
+CAPTION_EN= Delay
+CAPTION_ES= Delay
+classCircuit =Delay
+Icon= bin/delay.gif

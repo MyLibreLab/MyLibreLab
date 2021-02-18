@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = PWM Output
+CAPTION_EN  = PWM Output
+CAPTION_ES  = PWM Output
+classCircuit =PWM
+Icon= bin/icon.gif

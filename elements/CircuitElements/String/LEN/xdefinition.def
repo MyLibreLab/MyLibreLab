@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION= Length
+CAPTION_EN= Length
+CAPTION_ES= Longitud
+ClassCircuit =Length
+Icon= bin/Length.gif

@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Bild zeichnen
+CAPTION_EN   = Draw Image
+CAPTION_ES   = Dibujar Imagen
+ClassCircuit = DrawImage
+Icon         = bin/icon.gif

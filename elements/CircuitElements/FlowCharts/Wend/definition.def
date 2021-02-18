@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Wend
+CAPTION_EN   = Wend
+CAPTION_ES   = Wend
+ClassCircuit = XWend
+Icon         = bin/icon.gif

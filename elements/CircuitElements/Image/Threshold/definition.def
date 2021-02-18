@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Threshold
+CAPTION_EN = Threshold
+CAPTION_ES = Umbral
+Jar= bin/Threshold.jar
+ClassCircuit =Threshold
+Icon= bin/Threshold.gif

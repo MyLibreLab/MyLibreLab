@@ -1,0 +1,13 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+CAPTION         = DEC -> BCD Decoder (3 Bit)
+CAPTION_EN      = DEC -> BCD Decoder (3 Bit)
+CAPTION_ES      = Decod. DEC -> BCD (3 Bit)
+VM              = DEC_BCD_DECODER.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon.gif
+ELEMENTIMAGE    = image.png
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

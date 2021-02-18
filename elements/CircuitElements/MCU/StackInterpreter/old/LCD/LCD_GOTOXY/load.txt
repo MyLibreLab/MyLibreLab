@@ -1,0 +1,23 @@
+InputPins  3
+OutputPins 1
+
+PIN_TYPE   0 INTEGER
+PIN_TYPE   1 INTEGER
+PIN_TYPE   2 INTEGER
+PIN_TYPE   3 INTEGER
+
+PIN_DESC   0 Out
+PIN_DESC   1 In
+PIN_DESC   2 X
+PIN_DESC   3 Y
+
+
+PROCEDURE
+{
+  PUSH %pin2%
+  PUSH %pin3%
+  LCD_GOTOXY
+  MOV %pin0%, %pin1%
+  %notify0%
+}
+

@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Addierer
+CAPTION_EN = Addition
+CAPTION_ES = Suma
+Jar= bin/Addierer.jar
+ClassCircuit =Addierer
+icon= bin/Addierer.gif

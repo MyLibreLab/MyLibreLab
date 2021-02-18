@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <caption>Examples English Arduino-Firmata</caption>
+  <caption_en>Examples English Arduino-Firmata</caption_en>
+  <caption_es>Examples English Arduino-Firmata</caption_es>
+  <categorie>Education</categorie>
+  <author>Prof. José Manuel Ruiz Gutiérrez</author>
+  <email>j.m.r.gutierrez@gmail.com</email>
+  <web>http://www.myopenlab.de</web>
+  <version>1.0.0.0</version>
+  <date>24.04.2016</date>
+  <dest_path>/VirtualMachines/English Arduino-Firmata</dest_path>
+  <type>VirtualMachines</type>
+  <content>
+  </content>
+</root>

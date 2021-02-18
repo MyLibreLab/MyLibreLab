@@ -1,0 +1,82 @@
+// Decompiled by DJ v3.8.8.85 Copyright 2005 Atanas Neshkov  Date: 09/10/2006 0:21:22
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   Ellipse.java
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSColor;
+import VisualLogic.variables.VSInteger;
+import java.awt.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import tools.JVSMain;
+
+public class Ellipse extends JVSMain
+{
+
+    public Ellipse()
+    {
+        fillColor = new VSColor(Color.LIGHT_GRAY);
+        strokeColor = new VSColor(Color.black);
+        strokeWidth = new VSInteger();
+    }
+
+    public void paint(Graphics g)
+    {
+        if(element != null)
+        {
+            Graphics2D graphics2d = (Graphics2D)g;
+            graphics2d.setColor(Color.black);
+            graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            Rectangle rectangle = element.jGetBounds();
+            graphics2d.setStroke(new BasicStroke(strokeWidth.getValue()));
+            graphics2d.setColor(fillColor.getValue());
+            graphics2d.fillOval(rectangle.x, rectangle.y, rectangle.width - 1, rectangle.height - 1);
+            graphics2d.setColor(strokeColor.getValue());
+            int i = strokeWidth.getValue() / 2;
+            graphics2d.drawOval(rectangle.x + i, rectangle.y + i, rectangle.width - i * 2 - 1, rectangle.height - i * 2 - 1);
+        }
+    }
+
+    public void init()
+    {
+        initPins(0, 0, 0, 0);
+        setSize(60, 60);
+        initPinVisibility(false, false, false, false);
+        element.jSetResizable(true);
+        element.jSetInnerBorderVisibility(false);
+        setName("Ellipse");
+        element.jSetResizable(true);
+        strokeWidth.setValue(1);
+    }
+
+    public void propertyChanged(Object obj)
+    {
+        element.jRepaint();
+    }
+
+    public void setPropertyEditor()
+    {
+        element.jAddPEItem("Fill-Color", fillColor, 0.0D, 0.0D);
+        element.jAddPEItem("Stroke-Color", strokeColor, 0.0D, 0.0D);
+        element.jAddPEItem("Stroke-Width", strokeWidth, 0.0D, 100D);
+    }
+
+    public void loadFromStream(FileInputStream fileinputstream)
+    {
+        fillColor.loadFromStream(fileinputstream);
+        strokeColor.loadFromStream(fileinputstream);
+        strokeWidth.loadFromStream(fileinputstream);
+    }
+
+    public void saveToStream(FileOutputStream fileoutputstream)
+    {
+        fillColor.saveToStream(fileoutputstream);
+        strokeColor.saveToStream(fileoutputstream);
+        strokeWidth.saveToStream(fileoutputstream);
+    }
+
+    private VSColor fillColor;
+    private VSColor strokeColor;
+    private VSInteger strokeWidth;
+}

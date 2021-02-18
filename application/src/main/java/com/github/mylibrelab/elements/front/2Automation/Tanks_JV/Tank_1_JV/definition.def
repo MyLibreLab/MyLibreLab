@@ -1,0 +1,8 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Tank_JV
+CAPTION_EN= Tank_JV
+CAPTION_ES= Tanque_JV
+Jar          = bin/FuellstandAnzeige.jar
+ClassCircuit = FuellstandAnzeige
+ClassFront   = AnzeigePanel
+Icon         = bin/FuellstandAnzeige.gif

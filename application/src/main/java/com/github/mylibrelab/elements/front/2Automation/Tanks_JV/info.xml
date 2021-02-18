@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <caption>Tanks JV</caption>
+  <caption_en>Tanks JV</caption_en>
+  <caption_es>Tanques JV</caption_es>
+  <categorie>Education</categorie>
+  <author>Ing. Javier Velásquez</author>
+  <email>javiervelasquez125@gmail.com</email>
+  <web>http://myopenlab.org</web>
+  <version>1.0.0.0</version>
+  <date>12.04.2018</date>
+  <dest_path>/FrontElements/Tanks_JV</dest_path>
+  <type>FrontElements</type>
+  <content>
+  </content>
+</root>

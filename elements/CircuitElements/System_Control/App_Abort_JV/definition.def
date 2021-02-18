@@ -1,0 +1,16 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+LOADER          = 
+CAPTION         = App_Abort_JV
+CAPTION_EN      = App_Abort_JV
+CAPTION_ES      = Abortar_App_JV
+VM              = 
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = App_Abort_JV
+CLASSFRONT      = 
+ICON            = bin/icon.gif
+CLASSPATH       = 
+CLASSPATH2      = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

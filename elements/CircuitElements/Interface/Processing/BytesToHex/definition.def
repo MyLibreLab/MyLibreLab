@@ -1,0 +1,15 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+CAPTION         = Bytes to HEX
+CAPTION_EN      = Bytes to HEX
+CAPTION_ES      = Bytes to HEX
+VM              = 
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = BytesToHEX
+CLASSFRONT      = 
+ICON            = bin/icon.gif
+CLASSPATH       = 
+CLASSPATH2      = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

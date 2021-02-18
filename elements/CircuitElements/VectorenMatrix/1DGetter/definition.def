@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = 1D Getter
+CAPTION_EN  = 1D Getter
+CAPTION_ES  = 1D Lectura
+ClassCircuit= Getter1D
+Icon        = bin/icon.gif

@@ -1,0 +1,11 @@
+ISDIRECTORY     = FALSE
+CAPTION         = D Flip-Flop mit Taktsteuerung
+CAPTION_EN      = D Latch
+CAPTION_ES      = Biestable D
+VM              = D_Flip_Flop_Taktsteuerung.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon.gif
+ELEMENTIMAGE    = image.png
+SHOWINNERBORDER = FALSE

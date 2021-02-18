@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = PID Regler
+CAPTION_EN   = PID Regulator
+CAPTION_ES   = Regulador PID
+ClassCircuit = PID
+icon         = bin/icon.png

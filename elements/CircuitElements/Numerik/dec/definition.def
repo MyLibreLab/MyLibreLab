@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= -1
+CAPTION_EN = -1
+CAPTION_ES = -1
+jar= bin/Dec.jar
+ClassCircuit =Dec
+icon= bin/Dec.gif

@@ -1,0 +1,8 @@
+ISDIRECTORY = FALSE
+CAPTION= Down_Valve_JV
+CAPTION_EN= Down_Valve_JV
+CAPTION_ES= Valvula D_JV
+Jar = bin/LED.jar
+ClassCircuit = LED
+ClassFront = LEDPanel
+icon= bin/Pipe.gif

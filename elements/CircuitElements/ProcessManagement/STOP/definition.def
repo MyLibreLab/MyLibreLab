@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = STOP
+CAPTION_EN   = STOP
+CAPTION_ES   = STOP
+ClassCircuit = STOP
+Icon         = bin/icon.gif

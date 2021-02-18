@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Timer/Counter
+CAPTION_EN  = Timer/Counter
+CAPTION_ES  = Temporizador/Contador
+classCircuit= TimerCounter
+Icon        = bin/icon.gif

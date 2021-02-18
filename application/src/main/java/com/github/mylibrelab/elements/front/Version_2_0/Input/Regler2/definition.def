@@ -1,0 +1,7 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Regler 2
+CAPTION_EN   = Control 2
+CAPTION_ES   = Conmutador 2
+VM           = Regler.vlogic
+CLASSFRONT   = TRUE
+Icon         = icon.gif

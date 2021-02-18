@@ -1,0 +1,16 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+LOADER          = 
+CAPTION         = Get_Bytes_at_Port_JV
+CAPTION_EN      = Get_Bytes_at_Port_JV
+CAPTION_ES      = Obtener_Bytes_en_Puerto_JV
+VM              = 
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = Get_Bytes_at_Port_JV
+CLASSFRONT      = 
+ICON            = bin/icon.gif
+CLASSPATH       = 
+CLASSPATH2      = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

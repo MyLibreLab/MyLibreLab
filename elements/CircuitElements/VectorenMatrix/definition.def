@@ -1,0 +1,6 @@
+ISDIRECTORY = TRUE
+CAPTION   =Vectoren und Matrizen
+CAPTION_EN=Vectors and Matrix
+CAPTION_ES=Vectores y Matrices
+ICON=icon32.png
+VM_DIR_EDITABLE = TRUE

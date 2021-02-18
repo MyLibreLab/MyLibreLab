@@ -1,0 +1,9 @@
+ISDIRECTORY     = TRUE
+CAPTION         = Physik
+CAPTION_EN      = Physik
+CAPTION_ES      = Fisica
+VM              = 
+VM_DIR_EDITABLE = TRUE
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon.png

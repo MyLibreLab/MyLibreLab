@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= NOR-Gatter
+CAPTION_EN= NOR-Gate
+CAPTION_ES= Operador NOR
+Jar= bin/NOR.jar
+classCircuit =NOR
+Icon= bin/NOR.gif

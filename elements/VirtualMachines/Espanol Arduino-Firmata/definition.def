@@ -1,0 +1,6 @@
+ISDIRECTORY = TRUE
+CAPTION   =Examples Espanol Arduino-Firmata
+CAPTION_EN=Examples Espanol Arduino-Firmata
+CAPTION_ES=Examples Espanol Arduino-Firmata
+ICON=icon32.png
+VM_DIR_EDITABLE = TRUE

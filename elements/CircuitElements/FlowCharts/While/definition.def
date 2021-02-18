@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = While Schleife
+CAPTION_EN   = While Loop
+CAPTION_ES   = While  Loop
+ClassCircuit = XWhile
+Icon         = bin/icon.gif

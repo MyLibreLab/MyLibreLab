@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION= Output
+CAPTION_EN= Output
+CAPTION_ES= Output
+classCircuit =Output
+Icon= bin/icon.gif

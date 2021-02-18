@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= String_Function_JV
+CAPTION_EN= String_Function_JV
+CAPTION_ES= Funcion_String_JV
+Jar= bin/SrtFcn_JV.jar
+ClassCircuit =Concat
+Icon= bin/frontIcon.gif

@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Starter
+CAPTION_EN   = Starter
+CAPTION_ES   = Ejecutar Externo
+classCircuit =Starter
+Icon         = bin/icon.png

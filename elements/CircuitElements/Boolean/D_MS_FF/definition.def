@@ -1,0 +1,11 @@
+ISDIRECTORY     = FALSE
+CAPTION         = D Master-Slave Flip-Flop
+CAPTION_EN      = D Master-Slave Flip-Flop
+CAPTION_ES      = Biestable D Maestro-Esclavo
+VM              = D_MS_FF.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon.gif
+ELEMENTIMAGE    = image.png
+SHOWINNERBORDER = TRUE

@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Int4XDec
+CAPTION_EN = Int4XDec
+CAPTION_ES = Conv. Int4XDec
+Jar= bin/Int4XDec.jar
+ClassCircuit = Int4XDec
+Icon= bin/Int4XDec.gif

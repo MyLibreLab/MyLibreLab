@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Getter
+CAPTION_EN   = Getter
+CAPTION_ES   = Escribir
+ClassCircuit = ProcessGetter
+Icon         = bin/icon.gif

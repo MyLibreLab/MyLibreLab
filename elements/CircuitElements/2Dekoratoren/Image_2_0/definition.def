@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Raster Bild
+CAPTION_EN   = Raster Image
+CAPTION_ES   = Imagen Raster
+Classcircuit = XImage
+Icon         = bin/icon2.png
