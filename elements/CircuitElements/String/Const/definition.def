@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Konstante (String)
+CAPTION_EN= Constant (String)
+CAPTION_ES= Constante(String)
+Jar= bin/Const.jar
+ClassCircuit =Const
+Icon= bin/Const.gif

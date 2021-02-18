@@ -1,0 +1,7 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Sinus
+CAPTION_EN   = Sinus
+CAPTION_ES   = Seno
+CLASSCIRCUIT = XSin
+CLASSFRONT   = 
+ICON         = bin/XSin.gif

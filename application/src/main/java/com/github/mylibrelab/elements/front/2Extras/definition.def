@@ -1,0 +1,5 @@
+ISDIRECTORY = true
+CAPTION     = Extras
+CAPTION_EN  = Extras
+CAPTION_ES  = Extras
+icon= icon32.png

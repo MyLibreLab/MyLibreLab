@@ -1,0 +1,5 @@
+ISDIRECTORY = TRUE
+CAPTION     = Timers
+CAPTION_EN  = Timers
+CAPTION_ES  = Timers
+Icon= icon32.png

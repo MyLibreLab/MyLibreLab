@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Dec->Bin
+CAPTION_EN   = Dec->Bin
+CAPTION_ES   = Cod. Dec->Bin
+ClassCircuit = Dec2Bin
+Icon         = bin/icon.png

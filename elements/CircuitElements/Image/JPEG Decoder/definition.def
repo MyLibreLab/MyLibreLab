@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = JPEG Decoder
+CAPTION_EN   = JPEG Decoder
+CAPTION_ES   = Decodifica JPEG
+ClassCircuit = JPEGDECODER
+Icon= bin/JPEGDECODER.gif

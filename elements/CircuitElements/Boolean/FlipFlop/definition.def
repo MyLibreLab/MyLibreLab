@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = RS-FlipFlop
+CAPTION_EN   = RS-FlipFlop
+CAPTION_ES   = Biestable RS
+ClassCircuit = FlipFlop
+Icon         = bin/icon.gif

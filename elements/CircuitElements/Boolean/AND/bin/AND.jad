@@ -1,0 +1,31 @@
+// Decompiled by DJ v3.8.8.85 Copyright 2005 Atanas Neshkov  Date: 09/10/2006 0:11:10
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   AND.java
+
+import VisualLogic.variables.VSBoolean;
+import tools.Gatter;
+
+public class AND extends Gatter
+{
+
+    public AND()
+    {
+        super(2, "And");
+    }
+
+    public void process()
+    {
+        if((inA instanceof VSBoolean) && (inB instanceof VSBoolean))
+        {
+            out.setChanged(false);
+            VSBoolean vsboolean = inA;
+            VSBoolean vsboolean1 = inB;
+            if(vsboolean.isChanged() || vsboolean1.isChanged())
+            {
+                out.setValue(inA.getValue() && inB.getValue());
+                out.setChanged(true);
+            }
+        }
+    }
+}

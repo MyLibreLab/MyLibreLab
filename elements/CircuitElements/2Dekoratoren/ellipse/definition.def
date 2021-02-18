@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Ellipse
+CAPTION_EN  = Ellipse
+CAPTION_ES  = Elipse
+Classcircuit= Ellipse
+Icon        = bin/Ellipse.gif

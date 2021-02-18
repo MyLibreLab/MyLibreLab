@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = SVG Image
+CAPTION_EN   = SVG Image
+CAPTION_ES   = Imagen SVG
+Classcircuit = Panel
+icon         = bin/icon.png

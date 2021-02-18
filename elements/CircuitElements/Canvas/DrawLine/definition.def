@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Linie zeichnen
+CAPTION_EN   = Draw Line
+CAPTION_ES   = Dibuja Linea
+ClassCircuit = DrawLine
+Icon         = bin/icon.gif

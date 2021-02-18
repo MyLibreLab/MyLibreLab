@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= LF_Konstante
+CAPTION_EN= LF_Constant
+CAPTION_ES= Constante_LF
+Jar= bin/Const.jar
+ClassCircuit =Const
+Icon= bin/Const.gif

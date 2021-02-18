@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+LOADER      = /CircuitElements/MCU/StackInterpreter/Loader
+CAPTION     = D-Flip Flop
+CAPTION_EN  = D-Flip Flop
+CAPTION_ES  = D-Flip Flop
+classcircuit= Loader
+Icon        = icon.gif

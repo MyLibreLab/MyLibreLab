@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION= Format
+CAPTION_EN= Format
+CAPTION_ES= Formato
+ClassCircuit =Format
+Icon= bin/Format.gif

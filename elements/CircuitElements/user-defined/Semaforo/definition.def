@@ -1,0 +1,9 @@
+ISDIRECTORY     = FALSE
+CAPTION         = 
+CAPTION_EN      = 
+CAPTION_ES      = Semaforo
+VM              = Semaf1.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon.gif

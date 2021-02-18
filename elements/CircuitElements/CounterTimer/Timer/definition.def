@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Zeitgeber
+CAPTION_EN=Timer
+CAPTION_ES=Temporizador
+Jar= bin/XTimer.jar
+classCircuit =XTimer
+Icon= bin/XTimer.gif

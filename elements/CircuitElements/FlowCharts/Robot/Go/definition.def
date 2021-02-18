@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Go
+CAPTION_EN   = Go
+CAPTION_ES   = Go
+ClassCircuit = GoStep
+Icon         = bin/icon.gif

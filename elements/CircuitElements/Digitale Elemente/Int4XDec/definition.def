@@ -1,0 +1,2 @@
+ISDIRECTORY = FALSE
+REDIRECT    = CircuitElements/Extras/Int4XDec

@@ -1,0 +1,5 @@
+ISDIRECTORY = TRUE
+CAPTION= Raspberry_JV
+CAPTION_EN = Raspberry_JV
+CAPTION_ES = Raspberry_JV
+Icon= icon.gif

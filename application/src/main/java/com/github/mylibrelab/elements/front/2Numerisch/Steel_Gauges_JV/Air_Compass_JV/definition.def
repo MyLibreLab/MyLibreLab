@@ -1,0 +1,8 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Air_Compass_JV
+CAPTION_EN= Air_Compass_JV
+CAPTION_ES= Air_Compass_JV
+Jar          = bin/Compass_JV.jar
+ClassCircuit = GaugeCircuit
+ClassFront   = GaugePanel
+Icon         = bin/Gauge.gif

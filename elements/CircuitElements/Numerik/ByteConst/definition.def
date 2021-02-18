@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Konstante (byte)
+CAPTION_EN   = Constant (byte)
+CAPTION_ES   = Constante (byte)
+ClassCircuit = Const
+Icon         = bin/Const.gif

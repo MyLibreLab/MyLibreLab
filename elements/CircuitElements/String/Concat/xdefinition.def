@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Concat
+CAPTION_EN= Concat
+CAPTION_ES= Unir
+Jar= bin/Concat.jar
+ClassCircuit =Concat
+Icon= bin/Concat.gif

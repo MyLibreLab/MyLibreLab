@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION= Input-pin
+CAPTION_EN= Input-pin
+CAPTION_ES= Pin-Entrada
+ClassCircuit =CElement
+Icon= bin/CElement.gif

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <caption>Extras</caption>
+  <caption_en>Extras</caption_en>
+  <caption_es>Extras</caption_es>
+  <categorie>Education</categorie>
+  <author>Carmelo Salafia</author>
+  <email>cswi@gmx.de</email>
+  <web>http://myopenlab.de</web>
+  <version>1.0.0.0</version>
+  <date>03.04.2016</date>
+  <dest_path>/CircuitElements/Extras</dest_path>
+  <type>CircuitElements</type>
+  <content>
+  </content>
+</root>

@@ -1,0 +1,6 @@
+ISDIRECTORY = TRUE
+CAPTION   =Tutorials
+CAPTION_EN=Tutorials
+CAPTION_ES=Tutoriales
+ICON=icon32.png
+VM_DIR_EDITABLE = TRUE

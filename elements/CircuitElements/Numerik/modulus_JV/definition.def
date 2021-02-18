@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Modulus_JV
+CAPTION_EN = Modulus_JV
+CAPTION_ES = Modulo_JV
+Jar= bin/Dividierer.jar
+ClassCircuit =Dividierer
+Icon= bin/Dividierer.gif

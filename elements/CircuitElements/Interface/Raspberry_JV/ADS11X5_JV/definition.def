@@ -1,0 +1,16 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+LOADER          = 
+CAPTION         = ADS11X5_JV
+CAPTION_EN      = ADS11X5_JV
+CAPTION_ES      = ADS11X5_JV
+VM              = 
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = cmdWrite_JV
+CLASSFRONT      = 
+ICON            = bin/icon.gif
+CLASSPATH       = 
+CLASSPATH2      = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE

@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = LCD Clear
+CAPTION_EN  = LCD Clear
+CAPTION_ES  = LCD Clear
+classcircuit= Element
+Icon        = bin/icon.gif

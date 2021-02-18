@@ -1,0 +1,13 @@
+InputPins  1
+OutputPins 0
+
+PIN_TYPE   0 INTEGER
+
+PIN_DESC   0 In
+
+PROCEDURE
+{
+  PUSH %pin0%
+  LCD_PRINT_NUM
+}
+

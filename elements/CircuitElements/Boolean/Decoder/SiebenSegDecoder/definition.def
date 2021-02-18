@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= SiebenSegDecoder
+CAPTION_EN = 7-Segment-Decoder
+CAPTION_ES = Decod. 7 segmentos
+Jar= bin/Logic.jar
+ClassCircuit = Logic
+Icon= bin/Logic.gif

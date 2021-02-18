@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = String zeichnen
+CAPTION_EN   = Draw String
+CAPTION_ES   = Dibuja Texto
+ClassCircuit = DrawString
+Icon         = bin/icon.gif

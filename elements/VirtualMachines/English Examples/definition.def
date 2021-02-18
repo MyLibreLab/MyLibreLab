@@ -1,0 +1,6 @@
+ISDIRECTORY = TRUE
+CAPTION   =English Examples
+CAPTION_EN=English Examples
+CAPTION_ES=English Examples
+ICON=icon32.png
+VM_DIR_EDITABLE = TRUE

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <caption>Automation</caption>
+  <caption_en>Automation</caption_en>
+  <caption_es>Automatizacion</caption_es>
+  <categorie>Education</categorie>
+  <author>Prof. José Manuel Ruiz Gutiérrez</author>
+  <email> j.m.r.gutierrez@gmail.com</email>
+  <web>http://myopenlab.de</web>
+  <version>1.0.0.0</version>
+  <date>27.10.2016</date>
+  <dest_path>/CircuitElements/Automation</dest_path>
+  <type>CircuitElements</type>
+  <content>
+  </content>
+</root>

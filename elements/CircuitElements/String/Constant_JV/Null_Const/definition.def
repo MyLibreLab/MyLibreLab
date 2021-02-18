@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Null_Konstante
+CAPTION_EN= Null_Constant
+CAPTION_ES= Constante_Nula
+Jar= bin/Const.jar
+ClassCircuit =Const
+Icon= bin/Const.gif

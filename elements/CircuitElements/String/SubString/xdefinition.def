@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = SubString
+CAPTION_EN  = SubString
+CAPTION_ES  = SubString
+ClassCircuit= SubString
+Icon= bin/SubString.gif

@@ -1,0 +1,5 @@
+ISDIRECTORY = TRUE
+CAPTION     = 2D-Array
+CAPTION_EN  = 2D-Array
+CAPTION_ES  = 2D-Array
+Icon        = icon32.png

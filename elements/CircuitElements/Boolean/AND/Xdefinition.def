@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= AND-Gatter
+CAPTION_EN= AND-Gate
+CAPTION_ES= Operador AND
+Jar= bin/AND.jar
+classCircuit =AND
+Icon= bin/AND.gif

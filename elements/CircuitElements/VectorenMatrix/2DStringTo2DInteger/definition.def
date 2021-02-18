@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = 2D-String to 2D-Integer
+CAPTION_EN   = 2D-String to 2D-Integer
+CAPTION_ES   = 2D-String A 2D-Integer
+ClassCircuit = Element
+Icon         = bin/icon.gif

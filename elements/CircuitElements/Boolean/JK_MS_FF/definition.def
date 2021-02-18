@@ -1,0 +1,11 @@
+ISDIRECTORY     = FALSE
+CAPTION         = JK Master Slave Flip-Flop
+CAPTION_EN      = JK Master Slave Flip-Flop
+CAPTION_ES      = Biestable JK Maestro-Esclavo
+VM              = JK_Master_Slave_Flip_Flop.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon.png
+ELEMENTIMAGE    = image.png
+SHOWINNERBORDER = FALSE

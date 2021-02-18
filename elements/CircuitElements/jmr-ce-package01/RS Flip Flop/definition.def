@@ -1,0 +1,9 @@
+ISDIRECTORY     = FALSE
+CAPTION         = RS Flip Flop
+CAPTION_EN      = RS Flip Flop
+CAPTION_ES      = RS Flip Flop
+VM              = RS Flip Flop.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon.gif

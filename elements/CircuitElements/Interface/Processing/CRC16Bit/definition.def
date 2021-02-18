@@ -1,0 +1,9 @@
+ISDIRECTORY  = FALSE
+CAPTION      = CRC 16 Bit
+CAPTION_EN   = CRC 16 Bit
+CAPTION_ES   = CRC 16 Bit
+ClassCircuit = CRC16
+Icon         = bin/icon.gif
+
+
+

@@ -1,0 +1,311 @@
+
+import VisualLogic.*;
+import VisualLogic.variables.*;
+import tools.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.Timer;
+import javax.swing.*;
+import java.text.*;
+import MyGraph.*;
+import java.awt.geom.Rectangle2D;
+import tools.*;
+import VisualLogic.variables.*;
+
+public class OscPanel extends JVSMain implements PanelIF
+{
+  private Rectangle bounds;
+  
+  private Font font=new Font("Arial",0,10);
+  
+  // begin properties
+  
+    private VSBoolean backgroundTransparent = new VSBoolean(false);
+    private VSColor   gridBackgroundColor   = new VSColor(new Color(0,80,0));
+    private VSColor   gridLineColor         = new VSColor(new Color(0,120,0));
+    private VSColor   gridSublineColor      = new VSColor(new Color(0,90,0));
+
+    
+    private VSFont    xyAxisFont          = new VSFont(font);
+    private VSColor   xyAxisFontColor     = new VSColor(Color.BLACK);
+    private VSBoolean xyAxisVisible       = new VSBoolean(true);
+    
+    private VSDouble  xAxisMinX           = new VSDouble(0.0);
+    private VSDouble  xAxisMaxX           = new VSDouble(100.0);
+    private VSBoolean xAutoZoom           = new VSBoolean(true);
+    private VSString  xAxisFormatString   = new VSString("#0");
+    private VSString  xAxisText           = new VSString("X-Axis");
+    private VSFont    xAxisTextFont       = new VSFont(font);
+    private VSColor   xAxisTextColor      = new VSColor(Color.BLACK);
+
+    private VSDouble  yAxisMinY           = new VSDouble(0.0);
+    private VSDouble  yAxisMaxY           = new VSDouble(100.0);
+    private VSBoolean yAutoZoom           = new VSBoolean(true);
+    private VSString  yAxisFormatString   = new VSString("#0");
+    private VSString  yAxisText           = new VSString("Y-Axis");
+    private VSFont    yAxisTextFont       = new VSFont(font);
+    private VSColor   yAxisTextColor      = new VSColor(Color.BLACK);
+
+    private VSInteger pointType           = new VSInteger(1);
+    private VSColor   lineColor           = new VSColor(Color.WHITE);
+    
+  
+  // end Properties
+
+
+  private JPanel panel;
+  private MyGraph graph= new MyGraph();
+
+
+  public VS1DDouble inX=null;
+  public VS1DDouble inY=null;
+  
+
+  // aus PanelIF
+  public void processPanel(int pinIndex, double value, Object obj)
+  {
+    if (obj instanceof VS1DDouble && pinIndex==0)
+    {
+     inX= (VS1DDouble)obj;
+    }
+    if (obj instanceof VS1DDouble && pinIndex==1)
+    {
+     inY= (VS1DDouble)obj;
+    }
+
+     if (inX!=null && inY!=null)
+     {
+       if (inX.isChanged() || inY.isChanged())
+       {
+          graph.graph.back.xValues=inX.getValue();
+          graph.graph.back.yValues=inY.getValue();
+          graph.graph.init();
+          element.jRepaint();
+       }
+     }
+  }
+
+
+   
+  public void init()
+  {
+    initPins(0,0,0,0);
+    setSize(250,250);
+    
+    element.jSetInnerBorderVisibility(false);
+    
+    element.jSetResizable(true);
+
+    setName("2.0 Oscilloscope Version 1.0");
+  }
+  
+  public void xOnInit()
+  {
+    panel=element.getFrontPanel();
+    panel.setLayout(new BorderLayout());
+    graph.setOpaque(false);
+    panel.add(graph,BorderLayout.CENTER);
+    graph.graph.init();
+  }
+
+
+
+  public void start()
+  {
+  }
+
+  public void stop()
+  {
+      inX=null;
+      inY=null;
+  }
+
+
+  public void setPropertyEditor()
+  {
+    element.jAddPEItem("Background Transparent",backgroundTransparent, 0,0);
+    element.jAddPEItem("Grid Background Color",gridBackgroundColor, 0,0);
+    element.jAddPEItem("Grid Line Color",gridLineColor, 0,0);
+    element.jAddPEItem("Grid Subline Color",gridSublineColor, 0,0);
+
+
+    
+    element.jAddPEItem("x/y Axis Font",xyAxisFont, 0,0);
+    element.jAddPEItem("x/y Axis Font Color",xyAxisFontColor, 0,0);
+    element.jAddPEItem("x/y Axis Visible",xyAxisVisible, 0,0);
+
+    element.jAddPEItem("X-Axis Min",xAxisMinX, -9999999999999.0,9999999999999.0);
+    element.jAddPEItem("X-Axis Max",xAxisMaxX, -9999999999999.0,9999999999999.0);
+    element.jAddPEItem("X-Axis Autozoom",xAutoZoom, 0,0);
+    element.jAddPEItem("X-Axis Format",xAxisFormatString, 0,0);
+    element.jAddPEItem("X-Axis Text",xAxisText, 0,0);
+    element.jAddPEItem("X-Axis Text Font",xAxisTextFont, 0,0);
+    element.jAddPEItem("X-Axis Text Color",xAxisTextColor, 0,0);
+
+
+    element.jAddPEItem("Y-Axis Min",yAxisMinY, -9999999999999.0,9999999999999.0);
+    element.jAddPEItem("Y-Axis Max",yAxisMaxY, -9999999999999.0,9999999999999.0);
+    element.jAddPEItem("Y-Axis Autozoom",yAutoZoom, 0,0);
+    element.jAddPEItem("Y-Axis Format",yAxisFormatString, 0,0);
+    element.jAddPEItem("Y-Axis Text",yAxisText, 0,0);
+    element.jAddPEItem("Y-Axis Text Font",yAxisTextFont, 0,0);
+    element.jAddPEItem("Y-Axis Text Color",yAxisTextColor, 0,0);
+
+    element.jAddPEItem("Point Type",pointType, 0,2);
+    element.jAddPEItem("Line Color",lineColor, 0,0);
+
+
+    
+   // localize();
+  }
+
+
+  private void localize()
+  {
+    int d=6;
+    String language;
+
+    language="en_US";
+
+    element.jSetPEItemLocale(d+0,language,"Grid Background Color");
+    element.jSetPEItemLocale(d+1,language,"Grid Line Color");
+    element.jSetPEItemLocale(d+2,language,"Grid Subline Color");
+    element.jSetPEItemLocale(d+3,language,"Antialising");
+
+    language="es_ES";
+
+    element.jSetPEItemLocale(d+0,language,"Muestra fondo");
+    element.jSetPEItemLocale(d+1,language,"Muestra rayado");
+    element.jSetPEItemLocale(d+2,language,"Mas Propiedades");
+    element.jSetPEItemLocale(d+3,language,"Resaltar");
+  }
+  
+  private void setproperties()
+  {
+
+      graph.graph.setBackgroundTransparent(backgroundTransparent.getValue());
+      graph.graph.setGridBackgroundColor(gridBackgroundColor.getValue());
+      graph.graph.setGridLineColor(gridLineColor.getValue());
+      graph.graph.setGridSublineColor(gridSublineColor.getValue());
+
+      graph.graph.setXYAxisFont(xyAxisFont.getValue());
+      graph.graph.setXYAxisFontColor(xyAxisFontColor.getValue());
+      graph.graph.setXYAxisVisible(xyAxisVisible.getValue());
+
+      graph.graph.xaxis.setMin(xAxisMinX.getValue());
+      graph.graph.xaxis.setMax(xAxisMaxX.getValue());
+      graph.graph.setAutoZoomX(xAutoZoom.getValue());
+      graph.setXAxisTextFont(xAxisTextFont.getValue());
+      graph.setXAxisTextFontColor(xAxisTextColor.getValue());
+
+      graph.graph.setXAxisFormatString(xAxisFormatString.getValue());
+
+      graph.setXAxisText(xAxisText.getValue());
+
+      graph.graph.yaxis.setMin(yAxisMinY.getValue());
+      graph.graph.yaxis.setMax(yAxisMaxY.getValue());
+      graph.graph.setAutoZoomY(yAutoZoom.getValue());
+      graph.graph.setYAxisFormatString(yAxisFormatString.getValue());
+      graph.setYAxisText(yAxisText.getValue());
+      graph.setYAxisTextFont(yAxisTextFont.getValue());
+      graph.setYAxisTextFontColor(yAxisTextColor.getValue());
+
+
+      graph.graph.back.pointType=pointType.getValue();
+      graph.graph.setLineColor(lineColor.getValue());
+      graph.graph.init();
+      element.jRepaint();
+  }
+  
+  
+  public void propertyChanged(Object o)
+  {
+    setproperties();
+  }
+
+  
+  public void loadFromStream(java.io.FileInputStream fis)
+  {
+    try
+    {
+      backgroundTransparent.loadFromStream(fis);
+      gridBackgroundColor.loadFromStream(fis);
+      gridLineColor.loadFromStream(fis);
+      gridSublineColor.loadFromStream(fis);
+
+      xyAxisFont.loadFromStream(fis);
+      xyAxisFontColor.loadFromStream(fis);
+      xyAxisVisible.loadFromStream(fis);
+
+      xAxisMinX.loadFromStream(fis);
+      xAxisMaxX.loadFromStream(fis);
+      xAutoZoom.loadFromStream(fis);
+      xAxisFormatString.loadFromStream(fis);
+      xAxisText.loadFromStream(fis);
+      xAxisTextFont.loadFromStream(fis);
+      xAxisTextColor.loadFromStream(fis);
+
+
+      yAxisMinY.loadFromStream(fis);
+      yAxisMaxY.loadFromStream(fis);
+      yAutoZoom.loadFromStream(fis);
+      yAxisFormatString.loadFromStream(fis);
+      yAxisText.loadFromStream(fis);
+      yAxisTextFont.loadFromStream(fis);
+      yAxisTextColor.loadFromStream(fis);
+
+      pointType.loadFromStream(fis);
+      lineColor.loadFromStream(fis);
+
+      setproperties();
+    } catch(Exception ex)
+    {
+      element.jException(ex.toString());
+    }
+
+  }
+
+  public void saveToStream(java.io.FileOutputStream fos)
+  {
+    try
+    {
+      backgroundTransparent.saveToStream(fos);
+      gridBackgroundColor.saveToStream(fos);
+      gridLineColor.saveToStream(fos);
+      gridSublineColor.saveToStream(fos);
+
+      xyAxisFont.saveToStream(fos);
+      xyAxisFontColor.saveToStream(fos);
+      xyAxisVisible.saveToStream(fos);
+
+      xAxisMinX.saveToStream(fos);
+      xAxisMaxX.saveToStream(fos);
+      xAutoZoom.saveToStream(fos);
+      xAxisFormatString.saveToStream(fos);
+      xAxisText.saveToStream(fos);
+      xAxisTextFont.saveToStream(fos);
+      xAxisTextColor.saveToStream(fos);
+
+      
+      yAxisMinY.saveToStream(fos);
+      yAxisMaxY.saveToStream(fos);
+      yAutoZoom.saveToStream(fos);
+      yAxisFormatString.saveToStream(fos);
+      yAxisText.saveToStream(fos);
+      yAxisTextFont.saveToStream(fos);
+      yAxisTextColor.saveToStream(fos);
+
+      pointType.saveToStream(fos);
+      lineColor.saveToStream(fos);
+      
+
+    } catch(Exception ex)
+    {
+      element.jException(ex.toString());
+    }
+
+  }
+  
+
+
+}

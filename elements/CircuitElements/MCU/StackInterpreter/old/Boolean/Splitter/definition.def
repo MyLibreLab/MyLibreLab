@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+LOADER      = /CircuitElements/MCU/StackInterpreter/Loader
+CAPTION     = Splitter
+CAPTION_EN  = Splitter
+CAPTION_ES  = Splitter
+classcircuit= Loader
+Icon        = icon.gif

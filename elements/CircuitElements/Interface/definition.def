@@ -1,0 +1,5 @@
+ISDIRECTORY = TRUE
+CAPTION     = Schnittstellen
+CAPTION_EN  = Interfaces
+CAPTION_ES  = Interfaces
+Icon= icon32.png

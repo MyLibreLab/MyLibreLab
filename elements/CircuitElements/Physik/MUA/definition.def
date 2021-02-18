@@ -1,0 +1,9 @@
+ISDIRECTORY     = FALSE
+CAPTION         = MUA
+CAPTION_EN      = MUA
+CAPTION_ES      = MUA
+VM              = MUA.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon.gif

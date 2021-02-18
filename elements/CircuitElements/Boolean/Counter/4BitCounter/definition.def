@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= 4-Bit Zaehler
+CAPTION_EN = 4-Bit Counter
+CAPTION_ES = Contador 4 Bits
+Jar= bin/Counter4Bit.jar
+classCircuit =Counter4Bit
+Icon= bin/Counter4Bit.gif

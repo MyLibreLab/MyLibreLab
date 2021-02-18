@@ -1,0 +1,9 @@
+ISDIRECTORY     = FALSE
+CAPTION         = to Rad
+CAPTION_EN      = to Rad
+CAPTION_ES      = Conv. a Radianes
+VM              = ToRad.vlogic
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = 
+CLASSFRONT      = 
+ICON            = icon.png

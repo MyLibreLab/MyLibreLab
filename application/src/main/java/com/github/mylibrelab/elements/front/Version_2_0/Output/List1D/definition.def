@@ -1,0 +1,7 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Liste 1D
+CAPTION_EN   = List 1D
+CAPTION_ES   = List 1D
+ClassCircuit = List1D
+ClassFront   = Panel
+Icon         = bin/List1D.gif

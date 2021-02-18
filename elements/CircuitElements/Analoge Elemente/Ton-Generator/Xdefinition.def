@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Ton-Generator
+CAPTION_EN=Sound-Generator 
+CAPTION_ES=Generador de Tonos
+Jar= bin/TonGenrator.jar
+classCircuit  =TonGenrator
+Icon= bin/tongenerator.gif

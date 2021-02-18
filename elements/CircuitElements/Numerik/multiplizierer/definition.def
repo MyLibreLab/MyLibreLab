@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Multiplizieren
+CAPTION_EN = multiply
+CAPTION_ES = producto
+Jar= bin/Multiplizierer.jar
+ClassCircuit =Multiplizierer
+Icon= bin/Multiplizierer.gif

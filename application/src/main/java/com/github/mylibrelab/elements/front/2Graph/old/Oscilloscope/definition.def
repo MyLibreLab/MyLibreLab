@@ -1,0 +1,8 @@
+ISDIRECTORY = FALSE
+CAPTION= Oscilloscope 2.0
+CAPTION_EN= Oscilloscope 2.0
+CAPTION_ES= Osciloscopio 2.0
+Jar= bin/Oscilloscope.jar
+ClassCircuit = Oscilloscope
+ClassFront=OscPanel
+Icon= bin/Oscilloscope.gif

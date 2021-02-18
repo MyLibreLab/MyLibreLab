@@ -1,0 +1,15 @@
+InputPins  2
+OutputPins 1
+PIN_TYPE   0 BOOLEAN
+PIN_TYPE   1 BOOLEAN
+PIN_TYPE   2 BOOLEAN
+
+PIN_DESC   0 out
+PIN_DESC   1 inA
+PIN_DESC   2 inB
+
+PROCEDURE
+{
+  S_AND
+}
+

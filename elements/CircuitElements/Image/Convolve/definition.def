@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Convolve
+CAPTION_EN   = Convolve
+CAPTION_ES   = Convolve
+ClassCircuit = Element
+Icon         = bin/icon.gif

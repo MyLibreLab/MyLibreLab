@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Single Abfrage 
+CAPTION_EN= Single Query
+CAPTION_ES= Simple Pregunta
+Jar= bin/Abfrage.jar
+classCircuit=Abfrage
+Icon= bin/Abfrage.gif

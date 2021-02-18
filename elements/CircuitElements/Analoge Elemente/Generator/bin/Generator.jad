@@ -1,0 +1,246 @@
+// Decompiled by DJ v3.8.8.85 Copyright 2005 Atanas Neshkov  Date: 09/10/2006 0:12:26
+// Home Page : http://members.fortunecity.com/neshkov/dj.html  - Check often for new version!
+// Decompiler options: packimports(3) 
+// Source File Name:   Generator.java
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.*;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import tools.JVSMain;
+
+public class Generator extends JVSMain
+{
+
+    public Generator()
+    {
+        group = new VSGroup();
+        outX = null;
+        outY = null;
+        buffLen = new VSInteger(3000);
+        step = new VSDouble(0.10000000000000001D);
+        precision = new VSDouble(10D);
+        outX = new VS1DDouble(buffLen.getValue());
+        outY = new VS1DDouble(buffLen.getValue());
+    }
+
+    public void onDispose()
+    {
+        if(image != null)
+        {
+            image.flush();
+            image = null;
+        }
+    }
+
+    public void paint(Graphics g)
+    {
+        drawImageCentred(g, image);
+    }
+
+    public void init()
+    {
+        initPins(0, 1, 0, 4);
+        setSize(65, 55);
+        initPinVisibility(false, true, false, true);
+        element.jSetInnerBorderVisibility(true);
+        ExternalIF _tmp = element;
+        setPin(0, 1, (byte)2);
+        ExternalIF _tmp1 = element;
+        setPin(1, 4, (byte)1);
+        ExternalIF _tmp2 = element;
+        setPin(2, 4, (byte)1);
+        ExternalIF _tmp3 = element;
+        setPin(3, 3, (byte)1);
+        ExternalIF _tmp4 = element;
+        setPin(4, 4, (byte)1);
+        element.jSetPinDescription(0, "Out");
+        element.jSetPinDescription(1, "ZoomX");
+        element.jSetPinDescription(2, "ZoomY");
+        element.jSetPinDescription(3, "Freq-Type");
+        element.jSetPinDescription(4, "Offset");
+        String s = (new StringBuilder()).append(element.jGetSourcePath()).append("XGenerator.GIF").toString();
+        image = element.jLoadImage(s);
+        element.jSetCaptionVisible(true);
+        element.jSetCaption("frequenzgenerator");
+        setName("Frequenzgenerator");
+        group.list.clear();
+        group.list.add(outX);
+        group.list.add(outY);
+        element.setPinOutputReference(0, group);
+    }
+
+    public void initInputPins()
+    {
+        zoomX = (VSDouble)element.getPinInputReference(1);
+        zoomY = (VSDouble)element.getPinInputReference(2);
+        freqTyp = (VSInteger)element.getPinInputReference(3);
+        offset = (VSDouble)element.getPinInputReference(4);
+        if(zoomX == null)
+        {
+            zoomX = new VSDouble();
+            zoomX.setValue(1.0D);
+            zoomX.setChanged(false);
+        }
+        if(zoomY == null)
+        {
+            zoomY = new VSDouble();
+            zoomY.setValue(1.0D);
+            zoomY.setChanged(false);
+        }
+        if(freqTyp == null)
+        {
+            freqTyp = new VSInteger();
+            freqTyp.setValue(0);
+            freqTyp.setChanged(false);
+        }
+        if(offset == null)
+        {
+            offset = new VSDouble();
+            offset.setValue(0.0D);
+            offset.setChanged(false);
+        }
+    }
+
+    public void setPropertyEditor()
+    {
+        element.jAddPEItem("Bufflength", buffLen, 1.0D, 20000D);
+        element.jAddPEItem("Step", step, 1.0000000000000001E-009D, 10D);
+        element.jAddPEItem("Precision", precision, 9.9999999999999995E-007D, 100D);
+    }
+
+    public void propertyChanged(Object obj)
+    {
+        if(obj == buffLen)
+        {
+            outX = new VS1DDouble(buffLen.getValue());
+            outY = new VS1DDouble(buffLen.getValue());
+            group.list.clear();
+            group.list.add(outX);
+            group.list.add(outY);
+            element.setPinOutputReference(0, group);
+        }
+        element.jRepaint();
+    }
+
+    public void initOutputPins()
+    {
+        element.setPinOutputReference(0, group);
+    }
+
+    private double dreieck(double d)
+    {
+        double d1 = 0.0D;
+        double d2 = 0.0D;
+        for(int i = 1; i < 10; i++)
+        {
+            double d3 = i * 2 - 1;
+            d1 += (Math.pow(-1D, i - 1) * Math.sin(d3 * d)) / (d3 * d3);
+        }
+
+        return (8D / Math.pow(3.1415926535897931D, 2D)) * d1;
+    }
+
+    private double saegezahn(double d)
+    {
+        double d1 = 0.0D;
+        for(int i = 1; (double)i < precision.getValue(); i++)
+            d1 += Math.sin((double)i * d) / (double)i;
+
+        return 0.57999999999999996D * d1;
+    }
+
+    private double rechteck(double d)
+    {
+        double d1 = 0.0D;
+        for(int i = 1; (double)i < precision.getValue(); i++)
+            d1 += (1.0D / (2D * (double)i - 1.0D)) * Math.sin((2D * (double)i - 1.0D) * d);
+
+        double d2 = 1.0D;
+        return ((4D * d2) / 3.1415926535897931D) * d1;
+    }
+
+    public void start()
+    {
+        processor();
+    }
+
+    public void process()
+    {
+        if(zoomX.isChanged() || zoomY.isChanged() || freqTyp.isChanged() || offset.isChanged())
+            processor();
+        else
+            group.setChanged(false);
+    }
+
+    public void processor()
+    {
+        double d = 0.0D;
+        double d1 = 0.0D;
+        for(int i = 0; i < outX.getValue().length; i++)
+        {
+            double d2 = 0.0D;
+            switch(freqTyp.getValue())
+            {
+            case 0: // '\0'
+                d2 = Math.sin(d * zoomX.getValue());
+                break;
+
+            case 1: // '\001'
+                d2 = dreieck(d * zoomX.getValue());
+                break;
+
+            case 2: // '\002'
+                d2 = rechteck(d * zoomX.getValue());
+                break;
+
+            case 3: // '\003'
+                d2 = saegezahn(d * zoomX.getValue());
+                break;
+            }
+            outX.setValue(i, d);
+            outY.setValue(i, offset.getValue() + d2 * zoomY.getValue());
+            d += step.getValue();
+        }
+
+        group.setChanged(true);
+    }
+
+    public void loadFromStream(FileInputStream fileinputstream)
+    {
+        buffLen.loadFromStream(fileinputstream);
+        precision.loadFromStream(fileinputstream);
+        step.loadFromStream(fileinputstream);
+        outX = new VS1DDouble(buffLen.getValue());
+        outY = new VS1DDouble(buffLen.getValue());
+        group.list.clear();
+        group.list.add(outX);
+        group.list.add(outY);
+    }
+
+    public void saveToStream(FileOutputStream fileoutputstream)
+    {
+        buffLen.saveToStream(fileoutputstream);
+        precision.saveToStream(fileoutputstream);
+        step.saveToStream(fileoutputstream);
+    }
+
+    private VSGroup group;
+    private VS1DDouble outX;
+    private VS1DDouble outY;
+    private Image image;
+    private double oldZoomXValue;
+    private double oldZoomYValue;
+    private int oldfreqTyp;
+    private double oldOffset;
+    private VSDouble zoomX;
+    private VSDouble zoomY;
+    private VSInteger freqTyp;
+    private VSDouble offset;
+    private VSInteger buffLen;
+    private VSDouble step;
+    private VSDouble precision;
+}

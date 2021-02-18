@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Ticker Timer
+CAPTION_EN  = Ticker Timer
+CAPTION_ES  = Contador Gen. Impulsos
+classCircuit= TickerTimer
+Icon        = bin/icon.gif

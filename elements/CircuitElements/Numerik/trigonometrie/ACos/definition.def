@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= Arc-Cosinus
+CAPTION_EN = Arc-Cosinus
+CAPTION_ES = Arco Coseno
+Jar= bin/XACos.jar
+ClassCircuit =XACos
+Icon= bin/XACos.gif

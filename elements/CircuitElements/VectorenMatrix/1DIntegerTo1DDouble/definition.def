@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = 1D-IntegerTo 1D-Double
+CAPTION_EN   = 1D-IntegerTo 1D-Double
+CAPTION_ES   = 1D-Integer A 1D-Double
+ClassCircuit = Element
+Icon         = bin/icon.gif

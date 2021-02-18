@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Enhanced 2D String CSV Reader
+CAPTION_EN  = Enhanced 2D String CSV Reader
+CAPTION_ES  = Lee fichero CSV en 2D String
+classCircuit= CSVReader
+icon        = bin/icon.gif

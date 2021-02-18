@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= IsGleich
+CAPTION_EN=Compare
+CAPTION_ES=Comparador
+Jar= bin/IsGleich.jar
+classCircuit = IsGleich
+Icon= bin/isgleich.gif

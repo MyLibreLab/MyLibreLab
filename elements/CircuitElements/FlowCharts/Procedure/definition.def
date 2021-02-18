@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Procedure
+CAPTION_EN   = Procedure
+CAPTION_ES   = Procedure
+ClassCircuit = Procedure
+Icon         = bin/icon.gif

@@ -1,0 +1,8 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Horizon_JV
+CAPTION_EN= Horizon_JV
+CAPTION_ES= Horizonte_JV
+Jar          = bin/Compass_JV.jar
+ClassCircuit = GaugeCircuit
+ClassFront   = GaugePanel
+Icon         = bin/Gauge.gif

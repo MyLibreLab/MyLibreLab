@@ -1,0 +1,5 @@
+ISDIRECTORY = TRUE
+CAPTION     = System_Control
+CAPTION_EN  = System_Control
+CAPTION_ES  = System_Control
+Icon= icon32.png

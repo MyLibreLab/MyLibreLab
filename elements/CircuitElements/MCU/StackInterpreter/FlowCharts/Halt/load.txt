@@ -1,0 +1,51 @@
+TOPPINS 1
+
+PIN_TYPE   0 FLOWINFO INPUT
+
+PINS_VISIBLE_TOP    TRUE
+PINS_VISIBLE_RIGHT  TRUE
+PINS_VISIBLE_BOTTOM TRUE
+PINS_VISIBLE_LEFT   TRUE
+
+
+WIDTH  130
+HEIGHT 40
+
+PIN_DESC 0 In
+
+PAINT
+{
+  importPackage(java.awt);
+  
+  caption="Halt!" ;
+  
+  g.setFont(new Font("Courier",0,12));
+  fm = g.getFontMetrics();
+  r = fm.getStringBounds(caption,g);
+
+  rect= element.jGetBounds();
+  
+  mitteX=rect.x+(rect.width)/2;
+  mitteY=rect.y+(rect.height)/2;
+
+  var c = new java.awt.Color['(int,int,int)'](255,40,40)
+
+  g.setColor(c);
+  g.fillRoundRect(rect.x,rect.y,rect.width,rect.height,20,20);
+
+  g.setColor(Color.BLACK);
+
+  g.drawString(caption,mitteX-(r.getWidth()/2),(mitteY+fm.getHeight()/2)-3);
+  g.drawRoundRect(rect.x,rect.y,rect.width,rect.height,20,20);
+
+
+  element.jSetName("#MCU-FLOWCHART-HALT");
+
+}
+
+PROCEDURE
+{
+  // HALT
+  HALT
+}
+

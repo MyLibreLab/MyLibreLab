@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <caption>JMR-FE-01</caption>
+  <caption_en>JMR-FE-01</caption_en>
+  <caption_es>JMR-FE-01</caption_es>
+  <categorie>Education</categorie>
+  <author>Prof. José Manuel Ruiz Gutiérrez</author>
+  <email> j.m.r.gutierrez@gmail.com</email>
+  <web>http://www.myopenlab.de</web>
+  <version>1.0.0.0</version>
+  <date>04.04.2016</date>
+  <dest_path>/FrontElements/jmr-fe-package01</dest_path>
+  <type>FrontElements</type>
+  <content>
+  </content>
+</root>

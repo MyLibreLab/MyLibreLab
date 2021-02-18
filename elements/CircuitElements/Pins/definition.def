@@ -1,0 +1,5 @@
+ISDIRECTORY = TRUE
+CAPTION= Pins
+CAPTION_EN= Pins
+CAPTION_ES= Pines
+Icon= icon32.png

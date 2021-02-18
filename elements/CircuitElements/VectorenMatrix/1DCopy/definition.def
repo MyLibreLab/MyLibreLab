@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = 1D Copy
+CAPTION_EN  = 1D Copy
+CAPTION_ES  = 1D Copiar
+ClassCircuit= Copy1D
+Icon        = bin/icon.gif

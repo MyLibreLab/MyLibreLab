@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Matrix Addition
+CAPTION_EN  = Matrix Addition
+CAPTION_ES  = Suma Matrices
+ClassCircuit= MatrixAdd
+Icon        = bin/icon.gif

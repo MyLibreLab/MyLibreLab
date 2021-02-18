@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Text/HTML_Label_JV
+CAPTION_EN  = Text/HTML_Label_JV
+CAPTION_ES  = Etiqueta de Texto/HTML JV
+Classcircuit= JVLabel
+Icon        = bin/icon.gif

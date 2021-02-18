@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= ColToRGB
+CAPTION_EN=ColToRGB
+CAPTION_ES=Color a RGB
+Jar= bin/ColToRGB.jar
+ClassCircuit = ColToRGB
+Icon= bin/ColToRGB.gif

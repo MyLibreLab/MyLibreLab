@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION= n*m Matrix
+CAPTION_EN= n*m Matrix
+CAPTION_ES= n*m Matrix
+ClassCircuit = MatrixNXM
+Icon = bin/icon.png

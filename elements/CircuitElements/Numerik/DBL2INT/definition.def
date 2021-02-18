@@ -1,0 +1,7 @@
+ISDIRECTORY = FALSE
+CAPTION= DBL -> INT
+CAPTION_EN = DBL -> INT
+CAPTION_ES = Convierte DBL -> INT
+Jar= bin/DblToInt.jar
+ClassCircuit =DblToInt
+Icon= bin/DblToInt.gif

@@ -1,0 +1,7 @@
+ISDIRECTORY  = FALSE
+CAPTION      = Tabelle
+CAPTION_EN   = Table
+CAPTION_ES   = Table
+ClassCircuit = MyTable
+ClassFront   = Panel
+Icon         = bin/icon.png

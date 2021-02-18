@@ -1,0 +1,6 @@
+ISDIRECTORY  = FALSE
+CAPTION      = ImpulseDelay
+CAPTION_EN   = ImpulseDelay
+CAPTION_ES   = Impulso Retardo
+classCircuit = ImpulseDelay
+Icon         = bin/icon.png

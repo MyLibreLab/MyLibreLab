@@ -1,0 +1,6 @@
+ISDIRECTORY = FALSE
+CAPTION     = Input Pin
+CAPTION_EN  = Input Pin
+CAPTION_ES  = Input Pin
+classCircuit= Input
+Icon        = bin/icon.gif

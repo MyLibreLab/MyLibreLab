@@ -1,0 +1,16 @@
+ISDIRECTORY     = FALSE
+REDIRECT        = 
+LOADER          = 
+CAPTION         = SerialPort_Transaction_JV
+CAPTION_EN      = SerialPort_Transaction_JV
+CAPTION_ES      = Transaccion_Puerto_Serial_JV
+VM              = 
+VM_DIR_EDITABLE = false
+CLASSCIRCUIT    = SerialPort_Transaction_JV
+CLASSFRONT      = 
+ICON            = bin/icon.gif
+CLASSPATH       = 
+CLASSPATH2      = 
+ELEMENTIMAGE    = 
+RESIZESYNCHRON  = TRUE
+SHOWINNERBORDER = TRUE
