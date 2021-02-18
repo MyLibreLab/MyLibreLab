@@ -56,6 +56,7 @@ package com.github.mylibrelab.elements.circuit.vectorenmatrix.oned.graph.generat
 import java.awt.*;
 import java.util.Locale;
 
+import com.github.mylibrelab.elements.circuit.vectorenmatrix.oned.graph.generator.src.expressionparser.Parser;
 import com.github.mylibrelab.elements.tools.JVSMain;
 
 import VisualLogic.ExternalIF;

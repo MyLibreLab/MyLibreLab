@@ -28,6 +28,9 @@ import java.util.logging.Logger;
 import javax.swing.*;
 
 import com.github.mylibrelab.elements.tools.JVSMain;
+import com.pi4j.io.gpio.*;
+import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
+import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 
 import VisualLogic.ElementActionEvent;
 import VisualLogic.ExternalIF;

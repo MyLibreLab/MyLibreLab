@@ -167,7 +167,7 @@ public class DigitalCircuitSim extends JVSMain {
 
     public void openDataDialog() {
 
-        com.github.mylibrelab.elements.circuit.VectorenMatrix.Matrix.src.MyTableEditor frm =
+        MyTableEditor frm =
                 new MyTableEditor(element.jGetFrame(), true);
 
         frm.setInputColumns(inputColumns.getValue());

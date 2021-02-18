@@ -63,7 +63,7 @@ public class MCUMainFlow extends JVSMain {
 
         Expression parser = new Expression();
         Expression.code.clear();
-        java.util.Scanner scanner = new Scanner(element, new java.io.StringReader(param));
+        Scanner scanner = new Scanner(element, new java.io.StringReader(param));
         while (scanner.ttype != scanner.TT_EOF)
             try {
                 parser.yyparse(scanner, null);

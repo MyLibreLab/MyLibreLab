@@ -37,6 +37,8 @@ import VisualLogic.variables.VSBoolean;
 import VisualLogic.variables.VSInteger;
 import VisualLogic.variables.VSString;
 import VisualLogic.variables.VSserialPort;
+import jssc.SerialPortException;
+import jssc.SerialPortTimeoutException;
 
 public class SerialPort_Transaction_JV extends JVSMain {
 

@@ -27,6 +27,8 @@ import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.io.IOException;
 
+import org.tinylog.Logger;
+
 import CustomColorPicker.RoundGradientPaint;
 
 public class VSColorAdvanced extends VSObject {

@@ -43,6 +43,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.tinylog.Logger;
+
 import CustomColorPicker.CustomColorPicker;
 import VisualLogic.DialogFontChooser;
 import VisualLogic.Element;

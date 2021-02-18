@@ -53,8 +53,8 @@ public class Javascript extends JVSMain {
     public File tempfile;
     private Image image;
 
-    private final com.github.mylibrelab.elements.circuit.Interface.Firmata.src.MyTimer theTimer =
-            new com.github.mylibrelab.elements.circuit.Interface.Firmata.src.MyTimer(this);
+    private final MyTimer theTimer =
+            new MyTimer(this);
     private final Thread timer = new Thread(theTimer);
 
     private final VSComboBox dtPin_in_0 = new VSComboBox();

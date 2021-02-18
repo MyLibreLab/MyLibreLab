@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
 
+import org.tinylog.Logger;
+
 /**
  * @author Homer
  */

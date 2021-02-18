@@ -38,6 +38,8 @@ import javax.swing.table.TableColumn;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLFrameHyperlinkEvent;
 
+import org.tinylog.Logger;
+
 /**
  * @author Homer
  */

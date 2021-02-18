@@ -28,6 +28,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.tinylog.Logger;
+
 /**
  * @author Carmelo Salafia FileSystemOutput ist f�r das schreiben der Datensaetze und ihrer
  *         IndexListe verantwortlich. erzeugt ein kuenstliches Dateisystem!

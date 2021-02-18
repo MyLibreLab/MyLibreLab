@@ -100,7 +100,7 @@ public class SubVM extends JVSMain {
     }
 
     private String openFile() {
-        com.github.mylibrelab.elements.circuit.ProcessManagement.Process.src.Input frm =
+        Input frm =
                 new Input(element.jGetFrame(), true);
         if (frm.result == null) frm.result = "";
         return frm.result;

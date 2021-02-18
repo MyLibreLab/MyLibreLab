@@ -55,6 +55,7 @@ import java.util.Locale;
 
 import com.github.mylibrelab.elements.circuit.numerik.parser.math.calcthree.src.expressionparser.Parser;
 import com.github.mylibrelab.elements.tools.JVSMain;
+import com.github.mylibrelab.elements.tools.Properties;
 
 import VisualLogic.ExternalIF;
 import VisualLogic.variables.*;

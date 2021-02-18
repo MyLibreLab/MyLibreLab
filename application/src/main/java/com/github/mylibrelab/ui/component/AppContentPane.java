@@ -45,7 +45,10 @@ import com.github.mylibrelab.ui.persistent.PersistenceNode;
 import com.github.mylibrelab.ui.persistent.PersistentComponent;
 import com.github.mylibrelab.ui.persistent.component.PersistentTabFrame;
 import com.github.weisj.darklaf.components.tabframe.TabFramePopup;
+import com.github.weisj.darklaf.util.Alignment;
 import com.github.weisj.darklaf.util.PropertyUtil;
+
+import kotlin.Pair;
 
 public class AppContentPane extends JPanel implements PersistentComponent {
 

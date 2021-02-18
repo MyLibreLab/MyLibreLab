@@ -31,6 +31,8 @@ import java.io.StreamTokenizer;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.tinylog.Logger;
+
 /**
  * recognizes, stores, and evaluates arithmetic expressions using a parser generated with jay.
  */

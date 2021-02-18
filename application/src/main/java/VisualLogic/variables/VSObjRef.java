@@ -22,6 +22,8 @@ package VisualLogic.variables;
 
 import java.io.IOException;
 
+import org.tinylog.Logger;
+
 /**
  * @author velas
  */

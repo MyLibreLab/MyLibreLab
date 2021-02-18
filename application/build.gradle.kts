@@ -9,6 +9,19 @@ plugins {
     kotlin("kapt")
 }
 
+repositories {
+    mavenCentral()
+    maven {
+        url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+    }
+    maven {
+        url = uri("https://repository.ow2.org/nexus/content/repositories/public/")
+    }
+    maven {
+        url = uri("https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/")
+    }
+}
+
 dependencies {
     implementation(project(":mylibrelab-settings-api"))
     implementation(project(":mylibrelab-service-manager"))
@@ -35,6 +48,10 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
+    kapt(project(":mylibrelab-annotations"))
+
+    // elements
+
     implementation("net.java.dev.jna:jna:5.7.0")
     implementation("org.openmuc:jrxtx:1.0.1")
     implementation("org.bidib.jbidib.eu.hansolo:SteelSeries:3.9.31.2")
@@ -44,22 +61,16 @@ dependencies {
 //    implementation("com.weblookandfeel:svg-salamander:1.1.2.2")
     implementation("org.jfree:jfreechart:1.5.2")
 
-    kapt(project(":mylibrelab-annotations"))
-
-    /* Currently unused dependencies. Those need further investigation whether they are needed for the elements
-     * at runtime.
     implementation("com.google.guava:guava:28.2-jre")
     implementation("javax.vecmath:vecmath")
-    implementation("eu.hansolo:SteelSeries")
     implementation("org.pushing-pixels:trident")
     implementation("net.java.dev.jna:jna-platform")
     implementation("org.bidib.jbidib:bidib-rxtx-binaries")
-
-    runtimeOnly("com.pi4j:pi4j-core")
-    runtimeOnly("com.pi4j:pi4j-device")
-    runtimeOnly("com.pi4j:pi4j-gpio-extension")
-    runtimeOnly("com.pi4j:pi4j-service")
-    */
+    implementation(group = "com.sun.media", name = "jai-codec", version = "1.1.3")
+    implementation(group = "net.sourceforge.jFuzzyLogic", name = "jFuzzyLogic", version = "1.2.1")
+    implementation(group = "javax.media", name = "jmf", version = "2.1.1e")
+    implementation("net.sourceforge.jFuzzyLogic:jFuzzyLogic:1.2.1")
+    implementation("com.pi4j:pi4j-distribution:1.3")
 
     /*
     implementation fileTree(dir: "distribution/lib", include: ["*.jar])
