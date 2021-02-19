@@ -1,5 +1,0 @@
-ISDIRECTORY = TRUE
-CAPTION= Decoder/Encoder
-CAPTION_EN= Decoder/Encoder
-CAPTION_ES= Decodificador/Codificador
-Icon= icon32.png

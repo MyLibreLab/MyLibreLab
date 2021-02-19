@@ -1,7 +1,0 @@
-ISDIRECTORY  = FALSE
-CAPTION      = Hole-Datei
-CAPTION_EN   = GetFile
-CAPTION_ES   = Abrir Fichero
-Jar          = bin/GetFile.jar
-ClassCircuit = GetFile
-Icon         = bin/GetFile.gif

@@ -1,9 +1,0 @@
-ISDIRECTORY     = FALSE
-CAPTION         = Senkrechter Wurf
-CAPTION_EN      = Senkrechter Wurf
-CAPTION_ES      = Senkrechter Wurf
-VM              = Senkrechter_Wurf.vlogic
-VM_DIR_EDITABLE = false
-CLASSCIRCUIT    = 
-CLASSFRONT      = 
-ICON            = icon.gif

@@ -1,7 +1,0 @@
-ISDIRECTORY  = FALSE
-CAPTION      = Vector (Byte)
-CAPTION_EN   = Vector (Byte)
-CAPTION_ES   = Vector (Byte)
-ClassCircuit = Vector
-CLASSPATH    = bin/MyTableEditor.jar
-Icon         = bin/icon.png

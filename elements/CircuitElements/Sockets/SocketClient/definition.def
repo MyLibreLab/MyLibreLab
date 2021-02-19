@@ -1,7 +1,0 @@
-ISDIRECTORY = FALSE
-CAPTION= SocketClient
-CAPTION_EN = SocketClient
-CAPTION_ES = Conexion Cliente
-Jar= bin/SocketClient.jar
-ClassCircuit =SocketClient
-Icon= bin/SocketClient.gif

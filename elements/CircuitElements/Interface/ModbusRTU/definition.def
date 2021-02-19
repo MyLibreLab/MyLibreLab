@@ -1,5 +1,0 @@
-ISDIRECTORY = TRUE
-CAPTION     = Modbus RTU
-CAPTION_EN  = Modbus RTU
-CAPTION_ES  = Modbus RTU
-Icon= icon32.png

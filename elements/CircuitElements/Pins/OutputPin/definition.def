@@ -1,7 +1,0 @@
-ISDIRECTORY = FALSE
-CAPTION= Output-Pin
-CAPTION_EN= Output-Pin
-CAPTION_ES= Pin-Salida
-Jar= bin/CElement.jar
-ClassCircuit =CElement
-Icon= bin/CElement.gif

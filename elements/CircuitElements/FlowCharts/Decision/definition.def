@@ -1,6 +1,0 @@
-ISDIRECTORY  = FALSE
-CAPTION      = Decision
-CAPTION_EN   = Decision
-CAPTION_ES   = Decisión
-ClassCircuit = Decision
-Icon         = bin/icon.gif

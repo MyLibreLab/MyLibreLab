@@ -1,6 +1,0 @@
-ISDIRECTORY  = FALSE
-CAPTION      = K8055_1.1
-CAPTION_EN   = K8055_1.1
-CAPTION_ES   = K8055_1.1
-ClassCircuit = K8055
-ICON         = bin/K8055.gif

@@ -1,7 +1,0 @@
-ISDIRECTORY = FALSE
-CAPTION= Color Konstante
-CAPTION_EN= Color constant
-CAPTION_ES= Color Constante
-Jar= bin/ColorConst.jar
-ClassCircuit = ColorConst
-Icon= bin/ColorConst.gif

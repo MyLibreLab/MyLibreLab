@@ -1,7 +1,0 @@
-ISDIRECTORY = FALSE
-LOADER      = /CircuitElements/MCU/StackInterpreter/Loader
-CAPTION     = START
-CAPTION_EN  = START
-CAPTION_ES  = START
-classcircuit= Loader
-Icon        = icon.gif

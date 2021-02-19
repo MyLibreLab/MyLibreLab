@@ -1,6 +1,0 @@
-ISDIRECTORY  = FALSE
-CAPTION      = FileOpen Dialog
-CAPTION_EN   = FileOpen Dialog
-CAPTION_ES   = Diálogo AbrirFichero
-ClassCircuit = GetFile
-Icon         = bin/icon.gif

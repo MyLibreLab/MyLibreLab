@@ -1,5 +1,0 @@
-ISDIRECTORY = TRUE
-CAPTION= Datei-IO
-CAPTION_EN=File-IO
-CAPTION_ES=Fichero E/S
-Icon= icon32.png
