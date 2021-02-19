@@ -1,7 +1,0 @@
-ISDIRECTORY = FALSE
-CAPTION= Sound abspielen
-CAPTION_EN = PlaySound
-CAPTION_ES = Ejecutar Sonido
-Jar= bin/PlaySound.jar
-ClassCircuit = PlaySound
-Icon = bin/PlaySound.gif

@@ -1,7 +1,0 @@
-ISDIRECTORY = FALSE
-LOADER      = /CircuitElements/MCU/StackInterpreter/Loader
-CAPTION     = UART
-CAPTION_EN  = UART
-CAPTION_ES  = UART
-classcircuit= Loader
-Icon        = icon.gif

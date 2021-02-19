@@ -1,6 +1,0 @@
-ISDIRECTORY = FALSE
-CAPTION     = Rundes Rechteck
-CAPTION_EN  = Round Rectangle
-CAPTION_ES  = Rectángulo Redondeado
-Classcircuit= RoundRect
-Icon        = bin/RoundRect.gif

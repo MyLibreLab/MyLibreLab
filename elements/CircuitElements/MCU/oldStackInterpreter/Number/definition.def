@@ -1,5 +1,0 @@
-ISDIRECTORY = TRUE
-CAPTION     = Number (Analog)
-CAPTION_EN  = Number (Analog)
-CAPTION_ES  = Number (Analog)
-Icon        = icon32.png

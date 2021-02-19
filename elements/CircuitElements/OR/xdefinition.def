@@ -1,7 +1,0 @@
-ISDIRECTORY = FALSE
-CAPTION     = Universal OR
-CAPTION_EN  = Universal OR
-CAPTION_ES  = Universal OR
-Jar= bin/OR.jar
-classCircuit =OR
-Icon= bin/or.gif

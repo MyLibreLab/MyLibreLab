@@ -1,7 +1,0 @@
-ISDIRECTORY = FALSE
-LOADER      = /CircuitElements/MCU/StackInterpreter/Loader
-CAPTION     = NAND
-CAPTION_EN  = NAND
-CAPTION_ES  = NAND
-classcircuit= Loader
-Icon        = icon.gif

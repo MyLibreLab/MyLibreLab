@@ -1,7 +1,0 @@
-ISDIRECTORY = FALSE
-LOADER      = /CircuitElements/MCU/StackInterpreter/Loader
-CAPTION     = IF (A=B) 
-CAPTION_EN  = IF (A=B) 
-CAPTION_ES  = IF (A=B) 
-classcircuit= Loader
-Icon        = icon.gif

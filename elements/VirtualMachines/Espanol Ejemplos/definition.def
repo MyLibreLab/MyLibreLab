@@ -1,6 +1,0 @@
-ISDIRECTORY = TRUE
-CAPTION   =Espanol Ejemplos
-CAPTION_EN=Espanol Ejemplos
-CAPTION_ES=Espanol Ejemplos
-ICON=icon32.png
-VM_DIR_EDITABLE = TRUE

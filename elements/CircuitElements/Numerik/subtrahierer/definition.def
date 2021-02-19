@@ -1,7 +1,0 @@
-ISDIRECTORY = FALSE
-CAPTION= subtrahieren
-CAPTION_EN = subtract 
-CAPTION_ES = Resta
-Jar= bin/Subtrahierer.jar
-ClassCircuit =Subtrahierer
-Icon= bin/Subtrahierer.gif

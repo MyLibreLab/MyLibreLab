@@ -1,7 +1,0 @@
-ISDIRECTORY = FALSE
-CAPTION= DCT (Discrete Cosinus Transformation)
-CAPTION_EN=DCT (Discrete Cosinus Transformation)
-CAPTION_ES=DCT (Transformacion discreta de Coseno)
-Jar= bin/DCT.jar
-classCircuit =DCT
-Icon= bin/DCT.gif
