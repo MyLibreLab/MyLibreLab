@@ -41,6 +41,16 @@ package com.github.mylibrelab.elements.front.dekoratoren.image.one.zero;// *****
 // *****************************************************************************
 
 
+import java.awt.*;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSFile;
+import VisualLogic.variables.VSInteger;
 
 class ImageLoader extends Component {
 

@@ -41,6 +41,13 @@ package com.github.mylibrelab.elements.front.version.two.zero.output.oscilloscop
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSDouble;
+import VisualLogic.variables.VSGroup;
 
 public class Oscilloscope extends JVSMain {
     private ExternalIF panelElement = null;

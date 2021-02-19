@@ -41,10 +41,19 @@ package com.github.mylibrelab.elements.front.Output._LED.src;// ****************
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+import com.github.mylibrelab.svg.viewer.SVGManager;
+import com.github.mylibrelab.svg.viewer.SVGObject;
+
+import VisualLogic.PanelIF;
+import VisualLogic.variables.VSColor;
+
 public class LEDPanel extends JVSMain implements PanelIF {
     private boolean on = false;
-    private SVGManager svgManager = new SVGManager();
-    private VSColor col = new VSColor(Color.RED);
+    private final SVGManager svgManager = new SVGManager();
+    private final VSColor col = new VSColor(Color.RED);
 
 
     private void setOn(boolean value) {
@@ -55,10 +64,7 @@ public class LEDPanel extends JVSMain implements PanelIF {
     }
 
     public void processPanel(int pinIndex, double value, Object obj) {
-        if (value == 0.0)
-            setOn(false);
-        else
-            setOn(true);
+        setOn(value != 0.0);
     }
 
     public void paint(java.awt.Graphics g) {

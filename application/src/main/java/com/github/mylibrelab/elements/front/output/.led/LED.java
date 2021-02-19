@@ -41,6 +41,14 @@ package com.github.mylibrelab.elements.front.Output._LED.src;// ****************
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSObject;
+
 public class LED extends JVSMain {
     private ExternalIF panelElement;
     private Image image;
@@ -84,7 +92,7 @@ public class LED extends JVSMain {
     public void start() {
         firstTime = true;
         panelElement = element.getPanelElement();
-        panelElement.jProcessPanel(0, 0.0, (Object) this);
+        panelElement.jProcessPanel(0, 0.0, this);
     }
 
     public void process() {
@@ -94,9 +102,9 @@ public class LED extends JVSMain {
             if ((in != null) && ((inX.getValue() != oldValue) || (firstTime))) {
                 firstTime = false;
                 if (inX.getValue()) {
-                    if (panelElement != null) panelElement.jProcessPanel(0, 1.0, (Object) this);
+                    if (panelElement != null) panelElement.jProcessPanel(0, 1.0, this);
                 } else {
-                    if (panelElement != null) panelElement.jProcessPanel(0, 0.0, (Object) this);
+                    if (panelElement != null) panelElement.jProcessPanel(0, 0.0, this);
                 }
                 panelElement.jRepaint();
                 oldValue = inX.getValue();

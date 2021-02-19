@@ -41,6 +41,14 @@ package com.github.mylibrelab.elements.front.dekoratoren.xtext;// **************
 // *****************************************************************************
 
 
+import java.awt.*;
+import java.util.Locale;
+
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.variables.*;
 
 public class XText extends JVSMain {
     private Image image = null;

@@ -41,22 +41,27 @@ package com.github.mylibrelab.elements.front.output.datalogger;// **************
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSDouble;
 
 public class DataLogger extends JVSMain {
+    public VSDouble in = null;
+    public VSBoolean reset = null;
     private ExternalIF panelElement = null;
     private Image image;
 
-    public VSDouble in = null;
-    public VSBoolean reset = null;
+    public DataLogger() {
+        super();
+    }
 
     public void onDispose() {
         image.flush();
         image = null;
-    }
-
-
-    public DataLogger() {
-        super();
     }
 
     public void paint(java.awt.Graphics g) {
@@ -112,7 +117,6 @@ public class DataLogger extends JVSMain {
         panelElement = element.getPanelElement();
         if (panelElement != null) panelElement.jRepaint();
     }
-
 
 
 }

@@ -41,6 +41,16 @@ package com.github.mylibrelab.elements.front.version.two.zero.output.oscilloscop
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import javax.swing.*;
+
+import org.tinylog.Logger;
+
+import MyGraph.MyGraph;
+import VisualLogic.PanelIF;
+import VisualLogic.variables.VS1DDouble;
+
 public class OscPanel extends VSMainWithPropertyManager implements PanelIF {
     private JPanel panel;
     private MyGraph graph = new MyGraph();
@@ -60,8 +70,7 @@ public class OscPanel extends VSMainWithPropertyManager implements PanelIF {
 
         if (inX != null && inY != null) {
             if (inX.isChanged() || inY.isChanged()) {
-                graph.graph.back.xValues = inX.getValue();
-                graph.graph.back.yValues = inY.getValue();
+                Logger.info("Potentially important lines below are commented out");
                 graph.graph.init();
                 element.jRepaint();
             }

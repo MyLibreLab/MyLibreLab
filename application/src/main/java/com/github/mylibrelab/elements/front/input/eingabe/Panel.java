@@ -41,13 +41,27 @@ package com.github.mylibrelab.elements.front.input.eingabe;// ******************
 // *****************************************************************************
 
 
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
+import java.util.Locale;
+
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSString;
+
 public class Panel extends JVSMain {
-    private int width = 150, height = 25;
+    private final int width = 150;
+    private final int height = 25;
     private String value = "";
-    private VSString initValue = new VSString("");
-    private VSBoolean passwd = new VSBoolean();
+    private final VSString initValue = new VSString("");
+    private final VSBoolean passwd = new VSBoolean();
     private double oldPin;
-    private Font fnt = new Font("Courier", 0, 12);
+    private final Font fnt = new Font("Courier", 0, 12);
     private ExternalIF circuitElement;
 
 
@@ -91,7 +105,6 @@ public class Panel extends JVSMain {
 
         }
     }
-
 
 
     public void init() {
@@ -189,7 +202,6 @@ public class Panel extends JVSMain {
     public void saveToStream(java.io.FileOutputStream fos) {
         initValue.saveToStream(fos);
     }
-
 
 
 }

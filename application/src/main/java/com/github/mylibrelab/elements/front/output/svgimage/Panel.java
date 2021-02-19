@@ -41,13 +41,29 @@ package com.github.mylibrelab.elements.front.output.svgimage;// ****************
 // *****************************************************************************
 
 
+import java.awt.*;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.URI;
+
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+import com.github.mylibrelab.svg.viewer.SVGManager;
+import com.kitfox.svg.SVGCache;
+import com.kitfox.svg.app.beans.SVGPanel;
+
+import VisualLogic.variables.VSFile;
+
 public class Panel extends JVSMain {
-    private boolean on = false;
-    private SVGManager svgManager = new SVGManager();
-    private VSFile file = new VSFile("");
-    private byte imageBytes[] = null;
-    private SVGPanel pnl = new SVGPanel();
     JPanel panel;
+    private final boolean on = false;
+    private final SVGManager svgManager = new SVGManager();
+    private final VSFile file = new VSFile("");
+    private byte[] imageBytes = null;
+    private final SVGPanel pnl = new SVGPanel();
 
     public void paint(java.awt.Graphics g) {
         if (element != null) {
@@ -150,7 +166,6 @@ public class Panel extends JVSMain {
     }
 
 
-
     public void loadImage(String fileName) {
         File f = new File(fileName);
         int fileSize = (int) f.length();
@@ -197,7 +212,6 @@ public class Panel extends JVSMain {
         }
 
     }
-
 
 
     public void saveToStream(java.io.FileOutputStream fos) {

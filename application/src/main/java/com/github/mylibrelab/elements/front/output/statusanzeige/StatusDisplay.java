@@ -41,10 +41,17 @@ package com.github.mylibrelab.elements.front.output.statusanzeige;// ***********
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSObject;
 
 public class StatusDisplay extends JVSMain {
     private Image image;
-    private boolean changed = false;
+    private final boolean changed = false;
     private VSObject in;
     private int oldValue;
     private ExternalIF panelElement;
@@ -89,7 +96,7 @@ public class StatusDisplay extends JVSMain {
 
             if (in != null && inX.getValue() != oldValue) {
                 if (panelElement != null) {
-                    panelElement.jProcessPanel(0, inX.getValue(), (Object) this);
+                    panelElement.jProcessPanel(0, inX.getValue(), this);
                 }
                 oldValue = inX.getValue();
             }

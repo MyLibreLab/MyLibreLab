@@ -41,10 +41,17 @@ package com.github.mylibrelab.elements.front.input.multischalter;// ************
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSDouble;
+import VisualLogic.variables.VSInteger;
 
 public class Regler extends JVSMain {
     private Image image;
-    private VSInteger out = new VSInteger();
+    private final VSInteger out = new VSInteger();
     private VSDouble val;
     private boolean changed = false;
 
@@ -88,7 +95,6 @@ public class Regler extends JVSMain {
 
 
     public void process() {}
-
 
 
 }

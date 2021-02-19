@@ -41,6 +41,17 @@ package com.github.mylibrelab.elements.front.version.two.zero.input.buttons.butt
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSColor;
+import VisualLogic.variables.VSFont;
+import VisualLogic.variables.VSString;
 
 public class TasterPanel extends JVSMain {
     private boolean value = false;

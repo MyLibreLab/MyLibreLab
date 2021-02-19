@@ -41,21 +41,30 @@ package com.github.mylibrelab.elements.front.output.fuellstandanzeige;// *******
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.PanelIF;
+import VisualLogic.variables.VSColor;
+import VisualLogic.variables.VSDouble;
+
 public class AnzeigePanel extends JVSMain implements PanelIF {
-    private int width = 50, height = 150;
+    private final int width = 50;
+    private final int height = 150;
     private double value = 0.0;
     private double oldPin;
 
-    private VSColor color1 = new VSColor(new Color(255, 50, 50));
-    private VSColor color2 = new VSColor(new Color(150, 0, 0));
-    private VSColor fontColor = new VSColor(new Color(0, 0, 0));
+    private final VSColor color1 = new VSColor(new Color(255, 50, 50));
+    private final VSColor color2 = new VSColor(new Color(150, 0, 0));
+    private final VSColor fontColor = new VSColor(new Color(0, 0, 0));
 
-    private VSDouble min = new VSDouble();
-    private VSDouble max = new VSDouble();
-    private VSDouble abschnitte = new VSDouble();
+    private final VSDouble min = new VSDouble();
+    private final VSDouble max = new VSDouble();
+    private final VSDouble abschnitte = new VSDouble();
 
 
-    private Font fnt = new Font("Monospaced", 0, 10);
+    private final Font fnt = new Font("Monospaced", 0, 10);
 
 
     public void processPanel(int pinIndex, double value, Object obj) {
@@ -165,7 +174,6 @@ public class AnzeigePanel extends JVSMain implements PanelIF {
     public void propertyChanged(Object o) {
         element.jRepaint();
     }
-
 
 
     public void loadFromStream(java.io.FileInputStream fis) {

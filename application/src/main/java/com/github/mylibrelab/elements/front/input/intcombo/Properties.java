@@ -41,14 +41,18 @@ package com.github.mylibrelab.elements.front.input.intcombo;// *****************
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import javax.swing.*;
+
 public class Properties extends JDialog {
-    private JScrollPane scroll = new JScrollPane();
-    private JTextArea text = new JTextArea();
-    private JButton cmdOK = new JButton("OK");
-    private JButton cmdCancel = new JButton("Abbrechen");
-    private JPanel panel = new JPanel();
     public static boolean result = false;
     public static String strText = "";
+    private final JScrollPane scroll = new JScrollPane();
+    private final JTextArea text = new JTextArea();
+    private final JButton cmdOK = new JButton("OK");
+    private final JButton cmdCancel = new JButton("Abbrechen");
+    private final JPanel panel = new JPanel();
 
     public Properties(JFrame frame, String input) {
         super(frame, true);
@@ -88,7 +92,6 @@ public class Properties extends JDialog {
         int mitteY = (int) screenSize.getHeight() / 2;
 
         setLocation(mitteX - getWidth() / 2 - 200, mitteY - getHeight() / 2 - 200);
-
 
 
     }

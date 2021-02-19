@@ -41,10 +41,16 @@ package com.github.mylibrelab.elements.front.input.regler;// *******************
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSDouble;
 
 public class Regler extends JVSMain {
     private Image image;
-    private VSDouble out = new VSDouble();
+    private final VSDouble out = new VSDouble();
     private VSDouble val;
     private boolean changed = false;
 
@@ -89,7 +95,6 @@ public class Regler extends JVSMain {
 
 
     public void process() {}
-
 
 
 }

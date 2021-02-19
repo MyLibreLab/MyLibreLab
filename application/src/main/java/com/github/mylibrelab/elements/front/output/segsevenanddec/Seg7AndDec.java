@@ -41,6 +41,12 @@ package com.github.mylibrelab.elements.front.output.segsevenanddec;// **********
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSInteger;
 
 public class Seg7AndDec extends JVSMain {
     private VSInteger in;
@@ -84,7 +90,6 @@ public class Seg7AndDec extends JVSMain {
 
         if (in == null) in = new VSInteger(0);
     }
-
 
 
     public void start() {
@@ -292,10 +297,7 @@ public class Seg7AndDec extends JVSMain {
     }
 
     private boolean intToBool(int bol) {
-        if (bol == 0)
-            return false;
-        else
-            return true;
+        return bol != 0;
 
     }
 

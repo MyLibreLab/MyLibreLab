@@ -41,24 +41,34 @@ package com.github.mylibrelab.elements.front.input.buttons.button;// ***********
 // *****************************************************************************
 
 
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSColor;
+import VisualLogic.variables.VSFont;
+import VisualLogic.variables.VSString;
 
 public class TasterPanel extends JVSMain {
-    private boolean value = false;
-    private int sizeW = 30;
-    private int sizeH = 30;
-    private VSBoolean down = new VSBoolean(false);;
-    private VSBoolean initValue = new VSBoolean(false);
-    private boolean oldDown = false;
+    private final boolean value = false;
+    private final int sizeW = 30;
+    private final int sizeH = 30;
+    private final VSBoolean down = new VSBoolean(false);
+    private final VSBoolean initValue = new VSBoolean(false);
+    private final boolean oldDown = false;
 
 
     private ExternalIF circuitElement;
 
-    private VSString caption = new VSString();
-    private VSFont font = new VSFont(new Font("Arial", 1, 10));
-    private VSColor fontColor = new VSColor(Color.BLACK);
-    private VSColor backColor = new VSColor(Color.LIGHT_GRAY);
-    private VSBoolean asSchalter = new VSBoolean();
-
+    private final VSString caption = new VSString();
+    private final VSFont font = new VSFont(new Font("Arial", 1, 10));
+    private final VSColor fontColor = new VSColor(Color.BLACK);
+    private final VSColor backColor = new VSColor(Color.LIGHT_GRAY);
+    private final VSBoolean asSchalter = new VSBoolean();
 
 
     public void paint(java.awt.Graphics g) {
@@ -92,7 +102,7 @@ public class TasterPanel extends JVSMain {
             Rectangle2D rFont = fm.getStringBounds(caption.getValue(), g);
 
             g.drawString(caption.getValue(), (int) (r.x + (r.width / 2) - (rFont.getWidth() / 2)),
-                    (int) (r.y + (r.height / 2) + font.getValue().getSize() / 2));
+                    r.y + (r.height / 2) + font.getValue().getSize() / 2);
         }
     }
 
@@ -119,7 +129,6 @@ public class TasterPanel extends JVSMain {
         circuitElement = element.getCircuitElement();
         circuitElement.Change(0, down);
     }
-
 
 
     public void setPropertyEditor() {
@@ -166,10 +175,7 @@ public class TasterPanel extends JVSMain {
     public void mouseReleased(MouseEvent e) {
 
         if (asSchalter.getValue()) {
-            if (down.getValue())
-                down.setValue(false);
-            else
-                down.setValue(true);
+            down.setValue(!down.getValue());
             circuitElement.Change(0, down);
         } else {
             down.setValue(false);
@@ -178,7 +184,6 @@ public class TasterPanel extends JVSMain {
 
         element.jRepaint();
     }
-
 
 
     public void mousePressed(MouseEvent e) {

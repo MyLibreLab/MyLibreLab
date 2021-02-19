@@ -18,6 +18,13 @@
  *
  */
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSDouble;
+
 public class Regler extends JVSMain {
     private Image image;
     private VSDouble out = new VSDouble();

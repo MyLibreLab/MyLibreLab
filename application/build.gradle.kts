@@ -72,6 +72,8 @@ dependencies {
     implementation("net.sourceforge.jFuzzyLogic:jFuzzyLogic:1.2.1")
     implementation("com.pi4j:pi4j-distribution:1.3")
 
+    implementation(fileTree(mapOf("dir" to "lib", "include" to listOf("*.jar"))))
+
     /*
     implementation fileTree(dir: "distribution/lib", include: ["*.jar])
     implementation fileTree(dir: "distribution/lib_win_64", include: ["*.jar"])

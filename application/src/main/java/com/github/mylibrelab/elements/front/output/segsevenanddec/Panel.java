@@ -41,9 +41,16 @@ package com.github.mylibrelab.elements.front.output.segsevenanddec;// **********
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+import com.github.mylibrelab.svg.viewer.SVGManager;
+import com.github.mylibrelab.svg.viewer.SVGObject;
+
+import VisualLogic.PanelIF;
 
 public class Panel extends JVSMain implements PanelIF {
-    private SVGManager svgManager = new SVGManager();
+    private final SVGManager svgManager = new SVGManager();
     private SVGObject svgA;
     private SVGObject svgB;
     private SVGObject svgC;
@@ -61,10 +68,9 @@ public class Panel extends JVSMain implements PanelIF {
     private boolean value5;
     private boolean value6;
     private boolean value7;
-    private Color disabledColor = new Color(220, 200, 200);
-    private Color enabledColor = new Color(255, 0, 0);
+    private final Color disabledColor = new Color(220, 200, 200);
+    private final Color enabledColor = new Color(255, 0, 0);
     private java.awt.Graphics gg;
-
 
 
     public void processPanel(int pinIndex, double value, Object obj) {

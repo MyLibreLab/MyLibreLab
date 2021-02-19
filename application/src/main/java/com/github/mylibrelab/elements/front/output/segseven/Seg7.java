@@ -41,6 +41,12 @@ package com.github.mylibrelab.elements.front.output.segseven;// ****************
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
 
 public class Seg7 extends JVSMain {
     private VSBoolean inA;
@@ -125,10 +131,8 @@ public class Seg7 extends JVSMain {
         if (value4 != a4) return true;
         if (value5 != a5) return true;
         if (value6 != a6) return true;
-        if (value7 != a7) return true;
-        return false;
+        return value7 != a7;
     }
-
 
 
     public void start() {

@@ -41,6 +41,9 @@ package com.github.mylibrelab.elements.front.version.two.zero.vmelement;// *****
 // *****************************************************************************
 
 
+import java.io.File;
+
+import javax.swing.filechooser.FileFilter;
 
 public class vlogicFilter extends FileFilter {
     static String fileExtension = "vlogic";

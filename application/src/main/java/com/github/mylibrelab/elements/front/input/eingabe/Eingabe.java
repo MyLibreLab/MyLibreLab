@@ -41,9 +41,16 @@ package com.github.mylibrelab.elements.front.input.eingabe;// ******************
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSString;
+
 public class Eingabe extends JVSMain {
     private Image image;
-    private VSString out = new VSString();
+    private final VSString out = new VSString();
     private VSString val;
     private boolean changed = false;
 
@@ -75,7 +82,6 @@ public class Eingabe extends JVSMain {
     }
 
 
-
     public void changePin(int pinIndex, Object value) {
         changed = true;
         val = (VSString) value;
@@ -92,9 +98,7 @@ public class Eingabe extends JVSMain {
     }
 
 
-
     public void process() {}
-
 
 
 }

@@ -1,4 +1,4 @@
-package com.github.mylibrelab.elements.front.twograph.old.oscilloscopetwo.one;/*
+/*
  * Copyright (C) 2020 MyLibreLab
  * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
  * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
@@ -18,30 +18,67 @@ package com.github.mylibrelab.elements.front.twograph.old.oscilloscopetwo.one;/*
  *
  */
 
-public class Oscilloscope extends JVSMain {
-    private ExternalIF panelElement = null;
-    private Image image;
+package com.github.mylibrelab.elements.front.twograph.old.oscilloscopetwo.one;/*
+                                                                               * Copyright (C) 2020 MyLibreLab
+                                                                               * Based on MyOpenLab by Carmelo Salafia
+                                                                               * www.myopenlab.de
+                                                                               * Copyright (C) 2004 Carmelo Salafia
+                                                                               * cswi@gmx.de
+                                                                               *
+                                                                               * This program is free software: you can
+                                                                               * redistribute it and/or modify
+                                                                               * it under the terms of the GNU General
+                                                                               * Public License as published by
+                                                                               * the Free Software Foundation, either
+                                                                               * version 3 of the License, or
+                                                                               * (at your option) any later version.
+                                                                               *
+                                                                               * This program is distributed in the hope
+                                                                               * that it will be useful,
+                                                                               * but WITHOUT ANY WARRANTY; without even
+                                                                               * the implied warranty of
+                                                                               * MERCHANTABILITY or FITNESS FOR A
+                                                                               * PARTICULAR PURPOSE. See the
+                                                                               * GNU General Public License for more
+                                                                               * details.
+                                                                               *
+                                                                               * You should have received a copy of the
+                                                                               * GNU General Public License
+                                                                               * along with this program. If not, see
+                                                                               * <http://www.gnu.org/licenses/>.
+                                                                               *
+                                                                               */
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSColor;
+import VisualLogic.variables.VSGroup;
+
+public class Oscilloscope extends JVSMain {
     public VSGroup ch1 = null;
     public VSGroup ch2 = null;
     public VSGroup ch3 = null;
     public VSGroup ch4 = null;
     public VSGroup ch5 = null;
-
     public VSColor color1 = null;
     public VSColor color2 = null;
     public VSColor color3 = null;
     public VSColor color4 = null;
     public VSColor color5 = null;
+    private ExternalIF panelElement = null;
+    private Image image;
 
+
+    public Oscilloscope() {
+        super();
+    }
 
     public void onDispose() {
         image.flush();
         image = null;
-    }
-
-    public Oscilloscope() {
-        super();
     }
 
     public void paint(java.awt.Graphics g) {
@@ -128,7 +165,6 @@ public class Oscilloscope extends JVSMain {
         panelElement = element.getPanelElement();
         if (panelElement != null) panelElement.jRepaint();
     }
-
 
 
 }

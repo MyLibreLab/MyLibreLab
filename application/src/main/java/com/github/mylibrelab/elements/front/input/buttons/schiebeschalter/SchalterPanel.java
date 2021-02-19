@@ -41,17 +41,26 @@ package com.github.mylibrelab.elements.front.input.buttons.schiebeschalter;// **
 // *****************************************************************************
 
 
+import java.awt.*;
+import java.awt.event.MouseEvent;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+import com.github.mylibrelab.svg.viewer.SVGManager;
+import com.github.mylibrelab.svg.viewer.SVGObject;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
 
 public class SchalterPanel extends JVSMain {
-    private SVGManager svgManager = new SVGManager();
-    private VSBoolean initValue = new VSBoolean(false);
+    private final SVGManager svgManager = new SVGManager();
+    private final VSBoolean initValue = new VSBoolean(false);
     private ExternalIF circuitElement;
 
     private boolean down = false;
 
-    private boolean value = false;
-    private int sizeW = 27;
-    private int sizeH = 35;
+    private final boolean value = false;
+    private final int sizeW = 27;
+    private final int sizeH = 35;
 
     private SVGObject svgOnRect;
     private SVGObject svgOn;
@@ -140,7 +149,6 @@ public class SchalterPanel extends JVSMain {
     }
 
 
-
     public void mousePressed(MouseEvent e) {
         if (down == true) {
             setValue(new VSBoolean(false));
@@ -160,7 +168,6 @@ public class SchalterPanel extends JVSMain {
     public void saveToStream(java.io.FileOutputStream fos) {
         initValue.saveToStream(fos);
     }
-
 
 
 }

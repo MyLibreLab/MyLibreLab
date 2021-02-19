@@ -1,4 +1,4 @@
-package com.github.mylibrelab.elements.front.output.analoge.anzeige;/*
+/*
  * Copyright (C) 2020 MyLibreLab
  * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
  * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
@@ -18,15 +18,56 @@ package com.github.mylibrelab.elements.front.output.analoge.anzeige;/*
  *
  */
 
+package com.github.mylibrelab.elements.front.output.analoge.anzeige;/*
+                                                                     * Copyright (C) 2020 MyLibreLab
+                                                                     * Based on MyOpenLab by Carmelo Salafia
+                                                                     * www.myopenlab.de
+                                                                     * Copyright (C) 2004 Carmelo Salafia cswi@gmx.de
+                                                                     *
+                                                                     * This program is free software: you can
+                                                                     * redistribute it and/or modify
+                                                                     * it under the terms of the GNU General Public
+                                                                     * License as published by
+                                                                     * the Free Software Foundation, either version 3 of
+                                                                     * the License, or
+                                                                     * (at your option) any later version.
+                                                                     *
+                                                                     * This program is distributed in the hope that it
+                                                                     * will be useful,
+                                                                     * but WITHOUT ANY WARRANTY; without even the
+                                                                     * implied warranty of
+                                                                     * MERCHANTABILITY or FITNESS FOR A PARTICULAR
+                                                                     * PURPOSE. See the
+                                                                     * GNU General Public License for more details.
+                                                                     *
+                                                                     * You should have received a copy of the GNU
+                                                                     * General Public License
+                                                                     * along with this program. If not, see
+                                                                     * <http://www.gnu.org/licenses/>.
+                                                                     *
+                                                                     */
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.PanelIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSColor;
+import VisualLogic.variables.VSInteger;
+
 public class AnalogAnzeigePanel extends JVSMain implements PanelIF {
     public double value0;
-    private VSInteger min = new VSInteger(0);
-    private VSInteger max = new VSInteger(100);
-    private VSInteger abschnitte = new VSInteger(10);
-    private VSColor backgroundColor = new VSColor(new Color(250, 220, 140));
-    private VSColor nibbleColor = new VSColor(new Color(190, 250, 190));
-    private VSColor pointerColor = new VSColor(Color.BLACK);
-    private VSBoolean transparent = new VSBoolean(false);
+    private final VSInteger min = new VSInteger(0);
+    private final VSInteger max = new VSInteger(100);
+    private final VSInteger abschnitte = new VSInteger(10);
+    private final VSColor backgroundColor = new VSColor(new Color(250, 220, 140));
+    private final VSColor nibbleColor = new VSColor(new Color(190, 250, 190));
+    private final VSColor pointerColor = new VSColor(Color.BLACK);
+    private final VSBoolean transparent = new VSBoolean(false);
 
 
     // aus PanelIF
@@ -118,10 +159,10 @@ public class AnalogAnzeigePanel extends JVSMain implements PanelIF {
             g.setFont(fnt);
 
             FontMetrics fm = g.getFontMetrics();
-            Rectangle2D r = fm.getStringBounds("" + (int) max.getValue(), g);
+            Rectangle2D r = fm.getStringBounds("" + max.getValue(), g);
 
-            g.drawString("" + (int) min.getValue(), x + 5, y + p);
-            g.drawString("" + (int) max.getValue(), x + w - 5 - (int) r.getWidth(), y + p);
+            g.drawString("" + min.getValue(), x + 5, y + p);
+            g.drawString("" + max.getValue(), x + w - 5 - (int) r.getWidth(), y + p);
 
         }
         double dblProzent15 = ((double) h / 100.0) * 15;
@@ -197,7 +238,6 @@ public class AnalogAnzeigePanel extends JVSMain implements PanelIF {
     public void propertyChanged(Object o) {
         element.jRepaint();
     }
-
 
 
     public void openPropertyDialog() {

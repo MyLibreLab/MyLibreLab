@@ -41,6 +41,9 @@ package com.github.mylibrelab.elements.front.output.scrollmage;// **************
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import javax.swing.*;
 
 public class MyImage extends JPanel {
     private Image image = null;
@@ -50,6 +53,10 @@ public class MyImage extends JPanel {
             this.image = image;
         }
 
+    }
+
+    public MyImage() {
+        this.image = null;
     }
 
     public void setImage(Image image) {
@@ -64,11 +71,6 @@ public class MyImage extends JPanel {
 
         }
     }
-
-    public MyImage() {
-        this.image = null;
-    }
-
 
     public void paintComponent(Graphics g) {
         try {

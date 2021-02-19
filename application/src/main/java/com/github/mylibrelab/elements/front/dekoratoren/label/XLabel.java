@@ -41,6 +41,17 @@ package com.github.mylibrelab.elements.front.dekoratoren.label;// **************
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.variables.VSColor;
+import VisualLogic.variables.VSFont;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSString;
+
 public class XLabel extends JVSMain {
     private Image image = null;
     private VSString strText = new VSString();

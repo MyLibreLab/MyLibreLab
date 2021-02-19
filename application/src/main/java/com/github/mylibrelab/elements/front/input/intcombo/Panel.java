@@ -41,20 +41,33 @@ package com.github.mylibrelab.elements.front.input.intcombo;// *****************
 // *****************************************************************************
 
 
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VS1DString;
+import VisualLogic.variables.VSInteger;
+import VisualLogic.variables.VSPropertyDialog;
 
 public class Panel extends JVSMain {
-    private int width = 150, height = 25;
+    private final int width = 150;
+    private final int height = 25;
     private int index;
-    private VSInteger initValue = new VSInteger(0);
-    private VSInteger value = new VSInteger(0);
-    private VSPropertyDialog more = new VSPropertyDialog();
+    private final VSInteger initValue = new VSInteger(0);
+    private final VSInteger value = new VSInteger(0);
+    private final VSPropertyDialog more = new VSPropertyDialog();
 
-    private Font fnt = new Font("Monospaced", 0, 12);
+    private final Font fnt = new Font("Monospaced", 0, 12);
     private ExternalIF circuitElement;
-    private VS1DString values = new VS1DString(0);
-    private JComboBox combo = new JComboBox();
+    private final VS1DString values = new VS1DString(0);
+    private final JComboBox combo = new JComboBox();
     private DefaultComboBoxModel model;
-
+    private boolean isLoading = false;
 
     public void drawBorder(Graphics g, Rectangle bounds) {
         g.setColor(Color.WHITE);
@@ -71,7 +84,6 @@ public class Panel extends JVSMain {
         g.setColor(Color.BLACK);
         g.drawRect(bounds.x, bounds.y, bounds.width, bounds.height);
     }
-
 
     public void drawNibble(Graphics g, int x, int y, int xx, int yy) {
         g.setColor(Color.LIGHT_GRAY);
@@ -92,11 +104,7 @@ public class Panel extends JVSMain {
         g.fillPolygon(p);
     }
 
-
     public void paint(java.awt.Graphics g) {}
-
-    private boolean isLoading = false;
-
 
     private void cmbProcessingActionPerformed(java.awt.event.ActionEvent evt) {
 
@@ -222,8 +230,8 @@ public class Panel extends JVSMain {
             frm.setModal(true);
             frm.setVisible(true);
 
-            if (frm.result == true) {
-                String res = frm.strText;
+            if (Properties.result == true) {
+                String res = Properties.strText;
 
                 ArrayList liste = new ArrayList();
 
@@ -290,7 +298,6 @@ public class Panel extends JVSMain {
         initValue.saveToStream(fos);
         values.saveToStream(fos);
     }
-
 
 
 }

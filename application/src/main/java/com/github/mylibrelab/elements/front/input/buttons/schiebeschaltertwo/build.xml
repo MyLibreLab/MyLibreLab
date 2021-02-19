@@ -15,8 +15,8 @@
 
 
     <target name="-post-compile">
-        <copydir src="src/resources/" dest="bin"  />
-        <copydir src="build/classes/" dest="bin"  />
+        <copydir src="src/resources/" dest="bin"/>
+        <copydir src="build/classes/" dest="bin"/>
 
     </target>
 

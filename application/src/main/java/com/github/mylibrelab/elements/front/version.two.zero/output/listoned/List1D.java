@@ -41,6 +41,13 @@ package com.github.mylibrelab.elements.front.version.two.zero.output.listoned;//
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VS1DString;
+
 public class List1D extends JVSMain {
     private Image image;
     private VS1DString out = new VS1DString(1);

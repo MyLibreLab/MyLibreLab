@@ -41,6 +41,12 @@ package com.github.mylibrelab.elements.front.output.gauge;// *******************
 // *****************************************************************************
 
 
+import java.awt.*;
+import java.awt.event.MouseEvent;
+
+import com.github.mylibrelab.elements.tools.CustomAnalogComp;
+
+import VisualLogic.PanelIF;
 
 public class GaugePanel extends CustomAnalogComp implements PanelIF {
 

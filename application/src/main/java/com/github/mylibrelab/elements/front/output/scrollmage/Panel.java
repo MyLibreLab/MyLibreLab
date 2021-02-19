@@ -41,10 +41,20 @@ package com.github.mylibrelab.elements.front.output.scrollmage;// **************
 // *****************************************************************************
 
 
+import java.awt.*;
+import java.awt.image.MemoryImageSource;
+
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.PanelIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSImage24;
 
 public class Panel extends JVSMain implements PanelIF {
-    private boolean on = false;
-    private VSBoolean interpolation = new VSBoolean(false);
+    private final boolean on = false;
+    private final VSBoolean interpolation = new VSBoolean(false);
     private VSImage24 in;
     private Image img = null;
     private MyImage image = null;
@@ -128,7 +138,6 @@ public class Panel extends JVSMain implements PanelIF {
     }
 
 
-
     public void loadFromStream(java.io.FileInputStream fis) {
         interpolation.loadFromStream(fis);
     }
@@ -136,7 +145,6 @@ public class Panel extends JVSMain implements PanelIF {
     public void saveToStream(java.io.FileOutputStream fos) {
         interpolation.saveToStream(fos);
     }
-
 
 
 }

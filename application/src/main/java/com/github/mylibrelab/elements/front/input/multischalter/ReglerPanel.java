@@ -41,6 +41,9 @@ package com.github.mylibrelab.elements.front.input.multischalter;// ************
 // *****************************************************************************
 
 
+import com.github.mylibrelab.elements.tools.CustomAnalogComp;
+
+import VisualLogic.ExternalIF;
 
 public class ReglerPanel extends CustomAnalogComp {
 
@@ -74,7 +77,6 @@ public class ReglerPanel extends CustomAnalogComp {
         super.start();
         circuitElement = element.getCircuitElement();
     }
-
 
 
     public void processProc() {

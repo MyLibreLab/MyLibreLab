@@ -41,15 +41,26 @@ package com.github.mylibrelab.elements.front.output.anzeige;// *****************
 // *****************************************************************************
 
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.text.DecimalFormat;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.PanelIF;
+import VisualLogic.variables.VSColor;
+import VisualLogic.variables.VSFont;
+import VisualLogic.variables.VSString;
+
 public class AnzeigePanel extends JVSMain implements PanelIF {
-    private int width = 150, height = 25;
+    private final int width = 150;
+    private final int height = 25;
     private double value = 0.0;
     private double oldPin;
-    private VSString formatierung = new VSString("#,##0.00");
-    private VSFont font = new VSFont(new Font("Courier", 0, 12));
-    private VSColor textColor = new VSColor(Color.BLACK);
+    private final VSString formatierung = new VSString("#,##0.00");
+    private final VSFont font = new VSFont(new Font("Courier", 0, 12));
+    private final VSColor textColor = new VSColor(Color.BLACK);
     private DecimalFormat df = new DecimalFormat(formatierung.getValue());
-
 
 
     public void processPanel(int pinIndex, double value, Object obj) {

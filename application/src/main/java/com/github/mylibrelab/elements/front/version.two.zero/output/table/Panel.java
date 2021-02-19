@@ -41,6 +41,20 @@ package com.github.mylibrelab.elements.front.version.two.zero.output.table;// **
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.PanelIF;
+import VisualLogic.variables.VS2DString;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSInteger;
 
 public class Panel extends JVSMain implements PanelIF {
     private JPanel panel;

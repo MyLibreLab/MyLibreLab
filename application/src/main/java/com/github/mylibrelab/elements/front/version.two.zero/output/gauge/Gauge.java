@@ -41,11 +41,12 @@ package com.github.mylibrelab.elements.front.version.two.zero.output.gauge;// **
 // *****************************************************************************
 
 
-import VisualLogic.ExternalIF;
-import VisualLogic.variables.VSDouble;
+import java.awt.*;
+
 import com.github.mylibrelab.elements.tools.JVSMain;
 
-import java.awt.*;
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSDouble;
 
 public class Gauge extends JVSMain {
     private double value0;

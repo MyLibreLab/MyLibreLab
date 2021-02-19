@@ -41,6 +41,13 @@ package com.github.mylibrelab.elements.front.output.anzeige;// *****************
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSDouble;
+
 public class Anzeige extends JVSMain {
     private double oldValue;
     private ExternalIF panelElement;
@@ -90,7 +97,7 @@ public class Anzeige extends JVSMain {
 
                 panelElement = element.getPanelElement();
                 if (panelElement != null) {
-                    panelElement.jProcessPanel(0, in.getValue(), (Object) this);
+                    panelElement.jProcessPanel(0, in.getValue(), this);
                     panelElement.jRepaint();
                     oldValue = in.getValue();
                 }

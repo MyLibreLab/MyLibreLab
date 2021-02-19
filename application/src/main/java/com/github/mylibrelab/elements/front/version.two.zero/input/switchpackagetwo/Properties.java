@@ -41,6 +41,10 @@ package com.github.mylibrelab.elements.front.version.two.zero.input.switchpackag
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import javax.swing.*;
+
 public class Properties extends JDialog {
     private JScrollPane scroll = new JScrollPane();
     private JTextArea text = new JTextArea();

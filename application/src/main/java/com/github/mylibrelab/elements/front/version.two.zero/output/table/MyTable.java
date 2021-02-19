@@ -41,6 +41,13 @@ package com.github.mylibrelab.elements.front.version.two.zero.output.table;// **
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VS2DString;
+
 public class MyTable extends JVSMain {
     private Image image;
     private VS2DString in;

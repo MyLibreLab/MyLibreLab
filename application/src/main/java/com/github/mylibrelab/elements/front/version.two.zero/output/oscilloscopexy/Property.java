@@ -41,6 +41,9 @@ package com.github.mylibrelab.elements.front.version.two.zero.output.oscilloscop
 // *****************************************************************************
 
 
+import java.util.ArrayList;
+
+import VisualLogic.variables.VSObject;
 
 /**
  *

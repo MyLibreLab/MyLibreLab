@@ -41,6 +41,15 @@ package com.github.mylibrelab.elements.front.version.two.zero.input.switchpackag
 // *****************************************************************************
 
 
+import java.awt.*;
+import java.util.ArrayList;
+
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.*;
 
 public class TasterPanel extends JVSMain {
     private int sizeW = 50;

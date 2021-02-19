@@ -41,16 +41,24 @@ package com.github.mylibrelab.elements.front.input.buttons.kippschalter;// *****
 // *****************************************************************************
 
 
+import java.awt.*;
+import java.awt.event.MouseEvent;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+import com.github.mylibrelab.svg.viewer.SVGManager;
+import com.github.mylibrelab.svg.viewer.SVGObject;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
 
 public class SchalterPanel extends JVSMain {
-    private SVGManager svgManager = new SVGManager();
-    private VSBoolean initValue = new VSBoolean(false);
-    private boolean value = false;
-    private int sizeW = 32;
-    private int sizeH = 45;
+    private final SVGManager svgManager = new SVGManager();
+    private final VSBoolean initValue = new VSBoolean(false);
+    private final boolean value = false;
+    private final int sizeW = 32;
+    private final int sizeH = 45;
     private boolean down = false;
     private ExternalIF circuitElement;
-
 
 
     public void paint(java.awt.Graphics g) {
