@@ -41,6 +41,13 @@ package com.github.mylibrelab.elements.front.output.fuellstandanzeige;// *******
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSDouble;
+
 public class FuellstandAnzeige extends JVSMain {
     private double oldValue;
     private ExternalIF panelElement;
@@ -88,7 +95,7 @@ public class FuellstandAnzeige extends JVSMain {
         if (in != null && in.getValue() != oldValue) {
             panelElement = element.getPanelElement();
             if (panelElement != null) {
-                panelElement.jProcessPanel(0, in.getValue(), (Object) this);
+                panelElement.jProcessPanel(0, in.getValue(), this);
                 panelElement.jRepaint();
                 oldValue = in.getValue();
             }

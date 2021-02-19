@@ -41,10 +41,16 @@ package com.github.mylibrelab.elements.front.input.buttons.taster;// ***********
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
 
 public class Taster extends JVSMain {
     private Image image;
-    private VSBoolean out = new VSBoolean();
+    private final VSBoolean out = new VSBoolean();
     private VSBoolean val;
     private boolean changed = false;
 

@@ -41,21 +41,25 @@ package com.github.mylibrelab.elements.front.output.oscilloscope;// ************
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSGroup;
 
 public class Oscilloscope extends JVSMain {
+    public VSGroup in = null;
     private ExternalIF panelElement = null;
     private Image image;
 
-    public VSGroup in = null;
+    public Oscilloscope() {
+        super();
+    }
 
     public void onDispose() {
         image.flush();
         image = null;
-    }
-
-
-    public Oscilloscope() {
-        super();
     }
 
     public void paint(java.awt.Graphics g) {
@@ -99,7 +103,6 @@ public class Oscilloscope extends JVSMain {
         panelElement = element.getPanelElement();
         if (panelElement != null) panelElement.jRepaint();
     }
-
 
 
 }

@@ -41,20 +41,22 @@ package com.github.mylibrelab.elements.front.version.two.zero.embeddedfrontvm;//
 // *****************************************************************************
 
 
-import VisualLogic.ElementActionEvent;
-import VisualLogic.ExternalIF;
-import VisualLogic.VSBasisIF;
-import VisualLogic.variables.VSObject;
-import VisualLogic.variables.VSString;
-import com.github.mylibrelab.elements.tools.JVSMain;
-
-import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Locale;
+
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ElementActionEvent;
+import VisualLogic.ExternalIF;
+import VisualLogic.VSBasisIF;
+import VisualLogic.variables.VSObject;
+import VisualLogic.variables.VSString;
 
 public class VMElement extends JVSMain {
     private Image image;

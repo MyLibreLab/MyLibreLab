@@ -1,4 +1,4 @@
-package com.github.mylibrelab.elements.front.twograph.timegraphx;/*
+/*
  * Copyright (C) 2020 MyLibreLab
  * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
  * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
@@ -18,13 +18,51 @@ package com.github.mylibrelab.elements.front.twograph.timegraphx;/*
  *
  */
 
+package com.github.mylibrelab.elements.front.twograph.timegraphx;/*
+                                                                  * Copyright (C) 2020 MyLibreLab
+                                                                  * Based on MyOpenLab by Carmelo Salafia
+                                                                  * www.myopenlab.de
+                                                                  * Copyright (C) 2004 Carmelo Salafia cswi@gmx.de
+                                                                  *
+                                                                  * This program is free software: you can redistribute
+                                                                  * it and/or modify
+                                                                  * it under the terms of the GNU General Public License
+                                                                  * as published by
+                                                                  * the Free Software Foundation, either version 3 of
+                                                                  * the License, or
+                                                                  * (at your option) any later version.
+                                                                  *
+                                                                  * This program is distributed in the hope that it will
+                                                                  * be useful,
+                                                                  * but WITHOUT ANY WARRANTY; without even the implied
+                                                                  * warranty of
+                                                                  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+                                                                  * See the
+                                                                  * GNU General Public License for more details.
+                                                                  *
+                                                                  * You should have received a copy of the GNU General
+                                                                  * Public License
+                                                                  * along with this program. If not, see
+                                                                  * <http://www.gnu.org/licenses/>.
+                                                                  *
+                                                                  */
+
+import java.awt.*;
+
+import javax.swing.*;
+
+import MyGraph.MyGraph;
+import VisualLogic.PanelIF;
+import VisualLogic.variables.VSColor;
+import VisualLogic.variables.VSDouble;
+import VisualLogic.variables.VSInteger;
+
 public class OscPanel extends VSMainWithPropertyManager implements PanelIF {
+    public MyGraph graph = new MyGraph();
     int bufferLen = 600;
     private JPanel panel;
-    public MyGraph graph = new MyGraph();
-
-    private int oldXValues = 0;
-    private int oldYValues = 0;
+    private final int oldXValues = 0;
+    private final int oldYValues = 0;
     private boolean changed = false;
     private double oldPosX = 0;
 
@@ -103,7 +141,7 @@ public class OscPanel extends VSMainWithPropertyManager implements PanelIF {
                 xValues = new double[bufferLen];
                 yValues = new double[bufferLen];
                 graph.setMinX(0.0);
-                double bufferLenTemp = (double) bufferLen;
+                double bufferLenTemp = bufferLen;
                 graph.setMaxX(bufferLenTemp);
             }
         } else if (pinIndex == -3) // setze Linecolor
@@ -171,7 +209,7 @@ public class OscPanel extends VSMainWithPropertyManager implements PanelIF {
 
 
         graph.setMinX(0.0);
-        double bufferLenTemp = (double) bufferLen;
+        double bufferLenTemp = bufferLen;
         graph.setMaxX(bufferLenTemp);
 
 
@@ -225,7 +263,6 @@ public class OscPanel extends VSMainWithPropertyManager implements PanelIF {
     }
 
 
-
     public void stop() {
         started = false;
         // if (timer!=null) timer.stop();
@@ -258,7 +295,6 @@ public class OscPanel extends VSMainWithPropertyManager implements PanelIF {
     public void saveToStream(java.io.FileOutputStream fos) {
         super.saveToStream(fos);
     }
-
 
 
 }

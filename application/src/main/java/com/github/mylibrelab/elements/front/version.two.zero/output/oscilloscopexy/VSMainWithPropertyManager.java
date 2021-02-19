@@ -41,6 +41,11 @@ package com.github.mylibrelab.elements.front.version.two.zero.output.oscilloscop
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.variables.*;
 
 public class VSMainWithPropertyManager extends JVSMain {
     private Properties properties = new Properties();

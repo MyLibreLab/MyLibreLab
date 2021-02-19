@@ -18,7 +18,6 @@
  *
  */
 
-
 package com.github.mylibrelab.elements.front.version.two.zero.embeddedfrontvm;// *****************************************************************************
 
 // * Element of MyOpenLab Library *
@@ -42,14 +41,15 @@ package com.github.mylibrelab.elements.front.version.two.zero.embeddedfrontvm;//
 // *****************************************************************************
 
 
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
 import VisualLogic.ExternalIF;
 import VisualLogic.VSBasisIF;
 import VisualLogic.variables.VSInteger;
 import VisualLogic.variables.VSObject;
 import VisualLogic.variables.VSString;
-import com.github.mylibrelab.elements.tools.JVSMain;
-
-import javax.swing.*;
 
 public class VMPanel extends JVSMain {
     private int width = 60, height = 150;

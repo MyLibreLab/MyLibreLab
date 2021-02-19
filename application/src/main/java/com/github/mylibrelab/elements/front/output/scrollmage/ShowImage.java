@@ -41,6 +41,14 @@ package com.github.mylibrelab.elements.front.output.scrollmage;// **************
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSImage24;
+import VisualLogic.variables.VSObject;
+
 public class ShowImage extends JVSMain {
     private ExternalIF panelElement;
     private Image image;

@@ -41,29 +41,32 @@ package com.github.mylibrelab.elements.front.output.statusanzeige;// ***********
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.PanelIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSImage;
 
 public class Panel extends JVSMain implements PanelIF {
     private ExternalIF circuitElement;
 
-    private int statusCount = 10;
-    private VSImage images[] = new VSImage[statusCount];
+    private final int statusCount = 10;
+    private final VSImage[] images = new VSImage[statusCount];
 
 
     private Image image;
 
-    private boolean value = false;
-    private int sizeW = 47;
-    private int sizeH = 101;
+    private final boolean value = false;
+    private final int sizeW = 47;
+    private final int sizeH = 101;
     private int status = 0;
 
 
-    private VSBoolean interpoliert = new VSBoolean();
+    private final VSBoolean interpoliert = new VSBoolean();
 
-
-    public void processPanel(int pinIndex, double value, Object obj) {
-        status = (int) value;
-        element.jRepaint();
-    }
 
     public Panel() {
         for (int i = 0; i < statusCount; i++) {
@@ -71,7 +74,10 @@ public class Panel extends JVSMain implements PanelIF {
         }
     }
 
-
+    public void processPanel(int pinIndex, double value, Object obj) {
+        status = (int) value;
+        element.jRepaint();
+    }
 
     public void paint(java.awt.Graphics g) {
         if (element != null) {
@@ -167,7 +173,6 @@ public class Panel extends JVSMain implements PanelIF {
     }
 
 
-
     public void loadFromStream(java.io.FileInputStream fis) {
         interpoliert.loadFromStream(fis);
 
@@ -186,7 +191,6 @@ public class Panel extends JVSMain implements PanelIF {
             images[i].saveToStream(fos);
         }
     }
-
 
 
 }

@@ -18,6 +18,10 @@
  *
  */
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.CustomAnalogComp_1_JV;
+
 public class ReglerPanel extends CustomAnalogComp_1_JV {
     public void init() {
         super.init();

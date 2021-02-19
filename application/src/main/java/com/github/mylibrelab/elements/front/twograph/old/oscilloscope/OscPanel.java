@@ -1,4 +1,4 @@
-package com.github.mylibrelab.elements.front.twograph.old.oscilloscope;/*
+/*
  * Copyright (C) 2020 MyLibreLab
  * Based on MyOpenLab by Carmelo Salafia www.myopenlab.de
  * Copyright (C) 2004  Carmelo Salafia cswi@gmx.de
@@ -18,60 +18,83 @@ package com.github.mylibrelab.elements.front.twograph.old.oscilloscope;/*
  *
  */
 
+package com.github.mylibrelab.elements.front.twograph.old.oscilloscope;/*
+                                                                        * Copyright (C) 2020 MyLibreLab
+                                                                        * Based on MyOpenLab by Carmelo Salafia
+                                                                        * www.myopenlab.de
+                                                                        * Copyright (C) 2004 Carmelo Salafia cswi@gmx.de
+                                                                        *
+                                                                        * This program is free software: you can
+                                                                        * redistribute it and/or modify
+                                                                        * it under the terms of the GNU General Public
+                                                                        * License as published by
+                                                                        * the Free Software Foundation, either version 3
+                                                                        * of the License, or
+                                                                        * (at your option) any later version.
+                                                                        *
+                                                                        * This program is distributed in the hope that
+                                                                        * it will be useful,
+                                                                        * but WITHOUT ANY WARRANTY; without even the
+                                                                        * implied warranty of
+                                                                        * MERCHANTABILITY or FITNESS FOR A PARTICULAR
+                                                                        * PURPOSE. See the
+                                                                        * GNU General Public License for more details.
+                                                                        *
+                                                                        * You should have received a copy of the GNU
+                                                                        * General Public License
+                                                                        * along with this program. If not, see
+                                                                        * <http://www.gnu.org/licenses/>.
+                                                                        *
+                                                                        */
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.PanelIF;
+import VisualLogic.variables.*;
+
 public class OscPanel extends JVSMain implements PanelIF {
-    Rectangle bounds;
-    private double xValue = 0.0;
-    private double yValue = 0.0;
-    private double oldX = 0;
-    private int counter = 0;
-
-    private boolean isNull = false;
-    private boolean firstTime = true;
-
-    private VSPropertyDialog more = new VSPropertyDialog();
-
-    private boolean reset = false;
-    private VSBoolean showBackground = new VSBoolean(true);
-    private VSBoolean showGrid = new VSBoolean(true);
-    private VSBoolean antialising = new VSBoolean(false);
-
     public VSGroup in = null;
-    private Font font = new Font("Arial", 1, 10);
-    private int c = 0;
-
+    Rectangle bounds;
+    double fX = 1;
+    double fY = 1;
+    double stepX = 20;
+    double stepY = 20;
+    private final double xValue = 0.0;
+    private final double yValue = 0.0;
+    private final double oldX = 0;
+    private int counter = 0;
+    private final boolean isNull = false;
+    private boolean firstTime = true;
+    private final VSPropertyDialog more = new VSPropertyDialog();
+    private final boolean reset = false;
+    private final VSBoolean showBackground = new VSBoolean(true);
+    private final VSBoolean showGrid = new VSBoolean(true);
+    private final VSBoolean antialising = new VSBoolean(false);
+    private final Font font = new Font("Arial", 1, 10);
+    private final int c = 0;
     private boolean xAchseBottom = false;
     private boolean yAchseLeft = true;
     private boolean xAchseLettersBottom = true;
     private boolean yAchseLettersLeft = false;
-
-
     private Color xAchseColor;
     private Color yAchseColor;
-    private Color backgroundColor = new Color(50, 50, 50);
-    private Color dunkelGruen = new Color(0, 100, 0);
-    private Color lineColor = new Color(255, 255, 255);
-
+    private final Color backgroundColor = new Color(50, 50, 50);
+    private final Color dunkelGruen = new Color(0, 100, 0);
+    private final Color lineColor = new Color(255, 255, 255);
     private boolean showFontXAchse = true;
     private boolean showFontYAchse = true;
     private boolean showHelpLinesXAchse = true;
     private boolean showHelpLinesYAchse = true;
-
     private double minX = -2000;
     private double maxX = 2000;
-
     private double minY = -2000;
     private double maxY = 2000;
-
     private boolean fadenKreuzVisible = true;
-
     private int darstellungAs = 0; // 0 : Punkt 1 : Linie
-
-    double fX = 1;
-    double fY = 1;
-
-    double stepX = 20;
-    double stepY = 20;
-
 
     // aus PanelIF
     public void processPanel(int pinIndex, double value, Object obj) {
@@ -103,9 +126,7 @@ public class OscPanel extends JVSMain implements PanelIF {
         }
 
 
-
     }
-
 
 
     public void paint(java.awt.Graphics g) {
@@ -262,7 +283,7 @@ public class OscPanel extends JVSMain implements PanelIF {
                     if (o instanceof VSGroup) {
                         processX(g, x, y, mitteX, mitteY, (VSGroup) o);
                     } else {
-                        processX(g, x, y, mitteX, mitteY, (VSGroup) in);
+                        processX(g, x, y, mitteX, mitteY, in);
                     }
                 }
 
@@ -382,15 +403,15 @@ public class OscPanel extends JVSMain implements PanelIF {
 
         FrameProperties.execute();
         if (FrameProperties.result == true) {
-            fX = (double) FrameProperties.zoomX;
-            fY = (double) FrameProperties.zoomY;
-            stepX = (double) FrameProperties.stepX;
-            stepY = (double) FrameProperties.stepY;
+            fX = FrameProperties.zoomX;
+            fY = FrameProperties.zoomY;
+            stepX = FrameProperties.stepX;
+            stepY = FrameProperties.stepY;
 
-            minX = (double) FrameProperties.minX;
-            maxX = (double) FrameProperties.maxX;
-            minY = (double) FrameProperties.minY;
-            maxY = (double) FrameProperties.maxY;
+            minX = FrameProperties.minX;
+            maxX = FrameProperties.maxX;
+            minY = FrameProperties.minY;
+            maxY = FrameProperties.maxY;
 
             darstellungAs = FrameProperties.darstellungAs;
 
@@ -422,7 +443,6 @@ public class OscPanel extends JVSMain implements PanelIF {
         in = null;
         element.jRepaint();
     }
-
 
 
     public void setPropertyEditor() {
@@ -534,7 +554,6 @@ public class OscPanel extends JVSMain implements PanelIF {
         }
 
     }
-
 
 
 }

@@ -41,10 +41,17 @@ package com.github.mylibrelab.elements.front.input.intcombo;// *****************
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSInteger;
+
 public class INTCombo extends JVSMain {
     private Image image;
     private boolean changed = false;
-    private VSInteger out = new VSInteger();
+    private final VSInteger out = new VSInteger();
     private VSInteger val;
 
     public void onDispose() {

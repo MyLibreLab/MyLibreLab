@@ -41,6 +41,7 @@ package com.github.mylibrelab.elements.front.input.reglertwo;// ****************
 // *****************************************************************************
 
 
+import com.github.mylibrelab.elements.tools.CustomAnalogComp;
 
 public class ReglerPanel extends CustomAnalogComp {
     public void init() {

@@ -41,6 +41,17 @@ package com.github.mylibrelab.elements.front.input.buttons.schiebeschaltertwo;//
 // *****************************************************************************
 
 
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSFile;
 
 class ImageLoader extends Component {
     public ImageLoader() {}
@@ -60,11 +71,11 @@ class ImageLoader extends Component {
 
 public class SchalterPanel extends JVSMain {
 
-    private VSBoolean initValue = new VSBoolean(false);
+    private final VSBoolean initValue = new VSBoolean(false);
     private ExternalIF circuitElement;
 
-    private VSFile file1 = new VSFile("");
-    private VSFile file2 = new VSFile("");
+    private final VSFile file1 = new VSFile("");
+    private final VSFile file2 = new VSFile("");
 
     private boolean down = false;
 
@@ -72,15 +83,14 @@ public class SchalterPanel extends JVSMain {
     private Image image;
     private Image imageOff;
 
-    private boolean value = false;
-    private int sizeW = 27;
-    private int sizeH = 35;
+    private final boolean value = false;
+    private final int sizeW = 27;
+    private final int sizeH = 35;
 
     private byte[] buffImageOn;
     private byte[] buffImageOff;
 
-    private VSBoolean interpoliert = new VSBoolean();
-
+    private final VSBoolean interpoliert = new VSBoolean();
 
 
     public byte[] loadImage(String fileName) {
@@ -217,7 +227,6 @@ public class SchalterPanel extends JVSMain {
     }
 
 
-
     public void mousePressed(MouseEvent e) {
         if (down == true) {
             image = imageOff;
@@ -303,7 +312,6 @@ public class SchalterPanel extends JVSMain {
         }
 
     }
-
 
 
 }

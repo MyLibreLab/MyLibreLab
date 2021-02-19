@@ -41,13 +41,22 @@ package com.github.mylibrelab.elements.front.output.canvas;// ******************
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSCanvas;
+import VisualLogic.variables.VSGroup;
+import VisualLogic.variables.VSObject;
+
 public class Canvas extends JVSMain {
     private ExternalIF panelElement;
     private Image image;
     private boolean oldValue;
-    private int pinsCount = 1;
+    private final int pinsCount = 1;
 
-    private VSObject in[];
+    private VSObject[] in;
 
     public void paint(java.awt.Graphics g) {
         drawImageCentred(g, image);

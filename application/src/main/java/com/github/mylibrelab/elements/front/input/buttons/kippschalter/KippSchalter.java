@@ -41,12 +41,20 @@ package com.github.mylibrelab.elements.front.input.buttons.kippschalter;// *****
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
 
 public class KippSchalter extends JVSMain {
     private Image image;
-    private VSBoolean out = new VSBoolean();
+    private final VSBoolean out = new VSBoolean();
     private VSBoolean val;
     private boolean changed = false;
+
+    public KippSchalter() {}
 
     public void onDispose() {
         image.flush();
@@ -56,8 +64,6 @@ public class KippSchalter extends JVSMain {
     public void paint(java.awt.Graphics g) {
         drawImageCentred(g, image);
     }
-
-    public KippSchalter() {}
 
     public void init() {
         initPins(0, 1, 0, 0);

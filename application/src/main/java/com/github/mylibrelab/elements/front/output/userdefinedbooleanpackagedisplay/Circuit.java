@@ -41,10 +41,16 @@ package com.github.mylibrelab.elements.front.output.userdefinedbooleanpackagedis
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
 
 public class Circuit extends JVSMain {
     private Image image;
-    private boolean changed = false;
+    private final boolean changed = false;
     private VSBoolean in;
     private boolean oldValue = false;
     private ExternalIF panelElement;
@@ -90,9 +96,9 @@ public class Circuit extends JVSMain {
 
             if (panelElement != null) {
                 if (in.getValue() == true) {
-                    panelElement.jProcessPanel(0, 1.0, (Object) this);
+                    panelElement.jProcessPanel(0, 1.0, this);
                 } else {
-                    panelElement.jProcessPanel(0, 0.0, (Object) this);
+                    panelElement.jProcessPanel(0, 0.0, this);
                 }
 
             }

@@ -41,11 +41,18 @@ package com.github.mylibrelab.elements.front.output.ausgabe;// *****************
 // *****************************************************************************
 
 
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.PanelIF;
+import VisualLogic.variables.VSString;
+
 public class Panel extends JVSMain implements PanelIF {
-    private int width = 150, height = 25;
+    private final int width = 150;
+    private final int height = 25;
 
-    private JTextField text = new JTextField();
-
+    private final JTextField text = new JTextField();
 
 
     public void processPanel(int pinIndex, double value, Object obj) {

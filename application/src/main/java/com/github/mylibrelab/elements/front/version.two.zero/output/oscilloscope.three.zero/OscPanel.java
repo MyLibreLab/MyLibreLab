@@ -41,6 +41,14 @@ package com.github.mylibrelab.elements.front.version.two.zero.output.oscilloscop
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import javax.swing.*;
+
+import MyGraph.MyGraph;
+import VisualLogic.PanelIF;
+import VisualLogic.variables.*;
+
 public class OscPanel extends VSMainWithPropertyManager implements PanelIF {
     private JPanel panel;
     private MyGraph graph = new MyGraph();

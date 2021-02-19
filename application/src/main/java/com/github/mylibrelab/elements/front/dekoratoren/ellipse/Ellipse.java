@@ -41,6 +41,12 @@ package com.github.mylibrelab.elements.front.dekoratoren.ellipse;// ************
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.variables.VSColor;
+import VisualLogic.variables.VSInteger;
 
 public class Ellipse extends JVSMain {
 

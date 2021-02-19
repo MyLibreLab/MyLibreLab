@@ -41,6 +41,15 @@ package com.github.mylibrelab.elements.front.version.two.zero.input.eingabetwo;/
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import javax.swing.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSString;
+
 public class Panel extends JVSMain {
     private int width = 150, height = 25;
     private String value = "";

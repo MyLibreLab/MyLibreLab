@@ -41,6 +41,12 @@ package com.github.mylibrelab.elements.front.version.two.zero.input.buttons.butt
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
 
 public class Taster extends JVSMain {
     private Image image;

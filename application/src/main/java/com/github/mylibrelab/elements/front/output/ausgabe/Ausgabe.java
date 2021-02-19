@@ -41,6 +41,13 @@ package com.github.mylibrelab.elements.front.output.ausgabe;// *****************
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSString;
+
 public class Ausgabe extends JVSMain {
     private ExternalIF panelElement;
     private Image image;

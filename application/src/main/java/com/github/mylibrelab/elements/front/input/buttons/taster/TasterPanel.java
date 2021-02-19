@@ -41,16 +41,24 @@ package com.github.mylibrelab.elements.front.input.buttons.taster;// ***********
 // *****************************************************************************
 
 
+import java.awt.*;
+import java.awt.event.MouseEvent;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+import com.github.mylibrelab.svg.viewer.SVGManager;
+import com.github.mylibrelab.svg.viewer.SVGObject;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSBoolean;
 
 public class TasterPanel extends JVSMain {
-    private SVGManager svgManager = new SVGManager();
+    private final SVGManager svgManager = new SVGManager();
     private SVGObject svgOn;
     private ExternalIF circuitElement;
 
-    private int sizeW = 30;
-    private int sizeH = 30;
+    private final int sizeW = 30;
+    private final int sizeH = 30;
     private boolean down = false;
-
 
 
     public void paint(java.awt.Graphics g) {

@@ -40,11 +40,23 @@ package com.github.mylibrelab.elements.front.output.canvas;// ******************
 // * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110, USA *
 // *****************************************************************************
 
-public class Panel extends JVSMain implements PanelIF {
-    private boolean on = false;
-    private VSBoolean interpolation = new VSBoolean(false);
-    private VSGroup in;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.PanelIF;
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSCanvas;
+import VisualLogic.variables.VSGroup;
+import VisualLogic.variables.VSObject;
+
+public class Panel extends JVSMain implements PanelIF {
+    private final boolean on = false;
+    private final VSBoolean interpolation = new VSBoolean(false);
+    private VSGroup in;
+    private boolean firstTime = true;
 
     public void onDispose() {}
 
@@ -54,8 +66,6 @@ public class Panel extends JVSMain implements PanelIF {
         }
 
     }
-
-    private boolean firstTime = true;
 
     private void renderString(Graphics2D g2, VSCanvas can) {
         setAntialising(g2, can);
@@ -110,7 +120,6 @@ public class Panel extends JVSMain implements PanelIF {
             g2.drawLine(can.x1, can.y1, can.x2, can.y2);
         }
     }
-
 
 
     private void renderImage(Graphics2D g2, VSCanvas can) {
@@ -257,7 +266,6 @@ public class Panel extends JVSMain implements PanelIF {
     }
 
 
-
     public void loadFromStream(java.io.FileInputStream fis) {
 
     }
@@ -265,7 +273,6 @@ public class Panel extends JVSMain implements PanelIF {
     public void saveToStream(java.io.FileOutputStream fos) {
 
     }
-
 
 
 }

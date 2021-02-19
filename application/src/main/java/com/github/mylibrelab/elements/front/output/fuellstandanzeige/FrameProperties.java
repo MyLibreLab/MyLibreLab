@@ -41,17 +41,42 @@ package com.github.mylibrelab.elements.front.output.fuellstandanzeige;// *******
 // *****************************************************************************
 
 
-
 /**
- *
  * @author Homer
  */
 public class FrameProperties extends javax.swing.JDialog {
 
-    /** Creates new form FrameProperties */
+    public static boolean result = false;
+    public static double min = 0;
+    // </editor-fold>//GEN-END:initComponents
+    public static double max = 100;
+    public static double abschnitte = 3;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+
+    /**
+     * Creates new form FrameProperties
+     */
     public FrameProperties(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+
+    public static void execute(double min, double max, double abschnitte) {
+        FrameProperties frm = new FrameProperties(null, true);
+
+        frm.jTextField1.setText("" + min);
+        frm.jTextField2.setText("" + max);
+        frm.jTextField3.setText("" + abschnitte);
+
+        frm.setVisible(true);
     }
 
     /**
@@ -112,7 +137,6 @@ public class FrameProperties extends javax.swing.JDialog {
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width - 208) / 2, (screenSize.height - 134) / 2, 208, 134);
     }
-    // </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
         try {
@@ -132,33 +156,6 @@ public class FrameProperties extends javax.swing.JDialog {
         result = false;
         this.dispose();
     }// GEN-LAST:event_jButton2ActionPerformed
-
-
-    public static void execute(double min, double max, double abschnitte) {
-        FrameProperties frm = new FrameProperties(null, true);
-
-        frm.jTextField1.setText("" + min);
-        frm.jTextField2.setText("" + max);
-        frm.jTextField3.setText("" + abschnitte);
-
-        frm.setVisible(true);
-    }
-
-    public static boolean result = false;
-    public static double min = 0;
-    public static double max = 100;
-    public static double abschnitte = 3;
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    // End of variables declaration//GEN-END:variables
+     // End of variables declaration//GEN-END:variables
 
 }

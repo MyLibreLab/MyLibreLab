@@ -41,6 +41,13 @@ package com.github.mylibrelab.elements.front.output.rgb.led;// *****************
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSInteger;
+
 public class LED extends JVSMain {
     private ExternalIF panelElement;
     private Image image;

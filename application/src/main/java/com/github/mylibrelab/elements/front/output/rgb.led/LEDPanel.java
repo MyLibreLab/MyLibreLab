@@ -41,9 +41,17 @@ package com.github.mylibrelab.elements.front.output.rgb.led;// *****************
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+import com.github.mylibrelab.svg.viewer.SVGManager;
+import com.github.mylibrelab.svg.viewer.SVGObject;
+
+import VisualLogic.PanelIF;
+
 public class LEDPanel extends JVSMain implements PanelIF {
     private Color color = new Color(0, 0, 0);
-    private SVGManager svgManager = new SVGManager();
+    private final SVGManager svgManager = new SVGManager();
 
 
     public void processPanel(int pinIndex, double value, Object obj) {

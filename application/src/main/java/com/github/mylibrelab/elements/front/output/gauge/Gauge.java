@@ -41,11 +41,17 @@ package com.github.mylibrelab.elements.front.output.gauge;// *******************
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSDouble;
+
 public class Gauge extends JVSMain {
+    ExternalIF panelElement;
     private double value0;
     private Image image;
-    ExternalIF panelElement;
-
     private VSDouble in;
 
     public void onDispose() {
@@ -69,7 +75,6 @@ public class Gauge extends JVSMain {
 
         setName("Gauge");
     }
-
 
 
     public void initInputPins() {

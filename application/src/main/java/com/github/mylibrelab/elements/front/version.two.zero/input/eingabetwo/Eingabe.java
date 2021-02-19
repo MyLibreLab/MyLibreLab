@@ -41,6 +41,12 @@ package com.github.mylibrelab.elements.front.version.two.zero.input.eingabetwo;/
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSString;
 
 public class Eingabe extends JVSMain {
     private Image image;

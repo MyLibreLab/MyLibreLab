@@ -41,38 +41,38 @@ package com.github.mylibrelab.elements.front.output.oscilloscopetwo.one;// *****
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.PanelIF;
+import VisualLogic.variables.*;
+
 public class OscPanel extends JVSMain implements PanelIF {
     Rectangle bounds;
-    private double xValue = 0.0;
-    private double yValue = 0.0;
-    private double oldX = 0;
-    private boolean reset = false;
-    private boolean isNull = false;
-    private boolean firstTime = true;
-
-    private VSBoolean showBackground = new VSBoolean(true);
-
-    private Color backgroundColor = new Color(50, 50, 50);
-    private Color lineColor = new Color(255, 255, 255);
-
     double fX = 1;
     double fY = 1;
     double stepX = 20;
     double stepY = 20;
-
     VSGroup ch1 = null;
     VSGroup ch2 = null;
     VSGroup ch3 = null;
     VSGroup ch4 = null;
     VSGroup ch5 = null;
-
     VSColor color1 = null;
     VSColor color2 = null;
     VSColor color3 = null;
     VSColor color4 = null;
     VSColor color5 = null;
-
-
+    private final double xValue = 0.0;
+    private final double yValue = 0.0;
+    private final double oldX = 0;
+    private final boolean reset = false;
+    private final boolean isNull = false;
+    private final boolean firstTime = true;
+    private final VSBoolean showBackground = new VSBoolean(true);
+    private final Color backgroundColor = new Color(50, 50, 50);
+    private final Color lineColor = new Color(255, 255, 255);
 
     // aus PanelIF
     public void processPanel(int pinIndex, double value, Object obj) {
@@ -164,7 +164,6 @@ public class OscPanel extends JVSMain implements PanelIF {
          */
 
     }
-
 
 
     public void paint(java.awt.Graphics g) {

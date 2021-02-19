@@ -44,6 +44,14 @@ package com.github.mylibrelab.elements.front.version.two.zero.input.switchpackag
 // package javaapplication2;
 
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+
+import javax.swing.*;
+
+import VisualLogic.ExternalIF;
+
 class Beschriftung extends JPanel {
     public String text = "";
     private TasterPanel owner = null;

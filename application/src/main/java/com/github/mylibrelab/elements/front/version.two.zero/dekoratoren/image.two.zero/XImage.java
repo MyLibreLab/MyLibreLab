@@ -41,6 +41,13 @@ package com.github.mylibrelab.elements.front.version.two.zero.dekoratoren.image.
 // *****************************************************************************
 
 
+import java.awt.*;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.variables.VSBoolean;
+import VisualLogic.variables.VSImage;
+import VisualLogic.variables.VSInteger;
 
 public class XImage extends JVSMain {
     private Image noImage = null;

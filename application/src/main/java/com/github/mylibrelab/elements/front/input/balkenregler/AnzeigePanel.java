@@ -41,18 +41,28 @@ package com.github.mylibrelab.elements.front.input.balkenregler;// *************
 // *****************************************************************************
 
 
+import java.awt.*;
+import java.awt.event.MouseEvent;
+
+import com.github.mylibrelab.elements.tools.JVSMain;
+
+import VisualLogic.ExternalIF;
+import VisualLogic.variables.VSColor;
+import VisualLogic.variables.VSDouble;
+
 public class AnzeigePanel extends JVSMain {
-    private int width = 60, height = 150;
-    private VSDouble initValue = new VSDouble();
+    private final int width = 60;
+    private final int height = 150;
+    private final VSDouble initValue = new VSDouble();
     private double value = 0.0;
     private double oldPin;
     private ExternalIF circuitElement;
-    private VSColor colorBackgroung = new VSColor(Color.WHITE);
-    private VSColor colorNibble = new VSColor(Color.LIGHT_GRAY);
-    private VSDouble min = new VSDouble();
-    private VSDouble max = new VSDouble();
-    private VSDouble abschnitte = new VSDouble();
-    private Font fnt = new Font("Monospaced", 0, 10);
+    private final VSColor colorBackgroung = new VSColor(Color.WHITE);
+    private final VSColor colorNibble = new VSColor(Color.LIGHT_GRAY);
+    private final VSDouble min = new VSDouble();
+    private final VSDouble max = new VSDouble();
+    private final VSDouble abschnitte = new VSDouble();
+    private final Font fnt = new Font("Monospaced", 0, 10);
 
 
     public void paint(java.awt.Graphics g) {
@@ -187,7 +197,7 @@ public class AnzeigePanel extends JVSMain {
 
         value = (double) (bounds.height - y) / f;
 
-        value += (double) min.getValue();
+        value += min.getValue();
 
         element.jRepaint();
 
