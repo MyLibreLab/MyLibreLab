@@ -45,6 +45,8 @@ import com.github.mylibrelab.elements.tools.CustomAnalogComp;
 
 import VisualLogic.ExternalIF;
 
+import java.awt.*;
+
 public class ReglerPanel extends CustomAnalogComp {
 
     private ExternalIF circuitElement;

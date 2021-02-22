@@ -48,7 +48,9 @@ package com.github.mylibrelab.elements.front.twograph.oscilloscopexytwo;/*
                                                                          *
                                                                          */
 
+import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import VisualLogic.variables.*;
 

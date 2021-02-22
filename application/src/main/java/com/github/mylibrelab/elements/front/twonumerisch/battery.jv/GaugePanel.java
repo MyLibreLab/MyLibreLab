@@ -58,6 +58,7 @@ import VisualLogic.variables.VSBoolean;
 import VisualLogic.variables.VSComboBox;
 import VisualLogic.variables.VSDouble;
 import eu.hansolo.steelseries.extras.Battery;
+import eu.hansolo.steelseries.tools.Orientation;
 
 public class GaugePanel extends JVSMain implements PanelIF {
     private int width = 50, height = 150;

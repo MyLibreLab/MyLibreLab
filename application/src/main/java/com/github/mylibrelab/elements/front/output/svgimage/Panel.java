@@ -42,10 +42,7 @@ package com.github.mylibrelab.elements.front.output.svgimage;// ****************
 
 
 import java.awt.*;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.*;
 import java.net.URI;
 
 import javax.swing.*;
@@ -56,6 +53,7 @@ import com.kitfox.svg.SVGCache;
 import com.kitfox.svg.app.beans.SVGPanel;
 
 import VisualLogic.variables.VSFile;
+import org.tinylog.Logger;
 
 public class Panel extends JVSMain {
     JPanel panel;
@@ -75,24 +73,16 @@ public class Panel extends JVSMain {
 
     private SVGPanel configSVGIcon(String imageFile) {
         SVGPanel svgIcon;
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(imageFile);
-        } catch (Exception e) {
-            System.out.println("File not found: " + imageFile);
+        try(FileInputStream fis = new FileInputStream(imageFile)) {
+            URI uri = SVGCache.getSVGUniverse().loadSVG(fis, imageFile);
+            svgIcon = new SVGPanel();
+            svgIcon.setAntiAlias(true);
+            svgIcon.setSvgURI(uri);
+        } catch (IOException e) {
+            Logger.error(e,"File not found " + imageFile);
             return null;
         }
-        URI uri = SVGCache.getSVGUniverse().loadSVG(fis, imageFile);
-        svgIcon = new SVGPanel();
-        svgIcon.setAntiAlias(true);
-        svgIcon.setSvgURI(uri);
-        try {
-            fis.close();
-        } catch (Exception e) {
-            System.out.println("File not found: " + imageFile);
-        }
         return svgIcon;
-
     }
 
     public void init() {
@@ -176,15 +166,13 @@ public class Panel extends JVSMain {
             input.read(imageBytes);
             input.close();
             input = null;
-        } catch (Exception ex) {
-            System.out.println(ex);
+            URI uri = SVGCache.getSVGUniverse().loadSVG(new ByteArrayInputStream(imageBytes), "myImage");
+            pnl.setAntiAlias(true);
+            pnl.setSvgURI(uri);
+            element.jRepaint();
+        } catch (IOException e) {
+            Logger.error(e);
         }
-        URI uri = SVGCache.getSVGUniverse().loadSVG(new ByteArrayInputStream(imageBytes), "myImage");
-
-        pnl.setAntiAlias(true);
-        pnl.setSvgURI(uri);
-        element.jRepaint();
-
     }
 
 

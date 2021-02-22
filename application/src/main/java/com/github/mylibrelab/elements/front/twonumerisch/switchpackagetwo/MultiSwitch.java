@@ -53,6 +53,7 @@ package com.github.mylibrelab.elements.front.twonumerisch.switchpackagetwo;/*
 
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import javax.swing.*;

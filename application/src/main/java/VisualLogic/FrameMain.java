@@ -112,7 +112,9 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     // public MyImage doc_image = new MyImage();
     public PanelDokumentation panelDoc;
     // public static String elementPath = ""; //NOI18N
-    public static String elementPath = System.getProperty("user.dir") + File.separator + "elements";
+    public static String elementPath = System.getProperty("user.dir") +  File.separator + "application" + File.separator + "src"
+        + File.separator + "main" + File.separator + "java" + File.separator + "com" + File.separator + "github" + File.separator + "mylibrelab"
+        + File.separator +"elements";
     public String activeElement = ""; // NOI18N
     public static FrameMain frm;
     public javax.swing.Timer timer;
@@ -1390,7 +1392,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         // JDialog.setDefaultLookAndFeelDecorated(true);
         // driverPath = elementPath + "/Drivers";
-        driverPath = elementPath + File.separator + "Drivers";
+        driverPath = elementPath + File.separator + "drivers";
 
         LoadConfigFile();
 

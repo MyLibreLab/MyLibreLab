@@ -51,7 +51,7 @@ package com.github.mylibrelab.elements.front.tworobotics.simplerobotthreed;/*
 
 import java.awt.*;
 import java.util.ArrayList;
-import java3drobot.CanvasRobot3D;
+import robotsimulator3d.CanvasRobot3D;
 
 import javax.swing.*;
 
@@ -126,7 +126,7 @@ public class Panel extends JVSMain implements PanelIF {
             {
                 if (obj instanceof VSInteger) {
                     VSInteger tmpX = (VSInteger) obj;
-                    
+
                     if (panelX.robotExist((int) value)) {
                         tmpX.setValue(-1);
                     } else {
