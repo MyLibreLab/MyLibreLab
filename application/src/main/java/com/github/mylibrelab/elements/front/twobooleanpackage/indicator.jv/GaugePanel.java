@@ -55,6 +55,13 @@ import VisualLogic.PanelIF;
 import VisualLogic.variables.VSBoolean;
 import VisualLogic.variables.VSComboBox;
 import eu.hansolo.steelseries.extras.Indicator;
+import eu.hansolo.steelseries.tools.BackgroundColor;
+import eu.hansolo.steelseries.tools.ColorDef;
+import eu.hansolo.steelseries.tools.FrameDesign;
+import eu.hansolo.steelseries.tools.SymbolType;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class GaugePanel extends JVSMain implements PanelIF {
     private int width = 50, height = 150;

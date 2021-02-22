@@ -96,8 +96,8 @@ public class XLabel extends JVSMain {
             int maxX = element.jGetWidth() / 2;
             int angle = this.angle.getValue();
 
-            int X2 = (int) (maxX * cos(Math.toRadians(angle)));
-            int Y2 = (int) (maxY * sin(Math.toRadians(angle)));
+            int X2 = (int) (maxX * Math.cos(Math.toRadians(angle)));
+            int Y2 = (int) (maxY * Math.sin(Math.toRadians(angle)));
 
             g2.setStroke(new BasicStroke(lineStroke.getValue()));
             int off = lineStroke.getValue() / 2;

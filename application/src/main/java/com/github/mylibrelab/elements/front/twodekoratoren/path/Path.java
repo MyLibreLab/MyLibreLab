@@ -121,7 +121,7 @@ public class Path extends JVSMain {
 
         setName("###GRAPHICSPATH###");
 
-        points = element.jGetPointList();
+        points = (ArrayList<PathPoint>) element.jGetPointList();
         points.clear();
 
         strokeWidth.setValue(1);
@@ -187,7 +187,7 @@ public class Path extends JVSMain {
 
             int size = dis.readInt();
 
-            points = element.jGetPointList();
+            points = (ArrayList<PathPoint>) element.jGetPointList();
             points.clear();
 
             for (int i = 0; i < size; i++) {
