@@ -18,7 +18,7 @@
  *
  */
 
-package com.github.mylibrelab.elements.drivers.myopenlab.rstwothreetwo;// *****************************************************************************
+package com.github.mylibrelab.elements.drivers.myopenlab.rs232;// *****************************************************************************
 
 import java.util.ArrayList;
 

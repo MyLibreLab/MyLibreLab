@@ -18,24 +18,31 @@
  *
  */
 
-package com.github.mylibrelab.elements.drivers.velleman.keightzerofourseven;// *****************************************************************************
+package com.github.mylibrelab.elements.drivers.velleman.k8047;// *****************************************************************************
 
-/**
- *
- * @author Carmelo
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
  */
-public class Datensatz {
-    public int time;
-    public double ch1;
-    public double ch2;
-    public double ch3;
-    public double ch4;
 
-    public Datensatz(int time, double ch1, double ch2, double ch3, double ch4) {
-        this.time = time;
-        this.ch1 = ch1;
-        this.ch2 = ch2;
-        this.ch3 = ch3;
-        this.ch4 = ch4;
-    }
+import com.sun.jna.*;
+import com.sun.jna.win32.StdCallLibrary;
+
+public interface K8047d extends StdCallLibrary {
+    K8047d INSTANCE = (K8047d) Native.loadLibrary("K8047d", K8047d.class);
+
+    void StartDevice();
+
+    void StopDevice();
+
+    void LEDon();
+
+    void LEDoff();
+
+    void nix();
+
+    void SetGain(int channel, int gain);
+
+    void ReadData(int[] data);
+
 }
