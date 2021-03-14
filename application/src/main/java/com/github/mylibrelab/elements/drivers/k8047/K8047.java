@@ -18,7 +18,7 @@
  *
  */
 
-package com.github.mylibrelab.elements.drivers.velleman.keightzerofourseven;// *****************************************************************************
+package com.github.mylibrelab.elements.drivers.velleman.k8047;// *****************************************************************************
 
 import java.util.ArrayList;
 

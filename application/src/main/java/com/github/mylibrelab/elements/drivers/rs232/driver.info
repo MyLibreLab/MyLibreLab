@@ -1,5 +1,5 @@
 Jar         =
-Class       = Driver
+Class       = RS232
 classpath   =
 Copyrights  = Carmelo Salafia
 Website     = http://www.myopenlab.de
