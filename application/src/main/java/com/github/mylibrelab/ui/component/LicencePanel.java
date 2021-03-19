@@ -20,9 +20,10 @@
 
 package com.github.mylibrelab.ui.component;
 
-import java.awt.*;
+import java.awt.BorderLayout;
 
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 
 import com.github.mylibrelab.resources.Resources;

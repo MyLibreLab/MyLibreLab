@@ -20,7 +20,13 @@
 
 package com.github.mylibrelab.ui.settings
 
-import com.github.mylibrelab.settings.api.*
+import com.github.mylibrelab.settings.api.ChoiceProperty
+import com.github.mylibrelab.settings.api.NamedSettingsGroup
+import com.github.mylibrelab.settings.api.SettingsContainer
+import com.github.mylibrelab.settings.api.SettingsGroup
+import com.github.mylibrelab.settings.api.ValueProperty
+import com.github.mylibrelab.settings.api.effective
+import com.github.mylibrelab.settings.api.withType
 import com.github.mylibrelab.text.DynamicText
 import com.github.mylibrelab.text.Text
 import com.github.mylibrelab.text.emptyText

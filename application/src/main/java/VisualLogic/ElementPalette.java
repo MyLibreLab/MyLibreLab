@@ -30,7 +30,15 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -120,7 +128,7 @@ public class ElementPalette extends javax.swing.JPanel {
 
         if (basis != null) {
 
-            if (rootPath.contains("CircuitElements")) {
+            if (rootPath.contains("circuit")) {
 
                 if (basis.elementPaletteCircuitElementsOldPath.length() > 0) {
                     aktuellesVerzeichniss = basis.elementPaletteCircuitElementsOldPath;
@@ -292,7 +300,7 @@ public class ElementPalette extends javax.swing.JPanel {
 
         if (basis != null) {
 
-            if (rootPath.contains("CircuitElements")) {
+            if (rootPath.contains("circuit")) {
                 basis.elementPaletteCircuitElementsOldPath = path;
             } else {
                 basis.elementPaletteFrontElementsOldPath = path;
@@ -1044,7 +1052,7 @@ public class ElementPalette extends javax.swing.JPanel {
                 definition_def.resizeSynchron = false;
                 definition_def.vm = name + ".vlogic";
 
-                if (aktuellesVerzeichniss.contains("CircuitElements")) {
+                if (aktuellesVerzeichniss.contains("circuit")) {
                     definition_def.classfront = "";
                 } else {
                     definition_def.classfront = "TRUE";

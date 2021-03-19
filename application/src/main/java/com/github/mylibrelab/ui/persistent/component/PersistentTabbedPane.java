@@ -20,7 +20,7 @@
 
 package com.github.mylibrelab.ui.persistent.component;
 
-import javax.swing.*;
+import javax.swing.JTabbedPane;
 
 import org.jetbrains.annotations.NotNull;
 

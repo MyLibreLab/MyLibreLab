@@ -20,14 +20,17 @@
 
 package VisualLogic;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Cursor;
 import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Properties;
 
-import javax.swing.*;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
+import javax.swing.JTextPane;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.table.DefaultTableModel;

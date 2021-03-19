@@ -20,7 +20,7 @@
 
 package com.github.mylibrelab.ui.menu;
 
-import javax.swing.*;
+import javax.swing.JPopupMenu;
 
 class ActionMenuSeparator extends JPopupMenu.Separator {
 }

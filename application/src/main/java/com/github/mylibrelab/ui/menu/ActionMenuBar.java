@@ -20,7 +20,7 @@
 
 package com.github.mylibrelab.ui.menu;
 
-import javax.swing.*;
+import javax.swing.JMenuBar;
 
 import com.github.mylibrelab.action.AnAction;
 import com.github.mylibrelab.action.AnActionGroup;

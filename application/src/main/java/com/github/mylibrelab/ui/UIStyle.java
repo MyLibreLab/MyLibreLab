@@ -20,14 +20,22 @@
 
 package com.github.mylibrelab.ui;
 
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Dialog;
+import java.awt.Font;
+import java.awt.Frame;
 import java.awt.font.TextAttribute;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
-import javax.swing.*;
+import javax.swing.AbstractButton;
+import javax.swing.JComponent;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.plaf.UIResource;

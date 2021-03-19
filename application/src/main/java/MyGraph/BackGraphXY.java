@@ -66,7 +66,6 @@ public class BackGraphXY extends GraphBackground {
 
         setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
     }
-
     /*
      * private double getYValue(double x) { double d=0; double min=99999999999999999099999.9; for (int
      * i=0;i<xValues.length;i++)p { d=Math.abs(xValues[i]-x); if (d<min) { min=d; } } return min; }

@@ -22,9 +22,23 @@ package de.myopenlab.update;
 
 import static VisualLogic.Tools.settings;
 
-import java.awt.*;
-import java.io.*;
-import java.net.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.Authenticator;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.PasswordAuthentication;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -38,7 +52,13 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-import javax.swing.*;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.TableColumn;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -312,8 +332,8 @@ public class frmUpdate extends javax.swing.JFrame {
 
         list1.clear();
 
-        ArrayList<String> files1 = FillModelWithData2("CircuitElements");
-        ArrayList<String> files2 = FillModelWithData2("FrontElements");
+        ArrayList<String> files1 = FillModelWithData2("circuit");
+        ArrayList<String> files2 = FillModelWithData2("front");
         ArrayList<String> files3 = FillModelWithData_for_Docs("Documentations");
         ArrayList<String> files4 = FillModelWithData_for_Docs("VirtualMachines");
 
@@ -359,8 +379,8 @@ public class frmUpdate extends javax.swing.JFrame {
             }
         });
 
-        FillData2(files1, model1, "CircuitElements");
-        FillData2(files2, model1, "FrontElements");
+        FillData2(files1, model1, "circuit");
+        FillData2(files2, model1, "front");
         FillData2(files3, model1, "Documentations");
         FillData2(files4, model1, "VirtualMachines");
     }
@@ -601,8 +621,8 @@ public class frmUpdate extends javax.swing.JFrame {
         setColWidth(jTable2, 2, 250);
         setColWidth(jTable2, 3, 150);
 
-        FillModelWithData(model2, "CircuitElements");
-        FillModelWithData(model2, "FrontElements");
+        FillModelWithData(model2, "circuit");
+        FillModelWithData(model2, "front");
         FillModelWithData_forDocumentations(model2, "Documentations");
         FillModelWithData_forDocumentations(model2, "VirtualMachines");
     }

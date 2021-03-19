@@ -20,7 +20,9 @@
 
 package com.github.mylibrelab.ui.border;
 
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Insets;
 
 import javax.swing.border.Border;
 

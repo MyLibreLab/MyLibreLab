@@ -22,7 +22,7 @@ package com.github.mylibrelab.ui.icons;
 
 import java.util.Objects;
 
-import javax.swing.*;
+import javax.swing.Icon;
 
 import org.jetbrains.annotations.NotNull;
 

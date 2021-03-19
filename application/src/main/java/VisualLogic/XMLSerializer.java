@@ -22,7 +22,11 @@ package VisualLogic;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import org.tinylog.Logger;
 

@@ -23,11 +23,14 @@ package com.github.mylibrelab.ui.menu;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.*;
+import javax.swing.JMenu;
 
 import org.jetbrains.annotations.NotNull;
 
-import com.github.mylibrelab.action.*;
+import com.github.mylibrelab.action.ActionContext;
+import com.github.mylibrelab.action.AnAction;
+import com.github.mylibrelab.action.AnActionGroup;
+import com.github.mylibrelab.action.Place;
 import com.github.mylibrelab.text.component.TextMenu;
 
 class ActionMenu extends TextMenu implements ActionMenuElement {

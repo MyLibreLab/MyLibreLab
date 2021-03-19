@@ -20,10 +20,18 @@
 
 package com.github.mylibrelab.ui.dialog;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.event.KeyEvent;
 
-import javax.swing.*;
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+import javax.swing.WindowConstants;
 
 import org.jetbrains.annotations.Nullable;
 

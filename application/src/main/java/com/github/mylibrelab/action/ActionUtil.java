@@ -20,11 +20,15 @@
 
 package com.github.mylibrelab.action;
 
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.AbstractButton;
+import javax.swing.Icon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

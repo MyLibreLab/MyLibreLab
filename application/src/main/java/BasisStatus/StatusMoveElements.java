@@ -20,7 +20,9 @@
 
 package BasisStatus;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.HeadlessException;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 

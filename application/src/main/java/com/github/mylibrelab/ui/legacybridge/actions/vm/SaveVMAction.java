@@ -22,7 +22,10 @@ package com.github.mylibrelab.ui.legacybridge.actions.vm;
 
 import org.jetbrains.annotations.NotNull;
 
-import com.github.mylibrelab.action.*;
+import com.github.mylibrelab.action.Action;
+import com.github.mylibrelab.action.ActionContext;
+import com.github.mylibrelab.action.BasicAction;
+import com.github.mylibrelab.action.ParentGroup;
 import com.github.mylibrelab.resources.Resources;
 
 @Action

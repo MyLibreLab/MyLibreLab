@@ -25,7 +25,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import javax.swing.*;
+import javax.swing.JComponent;
 
 import com.github.mylibrelab.annotations.ProviderSpec;
 

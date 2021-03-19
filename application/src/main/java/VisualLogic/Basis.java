@@ -894,13 +894,13 @@ public class Basis implements ElementIF, VSBasisIF {
 
     public void copy() {
 
-        String filename = getFrameMain().getUserURL().getFile() + "/Ablage.tmp";
+        String filename = FrameMain.getUserURL().getFile() + "/Ablage.tmp";
         saveFile(filename, true);
 
     }
 
     public void paste() {
-        String filename = getFrameMain().getUserURL().getFile() + "/Ablage.tmp";
+        String filename = FrameMain.getUserURL().getFile() + "/Ablage.tmp";
 
         if (new File(filename).exists()) {
             loadFile(filename, true);
