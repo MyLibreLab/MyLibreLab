@@ -390,7 +390,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
         settings.setVersion(Version.strApplicationVersion);
 
-        // Load Drivers from "Drivers" Directory"
+        // Load Drivers from "drivers" Directory"
         Tools.driverManager = new DriverManager(this);
         NewSerialDriverManager.NewDriverManager(this); // v3.12.0
         final List<Path> drivers = Tools.listDrivers(driverPath);
@@ -1482,42 +1482,42 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     public void createUserElementSubDirs(String path) {
         path = new File(path).getAbsolutePath();
 
-        final File userdefFile1 = new File(elementPath + File.separator + "CircuitElements" + File.separator + "2user-defined"
+        final File userdefFile1 = new File(elementPath + File.separator + "circuit" + File.separator + "2user-defined"
             + File.separator + "definition.def");
         // File userdefFile1 = new File(elementPath + "/CircuitElements/2user-defined/definition.def");
-        final File userdefFile2 = new File(elementPath + File.separator + "FrontElements" + File.separator + "2user-defined"
+        final File userdefFile2 = new File(elementPath + File.separator + "front" + File.separator + "2user-defined"
             + File.separator + "definition.def");
         // File userdefFile2 = new File(elementPath + "/FrontElements/2user-defined/definition.def");
 
         // Tools.saveText(userdefFile1, createDefString(new File(path +
         // "/CircuitElements").getAbsolutePath()));
         Tools.saveText(userdefFile1,
-            createDefString(new File(path + File.separator + "CircuitElements").getAbsolutePath()));
+            createDefString(new File(path + File.separator + "circuit").getAbsolutePath()));
         // Tools.saveText(userdefFile2, createDefString(new File(path +
         // "/FrontElements").getAbsolutePath()));
         Tools.saveText(userdefFile2,
-            createDefString(new File(path + File.separator + "FrontElements").getAbsolutePath()));
+            createDefString(new File(path + File.separator + "front").getAbsolutePath()));
 
         new File(path).mkdirs();
-        new File(path + File.separator + "CircuitElements").mkdirs();
+        new File(path + File.separator + "circuit").mkdirs();
         // new File(path + "/CircuitElements").mkdirs();
-        new File(path + File.separator + "FrontElements").mkdirs();
+        new File(path + File.separator + "front").mkdirs();
         // new File(path + "/FrontElements").mkdirs();
 
-        if (!new File(path + File.separator + "CircuitElements" + File.separator + "definition.def").exists()) {
-            final String src = elementPath + File.separator + "UserElementsTemplate" + File.separator + "CircuitElements"
+        if (!new File(path + File.separator + "circuit" + File.separator + "definition.def").exists()) {
+            final String src = elementPath + File.separator + "UserElementsTemplate" + File.separator + "circuit"
                 + File.separator + "definition.def";
-            final String dst = path + File.separator + "CircuitElements" + File.separator + "definition.def";
+            final String dst = path + File.separator + "circuit" + File.separator + "definition.def";
             try {
                 Tools.copyFile(new File(src), new File(dst));
             } catch (final IOException ex) {
                 ex.printStackTrace();
             }
         }
-        if (!new File(path + File.separator + "CircuitElements" + File.separator + "icon.png").exists()) {
-            final String src = elementPath + File.separator + "UserElementsTemplate" + File.separator + "CircuitElements"
+        if (!new File(path + File.separator + "circuit" + File.separator + "icon.png").exists()) {
+            final String src = elementPath + File.separator + "UserElementsTemplate" + File.separator + "circuit"
                 + File.separator + "icon.png";
-            final String dst = path + File.separator + "CircuitElements" + File.separator + "icon.png";
+            final String dst = path + File.separator + "circuit" + File.separator + "icon.png";
             try {
                 Tools.copyFile(new File(src), new File(dst));
             } catch (final IOException ex) {
@@ -1525,20 +1525,20 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
             }
         }
 
-        if (!new File(path + File.separator + "FrontElements" + File.separator + "definition.def").exists()) {
-            final String src = elementPath + File.separator + "UserElementsTemplate" + File.separator + "FrontElements"
+        if (!new File(path + File.separator + "front" + File.separator + "definition.def").exists()) {
+            final String src = elementPath + File.separator + "UserElementsTemplate" + File.separator + "front"
                 + File.separator + "definition.def";
-            final String dst = path + File.separator + "FrontElements" + File.separator + "definition.def";
+            final String dst = path + File.separator + "front" + File.separator + "definition.def";
             try {
                 Tools.copyFile(new File(src), new File(dst));
             } catch (final IOException ex) {
                 ex.printStackTrace();
             }
         }
-        if (!new File(path + File.separator + "FrontElements" + File.separator + "icon.png").exists()) {
-            final String src = elementPath + File.separator + "UserElementsTemplate" + File.separator + "FrontElements"
+        if (!new File(path + File.separator + "front" + File.separator + "icon.png").exists()) {
+            final String src = elementPath + File.separator + "UserElementsTemplate" + File.separator + "front"
                 + File.separator + "icon.png";
-            final String dst = path + File.separator + "FrontElements" + File.separator + "icon.png";
+            final String dst = path + File.separator + "front" + File.separator + "icon.png";
             try {
                 Tools.copyFile(new File(src), new File(dst));
             } catch (final IOException ex) {
@@ -1601,16 +1601,16 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
             // Circuit Elements
             // String elPath = elementPath + "\\CircuitElements\\user-defined";
-            final String elPath = elementPath + File.separator + "CircuitElements" + File.separator + "user-defined";
+            final String elPath = elementPath + File.separator + "circuit" + File.separator + "user-defined";
             // String actualPath = Tools.userElementPath + "\\CircuitElements\\";
-            final String actualPath = Tools.userElementPath + File.separator + "CircuitElements" + File.separator;
+            final String actualPath = Tools.userElementPath + File.separator + "circuit" + File.separator;
 
             copyUserdefElementsRecursive(elPath, actualPath);
 
             // FrontPanel Elements
-            final String elPathFront = elementPath + File.separator + "FrontElements" + File.separator + "user-defined";
+            final String elPathFront = elementPath + File.separator + "front" + File.separator + "user-defined";
             // String elPathFront = elementPath + "\\FrontElements\\user-defined";
-            final String actualPathFront = Tools.userElementPath + File.separator + "FrontElements" + File.separator;
+            final String actualPathFront = Tools.userElementPath + File.separator + "front" + File.separator;
             // String actualPathFront = Tools.userElementPath + "\\FrontElements\\";
 
             copyUserdefElementsRecursive(elPathFront, actualPathFront);
@@ -4028,9 +4028,9 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
                 // String circuitPath = new File(Tools.userElementPath + "/CircuitElements").getAbsolutePath();
                 final String circuitPath =
-                    new File(Tools.userElementPath + File.separator + "CircuitElements").getAbsolutePath();
+                    new File(Tools.userElementPath + File.separator + "circuit").getAbsolutePath();
                 // String frontPath = new File(Tools.userElementPath + "/FrontElements").getAbsolutePath();
-                final String frontPath = new File(Tools.userElementPath + File.separator + "FrontElements").getAbsolutePath();
+                final String frontPath = new File(Tools.userElementPath + File.separator + "front").getAbsolutePath();
 
                 /*
                  * if (grp.equalsIgnoreCase(circuitPath) || grp.equalsIgnoreCase(frontPath)) {
@@ -4069,7 +4069,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
                         // elementPaletteCircuit.aktuellesVerzeichniss = "/CircuitElements/2user-defined/";
                         elementPaletteCircuit.aktuellesVerzeichniss =
-                            File.separator + "CircuitElements" + File.separator + "2user-defined" + File.separator;
+                            File.separator + "circuit" + File.separator + "2user-defined" + File.separator;
                         elementPaletteCircuit.loadFolder(elementPaletteCircuit.aktuellesVerzeichniss);
                     } else {
                         jPanelElementPalette.removeAll();
@@ -4079,7 +4079,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
 
                         // elementPaletteFront.aktuellesVerzeichniss = "/FrontElements/2user-defined/";
                         elementPaletteFront.aktuellesVerzeichniss =
-                            File.separator + "FrontElements" + File.separator + "2user-defined" + File.separator;
+                            File.separator + "front" + File.separator + "2user-defined" + File.separator;
                         elementPaletteFront.loadFolder(elementPaletteFront.aktuellesVerzeichniss);
                     }
 
@@ -4090,10 +4090,10 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
                     String strGrp = "";
                     if (DialogNewJavaComponentAssistent.type == 0) {
                         // strGrp = "/CircuitElements/";
-                        strGrp = File.separator + "CircuitElements" + File.separator;
+                        strGrp = File.separator + "circuit" + File.separator;
                     } else {
                         // strGrp = "/FrontElements/";
-                        strGrp = File.separator + "FrontElements" + File.separator;
+                        strGrp = File.separator + "front" + File.separator;
                     }
 
                     openEditor(Tools.userElementPath + strGrp + DialogNewJavaComponentAssistent.compName);

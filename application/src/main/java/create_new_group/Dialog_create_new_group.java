@@ -119,11 +119,11 @@ public class Dialog_create_new_group extends javax.swing.JDialog {
 
     private String getElementType() {
         String type = "";
-        if (path.contains("CircuitElements")) {
-            type = "CircuitElements";
+        if (path.contains("circuit")) {
+            type = "circuit";
         }
-        if (path.contains("FrontElements")) {
-            type = "FrontElements";
+        if (path.contains("front")) {
+            type = "front";
         }
         if (path.contains("Documentations")) {
             type = "Documentations";
@@ -698,10 +698,10 @@ public class Dialog_create_new_group extends javax.swing.JDialog {
         String x = "";
         if (mode.equalsIgnoreCase("add")) {
 
-            if (type.equalsIgnoreCase("CircuitElements")) {
+            if (type.equalsIgnoreCase("circuit")) {
                 x = "ce";
             }
-            if (type.equalsIgnoreCase("FrontElements")) {
+            if (type.equalsIgnoreCase("front")) {
                 x = "fe";
             }
             if (type.equalsIgnoreCase("Documentations")) {

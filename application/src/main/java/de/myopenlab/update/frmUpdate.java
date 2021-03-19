@@ -332,8 +332,8 @@ public class frmUpdate extends javax.swing.JFrame {
 
         list1.clear();
 
-        ArrayList<String> files1 = FillModelWithData2("CircuitElements");
-        ArrayList<String> files2 = FillModelWithData2("FrontElements");
+        ArrayList<String> files1 = FillModelWithData2("circuit");
+        ArrayList<String> files2 = FillModelWithData2("front");
         ArrayList<String> files3 = FillModelWithData_for_Docs("Documentations");
         ArrayList<String> files4 = FillModelWithData_for_Docs("VirtualMachines");
 
@@ -379,8 +379,8 @@ public class frmUpdate extends javax.swing.JFrame {
             }
         });
 
-        FillData2(files1, model1, "CircuitElements");
-        FillData2(files2, model1, "FrontElements");
+        FillData2(files1, model1, "circuit");
+        FillData2(files2, model1, "front");
         FillData2(files3, model1, "Documentations");
         FillData2(files4, model1, "VirtualMachines");
     }
@@ -621,8 +621,8 @@ public class frmUpdate extends javax.swing.JFrame {
         setColWidth(jTable2, 2, 250);
         setColWidth(jTable2, 3, 150);
 
-        FillModelWithData(model2, "CircuitElements");
-        FillModelWithData(model2, "FrontElements");
+        FillModelWithData(model2, "circuit");
+        FillModelWithData(model2, "front");
         FillModelWithData_forDocumentations(model2, "Documentations");
         FillModelWithData_forDocumentations(model2, "VirtualMachines");
     }
