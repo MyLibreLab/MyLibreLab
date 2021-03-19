@@ -96,26 +96,26 @@ public class Tools {
     public static String mapFile(String fileName) {
         fileName = new File(fileName).getAbsolutePath();
 
-        int index1 = fileName.indexOf("CircuitElements" + File.separator + "2user-defined");
+        int index1 = fileName.indexOf("circuit" + File.separator + "2user-defined");
         if (index1 > 0) {
 
-            String f1 = new File(elementPath + File.separator + "CircuitElements" + File.separator + "2user-defined")
+            String f1 = new File(elementPath + File.separator + "circuit" + File.separator + "2user-defined")
                     .getAbsolutePath();
             String f2 = new File(fileName).getAbsolutePath();
 
             String str = f2.substring(f1.length());
-            fileName = userElementPath + File.separator + "CircuitElements" + File.separator + str;
+            fileName = userElementPath + File.separator + "circuit" + File.separator + str;
         }
 
-        int index2 = fileName.indexOf("FrontElements" + File.separator + "2user-defined");
+        int index2 = fileName.indexOf("front" + File.separator + "2user-defined");
         if (index2 > 0) {
 
-            String f1 = new File(elementPath + File.separator + "FrontElements" + File.separator + "2user-defined")
+            String f1 = new File(elementPath + File.separator + "front" + File.separator + "2user-defined")
                     .getAbsolutePath();
             String f2 = new File(fileName).getAbsolutePath();
 
             String str = f2.substring(f1.length());
-            fileName = userElementPath + File.separator + "FrontElements" + File.separator + str;
+            fileName = userElementPath + File.separator + "front" + File.separator + str;
         }
 
         return fileName;

@@ -18,7 +18,7 @@
  *
  */
 
-package elements.drivers.velleman.k8047;// *****************************************************************************
+package elements.drivers.velleman_k8047;// *****************************************************************************
 
 /*
  * To change this template, choose Tools | Templates
