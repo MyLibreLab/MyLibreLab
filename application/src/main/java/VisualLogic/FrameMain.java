@@ -85,8 +85,7 @@ public class FrameMain extends javax.swing.JFrame implements MyOpenLabOwnerIF, p
     private static final long serialVersionUID = 1102936935496482476L;
     // public static String elementPath = ""; //NOI18N
     public static String elementPath = System.getProperty("user.dir") + File.separator + "application" + File.separator + "src"
-        + File.separator + "main" + File.separator + "java" + File.separator + "com" + File.separator + "github" + File.separator + "mylibrelab"
-        + File.separator + "elements";
+        + File.separator + "main" + File.separator + "java" + File.separator + "elements";
     public static FrameMain frm;
     public static Image iconImage = null;
     public static URL userURL = null;

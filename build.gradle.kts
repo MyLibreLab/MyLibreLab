@@ -80,6 +80,7 @@ allprojects {
                     "**/create_new_group/",
                     "**/CustomColorPicker/",
                     "**/de/myopenlab/update/",
+                    "**/elements",
                     "**/MyGraph/",
                     "**/MyParser/",
                     "**/ParserCode/",
