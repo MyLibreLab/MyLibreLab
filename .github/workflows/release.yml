@@ -29,8 +29,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Build for Linux
-        run: ./gradlew jpackage
+      - name: Build dependencies first
+        run: ./gradlew build -PskipAutostyle -PskipSonarlint --info --stacktrace
+
+      - name: Build runtime image
+        run: ./gradlew :mylibrelab-application:runtimeZip -PskipAutostyle -PskipSonarlint --info --stacktrace
+
+      - name: Build installer
+        run: ./gradlew :mylibrelab-application:jpackage -PskipAutostyle -PskipSonarlint --info --stacktrace
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
@@ -60,8 +66,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Build for Windows
-        run: ./gradlew.bat jpackage
+      - name: Build dependencies first
+        run: ./gradlew build -PskipAutostyle -PskipSonarlint --info --stacktrace
+
+      - name: Build runtime image
+        run: ./gradlew :mylibrelab-application:runtimeZip -PskipAutostyle -PskipSonarlint --info --stacktrace
+
+      - name: Build installer
+        run: ./gradlew :mylibrelab-application:jpackage -PskipAutostyle -PskipSonarlint --info --stacktrace
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
@@ -79,7 +91,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '15'
-          distribution: 'adopt'
+          distribution: 'zulu'
 
       - name: Cache Gradle packages
         uses: actions/cache@v3
@@ -91,8 +103,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Build for macOS
-        run: ./gradlew jpackage
+      - name: Build dependencies first
+        run: ./gradlew build -PskipAutostyle -PskipSonarlint --info --stacktrace
+
+      - name: Build runtime image
+        run: ./gradlew :mylibrelab-application:runtimeZip -PskipAutostyle -PskipSonarlint --info --stacktrace
+
+      - name: Build installer
+        run: ./gradlew :mylibrelab-application:jpackage -PskipAutostyle -PskipSonarlint --info --stacktrace
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
@@ -110,7 +128,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '15'
-          distribution: 'adopt'
+          distribution: 'zulu'
 
       - name: Cache Gradle packages
         uses: actions/cache@v3
@@ -122,8 +140,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Build for macOS (ARM64)
-        run: ./gradlew jpackage
+      - name: Build dependencies first
+        run: ./gradlew build -PskipAutostyle -PskipSonarlint --info --stacktrace
+
+      - name: Build runtime image
+        run: ./gradlew :mylibrelab-application:runtimeZip -PskipAutostyle -PskipSonarlint --info --stacktrace
+
+      - name: Build installer
+        run: ./gradlew :mylibrelab-application:jpackage -PskipAutostyle -PskipSonarlint --info --stacktrace
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
