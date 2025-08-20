@@ -20,6 +20,8 @@
 
 package com.github.mylibrelab.ui.module;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.github.weisj.darklaf.components.tabframe.TabFramePopup;
-import com.github.weisj.darklaf.util.DarkUIUtil;
+// import com.github.weisj.darklaf.util.DarkUIUtil; // Replaced with simple focus check
 
 public class ModuleState {
     private final Map<ApplicationModule, ModuleInfo> moduleInfoMap = new HashMap<>();
@@ -87,7 +89,33 @@ public class ModuleState {
          * @return true if the associated view is the ancestor of the current focus component.
          */
         public boolean hasFocus() {
-            return DarkUIUtil.hasFocus(popup.getContentPane());
+            // Simple implementation to replace DarkUIUtil.hasFocus
+            Component contentPane = popup.getContentPane();
+            if (contentPane instanceof Container) {
+                return hasFocusInHierarchy((Container) contentPane);
+            }
+            return contentPane.hasFocus();
+        }
+        
+        /**
+         * Simple helper method to check if any component in the hierarchy has focus
+         */
+        private boolean hasFocusInHierarchy(Container container) {
+            if (container.hasFocus()) {
+                return true;
+            }
+            
+            for (Component component : container.getComponents()) {
+                if (component.hasFocus()) {
+                    return true;
+                }
+                if (component instanceof Container) {
+                    if (hasFocusInHierarchy((Container) component)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

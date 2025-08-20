@@ -21,12 +21,13 @@
 package com.github.mylibrelab.ui.icons;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 
 import org.jetbrains.annotations.NotNull;
 
-import com.github.weisj.darklaf.icons.IconLoader;
+// import com.github.weisj.darklaf.icons.IconLoader; // Replaced with simple implementation
 
 
 /**
@@ -40,7 +41,21 @@ public class AllIcons {
 
     @NotNull
     public static Image asWindowIcon(@NotNull final Icon icon, final Window window) {
-        return IconLoader.createFrameIcon(icon, window);
+        // Simple implementation to replace IconLoader.createFrameIcon
+        if (icon instanceof ImageIcon) {
+            return ((ImageIcon) icon).getImage();
+        }
+        
+        // Convert Icon to Image
+        BufferedImage image = new BufferedImage(
+            icon.getIconWidth(), 
+            icon.getIconHeight(), 
+            BufferedImage.TYPE_INT_ARGB
+        );
+        Graphics2D g = image.createGraphics();
+        icon.paintIcon(null, g, 0, 0);
+        g.dispose();
+        return image;
     }
 
     public static final @NotNull Icon LOGO = Icons.load("mylibrelab.svg");

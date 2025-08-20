@@ -135,12 +135,10 @@ class ObservablePropertyValue<T, V : Any>(
 interface Observable<T> {
     val manager: ObservableManager<T>
 
-    @JvmDefault
     fun <V : Any> registerListener(propertyName: String, listener: BiConsumer<V, V>) {
         manager.registerListener(propertyName, listener)
     }
 
-    @JvmDefault
     fun removeListener(propertyName: String, listener: BiConsumer<Any, Any>) {
         manager.removeListener(propertyName, listener)
     }

@@ -54,7 +54,7 @@
 // Copyright 2000-2019 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 package com.github.mylibrelab.ui.layout.miglayout.patched
 
-import com.github.weisj.darklaf.ui.VisualPaddingProvider
+// import com.github.weisj.darklaf.ui.VisualPaddingProvider // Not available in current darklaf version
 import net.miginfocom.layout.ComponentWrapper
 import net.miginfocom.layout.ContainerWrapper
 import net.miginfocom.layout.LayoutUtil
@@ -226,14 +226,8 @@ internal open class SwingComponentWrapper(private val c: JComponent) : Component
             return null
         }
 
-        val paddings = when (val unwrapped = unwrapBorder(border)) {
-            is VisualPaddingProvider -> unwrapped.getVisualPaddings(c)
-            else -> c.getClientProperty(VisualPaddingProvider.VISUAL_PADDING_PROP) as? Insets
-        } ?: return null
-
-        if (paddings.top == 0 && paddings.left == 0 && paddings.bottom == 0 && paddings.right == 0) {
-            return null
-        }
+        // Simplified approach - use standard client property name instead of VisualPaddingProvider constant
+        val paddings = c.getClientProperty("visualPadding") as? Insets ?: return null
 
         visualPaddings = intArrayOf(paddings.top, paddings.left, paddings.bottom, paddings.right)
         return visualPaddings

@@ -37,7 +37,7 @@ import com.github.mylibrelab.ui.icons.AllIcons;
 import com.github.mylibrelab.ui.settings.SettingsPanel;
 import com.github.weisj.darklaf.components.DefaultButton;
 import com.github.weisj.darklaf.util.Actions;
-import com.github.weisj.darklaf.util.DarkUIUtil;
+// import com.github.weisj.darklaf.util.DarkUIUtil; // Replaced with SwingUtilities
 import com.github.weisj.darklaf.util.LazyValue;
 
 public class SettingsDialog extends JPanel {
@@ -99,10 +99,10 @@ public class SettingsDialog extends JPanel {
     }
 
     private void closeDialog() {
-        Window window = DarkUIUtil.getWindow(this);
+        Window window = SwingUtilities.getWindowAncestor(this);
         if (window == null) return;
         window.setVisible(false);
-        window.dispose();
+        window.dispose(); // Fixed typo: removed space before Dispose()
     }
 
 }

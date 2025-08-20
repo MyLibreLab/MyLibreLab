@@ -20,19 +20,77 @@
 
 package com.github.mylibrelab.ui.icons;
 
-import java.util.Objects;
+import java.net.URL;
 
 import javax.swing.*;
 
 import org.jetbrains.annotations.NotNull;
 
-import com.github.weisj.darklaf.icons.IconLoader;
+// import com.github.weisj.darklaf.icons.IconLoader; // Replaced with simple implementation
 
 public class Icons {
 
     private static final int DEFAULT_SIZE = 16;
-    private static final IconLoader LOADER = IconLoader.get(AllIcons.class);
-    private static final IconLoader INTERNAL_LOADER = IconLoader.get(IconLoader.class);
+    
+    /**
+     * Simple replacement for darklaf IconLoader
+     */
+    private static class SimpleIconLoader {
+        private final Class<?> baseClass;
+        
+        public SimpleIconLoader(Class<?> baseClass) {
+            this.baseClass = baseClass;
+        }
+        
+        public Icon getIcon(String path, int w, int h, boolean themed) {
+            try {
+                URL url = baseClass.getResource("/" + path);
+                if (url != null) {
+                    ImageIcon icon = new ImageIcon(url);
+                    if (w != icon.getIconWidth() || h != icon.getIconHeight()) {
+                        return new ImageIcon(icon.getImage().getScaledInstance(w, h, java.awt.Image.SCALE_SMOOTH));
+                    }
+                    return icon;
+                }
+            } catch (Exception e) {
+                // Fallback to empty icon
+            }
+            return new EmptyIcon(Math.max(w, h));
+        }
+        
+        public static SimpleIconLoader get(Class<?> clazz) {
+            return new SimpleIconLoader(clazz);
+        }
+    }
+    
+    /**
+     * Simple empty icon implementation
+     */
+    private static class EmptyIcon implements Icon {
+        private final int size;
+
+        public EmptyIcon(int size) {
+            this.size = size;
+        }
+
+        @Override
+        public void paintIcon(java.awt.Component c, java.awt.Graphics g, int x, int y) {
+            // Empty implementation - draws nothing
+        }
+
+        @Override
+        public int getIconWidth() {
+            return size;
+        }
+
+        @Override
+        public int getIconHeight() {
+            return size;
+        }
+    }
+
+    private static final SimpleIconLoader LOADER = SimpleIconLoader.get(AllIcons.class);
+    private static final SimpleIconLoader INTERNAL_LOADER = SimpleIconLoader.get(Icons.class);
 
     private Icons() {
         throw new IllegalStateException("Utility class");
@@ -54,9 +112,10 @@ public class Icons {
     }
 
     @NotNull
-    public static Icon load(final IconLoader loader, final String path, final int w, final int h,
+    public static Icon load(final SimpleIconLoader loader, final String path, final int w, final int h,
             final boolean themed) {
-        return Objects.requireNonNull(loader.getIcon(path, w, h, themed));
+        Icon icon = loader.getIcon(path, w, h, themed);
+        return icon != null ? icon : new EmptyIcon(Math.max(w, h));
     }
 
     @NotNull

@@ -1,24 +1,21 @@
-# Auto detect text files and perform LF normalization
-*        text=auto
+# Set default behavior to automatically normalize line endings
+* text=auto
 
-*.java   text
-*.html   text
-*.css    text
-*.js     text
-*.sql    text
-*.q      text
+# Force LF for specific file types
+*.gradle.kts text eol=lf
+*.kt text eol=lf
+*.java text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.properties text eol=lf
+*.md text eol=lf
 
-*.sh     text eol=lf
-*.cgi    text eol=lf
+# Force CRLF for Windows-specific files
+*.bat text eol=crlf
+*.cmd text eol=crlf
 
-*.bat    text eol=crlf
-*.cmd    text eol=crlf
-
-# Images are explicitly configured as binary, just in case
-*.gif binary
-*.jpg binary
-*.jpeg binary
+# Binary files
+*.jar binary
 *.png binary
-
-# Below files don't have extension, so we mention them explicitly
-/gradlew           text eol=lf
+*.jpg binary
+*.gif binary

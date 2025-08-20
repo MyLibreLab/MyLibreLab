@@ -44,11 +44,11 @@ import com.github.mylibrelab.ui.view.ViewFactory;
 import com.github.weisj.darklaf.components.ComponentHelper;
 import com.github.weisj.darklaf.components.OverlayScrollPane;
 import com.github.weisj.darklaf.focus.FocusParentHelper;
-import com.github.weisj.darklaf.icons.EmptyIcon;
+// import com.github.weisj.darklaf.icons.EmptyIcon; // Replaced with custom EmptyIcon
 import com.github.weisj.darklaf.layout.LayoutHelper;
 import com.github.weisj.darklaf.ui.splitpane.SplitPaneConstants;
 import com.github.weisj.darklaf.util.Alignment;
-import com.github.weisj.darklaf.util.DarkUIUtil;
+// import com.github.weisj.darklaf.util.DarkUIUtil; // Replaced with SwingUtilities
 import com.github.weisj.darklaf.util.PropertyKey;
 
 /**
@@ -62,6 +62,32 @@ public class SettingsPanel extends JPanel implements AWTEventListener {
     private final CardLayout cardLayout;
     private final JButton resetButton;
     private SettingsContainer currentContainer;
+
+    /**
+     * Simple replacement for darklaf EmptyIcon
+     */
+    private static class EmptyIcon implements Icon {
+        private final int size;
+
+        public EmptyIcon(int size) {
+            this.size = size;
+        }
+
+        @Override
+        public void paintIcon(Component c, Graphics g, int x, int y) {
+            // Empty implementation - draws nothing
+        }
+
+        @Override
+        public int getIconWidth() {
+            return size;
+        }
+
+        @Override
+        public int getIconHeight() {
+            return size;
+        }
+    }
 
     public SettingsPanel(@NotNull final List<SettingsContainer> settingsContainers) {
         setLayout(new BorderLayout());
@@ -227,9 +253,9 @@ public class SettingsPanel extends JPanel implements AWTEventListener {
     }
 
     private boolean isPopupOverEditor(Component component) {
-        Window editor = DarkUIUtil.getWindow(this);
+        Window editor = SwingUtilities.getWindowAncestor(this);
         if (editor != null) {
-            Window popup = DarkUIUtil.getWindow(component);
+            Window popup = SwingUtilities.getWindowAncestor(component);
             // light-weight popup is located on the layered pane of the same window
             if (popup == editor) {
                 return true;
@@ -257,7 +283,7 @@ public class SettingsPanel extends JPanel implements AWTEventListener {
                     selected, expanded, leaf, row, hasFocus);
             if (presentation != null) {
                 Icon icon = presentation.getIcon();
-                if (icon == null) icon = EmptyIcon.create(16);
+                if (icon == null) icon = new EmptyIcon(16);
                 setIcon(icon);
             }
             return this;

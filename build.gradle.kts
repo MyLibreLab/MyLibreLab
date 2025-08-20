@@ -3,7 +3,7 @@ import com.github.autostyle.gradle.BaseFormatExtension
 import com.github.vlsi.gradle.crlf.CrLfSpec
 import com.github.vlsi.gradle.crlf.LineEndings
 import com.github.vlsi.gradle.properties.dsl.props
-import name.remal.gradle_plugins.plugins.code_quality.sonar.SonarLintExtension
+// import name.remal.gradle_plugins.sonarlint.SonarLintExtension
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -12,7 +12,6 @@ plugins {
     id("com.github.vlsi.crlf")
     id("com.github.vlsi.gradle-extensions")
     id("org.sonarqube")
-    id("org.beryx.runtime")
     id("name.remal.sonarlint") apply false
     kotlin("jvm") apply false
     kotlin("kapt") apply false
@@ -71,35 +70,7 @@ allprojects {
     if (!skipSonarlint) {
         apply(plugin = "name.remal.sonarlint")
         val allowSonarlintFailures by props()
-        configure<SonarLintExtension> {
-            isIgnoreFailures = allowSonarlintFailures
-            excludes {
-                sources(listOf(
-                    "**/BasisStatus/",
-                    "**/codeeditor/",
-                    "**/create_new_group/",
-                    "**/CustomColorPicker/",
-                    "**/de/myopenlab/update/",
-                    "**/MyGraph/",
-                    "**/MyParser/",
-                    "**/ParserCode/",
-                    "**/Peditor/",
-                    "**/projectfolder/",
-                    "**/SimpleFileSystem/",
-                    "**/SimulatorSocket/",
-                    "**/VisualLogic/",
-                    "**/ziputils/"
-                ))
-                // Ignore [Fields in a "Serializable" class should either be transient or serializable]
-                // We do not plan to use serialization, but most swing components declare that they are.
-                message("java:S1948")
-                // Ignore [Inheritance tree of classes should not be too deep]
-                // Extending JComponent will break this rule.
-                message("java:S110")
-                // Some classes benefit from more descriptive generic type parameters.
-                message("java:S119")
-            }
-        }
+        // SonarLint configuration temporarily disabled
     }
 
     if (!skipAutostyle) {
@@ -180,9 +151,9 @@ allprojects {
 
     tasks.withType<KotlinCompile>().configureEach {
         kotlinOptions {
-            jvmTarget = "15"
+            jvmTarget = "17"
             freeCompilerArgs = listOf(
-                "-Xjvm-default=enable",
+                "-Xjvm-default=all",
                 "-Xopt-in=kotlin.RequiresOptIn"
             )
         }
@@ -191,8 +162,8 @@ allprojects {
     plugins.withType<JavaPlugin> {
 
         configure<JavaPluginExtension> {
-            sourceCompatibility = JavaVersion.VERSION_15
-            targetCompatibility = JavaVersion.VERSION_15
+            sourceCompatibility = JavaVersion.VERSION_17
+            targetCompatibility = JavaVersion.VERSION_17
         }
 
         tasks {

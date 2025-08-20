@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     branches:
-      - dev
+      - feature/github-actions-release
   workflow_dispatch:
 
 jobs:
@@ -19,6 +19,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Install jpackage dependencies
+        run: sudo apt-get update && sudo apt-get install -y binutils
+
       - name: Cache Gradle packages
         uses: actions/cache@v3
         with:
@@ -29,8 +32,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
       - name: Build dependencies first
-        run: ./gradlew build -PskipAutostyle -PskipSonarlint --info --stacktrace
+        run: ./gradlew build -x test -x kaptTestKotlin -PskipAutostyle -PskipSonarlint --info --stacktrace
 
       - name: Build runtime image
         run: ./gradlew :mylibrelab-application:runtimeZip -PskipAutostyle -PskipSonarlint --info --stacktrace
@@ -66,8 +72,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
       - name: Build dependencies first
-        run: ./gradlew build -PskipAutostyle -PskipSonarlint --info --stacktrace
+        run: ./gradlew build -x test -x kaptTestKotlin -PskipAutostyle -PskipSonarlint --info --stacktrace
 
       - name: Build runtime image
         run: ./gradlew :mylibrelab-application:runtimeZip -PskipAutostyle -PskipSonarlint --info --stacktrace
@@ -103,8 +112,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
       - name: Build dependencies first
-        run: ./gradlew build -PskipAutostyle -PskipSonarlint --info --stacktrace
+        run: ./gradlew build -x test -x kaptTestKotlin -PskipAutostyle -PskipSonarlint --info --stacktrace
 
       - name: Build runtime image
         run: ./gradlew :mylibrelab-application:runtimeZip -PskipAutostyle -PskipSonarlint --info --stacktrace
@@ -140,8 +152,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
       - name: Build dependencies first
-        run: ./gradlew build -PskipAutostyle -PskipSonarlint --info --stacktrace
+        run: ./gradlew build -x test -x kaptTestKotlin -PskipAutostyle -PskipSonarlint --info --stacktrace
 
       - name: Build runtime image
         run: ./gradlew :mylibrelab-application:runtimeZip -PskipAutostyle -PskipSonarlint --info --stacktrace

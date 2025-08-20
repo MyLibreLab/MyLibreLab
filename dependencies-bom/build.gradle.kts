@@ -40,9 +40,17 @@ dependencies {
         apiv("org.netbeans.external:AbsoluteLayout")
         apiv("org.swinglabs:swing-layout")
         apiv("com.miglayout:miglayout-swing", "miglayout")
+        
+        // Complete darklaf constraints - all using "darklaf" version property
         apiv("com.github.weisj:darklaf-core", "darklaf")
         apiv("com.github.weisj:darklaf-property-loader", "darklaf")
-        apiv("com.github.weisj:darklaf-extensions-kotlin", "darklaf-extensions")
+        apiv("com.github.weisj:darklaf-theme", "darklaf")
+        apiv("com.github.weisj:darklaf-utils", "darklaf")
+        apiv("com.github.weisj:darklaf-platform-base", "darklaf")
+        apiv("com.github.weisj:darklaf-theme-spec", "darklaf")
+
+        // modules for icons and utilities
+        apiv("com.github.weisj:darklaf-iconset", "darklaf")
 
         apiv("com.pi4j:pi4j-core", "pi4j")
         apiv("com.pi4j:pi4j-device", "pi4j")
