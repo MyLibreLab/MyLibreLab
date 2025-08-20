@@ -194,16 +194,29 @@ jobs:
         run: |
           echo "Downloaded artifacts structure:"
           find artifacts -type f -name "*" | head -20
+          echo "Total files found:"
+          find artifacts -type f | wc -l
+
+      - name: Prepare release assets
+        run: |
+          mkdir -p release-assets
+          # Copy all files from artifact directories to a flat structure
+          find artifacts -type f \( -name "*.exe" -o -name "*.deb" -o -name "*.pkg" -o -name "*.dmg" -o -name "*.tar.gz" -o -name "*.zip" -o -name "*.msi" \) -exec cp {} release-assets/ \;
+          # List what we're about to release
+          echo "Files to be released:"
+          ls -la release-assets/
 
       - name: Generate checksums
         run: |
-          cd artifacts
-          find . -type f \( -name "*.exe" -o -name "*.deb" -o -name "*.pkg" -o -name "*.dmg" -o -name "*.tar.gz" -o -name "*.zip" \) -exec sh -c '
-            for file; do
+          cd release-assets
+          for file in *; do
+            if [ -f "$file" ]; then
               echo "Generating checksum for: $file"
               sha256sum "$file" > "$file.sha256"
-            done
-          ' sh {} +
+            fi
+          done
+          echo "Generated checksums:"
+          ls -la *.sha256
 
       - name: Create Release
         id: create_release
@@ -216,5 +229,5 @@ jobs:
           draft: false
           prerelease: false
           generate_release_notes: true
-          files: |
-            artifacts/**/*
+          files: release-assets/*
+          fail_on_unmatched_files: true
