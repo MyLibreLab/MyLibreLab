@@ -57,8 +57,7 @@ jobs:
           name: mylibrelab-linux
           path: |
             application/build/jpackage/*.deb
-            application/build/jpackage/*.tar.gz
-            application/build/jpackage/
+            application/build/jpackage/*.rpm
           if-no-files-found: warn
 
   build-windows:
@@ -113,7 +112,6 @@ jobs:
           path: |
             application/build/jpackage/*.exe
             application/build/jpackage/*.msi
-            application/build/jpackage/
           if-no-files-found: warn
 
   build-macos:
@@ -164,7 +162,6 @@ jobs:
           path: |
             application/build/jpackage/*.pkg
             application/build/jpackage/*.dmg
-            application/build/jpackage/
           if-no-files-found: warn
 
   build-macos-arm64:
@@ -215,7 +212,6 @@ jobs:
           path: |
             application/build/jpackage/*.pkg
             application/build/jpackage/*.dmg
-            application/build/jpackage/
           if-no-files-found: warn
 
   release:

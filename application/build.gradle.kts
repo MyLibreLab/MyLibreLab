@@ -22,7 +22,38 @@ runtime {
     )
     
     jpackage {
-        skipInstaller = true
+        // REMOVE: skipInstaller = true
+        
+        // Configure platform-specific installers
+        installerName = "MyLibreLab"
+        appVersion = project.version.toString()
+        
+        // Windows specific
+        if (org.gradle.internal.os.OperatingSystem.current().isWindows) {
+            installerType = "exe"
+            installerOptions = listOf(
+                "--win-dir-chooser",
+                "--win-menu",
+                "--win-shortcut"
+            )
+        }
+        
+        // macOS specific
+        if (org.gradle.internal.os.OperatingSystem.current().isMacOsX) {
+            installerType = "pkg"
+            installerOptions = listOf(
+                "--mac-package-name", "MyLibreLab"
+            )
+        }
+        
+        // Linux specific
+        if (org.gradle.internal.os.OperatingSystem.current().isLinux) {
+            installerType = "deb"
+            installerOptions = listOf(
+                "--linux-package-name", "mylibrelab",
+                "--linux-deb-maintainer", "mylibrelab@example.com"
+            )
+        }
     }
 }
 
