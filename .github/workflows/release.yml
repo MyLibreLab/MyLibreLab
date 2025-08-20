@@ -62,27 +62,38 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Clear corrupted Gradle cache
+        run: |
+          if (Test-Path "$env:USERPROFILE\.gradle\caches") {
+            Remove-Item -Recurse -Force "$env:USERPROFILE\.gradle\caches" -ErrorAction SilentlyContinue
+          }
+        shell: powershell
+
       - name: Cache Gradle packages
         uses: actions/cache@v4
         with:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts', '**/gradle.properties') }}
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts', '**/gradle.properties') }}-v2
           restore-keys: |
-            ${{ runner.os }}-gradle-
+            ${{ runner.os }}-gradle-v2-
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+        shell: bash
 
       - name: Build dependencies first
-        run: ./gradlew build -x test -x kaptTestKotlin -PskipAutostyle -PskipSonarlint --info --stacktrace
+        run: ./gradlew build -x test -x kaptTestKotlin -PskipAutostyle -PskipSonarlint --info --stacktrace --no-daemon
+        shell: bash
 
       - name: Build runtime image
-        run: ./gradlew :mylibrelab-application:runtimeZip -PskipAutostyle -PskipSonarlint --info --stacktrace
+        run: ./gradlew :mylibrelab-application:runtimeZip -PskipAutostyle -PskipSonarlint --info --stacktrace --no-daemon
+        shell: bash
 
       - name: Build installer
-        run: ./gradlew :mylibrelab-application:jpackage -PskipAutostyle -PskipSonarlint --info --stacktrace
+        run: ./gradlew :mylibrelab-application:jpackage -PskipAutostyle -PskipSonarlint --info --stacktrace --no-daemon
+        shell: bash
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -179,19 +190,20 @@ jobs:
         with:
           path: artifacts
 
+      - name: List downloaded artifacts
+        run: |
+          echo "Downloaded artifacts structure:"
+          find artifacts -type f -name "*" | head -20
+
       - name: Generate checksums
         run: |
           cd artifacts
-          for dir in *; do
-            if [ -d "$dir" ]; then
-              cd "$dir"
-              for file in *; do
-                sha256sum "$file" > "$file.sha256"
-              done
-              cd ..
-            fi
-          done
-          cd ..
+          find . -type f \( -name "*.exe" -o -name "*.deb" -o -name "*.pkg" -o -name "*.dmg" -o -name "*.tar.gz" -o -name "*.zip" \) -exec sh -c '
+            for file; do
+              echo "Generating checksum for: $file"
+              sha256sum "$file" > "$file.sha256"
+            done
+          ' sh {} +
 
       - name: Create Release
         id: create_release
