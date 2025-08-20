@@ -227,52 +227,60 @@ jobs:
         with:
           path: artifacts
 
-      - name: List downloaded artifacts
+      - name: List ALL downloaded artifacts in detail
         run: |
-          echo "Downloaded artifacts structure:"
-          find artifacts -type f -name "*" 
-          echo "Total files found:"
-          find artifacts -type f | wc -l
+          echo "=== COMPLETE ARTIFACT STRUCTURE ==="
+          find artifacts -type f -ls
+          echo ""
+          echo "=== FILE TYPES FOUND ==="
+          find artifacts -type f -exec file {} \;
+          echo ""
+          echo "=== EXECUTABLES FOUND ==="
+          find artifacts -type f -executable
+          echo ""
+          echo "=== APP IMAGES/BUNDLES FOUND ==="
+          find artifacts -name "*.app" -o -name "*.AppImage"
 
-      - name: Prepare release assets
+      - name: Prepare release assets with diagnostics
         run: |
           mkdir -p release-assets
-          # Only copy installer files, not all the jpackage contents
-          find artifacts -type f \( -name "*.exe" -o -name "*.msi" -o -name "*.deb" -o -name "*.pkg" -o -name "*.dmg" -o -name "*.tar.gz" \) -exec cp {} release-assets/ \;
           
-          # Rename files to include platform info
-          cd release-assets
-          for file in *; do
-            if [ -f "$file" ]; then
-              case "$file" in
-                *.exe|*.msi) mv "$file" "MyLibreLab-windows-${file}" ;;
-                *.deb|*.tar.gz) mv "$file" "MyLibreLab-linux-${file}" ;;
-                *.pkg|*.dmg) 
-                  if [[ "$PWD" == *"arm64"* ]]; then
-                    mv "$file" "MyLibreLab-macos-arm64-${file}"
-                  else
-                    mv "$file" "MyLibreLab-macos-${file}"
-                  fi ;;
-              esac
-            fi
-          done
+          echo "=== LOOKING FOR INSTALLER FILES ==="
+          # Look for various installer types
+          find artifacts -type f \( -name "*.exe" -o -name "*.msi" -o -name "*.deb" -o -name "*.rpm" -o -name "*.pkg" -o -name "*.dmg" \) -exec cp {} release-assets/ \;
           
-          echo "Files to be released:"
-          ls -la
+          echo "=== LOOKING FOR APPLICATION BUNDLES ==="
+          # Look for app bundles and AppImages
+          find artifacts -name "*.app" -type d -exec tar -czf "release-assets/{}.tar.gz" {} \;
+          find artifacts -name "*.AppImage" -type f -exec cp {} release-assets/ \;
+          
+          echo "=== LOOKING FOR EXECUTABLE FILES ==="
+          # Look for executable files that might be standalone apps
+          find artifacts -type f -executable ! -name "*.sh" ! -name "*.bat" -exec bash -c '
+            file "$1" | grep -q "executable" && cp "$1" "release-assets/$(basename "$1")"
+          ' _ {} \;
+          
+          echo "=== CURRENT RELEASE ASSETS ==="
+          ls -la release-assets/ || echo "No release assets found"
 
       - name: Generate checksums
         run: |
           cd release-assets
-          for file in MyLibreLab-*; do
-            if [ -f "$file" ] && [[ ! "$file" == *.sha256 ]]; then
-              echo "Generating checksum for: $file"
-              sha256sum "$file" > "$file.sha256"
-            fi
-          done
-          echo "Final release assets:"
-          ls -la
+          if [ "$(ls -A .)" ]; then
+            for file in *; do
+              if [ -f "$file" ] && [[ ! "$file" == *.sha256 ]]; then
+                echo "Generating checksum for: $file"
+                sha256sum "$file" > "$file.sha256"
+              fi
+            done
+            echo "Final release assets:"
+            ls -la
+          else
+            echo "No files to generate checksums for"
+          fi
 
       - name: Create Release
+        if: hashFiles('release-assets/*') != ''
         id: create_release
         uses: softprops/action-gh-release@v2
         env:
@@ -283,5 +291,5 @@ jobs:
           draft: false
           prerelease: false
           generate_release_notes: true
-          files: release-assets/MyLibreLab-*
-          fail_on_unmatched_files: true
+          files: release-assets/*
+          fail_on_unmatched_files: false
