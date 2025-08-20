@@ -12,48 +12,40 @@ jobs:
           - os: ubuntu-latest
             displayName: linux
             archivePortable: ls -la build && ls -la build/jpackage && mkdir build/distribution && mv build/image.zip build/distribution/MyLibreLab-linux.zip
-            # tar -c -C build/jpackage/MyLibreLab | pigz --rsyncable > build/distribution/MyLibreLab-portable_linux.tar.gz
           - os: windows-latest
             displayName: windows
             archivePortable: mkdir build/distribution && mv build/image.zip build/distribution/MyLibreLab-windows.zip && 7z a -r build/distribution/MyLibreLab-portable_windows.zip build/jpackage/MyLibreLab
           - os: macOS-latest
             displayName: macOS
             archivePortable: ls -la build && ls -la build/jpackage && mkdir build/distribution && mv build/image.zip build/distribution/MyLibreLab-macos.zip
-            # brew install pigz && tar -c -C build/jpackage/MyLibreLab | pigz --rsyncable > build/distribution/MyLibreLab-portable_macos.tar.gz
 
     runs-on: ${{ matrix.os }}
     name: Create installer and portable version for ${{ matrix.displayName }}
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 2
-      - name: Set up JDK
-        uses: actions/setup-java@v1
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
         with:
-          java-version: 15
-      - uses: actions/cache@v1
-        name: Restore gradle cache
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Restore gradle cache
+        uses: actions/cache@v4
         with:
           path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-cache-${{ hashFiles('**/*.gradle') }}
-          # in case there is no cache for the current OS, fall back to any other OS
+          key: ${{ runner.os }}-gradle-cache-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-cache-
-            Linux-gradle-cache-${{ hashFiles('**/*.gradle') }}
-            Windows-gradle-cache-${{ hashFiles('**/*.gradle') }}
-            macOS-gradle-cache-${{ hashFiles('**/*.gradle') }}
-      - uses: actions/cache@v1
-        name: Cache gradle wrapper
+      - name: Cache gradle wrapper
+        uses: actions/cache@v4
         with:
           path: ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
-          # in case there is no cache for the current OS, fall back to any other OS
           restore-keys: |
-            Linux-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
-            Windows-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
-            macOS-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+            ${{ runner.os }}-gradle-wrapper-
       - name: Build
         run: ./gradlew build -PskipAutostyle -PskipSonarlint
       - name: Build runtime image
