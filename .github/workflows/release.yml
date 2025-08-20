@@ -44,6 +44,13 @@ jobs:
       - name: Build installer
         run: ./gradlew :mylibrelab-application:jpackage -PskipAutostyle -PskipSonarlint --info --stacktrace
 
+      - name: List jpackage output
+        run: |
+          echo "Contents of application/build/jpackage:"
+          find application/build/jpackage -type f | head -20
+          echo "Directory structure:"
+          ls -la application/build/jpackage/
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -51,6 +58,8 @@ jobs:
           path: |
             application/build/jpackage/*.deb
             application/build/jpackage/*.tar.gz
+            application/build/jpackage/
+          if-no-files-found: warn
 
   build-windows:
     runs-on: windows-latest
@@ -104,6 +113,8 @@ jobs:
           path: |
             application/build/jpackage/*.exe
             application/build/jpackage/*.msi
+            application/build/jpackage/
+          if-no-files-found: warn
 
   build-macos:
     runs-on: macos-latest
@@ -139,6 +150,13 @@ jobs:
       - name: Build installer
         run: ./gradlew :mylibrelab-application:jpackage -PskipAutostyle -PskipSonarlint --info --stacktrace
 
+      - name: List jpackage output
+        run: |
+          echo "Contents of application/build/jpackage:"
+          find application/build/jpackage -type f | head -20
+          echo "Directory structure:"
+          ls -la application/build/jpackage/
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -146,6 +164,8 @@ jobs:
           path: |
             application/build/jpackage/*.pkg
             application/build/jpackage/*.dmg
+            application/build/jpackage/
+          if-no-files-found: warn
 
   build-macos-arm64:
     runs-on: macos-14
@@ -181,6 +201,13 @@ jobs:
       - name: Build installer
         run: ./gradlew :mylibrelab-application:jpackage -PskipAutostyle -PskipSonarlint --info --stacktrace
 
+      - name: List jpackage output
+        run: |
+          echo "Contents of application/build/jpackage:"
+          find application/build/jpackage -type f | head -20
+          echo "Directory structure:"
+          ls -la application/build/jpackage/
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -188,6 +215,8 @@ jobs:
           path: |
             application/build/jpackage/*.pkg
             application/build/jpackage/*.dmg
+            application/build/jpackage/
+          if-no-files-found: warn
 
   release:
     runs-on: ubuntu-latest
