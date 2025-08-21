@@ -122,13 +122,14 @@ jobs:
           fi
 
       - name: Verify portable app structure
+        shell: bash
         run: |
           echo "Contents of build directory:"
-          ls -la build/ || dir build\ || true
+          ls -la build/ 2>/dev/null || (echo "build directory not found" && exit 1)
           echo "Contents of jpackage directory:"
-          ls -la build/jpackage/ || dir build\jpackage\ || true
+          ls -la build/jpackage/ 2>/dev/null || (echo "jpackage directory not found" && exit 1)
           echo "Contents of MyLibreLab app:"
-          ls -la build/jpackage/MyLibreLab/ || dir build\jpackage\MyLibreLab\ || true
+          ls -la build/jpackage/MyLibreLab/ 2>/dev/null || (echo "MyLibreLab directory not found" && exit 1)
 
       - name: Package portable binary
         shell: bash
