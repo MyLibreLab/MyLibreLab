@@ -72,48 +72,27 @@ jobs:
       - name: Build application
         run: ./gradlew clean build -PskipAutostyle -PskipSonarlint -x test --no-daemon
 
-      - name: Create Java runtime using jlink
-        shell: bash
-        run: |
-          # Create a custom JRE with jlink
-          $JAVA_HOME/bin/jlink \
-            --module-path $JAVA_HOME/jmods \
-            --add-modules java.base,java.desktop,java.logging,java.management,java.naming,java.security.sasl,java.xml,jdk.unsupported \
-            --output custom-jre \
-            --no-header-files \
-            --no-man-pages \
-            --compress=2 \
-            --strip-debug
-
       - name: Create portable app structure
         shell: bash
         run: |
-          # Build the application distribution first
-          ./gradlew :mylibrelab-application:installDist --no-daemon
+          # Use the new createPortableApp task
+          ./gradlew :mylibrelab-application:createPortableApp --no-daemon
 
-          mkdir -p build/jpackage/MyLibreLab
+          # Move the portable app to expected location for packaging
+          mkdir -p build/jpackage
+          mv application/build/portable build/jpackage/MyLibreLab
+
+          # Copy elements directory to the portable app
+          cp -r elements build/jpackage/MyLibreLab/
+
           cd build/jpackage/MyLibreLab
 
-          # Copy the custom JRE
-          cp -r ../../../custom-jre runtime
+          # Ensure launchers are executable on Unix
+          chmod +x MyLibreLab.sh
 
-          # Copy the distribution content
-          cp -r ../../../application/build/install/mylibrelab-application/* .
-
-          # Create simple launchers that use bundled runtime
-          cat > mylibrelab.bat << 'EOFBAT'
-          @echo off
-          "%~dp0runtime\bin\java.exe" -cp "%~dp0lib\*" com.github.mylibrelab.MyLibreLab %*
-          EOFBAT
-
-          cat > mylibrelab << 'EOFSH'
-          #!/bin/bash
-          DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-          "$DIR/runtime/bin/java" -cp "$DIR/lib/*" com.github.mylibrelab.MyLibreLab "$@"
-          EOFSH
-          chmod +x mylibrelab
-
-          cp mylibrelab mylibrelab.command
+          # Create macOS launcher
+          cp MyLibreLab.sh MyLibreLab.command
+          chmod +x MyLibreLab.command
 
           cd ../../..
 
