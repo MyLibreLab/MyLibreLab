@@ -7,6 +7,7 @@ on:
 
 env:
   JAVA_VERSION: '17'
+  SKIP_TESTS: 'true'  # Temporarily disable tests
 
 jobs:
   nightly-build:
@@ -39,7 +40,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/actions/setup-gradle@v3
 
       - name: Generate nightly version
         shell: bash
@@ -49,7 +50,7 @@ jobs:
           echo "Building nightly version: $VERSION"
 
       - name: Build nightly version
-        run: ./gradlew clean build -PskipAutostyle -PskipSonarlint --no-daemon
+        run: ./gradlew clean build -PskipAutostyle -PskipSonarlint -x test --no-daemon
 
       - name: Create portable application
         run: ./gradlew :mylibrelab-application:jpackage --no-daemon

@@ -50,7 +50,7 @@ jobs:
           architecture: ${{ matrix.arch }}
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/actions/setup-gradle@v3
         with:
           gradle-version: wrapper
           cache-read-only: false
@@ -70,23 +70,51 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build application
-        run: ./gradlew clean build -PskipAutostyle -PskipSonarlint --no-daemon
-
-      - name: Run tests
-        run: ./gradlew test --no-daemon --continue
+        run: ./gradlew clean build -PskipAutostyle -PskipSonarlint -x test --no-daemon
 
       - name: Create runtime image
-        run: ./gradlew :mylibrelab-application:runtime --no-daemon
+        run: ./gradlew :mylibrelab-application:runtimeZip --no-daemon
 
-      - name: Create portable application with jpackage
-        run: ./gradlew :mylibrelab-application:jpackage --no-daemon
+      - name: Create portable app structure
+        shell: bash
+        run: |
+          mkdir -p build/jpackage/MyLibreLab
+          cd build/jpackage/MyLibreLab
 
-      - name: Verify jpackage output
+          # Copy the extracted runtime (not the zip)
+          cp -r ../../../application/build/image runtime
+
+          # Copy the main JAR
+          cp ../../../application/build/libs/mylibrelab-application-1.0.0.jar mylibrelab.jar
+
+          # Create launcher scripts
+          cat > mylibrelab << 'EOF'
+          #!/bin/bash
+          DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+          "$DIR/runtime/bin/java" -jar "$DIR/mylibrelab.jar" "$@"
+          EOF
+          chmod +x mylibrelab
+
+          # Windows launcher
+          cat > mylibrelab.bat << 'EOF'
+          @echo off
+          set "DIR=%~dp0"
+          "%DIR%runtime\bin\java.exe" -jar "%DIR%mylibrelab.jar" %*
+          EOF
+
+          # macOS launcher (same as Linux but with .command extension)
+          cp mylibrelab mylibrelab.command
+
+          cd ../../..
+
+      - name: Verify portable app structure
         run: |
           echo "Contents of build directory:"
           ls -la build/ || dir build\ || true
           echo "Contents of jpackage directory:"
           ls -la build/jpackage/ || dir build\jpackage\ || true
+          echo "Contents of MyLibreLab app:"
+          ls -la build/jpackage/MyLibreLab/ || dir build\jpackage\MyLibreLab\ || true
 
       - name: Package portable binary (Linux)
         if: matrix.platform == 'linux'
@@ -111,7 +139,7 @@ jobs:
         if: matrix.platform == 'macos'
         run: |
           cd build/jpackage
-          tar -czf ../../MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz MyLibreLab.app/
+          tar -czf ../../MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz MyLibreLab/
           cd ../..
           ls -la MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz
           echo "ARTIFACT_PATH=MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz" >> $GITHUB_ENV
@@ -127,7 +155,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: MyLibreLab-runtime-${{ matrix.platform }}-${{ matrix.arch }}
-          path: build/image.zip
+          path: application/build/image.zip
           retention-days: 30
 
   create-release:

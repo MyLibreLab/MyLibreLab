@@ -15,4 +15,4 @@ jobs:
         with:
           fetch-depth: 2
       - name: Check
-        run: ./gradlew autostyleCheck
+        run: ./gradlew autostyleCheck -x test

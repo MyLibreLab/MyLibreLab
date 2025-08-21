@@ -72,6 +72,14 @@ runtime {
         "--no-header-files",
         "--no-man-pages"
     )
+
+    jpackage {
+        // Create portable app images instead of installers
+        installerType = "app-image"
+
+        // Don't specify output file, let the plugin handle it
+        imageOptions = listOf("--verbose")
+    }
 }
 
 fun Jar.includeLicenses() {

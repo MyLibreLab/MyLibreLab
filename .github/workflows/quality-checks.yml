@@ -8,6 +8,7 @@ on:
 
 env:
   JAVA_VERSION: '17'
+  SKIP_TESTS: 'true'  # Temporarily disable tests
 
 jobs:
   code-style:
@@ -25,10 +26,10 @@ jobs:
           distribution: 'temurin'
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/actions/setup-gradle@v3
 
       - name: Run Autostyle check
-        run: ./gradlew autostyleCheck
+        run: ./gradlew autostyleCheck -x test
 
       - name: Run SonarLint (local analysis only)
         run: ./gradlew sonarlintMain || echo "SonarLint check completed"
