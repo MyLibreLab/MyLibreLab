@@ -1,0 +1,22 @@
+# 1. Ignore the entire legacy elements structure.
+elements/
+
+# 2. Temporarily ignore all Java source code in the main `application` module.
+application/src/main/
+annotations/src/main
+settings-api/src/main
+service-manager/src/main
+util/src
+
+# 3. Temporarily ignore the large VisualLogic resource directory.
+application/src/main/resources/VisualLogic/
+
+# 4. Ignore large or non-essential configuration files.
+config/style.eclipseformat.xml
+
+# 5. Ignore voluminous license text files for now.
+LICENSE
+config/ORIGINAL_LICENSE.txt
+distribution/licenses/
+licenses/
+application/src/main/resources/com/github/mylibrelab/ui/component/licence.txt
