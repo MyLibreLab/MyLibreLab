@@ -72,8 +72,18 @@ jobs:
       - name: Build application
         run: ./gradlew clean build -PskipAutostyle -PskipSonarlint -x test --no-daemon
 
-      - name: Create runtime image
-        run: ./gradlew :mylibrelab-application:runtimeZip --no-daemon
+      - name: Create Java runtime using jlink
+        shell: bash
+        run: |
+          # Create a custom JRE with jlink
+          $JAVA_HOME/bin/jlink \
+            --module-path $JAVA_HOME/jmods \
+            --add-modules java.base,java.desktop,java.logging,java.management,java.naming,java.security.sasl,java.xml,jdk.unsupported \
+            --output custom-jre \
+            --no-header-files \
+            --no-man-pages \
+            --compress=2 \
+            --strip-debug
 
       - name: Create portable app structure
         shell: bash
@@ -81,13 +91,13 @@ jobs:
           mkdir -p build/jpackage/MyLibreLab
           cd build/jpackage/MyLibreLab
 
-          # Copy the extracted runtime (not the zip)
-          cp -r ../../../application/build/image runtime
+          # Copy the custom JRE
+          cp -r ../../../custom-jre runtime
 
           # Copy the main JAR
           cp ../../../application/build/libs/mylibrelab-application-1.0.0.jar mylibrelab.jar
 
-          # Create launcher scripts
+          # Create launcher scripts (same as before)
           cat > mylibrelab << 'EOF'
           #!/bin/bash
           DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -95,14 +105,12 @@ jobs:
           EOF
           chmod +x mylibrelab
 
-          # Windows launcher
           cat > mylibrelab.bat << 'EOF'
           @echo off
           set "DIR=%~dp0"
           "%DIR%runtime\bin\java.exe" -jar "%DIR%mylibrelab.jar" %*
           EOF
 
-          # macOS launcher (same as Linux but with .command extension)
           cp mylibrelab mylibrelab.command
 
           cd ../../..
