@@ -1,0 +1,49 @@
+name: Tests
+
+on:
+  push:
+    branches: [ master, main, dev ]
+  pull_request:
+    branches: [ master, main, dev ]
+
+env:
+  JAVA_VERSION: '17'
+
+jobs:
+  unit-tests:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    runs-on: ${{ matrix.os }}
+    name: Unit Tests (${{ matrix.os }})
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v3
+
+      - name: Make gradlew executable (Unix)
+        if: runner.os != 'Windows'
+        run: chmod +x ./gradlew
+
+      - name: Run tests
+        run: ./gradlew test -PskipAutostyle -PskipSonarlint --continue
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-${{ matrix.os }}
+          path: |
+            **/build/reports/tests/
+            **/build/test-results/
+          retention-days: 30

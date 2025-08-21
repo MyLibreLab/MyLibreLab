@@ -20,7 +20,7 @@ MyLibreLab is a modern fork of [MyOpenLab](https://myopenlab.org/), a visual pro
 ## Key Improvements Over MyOpenLab
 
 - **Self-contained distribution** - No separate Java installation required
-- **Modern Java 15** technology stack
+- **Modern Java 17** technology stack
 - **Gradle-based build system** for better dependency management
 - **GitHub-based development** with CI/CD pipelines
 - **Updated dependencies** and security improvements
@@ -30,7 +30,7 @@ MyLibreLab is a modern fork of [MyOpenLab](https://myopenlab.org/), a visual pro
 
 ### Prerequisites
 
-- **Java 15** (OpenJDK recommended)
+- **Java 17** (OpenJDK recommended)
 - **Git** for cloning the repository
 
 ### Building from Source
@@ -122,7 +122,7 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 
 ### Code Quality Standards
 
-- **Java 15** compatible code
+- **Java 17** compatible code
 - **Code formatting** enforced via Autostyle
 - **Static analysis** with SonarLint
 - **Unit tests** for new functionality
@@ -131,13 +131,13 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 ## System Requirements
 
 ### Runtime Requirements
-- **Java 15+** (bundled in self-contained distributions)
+- **Java 17+** (bundled in self-contained distributions)
 - **2GB RAM** minimum, 4GB recommended
 - **1GB disk space** for installation
 - **OpenGL 2.0** compatible graphics
 
 ### Development Requirements
-- **Java 15 JDK** (OpenJDK recommended)
+- **Java 17 JDK** (OpenJDK recommended)
 - **Git** version control
 - **Internet connection** for dependency downloads
 
@@ -179,7 +179,7 @@ MyLibreLab is based on MyOpenLab by Carmelo Salafia (www.myopenlab.de)
 
 | Version | Status | Java Version | Release Date |
 |---------|--------|--------------|--------------|
-| 1.0.0 | 🚧 In Development | Java 15 | TBD |
+| 1.0.0 | 🚧 In Development | Java 17 | TBD |
 
 ---
 

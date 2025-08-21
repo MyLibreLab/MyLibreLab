@@ -1,0 +1,62 @@
+name: Nightly Build
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # Run at 2 AM UTC daily
+  workflow_dispatch:     # Allow manual triggering
+
+env:
+  JAVA_VERSION: '17'
+
+jobs:
+  nightly-build:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: linux
+            arch: x64
+          - os: windows-latest
+            platform: windows
+            arch: x64
+          - os: macos-latest
+            platform: macos
+            arch: x64
+
+    runs-on: ${{ matrix.os }}
+    name: Nightly ${{ matrix.platform }}-${{ matrix.arch }}
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v3
+
+      - name: Generate nightly version
+        shell: bash
+        run: |
+          VERSION=$(date +%Y%m%d)-$(git rev-parse --short HEAD)
+          echo "NIGHTLY_VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Building nightly version: $VERSION"
+
+      - name: Build nightly version
+        run: ./gradlew clean build -PskipAutostyle -PskipSonarlint --no-daemon
+
+      - name: Create portable application
+        run: ./gradlew :mylibrelab-application:jpackage --no-daemon
+
+      - name: Upload nightly build
+        uses: actions/upload-artifact@v4
+        with:
+          name: MyLibreLab-nightly-${{ matrix.platform }}-${{ matrix.arch }}-${{ env.NIGHTLY_VERSION }}
+          path: build/jpackage/
+          retention-days: 7

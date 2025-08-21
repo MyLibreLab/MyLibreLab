@@ -1,0 +1,158 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [ master, main, dev ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ master, main, dev ]
+
+env:
+  JAVA_VERSION: '17'
+  GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.parallel=true -Dorg.gradle.caching=true'
+
+jobs:
+  build-matrix:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: linux
+            arch: x64
+            executable-suffix: ''
+            archive-format: tar.gz
+          - os: windows-latest
+            platform: windows
+            arch: x64
+            executable-suffix: .exe
+            archive-format: zip
+          - os: macos-latest
+            platform: macos
+            arch: x64
+            executable-suffix: ''
+            archive-format: tar.gz
+
+    runs-on: ${{ matrix.os }}
+    name: Build ${{ matrix.platform }}-${{ matrix.arch }}
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'temurin'
+          architecture: ${{ matrix.arch }}
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v3
+        with:
+          gradle-version: wrapper
+          cache-read-only: false
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Make gradlew executable (Unix)
+        if: runner.os != 'Windows'
+        run: chmod +x ./gradlew
+
+      - name: Build application
+        run: ./gradlew clean build -PskipAutostyle -PskipSonarlint --no-daemon
+
+      - name: Run tests
+        run: ./gradlew test --no-daemon --continue
+
+      - name: Create runtime image
+        run: ./gradlew :mylibrelab-application:runtime --no-daemon
+
+      - name: Create portable application with jpackage
+        run: ./gradlew :mylibrelab-application:jpackage --no-daemon
+
+      - name: Verify jpackage output
+        run: |
+          echo "Contents of build directory:"
+          ls -la build/ || dir build\ || true
+          echo "Contents of jpackage directory:"
+          ls -la build/jpackage/ || dir build\jpackage\ || true
+
+      - name: Package portable binary (Linux)
+        if: matrix.platform == 'linux'
+        run: |
+          cd build/jpackage
+          tar -czf ../../MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz MyLibreLab/
+          cd ../..
+          ls -la MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz
+          echo "ARTIFACT_PATH=MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz" >> $GITHUB_ENV
+
+      - name: Package portable binary (Windows)
+        if: matrix.platform == 'windows'
+        shell: pwsh
+        run: |
+          cd build/jpackage
+          Compress-Archive -Path "MyLibreLab" -DestinationPath "..\..\MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.zip"
+          cd ..\..
+          dir MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.zip
+          echo "ARTIFACT_PATH=MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.zip" >> $env:GITHUB_ENV
+
+      - name: Package portable binary (macOS)
+        if: matrix.platform == 'macos'
+        run: |
+          cd build/jpackage
+          tar -czf ../../MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz MyLibreLab.app/
+          cd ../..
+          ls -la MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz
+          echo "ARTIFACT_PATH=MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz" >> $GITHUB_ENV
+
+      - name: Upload portable executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}
+          path: ${{ env.ARTIFACT_PATH }}
+          retention-days: 30
+
+      - name: Upload runtime image
+        uses: actions/upload-artifact@v4
+        with:
+          name: MyLibreLab-runtime-${{ matrix.platform }}-${{ matrix.arch }}
+          path: build/image.zip
+          retention-days: 30
+
+  create-release:
+    needs: build-matrix
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+
+      - name: List artifacts
+        run: find artifacts/ -type f -name "*.tar.gz" -o -name "*.zip" | head -20
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            artifacts/MyLibreLab-linux-x64/*
+            artifacts/MyLibreLab-windows-x64/*
+            artifacts/MyLibreLab-macos-x64/*
+          draft: false
+          prerelease: ${{ contains(github.ref, 'alpha') || contains(github.ref, 'beta') || contains(github.ref, 'rc') }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

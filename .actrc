@@ -1,0 +1,6 @@
+--platform ubuntu-latest=catthehacker/ubuntu:act-latest
+--platform windows-latest=catthehacker/ubuntu:act-latest
+--platform macos-latest=catthehacker/ubuntu:act-latest
+--container-architecture linux/amd64
+--artifact-server-path /tmp/artifacts
+--env JAVA_VERSION=17

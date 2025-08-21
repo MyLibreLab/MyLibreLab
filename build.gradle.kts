@@ -180,10 +180,10 @@ allprojects {
 
     tasks.withType<KotlinCompile>().configureEach {
         kotlinOptions {
-            jvmTarget = "15"
+            jvmTarget = "17"
             freeCompilerArgs = listOf(
-                "-Xjvm-default=enable",
-                "-Xopt-in=kotlin.RequiresOptIn"
+                "-Xjvm-default=all",
+                "-opt-in=kotlin.RequiresOptIn"
             )
         }
     }
@@ -191,8 +191,8 @@ allprojects {
     plugins.withType<JavaPlugin> {
 
         configure<JavaPluginExtension> {
-            sourceCompatibility = JavaVersion.VERSION_15
-            targetCompatibility = JavaVersion.VERSION_15
+            sourceCompatibility = JavaVersion.VERSION_17
+            targetCompatibility = JavaVersion.VERSION_17
         }
 
         tasks {
