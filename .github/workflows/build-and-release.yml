@@ -121,25 +121,37 @@ jobs:
         run: |
           cd build/jpackage
           tar -czf ../../MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz MyLibreLab/
+          if [ $? -eq 0 ]; then
+            echo "Archive created successfully"
+          else
+            echo "Archive creation failed"
+            exit 1
+          fi
           cd ../..
           ls -la MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz
           echo "ARTIFACT_PATH=MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz" >> $GITHUB_ENV
 
       - name: Package portable binary (Windows)
         if: matrix.platform == 'windows'
-        shell: pwsh
+        shell: bash
         run: |
           cd build/jpackage
-          Compress-Archive -Path "MyLibreLab" -DestinationPath "..\..\MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.zip"
-          cd ..\..
-          dir MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.zip
-          echo "ARTIFACT_PATH=MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.zip" >> $env:GITHUB_ENV
+          tar -czf ../../MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz MyLibreLab/
+          cd ../..
+          ls -la MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz
+          echo "ARTIFACT_PATH=MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz" >> $GITHUB_ENV
 
       - name: Package portable binary (macOS)
         if: matrix.platform == 'macos'
         run: |
           cd build/jpackage
           tar -czf ../../MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz MyLibreLab/
+          if [ $? -eq 0 ]; then
+            echo "Archive created successfully"
+          else
+            echo "Archive creation failed"
+            exit 1
+          fi
           cd ../..
           ls -la MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz
           echo "ARTIFACT_PATH=MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz" >> $GITHUB_ENV
