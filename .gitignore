@@ -2,13 +2,13 @@
 # ## General Build Artifacts & Dependencies
 # ############################################################################
 
-# Ignore Gradle's build output directory. This is the most important rule.
-/build/
+# Ignore all build output directories from Gradle (for multi-module projects)
+**/build/
 
 # Ignore the .gradle directory, which caches downloaded dependencies and other build data.
 /.gradle/
 
-# Ignore Gradle task cache.
+# Ignore Gradle task cache
 .gradletasknamecache
 
 # Ignore build output from the buildSrc directory.
@@ -16,11 +16,20 @@
 /buildSrc/.gradle/
 
 # ############################################################################
+# ## Legacy & Custom Build Artifacts
+# ############################################################################
+
+# Ignore legacy 'bin' directories from the custom elements build process
+**/bin/
+
+# Ignore Java Application Descriptor files
+*.jad
+
+# ############################################################################
 # ## IDE-Specific Files
 # ############################################################################
 
 # Intellij IDEA
-# Ignore the entire .idea directory, which stores user-specific settings.
 .idea/
 
 # Eclipse
@@ -28,20 +37,6 @@
 .project
 .settings/
 .factorypath
-.springBeans
-.pydevproject
-.cproject
-.autotools
-.buildpath
-.externalToolBuilders/
-*.launch
-
-# NetBeans
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-.nb-gradle/
 
 # VS Code
 .vscode/
@@ -50,10 +45,10 @@
 # ## Compiled Code & Packages
 # ############################################################################
 
-# Compiled Java and Kotlin class files.
+# Compiled Java and Kotlin class files
 *.class
 
-# Packaged archives. These are generated from the build process.
+# Packaged archives
 *.jar
 *.war
 *.ear
@@ -72,33 +67,19 @@ logs/
 # JVM crash logs
 hs_err_pid*
 
-# Temporary files and backups
-*.tmp
-*.bak
-*.swp
-
 # ############################################################################
 # ## Operating System Files
 # ############################################################################
 
 # macOS
 .DS_Store
-.AppleDouble
-.LSOverride
 
 # Windows
 Thumbs.db
-ehthumbs.db
-[Dd]esktop.ini
-$RECYCLE.BIN/
-
-# Linux
-*~
-.Trash-*
 
 # ############################################################################
 # ## Project-Specific Ignores
 # ############################################################################
 
-# Personal To-Do files. Use the project's issue tracker instead.
+# Personal To-Do files [cite: 7, 11]
 ToDo.txt
