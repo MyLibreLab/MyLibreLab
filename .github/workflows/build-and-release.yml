@@ -97,7 +97,7 @@ jobs:
           # Copy the main JAR
           cp ../../../application/build/libs/mylibrelab-application-1.0.0.jar mylibrelab.jar
 
-          # Create launcher scripts (same as before)
+          # Create launcher scripts
           cat > mylibrelab << 'EOF'
           #!/bin/bash
           DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -115,6 +115,12 @@ jobs:
 
           cd ../../..
 
+          # Verify the structure was created
+          if [ ! -d "build/jpackage/MyLibreLab" ]; then
+            echo "Error: MyLibreLab directory not created"
+            exit 1
+          fi
+
       - name: Verify portable app structure
         run: |
           echo "Contents of build directory:"
@@ -124,45 +130,32 @@ jobs:
           echo "Contents of MyLibreLab app:"
           ls -la build/jpackage/MyLibreLab/ || dir build\jpackage\MyLibreLab\ || true
 
-      - name: Package portable binary (Linux)
-        if: matrix.platform == 'linux'
-        run: |
-          cd build/jpackage
-          tar -czf ../../MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz MyLibreLab/
-          if [ $? -eq 0 ]; then
-            echo "Archive created successfully"
-          else
-            echo "Archive creation failed"
-            exit 1
-          fi
-          cd ../..
-          ls -la MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz
-          echo "ARTIFACT_PATH=MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz" >> $GITHUB_ENV
-
-      - name: Package portable binary (Windows)
-        if: matrix.platform == 'windows'
+      - name: Package portable binary
         shell: bash
         run: |
           cd build/jpackage
-          tar -czf ../../MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz MyLibreLab/
-          cd ../..
-          ls -la MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz
-          echo "ARTIFACT_PATH=MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz" >> $GITHUB_ENV
 
-      - name: Package portable binary (macOS)
-        if: matrix.platform == 'macos'
-        run: |
-          cd build/jpackage
-          tar -czf ../../MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz MyLibreLab/
-          if [ $? -eq 0 ]; then
-            echo "Archive created successfully"
+          # Create archive based on platform
+          if [ "${{ matrix.platform }}" = "windows" ]; then
+            # Use tar for consistency across platforms
+            tar -czf ../../MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz MyLibreLab/
           else
-            echo "Archive creation failed"
+            tar -czf ../../MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz MyLibreLab/
+          fi
+
+          cd ../..
+
+          # Verify archive was created
+          if [ ! -f "MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz" ]; then
+            echo "Error: Archive not created"
             exit 1
           fi
-          cd ../..
-          ls -la MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz
+
+          # Set environment variable for upload step
           echo "ARTIFACT_PATH=MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz" >> $GITHUB_ENV
+
+          # Show file size for verification
+          ls -la MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz
 
       - name: Upload portable executable
         uses: actions/upload-artifact@v4
@@ -171,12 +164,13 @@ jobs:
           path: ${{ env.ARTIFACT_PATH }}
           retention-days: 30
 
-      - name: Upload runtime image
-        uses: actions/upload-artifact@v4
-        with:
-          name: MyLibreLab-runtime-${{ matrix.platform }}-${{ matrix.arch }}
-          path: application/build/image.zip
-          retention-days: 30
+      - name: Build application
+        run: ./gradlew clean build -PskipAutostyle -PskipSonarlint -x test --no-daemon
+
+      - name: Stop Gradle daemon (Windows)
+        if: matrix.platform == 'windows'
+        run: ./gradlew --stop
+        continue-on-error: true
 
   create-release:
     needs: build-matrix
