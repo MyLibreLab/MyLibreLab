@@ -2,7 +2,7 @@ name: Build and Release
 
 on:
   push:
-    branches: [ master, main, dev ]
+    branches: [ master, main, dev, fix/windows-build-compatibility ]
     tags: [ 'v*' ]
   pull_request:
     branches: [ master, main, dev ]
