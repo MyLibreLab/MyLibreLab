@@ -4,7 +4,6 @@ import com.github.vlsi.gradle.crlf.LineEndings
 plugins {
     `java-library`
     application
-    id("org.beryx.runtime")
     kotlin("jvm")
     kotlin("kapt")
 }
@@ -61,26 +60,9 @@ dependencies {
 }
 
 application {
-    mainClassName = "com.github.mylibrelab.MyLibreLab"
-    mainClass.set(mainClassName)
+    mainClass.set("com.github.mylibrelab.MyLibreLab")
 }
 
-runtime {
-    addOptions(
-        "--strip-debug",
-        "--compress", "2",
-        "--no-header-files",
-        "--no-man-pages"
-    )
-
-    jpackage {
-        // Create portable app images instead of installers
-        installerType = "app-image"
-
-        // Don't specify output file, let the plugin handle it
-        imageOptions = listOf("--verbose")
-    }
-}
 
 fun Jar.includeLicenses() {
     CrLfSpec(LineEndings.LF).run {

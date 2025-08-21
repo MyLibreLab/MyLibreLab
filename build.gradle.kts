@@ -12,7 +12,6 @@ plugins {
     id("com.github.vlsi.crlf")
     id("com.github.vlsi.gradle-extensions")
     id("org.sonarqube")
-    id("org.beryx.runtime")
     id("name.remal.sonarlint") apply false
     kotlin("jvm") apply false
     kotlin("kapt") apply false
