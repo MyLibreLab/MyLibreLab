@@ -88,38 +88,26 @@ jobs:
       - name: Create portable app structure
         shell: bash
         run: |
+          # Build the application distribution first
+          ./gradlew :mylibrelab-application:installDist --no-daemon
+
           mkdir -p build/jpackage/MyLibreLab
           cd build/jpackage/MyLibreLab
 
           # Copy the custom JRE
           cp -r ../../../custom-jre runtime
 
-          # Copy the main JAR
-          cp ../../../application/build/libs/mylibrelab-application-1.0.0.jar mylibrelab.jar
+          # Copy the entire application distribution
+          cp -r ../../../application/build/install/mylibrelab-application/* .
 
-          # Create launcher scripts
-          cat > mylibrelab << 'EOF'
-          #!/bin/bash
-          DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-          "$DIR/runtime/bin/java" -jar "$DIR/mylibrelab.jar" "$@"
-          EOF
-          chmod +x mylibrelab
+          # Rename the start scripts
+          mv bin/mylibrelab-application mylibrelab 2>/dev/null || true
+          mv bin/mylibrelab-application.bat mylibrelab.bat 2>/dev/null || true
 
-          cat > mylibrelab.bat << 'EOF'
-          @echo off
-          set "DIR=%~dp0"
-          "%DIR%runtime\bin\java.exe" -jar "%DIR%mylibrelab.jar" %*
-          EOF
-
-          cp mylibrelab mylibrelab.command
+          # Create macOS launcher
+          cp mylibrelab mylibrelab.command 2>/dev/null || true
 
           cd ../../..
-
-          # Verify the structure was created
-          if [ ! -d "build/jpackage/MyLibreLab" ]; then
-            echo "Error: MyLibreLab directory not created"
-            exit 1
-          fi
 
       - name: Verify portable app structure
         shell: bash
