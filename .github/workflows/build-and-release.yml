@@ -97,15 +97,23 @@ jobs:
           # Copy the custom JRE
           cp -r ../../../custom-jre runtime
 
-          # Copy the entire application distribution
+          # Copy the distribution content
           cp -r ../../../application/build/install/mylibrelab-application/* .
 
-          # Rename the start scripts
-          mv bin/mylibrelab-application mylibrelab 2>/dev/null || true
-          mv bin/mylibrelab-application.bat mylibrelab.bat 2>/dev/null || true
+          # Create simple launchers that use bundled runtime
+          cat > mylibrelab.bat << 'EOFBAT'
+          @echo off
+          "%~dp0runtime\bin\java.exe" -cp "%~dp0lib\*" com.github.mylibrelab.MyLibreLab %*
+          EOFBAT
 
-          # Create macOS launcher
-          cp mylibrelab mylibrelab.command 2>/dev/null || true
+          cat > mylibrelab << 'EOFSH'
+          #!/bin/bash
+          DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+          "$DIR/runtime/bin/java" -cp "$DIR/lib/*" com.github.mylibrelab.MyLibreLab "$@"
+          EOFSH
+          chmod +x mylibrelab
+
+          cp mylibrelab mylibrelab.command
 
           cd ../../..
 

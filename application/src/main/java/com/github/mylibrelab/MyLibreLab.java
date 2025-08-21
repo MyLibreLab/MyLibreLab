@@ -54,11 +54,11 @@ public class MyLibreLab {
 
         AppLifecycleManager.INSTANCE.notifyApplicationStarted();
 
-        if (!checkLicenceAgreement()) {
-            Logger.error(Resources.getErrorMessage(ErrorType.LICENCE_DECLINED));
-            stopApplication();
-            return;
-        }
+        // if (!checkLicenceAgreement()) {
+        //     Logger.error(Resources.getErrorMessage(ErrorType.LICENCE_DECLINED));
+        //     stopApplication();
+        //     return;
+        // }
 
         try {
             FrameMain.userURL = getApplicationDirectory().toUri().toURL();
