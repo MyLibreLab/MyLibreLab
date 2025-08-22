@@ -14,24 +14,20 @@ env:
 jobs:
   build-matrix:
     strategy:
-      fail-fast: false
       matrix:
         include:
-          - os: ubuntu-latest
-            platform: linux
+          - platform: linux
             arch: x64
-            executable-suffix: ''
-            archive-format: tar.gz
-          - os: windows-latest
-            platform: windows
+            os: ubuntu-latest
+            installer: true
+          - platform: windows
             arch: x64
-            executable-suffix: .exe
-            archive-format: zip
-          - os: macos-latest
-            platform: macos
+            os: windows-latest
+            installer: true
+          - platform: macos
             arch: x64
-            executable-suffix: ''
-            archive-format: tar.gz
+            os: macos-latest
+            installer: true
 
     runs-on: ${{ matrix.os }}
     name: Build ${{ matrix.platform }}-${{ matrix.arch }}
@@ -167,6 +163,106 @@ jobs:
           path: ${{ env.ARTIFACT_PATH }}
           retention-days: 30
 
+      # Create native installers (only for tagged releases)
+      - name: Setup installer tools (Windows)
+        if: matrix.platform == 'windows' && matrix.installer == true && startsWith(github.ref, 'refs/tags/v')
+        run: |
+          # Install WiX Toolset for MSI creation
+          choco install wixtoolset -y
+          echo "C:\Program Files (x86)\WiX Toolset v3.11\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+      - name: Create Windows installer
+        if: matrix.platform == 'windows' && matrix.installer == true && startsWith(github.ref, 'refs/tags/v')
+        shell: pwsh
+        run: |
+          # Extract version for jpackage
+          $VERSION = (Get-Content gradle.properties | Select-String "MyLibreLab.version" | ForEach-Object { $_.Line.Split('=')[1].Trim() })
+
+          # Use --app-image to work with our existing portable structure
+          jpackage `
+            --type exe `
+            --name "MyLibreLab" `
+            --app-version "$VERSION" `
+            --app-image "build/jpackage/MyLibreLab" `
+            --win-dir-chooser `
+            --win-menu `
+            --win-shortcut `
+            --win-upgrade-uuid "12345678-1234-1234-1234-123456789012" `
+            --dest installer-output
+
+          # Check if WiX is available for MSI
+          if (Get-Command candle.exe -ErrorAction SilentlyContinue) {
+            Write-Host "WiX found, creating MSI installer"
+            jpackage `
+              --type msi `
+              --name "MyLibreLab" `
+              --app-version "$VERSION" `
+              --app-image "build/jpackage/MyLibreLab" `
+              --win-dir-chooser `
+              --win-upgrade-uuid "12345678-1234-1234-1234-123456789012" `
+              --dest installer-output
+          } else {
+            Write-Host "WiX not found, skipping MSI creation"
+          }
+
+          # List created installers
+          Get-ChildItem installer-output
+
+      - name: Create macOS installer
+        if: matrix.platform == 'macos' && matrix.installer == true && startsWith(github.ref, 'refs/tags/v')
+        run: |
+          # Extract version
+          VERSION=$(grep -E '^\s*MyLibreLab\.version\s*=' gradle.properties | sed 's/.*=\s*//; s/\s*$//')
+
+          # Use --app-image with our portable structure
+          jpackage \
+            --type dmg \
+            --name "MyLibreLab" \
+            --app-version "$VERSION" \
+            --app-image "build/jpackage/MyLibreLab" \
+            --dest installer-output
+
+          ls -la installer-output/
+
+      - name: Create Linux installer
+        if: matrix.platform == 'linux' && matrix.installer == true && startsWith(github.ref, 'refs/tags/v')
+        run: |
+          # Install packaging tools
+          sudo apt-get update
+          sudo apt-get install -y fakeroot rpm
+
+          # Extract version
+          VERSION=$(grep -E '^\s*MyLibreLab\.version\s*=' gradle.properties | sed 's/.*=\s*//; s/\s*$//')
+
+          # Use --app-image with our portable structure
+          jpackage \
+            --type deb \
+            --name "mylibrelab" \
+            --app-version "$VERSION" \
+            --app-image "build/jpackage/MyLibreLab" \
+            --linux-menu-group "Electronics" \
+            --linux-shortcut \
+            --dest installer-output
+
+          # Create RPM package
+          jpackage \
+            --type rpm \
+            --name "mylibrelab" \
+            --app-version "$VERSION" \
+            --app-image "build/jpackage/MyLibreLab" \
+            --linux-menu-group "Electronics" \
+            --linux-shortcut \
+            --dest installer-output
+
+          ls -la installer-output/
+
+      - name: Upload installer artifacts
+        if: matrix.installer == true && startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-artifact@v4
+        with:
+          name: MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}-installers
+          path: installer-output/*
+
       - name: Build application
         run: ./gradlew clean build -PskipAutostyle -PskipSonarlint -x test --no-daemon
 
@@ -256,6 +352,9 @@ jobs:
             artifacts/MyLibreLab-linux-x64/*
             artifacts/MyLibreLab-windows-x64/*
             artifacts/MyLibreLab-macos-x64/*
+            artifacts/MyLibreLab-linux-x64-installers/*
+            artifacts/MyLibreLab-windows-x64-installers/*
+            artifacts/MyLibreLab-macos-x64-installers/*
           draft: false
           prerelease: ${{ contains(github.ref, 'alpha') || contains(github.ref, 'beta') || contains(github.ref, 'rc') }}
         env:
