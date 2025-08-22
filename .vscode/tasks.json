@@ -1,0 +1,192 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Gradle: Build (skip tests)",
+            "type": "shell",
+            "command": "./gradlew",
+            "windows": {
+                "command": ".\\gradlew.bat"
+            },
+            "linux": {
+                "command": "./gradlew"
+            },
+            "osx": {
+                "command": "./gradlew"
+            },
+            "args": [
+                "clean",
+                "build",
+                "-x",
+                "test",
+                "-PskipAutostyle",
+                "-PskipSonarlint"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gradle"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Gradle: Run",
+            "type": "shell",
+            "command": "./gradlew",
+            "windows": {
+                "command": ".\\gradlew.bat"
+            },
+            "args": [
+                ":mylibrelab-application:run"
+            ],
+            "group": "test",
+            "problemMatcher": [
+                "$gradle"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Portable: Create App",
+            "type": "shell",
+            "command": "./gradlew",
+            "windows": {
+                "command": ".\\gradlew.bat"
+            },
+            "args": [
+                ":mylibrelab-application:createPortableApp"
+            ],
+            "group": "build",
+            "problemMatcher": [
+                "$gradle"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Portable: Run (Windows)",
+            "type": "shell",
+            "command": "application\\build\\portable\\MyLibreLab.bat",
+            "windows": {
+                "command": "application\\build\\portable\\MyLibreLab.bat"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Format Code (Autostyle)",
+            "type": "shell",
+            "command": "./gradlew",
+            "windows": {
+                "command": ".\\gradlew.bat"
+            },
+            "args": [
+                "autostyleApply"
+            ],
+            "group": "build",
+            "problemMatcher": [
+                "$gradle"
+            ]
+        },
+        {
+            "label": "Check Code Style",
+            "type": "shell",
+            "command": "./gradlew",
+            "windows": {
+                "command": ".\\gradlew.bat"
+            },
+            "args": [
+                "autostyleCheck"
+            ],
+            "group": "build",
+            "problemMatcher": [
+                "$gradle"
+            ]
+        },
+        /* ---------- act (local GitHub Actions) ---------- */
+        {
+            "label": "act: Build & Release (push)",
+            "type": "shell",
+            "command": "act",
+            "args": [
+                "push",
+                "-W",
+                ".github/workflows/build-and-release.yml"
+            ],
+            "options": {
+                "env": {
+                    "ACT": "true"
+                }
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "act: Tag & Release (tag-and-release.yml)",
+            "type": "shell",
+            "command": "act",
+            "args": [
+                "workflow_dispatch",
+                "-W",
+                ".github/workflows/tag-and-release.yml"
+            ],
+            "options": {
+                "env": {
+                    "ACT": "true"
+                }
+            },
+            "problemMatcher": []
+        },
+        /* -------------------- Docker -------------------- */
+        {
+            "label": "Docker: Build image",
+            "type": "shell",
+            "command": "docker",
+            "args": [
+                "build",
+                "-t",
+                "mylibrelab:dev",
+                "."
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Docker: Run image",
+            "type": "shell",
+            "command": "docker",
+            "args": [
+                "run",
+                "--rm",
+                "-it",
+                "mylibrelab:dev"
+            ],
+            "problemMatcher": []
+        },
+        /* ------------------- Test/CI -------------------- */
+        {
+            "label": "Test",
+            "type": "shell",
+            "command": "./gradlew",
+            "windows": {
+                "command": ".\\gradlew.bat"
+            },
+            "args": [
+                "test"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gradle"
+            ]
+        }
+    ]
+}

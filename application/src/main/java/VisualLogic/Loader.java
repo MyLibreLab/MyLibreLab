@@ -23,10 +23,10 @@ package VisualLogic;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.Arrays;
 
 import org.tinylog.Logger;
 
@@ -44,7 +44,7 @@ public class Loader {
             // URL url3 = new File("Y:\\java\\carmelo's exp Lab
             // 3\\Distribution\\Elements\\Drivers\\K8055\\bin\\TWUsb.jar").toURI().toURL();
 
-            cl = new URLClassLoader(new URL[] {url, url2}, Thread.currentThread().getContextClassLoader());
+            cl = new URLClassLoader(new URL[] { url, url2 }, Thread.currentThread().getContextClassLoader());
 
             Class<?> c = cl.loadClass(klassename);
 
@@ -61,8 +61,14 @@ public class Loader {
         try (URLClassLoader cl = new URLClassLoader(urls, Thread.currentThread().getContextClassLoader())) {
             Class<?> c = cl.loadClass(klassename);
             o = c.getDeclaredConstructor().newInstance();
-        } catch (UnsupportedClassVersionError | NoSuchMethodException | ClassNotFoundException | InstantiationException
-                | InvocationTargetException | IllegalAccessException | IOException e) {
+        } catch (ClassNotFoundException e) {
+            // This is a normal probe miss while trying several candidates.
+            Logger.debug("Probe miss for driver class '{}' in {}", klassename, Arrays.toString(urls));
+            // return null and let the caller try the next candidate
+        } catch (UnsupportedClassVersionError e) {
+            Logger.warn("Driver '{}' was compiled for a newer Java version: {}", klassename, e.toString());
+        } catch (ReflectiveOperationException | IOException e) {
+            // Real issues (constructor, IO, illegal access, etc.)
             Logger.error(e);
         }
         return o;

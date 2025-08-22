@@ -1,19 +1,45 @@
-import com.github.vlsi.gradle.crlf.CrLfSpec
-import com.github.vlsi.gradle.crlf.LineEndings
+import org.gradle.internal.os.OperatingSystem
+import java.io.File
 
 plugins {
     `java-library`
     application
     kotlin("jvm")
     kotlin("kapt")
+
+    // Phase 2 (optional): present but harmless unless you run native tasks
+    id("org.graalvm.buildtools.native") version "0.10.2"
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
+application {
+    // Main entry point
+    mainClass.set("com.github.mylibrelab.MyLibreLab")
 }
 
 dependencies {
+    // Local modules
     implementation(project(":mylibrelab-settings-api"))
     implementation(project(":mylibrelab-service-manager"))
     implementation(project(":mylibrelab-util"))
 
-    implementation("org.json:json")
+    // Use the internal BOM for versions
+    implementation(platform(project(":mylibrelab-dependencies-bom")))
+
+    // UI / logging / comms (versions come from BOM)
+    implementation("com.github.weisj:darklaf-core")
+    implementation("com.github.weisj:darklaf-property-loader")
+    implementation("com.github.weisj:darklaf-extensions-kotlin")
+
+    implementation("org.swinglabs:swing-layout")
+    implementation("com.miglayout:miglayout-swing")
+    implementation("org.netbeans.external:AbsoluteLayout")
+
     implementation("org.scream3r:jssc")
 
     implementation("javax.xml.bind:jaxb-api")
@@ -23,115 +49,147 @@ dependencies {
     implementation("org.tinylog:tinylog-api")
     runtimeOnly("org.tinylog:tinylog-impl")
 
-    implementation("org.netbeans.external:AbsoluteLayout")
-    implementation("org.swinglabs:swing-layout")
-    implementation("com.miglayout:miglayout-swing")
-    implementation("com.github.weisj:darklaf-core")
-    implementation("com.github.weisj:darklaf-property-loader")
-    implementation("com.github.weisj:darklaf-extensions-kotlin")
-
-    implementation("com.google.code.findbugs:jsr305")
-    testImplementation("org.junit.jupiter:junit-jupiter-api")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-
-    kapt(project(":mylibrelab-annotations"))
-
-    /* Currently unused dependencies. Those need further investigation whether they are needed for the elements
-     * at runtime.
-    implementation("com.google.guava:guava:28.2-jre")
-    implementation("javax.vecmath:vecmath")
-    implementation("eu.hansolo:SteelSeries")
-    implementation("org.pushing-pixels:trident")
-    implementation("net.java.dev.jna:jna-platform")
-    implementation("org.bidib.jbidib:bidib-rxtx-binaries")
-
-    runtimeOnly("com.pi4j:pi4j-core")
-    runtimeOnly("com.pi4j:pi4j-device")
-    runtimeOnly("com.pi4j:pi4j-gpio-extension")
-    runtimeOnly("com.pi4j:pi4j-service")
-    */
-
-    /*
-    implementation fileTree(dir: "distribution/lib", include: ["*.jar])
-    implementation fileTree(dir: "distribution/lib_win_64", include: ["*.jar"])
-    implementation fileTree(dir: "jssc", include: ["*.jar"])
-    implementation fileTree(dir: "pi4j-1.0", include: ["*.jar"])
-    */
+    implementation("org.json:json")                   // version comes from BOM
+    compileOnly("com.google.code.findbugs:jsr305")    // version comes from BOM
 }
 
-application {
-    mainClass.set("com.github.mylibrelab.MyLibreLab")
+tasks.withType<JavaCompile>().configureEach {
+    options.encoding = "UTF-8"
 }
 
-
-fun Jar.includeLicenses() {
-    CrLfSpec(LineEndings.LF).run {
-        into("META-INF") {
-            filteringCharset = "UTF-8"
-            textFrom("$rootDir/licenses/INTELLIJ_LICENSE.txt")
-            textFrom("$rootDir/licenses/INTELLIJ_NOTICE.txt")
-            textFrom("$rootDir/licenses/MIGLAYOUT_LICENSE.txt")
-        }
-    }
-}
-
-tasks.jar {
-    includeLicenses()
-}
-
-tasks.register("createPortableApp") {
-    dependsOn("installDist")
+/**
+ * createPortableApp
+ *
+ * Produces a relocatable application directory under:
+ *   application/build/portable/
+ * Structure:
+ *   - lib/       (all runtime jars)
+ *   - runtime/   (custom JRE produced by jlink from the current JDK)
+ *   - MyLibreLab.bat / MyLibreLab.sh / MyLibreLab.command launchers
+ */
+val createPortableApp by tasks.registering {
+    group = "distribution"
+    description = "Create a portable app with a custom runtime and launchers"
+    dependsOn(tasks.named("installDist"))
 
     doLast {
-        val javaHome = System.getProperty("java.home")
-        val buildDir = layout.buildDirectory.get().asFile
-        val installDir = File(buildDir, "install/mylibrelab-application")
-        val outputDir = File(buildDir, "portable")
+        val os = OperatingSystem.current()
+        val installDir = layout.buildDirectory.dir("install/${project.name}").get().asFile
+        val outputDir = layout.buildDirectory.dir("portable").get().asFile
 
-        // Clean output directory
-        if (outputDir.exists()) {
-            outputDir.deleteRecursively()
-        }
+        // Fresh output
+        if (outputDir.exists()) outputDir.deleteRecursively()
         outputDir.mkdirs()
 
-        // Create custom JRE with jlink - ADD jdk.compiler module
-        val jlinkCmd = listOf(
-            "$javaHome/bin/jlink",
-            "--module-path", "$javaHome/jmods",
-            "--add-modules", "java.base,java.desktop,java.logging,java.management,java.naming,java.security.sasl,java.xml,jdk.unsupported,jdk.compiler",
-            "--output", File(outputDir, "runtime").absolutePath,
-            "--no-header-files",
-            "--no-man-pages",
-            "--compress=2",
-            "--strip-debug"
-        )
+        // Build custom JRE via jlink from the current JDK
+        val javaHome = System.getProperty("java.home")
+        val jlinkExe = file("$javaHome/bin/jlink" + if (os.isWindows) ".exe" else "")
+        val jmodsDir = file("$javaHome/jmods")
+        require(jlinkExe.exists()) { "jlink not found at: $jlinkExe" }
+        require(jmodsDir.exists()) { "jmods not found at: $jmodsDir" }
+
+        val modules = listOf(
+            "java.base",
+            "java.desktop",
+            "java.logging",
+            "java.xml",
+            "java.datatransfer",
+            "java.scripting",
+            "java.sql",
+            // ✅ required for javax.tools.* API + compiler implementation
+            "java.compiler",
+            "jdk.compiler",
+            // nice-to-have for jar/zip NIO and locale data
+            "jdk.zipfs",
+            "jdk.localedata",
+            "jdk.unsupported"
+        ).joinToString(",")
+
 
         exec {
-            commandLine(jlinkCmd)
+            commandLine(
+                jlinkExe.absolutePath,
+                "--add-modules", modules,
+                "--output", File(outputDir, "runtime").absolutePath,
+                "--no-header-files",
+                "--no-man-pages",
+                "--compress=2",
+                "--strip-debug"
+            )
         }
 
-        // Copy application files
+        // Copy application files from installDist into portable root
         copy {
             from(installDir)
             into(outputDir)
         }
 
-        // Create Windows launcher
-        val windowsLauncher = File(outputDir, "MyLibreLab.bat")
-        windowsLauncher.writeText("""
+        // ✅ Include elements/ for a self-contained portable bundle
+        val elementsSrc = project.rootDir.resolve("elements")
+        if (elementsSrc.exists()) {
+            copy {
+                from(elementsSrc)
+                into(File(outputDir, "elements"))
+            }
+            println("✅ Copied elements to portable bundle.")
+        } else {
+            println("ℹ️ elements/ directory not found in repo; skipping.")
+        }
+
+
+        // Windows launcher
+        val winBat = File(outputDir, "MyLibreLab.bat")
+        winBat.writeText(
+            """
             @echo off
-            "%~dp0runtime\bin\java.exe" -cp "%~dp0lib\*" com.github.mylibrelab.MyLibreLab %*
-        """.trimIndent())
+            setlocal
+            set "APP_HOME=%~dp0"
+            "%APP_HOME%runtime\bin\java.exe" ^
+            -Ddarklaf.useBufferedRepaintManager=true ^
+            --add-exports java.desktop/com.sun.java.swing=ALL-UNNAMED ^
+            -Dmylibrelab.elements="%APP_HOME%elements" ^
+            -cp "%APP_HOME%lib\*" com.github.mylibrelab.MyLibreLab %*
+            """.trimIndent()
+        )
 
-        // Create Unix launcher
-        val unixLauncher = File(outputDir, "MyLibreLab.sh")
-        unixLauncher.writeText("""
-            #!/bin/bash
-            DIR="${'$'}(cd "${'$'}(dirname "${'$'}{BASH_SOURCE[0]}")" && pwd)"
-            "${'$'}DIR/runtime/bin/java" -cp "${'$'}DIR/lib/*" com.github.mylibrelab.MyLibreLab "${'$'}@"
-        """.trimIndent())
-        unixLauncher.setExecutable(true)
 
-        println("Portable app created in: ${outputDir.absolutePath}")
+        // Unix launcher
+        val unixSh = File(outputDir, "MyLibreLab.sh")
+        unixSh.writeText(
+            """
+            #!/usr/bin/env bash
+            set -euo pipefail
+            DIR="$(cd "$(dirname "${'$'}0")" && pwd)"
+            exec "${'$'}DIR/runtime/bin/java" \
+            -Ddarklaf.useBufferedRepaintManager=true \
+            --add-exports java.desktop/com.sun.java.swing=ALL-UNNAMED \
+            -Dmylibrelab.elements="${'$'}DIR/elements" \
+            -cp "${'$'}DIR/lib/*" com.github.mylibrelab.MyLibreLab "${'$'}@"
+            """.trimIndent()
+        )
+        unixSh.setExecutable(true)
+
+        // macOS convenience launcher
+        val macCmd = File(outputDir, "MyLibreLab.command")
+        macCmd.writeText(unixSh.readText())
+        macCmd.setExecutable(true)
+
+
+
+        println("✅ Portable app created at: ${outputDir.absolutePath}")
+    }
+}
+
+/* ---------------------------
+   Phase 2: GraalVM Native Image (optional)
+   --------------------------- */
+graalvmNative {
+    binaries {
+        named("main") {
+            imageName.set("MyLibreLab")
+            // Smaller binary; requires proper reflection/resources config if used
+            buildArgs.add("--no-fallback")
+            resources.autodetect()
+        }
     }
 }

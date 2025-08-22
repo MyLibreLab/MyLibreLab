@@ -26,6 +26,8 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
+import org.tinylog.Logger;
+
 class MyOpenLabDriver {
 
     public String driverName = "";
@@ -45,15 +47,14 @@ class MyOpenLabDriver {
                 URL url1 = new File(driverPath + info.classpath).toURI().toURL();
                 URL url2 = new File(driverPath + info.Jar).toURI().toURL();
 
-                driver = (MyOpenLabDriverIF) loader.ladeClasseDriver(new URL[] {url1, url2}, info.Classe);
-                System.out.println("Driver loaded : " + driverName);
+                driver = (MyOpenLabDriverIF) loader.ladeClasseDriver(new URL[] { url1, url2 }, info.Classe);
+                Logger.info("Driver loaded: {}", driverName);
             } catch (MalformedURLException ex) {
                 org.tinylog.Logger.error(ex);
             }
         }
     }
 }
-
 
 public class DriverManager {
 
@@ -95,7 +96,6 @@ public class DriverManager {
              */
         }
 
-
         return null;
     }
 
@@ -110,7 +110,8 @@ public class DriverManager {
     }
 
     /*
-     * if Result = true anithing OK and Driver registred! if Result = false : driver already registred
+     * if Result = true anithing OK and Driver registred! if Result = false : driver
+     * already registred
      */
 
     public boolean registerDriver(Path file) {

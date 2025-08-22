@@ -1,0 +1,25 @@
+{
+    "folders": [
+        {
+            "path": ".."
+        }
+    ],
+    "settings": {
+        "java.configuration.runtimes": [
+            {
+                "name": "JavaSE-17",
+                "path": "C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.14.7-hotspot",
+                "default": true
+            }
+        ],
+        "java.gradle.buildServer.enabled": "on"
+    },
+    "extensions": {
+        "recommendations": [
+            "redhat.java",
+            "vscjava.vscode-java-pack",
+            "vscjava.vscode-gradle",
+            "fwcd.kotlin"
+        ]
+    }
+}

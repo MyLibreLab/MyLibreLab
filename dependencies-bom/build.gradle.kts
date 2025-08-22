@@ -2,6 +2,10 @@ plugins {
     `java-platform`
 }
 
+javaPlatform {
+    allowDependencies()
+}
+
 val String.v: String get() = rootProject.extra["$this.version"] as String
 
 // Note: Gradle allows to declare dependency on "bom" as "api",
@@ -23,6 +27,10 @@ fun DependencyConstraintHandlerScope.runtimev(
 dependencies {
     // Parenthesis are needed here: https://github.com/gradle/gradle/issues/9248
     (constraints) {
+        // Pin versions here so application modules can omit versions
+        api("org.json:json:20240303")
+        api("com.google.code.findbugs:jsr305:3.0.2")
+
         // api means "the dependency is for both compilation and runtime"
         // runtime means "the dependency is only for runtime, not for compilation"
         // In other words, marking dependency as "runtime" would avoid accidental

@@ -1,0 +1,34 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch MyLibreLab",
+            "request": "launch",
+            "mainClass": "com.github.mylibrelab.MyLibreLab",
+            "projectName": "mylibrelab-application",
+            "cwd": "${workspaceFolder}",
+            "args": [],
+            "vmArgs": "-Dfile.encoding=UTF-8 -Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf -Dmylibrelab.elements=${workspaceFolder}/elements",
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug Tests",
+            "request": "launch",
+            "projectName": "mylibrelab-application",
+            "cwd": "${workspaceFolder}",
+            "vmArgs": "-Dfile.encoding=UTF-8",
+            "preLaunchTask": "Test",
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart"
+        }
+    ]
+}

@@ -7,6 +7,9 @@ import name.remal.gradle_plugins.plugins.code_quality.sonar.SonarLintExtension
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.jvm.toolchain.JavaLanguageVersion
+
 plugins {
     id("com.github.autostyle")
     id("com.github.vlsi.crlf")
@@ -189,11 +192,6 @@ allprojects {
 
     plugins.withType<JavaPlugin> {
 
-        configure<JavaPluginExtension> {
-            sourceCompatibility = JavaVersion.VERSION_17
-            targetCompatibility = JavaVersion.VERSION_17
-        }
-
         tasks {
             withType<JavaCompile> {
                 options.encoding = "UTF-8"
@@ -228,5 +226,20 @@ allprojects {
                 }
             }
         }
+    }
+}
+
+
+
+subprojects {
+    pluginManager.withPlugin("java") {
+        extensions.configure<JavaPluginExtension> {
+            toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+        }
+    }
+
+    // keep Kotlin at 17 too (harmless if a subproject doesn't apply Kotlin)
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        kotlinOptions.jvmTarget = "17"
     }
 }

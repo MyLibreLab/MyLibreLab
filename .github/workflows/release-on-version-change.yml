@@ -1,0 +1,186 @@
+name: Release on Version Change
+
+on:
+  push:
+    branches: [dev, fix/windows-build-compatibility]
+    paths:
+      - "gradle.properties"
+
+permissions:
+  contents: write # needed to create tags/releases
+  actions: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  detect:
+    name: Detect version change
+    runs-on: ubuntu-latest
+    outputs:
+      new_version: ${{ steps.ver.outputs.new }}
+      changed: ${{ steps.ver.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: ver
+        shell: bash
+        run: |
+          set -euo pipefail
+          NEW=$(grep -E '^\s*MyLibreLab\.version\s*=' gradle.properties | sed 's/.*=\s*//; s/\s*$//')
+          OLD=$(git show HEAD^:gradle.properties 2>/dev/null | grep -E '^\s*MyLibreLab\.version\s*=' | sed 's/.*=\s*//; s/\s*$//') || true
+          echo "new=$NEW" >> "$GITHUB_OUTPUT"
+          if [ "$NEW" != "$OLD" ]; then echo "changed=true" >> "$GITHUB_OUTPUT"; else echo "changed=false" >> "$GITHUB_OUTPUT"; fi
+          echo "Detected version: $NEW (previous: ${OLD:-none})"
+
+  build:
+    name: Build matrix (portable + installers)
+    needs: detect
+    if: needs.detect.outputs.changed == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: linux
+            arch: x64
+            installer: true
+          - os: macos-latest
+            platform: macos
+            arch: x64
+            installer: true
+          - os: windows-latest
+            platform: windows
+            arch: x64
+            installer: true
+    runs-on: ${{ matrix.os }}
+    env:
+      VERSION: ${{ needs.detect.outputs.new_version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: temurin
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: wrapper
+
+      - name: Ensure gradlew is executable (Unix)
+        if: runner.os != 'Windows'
+        run: chmod +x gradlew
+
+      - name: Build (skip tests)
+        run: ./gradlew clean build -x test -PskipAutostyle -PskipSonarlint --no-daemon
+        shell: bash
+
+      - name: Create portable app
+        run: ./gradlew :mylibrelab-application:createPortableApp --no-daemon
+        shell: bash
+
+      # Move portable as the app-image for packaging
+      - name: Stage app-image
+        shell: bash
+        run: |
+          mkdir -p build/jpackage
+          cp -r application/build/portable build/jpackage/MyLibreLab
+          ls -la build/jpackage || true
+
+      # Linux installers (deb/rpm)
+      - name: Package Linux installers
+        if: runner.os == 'Linux' && matrix.installer
+        shell: bash
+        run: |
+          jpackage \
+            --type deb \
+            --name "MyLibreLab" \
+            --app-version "$VERSION" \
+            --app-image "build/jpackage/MyLibreLab" \
+            --license-file LICENSE \
+            --dest installer-output
+          jpackage \
+            --type rpm \
+            --name "MyLibreLab" \
+            --app-version "$VERSION" \
+            --app-image "build/jpackage/MyLibreLab" \
+            --license-file LICENSE \
+            --dest installer-output
+          tar -C application/build -czf "MyLibreLab-linux-${{ matrix.arch }}.tar.gz" portable
+
+      # macOS DMG
+      - name: Package macOS DMG
+        if: runner.os == 'macOS' && matrix.installer
+        run: |
+          jpackage \
+            --type dmg \
+            --name "MyLibreLab" \
+            --app-version "$VERSION" \
+            --app-image "build/jpackage/MyLibreLab" \
+            --dest installer-output
+          gtar -C application/build -czf "MyLibreLab-macos-${{ matrix.arch }}.tar.gz" portable
+
+      # Windows EXE/MSI (MSI only if WiX is present)
+      - name: Package Windows installers
+        if: runner.os == 'Windows' && matrix.installer
+        shell: pwsh
+        run: |
+          jpackage `
+            --type exe `
+            --name "MyLibreLab" `
+            --app-version "$env:VERSION" `
+            --app-image "build/jpackage/MyLibreLab" `
+            --win-menu `
+            --win-shortcut `
+            --win-dir-chooser `
+            --win-upgrade-uuid "12345678-1234-1234-1234-123456789012" `
+            --dest installer-output
+          if (Get-Command candle.exe -ErrorAction SilentlyContinue) {
+            jpackage `
+              --type msi `
+              --name "MyLibreLab" `
+              --app-version "$env:VERSION" `
+              --app-image "build/jpackage/MyLibreLab" `
+              --win-dir-chooser `
+              --win-upgrade-uuid "12345678-1234-1234-1234-123456789012" `
+              --dest installer-output
+          } else {
+            Write-Host "WiX not found; skipping MSI."
+          }
+          Compress-Archive -Path application/build/portable/* -DestinationPath "MyLibreLab-windows-${{ matrix.arch }}.zip"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mylibrelab-${{ matrix.platform }}-${{ matrix.arch }}-${{ env.VERSION }}
+          path: |
+            installer-output/**
+            MyLibreLab-*.tar.gz
+            MyLibreLab-*.zip
+          if-no-files-found: ignore
+
+  release:
+    name: Create GitHub Release
+    needs: [detect, build]
+    if: needs.detect.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+
+      - name: Create GitHub Release (auto-creates tag if missing)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ needs.detect.outputs.new_version }}
+          name: MyLibreLab ${{ needs.detect.outputs.new_version }}
+          generate_release_notes: true
+          files: |
+            dist/**/*

@@ -1,0 +1,22 @@
+{
+    "recommendations": [
+        "redhat.java",
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-gradle",
+        "fwcd.kotlin",
+        "redhat.vscode-yaml",
+        "redhat.vscode-xml",
+        "yzhang.markdown-all-in-one",
+        "sonarsource.sonarlint-vscode",
+        "shengchen.vscode-checkstyle",
+        "github.vscode-github-actions",
+        "ms-vscode.powershell",
+        "ms-azuretools.vscode-docker",
+        "ms-vscode-remote.remote-containers",
+        "editorconfig.editorconfig",
+        "streetsidesoftware.code-spell-checker"
+    ],
+    "unwantedRecommendations": [
+        "ms-vscode.vscode-typescript-next"
+    ]
+}

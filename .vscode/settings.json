@@ -1,0 +1,109 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.import.gradle.enabled": true,
+    "java.import.gradle.wrapper.enabled": true,
+    "java.import.gradle.offline.enabled": false,
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.format.settings.url": "config/style.eclipseformat.xml",
+    "java.format.settings.profile": "MyLibreLab",
+    "java.saveActions.organizeImports": true,
+    "java.sources.organizeImports.starThreshold": 999,
+    "java.sources.organizeImports.staticStarThreshold": 999,
+    "kotlin.languageServer.enabled": true,
+    "kotlin.debugAdapter.enabled": true,
+    "files.associations": {
+        "*.gradle.kts": "kotlin",
+        "*.kts": "kotlin",
+        "*.myopenlab": "xml"
+    },
+    "files.exclude": {
+        "**/.gradle": true,
+        "**/build": true,
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true,
+        "**/bin": true,
+        "**/*.class": true
+    },
+    "files.watcherExclude": {
+        "**/.gradle/**": true,
+        "**/build/**": true,
+        "**/node_modules/**": true
+    },
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+    },
+    "[java]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true,
+        "editor.rulers": [
+            120
+        ],
+        "editor.defaultFormatter": "redhat.java"
+    },
+    "[kotlin]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true,
+        "editor.rulers": [
+            120
+        ],
+        "editor.defaultFormatter": "fwcd.kotlin"
+    },
+    "[gradle]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true,
+        "editor.defaultFormatter": "fwcd.kotlin"
+    },
+    "[yaml]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[markdown]": {
+        "files.trimTrailingWhitespace": false,
+        "editor.wordWrap": "on",
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    },
+    "[xml]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.defaultFormatter": "redhat.vscode-xml"
+    },
+    "[json]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[properties]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true
+    },
+    "gradle.nestedProjects": true,
+    "gradle.autoDetect": "on",
+    "terminal.integrated.env.windows": {
+        "JAVA_HOME": "C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.14.7-hotspot"
+    },
+    "sonarlint.connectedMode.project": {
+        "connectionId": "mylibrelab",
+        "projectKey": "MyLibreLab_key254582"
+    },
+    "checkstyle.configuration": "${workspaceFolder}/config/checkstyle.xml",
+    "checkstyle.properties": {},
+    "search.exclude": {
+        "**/build": true,
+        "**/.gradle": true,
+        "**/node_modules": true,
+        "**/target": true,
+        "**/*.class": true,
+        "**/*.jar": true
+    }
+}
