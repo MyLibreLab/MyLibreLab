@@ -1,0 +1,76 @@
+name: Tag and Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      force_tag:
+        description: 'Force create tag even if it exists'
+        required: false
+        default: false
+        type: boolean
+  push:
+    branches:
+      - fix/windows-build-compatibility
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  tag-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract version from gradle.properties
+        run: |
+          VERSION=$(grep -E '^\s*MyLibreLab\.version\s*=' gradle.properties | sed 's/.*=\s*//; s/\s*$//')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Extracted version: $VERSION"
+
+      - name: Check if tag exists
+        run: |
+          if git tag --list | grep -q "^v$VERSION$"; then
+            echo "TAG_EXISTS=true" >> $GITHUB_ENV
+            echo "Tag v$VERSION already exists"
+          else
+            echo "TAG_EXISTS=false" >> $GITHUB_ENV
+            echo "Tag v$VERSION does not exist"
+          fi
+
+      - name: Create and push tag
+        if: env.TAG_EXISTS == 'false' || github.event.inputs.force_tag == 'true'
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+          if [ "${{ env.TAG_EXISTS }}" = "true" ]; then
+            echo "Force deleting existing tag v$VERSION"
+            git tag -d "v$VERSION" || true
+            git push --delete origin "v$VERSION" || true
+          fi
+
+          echo "Creating annotated tag v$VERSION"
+          git tag -a "v$VERSION" -m "MyLibreLab $VERSION
+
+          Generated automatically from commit ${{ github.sha }}
+          Branch: ${{ github.ref_name }}
+
+          Self-contained executables with bundled Java 17 runtime.
+          Cross-platform support for Windows, Linux, and macOS."
+
+          echo "Pushing tag to origin"
+          git push origin "v$VERSION"
+
+          echo "✅ Tag v$VERSION created and pushed successfully"
+
+      - name: Tag already exists
+        if: env.TAG_EXISTS == 'true' && github.event.inputs.force_tag != 'true'
+        run: |
+          echo "ℹ️  Tag v$VERSION already exists. Use 'force_tag' to recreate it."
+          echo "The existing tag will trigger the build-and-release workflow if it hasn't already."

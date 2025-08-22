@@ -6,7 +6,7 @@
 
 MyLibreLab is a modern fork of [MyOpenLab](https://myopenlab.org/), a visual programming environment for electronics and embedded systems development. This project aims to modernize the codebase while maintaining compatibility with existing MyOpenLab projects.
 
-> **⚠️ Development Status**: MyLibreLab is currently in early alpha stage and under heavy development. For a stable, production-ready version, please use the [archived MyOpenLab](https://github.com/MyLibreLab/MyOpenLab).
+> **🚀 Alpha Release Available**: MyLibreLab v0.1.0 is now available with self-contained executables for Windows, macOS, and Linux. [Download from Releases](https://github.com/MyLibreLab/MyLibreLab/releases)
 
 ## Features
 
@@ -25,6 +25,20 @@ MyLibreLab is a modern fork of [MyOpenLab](https://myopenlab.org/), a visual pro
 - **GitHub-based development** with CI/CD pipelines
 - **Updated dependencies** and security improvements
 - **Modern development practices** with code quality tools
+
+## Self-Contained Executables
+
+MyLibreLab now provides **truly portable executables** that require no Java installation:
+
+- **Windows**: `MyLibreLab.bat` (~96MB) 
+- **Linux**: `MyLibreLab.sh` (~96MB)
+- **macOS**: `MyLibreLab.command` (~96MB)
+
+Each executable includes:
+- ✅ **Bundled Java 17 runtime** (no system Java needed)
+- ✅ **All dependencies included** 
+- ✅ **Complete elements library**
+- ✅ **Cross-platform compatibility**
 
 ## Quick Start
 
@@ -70,6 +84,21 @@ Create an installer:
 ```bash
 ./gradlew :mylibrelab-application:jpackage
 ```
+
+### Download Pre-built Executables (Recommended)
+
+1. **Download for your platform**:
+   - Go to [Releases](https://github.com/MyLibreLab/MyLibreLab/releases)
+   - Download the latest `.tar.gz` for your platform
+   - Extract and run the launcher (no Java installation required)
+
+2. **Run MyLibreLab**:
+   ```bash
+   # Windows
+   MyLibreLab.bat
+   
+   # Linux/macOS
+   ./MyLibreLab.sh
 
 ## Development Setup
 
@@ -179,6 +208,7 @@ MyLibreLab is based on MyOpenLab by Carmelo Salafia (www.myopenlab.de)
 
 | Version | Status | Java Version | Release Date |
 |---------|--------|--------------|--------------|
+| v0.1.0 | 🎉 Alpha Release | Java 17 (bundled) | August 2025 |
 | 1.0.0 | 🚧 In Development | Java 17 | TBD |
 
 ---

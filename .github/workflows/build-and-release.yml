@@ -106,20 +106,51 @@ jobs:
           echo "Contents of MyLibreLab app:"
           ls -la build/jpackage/MyLibreLab/ 2>/dev/null || (echo "MyLibreLab directory not found" && exit 1)
 
-      - name: Package portable binary
+      # Use PowerShell on real Windows runners
+      - name: Package portable binary (Windows)
+        if: matrix.platform == 'windows' && runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          cd build/jpackage
+          Compress-Archive -Path MyLibreLab\* -DestinationPath ..\..\MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.zip
+          cd ..\..
+          echo "ARTIFACT_PATH=MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.zip" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+          # Verify archive was created
+          if (-not (Test-Path "MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.zip")) {
+            Write-Error "Archive not created"
+            exit 1
+          }
+
+          Get-ChildItem "MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.zip"
+
+      # Fallback for act (Linux container simulating Windows)
+      - name: Package portable binary (Windows, act fallback)
+        if: matrix.platform == 'windows' && runner.os != 'Windows'
         shell: bash
         run: |
           cd build/jpackage
+          zip -r ../../MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.zip MyLibreLab/
+          cd ../..
+          echo "ARTIFACT_PATH=MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.zip" >> $GITHUB_ENV
 
-          # Create archive based on platform
-          if [ "${{ matrix.platform }}" = "windows" ]; then
-            # Use tar for consistency across platforms
-            tar -czf ../../MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz MyLibreLab/
-          else
-            tar -czf ../../MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz MyLibreLab/
+          # Verify archive was created
+          if [ ! -f "MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.zip" ]; then
+            echo "Error: Archive not created"
+            exit 1
           fi
 
+          ls -la "MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.zip"
+
+      # Unix platforms (Linux/macOS)
+      - name: Package portable binary (Unix)
+        if: matrix.platform != 'windows'
+        shell: bash
+        run: |
+          cd build/jpackage
+          tar -czf ../../MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz MyLibreLab/
           cd ../..
+          echo "ARTIFACT_PATH=MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz" >> $GITHUB_ENV
 
           # Verify archive was created
           if [ ! -f "MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz" ]; then
@@ -127,11 +158,7 @@ jobs:
             exit 1
           fi
 
-          # Set environment variable for upload step
-          echo "ARTIFACT_PATH=MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz" >> $GITHUB_ENV
-
-          # Show file size for verification
-          ls -la MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz
+          ls -la "MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz"
 
       - name: Upload portable executable
         uses: actions/upload-artifact@v4
@@ -154,23 +181,82 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/v')
 
     steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Need full history for changelog
+
+      - name: Extract version from gradle.properties
+        shell: bash
+        run: |
+          VERSION=$(grep -E '^\s*MyLibreLab\.version\s*=' gradle.properties | sed 's/.*=\s*//; s/\s*$//')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Extracted version: $VERSION"
+
+      - name: Generate changelog
+        shell: bash
+        run: |
+          git fetch --tags --force
+
+          # Get previous tag
+          prev=$(git describe --tags --abbrev=0 --match 'v*' HEAD~1 2>/dev/null || echo "")
+
+          if [ -n "$prev" ]; then
+            echo "## MyLibreLab v$VERSION - Changes since $prev" > CHANGELOG.md
+            echo "" >> CHANGELOG.md
+            git log --pretty=format:'- %s (%h)' "$prev"..HEAD >> CHANGELOG.md
+          else
+            echo "## MyLibreLab v$VERSION - Initial Release" > CHANGELOG.md
+            echo "" >> CHANGELOG.md
+            echo "First MyLibreLab release featuring:" >> CHANGELOG.md
+            echo "- Self-contained executables with bundled Java 17 runtime" >> CHANGELOG.md
+            echo "- Cross-platform support (Windows, Linux, macOS)" >> CHANGELOG.md
+            echo "- Modern CI/CD pipeline with automated builds" >> CHANGELOG.md
+            echo "- Updated dependencies and security improvements" >> CHANGELOG.md
+            echo "- No external Java installation required" >> CHANGELOG.md
+          fi
+
+          # Add download instructions
+          cat >> CHANGELOG.md << 'EOF'
+
+          ## Downloads
+
+          **Choose the right package for your platform:**
+
+          - 🪟 **Windows**: `MyLibreLab-windows-x64.zip` (~96MB)
+          - 🐧 **Linux**: `MyLibreLab-linux-x64.tar.gz` (~96MB)
+          - 🍎 **macOS**: `MyLibreLab-macos-x64.tar.gz` (~96MB)
+
+          All packages include a bundled Java runtime - **no separate Java installation required**.
+
+          ### How to run:
+          - **Windows**: Extract and run `MyLibreLab.bat`
+          - **Linux/macOS**: Extract and run `./MyLibreLab.sh` (or `./MyLibreLab.command` on macOS)
+
+          ### What's included:
+          - Complete MyLibreLab application with modern UI
+          - Legacy MyOpenLab compatibility layer
+          - All circuit elements and component libraries
+          - Hardware driver support (RS232, K8047, K8055, etc.)
+          - Custom Java 17 runtime (no system Java needed)
+          EOF
+
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
           path: artifacts/
 
-      - name: List artifacts
-        run: find artifacts/ -type f -name "*.tar.gz" -o -name "*.zip" | head -20
-
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
+          target_commitish: ${{ github.sha }}
+          body_path: CHANGELOG.md
+          generate_release_notes: false
           files: |
             artifacts/MyLibreLab-linux-x64/*
             artifacts/MyLibreLab-windows-x64/*
             artifacts/MyLibreLab-macos-x64/*
           draft: false
           prerelease: ${{ contains(github.ref, 'alpha') || contains(github.ref, 'beta') || contains(github.ref, 'rc') }}
-          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
