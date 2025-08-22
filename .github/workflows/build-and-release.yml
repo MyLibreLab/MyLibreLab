@@ -173,138 +173,102 @@ jobs:
 
       # Create Windows installer (only on real Windows runner)
       - name: Create Windows installer
-        if: runner.os == 'Windows' && matrix.platform == 'windows' && matrix.installer == true && startsWith(github.ref, 'refs/tags/v')
         shell: pwsh
         run: |
-          # Robust version extraction with error handling
-          $versionLine = Select-String -Path "gradle.properties" -Pattern '^\s*MyLibreLab\.version\s*=' | Select-Object -First 1
-          if (-not $versionLine) {
-            throw "MyLibreLab.version not found in gradle.properties"
-          }
-          $VERSION = ($versionLine.Line -split '=')[1].Trim()
-          Write-Host "Extracted VERSION: $VERSION"
+          $ErrorActionPreference = 'Stop'
+          $PORTABLE = Join-Path $env:GITHUB_WORKSPACE 'application\build\portable'
+          $DEST     = Join-Path $env:GITHUB_WORKSPACE 'installer-output'
+          New-Item -ItemType Directory -Force -Path $DEST | Out-Null
 
-          # Create Windows executable installer
-          jpackage `
-            --type exe `
-            --name MyLibreLab `
-            --app-version "${{ env.PROJECT_VERSION }}" `
-            --input "${{ github.workspace }}\application\build\install\mylibrelab-application\lib" `
-            --main-class com.github.mylibrelab.MyLibreLab `
-            --main-jar mylibrelab-application.jar `
-            --resource-dir "${{ github.workspace }}\elements" `
-            --dest installer-output `
-            --vendor "MyLibreLab" `
-            --icon "${{ github.workspace }}\application\packaging\windows\app.ico" `
-            --java-options "-Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf" `
-            --java-options "-Ddarklaf.theme=one_dark" `
-            --java-options "-Ddarklaf.useBufferedRepaintManager=true" `
-            --java-options "--add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED" `
-            --java-options "-Dmylibrelab.elements=%APPDIR%\elements"
+          $iconPath = 'application\packaging\windows\app.ico'
+          $iconArg  = ''
+          if (Test-Path $iconPath) { $iconArg = "--icon `"$iconPath`"" }
 
-          # Check if WiX is available for MSI
-          if (Get-Command candle.exe -ErrorAction SilentlyContinue) {
-            Write-Host "WiX found, creating MSI installer"
-            jpackage `
-              --type msi `
-              --name "MyLibreLab" `
-              --app-version "$VERSION" `
-              --app-image "build/jpackage/MyLibreLab" `
-              --win-dir-chooser `
-              --win-upgrade-uuid "12345678-1234-1234-1234-123456789012" `
-              --dest installer-output
-          } else {
-            Write-Host "WiX not found, skipping MSI creation"
-          }
+          $common = @(
+            '--name', 'MyLibreLab',
+            '--app-version', '${{ steps.extract_version.outputs.version }}',
+            '--app-image', $PORTABLE,
+            '--dest', $DEST,
+            '--vendor', 'MyLibreLab',
+            '--description', 'Visual programming environment for microcontrollers',
+            '--java-options', '-Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf',
+            '--java-options', '-Ddarklaf.theme=one_dark',
+            '--java-options', '-Ddarklaf.useBufferedRepaintManager=true',
+            '--java-options', '--add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED',
+            '--java-options', '-Dmylibrelab.elements=%APPDIR%\elements'
+          )
 
-          # List created installers
-          Get-ChildItem installer-output
+          & jpackage --type exe $common $iconArg
+          & jpackage --type msi $common $iconArg
+
+          Get-ChildItem $DEST
 
       # Create macOS installer (only on real macOS runner)
       - name: Create macOS installer
-        if: runner.os == 'macOS' && matrix.platform == 'macos' && matrix.installer == true && startsWith(github.ref, 'refs/tags/v')
+        shell: bash
         run: |
-          # Extract version
-          if ! grep -Eq '^\s*MyLibreLab\.version\s*=' gradle.properties; then
-            echo "Error: MyLibreLab.version not found"; exit 1
-          fi
-          VERSION=$(grep -E '^\s*MyLibreLab\.version\s*=' gradle.properties | sed 's/.*=\s*//; s/\s*$//')
-          [ -n "$VERSION" ] || { echo "Error: Version is empty"; exit 1; }
-          echo "Extracted VERSION: $VERSION"
+          set -euxo pipefail
+          PORTABLE="${GITHUB_WORKSPACE}/application/build/portable"
+          DEST="${GITHUB_WORKSPACE}/installer-output"
+          mkdir -p "$DEST"
 
-          # Use --app-image with our portable structure
+          ICON_ARG=""
+          if [[ -f "application/packaging/macos/app.icns" ]]; then
+            ICON_ARG="--icon application/packaging/macos/app.icns"
+          fi
+
           jpackage \
             --type dmg \
-            --name MyLibreLab \
-            --app-version "${{ env.PROJECT_VERSION }}" \
-            --input "${{ github.workspace }}/application/build/install/mylibrelab-application/lib" \
-            --main-class com.github.mylibrelab.MyLibreLab \
-            --main-jar mylibrelab-application.jar \
-            --resource-dir "${{ github.workspace }}/elements" \
-            --dest installer-output \
+            --name "MyLibreLab" \
+            --app-version "${{ steps.extract_version.outputs.version }}" \
+            --app-image "$PORTABLE" \
+            --dest "$DEST" \
             --vendor "MyLibreLab" \
-            --icon "${{ github.workspace }}/application/packaging/macos/app.icns" \
+            --description "Visual programming environment for microcontrollers" \
             --java-options "-Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf" \
             --java-options "-Ddarklaf.theme=one_dark" \
             --java-options "-Ddarklaf.useBufferedRepaintManager=true" \
             --java-options "--add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED" \
-            --java-options "-Dmylibrelab.elements=\$APPDIR/elements"
+            --java-options "-Dmylibrelab.elements=\$APPDIR/elements" \
+            $ICON_ARG
 
-          ls -la installer-output/
+          ls -al "$DEST"
 
       # Create Linux installer (only on real Linux runner)
       - name: Create Linux installer
-        if: runner.os == 'Linux' && matrix.platform == 'linux' && matrix.installer == true && startsWith(github.ref, 'refs/tags/v')
+        shell: bash
         run: |
-          # Install packaging tools
-          sudo apt-get update
+          set -euxo pipefail
+          sudo apt-get update -y
           sudo apt-get install -y fakeroot rpm
 
-          # Extract version
-          if ! grep -Eq '^\s*MyLibreLab\.version\s*=' gradle.properties; then
-            echo "Error: MyLibreLab.version not found"; exit 1
+          PORTABLE="${GITHUB_WORKSPACE}/application/build/portable"
+          DEST="${GITHUB_WORKSPACE}/installer-output"
+          mkdir -p "$DEST"
+
+          ICON_ARG=""
+          if [[ -f "application/packaging/linux/app.png" ]]; then
+            ICON_ARG="--icon application/packaging/linux/app.png"
           fi
-          VERSION=$(grep -E '^\s*MyLibreLab\.version\s*=' gradle.properties | sed 's/.*=\s*//; s/\s*$//')
-          [ -n "$VERSION" ] || { echo "Error: Version is empty"; exit 1; }
-          echo "Extracted VERSION: $VERSION"
 
-          # Use --app-image with our portable structure
-          jpackage \
-            --type deb \
-            --name MyLibreLab \
-            --app-version "${{ env.PROJECT_VERSION }}" \
-            --input "${{ github.workspace }}/application/build/install/mylibrelab-application/lib" \
-            --main-class com.github.mylibrelab.MyLibreLab \
-            --main-jar mylibrelab-application.jar \
-            --resource-dir "${{ github.workspace }}/elements" \
-            --dest installer-output \
-            --vendor "MyLibreLab" \
-            --icon "${{ github.workspace }}/application/packaging/linux/app.png" \
-            --java-options "-Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf" \
-            --java-options "-Ddarklaf.theme=one_dark" \
-            --java-options "-Ddarklaf.useBufferedRepaintManager=true" \
-            --java-options "--add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED" \
+          common=(
+            --name "MyLibreLab"
+            --app-version "${{ steps.extract_version.outputs.version }}"
+            --app-image "$PORTABLE"
+            --dest "$DEST"
+            --vendor "MyLibreLab"
+            --description "Visual programming environment for microcontrollers"
+            --java-options "-Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf"
+            --java-options "-Ddarklaf.theme=one_dark"
+            --java-options "-Ddarklaf.useBufferedRepaintManager=true"
+            --java-options "--add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED"
             --java-options "-Dmylibrelab.elements=\$APPDIR/elements"
+          )
 
-          # Create RPM package
-          jpackage \
-            --type rpm \
-            --name MyLibreLab \
-            --app-version "${{ env.PROJECT_VERSION }}" \
-            --input "${{ github.workspace }}/application/build/install/mylibrelab-application/lib" \
-            --main-class com.github.mylibrelab.MyLibreLab \
-            --main-jar mylibrelab-application.jar \
-            --resource-dir "${{ github.workspace }}/elements" \
-            --dest installer-output \
-            --vendor "MyLibreLab" \
-            --icon "${{ github.workspace }}/application/packaging/linux/app.png" \
-            --java-options "-Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf" \
-            --java-options "-Ddarklaf.theme=one_dark" \
-            --java-options "-Ddarklaf.useBufferedRepaintManager=true" \
-            --java-options "--add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED" \
-            --java-options "-Dmylibrelab.elements=\$APPDIR/elements"
+          jpackage --type deb "${common[@]}" $ICON_ARG
+          jpackage --type rpm "${common[@]}" $ICON_ARG
 
-          ls -la installer-output/
+          ls -al "$DEST"
 
       - name: Upload installer artifacts
         if: matrix.installer == true && startsWith(github.ref, 'refs/tags/v')
