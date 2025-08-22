@@ -7,8 +7,10 @@ concurrency:
 on:
   push:
     branches: [ main, dev, fix/windows-build-compatibility ]
+    tags: [ 'v*' ]
   pull_request:
     branches: [ main, dev ]
+  workflow_dispatch:
   release:
     types: [published]
 
@@ -51,13 +53,6 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
         with:
           gradle-version: wrapper
-          cache-read-only: ${{ env.ACT || 'false' }}
-
-      - name: Ensure gradlew is executable
-        shell: bash
-        run: |
-          chmod +x gradlew
-          ./gradlew --version
 
       - name: Build application
         run: ./gradlew clean build -PskipAutostyle -PskipSonarlint -x test --no-daemon
@@ -72,7 +67,7 @@ jobs:
           mkdir -p build/jpackage
           mv application/build/portable build/jpackage/MyLibreLab
 
-          # Copy elements directory if it exists
+          # Copy elements directory if it exists (conditional to avoid errors)
           if [ -d elements ]; then
             cp -r elements build/jpackage/MyLibreLab/
             echo "Elements directory copied"
