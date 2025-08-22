@@ -51,6 +51,13 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
         with:
           gradle-version: wrapper
+          cache-read-only: ${{ env.ACT || 'false' }}
+
+      - name: Ensure gradlew is executable
+        shell: bash
+        run: |
+          chmod +x gradlew
+          ./gradlew --version
 
       - name: Build application
         run: ./gradlew clean build -PskipAutostyle -PskipSonarlint -x test --no-daemon
