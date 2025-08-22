@@ -1,19 +1,25 @@
 name: Build and Release
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   push:
-    branches: [ master, main, dev, fix/windows-build-compatibility ]
-    tags: [ 'v*' ]
+    branches: [ main, dev, fix/windows-build-compatibility ]
   pull_request:
-    branches: [ master, main, dev ]
+    branches: [ main, dev ]
+  release:
+    types: [published]
 
 env:
-  JAVA_VERSION: '17'
-  GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.parallel=true -Dorg.gradle.caching=true'
+  SKIP_AUTOSTYLE: true
+  SKIP_SONARLINT: true
 
 jobs:
   build-matrix:
     strategy:
+      fail-fast: false
       matrix:
         include:
           - platform: linux
@@ -30,40 +36,21 @@ jobs:
             installer: true
 
     runs-on: ${{ matrix.os }}
-    name: Build ${{ matrix.platform }}-${{ matrix.arch }}
 
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Set up JDK ${{ env.JAVA_VERSION }}
+      - name: Setup JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: ${{ env.JAVA_VERSION }}
-          distribution: 'temurin'
-          architecture: ${{ matrix.arch }}
+          java-version: 17
+          distribution: temurin
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
           gradle-version: wrapper
-          cache-read-only: false
-
-      - name: Cache Gradle packages
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
-      - name: Make gradlew executable (Unix)
-        if: runner.os != 'Windows'
-        run: chmod +x ./gradlew
 
       - name: Build application
         run: ./gradlew clean build -PskipAutostyle -PskipSonarlint -x test --no-daemon
@@ -78,29 +65,34 @@ jobs:
           mkdir -p build/jpackage
           mv application/build/portable build/jpackage/MyLibreLab
 
-          # Copy elements directory to the portable app
-          cp -r elements build/jpackage/MyLibreLab/
+          # Copy elements directory if it exists
+          if [ -d elements ]; then
+            cp -r elements build/jpackage/MyLibreLab/
+            echo "Elements directory copied"
+          else
+            echo "Elements directory not found, skipping copy"
+          fi
 
           cd build/jpackage/MyLibreLab
 
           # Ensure launchers are executable on Unix
-          chmod +x MyLibreLab.sh
+          chmod +x MyLibreLab.sh 2>/dev/null || true
 
           # Create macOS launcher
-          cp MyLibreLab.sh MyLibreLab.command
-          chmod +x MyLibreLab.command
+          cp MyLibreLab.sh MyLibreLab.command 2>/dev/null || true
+          chmod +x MyLibreLab.command 2>/dev/null || true
 
           cd ../../..
 
       - name: Verify portable app structure
         shell: bash
         run: |
-          echo "Contents of build directory:"
-          ls -la build/ 2>/dev/null || (echo "build directory not found" && exit 1)
-          echo "Contents of jpackage directory:"
-          ls -la build/jpackage/ 2>/dev/null || (echo "jpackage directory not found" && exit 1)
-          echo "Contents of MyLibreLab app:"
-          ls -la build/jpackage/MyLibreLab/ 2>/dev/null || (echo "MyLibreLab directory not found" && exit 1)
+          echo "Verifying MyLibreLab portable app structure:"
+          ls -la build/jpackage/MyLibreLab/
+          echo "Runtime directory:"
+          ls -la build/jpackage/MyLibreLab/runtime/ || echo "No runtime directory"
+          echo "Lib directory:"
+          ls -la build/jpackage/MyLibreLab/lib/ | head -10
 
       # Use PowerShell on real Windows runners
       - name: Package portable binary (Windows)
@@ -156,29 +148,34 @@ jobs:
 
           ls -la "MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz"
 
-      - name: Upload portable executable
+      - name: Upload portable app artifact
         uses: actions/upload-artifact@v4
         with:
           name: MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}
           path: ${{ env.ARTIFACT_PATH }}
-          retention-days: 30
 
-      # Create native installers (only for tagged releases)
+      # Setup installer tools (Windows only on real Windows runner)
       - name: Setup installer tools (Windows)
-        if: matrix.platform == 'windows' && matrix.installer == true && startsWith(github.ref, 'refs/tags/v')
+        if: runner.os == 'Windows' && matrix.platform == 'windows' && matrix.installer == true && startsWith(github.ref, 'refs/tags/v')
         run: |
           # Install WiX Toolset for MSI creation
           choco install wixtoolset -y
           echo "C:\Program Files (x86)\WiX Toolset v3.11\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
+      # Create Windows installer (only on real Windows runner)
       - name: Create Windows installer
-        if: matrix.platform == 'windows' && matrix.installer == true && startsWith(github.ref, 'refs/tags/v')
+        if: runner.os == 'Windows' && matrix.platform == 'windows' && matrix.installer == true && startsWith(github.ref, 'refs/tags/v')
         shell: pwsh
         run: |
-          # Extract version for jpackage
-          $VERSION = (Get-Content gradle.properties | Select-String "MyLibreLab.version" | ForEach-Object { $_.Line.Split('=')[1].Trim() })
+          # Robust version extraction with error handling
+          $versionLine = Select-String -Path "gradle.properties" -Pattern '^\s*MyLibreLab\.version\s*=' | Select-Object -First 1
+          if (-not $versionLine) {
+            throw "MyLibreLab.version not found in gradle.properties"
+          }
+          $VERSION = ($versionLine.Line -split '=')[1].Trim()
+          Write-Host "Extracted VERSION: $VERSION"
 
-          # Use --app-image to work with our existing portable structure
+          # Create Windows executable installer
           jpackage `
             --type exe `
             --name "MyLibreLab" `
@@ -208,11 +205,17 @@ jobs:
           # List created installers
           Get-ChildItem installer-output
 
+      # Create macOS installer (only on real macOS runner)
       - name: Create macOS installer
-        if: matrix.platform == 'macos' && matrix.installer == true && startsWith(github.ref, 'refs/tags/v')
+        if: runner.os == 'macOS' && matrix.platform == 'macos' && matrix.installer == true && startsWith(github.ref, 'refs/tags/v')
         run: |
           # Extract version
+          if ! grep -Eq '^\s*MyLibreLab\.version\s*=' gradle.properties; then
+            echo "Error: MyLibreLab.version not found"; exit 1
+          fi
           VERSION=$(grep -E '^\s*MyLibreLab\.version\s*=' gradle.properties | sed 's/.*=\s*//; s/\s*$//')
+          [ -n "$VERSION" ] || { echo "Error: Version is empty"; exit 1; }
+          echo "Extracted VERSION: $VERSION"
 
           # Use --app-image with our portable structure
           jpackage \
@@ -224,15 +227,21 @@ jobs:
 
           ls -la installer-output/
 
+      # Create Linux installer (only on real Linux runner)
       - name: Create Linux installer
-        if: matrix.platform == 'linux' && matrix.installer == true && startsWith(github.ref, 'refs/tags/v')
+        if: runner.os == 'Linux' && matrix.platform == 'linux' && matrix.installer == true && startsWith(github.ref, 'refs/tags/v')
         run: |
           # Install packaging tools
           sudo apt-get update
           sudo apt-get install -y fakeroot rpm
 
           # Extract version
+          if ! grep -Eq '^\s*MyLibreLab\.version\s*=' gradle.properties; then
+            echo "Error: MyLibreLab.version not found"; exit 1
+          fi
           VERSION=$(grep -E '^\s*MyLibreLab\.version\s*=' gradle.properties | sed 's/.*=\s*//; s/\s*$//')
+          [ -n "$VERSION" ] || { echo "Error: Version is empty"; exit 1; }
+          echo "Extracted VERSION: $VERSION"
 
           # Use --app-image with our portable structure
           jpackage \
@@ -263,14 +272,6 @@ jobs:
           name: MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}-installers
           path: installer-output/*
 
-      - name: Build application
-        run: ./gradlew clean build -PskipAutostyle -PskipSonarlint -x test --no-daemon
-
-      - name: Stop Gradle daemon (Windows)
-        if: matrix.platform == 'windows'
-        run: ./gradlew --stop
-        continue-on-error: true
-
   create-release:
     needs: build-matrix
     runs-on: ubuntu-latest
@@ -285,7 +286,19 @@ jobs:
       - name: Extract version from gradle.properties
         shell: bash
         run: |
+          # Robust version extraction with validation
+          if ! grep -Eq '^\s*MyLibreLab\.version\s*=' gradle.properties; then
+            echo "Error: MyLibreLab.version not found in gradle.properties"
+            exit 1
+          fi
+
           VERSION=$(grep -E '^\s*MyLibreLab\.version\s*=' gradle.properties | sed 's/.*=\s*//; s/\s*$//')
+
+          if [ -z "$VERSION" ]; then
+            echo "Error: Version is empty"
+            exit 1
+          fi
+
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Extracted version: $VERSION"
 
@@ -319,13 +332,19 @@ jobs:
 
           **Choose the right package for your platform:**
 
+          ### Portable Applications (No Installation Required)
           - 🪟 **Windows**: `MyLibreLab-windows-x64.zip` (~96MB)
           - 🐧 **Linux**: `MyLibreLab-linux-x64.tar.gz` (~96MB)
           - 🍎 **macOS**: `MyLibreLab-macos-x64.tar.gz` (~96MB)
 
+          ### Native Installers
+          - 🪟 **Windows**: `MyLibreLab-*.exe` or `MyLibreLab-*.msi`
+          - 🐧 **Linux**: `mylibrelab_*.deb` or `mylibrelab-*.rpm`
+          - 🍎 **macOS**: `MyLibreLab-*.dmg`
+
           All packages include a bundled Java runtime - **no separate Java installation required**.
 
-          ### How to run:
+          ### How to run portable versions:
           - **Windows**: Extract and run `MyLibreLab.bat`
           - **Linux/macOS**: Extract and run `./MyLibreLab.sh` (or `./MyLibreLab.command` on macOS)
 

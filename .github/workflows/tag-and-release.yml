@@ -29,7 +29,19 @@ jobs:
 
       - name: Extract version from gradle.properties
         run: |
+          # Robust version extraction with validation
+          if ! grep -Eq '^\s*MyLibreLab\.version\s*=' gradle.properties; then
+            echo "Error: MyLibreLab.version not found in gradle.properties"
+            exit 1
+          fi
+
           VERSION=$(grep -E '^\s*MyLibreLab\.version\s*=' gradle.properties | sed 's/.*=\s*//; s/\s*$//')
+
+          if [ -z "$VERSION" ]; then
+            echo "Error: Version is empty"
+            exit 1
+          fi
+
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Extracted version: $VERSION"
 
