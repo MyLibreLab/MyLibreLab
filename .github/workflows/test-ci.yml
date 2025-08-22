@@ -1,0 +1,108 @@
+name: Test CI
+
+on:
+  push:
+    branches: [main, dev, test/workflow-improvements]
+  pull_request:
+    branches: [main, dev, test/workflow-improvements]
+  workflow_dispatch:
+
+env:
+  JAVA_VERSION: "17"
+
+jobs:
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: temurin
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Ensure gradlew is executable
+        run: chmod +x ./gradlew
+
+      - name: Run tests
+        run: ./gradlew test -PskipAutostyle -PskipSonarlint --no-daemon
+
+  build-linux:
+    name: Build (Linux)
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: temurin
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Ensure gradlew is executable
+        run: chmod +x ./gradlew
+
+      - name: Build application
+        run: ./gradlew clean build -PskipAutostyle -PskipSonarlint -x test --no-daemon
+
+      - name: Create portable app
+        run: ./gradlew :mylibrelab-application:createPortableApp --no-daemon
+
+      - name: Verify portable app
+        run: |
+          echo "Verifying portable app structure..."
+          ls -la application/build/portable/
+
+          # Check for required files
+          if [ ! -f "application/build/portable/MyLibreLab.sh" ]; then
+            echo "❌ MyLibreLab.sh not found"
+            exit 1
+          fi
+
+          if [ ! -d "application/build/portable/runtime" ]; then
+            echo "❌ Runtime directory not found"
+            exit 1
+          fi
+
+          if [ ! -d "application/build/portable/lib" ]; then
+            echo "❌ Lib directory not found"
+            exit 1
+          fi
+
+          # Count JAR files
+          JAR_COUNT=$(find application/build/portable/lib -name "*.jar" | wc -l)
+          echo "✅ Found $JAR_COUNT JAR files"
+
+          # Check Java runtime
+          if [ -f "application/build/portable/runtime/bin/java" ]; then
+            echo "✅ Java runtime found"
+          else
+            echo "❌ Java runtime not found"
+            exit 1
+          fi
+
+          echo "✅ Portable app verification passed"
+
+      - name: Package portable app
+        run: |
+          cd application/build
+          tar -czf ../../MyLibreLab-linux-x64.tar.gz portable/
+          cd ../..
+          ls -la MyLibreLab-linux-x64.tar.gz
+
+      - name: Upload portable app
+        uses: actions/upload-artifact@v4
+        with:
+          name: MyLibreLab-linux-x64
+          path: MyLibreLab-linux-x64.tar.gz

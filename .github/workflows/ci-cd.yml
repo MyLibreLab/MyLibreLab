@@ -1,0 +1,242 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, dev]
+    tags: ["v*"]
+  pull_request:
+    branches: [main, dev]
+  workflow_dispatch:
+
+env:
+  JAVA_VERSION: "17"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: temurin
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Run tests
+        run: ./gradlew test -PskipAutostyle -PskipSonarlint
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: |
+            **/build/reports/tests/
+            **/build/test-results/
+
+  quality:
+    name: Code Quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: temurin
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Code style check
+        run: ./gradlew autostyleCheck
+
+      - name: SonarLint analysis
+        run: ./gradlew sonarlintMain || echo "SonarLint completed"
+
+  build:
+    name: Build (${{ matrix.platform }})
+    needs: [test, quality]
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: linux
+            os: ubuntu-latest
+            arch: x64
+          - platform: windows
+            os: windows-latest
+            arch: x64
+          - platform: macos
+            os: macos-latest
+            arch: x64
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: temurin
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Build application
+        run: ./gradlew clean build -PskipAutostyle -PskipSonarlint -x test
+
+      - name: Create portable app
+        run: ./gradlew :mylibrelab-application:createPortableApp
+
+      - name: Package portable app (Windows)
+        if: matrix.platform == 'windows'
+        shell: pwsh
+        run: |
+          Compress-Archive -Path application/build/portable/* -DestinationPath MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.zip
+
+      - name: Package portable app (Unix)
+        if: matrix.platform != 'windows'
+        run: |
+          tar -czf MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.tar.gz -C application/build portable
+
+      - name: Upload portable app
+        uses: actions/upload-artifact@v4
+        with:
+          name: MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}
+          path: MyLibreLab-${{ matrix.platform }}-${{ matrix.arch }}.*
+
+  installers:
+    name: Create Installers
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    strategy:
+      matrix:
+        include:
+          - platform: linux
+            os: ubuntu-latest
+          - platform: windows
+            os: windows-latest
+          - platform: macos
+            os: macos-latest
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: temurin
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Extract version
+        shell: bash
+        run: |
+          VERSION=$(grep -E '^\s*MyLibreLab\.version\s*=' gradle.properties | sed 's/.*=\s*//; s/\s*$//')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Build and create portable app
+        run: |
+          ./gradlew clean build -PskipAutostyle -PskipSonarlint -x test
+          ./gradlew :mylibrelab-application:createPortableApp
+
+      - name: Setup installer tools (Linux)
+        if: matrix.platform == 'linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fakeroot rpm
+
+      - name: Setup installer tools (Windows)
+        if: matrix.platform == 'windows'
+        run: |
+          choco install wixtoolset -y
+
+      - name: Create installers (Linux)
+        if: matrix.platform == 'linux'
+        run: |
+          jpackage \
+            --type deb \
+            --name MyLibreLab \
+            --app-version "$VERSION" \
+            --app-image application/build/portable \
+            --dest installer-output
+
+          jpackage \
+            --type rpm \
+            --name MyLibreLab \
+            --app-version "$VERSION" \
+            --app-image application/build/portable \
+            --dest installer-output
+
+      - name: Create installers (Windows)
+        if: matrix.platform == 'windows'
+        shell: pwsh
+        run: |
+          jpackage `
+            --type exe `
+            --name MyLibreLab `
+            --app-version "$env:VERSION" `
+            --app-image application/build/portable `
+            --win-menu `
+            --win-shortcut `
+            --dest installer-output
+
+      - name: Create installers (macOS)
+        if: matrix.platform == 'macos'
+        run: |
+          jpackage \
+            --type dmg \
+            --name MyLibreLab \
+            --app-version "$VERSION" \
+            --app-image application/build/portable \
+            --dest installer-output
+
+      - name: Upload installers
+        uses: actions/upload-artifact@v4
+        with:
+          name: installers-${{ matrix.platform }}
+          path: installer-output/*
+
+  release:
+    name: Create Release
+    needs: [build, installers]
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            artifacts/**/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

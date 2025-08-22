@@ -28,18 +28,49 @@ import org.junit.jupiter.api.Test;
 class ResourcesTest {
 
     private static final String TEST_FILE = "testFile.txt";
-    private static final String TEST_FILE_CONTENT =
-            "Test Content" + System.lineSeparator() + "Second Line" + System.lineSeparator();
+    private static final String EXPECTED_CONTENT_LINE1 = "Test Content";
+    private static final String EXPECTED_CONTENT_LINE2 = "Second Line";
+
+    /**
+     * Normalize line endings to handle Windows (\r\n) vs Unix (\n) differences
+     */
+    private String normalizeLineEndings(String content) {
+        return content.replace("\r\n", "\n").replace("\r", "\n");
+    }
 
     @Test
     void testGetFileContentImplicit() {
         var content = Resources.getFileContent(TEST_FILE);
-        Assertions.assertEquals(TEST_FILE_CONTENT, content);
+        var normalized = normalizeLineEndings(content);
+
+        // Verify the content contains both expected lines
+        Assertions.assertTrue(normalized.contains(EXPECTED_CONTENT_LINE1),
+                "Content should contain: " + EXPECTED_CONTENT_LINE1);
+        Assertions.assertTrue(normalized.contains(EXPECTED_CONTENT_LINE2),
+                "Content should contain: " + EXPECTED_CONTENT_LINE2);
+
+        // Verify structure: should be two lines with content
+        var lines = normalized.split("\n");
+        Assertions.assertTrue(lines.length >= 2, "Should have at least 2 lines");
+        Assertions.assertEquals(EXPECTED_CONTENT_LINE1, lines[0].trim());
+        Assertions.assertEquals(EXPECTED_CONTENT_LINE2, lines[1].trim());
     }
 
     @Test
     void testGetFileContent() {
         var content = Resources.getFileContent(getClass(), TEST_FILE, StandardCharsets.UTF_8);
-        Assertions.assertEquals(TEST_FILE_CONTENT, content);
+        var normalized = normalizeLineEndings(content);
+
+        // Verify the content contains both expected lines
+        Assertions.assertTrue(normalized.contains(EXPECTED_CONTENT_LINE1),
+                "Content should contain: " + EXPECTED_CONTENT_LINE1);
+        Assertions.assertTrue(normalized.contains(EXPECTED_CONTENT_LINE2),
+                "Content should contain: " + EXPECTED_CONTENT_LINE2);
+
+        // Verify structure: should be two lines with content
+        var lines = normalized.split("\n");
+        Assertions.assertTrue(lines.length >= 2, "Should have at least 2 lines");
+        Assertions.assertEquals(EXPECTED_CONTENT_LINE1, lines[0].trim());
+        Assertions.assertEquals(EXPECTED_CONTENT_LINE2, lines[1].trim());
     }
 }

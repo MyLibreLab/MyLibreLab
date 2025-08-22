@@ -51,10 +51,116 @@ dependencies {
 
     implementation("org.json:json")                   // version comes from BOM
     compileOnly("com.google.code.findbugs:jsr305")    // version comes from BOM
+
+    // JUnit 5 testing dependencies
+    testImplementation(platform("org.junit:junit-bom:5.10.3"))
+    testImplementation("org.junit.jupiter:junit-jupiter")        // api + params
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher") // Gradle 7.x runner
 }
 
 tasks.withType<JavaCompile>().configureEach {
     options.encoding = "UTF-8"
+}
+
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
+    systemProperty("java.awt.headless", "true") // avoids UI pops in tests
+}
+
+/**
+ * Helper function to create platform-specific launchers
+ */
+fun createLaunchers(outputDir: File, os: OperatingSystem) {
+    // Windows launcher
+    val winBat = File(outputDir, "MyLibreLab.bat")
+    winBat.writeText("""
+        @echo off
+        setlocal EnableDelayedExpansion
+
+        REM Get the directory of this script
+        set "APP_HOME=%~dp0"
+        if "%APP_HOME:~-1%"=="\" set "APP_HOME=%APP_HOME:~0,-1%"
+
+        REM Check if runtime exists
+        if not exist "%APP_HOME%\runtime\bin\java.exe" (
+            echo Error: Java runtime not found at %APP_HOME%\runtime\bin\java.exe
+            echo Please ensure the portable app was created correctly.
+            pause
+            exit /b 1
+        )
+
+        REM Check if lib directory exists
+        if not exist "%APP_HOME%\lib" (
+            echo Error: Library directory not found at %APP_HOME%\lib
+            echo Please ensure the portable app was created correctly.
+            pause
+            exit /b 1
+        )
+
+        echo Starting MyLibreLab...
+
+        REM Launch MyLibreLab
+        "%APP_HOME%\runtime\bin\java.exe" ^
+        -Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf ^
+        -Ddarklaf.theme=one_dark ^
+        -Ddarklaf.useBufferedRepaintManager=true ^
+        --add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED ^
+        -Dmylibrelab.elements="%APP_HOME%\elements" ^
+        -Dmylibrelab.home="%APP_HOME%" ^
+        -cp "%APP_HOME%\lib\*" com.github.mylibrelab.MyLibreLab %*
+
+        set EXIT_CODE=%ERRORLEVEL%
+        if %EXIT_CODE% neq 0 (
+            echo.
+            echo MyLibreLab exited with error code %EXIT_CODE%.
+            pause
+        )
+        exit /b %EXIT_CODE%
+    """.trimIndent())
+
+    // Unix launcher (Linux/macOS)
+    val unixSh = File(outputDir, "MyLibreLab.sh")
+    unixSh.writeText("""
+        #!/usr/bin/env bash
+        set -e
+
+        # Get the directory of this script
+        DIR="$(cd "$(dirname "${'$'}0")" && pwd)"
+
+        # Check if runtime exists
+        if [ ! -f "${'$'}DIR/runtime/bin/java" ]; then
+            echo "Error: Java runtime not found at ${'$'}DIR/runtime/bin/java"
+            echo "Please ensure the portable app was created correctly."
+            exit 1
+        fi
+
+        # Check if lib directory exists
+        if [ ! -d "${'$'}DIR/lib" ]; then
+            echo "Error: Library directory not found at ${'$'}DIR/lib"
+            echo "Please ensure the portable app was created correctly."
+            exit 1
+        fi
+
+        echo "Starting MyLibreLab..."
+
+        # Launch MyLibreLab
+        exec "${'$'}DIR/runtime/bin/java" \
+        -Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf \
+        -Ddarklaf.theme=one_dark \
+        -Ddarklaf.useBufferedRepaintManager=true \
+        --add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED \
+        -Dmylibrelab.elements="${'$'}DIR/elements" \
+        -Dmylibrelab.home="${'$'}DIR" \
+        -cp "${'$'}DIR/lib/*" com.github.mylibrelab.MyLibreLab "${'$'}@"
+    """.trimIndent())
+    unixSh.setExecutable(true)
+
+    // macOS convenience launcher
+    val macCmd = File(outputDir, "MyLibreLab.command")
+    macCmd.writeText(unixSh.readText())
+    macCmd.setExecutable(true)
+
+    println("✅ Created launchers: MyLibreLab.bat, MyLibreLab.sh, MyLibreLab.command")
 }
 
 /**
@@ -77,17 +183,51 @@ val createPortableApp by tasks.registering {
         val installDir = layout.buildDirectory.dir("install/${project.name}").get().asFile
         val outputDir = layout.buildDirectory.dir("portable").get().asFile
 
-        // Fresh output
-        if (outputDir.exists()) outputDir.deleteRecursively()
+        println("🚀 Creating portable MyLibreLab application...")
+        println("📍 Install directory: ${installDir.absolutePath}")
+        println("📍 Output directory: ${outputDir.absolutePath}")
+
+        // Clean and create output directory
+        if (outputDir.exists()) {
+            println("🧹 Cleaning existing output directory...")
+            outputDir.deleteRecursively()
+        }
         outputDir.mkdirs()
 
-        // Build custom JRE via jlink from the current JDK
+        // Validate Java installation
         val javaHome = System.getProperty("java.home")
-        val jlinkExe = file("$javaHome/bin/jlink" + if (os.isWindows) ".exe" else "")
+        val jlinkExe = file("$javaHome/bin/jlink${if (os.isWindows) ".exe" else ""}")
         val jmodsDir = file("$javaHome/jmods")
-        require(jlinkExe.exists()) { "jlink not found at: $jlinkExe" }
-        require(jmodsDir.exists()) { "jmods not found at: $jmodsDir" }
 
+        println("☕ Java Home: $javaHome")
+        println("🔗 jlink executable: ${jlinkExe.absolutePath}")
+        println("📦 jmods directory: ${jmodsDir.absolutePath}")
+
+        require(jlinkExe.exists()) {
+            "jlink not found at: ${jlinkExe.absolutePath}. " +
+            "Ensure you're using a full JDK (not just JRE). " +
+            "Current java.home: $javaHome"
+        }
+        require(jmodsDir.exists()) {
+            "jmods directory not found at: ${jmodsDir.absolutePath}. " +
+            "Ensure you're using a full JDK distribution."
+        }
+
+        // Verify installDist was successful
+        require(installDir.exists()) {
+            "Install directory not found at: ${installDir.absolutePath}. " +
+            "Please run 'gradlew installDist' first."
+        }
+
+        val libDir = File(installDir, "lib")
+        require(libDir.exists() && libDir.listFiles()?.isNotEmpty() == true) {
+            "No JAR files found in ${libDir.absolutePath}. " +
+            "Please ensure 'gradlew installDist' completed successfully."
+        }
+
+        println("✅ Validation passed. Creating custom JRE with jlink...")
+
+        // Create minimal JRE with required modules
         val modules = listOf(
             "java.base",
             "java.desktop",
@@ -96,90 +236,91 @@ val createPortableApp by tasks.registering {
             "java.datatransfer",
             "java.scripting",
             "java.sql",
-            // ✅ required for javax.tools.* API + compiler implementation
             "java.compiler",
             "jdk.compiler",
-            // nice-to-have for jar/zip NIO and locale data
             "jdk.zipfs",
             "jdk.localedata",
             "jdk.unsupported"
         ).joinToString(",")
 
+        val runtimeDir = File(outputDir, "runtime")
 
-        exec {
-            commandLine(
-                jlinkExe.absolutePath,
-                "--add-modules", modules,
-                "--output", File(outputDir, "runtime").absolutePath,
-                "--no-header-files",
-                "--no-man-pages",
-                "--compress=2",
-                "--strip-debug"
-            )
+        try {
+            exec {
+                commandLine(
+                    jlinkExe.absolutePath,
+                    "--add-modules", modules,
+                    "--output", runtimeDir.absolutePath,
+                    "--no-header-files",
+                    "--no-man-pages",
+                    "--compress=2",
+                    "--strip-debug"
+                )
+            }
+            println("✅ Custom JRE created successfully")
+        } catch (e: Exception) {
+            throw RuntimeException("Failed to create custom JRE: ${e.message}", e)
         }
 
-        // Copy application files from installDist into portable root
+        // Copy application files from installDist
+        println("📂 Copying application files...")
         copy {
             from(installDir)
             into(outputDir)
         }
 
-        // ✅ Include elements/ for a self-contained portable bundle
+        // Include elements directory if it exists
         val elementsSrc = project.rootDir.resolve("elements")
         if (elementsSrc.exists()) {
+            println("📦 Including elements directory...")
             copy {
                 from(elementsSrc)
                 into(File(outputDir, "elements"))
             }
-            println("✅ Copied elements to portable bundle.")
+            println("✅ Elements directory included")
         } else {
-            println("ℹ️ elements/ directory not found in repo; skipping.")
+            println("⚠️ elements/ directory not found - app will work but without legacy elements")
+            // Create empty elements directory to avoid runtime errors
+            File(outputDir, "elements").mkdirs()
         }
 
+        // Create platform-specific launchers
+        println("🚀 Creating platform launchers...")
+        createLaunchers(outputDir, os)
 
-        // Windows launcher
-        val winBat = File(outputDir, "MyLibreLab.bat")
-        winBat.writeText(
-            """
-            @echo off
-            setlocal
-            set "APP_HOME=%~dp0"
-            "%APP_HOME%runtime\bin\java.exe" ^
-            -Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf ^
-            -Ddarklaf.theme=one_dark ^
-            -Ddarklaf.useBufferedRepaintManager=true ^
-            --add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED ^
-            -Dmylibrelab.elements="%APP_HOME%elements" ^
-            -cp "%APP_HOME%lib\*" com.github.mylibrelab.MyLibreLab %*
-            """.trimIndent()
-        )
+        // Verify the final structure
+        println("📁 Portable app structure:")
+        outputDir.listFiles()?.sortedBy { it.name }?.forEach { file ->
+            val icon = if (file.isDirectory()) "📁" else "📄"
+            val size = if (file.isDirectory()) {
+                val fileCount = file.listFiles()?.size ?: 0
+                "($fileCount items)"
+            } else {
+                "(${file.length() / 1024}KB)"
+            }
+            println("  $icon ${file.name} $size")
+        }
 
+        // Verify runtime was created correctly
+        val javaExe = File(runtimeDir, "bin/${if (os.isWindows) "java.exe" else "java"}")
+        if (javaExe.exists()) {
+            println("✅ Java runtime verified at: ${javaExe.absolutePath}")
+        } else {
+            throw RuntimeException("Java executable not found in custom runtime")
+        }
 
-        // Unix launcher
-        val unixSh = File(outputDir, "MyLibreLab.sh")
-        unixSh.writeText(
-            """
-            #!/usr/bin/env bash
-            DIR="$(cd "$(dirname "${'$'}0")" && pwd)"
-            exec "${'$'}DIR/runtime/bin/java" \
-            -Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf \
-            -Ddarklaf.theme=one_dark \
-            -Ddarklaf.useBufferedRepaintManager=true \
-            --add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED \
-            -Dmylibrelab.elements="${'$'}DIR/elements" \
-            -cp "${'$'}DIR/lib/*" com.github.mylibrelab.MyLibreLab "${'$'}@"
-            """.trimIndent()
-        )
-        unixSh.setExecutable(true)
+        // Verify libs were copied
+        val libDirOutput = File(outputDir, "lib")
+        val jarCount = libDirOutput.listFiles { _, name -> name.endsWith(".jar") }?.size ?: 0
+        println("✅ $jarCount JAR files copied to lib directory")
 
-        // macOS convenience launcher
-        val macCmd = File(outputDir, "MyLibreLab.command")
-        macCmd.writeText(unixSh.readText())
-        macCmd.setExecutable(true)
-
-
-
-        println("✅ Portable app created at: ${outputDir.absolutePath}")
+        println("🎉 Portable app created successfully at: ${outputDir.absolutePath}")
+        println("🚀 You can now run MyLibreLab using:")
+        if (os.isWindows) {
+            println("   ${outputDir.absolutePath}\\MyLibreLab.bat")
+        } else {
+            println("   ${outputDir.absolutePath}/MyLibreLab.sh")
+        }
     }
 }
 
