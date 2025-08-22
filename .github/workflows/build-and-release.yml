@@ -171,104 +171,135 @@ jobs:
           choco install wixtoolset -y
           echo "C:\Program Files (x86)\WiX Toolset v3.11\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
-      # Create Windows installer (only on real Windows runner)
+      # Create Windows installer (only on real Windows runners)
       - name: Create Windows installer
+        if: runner.os == 'Windows' && matrix.platform == 'windows' && matrix.installer == true && startsWith(github.ref, 'refs/tags/v') && env.ACT != 'true'
         shell: pwsh
         run: |
-          $ErrorActionPreference = 'Stop'
-          $PORTABLE = Join-Path $env:GITHUB_WORKSPACE 'application\build\portable'
-          $DEST     = Join-Path $env:GITHUB_WORKSPACE 'installer-output'
-          New-Item -ItemType Directory -Force -Path $DEST | Out-Null
+          # Extract version safely
+          $versionLine = Select-String -Path "gradle.properties" -Pattern '^\s*MyLibreLab\.version\s*=' | Select-Object -First 1
+          if (-not $versionLine) { throw "MyLibreLab.version not found in gradle.properties" }
+          $VERSION = ($versionLine.Line -split '=')[1].Trim()
+          Write-Host "Extracted VERSION: $VERSION"
 
-          $iconPath = 'application\packaging\windows\app.ico'
-          $iconArg  = ''
-          if (Test-Path $iconPath) { $iconArg = "--icon `"$iconPath`"" }
+          # build-and-release.yml (Windows step)
+          $iconPath = Join-Path $env:GITHUB_WORKSPACE 'application\packaging\windows\app.ico'
+          $iconOpt  = @()
+          if (Test-Path $iconPath) { $iconOpt = @('--icon', $iconPath) }
 
-          $common = @(
-            '--name', 'MyLibreLab',
-            '--app-version', '${{ steps.extract_version.outputs.version }}',
-            '--app-image', $PORTABLE,
-            '--dest', $DEST,
-            '--vendor', 'MyLibreLab',
-            '--description', 'Visual programming environment for microcontrollers',
-            '--java-options', '-Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf',
-            '--java-options', '-Ddarklaf.theme=one_dark',
-            '--java-options', '-Ddarklaf.useBufferedRepaintManager=true',
-            '--java-options', '--add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED',
-            '--java-options', '-Dmylibrelab.elements=%APPDIR%\elements'
-          )
+          # EXE
+          jpackage `
+            --type exe `
+            --name MyLibreLab `
+            --app-version $VERSION `
+            --app-image application\build\portable `
+            --win-dir-chooser `
+            --win-menu `
+            --win-shortcut `
+            --win-upgrade-uuid 12345678-1234-1234-1234-123456789012 `
+            --dest installer-output `
+            --java-options "-Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf" `
+            --java-options "-Ddarklaf.theme=one_dark" `
+            --java-options "-Ddarklaf.useBufferedRepaintManager=true" `
+            --java-options "--add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED" `
+            --java-options "-Dmylibrelab.elements=%APPDIR%\elements" `
+            $iconOpt   # ← use $iconOpt (not @iconOpt)
 
-          & jpackage --type exe $common $iconArg
-          & jpackage --type msi $common $iconArg
+          # MSI
+          if (Get-Command candle.exe -ErrorAction SilentlyContinue) {
+            jpackage `
+              --type msi `
+              --name MyLibreLab `
+              --app-version $VERSION `
+              --app-image application\build\portable `
+              --win-dir-chooser `
+              --win-upgrade-uuid 12345678-1234-1234-1234-123456789012 `
+              --dest installer-output `
+              --java-options "-Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf" `
+              --java-options "-Ddarklaf.theme=one_dark" `
+              --java-options "-Ddarklaf.useBufferedRepaintManager=true" `
+              --java-options "--add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED" `
+              --java-options "-Dmylibrelab.elements=%APPDIR%\elements" `
+              $iconOpt   # ← same here
+          } else {
+            Write-Host "WiX not found; skipping MSI."
+          }
 
-          Get-ChildItem $DEST
+          Get-ChildItem installer-output
 
-      # Create macOS installer (only on real macOS runner)
+      # Create macOS installer (only on real macOS runners)
       - name: Create macOS installer
+        if: runner.os == 'macOS' && matrix.platform == 'macos' && matrix.installer == true && startsWith(github.ref, 'refs/tags/v') && env.ACT != 'true'
         shell: bash
         run: |
-          set -euxo pipefail
-          PORTABLE="${GITHUB_WORKSPACE}/application/build/portable"
-          DEST="${GITHUB_WORKSPACE}/installer-output"
-          mkdir -p "$DEST"
+          set -euo pipefail
+          VERSION=$(grep -E '^\s*MyLibreLab\.version\s*=' gradle.properties | sed 's/.*=\s*//; s/\s*$//')
+          echo "Extracted VERSION: $VERSION"
 
-          ICON_ARG=""
-          if [[ -f "application/packaging/macos/app.icns" ]]; then
-            ICON_ARG="--icon application/packaging/macos/app.icns"
-          fi
+          ICON="${GITHUB_WORKSPACE}/application/packaging/macos/app.icns"
+          ICON_OPTS=()
+          [[ -f "$ICON" ]] && ICON_OPTS=(--icon "$ICON")
 
           jpackage \
             --type dmg \
-            --name "MyLibreLab" \
-            --app-version "${{ steps.extract_version.outputs.version }}" \
-            --app-image "$PORTABLE" \
-            --dest "$DEST" \
-            --vendor "MyLibreLab" \
-            --description "Visual programming environment for microcontrollers" \
+            --name MyLibreLab \
+            --app-version "$VERSION" \
+            --app-image "$GITHUB_WORKSPACE/application/build/portable" \
+            --dest installer-output \
             --java-options "-Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf" \
             --java-options "-Ddarklaf.theme=one_dark" \
             --java-options "-Ddarklaf.useBufferedRepaintManager=true" \
             --java-options "--add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED" \
             --java-options "-Dmylibrelab.elements=\$APPDIR/elements" \
-            $ICON_ARG
+            "${ICON_OPTS[@]}"
 
-          ls -al "$DEST"
+          ls -la installer-output/
 
-      # Create Linux installer (only on real Linux runner)
+      # Create Linux installer (only on real Linux runners)
       - name: Create Linux installer
+        if: runner.os == 'Linux' && matrix.platform == 'linux' && matrix.installer == true && startsWith(github.ref, 'refs/tags/v') && env.ACT != 'true'
         shell: bash
         run: |
-          set -euxo pipefail
-          sudo apt-get update -y
+          set -euo pipefail
+          sudo apt-get update
           sudo apt-get install -y fakeroot rpm
 
-          PORTABLE="${GITHUB_WORKSPACE}/application/build/portable"
-          DEST="${GITHUB_WORKSPACE}/installer-output"
-          mkdir -p "$DEST"
+          VERSION=$(grep -E '^\s*MyLibreLab\.version\s*=' gradle.properties | sed 's/.*=\s*//; s/\s*$//')
+          echo "Extracted VERSION: $VERSION"
 
-          ICON_ARG=""
-          if [[ -f "application/packaging/linux/app.png" ]]; then
-            ICON_ARG="--icon application/packaging/linux/app.png"
-          fi
+          ICON="${GITHUB_WORKSPACE}/application/packaging/linux/app.png"
+          ICON_OPTS=()
+          [[ -f "$ICON" ]] && ICON_OPTS=(--icon "$ICON")
 
-          common=(
-            --name "MyLibreLab"
-            --app-version "${{ steps.extract_version.outputs.version }}"
-            --app-image "$PORTABLE"
-            --dest "$DEST"
-            --vendor "MyLibreLab"
-            --description "Visual programming environment for microcontrollers"
-            --java-options "-Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf"
-            --java-options "-Ddarklaf.theme=one_dark"
-            --java-options "-Ddarklaf.useBufferedRepaintManager=true"
-            --java-options "--add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED"
-            --java-options "-Dmylibrelab.elements=\$APPDIR/elements"
-          )
+          # DEB
+          jpackage \
+            --type deb \
+            --name MyLibreLab \
+            --app-version "$VERSION" \
+            --app-image "$GITHUB_WORKSPACE/application/build/portable" \
+            --dest installer-output \
+            --java-options "-Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf" \
+            --java-options "-Ddarklaf.theme=one_dark" \
+            --java-options "-Ddarklaf.useBufferedRepaintManager=true" \
+            --java-options "--add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED" \
+            --java-options "-Dmylibrelab.elements=\$APPDIR/elements" \
+            "${ICON_OPTS[@]}"
 
-          jpackage --type deb "${common[@]}" $ICON_ARG
-          jpackage --type rpm "${common[@]}" $ICON_ARG
+          # RPM
+          jpackage \
+            --type rpm \
+            --name MyLibreLab \
+            --app-version "$VERSION" \
+            --app-image "$GITHUB_WORKSPACE/application/build/portable" \
+            --dest installer-output \
+            --java-options "-Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf" \
+            --java-options "-Ddarklaf.theme=one_dark" \
+            --java-options "-Ddarklaf.useBufferedRepaintManager=true" \
+            --java-options "--add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED" \
+            --java-options "-Dmylibrelab.elements=\$APPDIR/elements" \
+            "${ICON_OPTS[@]}"
 
-          ls -al "$DEST"
+          ls -la installer-output/
 
       - name: Upload installer artifacts
         if: matrix.installer == true && startsWith(github.ref, 'refs/tags/v')
