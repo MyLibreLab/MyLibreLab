@@ -6,10 +6,10 @@ concurrency:
 
 on:
   push:
-    branches: [ main, dev, fix/windows-build-compatibility ]
-    tags: [ 'v*' ]
+    branches: [main, dev, fix/windows-build-compatibility]
+    tags: ["v*"]
   pull_request:
-    branches: [ main, dev ]
+    branches: [main, dev]
   workflow_dispatch:
   release:
     types: [published]
@@ -187,14 +187,20 @@ jobs:
           # Create Windows executable installer
           jpackage `
             --type exe `
-            --name "MyLibreLab" `
-            --app-version "$VERSION" `
-            --app-image "build/jpackage/MyLibreLab" `
-            --win-dir-chooser `
-            --win-menu `
-            --win-shortcut `
-            --win-upgrade-uuid "12345678-1234-1234-1234-123456789012" `
-            --dest installer-output
+            --name MyLibreLab `
+            --app-version "${{ env.PROJECT_VERSION }}" `
+            --input "${{ github.workspace }}\application\build\install\mylibrelab-application\lib" `
+            --main-class com.github.mylibrelab.MyLibreLab `
+            --main-jar mylibrelab-application.jar `
+            --resource-dir "${{ github.workspace }}\elements" `
+            --dest installer-output `
+            --vendor "MyLibreLab" `
+            --icon "${{ github.workspace }}\application\packaging\windows\app.ico" `
+            --java-options "-Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf" `
+            --java-options "-Ddarklaf.theme=one_dark" `
+            --java-options "-Ddarklaf.useBufferedRepaintManager=true" `
+            --java-options "--add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED" `
+            --java-options "-Dmylibrelab.elements=%APPDIR%\elements"
 
           # Check if WiX is available for MSI
           if (Get-Command candle.exe -ErrorAction SilentlyContinue) {
@@ -229,10 +235,20 @@ jobs:
           # Use --app-image with our portable structure
           jpackage \
             --type dmg \
-            --name "MyLibreLab" \
-            --app-version "$VERSION" \
-            --app-image "build/jpackage/MyLibreLab" \
-            --dest installer-output
+            --name MyLibreLab \
+            --app-version "${{ env.PROJECT_VERSION }}" \
+            --input "${{ github.workspace }}/application/build/install/mylibrelab-application/lib" \
+            --main-class com.github.mylibrelab.MyLibreLab \
+            --main-jar mylibrelab-application.jar \
+            --resource-dir "${{ github.workspace }}/elements" \
+            --dest installer-output \
+            --vendor "MyLibreLab" \
+            --icon "${{ github.workspace }}/application/packaging/macos/app.icns" \
+            --java-options "-Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf" \
+            --java-options "-Ddarklaf.theme=one_dark" \
+            --java-options "-Ddarklaf.useBufferedRepaintManager=true" \
+            --java-options "--add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED" \
+            --java-options "-Dmylibrelab.elements=\$APPDIR/elements"
 
           ls -la installer-output/
 
@@ -255,22 +271,38 @@ jobs:
           # Use --app-image with our portable structure
           jpackage \
             --type deb \
-            --name "mylibrelab" \
-            --app-version "$VERSION" \
-            --app-image "build/jpackage/MyLibreLab" \
-            --linux-menu-group "Electronics" \
-            --linux-shortcut \
-            --dest installer-output
+            --name MyLibreLab \
+            --app-version "${{ env.PROJECT_VERSION }}" \
+            --input "${{ github.workspace }}/application/build/install/mylibrelab-application/lib" \
+            --main-class com.github.mylibrelab.MyLibreLab \
+            --main-jar mylibrelab-application.jar \
+            --resource-dir "${{ github.workspace }}/elements" \
+            --dest installer-output \
+            --vendor "MyLibreLab" \
+            --icon "${{ github.workspace }}/application/packaging/linux/app.png" \
+            --java-options "-Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf" \
+            --java-options "-Ddarklaf.theme=one_dark" \
+            --java-options "-Ddarklaf.useBufferedRepaintManager=true" \
+            --java-options "--add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED" \
+            --java-options "-Dmylibrelab.elements=\$APPDIR/elements"
 
           # Create RPM package
           jpackage \
             --type rpm \
-            --name "mylibrelab" \
-            --app-version "$VERSION" \
-            --app-image "build/jpackage/MyLibreLab" \
-            --linux-menu-group "Electronics" \
-            --linux-shortcut \
-            --dest installer-output
+            --name MyLibreLab \
+            --app-version "${{ env.PROJECT_VERSION }}" \
+            --input "${{ github.workspace }}/application/build/install/mylibrelab-application/lib" \
+            --main-class com.github.mylibrelab.MyLibreLab \
+            --main-jar mylibrelab-application.jar \
+            --resource-dir "${{ github.workspace }}/elements" \
+            --dest installer-output \
+            --vendor "MyLibreLab" \
+            --icon "${{ github.workspace }}/application/packaging/linux/app.png" \
+            --java-options "-Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf" \
+            --java-options "-Ddarklaf.theme=one_dark" \
+            --java-options "-Ddarklaf.useBufferedRepaintManager=true" \
+            --java-options "--add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED" \
+            --java-options "-Dmylibrelab.elements=\$APPDIR/elements"
 
           ls -la installer-output/
 
@@ -290,7 +322,7 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Need full history for changelog
+          fetch-depth: 0 # Need full history for changelog
 
       - name: Extract version from gradle.properties
         shell: bash

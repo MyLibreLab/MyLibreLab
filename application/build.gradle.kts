@@ -145,8 +145,10 @@ val createPortableApp by tasks.registering {
             setlocal
             set "APP_HOME=%~dp0"
             "%APP_HOME%runtime\bin\java.exe" ^
+            -Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf ^
+            -Ddarklaf.theme=one_dark ^
             -Ddarklaf.useBufferedRepaintManager=true ^
-            --add-exports java.desktop/com.sun.java.swing=ALL-UNNAMED ^
+            --add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED ^
             -Dmylibrelab.elements="%APP_HOME%elements" ^
             -cp "%APP_HOME%lib\*" com.github.mylibrelab.MyLibreLab %*
             """.trimIndent()
@@ -158,11 +160,12 @@ val createPortableApp by tasks.registering {
         unixSh.writeText(
             """
             #!/usr/bin/env bash
-            set -euo pipefail
             DIR="$(cd "$(dirname "${'$'}0")" && pwd)"
             exec "${'$'}DIR/runtime/bin/java" \
+            -Dswing.defaultlaf=com.github.weisj.darklaf.DarkLaf \
+            -Ddarklaf.theme=one_dark \
             -Ddarklaf.useBufferedRepaintManager=true \
-            --add-exports java.desktop/com.sun.java.swing=ALL-UNNAMED \
+            --add-exports=java.desktop/com.sun.java.swing=ALL-UNNAMED \
             -Dmylibrelab.elements="${'$'}DIR/elements" \
             -cp "${'$'}DIR/lib/*" com.github.mylibrelab.MyLibreLab "${'$'}@"
             """.trimIndent()
